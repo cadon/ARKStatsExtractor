@@ -38,6 +38,7 @@ namespace ARKBreedingStats.species
         public string blueprintPath;
         /// <summary>
         /// The raw stat values without multipliers.
+        /// For each stat there is 0: baseValue, 1: incPerWildLevel, 2: incPerDomLevel, 3: addBonus, 4: multBonus.
         /// </summary>
         [JsonProperty]
         public double[][] fullStatsRaw;
@@ -51,12 +52,12 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// The stat values with all multipliers applied and ready to use.
         /// </summary>
-        public CreatureStat[] stats;
+        public SpeciesStat[] stats;
         /// <summary>
         /// The alternative / Troodonism base stat values with all multipliers applied and ready to use.
         /// Values depending on the base value, e.g. incPerWild or incPerDom etc. can use either the correct or alternative base value.
         /// </summary>
-        public CreatureStat[] altStats;
+        public SpeciesStat[] altStats;
 
         /// <summary>
         /// Multipliers for each stat for the mutated levels. Introduced in ASA.
@@ -68,7 +69,7 @@ namespace ARKBreedingStats.species
         /// Indicates if a stat is shown in game represented by bit-flags
         /// </summary>
         [JsonProperty("displayedStats")]
-        public int DisplayedStats { private set; get; }
+        public int DisplayedStats { private set; get; } = -1;
         public const int displayedStatsDefault = 927;
         /// <summary>
         /// Indicates if a species uses a stat represented by bit-flags
@@ -110,6 +111,15 @@ namespace ARKBreedingStats.species
         /// </summary>
         public double[] StatImprintMultipliers;
 
+        /// <summary>
+        /// The raw species imprinting stat multipliers. This property should only be used for custom species.
+        /// </summary>
+        public double[] StatImprintMultipliersRaw
+        {
+            get => statImprintMult;
+            set => statImprintMult = value;
+        }
+
         [JsonProperty]
         public ColorRegion[] colors;
         [JsonProperty]
@@ -147,7 +157,9 @@ namespace ARKBreedingStats.species
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
         [OnDeserialized]
-        private void Initialize(StreamingContext _)
+        private void Initialize(StreamingContext _) => Initialize();
+
+        public void Initialize()
         {
             // TODO: Base species are maybe not used in game and may only lead to confusion (e.g. Giganotosaurus).
 
@@ -155,9 +167,10 @@ namespace ARKBreedingStats.species
 
             InitializeNames();
 
-            stats = new CreatureStat[Stats.StatsCount];
-            if (altBaseStatsRaw != null)
-                altStats = new CreatureStat[Stats.StatsCount];
+            stats = new SpeciesStat[Stats.StatsCount];
+            var altStatsExist = altBaseStatsRaw?.Any() == true;
+            if (altStatsExist)
+                altStats = new SpeciesStat[Stats.StatsCount];
 
             var fullStatsRawLength = fullStatsRaw?.Length ?? 0;
 
@@ -173,9 +186,13 @@ namespace ARKBreedingStats.species
             double[][] completeRaws = new double[Stats.StatsCount][];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                stats[s] = new CreatureStat();
-                if (altBaseStatsRaw?.ContainsKey(s) ?? false)
-                    altStats[s] = new CreatureStat();
+                stats[s] = new SpeciesStat();
+                if (altStatsExist)
+                {
+                    if (altBaseStatsRaw.ContainsKey(s))
+                        altStats[s] = new SpeciesStat();
+                    else altStats[s] = stats[s];
+                }
 
                 var usesStat = false;
                 completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
@@ -186,7 +203,7 @@ namespace ARKBreedingStats.species
                         if (fullStatsRaw[s].Length > i)
                         {
                             completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
-                            if (i == 0 && fullStatsRaw[s][0] > 0)
+                            if (i == 0 && fullStatsRaw[s][StatsRawIndexBase] > 0)
                             {
                                 usesStat = true;
                             }
@@ -200,7 +217,10 @@ namespace ARKBreedingStats.species
                     _skipWildLevelStatsWithServerSettings |= statBit;
             }
 
-            if (fullStatsRawLength != -0)
+            if (DisplayedStats == -1 && usedStats != 0)
+                DisplayedStats = usedStats;
+
+            if (fullStatsRawLength != 0)
                 fullStatsRaw = completeRaws;
 
             if (colors?.Length == 0)
@@ -235,7 +255,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Default values for the stat imprint multipliers in ASE
         /// </summary>
-        private static readonly double[] StatImprintMultipliersDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
+        internal static readonly double[] StatImprintMultipliersDefaultAse = { 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0.2, 0, 0 };
 
         /// <summary>
         /// Default values for the mutated levels multipliers.
@@ -405,6 +425,11 @@ namespace ARKBreedingStats.species
         }
 
         /// <summary>
+        /// True if the species has any alternative stats (due to the troodonism bug).
+        /// </summary>
+        public bool HasAltStats => altBaseStatsRaw?.Any() == true;
+
+        /// <summary>
         /// Returns an array of colors for a creature of this species with the naturally occurring colors.
         /// </summary>
         public byte[] RandomSpeciesColors(Random rand = null)
@@ -433,7 +458,7 @@ namespace ARKBreedingStats.species
             if (overrides.variants != null) variants = overrides.variants;
             if (overrides.fullStatsRaw != null) fullStatsRaw = overrides.fullStatsRaw;
             if (overrides.altBaseStatsRaw != null) altBaseStatsRaw = overrides.altBaseStatsRaw;
-            if (overrides.DisplayedStats != 0) DisplayedStats = overrides.DisplayedStats;
+            if (overrides.DisplayedStats != -1) DisplayedStats = overrides.DisplayedStats;
             if (overrides.skipWildLevelStats != 0) skipWildLevelStats = overrides.skipWildLevelStats;
             if (overrides.TamedBaseHealthMultiplier != null) TamedBaseHealthMultiplier = overrides.TamedBaseHealthMultiplier;
             if (overrides.statImprintMult != null && overrides.statImprintMult != StatImprintMultipliersDefaultAse) statImprintMult = overrides.statImprintMult.ToArray();
@@ -447,5 +472,30 @@ namespace ARKBreedingStats.species
 
             Initialize(new StreamingContext());
         }
+
+        /// <summary>
+        /// Index of the base value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexBase = 0;
+
+        /// <summary>
+        /// Index of the increase per wild level value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexIncPerWildLevel = 1;
+
+        /// <summary>
+        /// Index of the increase per dom level value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexIncPerDomLevel = 2;
+
+        /// <summary>
+        /// Index of the additive bonus value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexAdditiveBonus = 3;
+
+        /// <summary>
+        /// Index of the multiplicative bonus value in fullStatsRaw.
+        /// </summary>
+        public const int StatsRawIndexMultiplicativeBonus = 4;
     }
 }

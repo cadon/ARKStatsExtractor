@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.library
 {
@@ -11,6 +9,10 @@ namespace ARKBreedingStats.library
     /// </summary>
     public static class CreatureSpawnCommand
     {
+        public static string CheatPrefix => Properties.Settings.Default.AdminConsoleCommandWithCheat
+            ? "cheat "
+            : string.Empty;
+
         /// <summary>
         /// Creates a spawn command that works in the vanilla game, but that command can cause the game to crash if the result of this method is changed. Also the stat values and colors are only correct after cryoing the creature.
         /// </summary>
@@ -25,12 +27,7 @@ namespace ARKBreedingStats.library
                                + $"0 {(cr.flags.HasFlag(CreatureFlags.Neutered) ? "1" : "0")} \"\" \"\" \"{cr.imprinterName}\" 0 {cr.imprintingBonus} "
                                + $"\"{(cr.colors == null ? string.Empty : string.Join(",", cr.colors))}\" {arkIdInGame} {xp} 0 20 20";
 
-
-
-            var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
-                ? "cheat "
-                : string.Empty;
-            Clipboard.SetText(cheatPrefix + spawnCommand);
+            Clipboard.SetText(CheatPrefix + spawnCommand);
         }
 
         private static string GetLevelStringForExactSpawningCommand(int[] levels)
@@ -54,7 +51,7 @@ namespace ARKBreedingStats.library
         }
 
         /// <summary>
-        /// Creates a spawn command that works in the vanilla game, but that command can cause the game to crash if the result of this method is changed. Also the stat values and colors are only correct after cryoing the creature.
+        /// Creates a spawn command that needs the mod DinoStorageV2.
         /// </summary>
         public static void DinoStorageV2CommandToClipboard(Creature cr)
         {
@@ -64,7 +61,21 @@ namespace ARKBreedingStats.library
                                + GetLevelStringForExactSpawningCommandDS2(cr.levelsWild, cr.levelsDom)
                                + $"{(cr.colors == null ? "0 0 0 0 0 0" : string.Join(" ", cr.colors))}";
 
-            Clipboard.SetText(spawnCommand);
+            Clipboard.SetText(CheatPrefix + spawnCommand);
+        }
+
+        /// <summary>
+        /// Creates a console command that will add the mutation levels of the creature.
+        /// </summary>
+        public static void MutationLevelCommandToClipboard(Creature cr)
+        {
+            string command;
+            if (cr?.levelsMutated?.Any(l => l > 0) != true)
+                command = string.Empty;
+            else
+                command = $"{CheatPrefix}{string.Join("|", cr.levelsMutated.Select((l, i) => (l, i)).Where(li => li.l > 0).Select(li => $"addmutations {li.i} {li.l}"))}";
+
+            Clipboard.SetText(command);
         }
     }
 }

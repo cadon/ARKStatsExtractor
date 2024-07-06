@@ -1352,4 +1352,10 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="issueCauseSpeedLevelingSetting" xml:space="preserve">
     <value>The Allow speed leveling setting or the game (ASE or ASA) is probably not set correctly.</value>
   </data>
+  <data name="pasteCreaturesToLibrary?" xml:space="preserve">
+    <value>Paste {0} creatures directly in the library?</value>
+  </data>
+  <data name="paste" xml:space="preserve">
+    <value>paste</value>
+  </data>
 </root>

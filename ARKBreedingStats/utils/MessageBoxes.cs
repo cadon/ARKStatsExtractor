@@ -39,18 +39,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Displays an error message with info about the exception and the application name and version.
         /// </summary>
-        internal static void ExceptionMessageBox(Exception ex, string messageBeforeException = null, string title = null)
-        {
-            string message = ex.Message
-                             + "\n\n" + ex.GetType() + " in " + ex.Source
-                             + "\n\nMethod throwing the error: " + ex.TargetSite.DeclaringType?.FullName + "." +
-                             ex.TargetSite.Name
-                             + "\n\nStackTrace:\n" + ex.StackTrace
-                             + (ex.InnerException != null
-                                 ? "\n\nInner Exception:\n" + ex.InnerException.Message
-                                 : string.Empty);
-
-            ShowMessageBox((string.IsNullOrEmpty(messageBeforeException) ? string.Empty : messageBeforeException + "\n\n") + message, title, displayCopyMessageButton: true);
-        }
+        internal static void ExceptionMessageBox(Exception ex, string messageBeforeException = null, string title = null) =>
+            ShowMessageBox((string.IsNullOrEmpty(messageBeforeException) ? string.Empty : messageBeforeException + "\n\n") + ExceptionMessages.WithInner(ex), title, displayCopyMessageButton: true);
     }
 }

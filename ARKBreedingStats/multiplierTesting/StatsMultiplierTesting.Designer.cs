@@ -39,7 +39,7 @@
             this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
             this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
             this.btUseMultipliersFromSettings = new System.Windows.Forms.Button();
-            this.llStatCalculation = new System.Windows.Forms.LinkLabel();
+            this.LbSpeciesValuesExtractor = new System.Windows.Forms.Label();
             this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbBred = new System.Windows.Forms.RadioButton();
@@ -83,16 +83,17 @@
             this.idMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.taMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.allIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allWildLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allDomLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.allIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyStatValuesToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWikiPageOnStatCalculationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.nudIBM = new ARKBreedingStats.uiControls.Nud();
             this.nudIB = new ARKBreedingStats.uiControls.Nud();
@@ -120,7 +121,7 @@
             this.flowLayoutPanel1.Controls.Add(this.groupBox4);
             this.flowLayoutPanel1.Controls.Add(this.groupBox5);
             this.flowLayoutPanel1.Controls.Add(this.btUseMultipliersFromSettings);
-            this.flowLayoutPanel1.Controls.Add(this.llStatCalculation);
+            this.flowLayoutPanel1.Controls.Add(this.LbSpeciesValuesExtractor);
             this.flowLayoutPanel1.Controls.Add(this.LbBlueprintPath);
             this.flowLayoutPanel1.Controls.Add(this.groupBox1);
             this.flowLayoutPanel1.Controls.Add(this.groupBox2);
@@ -238,24 +239,27 @@
             this.btUseMultipliersFromSettings.UseVisualStyleBackColor = false;
             this.btUseMultipliersFromSettings.Click += new System.EventHandler(this.btUseMultipliersFromSettings_Click);
             // 
-            // llStatCalculation
+            // LbSpeciesValuesExtractor
             // 
-            this.llStatCalculation.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.llStatCalculation, true);
-            this.llStatCalculation.Location = new System.Drawing.Point(835, 16);
-            this.llStatCalculation.Margin = new System.Windows.Forms.Padding(3, 16, 3, 0);
-            this.llStatCalculation.Name = "llStatCalculation";
-            this.llStatCalculation.Size = new System.Drawing.Size(160, 13);
-            this.llStatCalculation.TabIndex = 3;
-            this.llStatCalculation.TabStop = true;
-            this.llStatCalculation.Text = "Stat Calculation on the ARK-wiki";
-            this.llStatCalculation.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llStatCalculation_LinkClicked);
+            this.LbSpeciesValuesExtractor.AllowDrop = true;
+            this.LbSpeciesValuesExtractor.AutoSize = true;
+            this.LbSpeciesValuesExtractor.BackColor = System.Drawing.Color.White;
+            this.flowLayoutPanel1.SetFlowBreak(this.LbSpeciesValuesExtractor, true);
+            this.LbSpeciesValuesExtractor.Location = new System.Drawing.Point(3, 77);
+            this.LbSpeciesValuesExtractor.Name = "LbSpeciesValuesExtractor";
+            this.LbSpeciesValuesExtractor.Padding = new System.Windows.Forms.Padding(3, 12, 3, 12);
+            this.LbSpeciesValuesExtractor.Size = new System.Drawing.Size(243, 37);
+            this.LbSpeciesValuesExtractor.TabIndex = 15;
+            this.LbSpeciesValuesExtractor.Text = "Drop exportGun files to determine species values";
+            this.LbSpeciesValuesExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.LbSpeciesValuesExtractor_DragDrop);
+            this.LbSpeciesValuesExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.LbSpeciesValuesExtractor_DragEnter);
+            this.LbSpeciesValuesExtractor.DragLeave += new System.EventHandler(this.LbSpeciesValuesExtractor_DragLeave);
             // 
             // LbBlueprintPath
             // 
             this.flowLayoutPanel1.SetFlowBreak(this.LbBlueprintPath, true);
             this.LbBlueprintPath.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.LbBlueprintPath.Location = new System.Drawing.Point(3, 77);
+            this.LbBlueprintPath.Location = new System.Drawing.Point(3, 114);
             this.LbBlueprintPath.Name = "LbBlueprintPath";
             this.LbBlueprintPath.Size = new System.Drawing.Size(901, 21);
             this.LbBlueprintPath.TabIndex = 14;
@@ -266,7 +270,7 @@
             this.groupBox1.Controls.Add(this.rbBred);
             this.groupBox1.Controls.Add(this.rbTamed);
             this.groupBox1.Controls.Add(this.rbWild);
-            this.groupBox1.Location = new System.Drawing.Point(3, 101);
+            this.groupBox1.Location = new System.Drawing.Point(3, 138);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(167, 49);
             this.groupBox1.TabIndex = 4;
@@ -311,7 +315,7 @@
             this.groupBox2.Controls.Add(this.LbCalculatedWildLevel);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.nudTE);
-            this.groupBox2.Location = new System.Drawing.Point(176, 101);
+            this.groupBox2.Location = new System.Drawing.Point(176, 138);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(163, 49);
             this.groupBox2.TabIndex = 5;
@@ -341,7 +345,7 @@
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.nudIBM);
             this.groupBox3.Controls.Add(this.nudIB);
-            this.groupBox3.Location = new System.Drawing.Point(345, 101);
+            this.groupBox3.Location = new System.Drawing.Point(345, 138);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(213, 49);
             this.groupBox3.TabIndex = 6;
@@ -360,7 +364,7 @@
             // gbFineAdjustment
             // 
             this.gbFineAdjustment.Controls.Add(this.tbFineAdjustments);
-            this.gbFineAdjustment.Location = new System.Drawing.Point(564, 101);
+            this.gbFineAdjustment.Location = new System.Drawing.Point(564, 138);
             this.gbFineAdjustment.Name = "gbFineAdjustment";
             this.gbFineAdjustment.Size = new System.Drawing.Size(376, 49);
             this.gbFineAdjustment.TabIndex = 7;
@@ -383,7 +387,7 @@
             // 
             this.lBDummyEmptyFlowBreak.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.lBDummyEmptyFlowBreak, true);
-            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(946, 98);
+            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(946, 135);
             this.lBDummyEmptyFlowBreak.Name = "lBDummyEmptyFlowBreak";
             this.lBDummyEmptyFlowBreak.Size = new System.Drawing.Size(0, 13);
             this.lBDummyEmptyFlowBreak.TabIndex = 11;
@@ -404,7 +408,7 @@
             this.panel1.Controls.Add(this.LbLw);
             this.panel1.Controls.Add(this.LbBaseValue);
             this.flowLayoutPanel1.SetFlowBreak(this.panel1, true);
-            this.panel1.Location = new System.Drawing.Point(3, 156);
+            this.panel1.Location = new System.Drawing.Point(3, 193);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1005, 29);
             this.panel1.TabIndex = 8;
@@ -545,7 +549,7 @@
             this.gbLevel.Controls.Add(this.lbLevelSumWild);
             this.gbLevel.Controls.Add(this.label16);
             this.gbLevel.Controls.Add(this.nudCreatureLevel);
-            this.gbLevel.Location = new System.Drawing.Point(3, 191);
+            this.gbLevel.Location = new System.Drawing.Point(3, 228);
             this.gbLevel.Name = "gbLevel";
             this.gbLevel.Size = new System.Drawing.Size(200, 81);
             this.gbLevel.TabIndex = 9;
@@ -582,7 +586,7 @@
             // LbAbbreviations
             // 
             this.LbAbbreviations.AutoSize = true;
-            this.LbAbbreviations.Location = new System.Drawing.Point(209, 188);
+            this.LbAbbreviations.Location = new System.Drawing.Point(209, 225);
             this.LbAbbreviations.Name = "LbAbbreviations";
             this.LbAbbreviations.Size = new System.Drawing.Size(780, 39);
             this.LbAbbreviations.TabIndex = 13;
@@ -594,7 +598,8 @@
             this.statMultipliersToolStripMenuItem,
             this.calculateToolStripMenuItem,
             this.setAllLvlToToolStripMenuItem,
-            this.copyStatValuesToClipboardToolStripMenuItem});
+            this.copyStatValuesToClipboardToolStripMenuItem,
+            this.openWikiPageOnStatCalculationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1011, 24);
@@ -680,6 +685,25 @@
             this.tmMToolStripMenuItem.Text = "all TmM";
             this.tmMToolStripMenuItem.Click += new System.EventHandler(this.tmMToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(113, 6);
+            // 
+            // allIwToolStripMenuItem
+            // 
+            this.allIwToolStripMenuItem.Name = "allIwToolStripMenuItem";
+            this.allIwToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIwToolStripMenuItem.Text = "all Iw";
+            this.allIwToolStripMenuItem.Click += new System.EventHandler(this.allIwToolStripMenuItem_Click);
+            // 
+            // allIdToolStripMenuItem
+            // 
+            this.allIdToolStripMenuItem.Name = "allIdToolStripMenuItem";
+            this.allIdToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIdToolStripMenuItem.Text = "all Id";
+            this.allIdToolStripMenuItem.Click += new System.EventHandler(this.allIdToolStripMenuItem_Click);
+            // 
             // setAllLvlToToolStripMenuItem
             // 
             this.setAllLvlToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -725,31 +749,19 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(113, 6);
-            // 
-            // allIwToolStripMenuItem
-            // 
-            this.allIwToolStripMenuItem.Name = "allIwToolStripMenuItem";
-            this.allIwToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.allIwToolStripMenuItem.Text = "all Iw";
-            this.allIwToolStripMenuItem.Click += new System.EventHandler(this.allIwToolStripMenuItem_Click);
-            // 
-            // allIdToolStripMenuItem
-            // 
-            this.allIdToolStripMenuItem.Name = "allIdToolStripMenuItem";
-            this.allIdToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.allIdToolStripMenuItem.Text = "all Id";
-            this.allIdToolStripMenuItem.Click += new System.EventHandler(this.allIdToolStripMenuItem_Click);
-            // 
             // copyStatValuesToClipboardToolStripMenuItem
             // 
             this.copyStatValuesToClipboardToolStripMenuItem.Name = "copyStatValuesToClipboardToolStripMenuItem";
-            this.copyStatValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(194, 20);
-            this.copyStatValuesToClipboardToolStripMenuItem.Text = "Copy raw stat values to clipboard";
+            this.copyStatValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(235, 20);
+            this.copyStatValuesToClipboardToolStripMenuItem.Text = "Copy raw species stat values to clipboard";
             this.copyStatValuesToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyStatValuesToClipboardToolStripMenuItem_Click);
+            // 
+            // openWikiPageOnStatCalculationToolStripMenuItem
+            // 
+            this.openWikiPageOnStatCalculationToolStripMenuItem.Name = "openWikiPageOnStatCalculationToolStripMenuItem";
+            this.openWikiPageOnStatCalculationToolStripMenuItem.Size = new System.Drawing.Size(201, 20);
+            this.openWikiPageOnStatCalculationToolStripMenuItem.Text = "Open wiki page on stat calculation";
+            this.openWikiPageOnStatCalculationToolStripMenuItem.Click += new System.EventHandler(this.openWikiPageOnStatCalculationToolStripMenuItem_Click);
             // 
             // nudTE
             // 
@@ -896,7 +908,6 @@
         private System.Windows.Forms.Label LbIw;
         private System.Windows.Forms.Label LbLw;
         private System.Windows.Forms.Label LbBaseValue;
-        private System.Windows.Forms.LinkLabel llStatCalculation;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbBred;
         private System.Windows.Forms.RadioButton rbTamed;
@@ -939,5 +950,7 @@
         private System.Windows.Forms.ToolStripMenuItem allIwToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allIdToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyStatValuesToClipboardToolStripMenuItem;
+        private System.Windows.Forms.Label LbSpeciesValuesExtractor;
+        private System.Windows.Forms.ToolStripMenuItem openWikiPageOnStatCalculationToolStripMenuItem;
     }
 }

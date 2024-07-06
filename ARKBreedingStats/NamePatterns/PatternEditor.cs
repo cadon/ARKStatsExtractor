@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.Updater;
@@ -18,8 +19,7 @@ namespace ARKBreedingStats.NamePatterns
         private readonly Creature _creature;
         private readonly Creature[] _creaturesOfSameSpecies;
         private readonly Creature _alreadyExistingCreature;
-        private readonly int[] _speciesTopLevels;
-        private readonly int[] _speciesLowestLevels;
+        private readonly TopLevels _topLevels;
         private readonly int _libraryCreatureCount;
         private readonly CreatureCollection.ColorExisting[] _colorExistings;
         private Dictionary<string, string> _customReplacings;
@@ -40,7 +40,7 @@ namespace ARKBreedingStats.NamePatterns
             InitializeComponent();
         }
 
-        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, int[] speciesTopLevels, int[] speciesLowestLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
+        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
         {
             Utils.SetWindowRectangle(this, Settings.Default.PatternEditorFormRectangle);
             if (Settings.Default.PatternEditorSplitterDistance > 0)
@@ -50,8 +50,7 @@ namespace ARKBreedingStats.NamePatterns
 
             _creature = creature;
             _creaturesOfSameSpecies = creaturesOfSameSpecies;
-            _speciesTopLevels = speciesTopLevels;
-            _speciesLowestLevels = speciesLowestLevels;
+            _topLevels = topLevels;
             _colorExistings = colorExistings;
             _customReplacings = customReplacings;
             _reloadCallback = reloadCallback;
@@ -63,7 +62,7 @@ namespace ARKBreedingStats.NamePatterns
             Text = $"Naming Pattern Editor: pattern {namingPatternIndex + 1}";
 
             _alreadyExistingCreature = _creaturesOfSameSpecies?.FirstOrDefault(c => c.guid == creature.guid);
-            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _libraryCreatureCount);
+            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _libraryCreatureCount);
             _keyDebouncer = new Debouncer();
             _functionDebouncer = new Debouncer();
 
@@ -457,16 +456,20 @@ namespace ARKBreedingStats.NamePatterns
                 { "fr_vb", "Breeding value of "+ Utils.StatName(Stats.TemperatureFortitude, customStatNames:customStatNames) },
                 { "cr_vb", "Breeding value of "+ Utils.StatName(Stats.CraftingSpeedMultiplier, customStatNames:customStatNames) },
 
-                { "isTophp", "if hp is top, it will return 1 and nothing if it's not top. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
-                { "isNewTophp", "if hp is higher than the current top hp, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
-                { "isLowesthp", "if hp is the lowest, it will return 1 and nothing if it's not the lowest. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
-                { "isNewLowesthp", "if hp is lower than the current lowest hp, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
+                { "isTopHP", "if hp is top, it will return 1 and nothing if it's not top. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
+                { "isNewTopHP", "if hp is higher than the current top hp, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
+                { "isLowestHP", "if hp is the lowest, it will return 1 and nothing if it's not the lowest. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
+                { "isNewLowestHP", "if hp is lower than the current lowest hp, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
+                { "isTopHP_m", "if hp mutated level is top, it will return 1 and nothing if it's not top. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
+                { "isNewTopHP_m", "if hp mutated level is higher than the current top hp mutated level, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
+                { "isLowestHP_m", "if hp mutated level is the lowest, it will return 1 and nothing if it's not the lowest. Combine with the if-function. All stat name abbreviations are possible, e.g. replace hp with st, to, ox etc."},
+                { "isNewLowestHP_m", "if hp mutated level is lower than the current lowest hp mutated level, it will return 1 and nothing else. Combine with the if-function. All stat name abbreviations are possible."},
 
                 { "dom", "how the creature was domesticated, \"T\" for tamed, \"B\" for bred" },
                 { "effImp", "Taming-effectiveness or Imprinting (if tamed / bred)" },
                 { "effImp_short", "Short Taming-effectiveness or Imprinting (if tamed / bred)"},
                 { "index",        "Index in library (same species)."},
-                { "oldname", "the old name of the creature" },
+                { "oldName", "the old name of the creature" },
                 { "sex_lang", "sex (\"Male\", \"Female\", \"Unknown\") by loc" },
                 { "sex_lang_short", "\"Male\", \"Female\", \"Unknown\" by loc(short)" },
                 { "sex_lang_gen", "sex (\"Male_gen\", \"Female_gen\", \"Unknown_gen\") by loc" },
@@ -494,15 +497,15 @@ namespace ARKBreedingStats.NamePatterns
                 { "highest1l", "the highest stat-level of this creature (excluding torpidity)" },
                 { "highest2l", "the second highest stat-level of this creature (excluding torpidity)" },
                 { "highest3l", "the third highest stat-level of this creature (excluding torpidity)" },
-                { "highest4l", "the fourth highest stat-level of this creature (excluding torpidity)" },
-                { "highest5l", "the fifth highest stat-level of this creature (excluding torpidity)" },
-                { "highest6l", "the sixth highest stat-level of this creature (excluding torpidity)" },
                 { "highest1s", "the name of the highest stat-level of this creature (excluding torpidity)" },
                 { "highest2s", "the name of the second highest stat-level of this creature (excluding torpidity)" },
                 { "highest3s", "the name of the third highest stat-level of this creature (excluding torpidity)" },
-                { "highest4s", "the name of the fourth highest stat-level of this creature (excluding torpidity)" },
-                { "highest5s", "the name of the fifth highest stat-level of this creature (excluding torpidity)" },
-                { "highest6s", "the name of the sixth highest stat-level of this creature (excluding torpidity)" },
+                { "highest1l_m", "the highest mutated stat-level of this creature (excluding torpidity)" },
+                { "highest2l_m", "the second highest mutated stat-level of this creature (excluding torpidity)" },
+                { "highest3l_m", "the third highest mutated stat-level of this creature (excluding torpidity)" },
+                { "highest1s_m", "the name of the highest mutated stat-level of this creature (excluding torpidity)" },
+                { "highest2s_m", "the name of the second highest mutated stat-level of this creature (excluding torpidity)" },
+                { "highest3s_m", "the name of the third highest mutated stat-level of this creature (excluding torpidity)" },
 
                 { "hp_m", "Mutated levels of " + Utils.StatName(Stats.Health, customStatNames:customStatNames) },
                 { "st_m", "Mutated levels of " + Utils.StatName(Stats.Stamina, customStatNames:customStatNames) },
@@ -572,7 +575,7 @@ namespace ARKBreedingStats.NamePatterns
 
         private void DisplayPreview()
         {
-            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _speciesTopLevels, _speciesLowestLevels, _customReplacings,
+            cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _customReplacings,
                 false, -1, false, txtboxPattern.Text, false, _tokenDictionary, _colorExistings, _libraryCreatureCount);
         }
 

@@ -289,6 +289,7 @@ namespace ARKBreedingStats.BreedingPlanning
             bool considerMutationLimit = nudBPMutationLimit.Value >= 0;
 
             bool creaturesMutationsFilteredOut = false;
+            bool noCreaturesWithTopStatsInBothSexes = false;
 
             // only consider creatures with top stats if breeding for that
             Creature[] females, males;
@@ -301,6 +302,7 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 females = _females.Where(c => c.topStatsCountBP > 0).ToArray();
                 males = _males?.Where(c => c.topStatsCountBP > 0).ToArray();
+                noCreaturesWithTopStatsInBothSexes = !females.Any() || (males?.Any() != true && !_currentSpecies.noGender);
             }
 
             // filter by tags
@@ -399,7 +401,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
             if (!selectedFemales.Any() || !selectedMales.Any())
             {
-                NoPossiblePairingsFound(creaturesMutationsFilteredOut);
+                NoPossiblePairingsFound(creaturesMutationsFilteredOut, noCreaturesWithTopStatsInBothSexes);
             }
             else
             {
@@ -603,7 +605,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <summary>
         /// Hide unused controls and display info.
         /// </summary>
-        private void NoPossiblePairingsFound(bool creaturesMutationsFilteredOut)
+        private void NoPossiblePairingsFound(bool creaturesMutationsFilteredOut, bool noCreaturesWithTopStatsInBothSexes)
         {
             // hide unused controls
             pedigreeCreature1.Hide();
@@ -615,7 +617,18 @@ namespace ARKBreedingStats.BreedingPlanning
                 _pcs[2 * i + 1].Hide();
                 _pbs[i].Hide();
             }
-            lbBreedingPlanInfo.Text = string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
+
+            if (noCreaturesWithTopStatsInBothSexes)
+            {
+                lbBreedingPlanInfo.Text = $"The breeding mode is set to {Loc.S("rbBPTopStatsCn")}, but currently there is no pair where top stats can be combined."
+                                          + Environment.NewLine + $"You can change the breeding mode to {Loc.S("rbBPHighStats")} to get the best recommendations in this situation."
+                                          + Environment.NewLine + Environment.NewLine
+                                          + string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
+            }
+            else
+            {
+                lbBreedingPlanInfo.Text = string.Format(Loc.S("NoPossiblePairingForSpeciesFound"), _currentSpecies);
+            }
             lbBreedingPlanInfo.Visible = true;
             if (!cbBPIncludeCryoCreatures.Checked
                 && CreatureCollection.creatures.Any(c

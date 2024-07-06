@@ -12,7 +12,7 @@ namespace ARKBreedingStats.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1841,30 +1841,6 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ChartHueMin {
-            get {
-                return ((int)(this["ChartHueMin"]));
-            }
-            set {
-                this["ChartHueMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("120")]
-        public int ChartHueMax {
-            get {
-                return ((int)(this["ChartHueMax"]));
-            }
-            set {
-                this["ChartHueMax"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("120")]
         public int ChartHueEvenMin {
             get {
                 return ((int)(this["ChartHueEvenMin"]));
@@ -1876,7 +1852,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
         public int ChartHueEvenMax {
             get {
                 return ((int)(this["ChartHueEvenMax"]));
@@ -2407,6 +2383,42 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["MoveMutationLevelsOnExtractionIfUnique"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool TesterLinkWildMutatedLevels {
+            get {
+                return ((bool)(this["TesterLinkWildMutatedLevels"]));
+            }
+            set {
+                this["TesterLinkWildMutatedLevels"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayWarningAboutTooLongNameGenerated {
+            get {
+                return ((bool)(this["DisplayWarningAboutTooLongNameGenerated"]));
+            }
+            set {
+                this["DisplayWarningAboutTooLongNameGenerated"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200, 200, 1000, 650")]
+        public global::System.Drawing.Rectangle LevelColorWindowRectangle {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["LevelColorWindowRectangle"]));
+            }
+            set {
+                this["LevelColorWindowRectangle"] = value;
             }
         }
     }

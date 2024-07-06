@@ -526,65 +526,72 @@ namespace ARKBreedingStats.values
 
                         bool customOverrideForThisStatExists = customOverrideExists && customFullStatsRaw[s] != null;
 
-                        sp.stats[s].BaseValue = GetRawStatValue(s, 0, customOverrideForThisStatExists);
+                        sp.stats[s].BaseValue = GetRawStatValue(s, Species.StatsRawIndexBase, customOverrideForThisStatExists);
 
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        double addWhenTamed = GetRawStatValue(s, 3, customOverrideForThisStatExists);
+                        double addWhenTamed = GetRawStatValue(s, Species.StatsRawIndexAdditiveBonus, customOverrideForThisStatExists);
                         sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
 
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        double multAffinity = GetRawStatValue(s, 4, customOverrideForThisStatExists);
+                        double multAffinity = GetRawStatValue(s, Species.StatsRawIndexMultiplicativeBonus, customOverrideForThisStatExists);
                         sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
 
                         if (useSpeedLevelup || s != Stats.SpeedMultiplier)
                         {
-                            sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, 2, customOverrideForThisStatExists) * statMultipliers[2];
+                            sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, Species.StatsRawIndexIncPerDomLevel, customOverrideForThisStatExists) * statMultipliers[2];
                         }
                         else
                         {
                             sp.stats[s].IncPerTamedLevel = 0;
                         }
 
-                        sp.stats[s].IncPerWildLevel = GetRawStatValue(s, 1, customOverrideForThisStatExists) * statMultipliers[3];
+                        sp.stats[s].IncPerWildLevel = GetRawStatValue(s, Species.StatsRawIndexIncPerWildLevel, customOverrideForThisStatExists) * statMultipliers[3];
                         sp.stats[s].IncPerMutatedLevel = sp.stats[s].IncPerWildLevel; // todo consider adjustments if they're implemented
 
+                        var altBaseValue = 0d;
+                        var thisStatHasAltValues = sp.altBaseStatsRaw?.TryGetValue(s, out altBaseValue) == true;
                         // set troodonism values
-                        if (sp.altStats?[s] != null && sp.stats[s].BaseValue != 0)
+                        if (thisStatHasAltValues
+                            && sp.stats[s].BaseValue != 0
+                            && sp.altStats != null)
                         {
-                            sp.altStats[s].BaseValue = sp.altBaseStatsRaw[s];
+                            sp.altStats[s].BaseValue = altBaseValue;
 
                             // alt / troodonism values depend on the base value
-                            var altFactor = sp.altStats[s].BaseValue / sp.stats[s].BaseValue;
+                            var altFactor = altBaseValue / sp.stats[s].BaseValue;
 
-                            sp.altStats[s].AddWhenTamed = altFactor * sp.stats[s].AddWhenTamed;
-                            sp.altStats[s].MultAffinity = altFactor * sp.stats[s].MultAffinity;
-                            sp.altStats[s].IncPerTamedLevel = altFactor * sp.stats[s].IncPerTamedLevel;
                             sp.altStats[s].IncPerWildLevel = altFactor * sp.stats[s].IncPerWildLevel;
+                            // maybe not affected, maybe depends on postTame stat value (and then maybe on different troodonism variants)
+                            sp.altStats[s].IncPerTamedLevel = sp.stats[s].IncPerTamedLevel;
+                            // taming bonus probably not affected by troodonism
+                            sp.altStats[s].AddWhenTamed = sp.stats[s].AddWhenTamed;
+                            sp.altStats[s].MultAffinity = sp.stats[s].MultAffinity;
                         }
 
-                        // single player adjustments if set and available
+                        ///// single player adjustments if set and available
 
                         if (singlePlayerServerMultipliers?.statMultipliers?[s] == null)
                             continue;
 
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingAdd] : 1;
+                        sp.stats[s].AddWhenTamed *= sp.stats[s].AddWhenTamed > 0 ? singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexTamingAdd] : 1;
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingMult] : 1;
-                        sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelDom];
-                        sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelWild];
+                        sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexTamingMult] : 1;
+                        sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelDom];
+                        sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelWild];
 
-                        // troodonism values
-                        if (sp.altStats?[s] != null)
+                        // troodonism values singleplayer adjustment
+                        if (thisStatHasAltValues
+                            && sp.altStats?[s] != null)
                         {
                             sp.altStats[s].AddWhenTamed *= sp.altStats[s].AddWhenTamed > 0
-                                ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingAdd]
+                                ? singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexTamingAdd]
                                 : 1;
                             sp.altStats[s].MultAffinity *= sp.altStats[s].MultAffinity > 0
-                                ? singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexTamingMult]
+                                ? singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexTamingMult]
                                 : 1;
-                            sp.altStats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelDom];
-                            sp.altStats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][Stats.IndexLevelWild];
+                            sp.altStats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelDom];
+                            sp.altStats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelWild];
                         }
 
                         double GetRawStatValue(int statIndex, int statValueTypeIndex, bool customOverride)

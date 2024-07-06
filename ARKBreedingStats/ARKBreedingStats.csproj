@@ -92,6 +92,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="importExportGun\ExportGunCreatureFile.cs" />
+    <Compile Include="importExportGun\ExportGunFileExtensions.cs" />
     <Compile Include="importExportGun\ExportGunServerFile.cs" />
     <Compile Include="importExportGun\ImportExportGun.cs" />
     <Compile Include="importExportGun\ReadExportFile.cs" />
@@ -103,8 +104,15 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
+    <Compile Include="StatsOptions\StatOptionsBase.cs" />
+    <Compile Include="StatsOptions\LevelGraphRepresentation.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
+    <Compile Include="StatsOptions\StatLevelColors.cs" />
+    <Compile Include="StatsOptions\StatsOptions.cs" />
+    <Compile Include="StatsOptions\StatsOptionsSettings.cs" />
+    <Compile Include="library\TopLevels.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
+    <Compile Include="multiplierTesting\SpeciesStatsExtractor.cs" />
     <Compile Include="multiplierTesting\TaTmSolver.cs" />
     <Compile Include="NamePatterns\NameList.cs" />
     <Compile Include="NamePatterns\NamePatternEntry.cs">
@@ -115,6 +123,7 @@
     <Compile Include="Pedigree\PedigreeCreation.cs" />
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
     <Compile Include="species\ArkColors.cs" />
+    <Compile Include="species\Troodonism.cs" />
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +145,12 @@
     <Compile Include="uiControls\Hatching.Designer.cs">
       <DependentUpon>Hatching.cs</DependentUpon>
     </Compile>
+    <Compile Include="StatsOptions\HueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StatsOptions\HueControl.Designer.cs">
+      <DependentUpon>HueControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,11 +167,32 @@
     <Compile Include="uiControls\PopupMessage.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="uiControls\ScrollForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\ScrollForm.Designer.cs">
+      <DependentUpon>ScrollForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.Designer.cs">
+      <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatsOptions\LevelGraphOptionsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.Designer.cs">
       <DependentUpon>StatSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatsOptions\StatsOptionsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatsOptions\StatsOptionsWindow.Designer.cs">
+      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
@@ -369,7 +405,7 @@
     <Compile Include="CreatureInfoInput.Designer.cs">
       <DependentUpon>CreatureInfoInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="species\CreatureStat.cs" />
+    <Compile Include="species\SpeciesStat.cs" />
     <Compile Include="species\Kibble.cs" />
     <Compile Include="Kibbles.cs" />
     <Compile Include="library\CreatureValues.cs" />
@@ -661,6 +697,7 @@
     <Compile Include="utils\Convert32.cs" />
     <Compile Include="utils\Debouncer.cs" />
     <Compile Include="utils\ArkInstallationPath.cs" />
+    <Compile Include="utils\ExceptionMessages.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
@@ -728,14 +765,26 @@
     <EmbeddedResource Include="uiControls\Hatching.resx">
       <DependentUpon>Hatching.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="StatsOptions\HueControl.resx">
+      <DependentUpon>HueControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
       <DependentUpon>LibraryFilterTemplates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\ParentInheritance.resx">
       <DependentUpon>ParentInheritance.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\ScrollForm.resx">
+      <DependentUpon>ScrollForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatsOptions\StatLevelGraphOptionsControl.resx">
+      <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatsOptions\StatsOptionsWindow.resx">
+      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">
       <DependentUpon>VariantSelector.cs</DependentUpon>
@@ -1002,7 +1051,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP">
-      <Version>49.0.2</Version>
+      <Version>50.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>3.3.4</Version>

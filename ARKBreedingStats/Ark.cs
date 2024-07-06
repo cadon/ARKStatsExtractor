@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.values;
+using System;
 
 namespace ARKBreedingStats
 {
@@ -155,6 +156,26 @@ namespace ARKBreedingStats
         /// Collection indicator for ARK: Survival Ascended, also the mod tag id for the ASA values.
         /// </summary>
         public const string Asa = "ASA";
+
+        /// <summary>
+        /// The default cuddle interval is 8 hours.
+        /// </summary>
+        private const int DefaultCuddleIntervalInSeconds = 8 * 60 * 60;
+
+        /// <summary>
+        /// Returns the imprinting gain per cuddle, dependent on the maturation time and the cuddle interval multiplier.
+        /// </summary>
+        /// <param name="maturationTime">Maturation time in seconds</param>
+        public static double ImprintingGainPerCuddle(double maturationTime)
+        {
+            var multipliers = Values.V.currentServerMultipliers;
+            // this is assumed to be the used formula
+            var maxPossibleCuddles = maturationTime / (DefaultCuddleIntervalInSeconds * multipliers.BabyImprintAmountMultiplier);
+            var denominator = maxPossibleCuddles - 0.25;
+            if (denominator < 0) return 0;
+            if (denominator < multipliers.BabyCuddleIntervalMultiplier) return 1;
+            return Math.Min(1, multipliers.BabyCuddleIntervalMultiplier / denominator);
+        }
     }
 
     /// <summary>
@@ -168,34 +189,26 @@ namespace ARKBreedingStats
         public const int StatsCount = 12;
 
         public const int Health = 0;
+        /// <summary>
+        /// Stamina, or Charge Capacity for glow species
+        /// </summary>
         public const int Stamina = 1;
         public const int Torpidity = 2;
+        /// <summary>
+        /// Oxygen, or Charge Regeneration for glow species
+        /// </summary>
         public const int Oxygen = 3;
         public const int Food = 4;
         public const int Water = 5;
         public const int Temperature = 6;
         public const int Weight = 7;
+        /// <summary>
+        /// MeleeDamageMultiplier, or Charge Emission Range for glow species
+        /// </summary>
         public const int MeleeDamageMultiplier = 8;
         public const int SpeedMultiplier = 9;
         public const int TemperatureFortitude = 10;
         public const int CraftingSpeedMultiplier = 11;
-
-        /// <summary>
-        /// Index of additive taming multiplier in stat multipliers.
-        /// </summary>
-        public const int IndexTamingAdd = 0;
-        /// <summary>
-        /// Index of multiplicative taming multiplier in stat multipliers.
-        /// </summary>
-        public const int IndexTamingMult = 1;
-        /// <summary>
-        /// Index of domesticated level multiplier in stat multipliers.
-        /// </summary>
-        public const int IndexLevelDom = 2;
-        /// <summary>
-        /// Index of wild level multiplier in stat multipliers.
-        /// </summary>
-        public const int IndexLevelWild = 3;
 
         /// <summary>
         /// Returns the stat-index for the given order index (like it is ordered in game).

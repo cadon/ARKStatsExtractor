@@ -228,10 +228,28 @@ namespace ARKBreedingStats
 
                 g.FillEllipse(_grBrushBg, _xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
 
-                g.FillPolygon(_grBrushMutations, _psm.ToArray());
-                g.DrawPolygon(penLine, _psm.ToArray());
-                g.FillPolygon(_grBrushFg, _ps.ToArray());
-                g.DrawPolygon(penLine, _ps.ToArray());
+                switch (_psm.Count)
+                {
+                    case 0: break;
+                    case 1:
+                        var margin = _psm[0].Y;
+                        var width = 2 * (_ym - margin);
+                        var rectMutationLevel = new Rectangle(margin, margin, width, width);
+                        margin = _ps[0].Y;
+                        width = 2 * (_ym - margin);
+                        var rectWildLevel = new Rectangle(margin, margin, width, width);
+                        g.FillEllipse(_grBrushMutations, rectMutationLevel);
+                        g.DrawEllipse(penLine, rectMutationLevel);
+                        g.FillEllipse(_grBrushFg, rectWildLevel);
+                        g.DrawEllipse(penLine, rectWildLevel);
+                        break;
+                    default:
+                        g.FillPolygon(_grBrushMutations, _psm.ToArray());
+                        g.DrawPolygon(penLine, _psm.ToArray());
+                        g.FillPolygon(_grBrushFg, _ps.ToArray());
+                        g.DrawPolygon(penLine, _ps.ToArray());
+                        break;
+                }
 
                 // grid circles
                 double stepFactor = (double)_step / _maxLevel;

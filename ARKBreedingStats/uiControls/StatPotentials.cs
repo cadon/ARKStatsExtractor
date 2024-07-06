@@ -20,9 +20,8 @@ namespace ARKBreedingStats.uiControls
                 StatPotential stat = new StatPotential(s, Stats.IsPercentage(s));
                 _stats[s] = stat;
             }
-            for (int s = 0; s < Stats.StatsCount; s++)
+            foreach (var si in Stats.DisplayOrder)
             {
-                int si = Stats.DisplayOrder[s];
                 flpStats.Controls.Add(_stats[si]);
                 flpStats.SetFlowBreak(_stats[si], true);
             }

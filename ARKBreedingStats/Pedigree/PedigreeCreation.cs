@@ -301,15 +301,20 @@ namespace ARKBreedingStats.Pedigree
 
         internal static void CreateGeneInheritanceLines(Creature offspring, Creature mother, Creature father, List<int[]>[] lines, int x, int y)
         {
-            if (offspring.levelsWild == null || offspring.valuesDom == null) return;
+            if (offspring.levelsWild == null
+                || offspring.valuesDom == null
+                || (mother?.flags.HasFlag(CreatureFlags.Placeholder) != false
+                    && father?.flags.HasFlag(CreatureFlags.Placeholder) != false)
+                )
+                return;
 
             for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
             {
                 int si = PedigreeCreature.DisplayedStats[s];
                 if (offspring.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
 
-                var levelMother = mother?.levelsWild[si] ?? -1;
-                var levelFather = father?.levelsWild[si] ?? -1;
+                var levelMother = mother?.levelsWild?[si] ?? -1;
+                var levelFather = father?.levelsWild?[si] ?? -1;
                 var levelMotherMutated = mother?.levelsMutated?[si] ?? -1;
                 var levelFatherMutated = father?.levelsMutated?[si] ?? -1;
                 var levelOffspring = offspring.levelsWild[si];

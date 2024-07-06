@@ -185,21 +185,23 @@ namespace ARKBreedingStats.library
         /// <summary>
         /// Export the data of a creature to the clipboard in plain text.
         /// </summary>
-        /// <param name="c">Creature to export</param>
+        /// <param name="creatures">Creatures to export</param>
         /// <param name="breeding">Stat values that are inherited</param>
         /// <param name="ARKml">True if ARKml markup for coloring should be used. That feature was disabled in the ARK-chat.</param>
-        public static void ExportToClipboard(Creature c, bool breeding = true, bool ARKml = false)
+        public static void ExportToClipboard(bool breeding = true, bool ARKml = false, params Creature[] creatures)
         {
-            if (c == null) return;
+            if (creatures == null) return;
 
-            var creatureString = CreatureStringInfo(c, breeding, ARKml);
+            var sb = new StringBuilder();
+            foreach (var c in creatures)
+                AddCreatureStringInfo(sb, c, breeding, ARKml);
 
-            string creatureSerialized = Newtonsoft.Json.JsonConvert.SerializeObject(c);
+            string creaturesSerialized = Newtonsoft.Json.JsonConvert.SerializeObject(creatures);
 
             DataObject o = new DataObject();
-            o.SetData(DataFormats.UnicodeText, creatureString);
-            if (!string.IsNullOrEmpty(creatureSerialized))
-                o.SetData(ClipboardCreatureFormat, creatureSerialized);
+            o.SetData(DataFormats.UnicodeText, sb.ToString());
+            if (!string.IsNullOrEmpty(creaturesSerialized))
+                o.SetData(ClipboardCreatureFormat, creaturesSerialized);
 
             try
             {
@@ -212,10 +214,12 @@ namespace ARKBreedingStats.library
         }
 
         /// <summary>
-        /// Creates a string that describes the creature.
+        /// Adds creature data to a stringBuilder intended for humans to read.
         /// </summary>
-        private static StringBuilder CreatureStringInfo(Creature c, bool breeding, bool ARKml)
+        private static void AddCreatureStringInfo(StringBuilder sb, Creature c, bool breeding, bool ARKml)
         {
+            if (sb == null) return;
+
             var maxChartLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 0;
             double colorFactor = maxChartLevel > 0 ? 100d / maxChartLevel : 1;
             string modifierText = string.Empty;
@@ -230,42 +234,42 @@ namespace ARKBreedingStats.library
                     modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + " %";
             }
 
-            var output = new StringBuilder((string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" +
-                                           (ARKml ? Utils.GetARKml(c.Species.name, 50, 172, 255) : c.Species.name)
-                                           + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText +
-                                           (c.sex != Sex.Unknown ? ", " + Loc.S(c.sex.ToString(), secondaryCulture: secondaryLanguage) : string.Empty) + "): ");
-            for (int s = 0; s < Stats.StatsCount; s++)
+            sb.Append((string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" +
+                       (ARKml ? Utils.GetARKml(c.Species.name, 50, 172, 255) : c.Species.name)
+                       + ", Lvl " + (breeding ? c.LevelHatched : c.Level) + modifierText +
+                       (c.sex != Sex.Unknown ? ", " + Loc.S(c.sex.ToString(), secondaryCulture: secondaryLanguage) : string.Empty) + "): ");
+
+            foreach (var si in Stats.DisplayOrder)
             {
-                int si = Stats.DisplayOrder[s];
                 if (c.levelsWild[si] >= 0 &&
                     c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
-                    output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + ": " +
-                                  (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Stats.IsPercentage(si) ? 100 : 1) +
-                                  (Stats.IsPercentage(si) ? " %" : string.Empty) +
-                                  " (" + (ARKml
-                                      ? Utils.GetARKmlFromPercent(c.levelsWild[si].ToString(),
-                                          (int)(c.levelsWild[si] *
-                                                 (si == Stats.Torpidity ? colorFactor / 7 : colorFactor)))
-                                      : c.levelsWild[si].ToString()) +
-                                  (ARKml ? breeding || si == Stats.Torpidity ? string.Empty :
+                    sb.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + ": " +
+                              (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Stats.IsPercentage(si) ? 100 : 1) +
+                              (Stats.IsPercentage(si) ? " %" : string.Empty) +
+                              " (" + (ARKml
+                                  ? Utils.GetARKmlFromPercent(c.levelsWild[si].ToString(),
+                                      (int)(c.levelsWild[si] *
+                                            (si == Stats.Torpidity ? colorFactor / 7 : colorFactor)))
+                                  : c.levelsWild[si].ToString()) +
+                              (ARKml ? breeding || si == Stats.Torpidity ? string.Empty :
                                       ", " + Utils.GetARKmlFromPercent(c.levelsDom[si].ToString(),
                                           (int)(c.levelsDom[si] * colorFactor)) :
-                                      breeding || si == Stats.Torpidity ? string.Empty : ", " + c.levelsDom[si]) +
-                                  "); ");
+                                  breeding || si == Stats.Torpidity ? string.Empty : ", " + c.levelsDom[si]) +
+                              "); ");
             }
 
-            output.Length--; // remove last space
-            return output;
+            sb.Length--; // remove last space
+            sb.AppendLine();
         }
 
-        public static Creature ImportFromClipboard()
+        public static Creature[] ImportFromClipboard()
         {
             try
             {
                 var creatureSerialized = Clipboard.GetData(ClipboardCreatureFormat) as string;
                 if (!string.IsNullOrEmpty(creatureSerialized))
-                    return Newtonsoft.Json.JsonConvert.DeserializeObject<Creature>(creatureSerialized);
-                return ParseCreature(Clipboard.GetText());
+                    return Newtonsoft.Json.JsonConvert.DeserializeObject<Creature[]>(creatureSerialized);
+                return new[] { ParseCreature(Clipboard.GetText()) };
             }
             catch (Exception ex)
             {

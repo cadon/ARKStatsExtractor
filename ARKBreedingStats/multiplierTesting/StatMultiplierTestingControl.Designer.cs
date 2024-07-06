@@ -46,6 +46,9 @@
             this.calculateTEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateIBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.calculateIBMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.calculateIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calculateIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.setWildLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDomLevelToClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +68,20 @@
             this.btCalculateDomLevel = new System.Windows.Forms.Button();
             this.btResetIdM = new System.Windows.Forms.Button();
             this.btCalculateIdM = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btCalculateTE = new System.Windows.Forms.Button();
+            this.btCalculateIB = new System.Windows.Forms.Button();
+            this.btCalculateIBM = new System.Windows.Forms.Button();
+            this.CbTrodB = new System.Windows.Forms.CheckBox();
+            this.CbTrodIw = new System.Windows.Forms.CheckBox();
+            this.CbTrodTa = new System.Windows.Forms.CheckBox();
+            this.CbTrodTm = new System.Windows.Forms.CheckBox();
+            this.CbTrodId = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LbTaTmTeStored = new System.Windows.Forms.Label();
+            this.BtSolveTaTm = new System.Windows.Forms.Button();
+            this.BtSolveTaMTmM = new System.Windows.Forms.Button();
+            this.BtStoreTaTm = new System.Windows.Forms.Button();
             this.nudIdM = new ARKBreedingStats.uiControls.Nud();
             this.nudId = new ARKBreedingStats.uiControls.Nud();
             this.nudTmM = new ARKBreedingStats.uiControls.Nud();
@@ -78,23 +95,9 @@
             this.nudStatValue = new ARKBreedingStats.uiControls.Nud();
             this.nudLd = new ARKBreedingStats.uiControls.Nud();
             this.nudLw = new ARKBreedingStats.uiControls.Nud();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btCalculateTE = new System.Windows.Forms.Button();
-            this.btCalculateIB = new System.Windows.Forms.Button();
-            this.btCalculateIBM = new System.Windows.Forms.Button();
-            this.CbTrodB = new System.Windows.Forms.CheckBox();
-            this.CbTrodIw = new System.Windows.Forms.CheckBox();
-            this.CbTrodTa = new System.Windows.Forms.CheckBox();
-            this.CbTrodTm = new System.Windows.Forms.CheckBox();
-            this.CbTrodId = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtSolveTaTm = new System.Windows.Forms.Button();
-            this.BtSolveTaMTmM = new System.Windows.Forms.Button();
-            this.BtStoreTaTm = new System.Windows.Forms.Button();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.calculateIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calculateIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtSolveTaTbhm = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTmM)).BeginInit();
@@ -108,7 +111,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudStatValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLw)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbVw
@@ -212,7 +214,7 @@
             this.resetIdMToolStripMenuItem,
             this.resetAllMultiplierOfThisStatToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 402);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(231, 380);
             // 
             // calculateIwMToolStripMenuItem
             // 
@@ -267,6 +269,25 @@
             this.calculateIBMToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.calculateIBMToolStripMenuItem.Text = "Calculate IBM";
             this.calculateIBMToolStripMenuItem.Click += new System.EventHandler(this.calculateIBMToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
+            // 
+            // calculateIwToolStripMenuItem
+            // 
+            this.calculateIwToolStripMenuItem.Name = "calculateIwToolStripMenuItem";
+            this.calculateIwToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.calculateIwToolStripMenuItem.Text = "Calculate Iw";
+            this.calculateIwToolStripMenuItem.Click += new System.EventHandler(this.calculateIwToolStripMenuItem_Click);
+            // 
+            // calculateIdToolStripMenuItem
+            // 
+            this.calculateIdToolStripMenuItem.Name = "calculateIdToolStripMenuItem";
+            this.calculateIdToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.calculateIdToolStripMenuItem.Text = "Calculate Id";
+            this.calculateIdToolStripMenuItem.Click += new System.EventHandler(this.calculateIdToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -446,6 +467,162 @@
             this.btCalculateIdM.Text = "C";
             this.btCalculateIdM.UseVisualStyleBackColor = true;
             this.btCalculateIdM.Click += new System.EventHandler(this.btCalculateIdM_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Location = new System.Drawing.Point(0, 73);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1053, 2);
+            this.panel1.TabIndex = 32;
+            // 
+            // btCalculateTE
+            // 
+            this.btCalculateTE.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateTE.Location = new System.Drawing.Point(897, 26);
+            this.btCalculateTE.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateTE.Name = "btCalculateTE";
+            this.btCalculateTE.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateTE.TabIndex = 33;
+            this.btCalculateTE.Text = "TE";
+            this.btCalculateTE.UseVisualStyleBackColor = true;
+            this.btCalculateTE.Click += new System.EventHandler(this.btCalculateTE_Click);
+            // 
+            // btCalculateIB
+            // 
+            this.btCalculateIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIB.Location = new System.Drawing.Point(938, 26);
+            this.btCalculateIB.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateIB.Name = "btCalculateIB";
+            this.btCalculateIB.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateIB.TabIndex = 34;
+            this.btCalculateIB.Text = "IB";
+            this.btCalculateIB.UseVisualStyleBackColor = true;
+            this.btCalculateIB.Click += new System.EventHandler(this.btCalculateIB_Click);
+            // 
+            // btCalculateIBM
+            // 
+            this.btCalculateIBM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIBM.Location = new System.Drawing.Point(979, 26);
+            this.btCalculateIBM.Margin = new System.Windows.Forms.Padding(0);
+            this.btCalculateIBM.Name = "btCalculateIBM";
+            this.btCalculateIBM.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateIBM.TabIndex = 35;
+            this.btCalculateIBM.Text = "IBM";
+            this.btCalculateIBM.UseVisualStyleBackColor = true;
+            this.btCalculateIBM.Click += new System.EventHandler(this.btCalculateIBM_Click);
+            // 
+            // CbTrodB
+            // 
+            this.CbTrodB.AutoSize = true;
+            this.CbTrodB.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodB.Location = new System.Drawing.Point(80, 28);
+            this.CbTrodB.Name = "CbTrodB";
+            this.CbTrodB.Size = new System.Drawing.Size(58, 17);
+            this.CbTrodB.TabIndex = 36;
+            this.CbTrodB.Text = "Trod B";
+            this.CbTrodB.UseVisualStyleBackColor = false;
+            this.CbTrodB.CheckedChanged += new System.EventHandler(this.CbTrodB_CheckedChanged);
+            // 
+            // CbTrodIw
+            // 
+            this.CbTrodIw.AutoSize = true;
+            this.CbTrodIw.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodIw.Location = new System.Drawing.Point(243, 28);
+            this.CbTrodIw.Name = "CbTrodIw";
+            this.CbTrodIw.Size = new System.Drawing.Size(62, 17);
+            this.CbTrodIw.TabIndex = 37;
+            this.CbTrodIw.Text = "Trod Iw";
+            this.CbTrodIw.UseVisualStyleBackColor = false;
+            this.CbTrodIw.CheckedChanged += new System.EventHandler(this.CbTrodIw_CheckedChanged);
+            // 
+            // CbTrodTa
+            // 
+            this.CbTrodTa.AutoSize = true;
+            this.CbTrodTa.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodTa.Location = new System.Drawing.Point(435, 28);
+            this.CbTrodTa.Name = "CbTrodTa";
+            this.CbTrodTa.Size = new System.Drawing.Size(64, 17);
+            this.CbTrodTa.TabIndex = 38;
+            this.CbTrodTa.Text = "Trod Ta";
+            this.CbTrodTa.UseVisualStyleBackColor = false;
+            this.CbTrodTa.CheckedChanged += new System.EventHandler(this.CbTrodTa_CheckedChanged);
+            // 
+            // CbTrodTm
+            // 
+            this.CbTrodTm.AutoSize = true;
+            this.CbTrodTm.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodTm.Location = new System.Drawing.Point(563, 28);
+            this.CbTrodTm.Name = "CbTrodTm";
+            this.CbTrodTm.Size = new System.Drawing.Size(66, 17);
+            this.CbTrodTm.TabIndex = 39;
+            this.CbTrodTm.Text = "Trod Tm";
+            this.CbTrodTm.UseVisualStyleBackColor = false;
+            this.CbTrodTm.CheckedChanged += new System.EventHandler(this.CbTrodTm_CheckedChanged);
+            // 
+            // CbTrodId
+            // 
+            this.CbTrodId.AutoSize = true;
+            this.CbTrodId.BackColor = System.Drawing.Color.LightPink;
+            this.CbTrodId.Location = new System.Drawing.Point(749, 28);
+            this.CbTrodId.Name = "CbTrodId";
+            this.CbTrodId.Size = new System.Drawing.Size(60, 17);
+            this.CbTrodId.TabIndex = 40;
+            this.CbTrodId.Text = "Trod Id";
+            this.CbTrodId.UseVisualStyleBackColor = false;
+            this.CbTrodId.CheckedChanged += new System.EventHandler(this.CbTrodId_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.BtSolveTaTbhm);
+            this.groupBox1.Controls.Add(this.LbTaTmTeStored);
+            this.groupBox1.Controls.Add(this.BtSolveTaTm);
+            this.groupBox1.Controls.Add(this.BtSolveTaMTmM);
+            this.groupBox1.Controls.Add(this.BtStoreTaTm);
+            this.groupBox1.Location = new System.Drawing.Point(1059, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(126, 69);
+            this.groupBox1.TabIndex = 41;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Ta-Tm-TBHM-Solver";
+            // 
+            // LbTaTmTeStored
+            // 
+            this.LbTaTmTeStored.AutoSize = true;
+            this.LbTaTmTeStored.Location = new System.Drawing.Point(68, 26);
+            this.LbTaTmTeStored.Name = "LbTaTmTeStored";
+            this.LbTaTmTeStored.Size = new System.Drawing.Size(0, 13);
+            this.LbTaTmTeStored.TabIndex = 3;
+            // 
+            // BtSolveTaTm
+            // 
+            this.BtSolveTaTm.Location = new System.Drawing.Point(39, 43);
+            this.BtSolveTaTm.Name = "BtSolveTaTm";
+            this.BtSolveTaTm.Size = new System.Drawing.Size(36, 23);
+            this.BtSolveTaTm.TabIndex = 2;
+            this.BtSolveTaTm.Text = "Spc";
+            this.BtSolveTaTm.UseVisualStyleBackColor = true;
+            this.BtSolveTaTm.Click += new System.EventHandler(this.BtSolveTaTm_Click);
+            // 
+            // BtSolveTaMTmM
+            // 
+            this.BtSolveTaMTmM.Location = new System.Drawing.Point(4, 43);
+            this.BtSolveTaMTmM.Name = "BtSolveTaMTmM";
+            this.BtSolveTaMTmM.Size = new System.Drawing.Size(33, 23);
+            this.BtSolveTaMTmM.TabIndex = 1;
+            this.BtSolveTaMTmM.Text = "Srv";
+            this.BtSolveTaMTmM.UseVisualStyleBackColor = true;
+            this.BtSolveTaMTmM.Click += new System.EventHandler(this.BtSolveTaMTmM_Click);
+            // 
+            // BtStoreTaTm
+            // 
+            this.BtStoreTaTm.Location = new System.Drawing.Point(4, 19);
+            this.BtStoreTaTm.Name = "BtStoreTaTm";
+            this.BtStoreTaTm.Size = new System.Drawing.Size(60, 23);
+            this.BtStoreTaTm.TabIndex = 0;
+            this.BtStoreTaTm.Text = "Store 1st";
+            this.BtStoreTaTm.UseVisualStyleBackColor = true;
+            this.BtStoreTaTm.Click += new System.EventHandler(this.BtStoreTaTm_Click);
             // 
             // nudIdM
             // 
@@ -782,170 +959,15 @@
             this.nudLw.TabIndex = 1;
             this.nudLw.ValueChanged += new System.EventHandler(this.nudLw_ValueChanged);
             // 
-            // panel1
+            // BtSolveTaTbhm
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(0, 73);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1053, 2);
-            this.panel1.TabIndex = 32;
-            // 
-            // btCalculateTE
-            // 
-            this.btCalculateTE.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateTE.Location = new System.Drawing.Point(897, 26);
-            this.btCalculateTE.Margin = new System.Windows.Forms.Padding(0);
-            this.btCalculateTE.Name = "btCalculateTE";
-            this.btCalculateTE.Size = new System.Drawing.Size(41, 20);
-            this.btCalculateTE.TabIndex = 33;
-            this.btCalculateTE.Text = "TE";
-            this.btCalculateTE.UseVisualStyleBackColor = true;
-            this.btCalculateTE.Click += new System.EventHandler(this.btCalculateTE_Click);
-            // 
-            // btCalculateIB
-            // 
-            this.btCalculateIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateIB.Location = new System.Drawing.Point(938, 26);
-            this.btCalculateIB.Margin = new System.Windows.Forms.Padding(0);
-            this.btCalculateIB.Name = "btCalculateIB";
-            this.btCalculateIB.Size = new System.Drawing.Size(41, 20);
-            this.btCalculateIB.TabIndex = 34;
-            this.btCalculateIB.Text = "IB";
-            this.btCalculateIB.UseVisualStyleBackColor = true;
-            this.btCalculateIB.Click += new System.EventHandler(this.btCalculateIB_Click);
-            // 
-            // btCalculateIBM
-            // 
-            this.btCalculateIBM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateIBM.Location = new System.Drawing.Point(979, 26);
-            this.btCalculateIBM.Margin = new System.Windows.Forms.Padding(0);
-            this.btCalculateIBM.Name = "btCalculateIBM";
-            this.btCalculateIBM.Size = new System.Drawing.Size(41, 20);
-            this.btCalculateIBM.TabIndex = 35;
-            this.btCalculateIBM.Text = "IBM";
-            this.btCalculateIBM.UseVisualStyleBackColor = true;
-            this.btCalculateIBM.Click += new System.EventHandler(this.btCalculateIBM_Click);
-            // 
-            // CbTrodB
-            // 
-            this.CbTrodB.AutoSize = true;
-            this.CbTrodB.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodB.Location = new System.Drawing.Point(80, 28);
-            this.CbTrodB.Name = "CbTrodB";
-            this.CbTrodB.Size = new System.Drawing.Size(58, 17);
-            this.CbTrodB.TabIndex = 36;
-            this.CbTrodB.Text = "Trod B";
-            this.CbTrodB.UseVisualStyleBackColor = false;
-            this.CbTrodB.CheckedChanged += new System.EventHandler(this.CbTrodB_CheckedChanged);
-            // 
-            // CbTrodIw
-            // 
-            this.CbTrodIw.AutoSize = true;
-            this.CbTrodIw.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodIw.Location = new System.Drawing.Point(243, 28);
-            this.CbTrodIw.Name = "CbTrodIw";
-            this.CbTrodIw.Size = new System.Drawing.Size(62, 17);
-            this.CbTrodIw.TabIndex = 37;
-            this.CbTrodIw.Text = "Trod Iw";
-            this.CbTrodIw.UseVisualStyleBackColor = false;
-            this.CbTrodIw.CheckedChanged += new System.EventHandler(this.CbTrodIw_CheckedChanged);
-            // 
-            // CbTrodTa
-            // 
-            this.CbTrodTa.AutoSize = true;
-            this.CbTrodTa.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodTa.Location = new System.Drawing.Point(435, 28);
-            this.CbTrodTa.Name = "CbTrodTa";
-            this.CbTrodTa.Size = new System.Drawing.Size(64, 17);
-            this.CbTrodTa.TabIndex = 38;
-            this.CbTrodTa.Text = "Trod Ta";
-            this.CbTrodTa.UseVisualStyleBackColor = false;
-            this.CbTrodTa.CheckedChanged += new System.EventHandler(this.CbTrodTa_CheckedChanged);
-            // 
-            // CbTrodTm
-            // 
-            this.CbTrodTm.AutoSize = true;
-            this.CbTrodTm.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodTm.Location = new System.Drawing.Point(563, 28);
-            this.CbTrodTm.Name = "CbTrodTm";
-            this.CbTrodTm.Size = new System.Drawing.Size(66, 17);
-            this.CbTrodTm.TabIndex = 39;
-            this.CbTrodTm.Text = "Trod Tm";
-            this.CbTrodTm.UseVisualStyleBackColor = false;
-            this.CbTrodTm.CheckedChanged += new System.EventHandler(this.CbTrodTm_CheckedChanged);
-            // 
-            // CbTrodId
-            // 
-            this.CbTrodId.AutoSize = true;
-            this.CbTrodId.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodId.Location = new System.Drawing.Point(749, 28);
-            this.CbTrodId.Name = "CbTrodId";
-            this.CbTrodId.Size = new System.Drawing.Size(60, 17);
-            this.CbTrodId.TabIndex = 40;
-            this.CbTrodId.Text = "Trod Id";
-            this.CbTrodId.UseVisualStyleBackColor = false;
-            this.CbTrodId.CheckedChanged += new System.EventHandler(this.CbTrodId_CheckedChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.BtSolveTaTm);
-            this.groupBox1.Controls.Add(this.BtSolveTaMTmM);
-            this.groupBox1.Controls.Add(this.BtStoreTaTm);
-            this.groupBox1.Location = new System.Drawing.Point(1059, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(126, 69);
-            this.groupBox1.TabIndex = 41;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ta-Tm-Solver";
-            // 
-            // BtSolveTaTm
-            // 
-            this.BtSolveTaTm.Location = new System.Drawing.Point(62, 43);
-            this.BtSolveTaTm.Name = "BtSolveTaTm";
-            this.BtSolveTaTm.Size = new System.Drawing.Size(58, 23);
-            this.BtSolveTaTm.TabIndex = 2;
-            this.BtSolveTaTm.Text = "Species";
-            this.BtSolveTaTm.UseVisualStyleBackColor = true;
-            this.BtSolveTaTm.Click += new System.EventHandler(this.BtSolveTaTm_Click);
-            // 
-            // BtSolveTaMTmM
-            // 
-            this.BtSolveTaMTmM.Location = new System.Drawing.Point(6, 43);
-            this.BtSolveTaMTmM.Name = "BtSolveTaMTmM";
-            this.BtSolveTaMTmM.Size = new System.Drawing.Size(50, 23);
-            this.BtSolveTaMTmM.TabIndex = 1;
-            this.BtSolveTaMTmM.Text = "Server";
-            this.BtSolveTaMTmM.UseVisualStyleBackColor = true;
-            this.BtSolveTaMTmM.Click += new System.EventHandler(this.BtSolveTaMTmM_Click);
-            // 
-            // BtStoreTaTm
-            // 
-            this.BtStoreTaTm.Location = new System.Drawing.Point(6, 19);
-            this.BtStoreTaTm.Name = "BtStoreTaTm";
-            this.BtStoreTaTm.Size = new System.Drawing.Size(114, 23);
-            this.BtStoreTaTm.TabIndex = 0;
-            this.BtStoreTaTm.Text = "Store 1st";
-            this.BtStoreTaTm.UseVisualStyleBackColor = true;
-            this.BtStoreTaTm.Click += new System.EventHandler(this.BtStoreTaTm_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(227, 6);
-            // 
-            // calculateIwToolStripMenuItem
-            // 
-            this.calculateIwToolStripMenuItem.Name = "calculateIwToolStripMenuItem";
-            this.calculateIwToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.calculateIwToolStripMenuItem.Text = "Calculate Iw";
-            this.calculateIwToolStripMenuItem.Click += new System.EventHandler(this.calculateIwToolStripMenuItem_Click);
-            // 
-            // calculateIdToolStripMenuItem
-            // 
-            this.calculateIdToolStripMenuItem.Name = "calculateIdToolStripMenuItem";
-            this.calculateIdToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
-            this.calculateIdToolStripMenuItem.Text = "Calculate Id";
-            this.calculateIdToolStripMenuItem.Click += new System.EventHandler(this.calculateIdToolStripMenuItem_Click);
+            this.BtSolveTaTbhm.Location = new System.Drawing.Point(77, 43);
+            this.BtSolveTaTbhm.Name = "BtSolveTaTbhm";
+            this.BtSolveTaTbhm.Size = new System.Drawing.Size(47, 23);
+            this.BtSolveTaTbhm.TabIndex = 4;
+            this.BtSolveTaTbhm.Text = "TBHM";
+            this.BtSolveTaTbhm.UseVisualStyleBackColor = true;
+            this.BtSolveTaTbhm.Click += new System.EventHandler(this.BtSolveTaTbhm_Click);
             // 
             // StatMultiplierTestingControl
             // 
@@ -996,6 +1018,8 @@
             this.Name = "StatMultiplierTestingControl";
             this.Size = new System.Drawing.Size(1188, 75);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudId)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTmM)).EndInit();
@@ -1009,7 +1033,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudStatValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLw)).EndInit();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1082,5 +1105,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem calculateIwToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem calculateIdToolStripMenuItem;
+        private System.Windows.Forms.Label LbTaTmTeStored;
+        private System.Windows.Forms.Button BtSolveTaTbhm;
     }
 }

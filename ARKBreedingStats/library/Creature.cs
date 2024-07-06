@@ -196,8 +196,8 @@ namespace ARKBreedingStats.Library
         {
             set
             {
-                if (growingPaused && value != null)
-                    growingLeft = value.Value.Subtract(DateTime.Now);
+                if (growingPaused)
+                    growingLeft = value?.Subtract(DateTime.Now) ?? TimeSpan.Zero;
                 else
                     _growingUntil = value == null || value <= DateTime.Now ? null : value;
             }

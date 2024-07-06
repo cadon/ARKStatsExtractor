@@ -26,7 +26,7 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             _currentSpecies = null;
 
-            var displayedStats = new int[]{
+            var displayedStats = new[]{
                 Stats.Health,
                 Stats.Stamina,
                 Stats.Oxygen,

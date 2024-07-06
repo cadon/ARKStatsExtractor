@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.uiControls
@@ -13,7 +14,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Set a species to display the stats of the current top levels. This can help in determine if a new creature is good.
         /// </summary>
-        public void SetSpecies(Species species, int[] highLevels, int[] lowLevels)
+        public void SetSpecies(Species species, TopLevels topLevels)
         {
             if (species == null)
             {
@@ -26,8 +27,9 @@ namespace ARKBreedingStats.uiControls
                 return;
             }
 
-            if (highLevels == null) highLevels = new int[Stats.StatsCount];
-            if (lowLevels == null) lowLevels = new int[Stats.StatsCount];
+            if (topLevels == null) topLevels = new TopLevels(true);
+            var highLevels = topLevels.WildLevelsHighest;
+            var lowLevels = topLevels.WildLevelsLowest;
 
             LbHeader.Text = $"Best stat values for bred creatures without imprinting of the species {species.DescriptiveNameAndMod} in this library.";
             string sbNames = null;

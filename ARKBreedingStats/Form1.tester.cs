@@ -1,12 +1,10 @@
 ﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -160,7 +158,7 @@ namespace ARKBreedingStats
             sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : Math.Max(0, TamingEffectivenessTester),
-                    rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0);
+                    rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0, roundToIngamePrecision: false);
         }
 
         private void creatureInfoInputTester_Add2Library_Clicked(CreatureInfoInput sender)
@@ -387,11 +385,20 @@ namespace ARKBreedingStats
             get => rbWildTester.Checked ? -3 : (double)NumericUpDownTestingTE.Value / 100;
             set => NumericUpDownTestingTE.ValueSave = (decimal)(value >= 0 ? value * 100 : -1);
         }
+
         private void CbLinkWildMutatedLevelsTester_CheckedChanged(object sender, EventArgs e)
         {
             var linkWildMutated = CbLinkWildMutatedLevelsTester.Checked;
             for (int s = 0; s < Stats.StatsCount; s++)
                 _testingIOs[s].LinkWildMutated = linkWildMutated;
+            Properties.Settings.Default.TesterLinkWildMutatedLevels = linkWildMutated;
+        }
+
+        private void BtSetImprinting100Tester_Click(object sender, EventArgs e)
+        {
+            // set imprinting to 100 %, or if already at 100 % to 0
+            numericUpDownImprintingBonusTester.ValueSaveDouble =
+                numericUpDownImprintingBonusTester.Value == 100 ? 0 : 100;
         }
     }
 }

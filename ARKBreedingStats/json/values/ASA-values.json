@@ -1,5 +1,5 @@
 {
-	"version": "41.18.99",
+	"version": "43.4.104",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -13,43 +13,150 @@
 			"blueprintPath": "/Game/ASA/Dinos/Ceratosaurus/Dinos/Ceratosaurus_Character_BP_ASA.Ceratosaurus_Character_BP_ASA",
 			"name": "Ceratosaurus",
 			"fullStatsRaw": [
-				[ 650, 0.2, 0.27, 0.5, 0 ],
-				[ 500, 0.1, 0.1, 0, 0 ],
+				[ 550, 0.2, 0.27, 0.5, 0 ],
+				[ 400, 0.1, 0.1, 0, 0 ],
 				[ 500, 0.06, 0, 0.5, 0 ],
 				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 6000, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
 				null,
 				null,
-				[ 550, 0.02, 0.04, 0, 0 ],
+				[ 350, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 0.5, 0.4 ],
 				[ 1, 0, 0, 0, 0 ],
 				null,
 				null
 			],
+			"altBaseStats": {
+				"0": 650,
+				"1": 500,
+				"4": 6000,
+				"7": 550
+			},
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 17998.5601,
-				"eggTempMin": 33,
-				"eggTempMax": 33,
+				"eggTempMin": 32,
+				"eggTempMax": 34,
 				"maturationTime": 476190.476,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
 			"taming": {
 				"nonViolent": true,
-				"violent": false
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 4250,
+				"affinityIncreasePL": 175,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 208.0343,
+				"babyFoodConsumptionMult": 510
 			},
 			"displayedStats": 927,
 			"skipWildLevelStats": 512,
 			"colors": [
-				{ "name": "Accents" },
+				{
+					"name": "Accents",
+					"colors": [
+						"Dino Medium Green",
+						"Dino Medium Brown",
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"Light Grey",
+						"Dino Albino",
+						"DryMoss",
+						"Custard",
+						"Dino Light Red",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonGreen0",
+						"WolfFur",
+						"LightCement",
+						"ActualBlack",
+						"Cream",
+						"MidnightBlue",
+						"DarkBlue",
+						"Black",
+						"DragonFire",
+						"DarkViolet",
+						"DragonBase0",
+						"Dino Dark Red"
+					]
+				},
 				null,
 				null,
 				null,
-				{ "name": "Spikes" },
-				{ "name": "Body" }
-			],
-			"immobilizedBy": [ "Chain Bola", "Large Bear Trap" ]
+				{
+					"name": "Spikes",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"Lavender",
+						"Peach",
+						"Coral",
+						"Vermillion",
+						"DarkMagenta",
+						"Turqoise",
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Albino",
+						"ActualBlack",
+						"DarkBlue",
+						"WyvernBlue1"
+					]
+				},
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"Dino Dark Orange",
+						"Dino Dark Green",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"BigFoot0",
+						"DarkWolfFur",
+						"Sage",
+						"MediumAutumn",
+						"SpruceGreen",
+						"Cammo",
+						"DryMoss",
+						"Custard",
+						"Cream",
+						"Dino Albino",
+						"BigFoot4",
+						"NearWhite"
+					]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Fasolasuchus/Fasola_Character_BP.Fasola_Character_BP",
@@ -352,6 +459,49 @@
 			"immobilizedBy": [ "Chain Bola", "Large Bear Trap", "Plant Species Y" ]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/FireLion/FireLion_Character_BP.FireLion_Character_BP",
+			"name": "Pyromane",
+			"fullStatsRaw": [
+				[ 600, 0.2, 0.27, 0.5, 0 ],
+				[ 350, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 300, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 8628.1277,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 5000,
+				"affinityIncreasePL": 25,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.001157,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Gigantoraptor/Gigantoraptor_Character_BP.Gigantoraptor_Character_BP",
 			"name": "Gigantoraptor",
 			"fullStatsRaw": [
@@ -614,42 +764,144 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/Shastasaurus/Shastasaurus_Character_BP.Shastasaurus_Character_BP",
+			"name": "Shastasaurus",
+			"fullStatsRaw": [
+				[ 4500, 0.12, 0.21, 0.3, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 8000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 3000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.65, 0.4 ],
+				[ 1, 0, 0.005, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": {
+				"0": 3600,
+				"1": 400,
+				"7": 1300
+			},
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 0.06,
+				"affinityNeeded0": 11000,
+				"affinityIncreasePL": 600,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 180.0011,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 520
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Xiphactinus/Dinos/Xiphactinus_Character_BP_ASA.Xiphactinus_Character_BP_ASA",
 			"name": "Xiphactinus",
 			"fullStatsRaw": [
 				[ 450, 0.2, 0.27, 0.3, 0 ],
 				[ 420, 0.1, 0.1, 0, 0 ],
 				[ 1100, 0.06, 0, 0.5, 0 ],
-				[ 150, 0, 0, 0, 0 ],
+				null,
 				[ 2000, 0.1, 0.1, 0, 0.15 ],
 				null,
 				null,
 				[ 300, 0.02, 0.04, 0, 0 ],
 				[ 1, 0.05, 0.1, 1, 0.4 ],
-				[ 1, 0, 0, 0.2, 0 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
 				null,
 				null
 			],
 			"breeding": {
 				"gestationTime": 0,
 				"incubationTime": 17998.5601,
-				"maturationTime": 200000,
+				"eggTempMin": -75,
+				"eggTempMax": 75,
+				"maturationTime": 333333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
 			"taming": {
 				"nonViolent": false,
-				"violent": true
+				"violent": true,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"torporDepletionPS0": 3.125,
+				"foodConsumptionBase": 0.001578,
+				"foodConsumptionMult": 352.0631,
+				"babyFoodConsumptionMult": 510
 			},
-			"displayedStats": 927,
+			"displayedStats": 919,
 			"skipWildLevelStats": 520,
 			"colors": [
-				{ "name": "Base color" },
+				{
+					"name": "Base color",
+					"colors": [
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Dark Purple",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black"
+					]
+				},
 				null,
 				null,
 				null,
-				{ "name": "Spine" },
-				{ "name": "Belly and fins" }
+				{
+					"name": "Spine",
+					"colors": [
+						"Dino Light Red",
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"Dino Albino"
+					]
+				},
+				{
+					"name": "Belly and fins",
+					"colors": [
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Dark Purple",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black"
+					]
+				}
 			]
 		},
 		{
@@ -1963,6 +2215,18 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter.Gorilla_Character_BP_TheCenter",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter_Hard.Gorilla_Character_BP_TheCenter_Hard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter_Medium.Gorilla_Character_BP_TheCenter_Medium",
+			"skipWildLevelStats": 512
+		},
+		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Griffin/Griffin_Character_BP.Griffin_Character_BP",
 			"skipWildLevelStats": 512
 		},
@@ -2341,6 +2605,18 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_Medium.SpiderL_Character_BP_Medium",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_TheCenter.SpiderL_Character_BP_TheCenter",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_TheCenterHard.SpiderL_Character_BP_TheCenterHard",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Large/SpiderL_Character_BP_TheCenterMedium.SpiderL_Character_BP_TheCenterMedium",
 			"skipWildLevelStats": 512
 		},
 		{

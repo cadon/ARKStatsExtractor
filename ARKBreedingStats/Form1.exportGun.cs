@@ -91,7 +91,7 @@ namespace ARKBreedingStats
 
                     if (displayPopup)
                         popupMessage = message + Environment.NewLine + tokenInfo
-                            + Environment.NewLine + Environment.NewLine + "Enable Streamer mode in Settings -> General to mask the token in future";
+                            + Environment.NewLine + Environment.NewLine + "Enable Streamer mode in Settings -> General to mask the token in the future";
                     message += tokenInfo;
                 }
 
@@ -111,7 +111,7 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(data.ServerHash))
             {
                 // import creature
-                var creature = ImportExportGun.LoadCreatureFromJson(data.JsonText, null, out resultText, out _, out _);
+                var creature = ImportExportGun.LoadCreatureFromExportGunJson(data.JsonText, out resultText, out _);
                 if (creature == null)
                 {
                     SetMessageLabelText(resultText, MessageBoxIcon.Error);

@@ -155,16 +155,12 @@ namespace ARKBreedingStats
             radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
             cbExactlyImprinting.BackColor = Color.Transparent;
             var species = speciesSelector1.SelectedSpecies;
-            _highestSpeciesLevels.TryGetValue(species, out int[] highSpeciesLevels);
-            _lowestSpeciesLevels.TryGetValue(species, out int[] lowSpeciesLevels);
-            _highestSpeciesMutationLevels.TryGetValue(species, out int[] highSpeciesMutationLevels);
-            //_lowestSpeciesMutationLevels.TryGetValue(species, out int[] lowSpeciesMutationLevels);
+            _topLevels.TryGetValue(species, out var topLevels);
 
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
 
-            LevelStatusFlags.DetermineLevelStatus(species, highSpeciesLevels, lowSpeciesLevels, highSpeciesMutationLevels,
-                statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(), GetCurrentBreedingValues(),
-                out var topStatsText, out var newTopStatsText);
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(),
+                GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
             {
@@ -280,8 +276,9 @@ namespace ARKBreedingStats
             var mutagenApplied = possiblyMutagenApplied || creatureInfoInputExtractor.CreatureFlags.HasFlag(CreatureFlags.MutagenApplied);
             var bred = rbBredExtractor.Checked;
             bool imprintingBonusChanged = false;
+            var useTroodonism = Troodonism.AffectedStats.None;
 
-            for (int i = 0; i < 2; i++)
+            while (true)
             {
                 _extractor.ExtractLevels(speciesSelector1.SelectedSpecies, (int)numericUpDownLevel.Value, _statIOs,
                     (double)numericUpDownLowerTEffBound.Value / 100, (double)numericUpDownUpperTEffBound.Value / 100,
@@ -290,14 +287,14 @@ namespace ARKBreedingStats
                     _creatureCollection.allowMoreThanHundredImprinting,
                     _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
                     _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep,
-                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged);
+                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged, useTroodonism);
 
                 // wild claimed babies look like bred creatures in the export files, but have to be considered tamed when imported
                 // if the extraction of an exported creature doesn't work, try with tamed settings
                 if (bred && numericUpDownImprintingBonusExtractor.Value == 0 && statInputsHighPrecision)
                 {
                     var someStatsHaveNoResults = false;
-                    var onlyStatsWithTEHaveNoResults = true;
+                    var onlyStatsWithTeHaveNoResults = true;
                     // check if only stats affected by TE have no result
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
@@ -307,18 +304,31 @@ namespace ARKBreedingStats
                             if (!_extractor.StatsWithTE.Contains(s))
                             {
                                 // the issue is not related to TE, so it's a different issue
-                                onlyStatsWithTEHaveNoResults = false;
+                                onlyStatsWithTeHaveNoResults = false;
                             }
                         }
                     }
 
-                    if (!someStatsHaveNoResults || !onlyStatsWithTEHaveNoResults) break;
+                    if (!someStatsHaveNoResults || !onlyStatsWithTeHaveNoResults) break;
 
                     // issue could be a wild claimed baby that should be considered tamed
                     _extractor.Clear();
                     rbTamedExtractor.Checked = true;
                     bred = false;
 
+                    continue;
+                }
+
+                // if extraction failed, it could be due to the troodonism bug. If the creature has alt stats and for one of these stats there is no result, try these
+                if (useTroodonism == Troodonism.AffectedStats.None
+                    && speciesSelector1.SelectedSpecies.altBaseStatsRaw?
+                        .Any(kv => !_extractor.Results[kv.Key].Any()) == true)
+                {
+                    if (rbWildExtractor.Checked)
+                        useTroodonism = Troodonism.AffectedStats.WildCombination;
+                    else
+                        useTroodonism = Troodonism.AffectedStats.UncryoCombination;
+                    _extractor.Clear();
                     continue;
                 }
 
@@ -458,7 +468,7 @@ namespace ARKBreedingStats
             }
             if (domLevelsChosenSum != _extractor.LevelDomSum)
             {
-                // sum of domlevels is not correct. Try to find another combination
+                // sum of dom levels is not correct. Try to find another combination
                 domLevelsChosenSum -= _extractor.Results[Stats.MeleeDamageMultiplier][_extractor.ChosenResults[Stats.MeleeDamageMultiplier]].levelDom;
                 bool changeChosenResult = false;
                 int cR = 0;
@@ -625,26 +635,14 @@ namespace ARKBreedingStats
                 redInfoText = Loc.S("lbImprintingFailInfo");
             }
             if (!rbWildExtractor.Checked
-                && new[]{
-                            "Desert Titan",
-                            "Desert Titan Flock",
-                            "Ice Titan",
-                            "Gacha",
-                            "Aberrant Electrophorus",
-                            "Electrophorus",
-                            "Aberrant Pulmonoscorpius",
-                            "Pulmonoscorpius",
-                            "Aberrant Titanoboa",
-                            "Titanoboa",
-                            "Pegomastax",
-                            "Procoptodon",
-                            "Troodon"
-                        }.Contains(speciesSelector1.SelectedSpecies.name))
+                && speciesSelector1.SelectedSpecies.altBaseStatsRaw?
+                    .Any(kv => _statIOs[kv.Key].Status == StatIOStatus.Error) == true
+                )
             {
-                // creatures that display wrong stat-values after taming
+                // creatures that display wrong stat-values after taming (Troodonism bug)
                 redInfoText = (string.IsNullOrEmpty(redInfoText) ? string.Empty : redInfoText + "\n")
-                        + $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming. " +
-                        "This can prevent a successful extraction. Currently there's no known fix for that issue.";
+                        + $"The {speciesSelector1.SelectedSpecies.name} is known for displaying wrong stat-values after taming (Troodonism bug). " +
+                        "This can prevent a successful extraction. The correct stat value should be displayed directly after a server restart and is unreliable else.";
             }
 
             if (!string.IsNullOrEmpty(redInfoText))
@@ -1544,5 +1542,11 @@ namespace ARKBreedingStats
         }
 
         #endregion
+
+        private void BtSetImprinting0_Click(object sender, EventArgs e)
+            => numericUpDownImprintingBonusExtractor.ValueSave = 0;
+
+        private void BtSetImprinting100_Click(object sender, EventArgs e)
+            => numericUpDownImprintingBonusExtractor.ValueSave = 100;
     }
 }

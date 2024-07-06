@@ -262,8 +262,7 @@ namespace ARKBreedingStats
 
                     string newFileName = Properties.Settings.Default.AutoImportedExportFileRename && !string.IsNullOrWhiteSpace(namePattern)
                         ? NamePattern.GenerateCreatureName(creature, alreadyExistingCreature,
-                            creaturesOfSpecies ?? _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
-                            null, null,
+                            creaturesOfSpecies ?? _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(), null,
                             _customReplacingNamingPattern, false, -1, false, namePattern, libraryCreatureCount: _creatureCollection.GetTotalCreatureCount())
                         : Path.GetFileName(filePath);
 
@@ -332,9 +331,8 @@ namespace ARKBreedingStats
                         totalCreatureCount = _creatureCollection.GetTotalCreatureCount();
 
                     creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
-                        _highestSpeciesLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
-                        _lowestSpeciesLevels.TryGetValue(creature.Species, out var lowestLevels) ? lowestLevels : null,
-                        _customReplacingNamingPattern, false, 0, libraryCreatureCount: totalCreatureCount);
+                        _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
+                        _customReplacingNamingPattern, false, 0, Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: totalCreatureCount);
                     if (alreadyExistingCreature != null)
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
                 }

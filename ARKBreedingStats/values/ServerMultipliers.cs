@@ -76,6 +76,16 @@ namespace ARKBreedingStats.values
             }
         }
 
+        public ServerMultipliers() { }
+
+        public ServerMultipliers(bool withStatMultipliersObject)
+        {
+            if (!withStatMultipliersObject) return;
+            statMultipliers = new double[Stats.StatsCount][];
+            for (int s = 0; s < Stats.StatsCount; s++)
+                statMultipliers[s] = new double[4];
+        }
+
         /// <summary>
         /// Returns a copy of the server multipliers
         /// </summary>
@@ -131,5 +141,22 @@ namespace ARKBreedingStats.values
             if (BabyCuddleIntervalMultiplier == 0) BabyCuddleIntervalMultiplier = 1;
             if (BabyImprintAmountMultiplier == 0) BabyImprintAmountMultiplier = 1;
         }
+
+        /// <summary>
+        /// Index of additive taming multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexTamingAdd = 0;
+        /// <summary>
+        /// Index of multiplicative taming multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexTamingMult = 1;
+        /// <summary>
+        /// Index of domesticated level multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexLevelDom = 2;
+        /// <summary>
+        /// Index of wild level multiplier in stat multipliers.
+        /// </summary>
+        public const int IndexLevelWild = 3;
     }
 }

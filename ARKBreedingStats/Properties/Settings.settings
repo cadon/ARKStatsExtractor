@@ -461,17 +461,11 @@
     <Setting Name="InfoGraphicShowRegionNamesIfNoImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ChartHueMin" Type="System.Int32" Scope="User">
+    <Setting Name="ChartHueEvenMin" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="ChartHueMax" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">120</Value>
-    </Setting>
-    <Setting Name="ChartHueEvenMin" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">120</Value>
-    </Setting>
     <Setting Name="ChartHueEvenMax" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">200</Value>
+      <Value Profile="(Default)">120</Value>
     </Setting>
     <Setting Name="ChartHueOddMin" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">240</Value>
@@ -604,6 +598,15 @@
     </Setting>
     <Setting Name="MoveMutationLevelsOnExtractionIfUnique" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TesterLinkWildMutatedLevels" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="DisplayWarningAboutTooLongNameGenerated" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LevelColorWindowRectangle" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">200, 200, 1000, 650</Value>
     </Setting>
   </Settings>
 </SettingsFile>
