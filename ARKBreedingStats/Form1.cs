@@ -15,7 +15,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.StatsOptions;
@@ -92,7 +91,7 @@ namespace ARKBreedingStats
         private static double[] _lastOcrValues;
         private Species _lastOcrSpecies;
 
-        private readonly StatsOptionsSettings<StatLevelColors> _statsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json");
+        internal static readonly StatsOptionsSettings<StatLevelColors> StatsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json");
 
         public Form1()
         {
@@ -255,7 +254,7 @@ namespace ARKBreedingStats
             // conversion of global color level settings to specific options. Remove around 2024-09
             if (Properties.Settings.Default.ChartHueEvenMax != int.MaxValue)
             {
-                var defaultSettings = _statsLevelColors.StatsOptionsDict[string.Empty].StatOptions;
+                var defaultSettings = StatsLevelColors.StatsOptionsDict[string.Empty].StatOptions;
                 for (var s = 0; s < Stats.StatsCount; s++)
                 {
                     defaultSettings[s].LevelGraphRepresentation.LowerColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueEvenMin);
@@ -711,7 +710,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.SelectedSpecies = species;
             radarChart1.SetLevels(species: species);
             var statNames = species.statNames;
-            var levelGraphRepresentations = _statsLevelColors.GetStatsOptions(species);
+            var levelGraphRepresentations = StatsLevelColors.GetStatsOptions(species);
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -1437,7 +1436,7 @@ namespace ARKBreedingStats
             /////// save settings for next session
             Properties.Settings.Default.Save();
 
-            _statsLevelColors.SaveSettings();
+            StatsLevelColors.SaveSettings();
 
             // remove old cache-files
             CreatureColored.CleanupCache();
@@ -2123,7 +2122,7 @@ namespace ARKBreedingStats
             var gameSettingBefore = _creatureCollection.Game;
             var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
-            using (Settings settingsForm = new Settings(_creatureCollection, page, _statsLevelColors))
+            using (Settings settingsForm = new Settings(_creatureCollection, page, StatsLevelColors))
             {
                 var settingsSaved = settingsForm.ShowDialog() == DialogResult.OK;
                 _settingsLastTabPage = settingsForm.LastTabPageIndex;
@@ -3999,7 +3998,7 @@ namespace ARKBreedingStats
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LevelGraphOptionsControl.ShowWindow(this, _statsLevelColors);
+            LevelGraphOptionsControl.ShowWindow(this, StatsLevelColors);
         }
     }
 }

@@ -3,7 +3,6 @@ using ARKBreedingStats.utils;
 using System;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using ARKBreedingStats.StatsOptions;
 
@@ -157,6 +156,7 @@ Ctrl + left click to reset colors.",
             _selectedStatsOptions = _cbbOptions.SelectedItem as StatsOptions<StatLevelColors>;
             if (_selectedStatsOptions == null) return;
             _selectedStatsOptions.ParentOptions = _cbbParent.SelectedItem as StatsOptions<StatLevelColors>;
+            _statsOptionsSettings.ClearSpeciesCache();
         }
 
         private void TbOptionsName_Leave(object sender, EventArgs e)
@@ -174,6 +174,7 @@ Ctrl + left click to reset colors.",
             _statsOptionsSettings.StatsOptionsDict.Add(newName, _selectedStatsOptions);
             // update text in combobox
             _cbbOptions.Items[_cbbOptions.SelectedIndex] = _selectedStatsOptions;
+            _statsOptionsSettings.ClearSpeciesCache();
         }
 
         private void BtNew_Click(object sender, EventArgs e)
@@ -187,6 +188,8 @@ Ctrl + left click to reset colors.",
             _statsOptionsSettings.StatsOptionsDict.Add(newName, newSettings);
             InitializeOptions();
             _cbbOptions.SelectedItem = newSettings;
+            _tbOptionsName.Focus();
+            _tbOptionsName.SelectAll();
         }
 
         private void BtRemove_Click(object sender, EventArgs e)
@@ -208,6 +211,7 @@ Ctrl + left click to reset colors.",
             InitializeOptions();
             if (_cbbOptions.Items.Count > 0)
                 _cbbOptions.SelectedIndex = Math.Max(0, index - 1); // select item before deleted one
+            _statsOptionsSettings.ClearSpeciesCache();
         }
 
         public void SetSpecies(Species s)
