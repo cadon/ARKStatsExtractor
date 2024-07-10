@@ -138,6 +138,10 @@ namespace ARKBreedingStats
 
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
+            // keep selected parents
+            Mother = Mother;
+            Father = Father;
+
             Add2LibraryClicked?.Invoke(this);
         }
 
