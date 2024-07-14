@@ -95,11 +95,10 @@ namespace ARKBreedingStats.NamePatterns
 
             string[] creatureNames = null;
 
-            if (showDuplicateNameWarning || pattern.Contains("{n}"))
-                creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
-
-            
             var shebangMatch = JavaScriptShebang.Match(pattern);
+
+            if (showDuplicateNameWarning || pattern.Contains("{n}") || shebangMatch.Success)
+                creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
 
             if (shebangMatch.Success)
             {
@@ -118,6 +117,39 @@ namespace ARKBreedingStats.NamePatterns
                 MessageBox.Show($"The generated name is longer than {Ark.MaxCreatureNameLength} characters, the name will look like this in game:\n" + name.Substring(0, Ark.MaxCreatureNameLength), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+            return name;
+        }
+
+        private static string ResolveTemplate(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError)
+        {
+            var tokenDictionary = CreateTokenDictionary(tokenModel);
+            // first resolve keys, then functions
+            string name = ResolveFunctions(
+                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
+                creature, customReplacings, displayError, false, colorsExisting);
+            if (name.Contains("{n}"))
+            {
+                // replace the unique number key with the lowest possible positive number >= 1 to get a unique name.
+                string numberedUniqueName;
+                string lastNumberedUniqueName = null;
+
+                int n = 1;
+                do
+                {
+                    numberedUniqueName = ResolveFunctions(
+                        ResolveKeysToValues(tokenDictionary, name, n++),
+                        creature, customReplacings, displayError, true, colorsExisting);
+
+                    // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
+                    if (numberedUniqueName == lastNumberedUniqueName) break;
+
+                    lastNumberedUniqueName = numberedUniqueName;
+                } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
+                name = numberedUniqueName;
+            }
+
+            // evaluate escaped characters
+            name = NamePatternFunctions.UnEscapeSpecialCharacters(name.Replace(PipeEscapeSequence, "|"));
             return name;
         }
 
@@ -171,39 +203,7 @@ namespace ARKBreedingStats.NamePatterns
             }
         }
 
-        private static string ResolveTemplate(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError)
-        {
-            var tokenDictionary = CreateTokenDictionary(tokenModel);
-            // first resolve keys, then functions
-            string name = ResolveFunctions(
-                ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
-                creature, customReplacings, displayError, false, colorsExisting);
-            if (name.Contains("{n}"))
-            {
-                // replace the unique number key with the lowest possible positive number >= 1 to get a unique name.
-                string numberedUniqueName;
-                string lastNumberedUniqueName = null;
-
-                int n = 1;
-                do
-                {
-                    numberedUniqueName = ResolveFunctions(
-                        ResolveKeysToValues(tokenDictionary, name, n++),
-                        creature, customReplacings, displayError, true, colorsExisting);
-
-                    // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
-                    if (numberedUniqueName == lastNumberedUniqueName) break;
-
-                    lastNumberedUniqueName = numberedUniqueName;
-                } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
-                name = numberedUniqueName;
-            }
-
-            // evaluate escaped characters
-            name = NamePatternFunctions.UnEscapeSpecialCharacters(name.Replace(PipeEscapeSequence, "|"));
-            return name;
-        }
-
+        
         /// <summary>
         /// Resolves functions in the pattern.
         /// A function expression looks like {{#function_name:{xxx}|2|3}}, e.g. {{#substring:{HP}|2|3}}
@@ -390,23 +390,27 @@ namespace ARKBreedingStats.NamePatterns
                 species = creature.Species.name,
                 spcsnm = spcsNm,
                 firstwordofoldest = firstWordOfOldest,
+
                 owner = creature.owner,
                 tribe = creature.tribe,
                 server = creature.server,
+
                 sex = creature.sex,
                 sex_short = creature.sex.ToString().Substring(0, 1),
-                effimp = $"{prefix}{effImp}",
+
                 effimp_short = effImp.HasValue ? effImp.ToString() : prefix,
-                effimp_value = effImp,
                 index = index,
                 oldname = oldName,
                 sex_lang = Loc.S(creature.sex.ToString()),
                 sex_lang_short = Loc.S(creature.sex.ToString()).Substring(0, 1),
                 sex_lang_gen = Loc.S(creature.sex.ToString() + "_gen"),
                 sex_lang_short_gen = Loc.S(creature.sex.ToString() + "_gen").Substring(0, 1),
+                
                 toppercent = (creature.topness / 10f),
                 baselvl = creature.LevelHatched,
                 levelpretamed = creature.levelFound,
+                effimp = $"{prefix}{effImp}",
+                effimp_value = effImp,
                 muta = creature.Mutations,
                 mutam = creature.mutationsMaternal,
                 mutap = creature.mutationsPaternal,
