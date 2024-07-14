@@ -45,7 +45,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
         public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] sameSpecies, TopLevels topLevels, Dictionary<string, string> customReplacings,
             bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
-            CreatureCollection.ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> javaScriptConsoleWrite = null)
+            CreatureCollection.ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
         {
             if (pattern == null)
             {
@@ -102,7 +102,7 @@ namespace ARKBreedingStats.NamePatterns
 
             if (shebangMatch.Success)
             {
-                name = ResolveJavaScript(pattern.Substring(shebangMatch.Length), tokenModel, customReplacings, colorsExisting, creatureNames, displayError, javaScriptConsoleWrite);
+                name = ResolveJavaScript(pattern.Substring(shebangMatch.Length), tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
             }
             else
             {
@@ -161,7 +161,7 @@ namespace ARKBreedingStats.NamePatterns
 
                 try
                 {
-                    engine.SetValue("model", tokenModel);
+                    engine.SetValue("c", tokenModel);
                     engine.SetValue("log", log);
                     engine.Execute(pattern);
 
@@ -176,7 +176,7 @@ namespace ARKBreedingStats.NamePatterns
                             log($">> Name not unique. Repeating with model.n = {n}");
                         }
 
-                        engine.Execute($"model.n = {n}");
+                        engine.Execute($"c.n = {n}");
 
                         numberedUniqueName = engine.Evaluate("nameCreature()").ToString();
 

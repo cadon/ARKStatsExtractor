@@ -50,7 +50,6 @@
             this.BtClearFilterKey = new System.Windows.Forms.Button();
             this.TabPagePatternTemplates = new System.Windows.Forms.TabPage();
             this.TabPageJavaScriptConsole = new System.Windows.Forms.TabPage();
-            this.BtnJavaScriptConsoleClear = new System.Windows.Forms.Button();
             this.TextboxJavaScriptConsole = new System.Windows.Forms.TextBox();
             this.CbPatternNameToClipboardAfterManualApplication = new System.Windows.Forms.CheckBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -303,7 +302,6 @@
             // 
             // TabPageJavaScriptConsole
             // 
-            this.TabPageJavaScriptConsole.Controls.Add(this.BtnJavaScriptConsoleClear);
             this.TabPageJavaScriptConsole.Controls.Add(this.TextboxJavaScriptConsole);
             this.TabPageJavaScriptConsole.Location = new System.Drawing.Point(4, 22);
             this.TabPageJavaScriptConsole.Name = "TabPageJavaScriptConsole";
@@ -313,27 +311,15 @@
             this.TabPageJavaScriptConsole.Text = "JavaScript Console";
             this.TabPageJavaScriptConsole.UseVisualStyleBackColor = true;
             // 
-            // BtnJavaScriptConsoleClear
-            // 
-            this.BtnJavaScriptConsoleClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnJavaScriptConsoleClear.Location = new System.Drawing.Point(607, 435);
-            this.BtnJavaScriptConsoleClear.Name = "BtnJavaScriptConsoleClear";
-            this.BtnJavaScriptConsoleClear.Size = new System.Drawing.Size(75, 23);
-            this.BtnJavaScriptConsoleClear.TabIndex = 1;
-            this.BtnJavaScriptConsoleClear.Text = "Clear";
-            this.BtnJavaScriptConsoleClear.UseVisualStyleBackColor = true;
-            this.BtnJavaScriptConsoleClear.Click += new System.EventHandler(this.BtnJavaScriptConsoleClear_Click);
-            // 
             // TextboxJavaScriptConsole
             // 
-            this.TextboxJavaScriptConsole.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextboxJavaScriptConsole.Location = new System.Drawing.Point(6, 6);
+            this.TextboxJavaScriptConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextboxJavaScriptConsole.Enabled = false;
+            this.TextboxJavaScriptConsole.Location = new System.Drawing.Point(3, 3);
             this.TextboxJavaScriptConsole.Multiline = true;
             this.TextboxJavaScriptConsole.Name = "TextboxJavaScriptConsole";
             this.TextboxJavaScriptConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.TextboxJavaScriptConsole.Size = new System.Drawing.Size(676, 423);
+            this.TextboxJavaScriptConsole.Size = new System.Drawing.Size(682, 458);
             this.TextboxJavaScriptConsole.TabIndex = 0;
             // 
             // CbPatternNameToClipboardAfterManualApplication
@@ -426,6 +412,5 @@
         private System.Windows.Forms.TabPage TabPagePatternTemplates;
         private System.Windows.Forms.TabPage TabPageJavaScriptConsole;
         private System.Windows.Forms.TextBox TextboxJavaScriptConsole;
-        private System.Windows.Forms.Button BtnJavaScriptConsoleClear;
     }
 }
