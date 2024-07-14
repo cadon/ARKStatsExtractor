@@ -136,13 +136,15 @@ namespace ARKBreedingStats.NamePatterns
                     string numberedUniqueName;
                     string lastNumberedUniqueName = null;
 
-                    tokenModel.n = 1;
+                    var n = 1;
                     do
                     {
-                        if(tokenModel.n > 1)
+                        if(n > 1)
                         {
-                            log($">> Name not unique. Repeating with tokenModel.n = {tokenModel.n}");
+                            log($">> Name not unique. Repeating with model.n = {n}");
                         }
+
+                        engine.Execute($"model.n = {n}");
 
                         numberedUniqueName = engine.Evaluate("nameCreature()").ToString();
 
@@ -150,8 +152,8 @@ namespace ARKBreedingStats.NamePatterns
                         if (numberedUniqueName == lastNumberedUniqueName) break;
 
                         lastNumberedUniqueName = numberedUniqueName;
-                        tokenModel.n++;
-                    } while (creatureNames?.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase) != true);
+                        n++;
+                    } while (creatureNames?.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase) == true);
 
                     return numberedUniqueName;
                 }

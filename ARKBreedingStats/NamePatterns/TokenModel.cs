@@ -5,8 +5,6 @@ namespace ARKBreedingStats.NamePatterns
     public class TokenModel
     {
         internal int? effimp_value;
-        internal int n;
-
         public string species { get; set; }
         public string spcsnm { get; set; }
         public string firstwordofoldest { get; set; }
