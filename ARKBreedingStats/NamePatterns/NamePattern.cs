@@ -9,8 +9,6 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
-using Jint;
-
 using static ARKBreedingStats.Library.CreatureCollection;
 
 namespace ARKBreedingStats.NamePatterns
@@ -23,10 +21,7 @@ namespace ARKBreedingStats.NamePatterns
         private const string PipeEscapeSequence = @"\pipe";
 
         public static Random Random = new Random();
-
-        public static Regex JavaScriptShebang = new Regex(@"^\#!javascript\s*?\n", RegexOptions.IgnoreCase);
-
-        private static Func<TokenModel, StatTokens>[] statAccessors = new Func<TokenModel, StatTokens>[]{
+        private static Func<TokenModel, StatModel>[] statAccessors = new Func<TokenModel, StatModel>[]{
             m => m.hp, // StatNames.Health;
             m => m.st, // StatNames.Stamina;
             m => m.to, // StatNames.Torpidity;
@@ -91,20 +86,20 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             if (tokenModel == null)
-                tokenModel = CreateTokenModel(creature, alreadyExistingCreature, sameSpecies, topLevels, libraryCreatureCount);
+                tokenModel = CreateTokenModel(creature, alreadyExistingCreature, sameSpecies, colorsExisting, topLevels, libraryCreatureCount);
 
             string name;
 
             string[] creatureNames = null;
 
-            var shebangMatch = JavaScriptShebang.Match(pattern);
+            var shebangMatch = JavaScriptNamePattern.JavaScriptShebang.Match(pattern);
 
             if (showDuplicateNameWarning || pattern.Contains("{n}") || shebangMatch.Success)
                 creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
 
             if (shebangMatch.Success)
             {
-                name = ResolveJavaScript(pattern.Substring(shebangMatch.Length), creature, tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
+                name = JavaScriptNamePattern.ResolveJavaScript(pattern.Substring(shebangMatch.Length), creature, tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
             }
             else
             {
@@ -154,102 +149,6 @@ namespace ARKBreedingStats.NamePatterns
             name = NamePatternFunctions.UnEscapeSpecialCharacters(name.Replace(PipeEscapeSequence, "|"));
             return name;
         }
-
-        private static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
-        {
-            using (var engine = new Engine(options => {
-                options.TimeoutInterval(TimeSpan.FromSeconds(4));
-            }))
-            {
-                var log = consoleLog ?? ((s) => { });
-
-                try
-                {
-                    engine.SetValue("c", tokenModel);
-                    engine.SetValue("log", log);
-                    engine.SetValue<Func<string, string, string>>("customReplace", (key, defaultValue) => CustomReplace(key, defaultValue, customReplacings));
-                    engine.SetValue<Func<int, bool, bool, string>>("color", (regionId, returnName, evenUnused) => FunctionColor(regionId, returnName, evenUnused, creature));
-                    engine.SetValue<Func<int, string>>("colorNew", (regionId) => FunctionColorNew(regionId, colorsExisting));
-                    engine.Execute(pattern);
-
-                    string numberedUniqueName;
-                    string lastNumberedUniqueName = null;
-
-                    var n = 1;
-                    do
-                    {
-                        if(n > 1)
-                        {
-                            log($">> Name not unique. Repeating with model.n = {n}");
-                        }
-
-                        engine.Execute($"c.n = {n}");
-
-                        numberedUniqueName = engine.Evaluate("nameCreature()").ToString();
-
-                        // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
-                        if (numberedUniqueName == lastNumberedUniqueName) break;
-
-                        lastNumberedUniqueName = numberedUniqueName;
-                        n++;
-                    } while (creatureNames?.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase) == true);
-
-                    return numberedUniqueName;
-                }
-                catch (Exception ex)
-                {
-                    if(displayError)
-                    {
-                        MessageBoxes.ShowMessageBox($"The naming script generated an exception\n\nSpecific error:\n{ex.Message}", $"Naming script error");
-                        return null;
-                    }
-
-                    log($">> ERROR: {ex.Message}");
-                    return ex.Message;
-                }
-            }
-        }
-
-        private static string CustomReplace(string key, string defaultValue, Dictionary<string, string> customReplacings)
-        {
-            return string.IsNullOrEmpty(key) || customReplacings?.TryGetValue(key, out var replacement) != true
-                ? defaultValue
-                : replacement;
-        }
-
-        private static string FunctionColor(int regionId, bool returnName, bool evenUnused, Creature creature)
-        {
-            if (regionId < 0 || regionId > 5) throw new Exception("color region id has to be a number in the range 0 - 5");
-
-            if (creature.colors == null || (!creature.Species.EnabledColorRegions[regionId] && !evenUnused))
-                return string.Empty; // species does not use this region and user doesn't want it
-
-            return returnName
-                ? CreatureColors.CreatureColorName(creature.colors[regionId])
-                : creature.colors[regionId].ToString();
-        }
-
-        /// <summary>
-        /// Returns new if the color is newInRegion in this region, returns newInSpecies if the color is new in all regions of this species, else returns string.Empty.
-        /// </summary>
-        private static string FunctionColorNew(int regionId, ColorExisting[] colorsExisting)
-        {
-            // parameter 1: region id (0,...,5)
-            if (regionId < 0 || regionId > 5) throw new Exception("color region id has to be a number in the range 0 - 5");
-
-            if (colorsExisting == null) return string.Empty;
-
-            switch (colorsExisting[regionId])
-            {
-                case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
-                    return "newInRegion";
-                case CreatureCollection.ColorExisting.ColorIsNew:
-                    return "newInSpecies";
-                default:
-                    return string.Empty;
-            }
-        }
-
 
         /// <summary>
         /// Resolves functions in the pattern.
@@ -335,7 +234,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="speciesCreatures">A list of all currently stored creatures of the species</param>
         /// <param name="topLevels">top levels of that species</param>
         /// <returns>A strongly typed model containing all tokens and their values</returns>
-        public static TokenModel CreateTokenModel(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, TopLevels topLevels, int libraryCreatureCount)
+        public static TokenModel CreateTokenModel(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, ColorExisting[] colorExistings, TopLevels topLevels, int libraryCreatureCount)
         {
             string dom = creature.isBred ? "B" : "T";
             double imp = creature.imprintingBonus * 100;
@@ -516,6 +415,22 @@ namespace ARKBreedingStats.NamePatterns
                 model.highest_s[s] = s < usedStatsCount ? Utils.StatName(levelOrderWild[s].Item1, true, creature.Species.statNames) : string.Empty;
                 model.highest_l_m[s] = s < usedStatsCount ? levelOrderMutated[s].Item2.ToString() : string.Empty;
                 model.highest_s_m[s] = s < usedStatsCount ? Utils.StatName(levelOrderMutated[s].Item1, true, creature.Species.statNames) : string.Empty;
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                var colorId = creature.colors[i];
+                ColorExisting colorExisting = colorExistings != null ? colorExistings[i] : ColorExisting.Unknown;
+
+                model.colors[i] = new ColorModel
+                {
+                    id = colorId,
+                    name = CreatureColors.CreatureColorName(colorId),
+                    used = creature.Species.EnabledColorRegions[i],
+                    @new = colorExisting == ColorExisting.ColorExistingInOtherRegion ? "newInRegion"
+                     : colorExisting == ColorExisting.ColorIsNew ? "newInSpecies"
+                     : string.Empty
+                };
             }
 
             return model;

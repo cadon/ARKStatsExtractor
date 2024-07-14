@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
+    <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
     <Compile Include="StatsOptions\StatOptionsBase.cs" />
     <Compile Include="StatsOptions\LevelGraphRepresentation.cs" />

@@ -1358,4 +1358,22 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="paste" xml:space="preserve">
     <value>paste</value>
   </data>
+  <data name="JavaScriptNamingPatternHelp" xml:space="preserve">
+    <value>/*
+  JavaScript patterns are enabled by using the text "#!javascript" as the first line of the pattern.
+  The script must implement the function "nameCreature(): string".
+  Creature values are available on the global variable "c".
+
+  In addition to the standard JavaScript functions, additional functions include:
+    log(text):
+      Writes the text to the javascript console
+
+    customReplace(key, defaultValue):
+      Replaces the text with a value saved in the file customReplacings.json.
+      If a second parameter is given, that is returned if the key is not available.
+
+    listName(index, suffix):
+      Takes a name from a list in the file creatureNames[suffix].txt
+*/</value>
+  </data>
 </root>

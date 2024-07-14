@@ -313,14 +313,16 @@
             // 
             // TextboxJavaScriptConsole
             // 
+            this.TextboxJavaScriptConsole.BackColor = System.Drawing.SystemColors.Window;
             this.TextboxJavaScriptConsole.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextboxJavaScriptConsole.Enabled = false;
             this.TextboxJavaScriptConsole.Location = new System.Drawing.Point(3, 3);
             this.TextboxJavaScriptConsole.Multiline = true;
             this.TextboxJavaScriptConsole.Name = "TextboxJavaScriptConsole";
-            this.TextboxJavaScriptConsole.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.TextboxJavaScriptConsole.ReadOnly = true;
+            this.TextboxJavaScriptConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.TextboxJavaScriptConsole.Size = new System.Drawing.Size(682, 458);
             this.TextboxJavaScriptConsole.TabIndex = 0;
+            this.TextboxJavaScriptConsole.WordWrap = false;
             // 
             // CbPatternNameToClipboardAfterManualApplication
             // 

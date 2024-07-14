@@ -51,6 +51,11 @@
       "Pattern": "{sex_short}{n} {{#list:\r\n{{#ifexpr: {hp} > 35 | {{#if: {isTophp} | HP{hp}/ }} }}\r\n{{#ifexpr: {st} > 35 | {{#if: {isTopst} | ST{st}/ }} }}\r\n{{#ifexpr: {ox} > 35 | {{#if: {isTopox} | OX{ox}/ }} }}\r\n{{#ifexpr: {fo} > 35 | {{#if: {isTopfo} |  F{fo}/ }} }}\r\n{{#ifexpr: {we} > 35 | {{#if: {isTopwe} |  W{we}/ }} }}\r\n{{#ifexpr: {dm} > 35 | {{#if: {isTopdm} |  D{dm}/ }} }}\r\n{{#ifexpr: {sp} > 35 | {{#if: {isTopsp} | SP{sp}/ }} }}\r\n{{#ifexpr: {cr} > 35 | {{#if: {isTopcr} |  C{cr}/ }} }}\r\n| / | / }}",
       "Title": "Gender and top stats (if they're > 35)",
       "Description": "Shows gender & number (if multiple). Shows all top stats creature has upper 35 points.\nExample: F1 HP46/OX37/D42\nBy Xeikos"
+    },
+    {
+      "Pattern": "#!javascript\r\n{{loc(JavaScriptNamingPatternHelp)}}\r\n\r\nlog(JSON.stringify(c, null, '  '))\r\n\r\nfunction nameCreature() {\r\n  let statList = [\r\n    c.hp.istop ? `HP${c.hp.level}` : null,\r\n    c.st.istop ? `ST${c.st.level}` : null,\r\n    c.ox.istop ? `OX${c.ox.level}` : null,\r\n    c.fo.istop ? `FO${c.fo.level}` : null,\r\n    c.we.istop ? `WE${c.we.level}` : null,\r\n    c.dm.istop ? `DM${c.dm.level}` : null,\r\n  ];\r\n\r\n  return `${c.sex_short}${c.baselvl}-${c.n} | ${statList.filter(x => !!x).join('/')}`\r\n}",
+      "Title": "Javascript sample with output of creature data",
+      "Description": "Outputs javascript template help text along with a sample script"
     }
   ]
 }

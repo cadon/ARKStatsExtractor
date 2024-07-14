@@ -5,6 +5,7 @@ namespace ARKBreedingStats.NamePatterns
     public class TokenModel
     {
         internal int? effimp_value;
+
         public string species { get; set; }
         public string spcsnm { get; set; }
         public string firstwordofoldest { get; set; }
@@ -41,25 +42,26 @@ namespace ARKBreedingStats.NamePatterns
         public int rnd { get; set; }
         public string dom { get; set; }
         public CreatureStatus status { get; set; }
-        public StatTokens te { get; set; } = new StatTokens();
-        public StatTokens hp { get; set; } = new StatTokens();
-        public StatTokens st { get; set; } = new StatTokens();
-        public StatTokens to { get; set; } = new StatTokens();
-        public StatTokens ox { get; set; } = new StatTokens();
-        public StatTokens fo { get; set; } = new StatTokens();
-        public StatTokens wa { get; set; } = new StatTokens();
-        public StatTokens we { get; set; } = new StatTokens();
-        public StatTokens dm { get; set; } = new StatTokens();
-        public StatTokens sp { get; set; } = new StatTokens();
-        public StatTokens fr { get; set; } = new StatTokens();
-        public StatTokens cr { get; set; } = new StatTokens();
+        public StatModel te { get; set; } = new StatModel();
+        public StatModel hp { get; set; } = new StatModel();
+        public StatModel st { get; set; } = new StatModel();
+        public StatModel to { get; set; } = new StatModel();
+        public StatModel ox { get; set; } = new StatModel();
+        public StatModel fo { get; set; } = new StatModel();
+        public StatModel wa { get; set; } = new StatModel();
+        public StatModel we { get; set; } = new StatModel();
+        public StatModel dm { get; set; } = new StatModel();
+        public StatModel sp { get; set; } = new StatModel();
+        public StatModel fr { get; set; } = new StatModel();
+        public StatModel cr { get; set; } = new StatModel();
         public string[] highest_l { get; set; } = new string[Stats.StatsCount];
         public string[] highest_s { get; set; } = new string[Stats.StatsCount];
         public string[] highest_l_m { get; set; } = new string[Stats.StatsCount];
         public string[] highest_s_m { get; set; } = new string[Stats.StatsCount];
+        public ColorModel[] colors { get; set; } = new ColorModel[6];
     }
 
-    public class StatTokens
+    public class StatModel
     {
         public int level { get; set; }
         public double level_vb { get; set; }
@@ -72,5 +74,13 @@ namespace ARKBreedingStats.NamePatterns
         public bool islowest_m { get; set; }
         public bool isnewlowest_m { get; set; }
         public int level_m { get; set; }
+    }
+
+    public class ColorModel
+    {
+        public byte id { get; set; }
+        public string name { get; set; }
+        public bool used { get; set; }
+        public string @new { get; set; }
     }
 }
