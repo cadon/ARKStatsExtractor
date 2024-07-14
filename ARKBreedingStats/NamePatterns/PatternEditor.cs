@@ -598,13 +598,14 @@ namespace ARKBreedingStats.NamePatterns
         private void DisplayPreview()
         {
             TextboxJavaScriptConsole.Clear();
+            TextboxJavaScriptConsole.Update();
             cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _customReplacings,
                 false, -1, false, txtboxPattern.Text, false, _tokenModel, _colorExistings, _libraryCreatureCount, WriteToJavaScriptConsole);
         }
 
         private void WriteToJavaScriptConsole(string value)
         {
-            TextboxJavaScriptConsole.AppendText(value.Replace("\r", "").Replace("\n", Environment.NewLine) + Environment.NewLine);
+            TextboxJavaScriptConsole.AppendText(value?.Replace("\r", "").Replace("\n", Environment.NewLine) + Environment.NewLine);
         }
 
         private void TbFilterKeys_TextChanged(object sender, EventArgs e)

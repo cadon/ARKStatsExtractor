@@ -6,8 +6,9 @@ using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
-using Microsoft.ClearScript;
-using Microsoft.ClearScript.V8;
+
+using Jint;
+
 using static ARKBreedingStats.Library.CreatureCollection;
 
 namespace ARKBreedingStats.NamePatterns
@@ -120,18 +121,16 @@ namespace ARKBreedingStats.NamePatterns
             return name;
         }
 
-        private static string ResolveJavaScript(string pattern, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> javaScriptConsoleWriteLine)
+        private static string ResolveJavaScript(string pattern, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
         {
-            using (var engine = new V8ScriptEngine())
+            using (var engine = new Engine())
             {
+                var log = consoleLog ?? ((s) => { });
+
                 try
                 {
-                    engine.AddHostObject("model", tokenModel);
-                    if(javaScriptConsoleWriteLine != null)
-                    {
-                        engine.AddHostObject("consoleWrite", javaScriptConsoleWriteLine);
-                        engine.Execute("console = { log: consoleWrite }");
-                    }
+                    engine.SetValue("model", tokenModel);
+                    engine.SetValue("log", log);
                     engine.Execute(pattern);
 
                     string numberedUniqueName;
@@ -140,7 +139,12 @@ namespace ARKBreedingStats.NamePatterns
                     tokenModel.n = 1;
                     do
                     {
-                        numberedUniqueName = engine.Evaluate("nameCreature()") as string;
+                        if(tokenModel.n > 1)
+                        {
+                            log($">> Name not unique. Repeating with tokenModel.n = {tokenModel.n}");
+                        }
+
+                        numberedUniqueName = engine.Evaluate("nameCreature()").ToString();
 
                         // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
                         if (numberedUniqueName == lastNumberedUniqueName) break;
@@ -158,7 +162,8 @@ namespace ARKBreedingStats.NamePatterns
                         MessageBoxes.ShowMessageBox($"The naming script generated an exception\n\nSpecific error:\n{ex.Message}", $"Naming script error");
                         return null;
                     }
-                    
+
+                    log($">> ERROR: {ex.Message}");
                     return ex.Message;
                 }
             }
