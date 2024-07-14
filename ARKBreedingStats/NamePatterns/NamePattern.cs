@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
 using Jint;
@@ -102,7 +104,7 @@ namespace ARKBreedingStats.NamePatterns
 
             if (shebangMatch.Success)
             {
-                name = ResolveJavaScript(pattern.Substring(shebangMatch.Length), tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
+                name = ResolveJavaScript(pattern.Substring(shebangMatch.Length), creature, tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
             }
             else
             {
@@ -153,9 +155,11 @@ namespace ARKBreedingStats.NamePatterns
             return name;
         }
 
-        private static string ResolveJavaScript(string pattern, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
+        private static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
         {
-            using (var engine = new Engine())
+            using (var engine = new Engine(options => {
+                options.TimeoutInterval(TimeSpan.FromSeconds(4));
+            }))
             {
                 var log = consoleLog ?? ((s) => { });
 
@@ -163,6 +167,9 @@ namespace ARKBreedingStats.NamePatterns
                 {
                     engine.SetValue("c", tokenModel);
                     engine.SetValue("log", log);
+                    engine.SetValue<Func<string, string, string>>("customReplace", (key, defaultValue) => CustomReplace(key, defaultValue, customReplacings));
+                    engine.SetValue<Func<int, bool, bool, string>>("color", (regionId, returnName, evenUnused) => FunctionColor(regionId, returnName, evenUnused, creature));
+                    engine.SetValue<Func<int, string>>("colorNew", (regionId) => FunctionColorNew(regionId, colorsExisting));
                     engine.Execute(pattern);
 
                     string numberedUniqueName;
@@ -203,7 +210,47 @@ namespace ARKBreedingStats.NamePatterns
             }
         }
 
-        
+        private static string CustomReplace(string key, string defaultValue, Dictionary<string, string> customReplacings)
+        {
+            return string.IsNullOrEmpty(key) || customReplacings?.TryGetValue(key, out var replacement) != true
+                ? defaultValue
+                : replacement;
+        }
+
+        private static string FunctionColor(int regionId, bool returnName, bool evenUnused, Creature creature)
+        {
+            if (regionId < 0 || regionId > 5) throw new Exception("color region id has to be a number in the range 0 - 5");
+
+            if (creature.colors == null || (!creature.Species.EnabledColorRegions[regionId] && !evenUnused))
+                return string.Empty; // species does not use this region and user doesn't want it
+
+            return returnName
+                ? CreatureColors.CreatureColorName(creature.colors[regionId])
+                : creature.colors[regionId].ToString();
+        }
+
+        /// <summary>
+        /// Returns new if the color is newInRegion in this region, returns newInSpecies if the color is new in all regions of this species, else returns string.Empty.
+        /// </summary>
+        private static string FunctionColorNew(int regionId, ColorExisting[] colorsExisting)
+        {
+            // parameter 1: region id (0,...,5)
+            if (regionId < 0 || regionId > 5) throw new Exception("color region id has to be a number in the range 0 - 5");
+
+            if (colorsExisting == null) return string.Empty;
+
+            switch (colorsExisting[regionId])
+            {
+                case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
+                    return "newInRegion";
+                case CreatureCollection.ColorExisting.ColorIsNew:
+                    return "newInSpecies";
+                default:
+                    return string.Empty;
+            }
+        }
+
+
         /// <summary>
         /// Resolves functions in the pattern.
         /// A function expression looks like {{#function_name:{xxx}|2|3}}, e.g. {{#substring:{HP}|2|3}}
