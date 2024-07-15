@@ -53,9 +53,10 @@
       "Description": "Shows gender & number (if multiple). Shows all top stats creature has upper 35 points.\nExample: F1 HP46/OX37/D42\nBy Xeikos"
     },
     {
-      "Pattern": "#!javascript\r\n{{loc(JavaScriptNamingPatternHelp)}}\r\n\r\nlog(JSON.stringify(c, null, '  '))\r\n\r\nfunction nameCreature() {\r\n  let statList = [\r\n    c.hp.istop ? `HP${c.hp.level}` : null,\r\n    c.st.istop ? `ST${c.st.level}` : null,\r\n    c.ox.istop ? `OX${c.ox.level}` : null,\r\n    c.fo.istop ? `FO${c.fo.level}` : null,\r\n    c.we.istop ? `WE${c.we.level}` : null,\r\n    c.dm.istop ? `DM${c.dm.level}` : null,\r\n  ];\r\n\r\n  return `${c.sex_short}${c.baselvl}-${c.n} | ${statList.filter(x => !!x).join('/')}`\r\n}",
+      "Pattern": "#!javascript\r\n{{loc(JavaScriptNamingPatternHelp)}}\r\n\r\nlog('Available variables are:')\r\nlog(JSON.stringify(globalThis, null, '  '))\r\n\r\nlet statList = [\r\n  istophp ? `HP${hp}` : null,\r\n  istopst ? `ST${st}` : null,\r\n  istopox ? `OX${ox}` : null,\r\n  istopfo ? `FO${fo}` : null,\r\n  istopwe ? `WE${we}` : null,\r\n  istopdm ? `DM${dm}` : null,\r\n];\r\n\r\nreturn `${sex_short}${baselvl}-${n} | ${statList.filter(x => !!x).join('/')}`\r\n",
       "Title": "Javascript sample with output of creature data",
       "Description": "Outputs javascript template help text along with a sample script"
     }
   ]
 }
+

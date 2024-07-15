@@ -1361,8 +1361,8 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="JavaScriptNamingPatternHelp" xml:space="preserve">
     <value>/*
   JavaScript patterns are enabled by using the text "#!javascript" as the first line of the pattern.
-  The script must implement the function "nameCreature(): string".
-  Creature values are available on the global variable "c".
+  The script must return the creature name as a string.
+  Creature values are available as global properties.  e.g. this.hp, globalThis.hp or just `${hp}` 
 
   In addition to the standard JavaScript functions, additional functions include:
     log(text):

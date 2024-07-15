@@ -211,7 +211,7 @@ namespace ARKBreedingStats.NamePatterns
             return string.Empty;
         }
 
-        private static readonly string[] StatAbbreviationFromIndex = {
+        internal static readonly string[] StatAbbreviationFromIndex = {
             "hp", // StatNames.Health;
             "st", // StatNames.Stamina;
             "to", // StatNames.Torpidity;
