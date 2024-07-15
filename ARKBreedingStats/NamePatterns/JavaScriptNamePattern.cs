@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,6 +23,7 @@ namespace ARKBreedingStats.NamePatterns
 
         public static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
         {
+            var stopwatch = Stopwatch.StartNew();
             var log = consoleLog ?? ((s) => { });
             string numberedUniqueName;
             string lastNumberedUniqueName = null;
@@ -69,6 +71,8 @@ namespace ARKBreedingStats.NamePatterns
                     return ex.Message;
                 }
             } while (creatureNames?.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase) == true);
+
+            log($">> Name resolved in {stopwatch.Elapsed.TotalMilliseconds} ms");
 
             return numberedUniqueName;
         }
