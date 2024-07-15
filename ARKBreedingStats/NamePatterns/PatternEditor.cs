@@ -575,8 +575,11 @@ namespace ARKBreedingStats.NamePatterns
 
         private void DisplayPreview()
         {
+            var stopwatch = Stopwatch.StartNew();
             cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _customReplacings,
                 false, -1, false, txtboxPattern.Text, false, _tokenDictionary, _colorExistings, _libraryCreatureCount);
+            stopwatch.Stop();
+            toolTip1.SetToolTip(StopwatchLabel, $"{stopwatch.Elapsed.TotalMilliseconds} ms");
         }
 
         private void TbFilterKeys_TextChanged(object sender, EventArgs e)

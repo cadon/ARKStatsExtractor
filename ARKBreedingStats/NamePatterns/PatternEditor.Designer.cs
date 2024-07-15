@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatternEditor));
             this.txtboxPattern = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,6 +52,8 @@
             this.TabPagePatternTemplates = new System.Windows.Forms.TabPage();
             this.CbPatternNameToClipboardAfterManualApplication = new System.Windows.Forms.CheckBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.StopwatchLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -155,6 +158,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.StopwatchLabel);
             this.groupBox1.Controls.Add(this.cbPreview);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -251,7 +255,6 @@
             this.BtClearFilterFunctions.Name = "BtClearFilterFunctions";
             this.BtClearFilterFunctions.Size = new System.Drawing.Size(20, 20);
             this.BtClearFilterFunctions.TabIndex = 12;
-            this.BtClearFilterFunctions.Text = "×";
             this.BtClearFilterFunctions.UseVisualStyleBackColor = true;
             this.BtClearFilterFunctions.Click += new System.EventHandler(this.BtClearFilterFunctions_Click);
             // 
@@ -290,7 +293,7 @@
             this.TabPagePatternTemplates.Location = new System.Drawing.Point(4, 22);
             this.TabPagePatternTemplates.Name = "TabPagePatternTemplates";
             this.TabPagePatternTemplates.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 472);
+            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 464);
             this.TabPagePatternTemplates.TabIndex = 1;
             this.TabPagePatternTemplates.Text = "Templates";
             this.TabPagePatternTemplates.UseVisualStyleBackColor = true;
@@ -323,6 +326,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(702, 674);
             this.splitContainer1.SplitterDistance = 40;
             this.splitContainer1.TabIndex = 8;
+            // 
+            // StopwatchLabel
+            // 
+            this.StopwatchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.StopwatchLabel.AutoSize = true;
+            this.StopwatchLabel.Font = new System.Drawing.Font("Wingdings", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.StopwatchLabel.Location = new System.Drawing.Point(518, 13);
+            this.StopwatchLabel.Name = "StopwatchLabel";
+            this.StopwatchLabel.Size = new System.Drawing.Size(27, 21);
+            this.StopwatchLabel.TabIndex = 12;
+            this.StopwatchLabel.Text = "¸";
             // 
             // PatternEditor
             // 
@@ -381,5 +395,7 @@
         private System.Windows.Forms.TableLayoutPanel TlpKeysFunctions;
         private System.Windows.Forms.TabPage TabPagePatternTemplates;
         private System.Windows.Forms.CheckBox CbPatternNameToClipboardAfterManualApplication;
+        private System.Windows.Forms.Label StopwatchLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
