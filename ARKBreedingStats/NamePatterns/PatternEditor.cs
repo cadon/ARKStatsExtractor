@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.library;
@@ -38,6 +39,95 @@ namespace ARKBreedingStats.NamePatterns
         public PatternEditor()
         {
             InitializeComponent();
+            txtboxPattern.KeyDown += HandleTextBoxIndentation;
+        }
+
+        private void HandleTextBoxIndentation(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Tab)
+            {
+                return;
+            }
+
+            // if we're pressing tab with nothing selected
+            if(txtboxPattern.SelectionLength == 0)
+            {
+                var startOfLine = txtboxPattern.GetFirstCharIndexOfCurrentLine();
+                var positionInLine = txtboxPattern.SelectionStart - txtboxPattern.GetFirstCharIndexOfCurrentLine();
+
+                if (e.Shift)
+                {
+                    // if we're holding shift, try to remove a tab or up to 2 spaces from before the cursor
+                    var textBeforeCursor = txtboxPattern.Text.Substring(startOfLine, positionInLine);
+
+                    var charactersToRemove = textBeforeCursor.EndsWith("  ") ? 2
+                        : textBeforeCursor.EndsWith(" ") ? 1
+                        : textBeforeCursor.EndsWith("\t") ? 1
+                        : 0;
+
+                    if (charactersToRemove > 0)
+                    {
+                        txtboxPattern.Select(txtboxPattern.SelectionStart - charactersToRemove, charactersToRemove);
+                        txtboxPattern.SelectedText = "";
+                    }
+                }
+                else
+                {
+                    // if we're not holding shift, just insert 2 spaces
+                    txtboxPattern.SelectedText = "  ";
+                }
+                e.SuppressKeyPress = true;
+                return;
+            }
+
+            // if we have text selected, indent or unindent the selected lines
+            // we want to expand the selection to full lines so we can apply regex to the whole selection area
+            SelectFullLines(txtboxPattern, out int endLine, out int startLine);
+
+            if (e.Shift)
+            {
+                // if we're holding shift, remove 1 or 2 spaces or a tab from the start of each line
+                txtboxPattern.SelectedText = Regex.Replace(txtboxPattern.SelectedText, "^(  ?|\t)", "", System.Text.RegularExpressions.RegexOptions.Multiline);
+            }
+            else
+            {
+                // if we're not holding shift, add 2 spaces to the start of each line
+                txtboxPattern.SelectedText = Regex.Replace(txtboxPattern.SelectedText, "^", "  ", System.Text.RegularExpressions.RegexOptions.Multiline);
+            }
+
+            // reselect the lines we just modified
+            var start = txtboxPattern.GetFirstCharIndexFromLine(startLine);
+            var end = txtboxPattern.GetFirstCharIndexFromLine(endLine) + txtboxPattern.Lines[endLine].Length;
+            txtboxPattern.Select(start, end - start);
+
+            e.SuppressKeyPress = true;
+        }
+
+        
+        // Expand the selected text of a textBox to include the full lines 
+        private void SelectFullLines(TextBox textBox, out int endLine, out int startLine)
+        {
+            var originalSelectStart = textBox.SelectionStart;
+            var startChar = textBox.SelectionStart;
+            var endChar = startChar + textBox.SelectionLength;
+            startLine = textBox.GetLineFromCharIndex(startChar);
+            endLine = textBox.GetLineFromCharIndex(endChar);
+
+            // If the cursor is sitting at the beginning of a line and it's not the first line of the selection, we don't want to indent that line
+            // > = start of selection    < = end of selection
+            //
+            //  line 1>text       indent this line
+            //  line 2 text       indent this line
+            // <line 3 text       don't indent this line
+            if (startLine != endLine && endChar == textBox.GetFirstCharIndexFromLine(endLine))
+            {
+                endLine--;
+            }
+
+            var start = textBox.GetFirstCharIndexFromLine(startLine);
+            var end = textBox.GetFirstCharIndexFromLine(endLine) + textBox.Lines[endLine].Length;
+
+            textBox.Select(start, end - start);
         }
 
         public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
