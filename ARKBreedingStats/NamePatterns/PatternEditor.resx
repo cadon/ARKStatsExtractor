@@ -120,4 +120,7 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Use the listed keywords to create a pattern that can be applied to a creature. This will make it easier to give names to creatures that follow the same pattern. Any text that is not a pattern will appear literally. Parameters will be trimmed (i.e. spaces at the front and end will be removed). You can use &amp;&amp;sp; for space and &amp;&amp;lcub; for {, &amp;&amp;rcub; for } and &amp;&amp;vline; for |.</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
