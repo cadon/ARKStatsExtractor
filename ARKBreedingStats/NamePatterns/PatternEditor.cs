@@ -50,10 +50,10 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             // if we're pressing tab with nothing selected
-            if(txtboxPattern.SelectionLength == 0)
+            if (txtboxPattern.SelectionLength == 0)
             {
                 var startOfLine = txtboxPattern.GetFirstCharIndexOfCurrentLine();
-                var positionInLine = txtboxPattern.SelectionStart - txtboxPattern.GetFirstCharIndexOfCurrentLine();
+                var positionInLine = txtboxPattern.SelectionStart - startOfLine;
 
                 if (e.Shift)
                 {
@@ -81,8 +81,8 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             // if we have text selected, indent or unindent the selected lines
-            // we want to expand the selection to full lines so we can apply regex to the whole selection area
-            SelectFullLines(txtboxPattern, out int endLine, out int startLine);
+            // we want to expand the selection to full lines, so we can apply regex to the whole selection area
+            SelectFullLines(txtboxPattern, out var endLine, out var startLine);
 
             if (e.Shift)
             {
@@ -103,11 +103,11 @@ namespace ARKBreedingStats.NamePatterns
             e.SuppressKeyPress = true;
         }
 
-        
-        // Expand the selected text of a textBox to include the full lines 
-        private void SelectFullLines(TextBox textBox, out int endLine, out int startLine)
+        /// <summary>
+        /// Expand the selected text of a textBox to include the full lines
+        /// </summary>
+        private static void SelectFullLines(TextBox textBox, out int endLine, out int startLine)
         {
-            var originalSelectStart = textBox.SelectionStart;
             var startChar = textBox.SelectionStart;
             var endChar = startChar + textBox.SelectionLength;
             startLine = textBox.GetLineFromCharIndex(startChar);
