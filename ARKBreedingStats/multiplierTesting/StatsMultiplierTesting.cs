@@ -763,12 +763,14 @@ To determine all species values, the files with the following creature combinati
                 var sv = _statControls[s].StatValues;
                 if (sv == null || sv.All(v => v == 0))
                 {
-                    sb.AppendLine("    null,");
+                    sb.Append("    null");
                 }
                 else
                 {
-                    sb.AppendLine($"    [ {string.Join(", ", sv)} ],");
+                    sb.Append($"    [ {string.Join(", ", sv)} ]");
                 }
+
+                sb.AppendLine(s + 1 < Stats.StatsCount ? "," : string.Empty);
             }
             sb.AppendLine("]");
 
