@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatternEditor));
             this.txtboxPattern = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,6 +38,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.StopwatchLabel = new System.Windows.Forms.Label();
             this.cbPreview = new System.Windows.Forms.CheckBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -53,6 +55,7 @@
             this.TextboxJavaScriptConsole = new System.Windows.Forms.TextBox();
             this.CbPatternNameToClipboardAfterManualApplication = new System.Windows.Forms.CheckBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -159,6 +162,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.StopwatchLabel);
             this.groupBox1.Controls.Add(this.cbPreview);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -167,6 +171,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preview";
+            // 
+            // StopwatchLabel
+            // 
+            this.StopwatchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.StopwatchLabel.AutoSize = true;
+            this.StopwatchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StopwatchLabel.Location = new System.Drawing.Point(512, 8);
+            this.StopwatchLabel.Name = "StopwatchLabel";
+            this.StopwatchLabel.Size = new System.Drawing.Size(39, 29);
+            this.StopwatchLabel.TabIndex = 12;
+            this.StopwatchLabel.Text = "⏱";
             // 
             // cbPreview
             // 
@@ -414,5 +429,7 @@
         private System.Windows.Forms.TabPage TabPagePatternTemplates;
         private System.Windows.Forms.TabPage TabPageJavaScriptConsole;
         private System.Windows.Forms.TextBox TextboxJavaScriptConsole;
+        private System.Windows.Forms.Label StopwatchLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
