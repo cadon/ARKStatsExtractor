@@ -12,8 +12,6 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
-using System.Text.RegularExpressions;
-using FluentFTP.Helpers;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -28,17 +26,16 @@ namespace ARKBreedingStats.NamePatterns
         private readonly int _libraryCreatureCount;
         private readonly CreatureCollection.ColorExisting[] _colorExistings;
         private Dictionary<string, string> _customReplacings;
-        private readonly Dictionary<string, string> _tokenDictionary;
         private readonly Debouncer _updateNameDebouncer = new Debouncer();
-        private Action<PatternEditor> _reloadCallback;
-        private TableLayoutPanel _tableLayoutPanelKeys;
-        private TableLayoutPanel _tableLayoutPanelFunctions;
+        private readonly Action<PatternEditor> _reloadCallback;
+        private readonly TableLayoutPanel _tableLayoutPanelKeys;
+        private readonly TableLayoutPanel _tableLayoutPanelFunctions;
         private TableLayoutPanel _tableLayoutPanelTemplates;
-        private List<Panel> _listKeys;
-        private List<Panel> _listFunctions;
+        private readonly List<Panel> _listKeys;
+        private readonly List<Panel> _listFunctions;
         private List<Panel> _listTemplates;
-        private Debouncer _keyDebouncer;
-        private Debouncer _functionDebouncer;
+        private readonly Debouncer _keyDebouncer;
+        private readonly Debouncer _functionDebouncer;
 
         public PatternEditor()
         {
@@ -157,7 +154,7 @@ namespace ARKBreedingStats.NamePatterns
 
             _alreadyExistingCreature = _creaturesOfSameSpecies?.FirstOrDefault(c => c.guid == creature.guid);
             _tokenModel = NamePatterns.NamePattern.CreateTokenModel(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _colorExistings, _topLevels, _libraryCreatureCount);
-            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(_tokenModel);
+            var tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(_tokenModel);
             _keyDebouncer = new Debouncer();
             _functionDebouncer = new Debouncer();
 
@@ -173,32 +170,31 @@ namespace ARKBreedingStats.NamePatterns
 
             void SetControlsToTable(TableLayoutPanel tlp, Dictionary<string, string> nameExamples, List<Panel> entries, bool columns = true, bool useExampleAsInput = false, int buttonWidth = 120)
             {
-                int i = 0;
                 foreach (KeyValuePair<string, string> p in nameExamples)
                 {
                     var entry = new NamePatternEntry { FilterString = p.Key };
                     entries.Add(entry);
 
-                    Button btn = new Button
+                    var btn = new Button
                     {
                         Size = new Size(buttonWidth, 23),
                         Text = p.Key,
                         Dock = DockStyle.Left
                     };
-                    int substringUntil = p.Value.LastIndexOf("\n");
+                    var substringUntil = p.Value.LastIndexOf("\n");
                     btn.Tag = useExampleAsInput ? p.Value.Substring(substringUntil + 1) : $"{{{p.Key}}}";
 
                     if (!columns)
                         btn.Dock = DockStyle.Top;
                     btn.Click += Btn_Click;
 
-                    Label lbl = new Label
+                    var lbl = new Label
                     {
                         Dock = DockStyle.Fill,
                         //Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
                         //MinimumSize = new Size(50, 40),
                         AutoSize = true,
-                        Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (_tokenDictionary.ContainsKey(p.Key) ? ". E.g. \"" + _tokenDictionary[p.Key] + "\"" : ""),
+                        Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (tokenDictionary.TryGetValue(p.Key, out var tokenValue) ? ". E.g. \"" + tokenValue + "\"" : ""),
                         Padding = new Padding(3, 3, 3, 5)
                     };
                     entry.Controls.Add(lbl);
@@ -252,8 +248,6 @@ namespace ARKBreedingStats.NamePatterns
                         Dock = DockStyle.Bottom,
                         Margin = new Padding(0, 3, 0, 5),
                     });
-
-                    i++;
                 }
             }
 
@@ -317,7 +311,7 @@ namespace ARKBreedingStats.NamePatterns
             foreach (var t in templates)
             {
                 var localizedPattern = LocalizeTemplateString(t.Pattern);
-                
+
                 var panel = new Panel
                 {
                     Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top,
@@ -444,7 +438,7 @@ namespace ARKBreedingStats.NamePatterns
 
             using (OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = $"ASB Custom Replacings File (*.json)|*.json",
+                Filter = "ASB Custom Replacings File (*.json)|*.json",
                 CheckFileExists = true,
                 InitialDirectory = selectedFolder,
                 FileName = selectedFileName
@@ -674,7 +668,7 @@ namespace ARKBreedingStats.NamePatterns
         private void txtboxPattern_TextChanged(object sender, EventArgs e)
         {
             ShowHideConsoleTab();
-         
+
             if (cbPreview.Checked)
                 _updateNameDebouncer.Debounce(500, DisplayPreview, Dispatcher.CurrentDispatcher);
         }
@@ -702,7 +696,7 @@ namespace ARKBreedingStats.NamePatterns
             cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _customReplacings,
                 false, -1, false, txtboxPattern.Text, false, _tokenModel, _colorExistings, _libraryCreatureCount, WriteToJavaScriptConsole);
             stopwatch.Stop();
-            toolTip1.SetToolTip(StopwatchLabel, $"{stopwatch.Elapsed.TotalMilliseconds} ms");
+            toolTip1.SetToolTip(StopwatchLabel, $"name generated in {stopwatch.Elapsed.TotalMilliseconds:0.0} ms");
         }
 
         private void ResetConsoleTab()

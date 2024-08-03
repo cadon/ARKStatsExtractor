@@ -4,13 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-
 using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
-
 using Jint;
-
 using static ARKBreedingStats.Library.CreatureCollection;
 
 namespace ARKBreedingStats.NamePatterns
@@ -19,7 +15,7 @@ namespace ARKBreedingStats.NamePatterns
     {
 
         public static Regex JavaScriptShebang = new Regex(@"^\#!javascript\s*?\n", RegexOptions.IgnoreCase);
-        private static string FlattenScript = BuildModelFlattenScript();
+        private static readonly string FlattenScript = BuildModelFlattenScript();
 
         public static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
         {
@@ -34,12 +30,12 @@ namespace ARKBreedingStats.NamePatterns
             {
                 if (n > 1)
                 {
-                    log($">> Name not unique. Repeating with model.n = {n}");
+                    log($">> Name not unique. Repeating with model. n = {n}");
                 }
 
                 try
                 {
-                    using (var engine = new Engine(options =>  options.TimeoutInterval(TimeSpan.FromSeconds(4))))
+                    using (var engine = new Engine(options => options.TimeoutInterval(TimeSpan.FromSeconds(4))))
                     {
                         engine.SetValue("model", tokenModel);
                         engine.Execute(FlattenScript);
@@ -63,7 +59,7 @@ namespace ARKBreedingStats.NamePatterns
                 {
                     if (displayError)
                     {
-                        MessageBoxes.ShowMessageBox($"The naming script generated an exception\n\nSpecific error:\n{ex.Message}", $"Naming script error");
+                        MessageBoxes.ShowMessageBox($"The naming script generated an exception\n\nSpecific error:\n{ex.Message}", "Naming script error");
                         return null;
                     }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -21,7 +20,7 @@ namespace ARKBreedingStats.NamePatterns
         private const string PipeEscapeSequence = @"\pipe";
 
         public static Random Random = new Random();
-        private static Func<TokenModel, StatModel>[] statAccessors = new Func<TokenModel, StatModel>[]{
+        private static readonly Func<TokenModel, StatModel>[] StatAccessors = {
             m => m.hp, // StatNames.Health;
             m => m.st, // StatNames.Stamina;
             m => m.to, // StatNames.Torpidity;
@@ -42,7 +41,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
         public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] sameSpecies, TopLevels topLevels, Dictionary<string, string> customReplacings,
             bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
-            CreatureCollection.ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
+            ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
         {
             if (pattern == null)
             {
@@ -146,7 +145,7 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             // evaluate escaped characters
-            name = NamePatternFunctions.UnEscapeSpecialCharacters(name.Replace(PipeEscapeSequence, "|"));
+            name = name != null ? NamePatternFunctions.UnEscapeSpecialCharacters(name.Replace(PipeEscapeSequence, "|")) : string.Empty;
             return name;
         }
 
@@ -289,7 +288,7 @@ namespace ARKBreedingStats.NamePatterns
             oldName = oldName.Replace("|", PipeEscapeSequence);
 
             string spcsNm = creature.Species.name;
-            char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+            char[] vowels = { 'a', 'e', 'i', 'o', 'u' };
             while (spcsNm.LastIndexOfAny(vowels) > 0)
                 spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
 
@@ -351,7 +350,7 @@ namespace ARKBreedingStats.NamePatterns
                 sex_lang_short = Loc.S(creature.sex.ToString()).Substring(0, 1),
                 sex_lang_gen = Loc.S(creature.sex.ToString() + "_gen"),
                 sex_lang_short_gen = Loc.S(creature.sex.ToString() + "_gen").Substring(0, 1),
-                
+
                 toppercent = (creature.topness / 10f),
                 baselvl = creature.LevelHatched,
                 levelpretamed = creature.levelFound,
@@ -397,7 +396,7 @@ namespace ARKBreedingStats.NamePatterns
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                var statSet = statAccessors[s](model);
+                var statSet = StatAccessors[s](model);
                 statSet.level = creature.levelsWild[s];
                 statSet.level_m = creature.levelsMutated?[s] ?? 0;
                 statSet.level_vb = creature.valuesBreeding[s] * (Stats.IsPercentage(s) ? 100 : 1);
@@ -439,7 +438,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <summary>        
         /// This method creates the token dictionary for the dynamic creature name generation.
         /// </summary>
-        /// <param name="model">TokemModel containing the data for the token dictionary</param>
+        /// <param name="model">TokenModel containing the data for the token dictionary</param>
         /// <returns>A dictionary containing all tokens and their replacements</returns>
         public static Dictionary<string, string> CreateTokenDictionary(TokenModel model)
         {
@@ -491,7 +490,7 @@ namespace ARKBreedingStats.NamePatterns
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                var stat = statAccessors[s](model);
+                var stat = StatAccessors[s](model);
                 var abbreviation = StatAbbreviationFromIndex[s];
 
                 dict.Add(abbreviation, stat.level.ToString());

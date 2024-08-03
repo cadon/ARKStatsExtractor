@@ -54,9 +54,21 @@ namespace ARKBreedingStats.NamePatterns
         public StatModel sp { get; set; } = new StatModel();
         public StatModel fr { get; set; } = new StatModel();
         public StatModel cr { get; set; } = new StatModel();
+        /// <summary>
+        /// Stat levels ordered descended by level height.
+        /// </summary>
         public string[] highest_l { get; set; } = new string[Stats.StatsCount];
+        /// <summary>
+        /// Stat indices ordered descended by level height.
+        /// </summary>
         public string[] highest_s { get; set; } = new string[Stats.StatsCount];
+        /// <summary>
+        /// Mutation stat levels ordered descended by level height.
+        /// </summary>
         public string[] highest_l_m { get; set; } = new string[Stats.StatsCount];
+        /// <summary>
+        /// Mutation stat indices ordered descended by level height.
+        /// </summary>
         public string[] highest_s_m { get; set; } = new string[Stats.StatsCount];
         public ColorModel[] colors { get; set; } = new ColorModel[6];
     }
