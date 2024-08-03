@@ -12,14 +12,18 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
+using System.Text.RegularExpressions;
+using FluentFTP.Helpers;
 
 namespace ARKBreedingStats.NamePatterns
 {
     public partial class PatternEditor : Form
     {
+        private static readonly Regex LocalizationRegex = new Regex(@"\{\{loc\((?<key>.*?)\)\}\}", RegexOptions.IgnoreCase | RegexOptions.Compiled, TimeSpan.FromSeconds(5));
         private readonly Creature _creature;
         private readonly Creature[] _creaturesOfSameSpecies;
         private readonly Creature _alreadyExistingCreature;
+        private readonly TokenModel _tokenModel;
         private readonly TopLevels _topLevels;
         private readonly int _libraryCreatureCount;
         private readonly CreatureCollection.ColorExisting[] _colorExistings;
@@ -152,7 +156,8 @@ namespace ARKBreedingStats.NamePatterns
             Text = $"Naming Pattern Editor: pattern {namingPatternIndex + 1}";
 
             _alreadyExistingCreature = _creaturesOfSameSpecies?.FirstOrDefault(c => c.guid == creature.guid);
-            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _libraryCreatureCount);
+            _tokenModel = NamePatterns.NamePattern.CreateTokenModel(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _colorExistings, _topLevels, _libraryCreatureCount);
+            _tokenDictionary = NamePatterns.NamePattern.CreateTokenDictionary(_tokenModel);
             _keyDebouncer = new Debouncer();
             _functionDebouncer = new Debouncer();
 
@@ -253,6 +258,8 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             InitializeTemplates();
+
+            ShowHideConsoleTab();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -309,6 +316,8 @@ namespace ARKBreedingStats.NamePatterns
 
             foreach (var t in templates)
             {
+                var localizedPattern = LocalizeTemplateString(t.Pattern);
+                
                 var panel = new Panel
                 {
                     Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top,
@@ -321,13 +330,13 @@ namespace ARKBreedingStats.NamePatterns
                     Size = new Size(50, 23),
                     Text = t.Title,
                     Dock = DockStyle.Top,
-                    Tag = t.Pattern
+                    Tag = localizedPattern
                 };
 
                 var tbPattern = new TextBox
                 {
                     ReadOnly = true,
-                    Text = t.Pattern,
+                    Text = localizedPattern,
                     Dock = DockStyle.Top,
                     Padding = new Padding(3)
                 };
@@ -359,6 +368,11 @@ namespace ARKBreedingStats.NamePatterns
                     Margin = new Padding(0, 3, 0, 5)
                 });
             }
+        }
+
+        private string LocalizeTemplateString(string pattern)
+        {
+            return LocalizationRegex.Replace(pattern, match => Loc.S(match.Groups["key"].Value));
         }
 
         private void PatternEditorRecalculateControlSizes()
@@ -659,17 +673,47 @@ namespace ARKBreedingStats.NamePatterns
 
         private void txtboxPattern_TextChanged(object sender, EventArgs e)
         {
+            ShowHideConsoleTab();
+         
             if (cbPreview.Checked)
                 _updateNameDebouncer.Debounce(500, DisplayPreview, Dispatcher.CurrentDispatcher);
         }
 
+        private void ShowHideConsoleTab()
+        {
+            var visible = tabControl1.TabPages.Contains(TabPageJavaScriptConsole);
+            if (JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
+            {
+                if (!visible)
+                    tabControl1.TabPages.Add(TabPageJavaScriptConsole);
+            }
+            else
+            {
+                if (visible)
+                    tabControl1.TabPages.Remove(TabPageJavaScriptConsole);
+
+            }
+        }
+
         private void DisplayPreview()
         {
+            ResetConsoleTab();
             var stopwatch = Stopwatch.StartNew();
             cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _customReplacings,
-                false, -1, false, txtboxPattern.Text, false, _tokenDictionary, _colorExistings, _libraryCreatureCount);
+                false, -1, false, txtboxPattern.Text, false, _tokenModel, _colorExistings, _libraryCreatureCount, WriteToJavaScriptConsole);
             stopwatch.Stop();
             toolTip1.SetToolTip(StopwatchLabel, $"{stopwatch.Elapsed.TotalMilliseconds} ms");
+        }
+
+        private void ResetConsoleTab()
+        {
+            TextboxJavaScriptConsole.Clear();
+            TextboxJavaScriptConsole.Update();
+        }
+
+        private void WriteToJavaScriptConsole(string value)
+        {
+            TextboxJavaScriptConsole.AppendText(value?.Replace("\r", "").Replace("\n", Environment.NewLine) + Environment.NewLine);
         }
 
         private void TbFilterKeys_TextChanged(object sender, EventArgs e)
@@ -713,6 +757,11 @@ namespace ARKBreedingStats.NamePatterns
         private void BtClearFilterFunctions_Click(object sender, EventArgs e)
         {
             TbFilterFunctions.Text = string.Empty;
+        }
+
+        private void BtnJavaScriptConsoleClear_Click(object sender, EventArgs e)
+        {
+            TextboxJavaScriptConsole.Clear();
         }
     }
 }

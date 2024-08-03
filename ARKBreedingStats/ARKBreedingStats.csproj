@@ -104,6 +104,8 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="library\DummyCreatures.cs" />
+    <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
+    <Compile Include="NamePatterns\TokenModel.cs" />
     <Compile Include="StatsOptions\StatOptionsBase.cs" />
     <Compile Include="StatsOptions\LevelGraphRepresentation.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
@@ -1052,6 +1054,9 @@
   <ItemGroup>
     <PackageReference Include="FluentFTP">
       <Version>50.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="JInt">
+      <Version>3.1.5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>3.3.4</Version>

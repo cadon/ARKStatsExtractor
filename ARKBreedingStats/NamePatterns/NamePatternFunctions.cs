@@ -30,6 +30,18 @@ namespace ARKBreedingStats.NamePatterns
             return string.Empty;
         }
 
+        internal static string CustomReplace(string key, string defaultValue, Dictionary<string, string> customReplacings)
+        {
+            if (!string.IsNullOrEmpty(key) && customReplacings?.TryGetValue(key, out var replacement) == true)
+            {
+                return replacement;
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+
         private static string ParametersInvalid(string specificError, string expression, bool displayError)
         {
             if (displayError)
@@ -305,11 +317,7 @@ namespace ARKBreedingStats.NamePatterns
         private static string FunctionCustomReplace(Match m, NamePatternParameters p)
         {
             // parameter: 1: customreplace, 2: key, 3: return if key not available
-            if (p.CustomReplacings == null
-                || string.IsNullOrEmpty(m.Groups[2].Value)
-                || !p.CustomReplacings.ContainsKey(m.Groups[2].Value))
-                return m.Groups[3].Value;
-            return p.CustomReplacings[m.Groups[2].Value];
+            return CustomReplace(m.Groups[2].Value, m.Groups[3].Value, p.CustomReplacings);
         }
 
         private static string FunctionTime(Match m, NamePatternParameters p)
