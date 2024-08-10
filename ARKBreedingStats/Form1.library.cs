@@ -1109,6 +1109,8 @@ namespace ARKBreedingStats
             // apply colors to the subItems
             var displayZeroMutationLevels = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
 
+            var statOptions = StatsLevelColors.GetStatsOptions(cr.Species);
+
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (cr.valuesDom[s] == 0)
@@ -1124,8 +1126,11 @@ namespace ARKBreedingStats
                     lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Color.White;
                 }
                 else
-                    lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsWild[s] * (s == Stats.Torpidity ? colorFactor / 7 : colorFactor)), // TODO set factor to number of other stats (flyers have 6, Gacha has 8?)
-                            _considerStatHighlight[s] ? cr.IsTopStat(s) ? 0.2 : 0.75 : 0.93);
+                {
+                    var backColor = Utils.AdjustColorLight(statOptions.StatOptions[s].GetLevelColor(cr.levelsWild[s]),
+                        _considerStatHighlight[s] ? cr.IsTopStat(s) ? 0.2 : 0.75 : 0.93);
+                    lvi.SubItems[ColumnIndexFirstStat + s].SetBackColorAndAccordingForeColor(backColor);
+                }
 
                 // mutated levels
                 if (cr.levelsMutated == null || (!displayZeroMutationLevels && cr.levelsMutated[s] == 0))
@@ -1134,8 +1139,10 @@ namespace ARKBreedingStats
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Color.White;
                 }
                 else
+                {
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsMutated[s] * colorFactor),
                             _considerStatHighlight[s] ? cr.IsTopMutationStat(s) ? 0.5 : 0.8 : 0.93, true);
+                }
             }
             lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :
                     cr.sex == Sex.Female ? Color.FromArgb(255, 230, 255) :
