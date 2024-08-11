@@ -32,10 +32,17 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.textBoxContributors = new System.Windows.Forms.TextBox();
-            this.okButton = new System.Windows.Forms.Button();
             this.linkLabel = new System.Windows.Forms.LinkLabel();
+            this.okButton = new System.Windows.Forms.Button();
             this.labelDescription = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.TbDependencies = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel
@@ -46,10 +53,10 @@
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 0, 2);
-            this.tableLayoutPanel.Controls.Add(this.textBoxContributors, 0, 5);
             this.tableLayoutPanel.Controls.Add(this.linkLabel, 0, 3);
             this.tableLayoutPanel.Controls.Add(this.okButton, 1, 6);
             this.tableLayoutPanel.Controls.Add(this.labelDescription, 0, 4);
+            this.tableLayoutPanel.Controls.Add(this.tabControl1, 0, 5);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
@@ -61,6 +68,7 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(513, 549);
             this.tableLayoutPanel.TabIndex = 0;
             // 
@@ -106,30 +114,17 @@
             // textBoxContributors
             // 
             this.textBoxContributors.AcceptsReturn = true;
-            this.tableLayoutPanel.SetColumnSpan(this.textBoxContributors, 2);
             this.textBoxContributors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxContributors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxContributors.Location = new System.Drawing.Point(6, 153);
+            this.textBoxContributors.Location = new System.Drawing.Point(3, 3);
             this.textBoxContributors.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.textBoxContributors.Multiline = true;
             this.textBoxContributors.Name = "textBoxContributors";
             this.textBoxContributors.ReadOnly = true;
             this.textBoxContributors.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxContributors.Size = new System.Drawing.Size(504, 353);
+            this.textBoxContributors.Size = new System.Drawing.Size(493, 321);
             this.textBoxContributors.TabIndex = 23;
             this.textBoxContributors.TabStop = false;
-            this.textBoxContributors.Text = "Contributors";
-            // 
-            // okButton
-            // 
-            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.Location = new System.Drawing.Point(435, 523);
-            this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 24;
-            this.okButton.Text = "&OK";
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
             // linkLabel
             // 
@@ -146,6 +141,17 @@
             this.linkLabel.Text = "ARK Smart Breeding: Check for more info and new versions";
             this.linkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel_LinkClicked);
             // 
+            // okButton
+            // 
+            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.okButton.Location = new System.Drawing.Point(435, 523);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 24;
+            this.okButton.Text = "&OK";
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            // 
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
@@ -155,6 +161,55 @@
             this.labelDescription.Size = new System.Drawing.Size(60, 13);
             this.labelDescription.TabIndex = 26;
             this.labelDescription.Text = "Description";
+            // 
+            // tabControl1
+            // 
+            this.tableLayoutPanel.SetColumnSpan(this.tabControl1, 2);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 153);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(507, 353);
+            this.tabControl1.TabIndex = 27;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.textBoxContributors);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(499, 327);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Contributors";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.TbDependencies);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(499, 327);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Dependencies";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // TbDependencies
+            // 
+            this.TbDependencies.AcceptsReturn = true;
+            this.TbDependencies.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TbDependencies.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TbDependencies.Location = new System.Drawing.Point(3, 3);
+            this.TbDependencies.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.TbDependencies.Multiline = true;
+            this.TbDependencies.Name = "TbDependencies";
+            this.TbDependencies.ReadOnly = true;
+            this.TbDependencies.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TbDependencies.Size = new System.Drawing.Size(493, 321);
+            this.TbDependencies.TabIndex = 24;
+            this.TbDependencies.TabStop = false;
             // 
             // AboutBox1
             // 
@@ -174,6 +229,11 @@
             this.Text = "AboutBox1";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -188,5 +248,9 @@
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.LinkLabel linkLabel;
         private System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox TbDependencies;
     }
 }

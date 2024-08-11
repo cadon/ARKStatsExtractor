@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -16,6 +17,12 @@ namespace ARKBreedingStats
             labelCopyright.Text = AssemblyCopyright;
             labelDescription.Text = AssemblyDescription;
             textBoxContributors.Text = Contributors;
+            const string noticeFileName = "NOTICE.txt";
+            var dependenciesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                noticeFileName);
+            TbDependencies.Text = File.Exists(dependenciesFilePath)
+                ? File.ReadAllText(dependenciesFilePath)
+                : "see " + "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/dev/ARKBreedingStats/" + noticeFileName;
         }
 
         #region Assemblyattributaccessoren
@@ -24,16 +31,16 @@ namespace ARKBreedingStats
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                var attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    if (titleAttribute.Title != "")
+                    var titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    if (!string.IsNullOrEmpty(titleAttribute.Title))
                     {
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
@@ -90,7 +97,7 @@ namespace ARKBreedingStats
             System.Diagnostics.Process.Start(RepositoryInfo.RepositoryUrl);
         }
 
-        private string Contributors => @"Thanks for contributions, help and support to
+        private const string Contributors = @"Thanks for contributions, help and support to
 
 * NakramR: coding, library, OCR, overlay
 * Flachdachs: save file extractor, installer-version, style
