@@ -25,6 +25,8 @@ namespace ARKBreedingStats.StatsOptions
         /// </summary>
         private readonly string _settingsFileName;
 
+        public string SettingsFilePath => FileService.GetJsonPath(_settingsFileName);
+
         public StatsOptionsSettings(string settingsFileName)
         {
             _settingsFileName = settingsFileName;

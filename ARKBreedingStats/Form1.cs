@@ -109,17 +109,6 @@ namespace ARKBreedingStats
             // Properties.Settings.Default.Reset();
             // #endif
 
-            // the eol is changed during the loading of the settings, the \r is removed. re-add it.
-            var namingPatterns = Properties.Settings.Default.NamingPatterns;
-            if (namingPatterns != null)
-            {
-                for (int i = 0; i < namingPatterns.Length; i++)
-                {
-                    if (!string.IsNullOrEmpty(namingPatterns[i]))
-                        namingPatterns[i] = namingPatterns[i].Replace("\r", string.Empty).Replace("\n", "\r\n");
-                }
-            }
-
             _tt = new ToolTip();
             InitLocalization();
             InitializeComponent();
@@ -251,6 +240,177 @@ namespace ARKBreedingStats
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
             toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
 
+            _reactOnCreatureSelectionChange = true;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            SetLocalizations(false);
+
+            // load window-position and size
+            Utils.SetWindowRectangle(this, Properties.Settings.Default.MainWindowRect,
+                Properties.Settings.Default.MainWindowMaximized);
+
+            LoadAppSettings();
+
+            // torpor should not show bar, it gets too wide and is not interesting for breeding
+            _statIOs[Stats.Torpidity].ShowBarAndLock = false;
+            _testingIOs[Stats.Torpidity].ShowBarAndLock = false;
+            // move sums and footnote to bottom
+            flowLayoutPanelStatIOsExtractor.Controls.Add(panelSums);
+            flowLayoutPanelStatIOsExtractor.Controls.Add(labelFootnote);
+            flowLayoutPanelStatIOsTester.Controls.Add(panelStatTesterFootnote);
+
+            // enable 0-lock for dom-levels of oxygen, food (most often they are not leveled up)
+            _statIOs[Stats.Oxygen].DomLevelLockedZero = true;
+            _statIOs[Stats.Food].DomLevelLockedZero = true;
+
+            LbWarningLevel255.Visible = false;
+
+            InitializeCollection();
+
+            CreatureColored.InitializeSpeciesImageLocation();
+
+            if (!LoadStatAndKibbleValues(false).statValuesLoaded || !Values.V.species.Any())
+            {
+                MessageBoxes.ShowMessageBox(Loc.S("valuesFileLoadingError"),
+                    $"{Loc.S("error")}: Values-file not found");
+                Environment.Exit(1);
+            }
+
+            statsMultiplierTesting1.SetGameDefaultMultiplier();
+
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                _statIOs[s].Input = 0;
+            }
+
+            creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
+            creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
+            creatureInfoInputExtractor.ParentInheritance = parentInheritanceExtractor;
+            parentInheritanceExtractor.Visible = false;
+
+            // set last species
+            speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
+
+            if (Properties.Settings.Default.lastSpecies?.Any() == true)
+            {
+                speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(Properties.Settings.Default.lastSpecies[0]));
+            }
+
+            if (speciesSelector1.SelectedSpecies == null && Values.V.species.Any())
+                speciesSelector1.SetSpecies(Values.V.species[0]);
+            tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
+
+            // OCR
+            ocrControl1.Initialize();
+            InitializeOcrLabelSets();
+
+            // initialize speech recognition if enabled
+            InitializeSpeechRecognition();
+
+            // UI loaded
+
+            // set theme colors
+            //this.InitializeTabControls();
+            //this.SetColors(Color.FromArgb(20, 20, 20), Color.LightGray);
+
+            //// initialize controls
+            extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
+            extractionTestControl1.CopyToTester += ExtractionTestControl1_CopyToTester;
+
+            // dev tabs
+            if (!Properties.Settings.Default.DevTools)
+            {
+                tabControlMain.TabPages.Remove(tabPageExtractionTests);
+                tabControlMain.TabPages.Remove(tabPageMultiplierTesting);
+                devToolStripMenuItem.Visible = false;
+                sendExampleCreatureToolStripMenuItem.Visible = false;
+                cbExactlyImprinting.Visible = false;
+            }
+            else
+            {
+                extractionTestControl1.LoadExtractionTestCases(Properties.Settings.Default.LastSaveFileTestCases);
+            }
+
+            // set TLS-protocol (github needs at least TLS 1.2) for update-check
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+            // check for updates
+            MoveSpeciesImagesToNewFolder();
+            if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
+            {
+                bool selectDefaultImagesIfNotYet = false;
+                bool initializeImages = false;
+                if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles)
+                {
+                    Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles = true;
+
+                    if (Updater.Updater.IsProgramInstalled)
+                        initializeImages = true;
+                    else
+                        selectDefaultImagesIfNotYet = true;
+                }
+                CheckForUpdates(true, selectDefaultImagesIfNotYet, initializeImages);
+            }
+
+            RemoveNonExistingFilesInRecentlyUsedFiles();
+
+            _filterListAllowed = true;
+            // load last loaded file
+            bool createNewCollection = string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFile);
+            if (!createNewCollection)
+            {
+                // if the last loaded file was already converted by someone else (e.g. if the library-file is shared),
+                // ask if the converted version should be loaded instead.
+                if (Path.GetExtension(Properties.Settings.Default.LastSaveFile).ToLower() == ".xml")
+                {
+                    string possibleConvertedCollectionPath = Path.Combine(
+                        Path.GetDirectoryName(Properties.Settings.Default.LastSaveFile),
+                        Path.GetFileNameWithoutExtension(Properties.Settings.Default.LastSaveFile) +
+                        CollectionFileExtension);
+                    if (File.Exists(possibleConvertedCollectionPath)
+                        && MessageBox.Show(
+                            "The creature collection file seems to be already converted to the new file format.\n"
+                            + "Path of the collection file:\n" + Properties.Settings.Default.LastSaveFile
+                            + "\n\nIf you click No, the old file-version will be loaded and then automatically converted."
+                            + "\nIt is recommended to load the already converted version to avoid synchronisation-issues."
+                            + "\nDo you want to load the converted version?", "Library seems to be already converted",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                        ) == DialogResult.Yes)
+                    {
+                        Properties.Settings.Default.LastSaveFile = possibleConvertedCollectionPath;
+                    }
+                }
+
+                // load last save file:
+                if (!LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
+                    createNewCollection = true;
+            }
+
+            if (createNewCollection)
+            {
+                NewCollection();
+                UpdateRecentlyUsedFileMenu();
+            }
+
+            UpdateAsaIndicator();
+        }
+
+        private void LoadAppSettings()
+        {
+            // the eol is changed during the loading of the settings, the \r is removed. re-add it.
+            var namingPatterns = Properties.Settings.Default.NamingPatterns;
+            if (namingPatterns != null)
+            {
+                for (int i = 0; i < namingPatterns.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty(namingPatterns[i]))
+                        namingPatterns[i] = namingPatterns[i].Replace("\r", string.Empty).Replace("\n", "\r\n");
+                }
+            }
+            UpdatePatternButtons();
+
             // conversion of global color level settings to specific options. Remove around 2024-09
             if (Properties.Settings.Default.ChartHueEvenMax != int.MaxValue)
             {
@@ -277,19 +437,7 @@ namespace ARKBreedingStats
             }
             // end of level color settings conversion
 
-            _reactOnCreatureSelectionChange = true;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            SetLocalizations(false);
-
-            // load window-position and size
-            Utils.SetWindowRectangle(this, Properties.Settings.Default.MainWindowRect,
-                Properties.Settings.Default.MainWindowMaximized);
-
             // Load column-widths, display-indices and sort-order of the TimerControlListView
-
             LoadListViewSettings(timerList1.ListViewTimers, nameof(Properties.Settings.Default.TCLVColumnWidths),
                 nameof(Properties.Settings.Default.TCLVColumnDisplayIndices),
                 nameof(Properties.Settings.Default.TCLVSortCol), nameof(Properties.Settings.Default.TCLVSortAsc));
@@ -368,64 +516,8 @@ namespace ARKBreedingStats
             tamingControl1.WeaponDamages = Properties.Settings.Default.weaponDamages;
             tamingControl1.WeaponDamagesEnabled = Properties.Settings.Default.weaponDamagesEnabled;
 
-            // torpor should not show bar, it get's too wide and is not interesting for breeding
-            _statIOs[Stats.Torpidity].ShowBarAndLock = false;
-            _testingIOs[Stats.Torpidity].ShowBarAndLock = false;
-            // move sums and footnote to bottom
-            flowLayoutPanelStatIOsExtractor.Controls.Add(panelSums);
-            flowLayoutPanelStatIOsExtractor.Controls.Add(labelFootnote);
-            flowLayoutPanelStatIOsTester.Controls.Add(panelStatTesterFootnote);
-
             breedingPlan1.MutationLimit = Properties.Settings.Default.MutationLimitBreedingPlanner;
-
-            // enable 0-lock for dom-levels of oxygen, food (most often they are not leveled up)
-            _statIOs[Stats.Oxygen].DomLevelLockedZero = true;
-            _statIOs[Stats.Food].DomLevelLockedZero = true;
-
-            LbWarningLevel255.Visible = false;
-
-            InitializeCollection();
-
-            CreatureColored.InitializeSpeciesImageLocation();
-
-            if (!LoadStatAndKibbleValues(false).statValuesLoaded || !Values.V.species.Any())
-            {
-                MessageBoxes.ShowMessageBox(Loc.S("valuesFileLoadingError"),
-                    $"{Loc.S("error")}: Values-file not found");
-                Environment.Exit(1);
-            }
-
-            statsMultiplierTesting1.SetGameDefaultMultiplier();
-
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                _statIOs[s].Input = 0;
-            }
-
-            creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
-            creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
-            creatureInfoInputExtractor.ParentInheritance = parentInheritanceExtractor;
-            parentInheritanceExtractor.Visible = false;
-
-            // set last species
-            speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
-
-            if (Properties.Settings.Default.lastSpecies?.Any() == true)
-            {
-                speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(Properties.Settings.Default.lastSpecies[0]));
-            }
-
-            if (speciesSelector1.SelectedSpecies == null && Values.V.species.Any())
-                speciesSelector1.SetSpecies(Values.V.species[0]);
-            tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
-
-            // OCR
-            ocrControl1.Initialize();
             cbGuessSpecies.Checked = Properties.Settings.Default.OcrGuessSpecies;
-            InitializeOcrLabelSets();
-
-            // initialize speech recognition if enabled
-            InitializeSpeechRecognition();
 
             // default owner and tribe
             creatureInfoInputExtractor.CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
@@ -436,86 +528,6 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.LockServer = Properties.Settings.Default.ServerNameLocked;
 
             CbLinkWildMutatedLevelsTester.Checked = Properties.Settings.Default.TesterLinkWildMutatedLevels;
-
-            // UI loaded
-
-            // set theme colors
-            //this.InitializeTabControls();
-            //this.SetColors(Color.FromArgb(20, 20, 20), Color.LightGray);
-
-
-            //// initialize controls
-            extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
-            extractionTestControl1.CopyToTester += ExtractionTestControl1_CopyToTester;
-
-            // dev tabs
-            if (!Properties.Settings.Default.DevTools)
-            {
-                tabControlMain.TabPages.Remove(tabPageExtractionTests);
-                tabControlMain.TabPages.Remove(tabPageMultiplierTesting);
-                devToolStripMenuItem.Visible = false;
-                sendExampleCreatureToolStripMenuItem.Visible = false;
-                cbExactlyImprinting.Visible = false;
-            }
-            else
-            {
-                extractionTestControl1.LoadExtractionTestCases(Properties.Settings.Default.LastSaveFileTestCases);
-            }
-
-            // set TLS-protocol (github needs at least TLS 1.2) for update-check
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-
-            // check for updates
-            MoveSpeciesImagesToNewFolder();
-            if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
-            {
-                bool selectDefaultImagesIfNotYet = false;
-                bool initializeImages = false;
-                if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles)
-                {
-                    Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles = true;
-
-                    if (Updater.Updater.IsProgramInstalled)
-                        initializeImages = true;
-                    else
-                        selectDefaultImagesIfNotYet = true;
-                }
-                CheckForUpdates(true, selectDefaultImagesIfNotYet, initializeImages);
-            }
-
-            RemoveNonExistingFilesInRecentlyUsedFiles();
-
-            _filterListAllowed = true;
-            // load last loaded file
-            bool createNewCollection = string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFile);
-            if (!createNewCollection)
-            {
-                // if the last loaded file was already converted by someone else (e.g. if the library-file is shared),
-                // ask if the converted version should be loaded instead.
-                if (Path.GetExtension(Properties.Settings.Default.LastSaveFile).ToLower() == ".xml")
-                {
-                    string possibleConvertedCollectionPath = Path.Combine(
-                        Path.GetDirectoryName(Properties.Settings.Default.LastSaveFile),
-                        Path.GetFileNameWithoutExtension(Properties.Settings.Default.LastSaveFile) +
-                        CollectionFileExtension);
-                    if (File.Exists(possibleConvertedCollectionPath)
-                        && MessageBox.Show(
-                            "The creature collection file seems to be already converted to the new file format.\n"
-                            + "Path of the collection file:\n" + Properties.Settings.Default.LastSaveFile
-                            + "\n\nIf you click No, the old file-version will be loaded and then automatically converted."
-                            + "\nIt is recommended to load the already converted version to avoid synchronisation-issues."
-                            + "\nDo you want to load the converted version?", "Library seems to be already converted",
-                            MessageBoxButtons.YesNo, MessageBoxIcon.Question
-                        ) == DialogResult.Yes)
-                    {
-                        Properties.Settings.Default.LastSaveFile = possibleConvertedCollectionPath;
-                    }
-                }
-
-                // load last save file:
-                if (!LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
-                    createNewCollection = true;
-            }
 
             // if no export folder is set, try to detect it
             if ((Properties.Settings.Default.ExportCreatureFolders == null
@@ -529,23 +541,17 @@ namespace ARKBreedingStats
                     .Select(f => $"{f.steamPlayerName}||{f.path}").ToArray();
             }
 
-            if (createNewCollection)
-            {
-                NewCollection();
-                UpdateRecentlyUsedFileMenu();
-            }
-
             var filterPresets = Properties.Settings.Default.LibraryFilterPresets;
             if (filterPresets != null)
+            {
+                ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.Clear();
                 ToolStripTextBoxLibraryFilter.AutoCompleteCustomSource.AddRange(filterPresets);
+            }
 
-            UpdateAsaIndicator();
-            UpdatePatternButtons();
+            timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
 
             SetupAutoLoadFileWatcher();
             SetupExportFileWatcher();
-
-            timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
         }
 
         /// <summary>
@@ -1362,7 +1368,18 @@ namespace ARKBreedingStats
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             // savesettings save settings
+            SaveAppSettings();
 
+            // remove old cache-files
+            CreatureColored.CleanupCache();
+
+            AsbServerStopListening(false);
+            _tt?.Dispose();
+            _timerGlobal?.Dispose();
+        }
+
+        private void SaveAppSettings()
+        {
             // save window-position and size
             if (WindowState != FormWindowState.Minimized)
             {
@@ -1437,13 +1454,6 @@ namespace ARKBreedingStats
             Properties.Settings.Default.Save();
 
             StatsLevelColors.SaveSettings();
-
-            // remove old cache-files
-            CreatureColored.CleanupCache();
-
-            AsbServerStopListening(false);
-            _tt?.Dispose();
-            _timerGlobal?.Dispose();
         }
 
         /// <summary>
@@ -3999,6 +4009,90 @@ namespace ARKBreedingStats
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LevelGraphOptionsControl.ShowWindow(this, StatsLevelColors);
+        }
+
+        private void ExportAppSettings()
+        {
+            using (var fileSelector = new SaveFileDialog())
+            {
+                fileSelector.FileName = "ASB_appSettings.config";
+                fileSelector.Filter = "config files (*.config)|*.config|All files (*.*)|*.*";
+                if (fileSelector.ShowDialog(this) != DialogResult.OK) return;
+
+                var destFilePath = fileSelector.FileName;
+                try
+                {
+                    SaveAppSettings();
+                    var settingsFilePath = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+                    File.Copy(settingsFilePath, destFilePath, true);
+                    SetMessageLabelText($"Exported app settings to {destFilePath}", MessageBoxIcon.Information, destFilePath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxes.ExceptionMessageBox(ex, "App settings save failed");
+                }
+            }
+        }
+
+        private void ImportAppSettings()
+        {
+            using (var fileSelector = new OpenFileDialog())
+            {
+                fileSelector.FileName = "ASB_appSettings.config";
+                fileSelector.Filter = "config files (*.config)|*.config|All files (*.*)|*.*";
+                if (fileSelector.ShowDialog(this) != DialogResult.OK) return;
+
+                var newSettingsFilePath = fileSelector.FileName;
+
+                if (new FileInfo(newSettingsFilePath).Length < 5)
+                {
+                    MessageBoxes.ShowMessageBox("The settings file seems to be empty, aborting settings loading.");
+                    return;
+                }
+
+                try
+                {
+                    var settingsFilePath = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+                    var backupFilePathBase = Path.Combine(Path.GetDirectoryName(settingsFilePath), Path.GetFileNameWithoutExtension(settingsFilePath));
+                    var now = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                    backupFilePathBase = $"{backupFilePathBase}_backup_{now}";
+                    var backupFilePath = $"{backupFilePathBase}.config";
+                    var i = 1;
+                    while (File.Exists(backupFilePath))
+                        backupFilePath = $"{backupFilePathBase}_{++i}.config";
+                    File.Copy(settingsFilePath, backupFilePath);
+
+                    File.Copy(newSettingsFilePath, settingsFilePath, true);
+                    Properties.Settings.Default.Reload();
+                    LoadAppSettings();
+                    SetMessageLabelText($"Imported app settings from {newSettingsFilePath}", MessageBoxIcon.Information, newSettingsFilePath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxes.ExceptionMessageBox(ex, "App settings import failed");
+                }
+            }
+        }
+
+        private void showSettingsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFolderInExplorer(System.Configuration.ConfigurationManager
+                .OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
+        }
+
+        private void saveAppSettingsTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportAppSettings();
+        }
+
+        private void loadAppSettingsFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportAppSettings();
+        }
+
+        private void showStatsOptionsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFolderInExplorer(StatsLevelColors.SettingsFilePath);
         }
     }
 }
