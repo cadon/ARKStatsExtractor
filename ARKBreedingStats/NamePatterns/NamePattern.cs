@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -98,7 +99,17 @@ namespace ARKBreedingStats.NamePatterns
 
             if (shebangMatch.Success)
             {
-                name = JavaScriptNamePattern.ResolveJavaScript(pattern.Substring(shebangMatch.Length), creature, tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
+                try
+                {
+                    name = JavaScriptNamePattern.ResolveJavaScript(pattern.Substring(shebangMatch.Length), creature,
+                        tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
+                }
+                catch (FileNotFoundException ex)
+                {
+                    // Jint.dll not installed
+                    MessageBoxes.ExceptionMessageBox(ex, "Probably a needed module is not installed for using the javascript pattern. You can install it via the menu Settings - Extra data.");
+                    return null;
+                }
             }
             else
             {

@@ -20,7 +20,7 @@ namespace ARKBreedingStats.NamePatterns
         public static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
         {
             var stopwatch = Stopwatch.StartNew();
-            var log = consoleLog ?? ((s) => { });
+            var log = consoleLog ?? (s => { });
             string numberedUniqueName;
             string lastNumberedUniqueName = null;
 

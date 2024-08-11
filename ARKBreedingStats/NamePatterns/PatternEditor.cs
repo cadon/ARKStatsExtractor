@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.Properties;
 using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
 
@@ -133,9 +132,9 @@ namespace ARKBreedingStats.NamePatterns
 
         public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
         {
-            Utils.SetWindowRectangle(this, Settings.Default.PatternEditorFormRectangle);
-            if (Settings.Default.PatternEditorSplitterDistance > 0)
-                SplitterDistance = Settings.Default.PatternEditorSplitterDistance;
+            Utils.SetWindowRectangle(this, Properties.Settings.Default.PatternEditorFormRectangle);
+            if (Properties.Settings.Default.PatternEditorSplitterDistance > 0)
+                SplitterDistance = Properties.Settings.Default.PatternEditorSplitterDistance;
 
             InitializeLocalization();
 
@@ -308,6 +307,8 @@ namespace ARKBreedingStats.NamePatterns
             TabPagePatternTemplates.Controls.Add(_tableLayoutPanelTemplates);
             _listTemplates = new List<Panel>();
 
+            var jsTemplateSet = false;
+
             foreach (var t in templates)
             {
                 var localizedPattern = LocalizeTemplateString(t.Pattern);
@@ -361,7 +362,16 @@ namespace ARKBreedingStats.NamePatterns
                     Dock = DockStyle.Bottom,
                     Margin = new Padding(0, 3, 0, 5)
                 });
+
+                if (t.Title == "Javascript sample with output of creature data")
+                {
+                    BtJsTemplate.Tag = localizedPattern;
+                    jsTemplateSet = true;
+                }
             }
+
+            if (!jsTemplateSet)
+                BtJsTemplate.Visible = false;
         }
 
         private string LocalizeTemplateString(string pattern)
@@ -667,10 +677,7 @@ namespace ARKBreedingStats.NamePatterns
 
         private void txtboxPattern_TextChanged(object sender, EventArgs e)
         {
-            ShowHideConsoleTab();
-
-            if (cbPreview.Checked)
-                _updateNameDebouncer.Debounce(500, DisplayPreview, Dispatcher.CurrentDispatcher);
+            _updateNameDebouncer.Debounce(500, TextChangedDebouncer, Dispatcher.CurrentDispatcher);
         }
 
         private void ShowHideConsoleTab()
@@ -689,8 +696,11 @@ namespace ARKBreedingStats.NamePatterns
             }
         }
 
-        private void DisplayPreview()
+        private void TextChangedDebouncer()
         {
+            ShowHideConsoleTab();
+            if (!cbPreview.Checked) return;
+
             ResetConsoleTab();
             var stopwatch = Stopwatch.StartNew();
             cbPreview.Text = NamePatterns.NamePattern.GenerateCreatureName(_creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _topLevels, _customReplacings,
@@ -753,9 +763,28 @@ namespace ARKBreedingStats.NamePatterns
             TbFilterFunctions.Text = string.Empty;
         }
 
-        private void BtnJavaScriptConsoleClear_Click(object sender, EventArgs e)
+        private void BtJavaScript_Click(object sender, EventArgs e)
         {
-            TextboxJavaScriptConsole.Clear();
+            if (!JsDependenciesAvailable())
+                return;
+
+            // add javascript start indicator
+            if (!JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
+                txtboxPattern.Text = "#!javascript" + Environment.NewLine + "return `${species}`;" + Environment.NewLine + txtboxPattern.Text;
+        }
+
+        private void BtJsTemplate_Click(object sender, EventArgs e)
+        {
+            if (JsDependenciesAvailable())
+                Btn_Click(sender, e);
+        }
+
+        /// <summary>
+        /// Checks if needed dlls are available.
+        /// </summary>
+        private bool JsDependenciesAvailable()
+        {
+            return true; // TODO
         }
     }
 }
