@@ -739,6 +739,7 @@ namespace ARKBreedingStats.ocr
 
         private void nudResizing_ValueChanged(object sender, EventArgs e)
         {
+            if (ArkOcr.Ocr.ocrConfig == null) return;
             ArkOcr.Ocr.ocrConfig.resize = (double)nudResizing.Value;
             UpdateResizeResultLabel();
         }
