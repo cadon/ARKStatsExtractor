@@ -12,8 +12,10 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
+using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
 namespace ARKBreedingStats
 {
@@ -127,32 +129,35 @@ namespace ARKBreedingStats
         {
             if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                if (listViewLibrary.SelectedIndices.Count > 0)
+                if (listViewLibrary.SelectedIndices.Count == 0) return;
+                if ((ModifierKeys & Keys.Shift) == 0
+                    && MessageBox.Show("Do you really want to delete the entry and all data for "
+                                    + $"\"{_creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name}\""
+                                    + $"{(listViewLibrary.SelectedIndices.Count > 1 ? " and " + (listViewLibrary.SelectedIndices.Count - 1) + " other creatures" : null)}?\n\n"
+                                    + "(Hold the Shift key to delete without this messagebox confirmation shown.)",
+                        "Delete Creature?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                    != DialogResult.Yes) return;
+
+                bool onlyOneSpecies = true;
+                Species species = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].Species;
+                foreach (int i in listViewLibrary.SelectedIndices)
                 {
-                    if (MessageBox.Show("Do you really want to delete the entry and all data for " +
-                            $"\"{_creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name}\"" +
-                            $"{(listViewLibrary.SelectedIndices.Count > 1 ? " and " + (listViewLibrary.SelectedIndices.Count - 1) + " other creatures" : null)}?",
-                            "Delete Creature?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    var cr = _creaturesDisplayed[i];
+                    if (onlyOneSpecies)
                     {
-                        bool onlyOneSpecies = true;
-                        Species species = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].Species;
-                        foreach (int i in listViewLibrary.SelectedIndices)
-                        {
-                            var cr = _creaturesDisplayed[i];
-                            if (onlyOneSpecies)
-                            {
-                                if (species != cr.Species)
-                                    onlyOneSpecies = false;
-                            }
-                            _creatureCollection.DeleteCreature(cr);
-                        }
-                        _creatureCollection.RemoveUnlinkedPlaceholders();
-                        UpdateCreatureListings(onlyOneSpecies ? species : null);
-                        SetCollectionChanged(true, onlyOneSpecies ? species : null);
+                        if (species != cr.Species)
+                            onlyOneSpecies = false;
                     }
+                    _creatureCollection.DeleteCreature(cr);
                 }
+                _creatureCollection.RemoveUnlinkedPlaceholders();
+                UpdateCreatureListings(onlyOneSpecies ? species : null);
+                SetCollectionChanged(true, onlyOneSpecies ? species : null);
+
+                return;
             }
-            else if (tabControlMain.SelectedTab == tabPagePlayerTribes)
+
+            if (tabControlMain.SelectedTab == tabPagePlayerTribes)
             {
                 tribesControl1.RemoveSelected();
             }
