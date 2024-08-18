@@ -2286,6 +2286,7 @@ namespace ARKBreedingStats
             0,
             0,
             0});
+            this.numericUpDownLevel.ValueChanged += new System.EventHandler(this.numericUpDownLevel_ValueChanged);
             this.numericUpDownLevel.Enter += new System.EventHandler(this.numericUpDown_Enter);
             // 
             // creatureInfoInputExtractor

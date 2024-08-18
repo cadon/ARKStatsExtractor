@@ -1548,5 +1548,13 @@ namespace ARKBreedingStats
 
         private void BtSetImprinting100_Click(object sender, EventArgs e)
             => numericUpDownImprintingBonusExtractor.ValueSave = 100;
+
+        private void numericUpDownLevel_ValueChanged(object sender, EventArgs e)
+        {
+            if (!(rbWildExtractor.Checked && speciesSelector1.SelectedSpecies is Species species)) return;
+
+            _statIOs[Stats.Torpidity].Input = StatValueCalculation.CalculateValue(species,
+                Stats.Torpidity, (int)numericUpDownLevel.Value, 0, 0, false);
+        }
     }
 }

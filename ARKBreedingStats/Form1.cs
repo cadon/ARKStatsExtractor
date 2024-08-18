@@ -2246,7 +2246,17 @@ namespace ARKBreedingStats
         {
             _clearExtractionCreatureData =
                 true; // as soon as the user changes stat-values, it's assumed it's not an exported creature anymore
+            if (sIo.statIndex == Stats.Torpidity && rbWildExtractor.Checked)
+            {
+                if (!(speciesSelector1.SelectedSpecies?.stats is SpeciesStat[] speciesStats)) return;
+                var trp = speciesStats[Stats.Torpidity];
+                if (trp == null || trp.BaseValue == 0 || trp.IncPerWildLevel == 0) return;
+                numericUpDownLevel.ValueSaveDouble = (sIo.Input / trp.BaseValue - 1) / trp.IncPerWildLevel;
+                return;
+            }
+
             if (!cbQuickWildCheck.Checked) return;
+
             int lvlWild = (int)Math.Round(
                 (sIo.Input - speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue) /
                 (speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue *
