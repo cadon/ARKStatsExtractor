@@ -735,6 +735,7 @@ namespace ARKBreedingStats
                     _testingIOs[s].Visible = false;
                     _testingIOs[s].LevelWild = 0;
                     _testingIOs[s].LevelMut = 0;
+                    _testingIOs[s].LevelDom = 0;
                 }
                 if (!_activeStats[s]) _statIOs[s].Input = 0;
                 _statIOs[s].Title = Utils.StatName(s, false, statNames);
