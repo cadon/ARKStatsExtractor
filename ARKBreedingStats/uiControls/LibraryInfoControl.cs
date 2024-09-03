@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -121,7 +122,7 @@ namespace ARKBreedingStats.uiControls
             _tlbMain.SetRowSpan(_speciesPictureBox, 2);
 
             _speciesPictureBox.Click += _speciesPictureBoxClick;
-            _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard");
+            _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard\nLeft click: plain image\nRight click: image with color info");
         }
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
@@ -216,7 +217,10 @@ namespace ARKBreedingStats.uiControls
         private void _speciesPictureBoxClick(object sender, EventArgs e)
         {
             if (_speciesPictureBox.Image == null) return;
-            Clipboard.SetImage(_speciesPictureBox.Image);
+            if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
+                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, _selectedColors, _species));
+            else
+                Clipboard.SetImage(_speciesPictureBox.Image);
         }
     }
 }
