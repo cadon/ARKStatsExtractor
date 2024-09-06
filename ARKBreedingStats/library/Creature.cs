@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using ARKBreedingStats.library;
 
 namespace ARKBreedingStats.Library
 {
@@ -231,6 +232,9 @@ namespace ARKBreedingStats.Library
         public int mutationsPaternalNew;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<string> tags = new List<string>();
+
+        [JsonProperty("traits", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public List<CreatureTrait> Traits;
 
         /// <summary>
         /// Used to display the creature's position in a list.
@@ -599,6 +603,13 @@ namespace ARKBreedingStats.Library
             flags = (flags & ~(CreatureFlags.Female | CreatureFlags.Male)) | (sex == Sex.Female ? CreatureFlags.Female : sex == Sex.Male ? CreatureFlags.Male : CreatureFlags.None);
             // mutated
             flags = (flags & ~CreatureFlags.Mutated) | (Mutations > 0 ? CreatureFlags.Mutated : CreatureFlags.None);
+        }
+
+        public void AddTrait(CreatureTrait trait)
+        {
+            if (Traits == null)
+                Traits = new List<CreatureTrait> { trait };
+            else Traits.Add(trait);
         }
 
         /// <summary>
