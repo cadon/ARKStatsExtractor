@@ -21,6 +21,7 @@ namespace ARKBreedingStats.StatsOptions
             hueControl.UpdateTooltips(tt);
             hueControlOdd.UpdateTooltips(tt);
             tt.SetToolTip(CbUseDifferentColorsForOddLevels, "Use different colors for odd levels");
+            tt.SetToolTip(CbUseDifferentColorsForMutationLevels, "Use different colors for mutation levels");
         }
 
         public void SetStatOptions(StatLevelColors so, bool isNotRoot, StatsOptions<StatLevelColors> parent)
@@ -28,8 +29,10 @@ namespace ARKBreedingStats.StatsOptions
             _statLevelColors = so;
             _parent = parent;
             CbUseDifferentColorsForOddLevels.Checked = so?.UseDifferentColorsForOddLevels == true;
+            CbUseDifferentColorsForMutationLevels.Checked = so?.UseDifferentColorsForMutationLevels == true;
             hueControl.SetValues(so?.LevelGraphRepresentation);
             hueControlOdd.SetValues(so?.LevelGraphRepresentationOdd);
+            HueControlMutations.SetValues(so?.LevelGraphRepresentationMutation);
             CbOverrideGraphSettings.Checked = so?.OverrideParent == true;
             CbOverrideGraphSettings.Visible = isNotRoot;
         }
@@ -40,6 +43,7 @@ namespace ARKBreedingStats.StatsOptions
             hueControl.Enabled = overrideStat;
             hueControlOdd.Enabled = overrideStat;
             CbUseDifferentColorsForOddLevels.Enabled = overrideStat;
+            CbUseDifferentColorsForMutationLevels.Enabled = overrideStat;
             _statLevelColors.OverrideParent = overrideStat;
             if (overrideStat && _statLevelColors.LevelGraphRepresentation == null)
             {
@@ -57,6 +61,18 @@ namespace ARKBreedingStats.StatsOptions
                 _statLevelColors.LevelGraphRepresentationOdd = _parent?.StatOptions[_statIndex].LevelGraphRepresentationOdd?.Copy()
                                                            ?? LevelGraphRepresentation.GetDefaultValue;
                 hueControlOdd.SetValues(_statLevelColors.LevelGraphRepresentationOdd);
+            }
+        }
+
+        private void CbUseDifferentColorsForMutationLevels_CheckedChanged(object sender, EventArgs e)
+        {
+            _statLevelColors.UseDifferentColorsForMutationLevels = CbUseDifferentColorsForMutationLevels.Checked;
+            HueControlMutations.Visible = _statLevelColors.UseDifferentColorsForMutationLevels;
+            if (_statLevelColors.UseDifferentColorsForMutationLevels && _statLevelColors.LevelGraphRepresentationMutation == null)
+            {
+                _statLevelColors.LevelGraphRepresentationMutation = _parent?.StatOptions[_statIndex].LevelGraphRepresentationMutation?.Copy()
+                                                               ?? LevelGraphRepresentation.GetDefaultValue;
+                HueControlMutations.SetValues(_statLevelColors.LevelGraphRepresentationMutation);
             }
         }
     }

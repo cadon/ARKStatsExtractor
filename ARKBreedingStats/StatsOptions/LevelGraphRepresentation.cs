@@ -94,7 +94,7 @@ namespace ARKBreedingStats.StatsOptions
         /// <summary>
         /// If false the hue value increases from the lower color to the upper color.
         /// </summary>
-        [JsonProperty("hueRev")]
+        [JsonProperty("hueRev", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool ColorGradientReversed
         {
             get => _colorGradientReversed;

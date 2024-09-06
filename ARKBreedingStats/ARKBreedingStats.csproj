@@ -190,12 +190,6 @@
     <Compile Include="uiControls\StatSelector.Designer.cs">
       <DependentUpon>StatSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\StatsOptionsWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StatsOptions\StatsOptionsWindow.Designer.cs">
-      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
     <Compile Include="duplicates\MergingDuplicates.cs" />
@@ -787,9 +781,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\StatsOptionsWindow.resx">
-      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">
       <DependentUpon>VariantSelector.cs</DependentUpon>

@@ -1145,8 +1145,9 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].BackColor = Utils.GetColorFromPercent((int)(cr.levelsMutated[s] * colorFactor),
-                            _considerStatHighlight[s] ? cr.IsTopMutationStat(s) ? 0.5 : 0.8 : 0.93, true);
+                    var backColor = Utils.AdjustColorLight(statOptions.StatOptions[s].GetLevelColor(cr.levelsWild[s], false, true),
+                        _considerStatHighlight[s] ? cr.IsTopMutationStat(s) ? 0.2 : 0.75 : 0.93);
+                    lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].SetBackColorAndAccordingForeColor(backColor);
                 }
             }
             lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered) ? Color.FromArgb(220, 220, 220) :

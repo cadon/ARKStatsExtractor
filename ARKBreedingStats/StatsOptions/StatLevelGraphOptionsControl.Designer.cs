@@ -34,9 +34,11 @@ namespace ARKBreedingStats.StatsOptions
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.CbUseDifferentColorsForOddLevels = new System.Windows.Forms.CheckBox();
-            this.hueControlOdd = new HueControl();
-            this.hueControl = new HueControl();
+            this.hueControlOdd = new ARKBreedingStats.StatsOptions.HueControl();
+            this.hueControl = new ARKBreedingStats.StatsOptions.HueControl();
             this.CbOverrideGraphSettings = new System.Windows.Forms.CheckBox();
+            this.HueControlMutations = new ARKBreedingStats.StatsOptions.HueControl();
+            this.CbUseDifferentColorsForMutationLevels = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // LbStatName
@@ -52,9 +54,10 @@ namespace ARKBreedingStats.StatsOptions
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(936, 1);
+            this.panel1.Size = new System.Drawing.Size(1362, 1);
             this.panel1.TabIndex = 7;
             // 
             // CbUseDifferentColorsForOddLevels
@@ -94,10 +97,31 @@ namespace ARKBreedingStats.StatsOptions
             this.CbOverrideGraphSettings.UseVisualStyleBackColor = true;
             this.CbOverrideGraphSettings.CheckedChanged += new System.EventHandler(this.CbOverrideGraphSettings_CheckedChanged);
             // 
-            // StatOptionsControl
+            // HueControlMutations
+            // 
+            this.HueControlMutations.Location = new System.Drawing.Point(1011, 3);
+            this.HueControlMutations.Name = "HueControlMutations";
+            this.HueControlMutations.Size = new System.Drawing.Size(347, 24);
+            this.HueControlMutations.TabIndex = 13;
+            // 
+            // CbUseDifferentColorsForMutationLevels
+            // 
+            this.CbUseDifferentColorsForMutationLevels.AutoSize = true;
+            this.CbUseDifferentColorsForMutationLevels.Enabled = false;
+            this.CbUseDifferentColorsForMutationLevels.Location = new System.Drawing.Point(934, 8);
+            this.CbUseDifferentColorsForMutationLevels.Name = "CbUseDifferentColorsForMutationLevels";
+            this.CbUseDifferentColorsForMutationLevels.Size = new System.Drawing.Size(71, 17);
+            this.CbUseDifferentColorsForMutationLevels.TabIndex = 12;
+            this.CbUseDifferentColorsForMutationLevels.Text = "mutations";
+            this.CbUseDifferentColorsForMutationLevels.UseVisualStyleBackColor = true;
+            this.CbUseDifferentColorsForMutationLevels.CheckedChanged += new System.EventHandler(this.CbUseDifferentColorsForMutationLevels_CheckedChanged);
+            // 
+            // StatLevelGraphOptionsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.HueControlMutations);
+            this.Controls.Add(this.CbUseDifferentColorsForMutationLevels);
             this.Controls.Add(this.CbOverrideGraphSettings);
             this.Controls.Add(this.hueControlOdd);
             this.Controls.Add(this.hueControl);
@@ -105,7 +129,7 @@ namespace ARKBreedingStats.StatsOptions
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.LbStatName);
             this.Name = "StatLevelGraphOptionsControl";
-            this.Size = new System.Drawing.Size(936, 29);
+            this.Size = new System.Drawing.Size(1362, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,5 +144,7 @@ namespace ARKBreedingStats.StatsOptions
         private HueControl hueControl;
         private HueControl hueControlOdd;
         private System.Windows.Forms.CheckBox CbOverrideGraphSettings;
+        private HueControl HueControlMutations;
+        private System.Windows.Forms.CheckBox CbUseDifferentColorsForMutationLevels;
     }
 }

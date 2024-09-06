@@ -15,6 +15,8 @@ namespace ARKBreedingStats.StatsOptions
     {
         public Dictionary<string, StatsOptions<T>> StatsOptionsDict;
 
+        public event Action SettingsChanged;
+
         /// <summary>
         /// List of cached stat options in species.
         /// </summary>
@@ -196,6 +198,7 @@ namespace ARKBreedingStats.StatsOptions
         public void ClearSpeciesCache()
         {
             _cache.Clear();
+            SettingsChanged?.Invoke();
         }
     }
 }

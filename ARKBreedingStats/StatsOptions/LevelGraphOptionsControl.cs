@@ -70,6 +70,7 @@ namespace ARKBreedingStats.uiControls
             var flpHeaderControls = new FlowLayoutPanel { Dock = DockStyle.Fill };
             Controls.Add(flpHeaderControls, 0, 0);
             var flpStatControls = new FlowLayoutPanel { Dock = DockStyle.Fill };
+            flpStatControls.AutoScroll = true;
             Controls.Add(flpStatControls, 0, 1);
 
             var btNew = new Button { Width = 20, Height = 20 };
@@ -91,6 +92,7 @@ namespace ARKBreedingStats.uiControls
             _tbOptionsName.Leave += TbOptionsName_Leave;
 
             _lbParent = new Label { Text = "depends on", Margin = new Padding(5, 7, 5, 0), AutoSize = true };
+            _tt.SetToolTip(_lbParent, "If the current setting has no value for a stat, the parent's values are used.");
             flpHeaderControls.Controls.Add(_lbParent);
 
             _cbbParent = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };

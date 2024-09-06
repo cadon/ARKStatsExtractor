@@ -299,7 +299,7 @@ namespace ARKBreedingStats.uiControls
 
         private void nudLvM_ValueChanged(object sender, EventArgs e)
         {
-            SetLevelBar(panelBarMutLevels, (int)nudLvM.Value);
+            SetLevelBar(panelBarMutLevels, (int)nudLvM.Value, false, true);
 
             if (_linkWildMutated && _wildMutatedSum != -1)
             {
@@ -312,15 +312,15 @@ namespace ARKBreedingStats.uiControls
 
         private void numLvD_ValueChanged(object sender, EventArgs e)
         {
-            SetLevelBar(panelBarDomLevels, (int)nudLvD.Value);
+            SetLevelBar(panelBarDomLevels, (int)nudLvD.Value, false);
 
             if (_inputType != StatIOInputType.FinalValueInputType)
                 LevelChangedDebouncer();
         }
 
-        private void SetLevelBar(Panel panel, int level)
+        private void SetLevelBar(Panel panel, int level, bool useCustomOdd = true, bool mutationLevel = false)
         {
-            var range = _statLevelColors.GetLevelRange(level, out var lowerBound);
+            var range = _statLevelColors.GetLevelRange(level, out var lowerBound, useCustomOdd, mutationLevel);
             if (range < 1) range = 1;
             var lengthPercentage = 100 * (level - lowerBound) / range; // in percentage of the max bar width
 
@@ -328,7 +328,7 @@ namespace ARKBreedingStats.uiControls
             else if (lengthPercentage < 0) lengthPercentage = 0;
 
             panel.Width = lengthPercentage * MaxBarLength / 100;
-            panel.BackColor = _statLevelColors.GetLevelColor(level);
+            panel.BackColor = _statLevelColors.GetLevelColor(level, useCustomOdd, mutationLevel);
         }
 
         private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, FireLevelChanged, Dispatcher.CurrentDispatcher);
@@ -414,13 +414,14 @@ namespace ARKBreedingStats.uiControls
 
         public void SetStatOptions(StatLevelColors so)
         {
+            if (_statLevelColors == so) return;
             _statLevelColors = so;
             if (nudLvW.Value > 0)
                 SetLevelBar(panelBarWildLevels, (int)nudLvW.Value);
             if (nudLvD.Value > 0)
-                SetLevelBar(panelBarDomLevels, (int)nudLvD.Value);
+                SetLevelBar(panelBarDomLevels, (int)nudLvD.Value, false);
             if (nudLvM.Value > 0)
-                SetLevelBar(panelBarMutLevels, (int)nudLvM.Value);
+                SetLevelBar(panelBarMutLevels, (int)nudLvM.Value, false, true);
         }
     }
 

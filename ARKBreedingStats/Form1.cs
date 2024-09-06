@@ -169,6 +169,8 @@ namespace ARKBreedingStats
             ocrControl1.OcrLabelSetsChanged += InitializeOcrLabelSets;
             ocrControl1.OcrLabelSelectedSetChanged += SetCurrentOcrLabelSet;
 
+            StatsLevelColors.SettingsChanged += StatsLevelColors_SettingsChanged;
+
             openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter()
                 .ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
 
@@ -820,6 +822,22 @@ namespace ARKBreedingStats
             _hiddenLevelsCreatureTester = 0;
 
             _tt.SetToolTip(tbSpeciesGlobal, species.DescriptiveNameAndMod + "\n" + species.blueprintPath);
+        }
+
+        /// <summary>
+        /// Applies the level color settings to the stat controls. Call if a species setting was added or removed.
+        /// </summary>
+        private void StatsLevelColors_SettingsChanged()
+        {
+            var levelGraphRepresentations = StatsLevelColors.GetStatsOptions(speciesSelector1.SelectedSpecies);
+            if (levelGraphRepresentations == null) return;
+
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+            }
+
         }
 
         private void numericUpDown_Enter(object sender, EventArgs e)
