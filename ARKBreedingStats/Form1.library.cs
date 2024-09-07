@@ -12,10 +12,10 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Input;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
+using ARKBreedingStats.NamePatterns;
 
 namespace ARKBreedingStats
 {
@@ -1647,6 +1647,35 @@ namespace ARKBreedingStats
             UpdateSpeciesLists(_creatureCollection.creatures);
         }
 
+        private void listViewLibrary_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.NumPad1:
+                    GenerateCreatureNames(0);
+                    break;
+                case Keys.NumPad2:
+                    GenerateCreatureNames(1);
+                    break;
+                case Keys.NumPad3:
+                    GenerateCreatureNames(2);
+                    break;
+                case Keys.NumPad4:
+                    GenerateCreatureNames(3);
+                    break;
+                case Keys.NumPad5:
+                    GenerateCreatureNames(4);
+                    break;
+                case Keys.NumPad6:
+                    GenerateCreatureNames(5);
+                    break;
+                default: return;
+            }
+
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+        }
+
         private void listViewLibrary_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -2188,6 +2217,42 @@ namespace ARKBreedingStats
             SortLibrary();
 
             MessageBoxes.ShowMessageBox(result, "Creatures imported from tsv file", MessageBoxIcon.Information);
+        }
+
+        private void GenerateCreatureNames(object sender, EventArgs e) => GenerateCreatureNames((int)((ToolStripMenuItem)sender).Tag);
+
+        /// <summary>
+        /// Replaces the names of the selected creatures with a pattern generated name.
+        /// </summary>
+        private void GenerateCreatureNames(int namePatternIndex)
+        {
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
+
+            var creaturesToUpdate = new List<Creature>();
+            Creature[] sameSpecies = null;
+            var libraryCreatureCount = _creatureCollection.GetTotalCreatureCount();
+
+            foreach (int i in listViewLibrary.SelectedIndices)
+            {
+                var cr = _creaturesDisplayed[i];
+                if (cr.Species == null) continue;
+
+                if (sameSpecies?.FirstOrDefault()?.Species != cr.Species)
+                    sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
+
+                // set new name
+                cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
+                    _customReplacingNamingPattern, false, namePatternIndex,
+                    Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: libraryCreatureCount);
+
+                creaturesToUpdate.Add(cr);
+            }
+
+            listViewLibrary.BeginUpdate();
+            foreach (var cr in creaturesToUpdate)
+                UpdateDisplayedCreatureValues(cr, false, false);
+
+            listViewLibrary.EndUpdate();
         }
 
         #region library list view columns

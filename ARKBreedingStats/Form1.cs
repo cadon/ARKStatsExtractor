@@ -227,12 +227,13 @@ namespace ARKBreedingStats
             var libraryContextMenuItems = new ToolStripMenuItem[namePatternCount];
             for (int i = 0; i < namePatternCount; i++)
             {
-                var mi = new ToolStripMenuItem { Text = $"Pattern {i + 1}{(i == 0 ? " (used for auto import)" : string.Empty)}", Tag = i };
+                var displayedPatternIndex = i + 1;
+                var mi = new ToolStripMenuItem { Text = $"Pattern {displayedPatternIndex}{(i == 0 ? " (used for auto import)" : string.Empty)}", Tag = i };
                 mi.Click += MenuOpenNamePattern;
                 namePatternMenuItems[i] = mi;
 
                 // library context menu
-                mi = new ToolStripMenuItem { Text = $"Pattern {i + 1}", Tag = i };
+                mi = new ToolStripMenuItem { Text = $"Pattern {i + 1} (NumPad{displayedPatternIndex})", Tag = i };
                 mi.Click += GenerateCreatureNames;
                 libraryContextMenuItems[i] = mi;
             }
@@ -3663,42 +3664,6 @@ namespace ARKBreedingStats
                 else
                     Clipboard.SetText(name);
             }
-        }
-
-        /// <summary>
-        /// Replaces the names of the selected creatures with a pattern generated name.
-        /// </summary>
-        private void GenerateCreatureNames(object sender, EventArgs e)
-        {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
-
-            var namePatternIndex = (int)((ToolStripMenuItem)sender).Tag;
-
-            var creaturesToUpdate = new List<Creature>();
-            Creature[] sameSpecies = null;
-            var libraryCreatureCount = _creatureCollection.GetTotalCreatureCount();
-
-            foreach (int i in listViewLibrary.SelectedIndices)
-            {
-                var cr = _creaturesDisplayed[i];
-                if (cr.Species == null) continue;
-
-                if (sameSpecies?.FirstOrDefault()?.Species != cr.Species)
-                    sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
-
-                // set new name
-                cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
-                    _customReplacingNamingPattern, false, namePatternIndex,
-                    Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: libraryCreatureCount);
-
-                creaturesToUpdate.Add(cr);
-            }
-
-            listViewLibrary.BeginUpdate();
-            foreach (var cr in creaturesToUpdate)
-                UpdateDisplayedCreatureValues(cr, false, false);
-
-            listViewLibrary.EndUpdate();
         }
 
         private void fixColorsToolStripMenuItem_Click(object sender, EventArgs e)

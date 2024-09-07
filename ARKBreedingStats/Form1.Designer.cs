@@ -535,7 +535,7 @@ namespace ARKBreedingStats
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
@@ -2415,6 +2415,7 @@ namespace ARKBreedingStats
             this.listViewLibrary.View = System.Windows.Forms.View.Details;
             this.listViewLibrary.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.libraryListView_ColumnClick);
             this.listViewLibrary.SelectedIndexChanged += new System.EventHandler(this.listViewLibrary_SelectedIndexChanged);
+            this.listViewLibrary.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listViewLibrary_KeyDown);
             this.listViewLibrary.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewLibrary_KeyUp);
             // 
             // columnHeaderName
