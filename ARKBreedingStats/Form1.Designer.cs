@@ -320,9 +320,8 @@ namespace ARKBreedingStats
             this.listBoxSpeciesLib = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.checkedListBoxConsiderStatTop = new System.Windows.Forms.CheckedListBox();
-            this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
+            this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.tabPageLibRadarChart = new System.Windows.Forms.TabPage();
             this.radarChartLibrary = new ARKBreedingStats.RadarChart();
             this.creatureBoxListView = new ARKBreedingStats.CreatureBox();
@@ -405,6 +404,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.BtRecalculateTopStatsAfterChange = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -535,7 +535,7 @@ namespace ARKBreedingStats
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
@@ -3099,39 +3099,18 @@ namespace ARKBreedingStats
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.checkedListBoxConsiderStatTop, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.buttonRecalculateTops, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.BtRecalculateTopStatsAfterChange, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label17, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.buttonRecalculateTops, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 322);
             this.tableLayoutPanel2.TabIndex = 0;
-            // 
-            // checkedListBoxConsiderStatTop
-            // 
-            this.checkedListBoxConsiderStatTop.CheckOnClick = true;
-            this.checkedListBoxConsiderStatTop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxConsiderStatTop.FormattingEnabled = true;
-            this.checkedListBoxConsiderStatTop.Location = new System.Drawing.Point(3, 35);
-            this.checkedListBoxConsiderStatTop.Name = "checkedListBoxConsiderStatTop";
-            this.checkedListBoxConsiderStatTop.Size = new System.Drawing.Size(169, 255);
-            this.checkedListBoxConsiderStatTop.TabIndex = 3;
-            // 
-            // buttonRecalculateTops
-            // 
-            this.buttonRecalculateTops.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 296);
-            this.buttonRecalculateTops.Name = "buttonRecalculateTops";
-            this.buttonRecalculateTops.Size = new System.Drawing.Size(169, 23);
-            this.buttonRecalculateTops.TabIndex = 2;
-            this.buttonRecalculateTops.Text = "Apply";
-            this.buttonRecalculateTops.UseVisualStyleBackColor = true;
-            this.buttonRecalculateTops.Click += new System.EventHandler(this.buttonRecalculateTops_Click);
             // 
             // label17
             // 
@@ -3141,6 +3120,16 @@ namespace ARKBreedingStats
             this.label17.Size = new System.Drawing.Size(168, 26);
             this.label17.TabIndex = 4;
             this.label17.Text = "Select the stats considered for the TopStat-Calculation and Coloring";
+            // 
+            // buttonRecalculateTops
+            // 
+            this.buttonRecalculateTops.Location = new System.Drawing.Point(3, 29);
+            this.buttonRecalculateTops.Name = "buttonRecalculateTops";
+            this.buttonRecalculateTops.Size = new System.Drawing.Size(169, 23);
+            this.buttonRecalculateTops.TabIndex = 2;
+            this.buttonRecalculateTops.Text = "Open stats settings";
+            this.buttonRecalculateTops.UseVisualStyleBackColor = true;
+            this.buttonRecalculateTops.Click += new System.EventHandler(this.ButtonOpenTopStatsSettingsClick);
             // 
             // tabPageLibRadarChart
             // 
@@ -3978,6 +3967,17 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // BtRecalculateTopStatsAfterChange
+            // 
+            this.BtRecalculateTopStatsAfterChange.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtRecalculateTopStatsAfterChange.Location = new System.Drawing.Point(3, 58);
+            this.BtRecalculateTopStatsAfterChange.Name = "BtRecalculateTopStatsAfterChange";
+            this.BtRecalculateTopStatsAfterChange.Size = new System.Drawing.Size(169, 52);
+            this.BtRecalculateTopStatsAfterChange.TabIndex = 5;
+            this.BtRecalculateTopStatsAfterChange.Text = "Recalculate top stats after change";
+            this.BtRecalculateTopStatsAfterChange.UseVisualStyleBackColor = true;
+            this.BtRecalculateTopStatsAfterChange.Click += new System.EventHandler(this.BtRecalculateTopStatsAfterChange_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4168,7 +4168,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderTopness;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.CheckedListBox checkedListBoxConsiderStatTop;
         private System.Windows.Forms.Button buttonRecalculateTops;
         private System.Windows.Forms.Label label17;
         private CreatureInfoInput creatureInfoInputExtractor;
@@ -4459,5 +4458,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem saveAppSettingsTToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
         private System.Windows.Forms.ToolStripMenuItem showStatsOptionsFileInExplorerToolStripMenuItem;
+        private System.Windows.Forms.Button BtRecalculateTopStatsAfterChange;
     }
 }

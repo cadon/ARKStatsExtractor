@@ -18,6 +18,8 @@ using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.StatsOptions.LevelColorSettings;
+using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
@@ -57,11 +59,6 @@ namespace ARKBreedingStats
         private bool _updateTorporInTester;
         private bool _filterListAllowed;
 
-        /// <summary>
-        /// The stat indices that are considered for color highlighting and topness calculation.
-        /// </summary>
-        private readonly bool[] _considerStatHighlight = new bool[Stats.StatsCount];
-
         private DateTime _lastAutoSaveBackup;
         private Creature _creatureTesterEdit;
         private int _hiddenLevelsCreatureTester;
@@ -91,7 +88,8 @@ namespace ARKBreedingStats
         private static double[] _lastOcrValues;
         private Species _lastOcrSpecies;
 
-        internal static readonly StatsOptionsSettings<StatLevelColors> StatsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json");
+        internal static readonly StatsOptionsSettings<StatLevelColors> StatsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json", "Level colors");
+        internal static readonly StatsOptionsSettings<ConsiderTopStats> StatsTopStats = new StatsOptionsSettings<ConsiderTopStats>("statsTopStats.json", "Consider for top stats");
 
         public Form1()
         {
@@ -199,7 +197,6 @@ namespace ARKBreedingStats
                 statIo.InputValueChanged += StatIOQuickWildLevelCheck;
                 statIo.LevelChanged += ExtractorStatLevelChanged;
                 statIo.Click += StatIO_Click;
-                _considerStatHighlight[s] = (Properties.Settings.Default.consideredStats & (1 << s)) != 0;
 
                 _statIOs[s] = statIo;
                 _testingIOs[s] = statIoTesting;
@@ -210,8 +207,6 @@ namespace ARKBreedingStats
             {
                 flowLayoutPanelStatIOsExtractor.Controls.Add(_statIOs[si]);
                 flowLayoutPanelStatIOsTester.Controls.Add(_testingIOs[si]);
-                checkedListBoxConsiderStatTop.Items.Add(Utils.StatName(si),
-                    _considerStatHighlight[si]);
             }
 
             _timerGlobal.Interval = 1000;
@@ -1483,6 +1478,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.Save();
 
             StatsLevelColors.SaveSettings();
+            StatsTopStats.SaveSettings();
         }
 
         /// <summary>
@@ -1985,27 +1981,6 @@ namespace ARKBreedingStats
                 SetCreatureValuesLevelsAndInfoToExtractor(importedCreatures[0]);
             else
                 EditCreatureInTester(importedCreatures[0], true);
-        }
-
-        private void buttonRecalculateTops_Click(object sender, EventArgs e)
-        {
-            int consideredStats = 0;
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                var si = Stats.DisplayOrder[s];
-                var statIndexUsed = checkedListBoxConsiderStatTop.GetItemChecked(s);
-                _considerStatHighlight[si] = statIndexUsed;
-
-                // save consideredStats
-                if (_considerStatHighlight[si])
-                    consideredStats += 1 << si;
-            }
-
-            Properties.Settings.Default.consideredStats = consideredStats;
-
-            // recalculate topstats
-            CalculateTopStats(_creatureCollection.creatures);
-            FilterLibRecalculate();
         }
 
         private void aliveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4011,7 +3986,12 @@ namespace ARKBreedingStats
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LevelGraphOptionsControl.ShowWindow(this, StatsLevelColors);
+            StatsOptionsForm.ShowWindow(this, StatsLevelColors, StatsTopStats);
+        }
+
+        private void ButtonOpenTopStatsSettingsClick(object sender, EventArgs e)
+        {
+            StatsOptionsForm.ShowWindow(this, StatsLevelColors, StatsTopStats, 1);
         }
 
         private void ExportAppSettings()

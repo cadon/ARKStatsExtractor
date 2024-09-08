@@ -312,6 +312,7 @@ namespace ARKBreedingStats
                 var lowestLevels = new int[Stats.StatsCount];
                 var highestMutationLevels = new int[Stats.StatsCount];
                 var lowestMutationLevels = new int[Stats.StatsCount];
+                var considerAsTopStat = StatsTopStats.GetStatsOptions(species).StatOptions;
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
@@ -320,7 +321,7 @@ namespace ARKBreedingStats
                     if (species.UsesStat(s))
                     {
                         usedStatIndices.Add(s);
-                        if (_considerStatHighlight[s])
+                        if (considerAsTopStat[s].ConsiderStat)
                             usedAndConsideredStatIndices.Add(s);
                     }
                 }
@@ -567,8 +568,17 @@ namespace ARKBreedingStats
             }
 
             bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+
+            var considerTopStats = new Dictionary<Species, bool[]>();
             foreach (Creature c in creatures)
-                c.SetTopStatCount(_considerStatHighlight, considerWastedStatsForTopCreatures);
+            {
+                if (!considerTopStats.TryGetValue(c.Species, out var consideredTopStats))
+                {
+                    consideredTopStats = StatsTopStats.GetStatsOptions(c.Species).StatOptions.Select(si => si.ConsiderStat).ToArray();
+                    considerTopStats[c.Species] = consideredTopStats;
+                }
+                c.SetTopStatCount(consideredTopStats, considerWastedStatsForTopCreatures);
+            }
 
             var selectedSpecies = speciesSelector1.SelectedSpecies;
             if (selectedSpecies != null)
@@ -1076,8 +1086,6 @@ namespace ARKBreedingStats
                 };
             }
 
-            double colorFactor = 100d / _creatureCollection.maxChartLevel;
-
             string[] subItems = new[] {
                         (displayIndex ? cr.ListIndex + " - " : string.Empty) +
                         cr.name,
@@ -1114,7 +1122,8 @@ namespace ARKBreedingStats
             // apply colors to the subItems
             var displayZeroMutationLevels = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
 
-            var statOptions = StatsLevelColors.GetStatsOptions(cr.Species);
+            var statOptionsColors = StatsLevelColors.GetStatsOptions(cr.Species).StatOptions;
+            var statOptionsTopStats = StatsTopStats.GetStatsOptions(cr.Species).StatOptions;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -1132,8 +1141,8 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    var backColor = Utils.AdjustColorLight(statOptions.StatOptions[s].GetLevelColor(cr.levelsWild[s]),
-                        _considerStatHighlight[s] ? cr.IsTopStat(s) ? 0.2 : 0.75 : 0.93);
+                    var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsWild[s]),
+                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopStat(s) ? 0.2 : 0.75 : 0.93);
                     lvi.SubItems[ColumnIndexFirstStat + s].SetBackColorAndAccordingForeColor(backColor);
                 }
 
@@ -1145,8 +1154,8 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    var backColor = Utils.AdjustColorLight(statOptions.StatOptions[s].GetLevelColor(cr.levelsWild[s], false, true),
-                        _considerStatHighlight[s] ? cr.IsTopMutationStat(s) ? 0.2 : 0.75 : 0.93);
+                    var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsWild[s], false, true),
+                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopMutationStat(s) ? 0.2 : 0.75 : 0.93);
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].SetBackColorAndAccordingForeColor(backColor);
                 }
             }
@@ -2029,6 +2038,13 @@ namespace ARKBreedingStats
             UpdateStatusBar();
             SetCollectionChanged(true,
                 affectedSpeciesBlueprints.Count == 1 ? Values.V.SpeciesByBlueprint(affectedSpeciesBlueprints.First()) : null);
+        }
+
+        private void BtRecalculateTopStatsAfterChange_Click(object sender, EventArgs e)
+        {
+            // Recalculate top stats after considered stats have changed.
+            CalculateTopStats(_creatureCollection.creatures);
+            FilterLibRecalculate();
         }
 
         private void adminCommandToSetColorsToolStripMenuItem_Click(object sender, EventArgs e)

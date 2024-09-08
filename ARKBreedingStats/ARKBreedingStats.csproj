@@ -107,10 +107,17 @@
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
+    <Compile Include="StatsOptions\StatsOptionsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsOptions\StatsOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStats.cs" />
     <Compile Include="StatsOptions\StatOptionsBase.cs" />
-    <Compile Include="StatsOptions\LevelGraphRepresentation.cs" />
+    <Compile Include="StatsOptions\LevelColorSettings\LevelGraphRepresentation.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
-    <Compile Include="StatsOptions\StatLevelColors.cs" />
+    <Compile Include="StatsOptions\LevelColorSettings\StatLevelColors.cs" />
     <Compile Include="StatsOptions\StatsOptions.cs" />
     <Compile Include="StatsOptions\StatsOptionsSettings.cs" />
     <Compile Include="library\TopLevels.cs" />
@@ -127,6 +134,9 @@
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
     <Compile Include="species\ArkColors.cs" />
     <Compile Include="species\Troodonism.cs" />
+    <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStatsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,10 +158,10 @@
     <Compile Include="uiControls\Hatching.Designer.cs">
       <DependentUpon>Hatching.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\HueControl.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\HueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatsOptions\HueControl.Designer.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\HueControl.Designer.cs">
       <DependentUpon>HueControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
@@ -176,13 +186,13 @@
     <Compile Include="uiControls\ScrollForm.Designer.cs">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.Designer.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.Designer.cs">
       <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\LevelGraphOptionsControl.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\LevelGraphOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.cs">
@@ -765,7 +775,7 @@
     <EmbeddedResource Include="uiControls\Hatching.resx">
       <DependentUpon>Hatching.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\HueControl.resx">
+    <EmbeddedResource Include="StatsOptions\LevelColorSettings\HueControl.resx">
       <DependentUpon>HueControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
@@ -777,7 +787,7 @@
     <EmbeddedResource Include="uiControls\ScrollForm.resx">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\StatLevelGraphOptionsControl.resx">
+    <EmbeddedResource Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.resx">
       <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">

@@ -1,6 +1,4 @@
-﻿using ARKBreedingStats.uiControls;
-
-namespace ARKBreedingStats.StatsOptions
+﻿namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 {
     partial class StatLevelGraphOptionsControl
     {
@@ -34,10 +32,10 @@ namespace ARKBreedingStats.StatsOptions
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.CbUseDifferentColorsForOddLevels = new System.Windows.Forms.CheckBox();
-            this.hueControlOdd = new ARKBreedingStats.StatsOptions.HueControl();
-            this.hueControl = new ARKBreedingStats.StatsOptions.HueControl();
+            this.hueControlOdd = new HueControl();
+            this.hueControl = new HueControl();
             this.CbOverrideGraphSettings = new System.Windows.Forms.CheckBox();
-            this.HueControlMutations = new ARKBreedingStats.StatsOptions.HueControl();
+            this.HueControlMutations = new HueControl();
             this.CbUseDifferentColorsForMutationLevels = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 

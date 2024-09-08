@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ARKBreedingStats.species;
+using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.StatsOptions
@@ -27,11 +28,17 @@ namespace ARKBreedingStats.StatsOptions
         /// </summary>
         private readonly string _settingsFileName;
 
+        /// <summary>
+        /// Descriptive name of these settings.
+        /// </summary>
+        public readonly string SettingsName;
+
         public string SettingsFilePath => FileService.GetJsonPath(_settingsFileName);
 
-        public StatsOptionsSettings(string settingsFileName)
+        public StatsOptionsSettings(string settingsFileName, string settingsName)
         {
             _settingsFileName = settingsFileName;
+            SettingsName = settingsName;
             LoadSettings(settingsFileName);
         }
 
@@ -86,6 +93,12 @@ namespace ARKBreedingStats.StatsOptions
             {
                 statOptions = Enumerable.Range(0, Stats.StatsCount)
                     .Select(si => StatLevelColors.GetDefault() as T).ToArray();
+            }
+            else if (typeof(T) == typeof(ConsiderTopStats))
+            {
+                var statIndicesToConsiderDefault = new[] { Stats.Health, Stats.Stamina, Stats.Weight, Stats.MeleeDamageMultiplier };
+                statOptions = Enumerable.Range(0, Stats.StatsCount)
+                    .Select(si => new ConsiderTopStats { OverrideParent = true, ConsiderStat = statIndicesToConsiderDefault.Contains(si) } as T).ToArray();
             }
             else
             {

@@ -9,12 +9,12 @@ namespace ARKBreedingStats.StatsOptions
     public class StatsOptions<T> where T : StatOptionsBase
     {
         /// <summary>
-        /// Name of the stats options, usually a species name.
+        /// Name of the stats options, usually a species name or a group.
         /// </summary>
         [JsonProperty]
         public string Name;
 
-        public override string ToString() => string.IsNullOrEmpty(Name) ? $"<{Loc.S("default")}>" : Name;
+        public override string ToString() => string.IsNullOrEmpty(Name) ? $"<{Loc.S("default")}>" : new string(' ', HierarchyLevel * 2) + Name;
 
         /// <summary>
         /// Name of the parent setting.
@@ -29,5 +29,7 @@ namespace ARKBreedingStats.StatsOptions
         /// </summary>
         [JsonProperty]
         public T[] StatOptions;
+
+        public int HierarchyLevel;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using ARKBreedingStats.uiControls;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 {
     partial class HueControl
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 {
     public partial class StatLevelGraphOptionsControl : UserControl
     {
@@ -47,7 +47,8 @@ namespace ARKBreedingStats.StatsOptions
             _statLevelColors.OverrideParent = overrideStat;
             if (overrideStat && _statLevelColors.LevelGraphRepresentation == null)
             {
-                _statLevelColors.LevelGraphRepresentation = _parent?.StatOptions[_statIndex].LevelGraphRepresentation.Copy() ?? LevelGraphRepresentation.GetDefaultValue;
+                _statLevelColors.LevelGraphRepresentation = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentation?.Copy()
+                                                            ?? LevelGraphRepresentation.GetDefaultValue;
                 hueControl.SetValues(_statLevelColors.LevelGraphRepresentation);
             }
         }
@@ -58,7 +59,7 @@ namespace ARKBreedingStats.StatsOptions
             hueControlOdd.Visible = _statLevelColors.UseDifferentColorsForOddLevels;
             if (_statLevelColors.UseDifferentColorsForOddLevels && _statLevelColors.LevelGraphRepresentationOdd == null)
             {
-                _statLevelColors.LevelGraphRepresentationOdd = _parent?.StatOptions[_statIndex].LevelGraphRepresentationOdd?.Copy()
+                _statLevelColors.LevelGraphRepresentationOdd = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentationOdd?.Copy()
                                                            ?? LevelGraphRepresentation.GetDefaultValue;
                 hueControlOdd.SetValues(_statLevelColors.LevelGraphRepresentationOdd);
             }
@@ -70,7 +71,7 @@ namespace ARKBreedingStats.StatsOptions
             HueControlMutations.Visible = _statLevelColors.UseDifferentColorsForMutationLevels;
             if (_statLevelColors.UseDifferentColorsForMutationLevels && _statLevelColors.LevelGraphRepresentationMutation == null)
             {
-                _statLevelColors.LevelGraphRepresentationMutation = _parent?.StatOptions[_statIndex].LevelGraphRepresentationMutation?.Copy()
+                _statLevelColors.LevelGraphRepresentationMutation = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentationMutation?.Copy()
                                                                ?? LevelGraphRepresentation.GetDefaultValue;
                 HueControlMutations.SetValues(_statLevelColors.LevelGraphRepresentationMutation);
             }
