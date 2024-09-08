@@ -572,6 +572,7 @@ namespace ARKBreedingStats
             var considerTopStats = new Dictionary<Species, bool[]>();
             foreach (Creature c in creatures)
             {
+                if (c.Species == null) continue;
                 if (!considerTopStats.TryGetValue(c.Species, out var consideredTopStats))
                 {
                     consideredTopStats = StatsTopStats.GetStatsOptions(c.Species).StatOptions.Select(si => si.ConsiderStat).ToArray();
