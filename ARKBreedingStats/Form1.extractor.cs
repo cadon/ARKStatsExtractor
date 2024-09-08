@@ -1283,7 +1283,7 @@ namespace ARKBreedingStats
                 }
                 else if (cv.motherArkId != 0)
                 {
-                    cv.Mother = new Creature(cv.motherArkId);
+                    cv.Mother = new Creature(cv.motherArkId, cv.Species);
                     _creatureCollection.creatures.Add(cv.Mother);
                 }
             }
@@ -1296,7 +1296,7 @@ namespace ARKBreedingStats
                 }
                 else if (cv.fatherArkId != 0)
                 {
-                    cv.Father = new Creature(cv.fatherArkId);
+                    cv.Father = new Creature(cv.fatherArkId, cv.Species);
                     _creatureCollection.creatures.Add(cv.Father);
                 }
             }

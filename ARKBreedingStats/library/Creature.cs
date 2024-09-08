@@ -287,11 +287,12 @@ namespace ARKBreedingStats.Library
         /// Creates a placeholder creature with the given ArkId, which have to be imported
         /// </summary>
         /// <param name="arkId">ArkId from an imported source (no user input)</param>
-        public Creature(long arkId)
+        public Creature(long arkId, Species species)
         {
             ArkId = arkId;
             ArkIdImported = true;
             guid = Utils.ConvertArkIdToGuid(arkId);
+            Species = species;
             flags = CreatureFlags.Placeholder;
         }
 
