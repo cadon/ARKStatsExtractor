@@ -20,7 +20,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             _statIndex = statIndex;
             hueControl.UpdateTooltips(tt);
             hueControlOdd.UpdateTooltips(tt);
-            tt.SetToolTip(CbUseDifferentColorsForOddLevels, "Use different colors for odd levels");
+            tt.SetToolTip(CbUseDifferentColorsForOddLevels, "Use different colors for odd wild levels");
             tt.SetToolTip(CbUseDifferentColorsForMutationLevels, "Use different colors for mutation levels");
         }
 
