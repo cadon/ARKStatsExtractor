@@ -684,21 +684,23 @@ namespace ARKBreedingStats
             else
             {
                 // check if rectangle is on screen
-                bool isOnScreen = false;
+                bool centerIsOnScreen = false;
                 foreach (Screen screen in Screen.AllScreens)
                 {
-                    if (screen.WorkingArea.Contains(windowRect))
+                    if (screen.WorkingArea.Contains(Center(windowRect)))
                     {
-                        isOnScreen = true;
+                        centerIsOnScreen = true;
                         break;
                     }
                 }
-                if (!isOnScreen)
+                if (!centerIsOnScreen)
                 {
                     windowRect.X = 100;
                     windowRect.Y = 100;
                 }
             }
+
+            Point Center(Rectangle rect) => new Point(rect.Left + rect.Width / 2, rect.Top + rect.Height / 2);
 
             form.Top = windowRect.Top;
             form.Left = windowRect.Left;

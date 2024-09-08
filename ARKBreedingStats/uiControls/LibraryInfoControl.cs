@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -47,10 +48,10 @@ namespace ARKBreedingStats.uiControls
             _tlbMain.Controls.Add(TlpColorInfoText, 0, 0);
             _tlbMain.SetRowSpan(TlpColorInfoText, 2);
 
-            const int buttonsTotalWidth = 444;
+            const int buttonsTotalWidth = 850;
             const int buttonMargins = 6;
             // color region buttons
-            var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, Height = 180 };
+            var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, Height = 103 };
             _colorRegionButtons = new Button[Ark.ColorRegionCount];
             for (int i = 0; i < Ark.ColorRegionCount; i++)
             {
@@ -59,13 +60,14 @@ namespace ARKBreedingStats.uiControls
                     Text = i.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Tag = i,
-                    Width = buttonsTotalWidth / 3 - buttonMargins,
+                    Width = buttonsTotalWidth / 6 - buttonMargins,
                     Height = 70
                 };
                 _colorRegionButtons[i] = bt;
                 bt.Click += ButtonRegionClick;
                 flpButtons.Controls.Add(bt);
             }
+            flpButtons.SetFlowBreak(_colorRegionButtons.Last(), true);
 
             var colorsButton = new Button
             {
@@ -109,17 +111,18 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(colorsButton);
 
             _tlbMain.Controls.Add(flpButtons, 1, 0);
+            _tlbMain.SetColumnSpan(flpButtons, 2);
             _colorPicker = new ColorPickerControl();
             _colorPicker.CbOnlyNatural.Checked = false;
             _colorPicker.DisableAlternativeColor();
             _tlbMain.Controls.Add(_colorPicker, 1, 1);
             _colorPicker.UserMadeSelection += ColorPickerColorChosen;
 
-            _tlbMain.Controls.Add(_speciesPictureBox, 2, 0);
+            _tlbMain.Controls.Add(_speciesPictureBox, 2, 1);
             _tlbMain.SetRowSpan(_speciesPictureBox, 2);
 
             _speciesPictureBox.Click += _speciesPictureBoxClick;
-            _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard");
+            _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard\nLeft click: plain image\nRight click: image with color info");
         }
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
@@ -192,6 +195,7 @@ namespace ARKBreedingStats.uiControls
                 SetRegionColorButton(i);
             _colorRegionButtons[0].PerformClick();
             UpdateCreatureImage();
+            _tlbMain.PerformLayout();
         }
 
         public void SetRegionColorButton(int region)
@@ -213,7 +217,10 @@ namespace ARKBreedingStats.uiControls
         private void _speciesPictureBoxClick(object sender, EventArgs e)
         {
             if (_speciesPictureBox.Image == null) return;
-            Clipboard.SetImage(_speciesPictureBox.Image);
+            if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
+                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, _selectedColors, _species));
+            else
+                Clipboard.SetImage(_speciesPictureBox.Image);
         }
     }
 }

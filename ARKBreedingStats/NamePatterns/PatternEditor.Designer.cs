@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PatternEditor));
             this.txtboxPattern = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -37,6 +38,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.StopwatchLabel = new System.Windows.Forms.Label();
             this.cbPreview = new System.Windows.Forms.CheckBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -49,8 +51,14 @@
             this.TbFilterKeys = new System.Windows.Forms.TextBox();
             this.BtClearFilterKey = new System.Windows.Forms.Button();
             this.TabPagePatternTemplates = new System.Windows.Forms.TabPage();
+            this.TabPageJavaScriptConsole = new System.Windows.Forms.TabPage();
+            this.TextboxJavaScriptConsole = new System.Windows.Forms.TextBox();
             this.CbPatternNameToClipboardAfterManualApplication = new System.Windows.Forms.CheckBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.BtJavaScript = new System.Windows.Forms.Button();
+            this.BtJsTemplate = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -59,14 +67,17 @@
             this.TlpKeysFunctions.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.TabPageJavaScriptConsole.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtboxPattern
             // 
+            this.txtboxPattern.AcceptsTab = true;
             this.txtboxPattern.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtboxPattern.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtboxPattern.Location = new System.Drawing.Point(0, 0);
@@ -127,7 +138,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.linkLabel1, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.tabControl1, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.CbPatternNameToClipboardAfterManualApplication, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -137,7 +148,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(702, 630);
             this.tableLayoutPanel1.TabIndex = 7;
@@ -155,6 +166,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.StopwatchLabel);
             this.groupBox1.Controls.Add(this.cbPreview);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -163,6 +175,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preview";
+            // 
+            // StopwatchLabel
+            // 
+            this.StopwatchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.StopwatchLabel.AutoSize = true;
+            this.StopwatchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StopwatchLabel.Location = new System.Drawing.Point(512, 8);
+            this.StopwatchLabel.Name = "StopwatchLabel";
+            this.StopwatchLabel.Size = new System.Drawing.Size(39, 29);
+            this.StopwatchLabel.TabIndex = 12;
+            this.StopwatchLabel.Text = "⏱";
             // 
             // cbPreview
             // 
@@ -179,7 +202,8 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(3, 114);
+            this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.linkLabel1.Location = new System.Drawing.Point(511, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(185, 13);
             this.linkLabel1.TabIndex = 10;
@@ -191,11 +215,12 @@
             // 
             this.tabControl1.Controls.Add(this.TabPageKeysFunctions);
             this.tabControl1.Controls.Add(this.TabPagePatternTemplates);
+            this.tabControl1.Controls.Add(this.TabPageJavaScriptConsole);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 137);
+            this.tabControl1.Location = new System.Drawing.Point(3, 149);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(696, 490);
+            this.tabControl1.Size = new System.Drawing.Size(696, 478);
             this.tabControl1.TabIndex = 16;
             // 
             // TabPageKeysFunctions
@@ -204,7 +229,7 @@
             this.TabPageKeysFunctions.Location = new System.Drawing.Point(4, 22);
             this.TabPageKeysFunctions.Name = "TabPageKeysFunctions";
             this.TabPageKeysFunctions.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPageKeysFunctions.Size = new System.Drawing.Size(688, 464);
+            this.TabPageKeysFunctions.Size = new System.Drawing.Size(688, 452);
             this.TabPageKeysFunctions.TabIndex = 0;
             this.TabPageKeysFunctions.Text = "Keys and Functions";
             this.TabPageKeysFunctions.UseVisualStyleBackColor = true;
@@ -222,7 +247,7 @@
             this.TlpKeysFunctions.RowCount = 2;
             this.TlpKeysFunctions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.TlpKeysFunctions.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.TlpKeysFunctions.Size = new System.Drawing.Size(682, 458);
+            this.TlpKeysFunctions.Size = new System.Drawing.Size(682, 446);
             this.TlpKeysFunctions.TabIndex = 15;
             // 
             // panel3
@@ -290,10 +315,34 @@
             this.TabPagePatternTemplates.Location = new System.Drawing.Point(4, 22);
             this.TabPagePatternTemplates.Name = "TabPagePatternTemplates";
             this.TabPagePatternTemplates.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 472);
+            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 464);
             this.TabPagePatternTemplates.TabIndex = 1;
             this.TabPagePatternTemplates.Text = "Templates";
             this.TabPagePatternTemplates.UseVisualStyleBackColor = true;
+            // 
+            // TabPageJavaScriptConsole
+            // 
+            this.TabPageJavaScriptConsole.Controls.Add(this.TextboxJavaScriptConsole);
+            this.TabPageJavaScriptConsole.Location = new System.Drawing.Point(4, 22);
+            this.TabPageJavaScriptConsole.Name = "TabPageJavaScriptConsole";
+            this.TabPageJavaScriptConsole.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageJavaScriptConsole.Size = new System.Drawing.Size(688, 452);
+            this.TabPageJavaScriptConsole.TabIndex = 2;
+            this.TabPageJavaScriptConsole.Text = "JavaScript Console";
+            this.TabPageJavaScriptConsole.UseVisualStyleBackColor = true;
+            // 
+            // TextboxJavaScriptConsole
+            // 
+            this.TextboxJavaScriptConsole.BackColor = System.Drawing.SystemColors.Window;
+            this.TextboxJavaScriptConsole.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextboxJavaScriptConsole.Location = new System.Drawing.Point(3, 3);
+            this.TextboxJavaScriptConsole.Multiline = true;
+            this.TextboxJavaScriptConsole.Name = "TextboxJavaScriptConsole";
+            this.TextboxJavaScriptConsole.ReadOnly = true;
+            this.TextboxJavaScriptConsole.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TextboxJavaScriptConsole.Size = new System.Drawing.Size(682, 446);
+            this.TextboxJavaScriptConsole.TabIndex = 0;
+            this.TextboxJavaScriptConsole.WordWrap = false;
             // 
             // CbPatternNameToClipboardAfterManualApplication
             // 
@@ -324,6 +373,39 @@
             this.splitContainer1.SplitterDistance = 40;
             this.splitContainer1.TabIndex = 8;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.linkLabel1);
+            this.panel4.Controls.Add(this.BtJsTemplate);
+            this.panel4.Controls.Add(this.BtJavaScript);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 117);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(696, 26);
+            this.panel4.TabIndex = 15;
+            // 
+            // BtJavaScript
+            // 
+            this.BtJavaScript.Dock = System.Windows.Forms.DockStyle.Left;
+            this.BtJavaScript.Location = new System.Drawing.Point(0, 0);
+            this.BtJavaScript.Name = "BtJavaScript";
+            this.BtJavaScript.Size = new System.Drawing.Size(139, 26);
+            this.BtJavaScript.TabIndex = 11;
+            this.BtJavaScript.Text = "Use JavaScript";
+            this.BtJavaScript.UseVisualStyleBackColor = true;
+            this.BtJavaScript.Click += new System.EventHandler(this.BtJavaScript_Click);
+            // 
+            // BtJsTemplate
+            // 
+            this.BtJsTemplate.Dock = System.Windows.Forms.DockStyle.Left;
+            this.BtJsTemplate.Location = new System.Drawing.Point(139, 0);
+            this.BtJsTemplate.Name = "BtJsTemplate";
+            this.BtJsTemplate.Size = new System.Drawing.Size(92, 26);
+            this.BtJsTemplate.TabIndex = 13;
+            this.BtJsTemplate.Text = "JS example";
+            this.BtJsTemplate.UseVisualStyleBackColor = true;
+            this.BtJsTemplate.Click += new System.EventHandler(this.BtJsTemplate_Click);
+            // 
             // PatternEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,11 +430,15 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.TabPageJavaScriptConsole.ResumeLayout(false);
+            this.TabPageJavaScriptConsole.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -370,16 +456,23 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox cbPreview;
+        private System.Windows.Forms.CheckBox CbPatternNameToClipboardAfterManualApplication;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage TabPageKeysFunctions;
+        private System.Windows.Forms.TableLayoutPanel TlpKeysFunctions;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox TbFilterFunctions;
         private System.Windows.Forms.Button BtClearFilterFunctions;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox TbFilterKeys;
         private System.Windows.Forms.Button BtClearFilterKey;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage TabPageKeysFunctions;
-        private System.Windows.Forms.TableLayoutPanel TlpKeysFunctions;
         private System.Windows.Forms.TabPage TabPagePatternTemplates;
-        private System.Windows.Forms.CheckBox CbPatternNameToClipboardAfterManualApplication;
+        private System.Windows.Forms.TabPage TabPageJavaScriptConsole;
+        private System.Windows.Forms.TextBox TextboxJavaScriptConsole;
+        private System.Windows.Forms.Label StopwatchLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button BtJavaScript;
+        private System.Windows.Forms.Button BtJsTemplate;
     }
 }

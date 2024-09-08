@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ARKBreedingStats.species;
+using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.StatsOptions
@@ -15,14 +16,29 @@ namespace ARKBreedingStats.StatsOptions
     {
         public Dictionary<string, StatsOptions<T>> StatsOptionsDict;
 
+        public event Action SettingsChanged;
+
+        /// <summary>
+        /// List of cached stat options in species.
+        /// </summary>
+        private readonly Dictionary<string, StatsOptions<T>> _cache = new Dictionary<string, StatsOptions<T>>();
+
         /// <summary>
         /// Name of the settings file.
         /// </summary>
         private readonly string _settingsFileName;
 
-        public StatsOptionsSettings(string settingsFileName)
+        /// <summary>
+        /// Descriptive name of these settings.
+        /// </summary>
+        public readonly string SettingsName;
+
+        public string SettingsFilePath => FileService.GetJsonPath(_settingsFileName);
+
+        public StatsOptionsSettings(string settingsFileName, string settingsName)
         {
             _settingsFileName = settingsFileName;
+            SettingsName = settingsName;
             LoadSettings(settingsFileName);
         }
 
@@ -78,6 +94,12 @@ namespace ARKBreedingStats.StatsOptions
                 statOptions = Enumerable.Range(0, Stats.StatsCount)
                     .Select(si => StatLevelColors.GetDefault() as T).ToArray();
             }
+            else if (typeof(T) == typeof(ConsiderTopStats))
+            {
+                var statIndicesToConsiderDefault = new[] { Stats.Health, Stats.Stamina, Stats.Weight, Stats.MeleeDamageMultiplier };
+                statOptions = Enumerable.Range(0, Stats.StatsCount)
+                    .Select(si => new ConsiderTopStats { OverrideParent = true, ConsiderStat = statIndicesToConsiderDefault.Contains(si) } as T).ToArray();
+            }
             else
             {
                 throw new ArgumentOutOfRangeException($"Unknown type {typeof(T)}, no default value defined");
@@ -123,15 +145,30 @@ namespace ARKBreedingStats.StatsOptions
         /// </summary>
         public StatsOptions<T> GetStatsOptions(Species species)
         {
-            if (species == null || StatsOptionsDict == null) return null;
+            if (string.IsNullOrEmpty(species?.blueprintPath) || StatsOptionsDict == null) return null;
 
-            if (StatsOptionsDict.TryGetValue(species.blueprintPath, out var o)
+            if (_cache.TryGetValue(species.blueprintPath, out var o)) return o;
+
+            StatsOptions<T> speciesStatsOptions;
+            if (StatsOptionsDict.TryGetValue(species.blueprintPath, out o)
                 || StatsOptionsDict.TryGetValue(species.DescriptiveNameAndMod, out o)
                 || StatsOptionsDict.TryGetValue(species.DescriptiveName, out o)
                 || StatsOptionsDict.TryGetValue(species.name, out o))
-                return GenerateStatsOptions(o);
-            if (StatsOptionsDict.TryGetValue(string.Empty, out o)) return o; // default settings
-            return null;
+            {
+                speciesStatsOptions = GenerateStatsOptions(o);
+            }
+            else if (StatsOptionsDict.TryGetValue(string.Empty, out o))
+            {
+                speciesStatsOptions = o; // default settings
+            }
+            else
+            {
+                // error, on default settings available
+                return null;
+            }
+
+            _cache[species.blueprintPath] = speciesStatsOptions;
+            return speciesStatsOptions;
         }
 
         /// <summary>
@@ -166,6 +203,15 @@ namespace ARKBreedingStats.StatsOptions
             }
 
             return finalStatsOptions;
+        }
+
+        /// <summary>
+        /// Clear species cache when settings were changed.
+        /// </summary>
+        public void ClearSpeciesCache()
+        {
+            _cache.Clear();
+            SettingsChanged?.Invoke();
         }
     }
 }

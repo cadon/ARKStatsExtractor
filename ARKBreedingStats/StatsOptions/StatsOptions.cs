@@ -1,12 +1,4 @@
-﻿using ARKBreedingStats.species;
-using ARKBreedingStats.utils;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace ARKBreedingStats.StatsOptions
 {
@@ -16,17 +8,16 @@ namespace ARKBreedingStats.StatsOptions
     [JsonObject(MemberSerialization.OptIn)]
     public class StatsOptions<T> where T : StatOptionsBase
     {
-
         /// <summary>
-        /// Name of the stats options, usually a species name.
+        /// Name of the stats options, usually a species name or a group.
         /// </summary>
         [JsonProperty]
         public string Name;
 
-        public override string ToString() => string.IsNullOrEmpty(Name) ? $"<{Loc.S("default")}>" : Name;
+        public override string ToString() => string.IsNullOrEmpty(Name) ? $"<{Loc.S("default")}>" : new string(' ', HierarchyLevel * 2) + Name;
 
         /// <summary>
-        /// Name of the parent setting
+        /// Name of the parent setting.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string ParentName;
@@ -38,5 +29,7 @@ namespace ARKBreedingStats.StatsOptions
         /// </summary>
         [JsonProperty]
         public T[] StatOptions;
+
+        public int HierarchyLevel;
     }
 }

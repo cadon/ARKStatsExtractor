@@ -5,7 +5,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using Newtonsoft.Json;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 {
     public partial class HueControl : UserControl
     {
@@ -214,9 +214,12 @@ namespace ARKBreedingStats.StatsOptions
 
         private void ResetColors()
         {
-            var defaultSettings = LevelGraphRepresentation.GetDefaultValue;
-            SetColor(defaultSettings.LowerColor, false, BtColorLow);
-            SetColor(defaultSettings.UpperColor, true, BtColorHigh);
+            var newSettings = LevelGraphRepresentation.GetDefaultValue;
+            if (newSettings == LevelGraphRepresentation)
+                newSettings = LevelGraphRepresentation.GetDefaultMutationLevelValue;
+
+            SetColor(newSettings.LowerColor, false, BtColorLow);
+            SetColor(newSettings.UpperColor, true, BtColorHigh);
         }
     }
 }

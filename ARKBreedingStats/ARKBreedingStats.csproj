@@ -103,11 +103,21 @@
       <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
+    <Compile Include="library\CreatureTrait.cs" />
     <Compile Include="library\DummyCreatures.cs" />
+    <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
+    <Compile Include="NamePatterns\TokenModel.cs" />
+    <Compile Include="StatsOptions\StatsOptionsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsOptions\StatsOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStats.cs" />
     <Compile Include="StatsOptions\StatOptionsBase.cs" />
-    <Compile Include="StatsOptions\LevelGraphRepresentation.cs" />
+    <Compile Include="StatsOptions\LevelColorSettings\LevelGraphRepresentation.cs" />
     <Compile Include="library\LevelStatusFlags.cs" />
-    <Compile Include="StatsOptions\StatLevelColors.cs" />
+    <Compile Include="StatsOptions\LevelColorSettings\StatLevelColors.cs" />
     <Compile Include="StatsOptions\StatsOptions.cs" />
     <Compile Include="StatsOptions\StatsOptionsSettings.cs" />
     <Compile Include="library\TopLevels.cs" />
@@ -124,6 +134,9 @@
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
     <Compile Include="species\ArkColors.cs" />
     <Compile Include="species\Troodonism.cs" />
+    <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStatsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,10 +158,10 @@
     <Compile Include="uiControls\Hatching.Designer.cs">
       <DependentUpon>Hatching.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\HueControl.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\HueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatsOptions\HueControl.Designer.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\HueControl.Designer.cs">
       <DependentUpon>HueControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
@@ -173,13 +186,13 @@
     <Compile Include="uiControls\ScrollForm.Designer.cs">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatsOptions\StatLevelGraphOptionsControl.Designer.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.Designer.cs">
       <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\LevelGraphOptionsControl.cs">
+    <Compile Include="StatsOptions\LevelColorSettings\LevelGraphOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatSelector.cs">
@@ -187,12 +200,6 @@
     </Compile>
     <Compile Include="uiControls\StatSelector.Designer.cs">
       <DependentUpon>StatSelector.cs</DependentUpon>
-    </Compile>
-    <Compile Include="StatsOptions\StatsOptionsWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="StatsOptions\StatsOptionsWindow.Designer.cs">
-      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
@@ -734,6 +741,9 @@
     </Content>
     <None Include="Resources\updated.wav" />
     <None Include="Resources\newMutation.wav" />
+    <None Include="NOTICE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="_manifest.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_manifest.json</LastGenOutput>
@@ -765,7 +775,7 @@
     <EmbeddedResource Include="uiControls\Hatching.resx">
       <DependentUpon>Hatching.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\HueControl.resx">
+    <EmbeddedResource Include="StatsOptions\LevelColorSettings\HueControl.resx">
       <DependentUpon>HueControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
@@ -777,14 +787,11 @@
     <EmbeddedResource Include="uiControls\ScrollForm.resx">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\StatLevelGraphOptionsControl.resx">
+    <EmbeddedResource Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.resx">
       <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\StatsOptionsWindow.resx">
-      <DependentUpon>StatsOptionsWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">
       <DependentUpon>VariantSelector.cs</DependentUpon>
@@ -1051,7 +1058,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP">
-      <Version>50.0.1</Version>
+      <Version>51.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="JInt">
+      <Version>4.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
       <Version>3.3.4</Version>

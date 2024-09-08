@@ -15,7 +15,7 @@ namespace ARKBreedingStats
         public Action<string, int> SpeechCreatureRecognized;
         public Action<Commands> SpeechCommandRecognized;
         private readonly SpeechRecognitionEngine _recognizer;
-        public readonly Label indicator;
+        private readonly Label _indicator;
         private bool _listening;
         private int _maxLevel;
         private int _levelStep;
@@ -26,7 +26,7 @@ namespace ARKBreedingStats
         {
             Initialized = false;
             if (!aliases.Any()) return;
-            this.indicator = indicator;
+            _indicator = indicator;
             _recognizer = new SpeechRecognitionEngine();
             SetMaxLevelAndSpecies(maxLevel, levelStep, aliases);
             _recognizer.SpeechRecognized += Sre_SpeechRecognized;
@@ -38,7 +38,7 @@ namespace ARKBreedingStats
             catch
             {
                 MessageBoxes.ShowMessageBox("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                    $"Microphone Error");
+                    "Microphone Error");
             }
             _recognizer.SpeechRecognitionRejected += Recognizer_SpeechRecognitionRejected;
         }
@@ -75,7 +75,7 @@ namespace ARKBreedingStats
 
         private void Blink(Color c)
         {
-            Utils.BlinkAsync(indicator, c);
+            Utils.BlinkAsync(_indicator, c);
         }
 
         private Grammar CreateTamingGrammar(int maxLevel, int levelSteps, List<string> aliases, CultureInfo culture)
@@ -109,20 +109,20 @@ namespace ARKBreedingStats
                     try
                     {
                         _recognizer.RecognizeAsync(RecognizeMode.Multiple);
-                        indicator.ForeColor = Color.Red;
+                        _indicator.ForeColor = Color.Red;
                     }
                     catch
                     {
                         MessageBoxes.ShowMessageBox("Couldn't set Audio-Input to default-audio device. The speech recognition will not work until a restart.\nTry to change the default-audio-input (e.g. plug-in a microphone).",
-                            $"Microphone Error");
+                            "Microphone Error");
                         _listening = false;
-                        indicator.ForeColor = SystemColors.GrayText;
+                        _indicator.ForeColor = SystemColors.GrayText;
                     }
                 }
                 else
                 {
                     _recognizer.RecognizeAsyncStop();
-                    indicator.ForeColor = SystemColors.GrayText;
+                    _indicator.ForeColor = SystemColors.GrayText;
                 }
             }
         }
@@ -144,15 +144,15 @@ namespace ARKBreedingStats
             //recognizer.LoadGrammar(CreateCommandsGrammar()); // remove for now, it's too easy to say something that is recognized as "extract" and disturbes the play-flow
         }
 
-        private Grammar CreateCommandsGrammar()
-        {
-            // currently not used, appears to execute falsely too often.
-            Choices commands = new Choices("extract");
-            GrammarBuilder commandsElement = new GrammarBuilder(commands);
-
-            Grammar grammar = new Grammar(commandsElement);
-            return grammar;
-        }
+        //private Grammar CreateCommandsGrammar()
+        //{
+        //    // currently not used, appears to execute falsely too often.
+        //    Choices commands = new Choices("extract");
+        //    GrammarBuilder commandsElement = new GrammarBuilder(commands);
+        //
+        //    Grammar grammar = new Grammar(commandsElement);
+        //    return grammar;
+        //}
 
         public void ToggleListening()
         {

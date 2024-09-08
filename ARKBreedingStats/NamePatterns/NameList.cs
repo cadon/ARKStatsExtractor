@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -15,8 +12,8 @@ namespace ARKBreedingStats.NamePatterns
         /// <summary>
         /// Contains all name lists, key is the fileName suffix.
         /// </summary>
-        private static readonly Dictionary<string, string[]> nameLists = new Dictionary<string, string[]>();
-        private static readonly Dictionary<string, DateTime> listFileCheckedAt = new Dictionary<string, DateTime>();
+        private static readonly Dictionary<string, string[]> NameLists = new Dictionary<string, string[]>();
+        private static readonly Dictionary<string, DateTime> ListFileCheckedAt = new Dictionary<string, DateTime>();
 
         /// <summary>
         /// Returns a name from a list. If the file wasn't checked recently, it's checked and reloaded.
@@ -39,9 +36,9 @@ namespace ARKBreedingStats.NamePatterns
         {
             if (listSuffix == null) listSuffix = string.Empty;
             string[] list;
-            if (!listFileCheckedAt.TryGetValue(listSuffix, out var checkedAt)
+            if (!ListFileCheckedAt.TryGetValue(listSuffix, out var checkedAt)
                 || (DateTime.Now - checkedAt).TotalSeconds > 10
-                || !nameLists.TryGetValue(listSuffix, out list))
+                || !NameLists.TryGetValue(listSuffix, out list))
             {
                 list = LoadList(listSuffix, checkedAt);
             }
@@ -58,10 +55,10 @@ namespace ARKBreedingStats.NamePatterns
                 if (new FileInfo(filePath).LastWriteTime > checkedAt)
                 {
                     var list = File.ReadAllLines(filePath);
-                    nameLists[listSuffix] = list;
+                    NameLists[listSuffix] = list;
                 }
-                listFileCheckedAt[listSuffix] = DateTime.Now;
-                return nameLists[listSuffix];
+                ListFileCheckedAt[listSuffix] = DateTime.Now;
+                return NameLists[listSuffix];
             }
             catch { }
             return null;

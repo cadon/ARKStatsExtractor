@@ -25,6 +25,11 @@ namespace ARKBreedingStats.importExported
         {
             InitializeComponent();
             validValues = true;
+            Disposed += (s, e) =>
+            {
+                _tt.RemoveAll();
+                _tt.Dispose();
+            };
         }
 
         public ExportedCreatureControl(string filePath) : this()
@@ -43,15 +48,8 @@ namespace ARKBreedingStats.importExported
             groupBox1.Text = $"{creatureValues.name} ({(creatureValues.Species?.name ?? "unknown species")}, Lvl {creatureValues.level}), " +
                     $"exported at {Utils.ShortTimeDate(creatureValues.domesticatedAt)}. " +
                     $"Filename: {Path.GetFileName(filePath)}";
-            Disposed += ExportedCreatureControl_Disposed;
 
             _tt.SetToolTip(btRemoveFile, "Delete the exported game-file");
-        }
-
-        private void ExportedCreatureControl_Disposed(object sender, EventArgs e)
-        {
-            _tt.RemoveAll();
-            _tt.Dispose();
         }
 
         private void btLoadValues_Click(object sender, EventArgs e)
@@ -112,27 +110,28 @@ namespace ARKBreedingStats.importExported
 
         public bool RemoveFile(bool getConfirmation = true)
         {
-            bool successfullyDeleted = false;
-            if (File.Exists(exportedFile))
-            {
-                if (!getConfirmation || MessageBox.Show("Are you sure to remove the exported file for this creature?\nThis cannot be undone.", "Remove file?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                    == DialogResult.Yes)
-                {
-                    try
-                    {
-                        File.Delete(exportedFile);
-                        successfullyDeleted = true;
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
-                }
-            }
-            else
+            if (!File.Exists(exportedFile))
             {
                 MessageBoxes.ShowMessageBox($"The file does not exist:\n{exportedFile}");
+                return false;
             }
+
+            var successfullyDeleted = false;
+            if (getConfirmation &&
+                MessageBox.Show("Are you sure to remove the exported file for this creature?\nThis cannot be undone.\n\n"
+                    + "(Hold the Shift key to not show this confirmation message.)",
+                    "Remove file?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                != DialogResult.Yes) return successfullyDeleted;
+            try
+            {
+                File.Delete(exportedFile);
+                successfullyDeleted = true;
+            }
+            catch
+            {
+                // ignored
+            }
+
             return successfullyDeleted;
         }
     }

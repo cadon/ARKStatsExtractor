@@ -1882,7 +1882,7 @@ namespace ARKBreedingStats.settings
 
         private void BtOpenLevelColorOptions_Click(object sender, EventArgs e)
         {
-            LevelGraphOptionsControl.ShowWindow(this, _statsLevelColors);
+            StatsOptionsForm.ShowWindow(this, _statsLevelColors, null);
         }
     }
 }

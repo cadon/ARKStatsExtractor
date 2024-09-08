@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ARKBreedingStats.StatsOptions.LevelColorSettings;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.StatsOptions
@@ -21,38 +22,49 @@ namespace ARKBreedingStats.StatsOptions
         [JsonProperty("lvlOdd", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public LevelGraphRepresentation LevelGraphRepresentationOdd;
 
+        /// <summary>
+        /// If not null use this for mutation levels.
+        /// </summary>
+        [JsonProperty("lvlMut", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public LevelGraphRepresentation LevelGraphRepresentationMutation;
+
         public bool UseDifferentColorsForOddLevels;
+        public bool UseDifferentColorsForMutationLevels;
 
         public StatLevelColors Copy()
         {
             var c = new StatLevelColors
             {
-                LevelGraphRepresentation = LevelGraphRepresentation.Copy(),
-                LevelGraphRepresentationOdd = LevelGraphRepresentationOdd.Copy(),
+                LevelGraphRepresentation = LevelGraphRepresentation?.Copy(),
+                LevelGraphRepresentationOdd = LevelGraphRepresentationOdd?.Copy(),
+                LevelGraphRepresentationMutation = LevelGraphRepresentationMutation?.Copy(),
                 OverrideParent = OverrideParent
             };
             return c;
         }
 
-        public Color GetLevelColor(int level)
+        private LevelGraphRepresentation GetLevelGraphRepresentation(int level, bool useCustomOdd, bool mutationLevel)
         {
-            var levelRepresentations =
-                UseDifferentColorsForOddLevels
+            if (mutationLevel
+                && UseDifferentColorsForMutationLevels
+                && LevelGraphRepresentationMutation != null)
+                return LevelGraphRepresentationMutation;
+
+            if (useCustomOdd
+                && UseDifferentColorsForOddLevels
                 && LevelGraphRepresentationOdd != null
-                && level % 2 == 1
-                    ? LevelGraphRepresentationOdd
-                    : LevelGraphRepresentation;
-            return levelRepresentations.GetLevelColor(level);
+                && level % 2 == 1)
+                return LevelGraphRepresentationOdd;
+
+            return LevelGraphRepresentation;
         }
 
-        public int GetLevelRange(int level, out int lowerBound)
+        public Color GetLevelColor(int level, bool useCustomOdd = true, bool mutationLevel = false)
+            => GetLevelGraphRepresentation(level, useCustomOdd, mutationLevel).GetLevelColor(level);
+
+        public int GetLevelRange(int level, out int lowerBound, bool useCustomOdd = true, bool mutationLevel = false)
         {
-            var levelRepresentations =
-                UseDifferentColorsForOddLevels
-                && LevelGraphRepresentationOdd != null
-                && level % 2 == 1
-                    ? LevelGraphRepresentationOdd
-                    : LevelGraphRepresentation;
+            var levelRepresentations = GetLevelGraphRepresentation(level, useCustomOdd, mutationLevel);
             lowerBound = levelRepresentations.LowerBound;
             return levelRepresentations.UpperBound - lowerBound;
         }
@@ -66,10 +78,12 @@ namespace ARKBreedingStats.StatsOptions
                 OverrideParent = true;
             if (LevelGraphRepresentationOdd != null)
                 UseDifferentColorsForOddLevels = true;
+            if (LevelGraphRepresentationMutation != null)
+                UseDifferentColorsForMutationLevels = true;
         }
 
         /// <summary>
-        /// Call before saving.
+        /// Call before saving. Sets unused settings to null.
         /// </summary>
         public override void PrepareForSaving()
         {
@@ -77,16 +91,21 @@ namespace ARKBreedingStats.StatsOptions
             {
                 LevelGraphRepresentation = null;
                 LevelGraphRepresentationOdd = null;
+                LevelGraphRepresentationMutation = null;
+                return;
             }
-            else if (!UseDifferentColorsForOddLevels)
+            if (!UseDifferentColorsForOddLevels)
                 LevelGraphRepresentationOdd = null;
+            if (!UseDifferentColorsForMutationLevels)
+                LevelGraphRepresentationMutation = null;
         }
 
         public override bool DefinesData() => LevelGraphRepresentation != null;
 
         public static StatLevelColors GetDefault() => new StatLevelColors
         {
-            LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue
+            LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue,
+            LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevelValue
         };
     }
 }

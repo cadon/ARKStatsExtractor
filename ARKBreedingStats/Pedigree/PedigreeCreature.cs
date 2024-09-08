@@ -180,11 +180,9 @@ namespace ARKBreedingStats.Pedigree
                 }
 
                 _tt.SetToolTip(labelSex, "Sex: " + Loc.S(_creature.sex.ToString()));
-                var minChartLevel = CreatureCollection.CurrentCreatureCollection?.minChartLevel ?? 0;
-                var maxChartLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
-                var chartLevelRange = maxChartLevel - minChartLevel;
-                var hueRangeEven = Properties.Settings.Default.ChartHueEvenMax - Properties.Settings.Default.ChartHueEvenMin;
-                var hueRangeOdd = Properties.Settings.Default.ChartHueOddMax - Properties.Settings.Default.ChartHueOddMin;
+
+                var levelColorOptions = Form1.StatsLevelColors.GetStatsOptions(Creature.Species);
+
                 for (int s = 0; s < DisplayedStatsCount; s++)
                 {
                     int si = DisplayedStats[s];
@@ -217,21 +215,9 @@ namespace ARKBreedingStats.Pedigree
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
                             _labels[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7);
                         else if (Properties.Settings.Default.HighlightEvenOdd)
-                        {
-                            var levelForColor = Math.Min(maxChartLevel, Math.Max(minChartLevel, _creature.levelsWild[si]));
-                            int hue;
-                            if (_creature.levelsWild[si] % 2 == 0)
-                            {
-                                hue = Properties.Settings.Default.ChartHueEvenMin + levelForColor * hueRangeEven / chartLevelRange;
-                            }
-                            else
-                            {
-                                hue = Properties.Settings.Default.ChartHueOddMin + levelForColor * hueRangeOdd / chartLevelRange;
-                            }
-                            _labels[s].BackColor = Utils.ColorFromHue(hue, _creature.IsTopStat(si) ? 0.4 : 0.7);
-                        }
-                        else
-                            _labels[s].BackColor = Utils.GetColorFromPercent((int)(_creature.levelsWild[si] * 2.5), _creature.IsTopStat(si) ? 0.2 : 0.7);
+                            _labels[s].BackColor = Utils.AdjustColorLight(levelColorOptions.StatOptions[si].GetLevelColor(_creature.levelsWild[si]),
+                                _creature.IsTopStat(si) ? 0.2 : 0.7);
+
                         _labels[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
                         _ttMonospaced.SetToolTip(_labels[s], Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"

@@ -42,5 +42,14 @@ namespace ARKBreedingStats.utils
             control.BackColor = backColor;
             control.ForeColor = Utils.ForeColor(backColor);
         }
+
+        /// <summary>
+        /// Sets the passed color as BackColor for the ListViewSubItem, then sets either black or white as the ForeColor, depending on the lightness of the backColor.
+        /// </summary>
+        public static void SetBackColorAndAccordingForeColor(this ListViewItem.ListViewSubItem control, System.Drawing.Color backColor)
+        {
+            control.BackColor = backColor;
+            control.ForeColor = Utils.ForeColor(backColor);
+        }
     }
 }

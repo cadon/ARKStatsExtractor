@@ -1,6 +1,6 @@
 {
   "Format": "1.0",
-  "Version": "2024.5.4",
+  "Version": "2024.8.3",
   "Data": [
     {
       "Pattern": "{{#substring: {{#format_int: {{#substring: {arkid} | -9 }} | X9 }} | -4 }}",
@@ -51,6 +51,11 @@
       "Pattern": "{sex_short}{n} {{#list:\r\n{{#ifexpr: {hp} > 35 | {{#if: {isTophp} | HP{hp}/ }} }}\r\n{{#ifexpr: {st} > 35 | {{#if: {isTopst} | ST{st}/ }} }}\r\n{{#ifexpr: {ox} > 35 | {{#if: {isTopox} | OX{ox}/ }} }}\r\n{{#ifexpr: {fo} > 35 | {{#if: {isTopfo} |  F{fo}/ }} }}\r\n{{#ifexpr: {we} > 35 | {{#if: {isTopwe} |  W{we}/ }} }}\r\n{{#ifexpr: {dm} > 35 | {{#if: {isTopdm} |  D{dm}/ }} }}\r\n{{#ifexpr: {sp} > 35 | {{#if: {isTopsp} | SP{sp}/ }} }}\r\n{{#ifexpr: {cr} > 35 | {{#if: {isTopcr} |  C{cr}/ }} }}\r\n| / | / }}",
       "Title": "Gender and top stats (if they're > 35)",
       "Description": "Shows gender & number (if multiple). Shows all top stats creature has upper 35 points.\nExample: F1 HP46/OX37/D42\nBy Xeikos"
+    },
+    {
+      "Pattern": "#!javascript\r\n{{loc(JavaScriptNamingPatternHelp)}}\r\n\r\nlog('Available variables are:')\r\nlog(JSON.stringify(globalThis, null, '  '))\r\n\r\nlet statList = [\r\n  istophp ? `HP${hp}` : null,\r\n  istopst ? `ST${st}` : null,\r\n  istopox ? `OX${ox}` : null,\r\n  istopfo ? `FO${fo}` : null,\r\n  istopwe ? `WE${we}` : null,\r\n  istopdm ? `DM${dm}` : null,\r\n];\r\n\r\nreturn `${sex_short}${baselvl}-${n} | ${statList.filter(x => !!x).join('/')}`\r\n",
+      "Title": "Javascript sample with output of creature data",
+      "Description": "Outputs javascript template help text along with a sample script"
     }
   ]
 }
