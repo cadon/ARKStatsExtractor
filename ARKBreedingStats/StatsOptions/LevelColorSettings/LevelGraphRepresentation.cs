@@ -145,6 +145,15 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             UpperColor = Color.FromArgb(0, 255, 0)
         };
 
+        public static LevelGraphRepresentation GetDefaultMutationLevelValue => new LevelGraphRepresentation
+        {
+            //ColorGradientReversed = true,
+            LowerBound = 0,
+            UpperBound = 255,
+            LowerColor = Color.Cyan,
+            UpperColor = Color.DeepPink
+        };
+
         public LevelGraphRepresentation Copy() =>
             new LevelGraphRepresentation
             {
@@ -154,5 +163,28 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
                 UpperColor = UpperColor,
                 ColorGradientReversed = ColorGradientReversed
             };
+
+        public static bool operator ==(LevelGraphRepresentation a, LevelGraphRepresentation b)
+        {
+            if (ReferenceEquals(a, b)) return true;
+            if (ReferenceEquals(a, null)) return false;
+            if (ReferenceEquals(b, null)) return false;
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(LevelGraphRepresentation a, LevelGraphRepresentation b) => !(a == b);
+
+        public bool Equals(LevelGraphRepresentation oth)
+        {
+            if (ReferenceEquals(oth, null)) return false;
+            if (ReferenceEquals(this, oth)) return true;
+            return oth.LowerBound == LowerBound
+                   && oth.UpperBound == UpperBound
+                   && oth.ColorGradientReversed == ColorGradientReversed
+                   && oth.LowerColor == LowerColor
+                   && oth.UpperColor == UpperColor;
+        }
+
+        public override int GetHashCode() => $"{LowerBound}-{UpperBound}_{LowerColor}-{UpperColor}_{ColorGradientReversed}".GetHashCode();
     }
 }

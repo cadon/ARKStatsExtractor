@@ -22,7 +22,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             {
                 Text = @"Drag color gradient with mouse for fast editing.
 On color gradients use shift + right click to copy and shift + left click to paste color settings.
-Ctrl + left click to reset colors.",
+Ctrl + left click to cycle through presets.",
                 AutoSize = true
             });
         }

@@ -104,7 +104,8 @@ namespace ARKBreedingStats.StatsOptions
 
         public static StatLevelColors GetDefault() => new StatLevelColors
         {
-            LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue
+            LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue,
+            LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevelValue
         };
     }
 }
