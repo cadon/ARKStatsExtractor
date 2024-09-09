@@ -33,7 +33,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             hueControl.SetValues(so?.LevelGraphRepresentation);
             hueControlOdd.SetValues(so?.LevelGraphRepresentationOdd);
             HueControlMutations.SetValues(so?.LevelGraphRepresentationMutation);
-            CbOverrideGraphSettings.Checked = so?.OverrideParent == true;
+            CbOverrideGraphSettings.Checked = !isNotRoot || so?.OverrideParent == true;
             CbOverrideGraphSettings.Visible = isNotRoot;
         }
 
