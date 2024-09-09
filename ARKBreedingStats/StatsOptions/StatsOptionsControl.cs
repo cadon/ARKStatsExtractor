@@ -20,8 +20,10 @@ namespace ARKBreedingStats.StatsOptions
         protected TextBox TbOptionsName;
         protected Label LbParent;
         protected Label LbParentParent;
+        protected Label LbAffectedSpecies;
         protected StatsOptions<T> SelectedStatsOptions;
         protected StatsOptionsSettings<T> StatsOptionsSettings;
+        protected TextBox TbAffectedSpecies;
         protected FlowLayoutPanel StatsContainer;
         protected ToolTip Tt;
         private bool _ignoreIndexChange;
@@ -75,9 +77,21 @@ namespace ARKBreedingStats.StatsOptions
             CbbParent.SelectedIndexChanged += CbbParent_SelectedIndexChanged;
             flpHeaderControls.Controls.Add(CbbParent);
 
-            LbParentParent = new Label { Margin = new Padding(5, 7, 5, 0), AutoSize = true };
+            var marginLabelDefault = new Padding(5, 7, 5, 0);
+
+            LbParentParent = new Label { Margin = marginLabelDefault, AutoSize = true };
             tt.SetToolTip(LbParentParent, "If the parent setting has no value for a stat, the parent's parent's values are used etc.");
             flpHeaderControls.Controls.Add(LbParentParent);
+            flpHeaderControls.SetFlowBreak(LbParentParent, true);
+
+            LbAffectedSpecies = new Label { Text = "Affected species: ", Margin = marginLabelDefault, AutoSize = true };
+            tt.SetToolTip(LbAffectedSpecies, @"Comma separated list of species affected by this setting.
+More specific identifier will be used first. Specificity order is
+BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
+            flpHeaderControls.Controls.Add(LbAffectedSpecies);
+            TbAffectedSpecies = new TextBox { AutoSize = true, MinimumSize = new Size(50, 0) };
+            flpHeaderControls.Controls.Add(TbAffectedSpecies);
+            TbAffectedSpecies.Leave += TbAffectedSpeciesLeave;
 
             InitializeStatControls();
             InitializeOptions();
@@ -156,11 +170,25 @@ namespace ARKBreedingStats.StatsOptions
             CbbParent.Visible = isNotRoot;
             BtRemove.Visible = isNotRoot;
             LbParentParent.Text = ParentsParentText(SelectedStatsOptions.ParentOptions);
+            LbAffectedSpecies.Visible = isNotRoot;
+            TbAffectedSpecies.Visible = isNotRoot;
+            TbAffectedSpecies.Text = SelectedStatsOptions.AffectedSpecies == null ? string.Empty : string.Join(", ", SelectedStatsOptions.AffectedSpecies);
 
             UpdateStatsControls(isNotRoot);
 
             CbbParent.SelectedItem = SelectedStatsOptions.ParentOptions;
             this.ResumeDrawing();
+        }
+
+        private void TbAffectedSpeciesLeave(object sender, EventArgs e)
+        {
+            if (SelectedStatsOptions == null) return;
+            var sp = TbAffectedSpecies.Text
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s))
+                .Distinct()
+                .ToArray();
+            SelectedStatsOptions.AffectedSpecies = sp.Any() ? sp : null;
         }
 
         private string ParentsParentText(StatsOptions<T> selectedStatsOptions)
