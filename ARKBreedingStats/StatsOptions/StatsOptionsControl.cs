@@ -214,6 +214,9 @@ namespace ARKBreedingStats.StatsOptions
             StatsOptionsSettings.StatsOptionsDict.Add(newName, SelectedStatsOptions);
             // update text in combobox
             CbbOptions.Items[CbbOptions.SelectedIndex] = SelectedStatsOptions;
+            var cbbParentIndex = CbbParent.Items.IndexOf(SelectedStatsOptions);
+            if (cbbParentIndex >= 0)
+                CbbParent.Items[cbbParentIndex] = SelectedStatsOptions;
             StatsOptionsSettings.ClearSpeciesCache();
         }
 
