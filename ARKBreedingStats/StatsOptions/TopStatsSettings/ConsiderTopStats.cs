@@ -22,9 +22,9 @@ namespace ARKBreedingStats.StatsOptions.TopStatsSettings
             OverrideParent = OverrideParentBool;
         }
 
-        public override void PrepareForSaving()
+        public override void PrepareForSaving(bool isRoot)
         {
-            OverrideParentBool = OverrideParent;
+            OverrideParentBool = OverrideParent || isRoot;
         }
 
         public override bool DefinesData() => true;

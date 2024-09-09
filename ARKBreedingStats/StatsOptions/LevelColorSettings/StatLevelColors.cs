@@ -56,7 +56,7 @@ namespace ARKBreedingStats.StatsOptions
                 && level % 2 == 1)
                 return LevelGraphRepresentationOdd;
 
-            return LevelGraphRepresentation;
+            return LevelGraphRepresentation ?? LevelGraphRepresentation.GetDefaultValue;
         }
 
         public Color GetLevelColor(int level, bool useCustomOdd = true, bool mutationLevel = false)
@@ -85,9 +85,9 @@ namespace ARKBreedingStats.StatsOptions
         /// <summary>
         /// Call before saving. Sets unused settings to null.
         /// </summary>
-        public override void PrepareForSaving()
+        public override void PrepareForSaving(bool isRoot)
         {
-            if (!OverrideParent)
+            if (!OverrideParent && !isRoot)
             {
                 LevelGraphRepresentation = null;
                 LevelGraphRepresentationOdd = null;
