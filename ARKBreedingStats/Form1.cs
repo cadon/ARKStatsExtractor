@@ -409,32 +409,6 @@ namespace ARKBreedingStats
             }
             UpdatePatternButtons();
 
-            // conversion of global color level settings to specific options. Remove around 2024-09
-            if (Properties.Settings.Default.ChartHueEvenMax != int.MaxValue)
-            {
-                var defaultSettings = StatsLevelColors.StatsOptionsDict[string.Empty].StatOptions;
-                for (var s = 0; s < Stats.StatsCount; s++)
-                {
-                    defaultSettings[s].LevelGraphRepresentation.LowerColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueEvenMin);
-                    defaultSettings[s].LevelGraphRepresentation.UpperColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueEvenMax);
-                    defaultSettings[s].LevelGraphRepresentation.ColorGradientReversed = Properties.Settings.Default.ChartHueEvenMax < Properties.Settings.Default.ChartHueEvenMin;
-
-                    if (Properties.Settings.Default.HighlightEvenOdd)
-                    {
-                        defaultSettings[s].LevelGraphRepresentationOdd = new LevelGraphRepresentation
-                        {
-                            LowerColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueOddMin),
-                            UpperColor = Utils.ColorFromHue(Properties.Settings.Default.ChartHueOddMax),
-                            ColorGradientReversed = Properties.Settings.Default.ChartHueOddMax < Properties.Settings.Default.ChartHueOddMin,
-                        };
-                        defaultSettings[s].UseDifferentColorsForOddLevels = true;
-                    }
-                }
-
-                Properties.Settings.Default.ChartHueEvenMax = int.MaxValue;
-            }
-            // end of level color settings conversion
-
             // Load column-widths, display-indices and sort-order of the TimerControlListView
             LoadListViewSettings(timerList1.ListViewTimers, nameof(Properties.Settings.Default.TCLVColumnWidths),
                 nameof(Properties.Settings.Default.TCLVColumnDisplayIndices),

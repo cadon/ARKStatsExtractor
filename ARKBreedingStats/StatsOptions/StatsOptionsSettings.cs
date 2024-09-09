@@ -9,7 +9,7 @@ using ARKBreedingStats.utils;
 namespace ARKBreedingStats.StatsOptions
 {
     /// <summary>
-    /// Base access to stats options.
+    /// Base access to all stats options of one kind, e.g. all level color options.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class StatsOptionsSettings<T> where T : StatOptionsBase
@@ -150,10 +150,18 @@ namespace ARKBreedingStats.StatsOptions
             if (_cache.TryGetValue(species.blueprintPath, out var o)) return o;
 
             StatsOptions<T> speciesStatsOptions;
-            if (StatsOptionsDict.TryGetValue(species.blueprintPath, out o)
-                || StatsOptionsDict.TryGetValue(species.DescriptiveNameAndMod, out o)
-                || StatsOptionsDict.TryGetValue(species.DescriptiveName, out o)
-                || StatsOptionsDict.TryGetValue(species.name, out o))
+
+            var dict = new Dictionary<string, StatsOptions<T>>();
+            var list = StatsOptionsDict
+                .Where(kv => kv.Value.AffectedSpecies != null)
+                .SelectMany(kv => kv.Value.AffectedSpecies.Select(sp => (sp, kv.Value)));
+            foreach (var sp in list)
+                dict[sp.sp] = sp.Value;
+
+            if (dict.TryGetValue(species.blueprintPath, out o)
+                || dict.TryGetValue(species.DescriptiveNameAndMod, out o)
+                || dict.TryGetValue(species.DescriptiveName, out o)
+                || dict.TryGetValue(species.name, out o))
             {
                 speciesStatsOptions = GenerateStatsOptions(o);
             }

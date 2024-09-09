@@ -20,7 +20,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             _statIndex = statIndex;
             hueControl.UpdateTooltips(tt);
             hueControlOdd.UpdateTooltips(tt);
-            tt.SetToolTip(CbUseDifferentColorsForOddLevels, "Use different colors for odd levels");
+            tt.SetToolTip(CbUseDifferentColorsForOddLevels, "Use different colors for odd wild levels");
             tt.SetToolTip(CbUseDifferentColorsForMutationLevels, "Use different colors for mutation levels");
         }
 
@@ -33,7 +33,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             hueControl.SetValues(so?.LevelGraphRepresentation);
             hueControlOdd.SetValues(so?.LevelGraphRepresentationOdd);
             HueControlMutations.SetValues(so?.LevelGraphRepresentationMutation);
-            CbOverrideGraphSettings.Checked = so?.OverrideParent == true;
+            CbOverrideGraphSettings.Checked = !isNotRoot || so?.OverrideParent == true;
             CbOverrideGraphSettings.Visible = isNotRoot;
         }
 

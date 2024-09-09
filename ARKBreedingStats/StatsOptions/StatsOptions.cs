@@ -30,6 +30,16 @@ namespace ARKBreedingStats.StatsOptions
         [JsonProperty]
         public T[] StatOptions;
 
+        /// <summary>
+        /// List of species these settings are valid.
+        /// Possible values are the blueprint path and shorter defined names, e.g. Species.name, Species.DescriptiveName.
+        /// </summary>
+        [JsonProperty("sp", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string[] AffectedSpecies;
+
+        /// <summary>
+        /// Used for UI layout.
+        /// </summary>
         public int HierarchyLevel;
     }
 }

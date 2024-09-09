@@ -19,8 +19,11 @@ namespace ARKBreedingStats.StatsOptions
         protected Button BtRemove;
         protected TextBox TbOptionsName;
         protected Label LbParent;
+        protected Label LbParentParent;
+        protected Label LbAffectedSpecies;
         protected StatsOptions<T> SelectedStatsOptions;
         protected StatsOptionsSettings<T> StatsOptionsSettings;
+        protected TextBox TbAffectedSpecies;
         protected FlowLayoutPanel StatsContainer;
         protected ToolTip Tt;
         private bool _ignoreIndexChange;
@@ -73,6 +76,22 @@ namespace ARKBreedingStats.StatsOptions
             CbbParent = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };
             CbbParent.SelectedIndexChanged += CbbParent_SelectedIndexChanged;
             flpHeaderControls.Controls.Add(CbbParent);
+
+            var marginLabelDefault = new Padding(5, 7, 5, 0);
+
+            LbParentParent = new Label { Margin = marginLabelDefault, AutoSize = true };
+            tt.SetToolTip(LbParentParent, "If the parent setting has no value for a stat, the parent's parent's values are used etc.");
+            flpHeaderControls.Controls.Add(LbParentParent);
+            flpHeaderControls.SetFlowBreak(LbParentParent, true);
+
+            LbAffectedSpecies = new Label { Text = "Affected species: ", Margin = marginLabelDefault, AutoSize = true };
+            tt.SetToolTip(LbAffectedSpecies, @"Comma separated list of species affected by this setting.
+More specific identifier will be used first. Specificity order is
+BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
+            flpHeaderControls.Controls.Add(LbAffectedSpecies);
+            TbAffectedSpecies = new TextBox { AutoSize = true, MinimumSize = new Size(50, 0) };
+            flpHeaderControls.Controls.Add(TbAffectedSpecies);
+            TbAffectedSpecies.Leave += TbAffectedSpeciesLeave;
 
             InitializeStatControls();
             InitializeOptions();
@@ -150,11 +169,45 @@ namespace ARKBreedingStats.StatsOptions
             LbParent.Visible = isNotRoot;
             CbbParent.Visible = isNotRoot;
             BtRemove.Visible = isNotRoot;
+            LbParentParent.Text = ParentsParentText(SelectedStatsOptions.ParentOptions);
+            LbAffectedSpecies.Visible = isNotRoot;
+            TbAffectedSpecies.Visible = isNotRoot;
+            TbAffectedSpecies.Text = SelectedStatsOptions.AffectedSpecies == null ? string.Empty : string.Join(", ", SelectedStatsOptions.AffectedSpecies);
 
             UpdateStatsControls(isNotRoot);
 
             CbbParent.SelectedItem = SelectedStatsOptions.ParentOptions;
             this.ResumeDrawing();
+        }
+
+        private void TbAffectedSpeciesLeave(object sender, EventArgs e)
+        {
+            if (SelectedStatsOptions == null) return;
+            var sp = TbAffectedSpecies.Text
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s))
+                .Distinct()
+                .ToArray();
+            SelectedStatsOptions.AffectedSpecies = sp.Any() ? sp : null;
+        }
+
+        private string ParentsParentText(StatsOptions<T> selectedStatsOptions)
+        {
+            var maxGenerationsShown = 5;
+            var currentParent = selectedStatsOptions?.ParentOptions;
+            var parentText = string.Empty;
+            while (currentParent != null)
+            {
+                if (maxGenerationsShown-- <= 0)
+                {
+                    parentText += " \u2794 …";
+                    break;
+                }
+                parentText += " \u2794 " + (string.IsNullOrEmpty(currentParent.Name) ? currentParent.ToString() : currentParent.Name);
+                currentParent = currentParent.ParentOptions;
+            }
+
+            return parentText;
         }
 
         /// <summary>
@@ -167,7 +220,9 @@ namespace ARKBreedingStats.StatsOptions
             if (_ignoreIndexChange) return;
             SelectedStatsOptions = CbbOptions.SelectedItem as StatsOptions<T>;
             if (SelectedStatsOptions == null) return;
-            SelectedStatsOptions.ParentOptions = CbbParent.SelectedItem as StatsOptions<T>;
+            var selectedParent = CbbParent.SelectedItem as StatsOptions<T>;
+            if (SelectedStatsOptions == selectedParent) return; // ignore if node itself is selected as parent
+            SelectedStatsOptions.ParentOptions = selectedParent;
             InitializeOptions(true);
             StatsOptionsSettings.ClearSpeciesCache();
         }
@@ -187,6 +242,9 @@ namespace ARKBreedingStats.StatsOptions
             StatsOptionsSettings.StatsOptionsDict.Add(newName, SelectedStatsOptions);
             // update text in combobox
             CbbOptions.Items[CbbOptions.SelectedIndex] = SelectedStatsOptions;
+            var cbbParentIndex = CbbParent.Items.IndexOf(SelectedStatsOptions);
+            if (cbbParentIndex >= 0)
+                CbbParent.Items[cbbParentIndex] = SelectedStatsOptions;
             StatsOptionsSettings.ClearSpeciesCache();
         }
 
