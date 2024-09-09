@@ -131,7 +131,7 @@ namespace ARKBreedingStats.StatsOptions
                     o.ParentName = null; // don't save direct loop
                 foreach (var so in o.StatOptions)
                 {
-                    so.PrepareForSaving();
+                    so.PrepareForSaving(string.IsNullOrEmpty(o.Name));
                 }
             }
 
@@ -171,7 +171,7 @@ namespace ARKBreedingStats.StatsOptions
             }
             else
             {
-                // error, on default settings available
+                // error, no default settings available
                 return null;
             }
 

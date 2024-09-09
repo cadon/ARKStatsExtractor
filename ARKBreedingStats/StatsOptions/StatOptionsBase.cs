@@ -4,7 +4,7 @@
     {
         public abstract void Initialize();
 
-        public abstract void PrepareForSaving();
+        public abstract void PrepareForSaving(bool isRoot);
 
         /// <summary>
         /// If true don't use values of parent but overrides of this object.

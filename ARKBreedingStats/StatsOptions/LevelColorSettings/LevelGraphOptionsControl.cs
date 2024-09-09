@@ -58,7 +58,8 @@ Ctrl + left click to cycle through presets.",
                 SelectedStatsOptions.StatOptions[si] = new StatLevelColors
                 {
                     LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue,
-                    LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevelValue
+                    LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevelValue,
+                    UseDifferentColorsForMutationLevels = true
                 };
                 _statOptionsControls[si].SetStatOptions(SelectedStatsOptions.StatOptions[si], isNotRoot, SelectedStatsOptions.ParentOptions);
             }
