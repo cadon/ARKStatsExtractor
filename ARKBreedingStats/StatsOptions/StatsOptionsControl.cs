@@ -37,6 +37,7 @@ namespace ARKBreedingStats.StatsOptions
 
         protected void InitializeControls(StatsOptionsSettings<T> settings, ToolTip tt)
         {
+            if (settings == null) return;
             StatsOptionsSettings = settings;
             Tt = tt;
 
@@ -163,7 +164,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             if (SelectedStatsOptions == null) return;
 
             this.SuspendDrawing();
-            TbOptionsName.Text = SelectedStatsOptions.ToString();
+            TbOptionsName.Text = SelectedStatsOptions.Name;
             var isNotRoot = SelectedStatsOptions.Name != string.Empty;
             TbOptionsName.Enabled = isNotRoot;
             LbParent.Visible = isNotRoot;
@@ -237,6 +238,11 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
                 newName = newNameBase + "_" + ++suffix;
 
             TbOptionsName.Text = newName;
+            if (SelectedStatsOptions.AffectedSpecies?.Any() != false)
+            {
+                SelectedStatsOptions.AffectedSpecies = new[] { newNameBase };
+                TbAffectedSpecies.Text = newNameBase;
+            }
             StatsOptionsSettings.StatsOptionsDict.Remove(SelectedStatsOptions.Name);
             SelectedStatsOptions.Name = newName;
             StatsOptionsSettings.StatsOptionsDict.Add(newName, SelectedStatsOptions);

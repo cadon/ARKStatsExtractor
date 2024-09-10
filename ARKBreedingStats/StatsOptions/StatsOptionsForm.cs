@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.StatsOptions.LevelColorSettings;
 using System;
+using System.CodeDom;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
@@ -29,15 +30,18 @@ namespace ARKBreedingStats.StatsOptions
                 Width = Properties.Settings.Default.LevelColorWindowRectangle.Width,
                 Height = Properties.Settings.Default.LevelColorWindowRectangle.Height,
                 StartPosition = FormStartPosition.Manual,
-                Location = new Point(Properties.Settings.Default.LevelColorWindowRectangle.X, Properties.Settings.Default.LevelColorWindowRectangle.Y)
+                Location = new Point(Properties.Settings.Default.LevelColorWindowRectangle.X, Properties.Settings.Default.LevelColorWindowRectangle.Y),
+                Text = "Stats options"
             };
 
             // stat settings tab
             var tabs = new TabControl();
             tabs.Dock = DockStyle.Fill;
 
-            AddAndDock(new LevelGraphOptionsControl(levelColorSettings, f.Tt), levelColorSettings.SettingsName);
-            AddAndDock(new ConsiderTopStatsControl(topStatsSettings, f.Tt), topStatsSettings.SettingsName);
+            if (levelColorSettings != null)
+                AddAndDock(new LevelGraphOptionsControl(levelColorSettings, f.Tt), levelColorSettings.SettingsName);
+            if (topStatsSettings != null)
+                AddAndDock(new ConsiderTopStatsControl(topStatsSettings, f.Tt), topStatsSettings.SettingsName);
 
             void AddAndDock(Control c, string tabName)
             {
