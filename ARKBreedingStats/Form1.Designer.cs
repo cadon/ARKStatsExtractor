@@ -320,6 +320,7 @@ namespace ARKBreedingStats
             this.listBoxSpeciesLib = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.BtRecalculateTopStatsAfterChange = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.buttonRecalculateTops = new System.Windows.Forms.Button();
             this.tabPageLibRadarChart = new System.Windows.Forms.TabPage();
@@ -404,7 +405,6 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
-            this.BtRecalculateTopStatsAfterChange = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1325,7 +1325,7 @@ namespace ARKBreedingStats
             // 
             this.statsOptionsToolStripMenuItem.Name = "statsOptionsToolStripMenuItem";
             this.statsOptionsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.statsOptionsToolStripMenuItem.Text = "StatsOptions";
+            this.statsOptionsToolStripMenuItem.Text = "Stats options";
             this.statsOptionsToolStripMenuItem.Click += new System.EventHandler(this.statsOptionsToolStripMenuItem_Click);
             // 
             // toolStripSeparator18
@@ -3112,6 +3112,17 @@ namespace ARKBreedingStats
             this.tableLayoutPanel2.Size = new System.Drawing.Size(175, 322);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
+            // BtRecalculateTopStatsAfterChange
+            // 
+            this.BtRecalculateTopStatsAfterChange.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtRecalculateTopStatsAfterChange.Location = new System.Drawing.Point(3, 58);
+            this.BtRecalculateTopStatsAfterChange.Name = "BtRecalculateTopStatsAfterChange";
+            this.BtRecalculateTopStatsAfterChange.Size = new System.Drawing.Size(169, 52);
+            this.BtRecalculateTopStatsAfterChange.TabIndex = 5;
+            this.BtRecalculateTopStatsAfterChange.Text = "Recalculate top stats after change";
+            this.BtRecalculateTopStatsAfterChange.UseVisualStyleBackColor = true;
+            this.BtRecalculateTopStatsAfterChange.Click += new System.EventHandler(this.BtRecalculateTopStatsAfterChange_Click);
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -3966,17 +3977,6 @@ namespace ARKBreedingStats
             this.speciesSelector1.Size = new System.Drawing.Size(1878, 810);
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
-            // 
-            // BtRecalculateTopStatsAfterChange
-            // 
-            this.BtRecalculateTopStatsAfterChange.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtRecalculateTopStatsAfterChange.Location = new System.Drawing.Point(3, 58);
-            this.BtRecalculateTopStatsAfterChange.Name = "BtRecalculateTopStatsAfterChange";
-            this.BtRecalculateTopStatsAfterChange.Size = new System.Drawing.Size(169, 52);
-            this.BtRecalculateTopStatsAfterChange.TabIndex = 5;
-            this.BtRecalculateTopStatsAfterChange.Text = "Recalculate top stats after change";
-            this.BtRecalculateTopStatsAfterChange.UseVisualStyleBackColor = true;
-            this.BtRecalculateTopStatsAfterChange.Click += new System.EventHandler(this.BtRecalculateTopStatsAfterChange_Click);
             // 
             // Form1
             // 

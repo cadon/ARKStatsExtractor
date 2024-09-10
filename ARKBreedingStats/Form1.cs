@@ -88,8 +88,8 @@ namespace ARKBreedingStats
         private static double[] _lastOcrValues;
         private Species _lastOcrSpecies;
 
-        internal static readonly StatsOptionsSettings<StatLevelColors> StatsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json", "Level colors");
-        internal static readonly StatsOptionsSettings<ConsiderTopStats> StatsTopStats = new StatsOptionsSettings<ConsiderTopStats>("statsTopStats.json", "Consider for top stats");
+        internal static readonly StatsOptionsSettings<StatLevelColors> StatsOptionsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json", "Level colors");
+        internal static readonly StatsOptionsSettings<ConsiderTopStats> StatsOptionsConsiderTopStats = new StatsOptionsSettings<ConsiderTopStats>("statsTopStats.json", "Consider for top stats");
 
         public Form1()
         {
@@ -167,7 +167,7 @@ namespace ARKBreedingStats
             ocrControl1.OcrLabelSetsChanged += InitializeOcrLabelSets;
             ocrControl1.OcrLabelSelectedSetChanged += SetCurrentOcrLabelSet;
 
-            StatsLevelColors.SettingsChanged += StatsLevelColors_SettingsChanged;
+            StatsOptionsLevelColors.SettingsChanged += StatsOptionsLevelColorsSettingsChanged;
 
             openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter()
                 .ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
@@ -688,7 +688,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.SelectedSpecies = species;
             radarChart1.SetLevels(species: species);
             var statNames = species.statNames;
-            var levelGraphRepresentations = StatsLevelColors.GetStatsOptions(species);
+            var levelGraphRepresentations = StatsOptionsLevelColors.GetStatsOptions(species);
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -797,9 +797,9 @@ namespace ARKBreedingStats
         /// <summary>
         /// Applies the level color settings to the stat controls. Call if a species setting was added or removed.
         /// </summary>
-        private void StatsLevelColors_SettingsChanged()
+        private void StatsOptionsLevelColorsSettingsChanged()
         {
-            var levelGraphRepresentations = StatsLevelColors.GetStatsOptions(speciesSelector1.SelectedSpecies);
+            var levelGraphRepresentations = StatsOptionsLevelColors.GetStatsOptions(speciesSelector1.SelectedSpecies);
             if (levelGraphRepresentations == null) return;
 
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -1451,8 +1451,8 @@ namespace ARKBreedingStats
             /////// save settings for next session
             Properties.Settings.Default.Save();
 
-            StatsLevelColors.SaveSettings();
-            StatsTopStats.SaveSettings();
+            StatsOptionsLevelColors.SaveSettings();
+            StatsOptionsConsiderTopStats.SaveSettings();
         }
 
         /// <summary>
@@ -2110,7 +2110,7 @@ namespace ARKBreedingStats
             var gameSettingBefore = _creatureCollection.Game;
             var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
-            using (Settings settingsForm = new Settings(_creatureCollection, page, StatsLevelColors))
+            using (Settings settingsForm = new Settings(_creatureCollection, page))
             {
                 var settingsSaved = settingsForm.ShowDialog() == DialogResult.OK;
                 _settingsLastTabPage = settingsForm.LastTabPageIndex;
@@ -3960,12 +3960,12 @@ namespace ARKBreedingStats
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, StatsLevelColors, StatsTopStats);
+            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats);
         }
 
         private void ButtonOpenTopStatsSettingsClick(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, StatsLevelColors, StatsTopStats, 1);
+            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats, 1);
         }
 
         private void ExportAppSettings()
@@ -4049,7 +4049,7 @@ namespace ARKBreedingStats
 
         private void showStatsOptionsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(StatsLevelColors.SettingsFilePath);
+            OpenFolderInExplorer(StatsOptionsLevelColors.SettingsFilePath);
         }
     }
 }

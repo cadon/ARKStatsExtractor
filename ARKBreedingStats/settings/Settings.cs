@@ -22,7 +22,6 @@ namespace ARKBreedingStats.settings
     {
         private MultiplierSetting[] _multSetter;
         private readonly CreatureCollection _cc;
-        private readonly StatsOptionsSettings<StatLevelColors> _statsLevelColors;
         private ToolTip _tt;
         private Dictionary<string, string> _languages;
         public SettingsTabPages LastTabPageIndex;
@@ -30,12 +29,10 @@ namespace ARKBreedingStats.settings
         public bool ColorRegionDisplayChanged;
         private CancellationTokenSource _cancellationTokenSource;
 
-        public Settings(CreatureCollection cc, SettingsTabPages page,
-            StatsOptionsSettings<StatLevelColors> statsLevelColors)
+        public Settings(CreatureCollection cc, SettingsTabPages page)
         {
             InitializeData();
             _cc = cc;
-            _statsLevelColors = statsLevelColors;
             CreateListOfProcesses();
             LoadSettings(cc);
             Localization();
@@ -1882,7 +1879,7 @@ namespace ARKBreedingStats.settings
 
         private void BtOpenLevelColorOptions_Click(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, _statsLevelColors, null);
+            StatsOptionsForm.ShowWindow(this, Form1.StatsOptionsLevelColors, Form1.StatsOptionsConsiderTopStats);
         }
     }
 }
