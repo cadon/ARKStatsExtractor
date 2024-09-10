@@ -6,7 +6,7 @@ namespace ARKBreedingStats.StatsOptions.TopStatsSettings
     /// Setting which stats are considered in top stats calculation.
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    internal class ConsiderTopStats : StatOptionsBase
+    public class ConsiderTopStats : StatOptionsBase
     {
         [JsonProperty("top", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool ConsiderStat;

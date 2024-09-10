@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.StatsOptions.LevelColorSettings;
 using System;
-using System.CodeDom;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;

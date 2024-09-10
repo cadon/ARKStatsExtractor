@@ -181,7 +181,7 @@ namespace ARKBreedingStats.Pedigree
 
                 _tt.SetToolTip(labelSex, "Sex: " + Loc.S(_creature.sex.ToString()));
 
-                var levelColorOptions = Form1.StatsLevelColors.GetStatsOptions(Creature.Species);
+                var levelColorOptions = Form1.StatsOptionsLevelColors.GetStatsOptions(Creature.Species);
 
                 for (int s = 0; s < DisplayedStatsCount; s++)
                 {
