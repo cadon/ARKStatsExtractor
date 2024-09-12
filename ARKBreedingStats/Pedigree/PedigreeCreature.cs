@@ -214,7 +214,7 @@ namespace ARKBreedingStats.Pedigree
                         _labels[s].Text = _creature.levelsWild[si].ToString();
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
                             _labels[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7);
-                        else if (Properties.Settings.Default.HighlightEvenOdd)
+                        else
                             _labels[s].BackColor = Utils.AdjustColorLight(levelColorOptions.StatOptions[si].GetLevelColor(_creature.levelsWild[si]),
                                 _creature.IsTopStat(si) ? 0.2 : 0.7);
 
