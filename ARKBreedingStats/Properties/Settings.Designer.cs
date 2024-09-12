@@ -12,7 +12,7 @@ namespace ARKBreedingStats.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.11.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1401,18 +1401,6 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool HighlightEvenOdd {
-            get {
-                return ((bool)(this["HighlightEvenOdd"]));
-            }
-            set {
-                this["HighlightEvenOdd"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastUsedCollectionFolder {
             get {
@@ -1835,54 +1823,6 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["InfoGraphicShowRegionNamesIfNoImage"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ChartHueEvenMin {
-            get {
-                return ((int)(this["ChartHueEvenMin"]));
-            }
-            set {
-                this["ChartHueEvenMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("120")]
-        public int ChartHueEvenMax {
-            get {
-                return ((int)(this["ChartHueEvenMax"]));
-            }
-            set {
-                this["ChartHueEvenMax"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("240")]
-        public int ChartHueOddMin {
-            get {
-                return ((int)(this["ChartHueOddMin"]));
-            }
-            set {
-                this["ChartHueOddMin"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("320")]
-        public int ChartHueOddMax {
-            get {
-                return ((int)(this["ChartHueOddMax"]));
-            }
-            set {
-                this["ChartHueOddMax"] = value;
             }
         }
         
