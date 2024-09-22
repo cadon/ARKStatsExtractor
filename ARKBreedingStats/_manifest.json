@@ -25,7 +25,7 @@
       "Description": "Templates for naming patterns",
       "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/json/namePatternTemplates.json",
       "LocalPath": "json/namePatternTemplates.json",
-      "version": "2021.5.11"
+      "version": "2024.8.3"
     }
   }
 }
