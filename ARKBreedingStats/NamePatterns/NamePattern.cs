@@ -277,10 +277,12 @@ namespace ARKBreedingStats.NamePatterns
 
             string oldName = creature.name;
 
+            speciesCreatures = speciesCreatures?.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+
             string firstWordOfOldest = string.Empty;
             if (speciesCreatures?.Any() ?? false)
             {
-                firstWordOfOldest = speciesCreatures.Where(c => c.addedToLibrary != null && !c.flags.HasFlag(CreatureFlags.Placeholder)).OrderBy(c => c.addedToLibrary).FirstOrDefault()?.name;
+                firstWordOfOldest = speciesCreatures.Where(c => c.addedToLibrary != null).OrderBy(c => c.addedToLibrary).FirstOrDefault()?.name;
                 if (!string.IsNullOrEmpty(firstWordOfOldest) && firstWordOfOldest.Contains(" "))
                 {
                     firstWordOfOldest = firstWordOfOldest.Substring(0, firstWordOfOldest.IndexOf(" "));
@@ -381,7 +383,7 @@ namespace ARKBreedingStats.NamePatterns
                 sn = speciesSexCount,
                 dom = dom,
                 arkid = arkid,
-                alreadyexists = speciesCreatures.Contains(creature),
+                alreadyexists = speciesCreatures?.Contains(creature) ?? false,
                 isflyer = creature.Species.isFlyer,
                 status = creature.Status,
             };
