@@ -522,6 +522,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.Controls.Add(this.lbBreedingPlanHeader);
             this.flowLayoutPanel1.Controls.Add(this.pedigreeCreatureBestPossibleInSpecies);
             this.flowLayoutPanel1.Controls.Add(this.btShowAllCreatures);
