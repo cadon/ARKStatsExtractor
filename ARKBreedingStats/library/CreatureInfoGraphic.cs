@@ -62,7 +62,7 @@ namespace ARKBreedingStats.library
             var maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
-            var height = infoGraphicHeight < 1 ? 180 : infoGraphicHeight; // 180
+            var height = infoGraphicHeight < 5 ? 180 : infoGraphicHeight; // 180
             var width = height * 12 / 6; // 330
             if (displayExtraRegionNames)
                 width += height / 2;
@@ -336,8 +336,8 @@ namespace ARKBreedingStats.library
         {
             var size = g.MeasureString(text, font);
             if (availableWidth < size.Width)
-                return font.Size * availableWidth / size.Width;
-            return font.Size;
+                return Math.Max(5, font.Size * availableWidth / size.Width);
+            return Math.Max(5, font.Size);
         }
 
         /// <summary>

@@ -4167,7 +4167,7 @@
             0,
             0});
             this.nudInfoGraphicHeight.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
