@@ -98,11 +98,12 @@ namespace ARKBreedingStats.uiControls
             get
             {
                 double[] w = WeightValues;
-                double sum = w.Sum() / Stats.StatsCount;
-                if (sum > 0)
+                // normalize weights
+                double sumAbs = w.Aggregate(0d, (sum, weight) => sum += Math.Abs(weight)) / Stats.StatsCount;
+                if (sumAbs > 0)
                 {
                     for (int i = 0; i < Stats.StatsCount; i++)
-                        w[i] /= sum;
+                        w[i] /= sumAbs;
                 }
                 return w;
             }
@@ -130,7 +131,7 @@ namespace ARKBreedingStats.uiControls
                     if (_weightNuds[s] != null)
                         weights[s] = (double)_weightNuds[s].Value;
                     else
-                        weights[s] = 1;
+                        weights[s] = 0;
                 }
 
                 return weights;
