@@ -1930,8 +1930,13 @@ namespace ARKBreedingStats
         /// </summary>
         private void PasteCreatureFromClipboard()
         {
-            var importedCreatures = ExportImportCreatures.ImportFromClipboard();
-            if (importedCreatures?.Any() != true) return;
+            var importedCreatures = ExportImportCreatures.ImportFromClipboard(out var errorText);
+            if (importedCreatures?.Any() != true)
+            {
+                if (!string.IsNullOrEmpty(errorText))
+                    SetMessageLabelText(errorText, MessageBoxIcon.Error);
+                return;
+            }
 
             foreach (var c in importedCreatures)
             {

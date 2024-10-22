@@ -262,14 +262,23 @@ namespace ARKBreedingStats.library
             sb.AppendLine();
         }
 
-        public static Creature[] ImportFromClipboard()
+        public static Creature[] ImportFromClipboard(out string error)
         {
+            error = null;
             try
             {
                 var creatureSerialized = Clipboard.GetData(ClipboardCreatureFormat) as string;
                 if (!string.IsNullOrEmpty(creatureSerialized))
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<Creature[]>(creatureSerialized);
-                return new[] { ParseCreature(Clipboard.GetText()) };
+                var clipBoardText = Clipboard.GetText();
+                if (string.IsNullOrEmpty(clipBoardText)) return null;
+                var parsedCreature = ParseCreature(clipBoardText);
+                if (parsedCreature == null)
+                {
+                    error = $"Clipboard text couldn't be parsed as a creature:{Environment.NewLine}{clipBoardText}";
+                    return null;
+                }
+                return new[] { parsedCreature };
             }
             catch (Exception ex)
             {
