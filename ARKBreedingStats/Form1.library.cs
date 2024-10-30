@@ -306,15 +306,15 @@ namespace ARKBreedingStats
                     continue;
                 var speciesCreatures = g.ToArray();
 
-                List<int> usedStatIndices = new List<int>(8);
-                List<int> usedAndConsideredStatIndices = new List<int>();
+                var usedStatIndices = new List<int>(8);
+                var usedAndConsideredStatIndices = new List<int>();
                 var highestLevels = new int[Stats.StatsCount];
                 var lowestLevels = new int[Stats.StatsCount];
                 var highestMutationLevels = new int[Stats.StatsCount];
                 var lowestMutationLevels = new int[Stats.StatsCount];
                 var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-                for (int s = 0; s < Stats.StatsCount; s++)
+                for (var s = 0; s < Stats.StatsCount; s++)
                 {
                     highestLevels[s] = -1;
                     lowestLevels[s] = -1;
@@ -325,8 +325,8 @@ namespace ARKBreedingStats
                             usedAndConsideredStatIndices.Add(s);
                     }
                 }
-                List<Creature>[] bestCreaturesWildLevels = new List<Creature>[Stats.StatsCount];
-                List<Creature>[] bestCreaturesMutatedLevels = new List<Creature>[Stats.StatsCount];
+                var bestCreaturesWildLevels = new List<Creature>[Stats.StatsCount];
+                var bestCreaturesMutatedLevels = new List<Creature>[Stats.StatsCount];
                 var statPreferences = new StatWeighting.StatValuePreference[Stats.StatsCount];
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
@@ -346,7 +346,7 @@ namespace ARKBreedingStats
                     c.topBreedingCreature = false;
 
                     if (
-                        //if not in the filtered collection (using library filter settings), continue
+                        // if not in the filtered collection (using library filter settings), continue
                         (filteredCreaturesHash != null && !filteredCreaturesHash.Contains(c))
                         // only consider creature if it's available for breeding
                         || !(c.Status == CreatureStatus.Available
@@ -457,7 +457,7 @@ namespace ARKBreedingStats
                         case StatWeighting.StatValuePreference.Indifferent:
                             continue;
                         case StatWeighting.StatValuePreference.Low:
-                            if (highestLevels[s] > 0 && lowestLevels[s] != 0)
+                            if (highestLevels[s] > 0 && lowestLevels[s] >= 0)
                                 sumTopLevels += highestLevels[s] - lowestLevels[s];
                             break;
                         case StatWeighting.StatValuePreference.High:
@@ -518,7 +518,9 @@ namespace ARKBreedingStats
                         int maxval = 0;
                         for (int cs = 0; cs < Stats.StatsCount; cs++)
                         {
-                            if (currentCreature.levelsWild[cs] == highestLevels[cs])
+                            if ((statPreferences[s] == StatWeighting.StatValuePreference.High && currentCreature.levelsWild[cs] == highestLevels[cs])
+                                || (statPreferences[s] == StatWeighting.StatValuePreference.Low && currentCreature.levelsWild[cs] == lowestLevels[cs])
+                                )
                                 maxval++;
                         }
 
@@ -534,8 +536,12 @@ namespace ARKBreedingStats
                                 int othermaxval = 0;
                                 for (int ocs = 0; ocs < Stats.StatsCount; ocs++)
                                 {
-                                    if (otherMale.levelsWild[ocs] == highestLevels[ocs])
+                                    if ((statPreferences[s] == StatWeighting.StatValuePreference.High && otherMale.levelsWild[ocs] == highestLevels[ocs])
+                                        || (statPreferences[s] == StatWeighting.StatValuePreference.Low && otherMale.levelsWild[ocs] == lowestLevels[ocs])
+                                        )
+                                    {
                                         othermaxval++;
+                                    }
                                     if (otherMale.IsTopMutationStat(ocs))
                                     {
                                         // if this creature has top mutation levels, don't remove it from breeding pool
