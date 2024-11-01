@@ -3164,7 +3164,7 @@ namespace ARKBreedingStats
         {
             toolStripCBTempCreatures.Items.Clear();
             foreach (CreatureValues cv in _creatureCollection.creaturesValues)
-                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.name ?? "unknown species"}, Lv {cv.level})");
+                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.Name(cv.sex) ?? "unknown species"}, Lv {cv.level})");
         }
 
         /// <summary>

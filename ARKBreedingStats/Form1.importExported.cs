@@ -212,7 +212,7 @@ namespace ARKBreedingStats
                         && Properties.Settings.Default.OnAutoImportAddToLibrary)
                     {
                         creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
-                        SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file" + Environment.NewLine + filePath, MessageBoxIcon.Information, filePath);
+                        SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.Name(creature.sex)}) of the exported file" + Environment.NewLine + filePath, MessageBoxIcon.Information, filePath);
                         addedToLibrary = true;
                     }
                     break;
@@ -383,7 +383,7 @@ namespace ARKBreedingStats
             if (uniqueExtraction)
             {
                 var sb = new StringBuilder();
-                sb.AppendLine($"{creature.Species.name} \"{creature.name}\" {(alreadyExists ? "updated in " : "added to")} the library.");
+                sb.AppendLine($"{creature.SpeciesName} \"{creature.name}\" {(alreadyExists ? "updated in " : "added to")} the library.");
                 if (addedToLibrary && copiedNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 

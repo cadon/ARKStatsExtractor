@@ -284,6 +284,11 @@ namespace ARKBreedingStats.Library
         }
 
         /// <summary>
+        /// Returns the species name dependent on the sex if available.
+        /// </summary>
+        public string SpeciesName => Species?.Name(sex);
+
+        /// <summary>
         /// Creates a placeholder creature with the given ArkId, which have to be imported
         /// </summary>
         /// <param name="arkId">ArkId from an imported source (no user input)</param>
@@ -501,7 +506,7 @@ namespace ARKBreedingStats.Library
 
         public int Mutations => mutationsMaternal + mutationsPaternal;
 
-        public override string ToString() => $"{name} ({_species.name})";
+        public override string ToString() => $"{name} ({SpeciesName})";
 
         /// <summary>
         /// Starts the timer for maturation.

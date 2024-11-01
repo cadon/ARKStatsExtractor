@@ -185,7 +185,7 @@ namespace ARKBreedingStats
                     // creature is not a placeholder, warn about id-conflict and don't add creature.
                     // TODO offer merging of the two creatures if they are similar (e.g. same species). merge automatically if only the dom-levels are different?
                     MessageBox.Show("The entered ARK-ID is already existing in this library " +
-                            $"({guidCreature.Species.name} (lvl {guidCreature.Level}): {guidCreature.name}).\n" +
+                            $"({guidCreature.SpeciesName} (lvl {guidCreature.Level}): {guidCreature.name}).\n" +
                             "You have to choose a different ARK-ID or delete the other creature first.",
                             "ARK-ID already existing",
                             MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1891,7 +1891,7 @@ namespace ARKBreedingStats
             {
                 var c = _creaturesDisplayed[i];
 
-                var fileName = $"{c.Species.name}_{(string.IsNullOrEmpty(c.name) ? c.guid.ToString() : c.name)}";
+                var fileName = $"{c.SpeciesName}_{(string.IsNullOrEmpty(c.name) ? c.guid.ToString() : c.name)}";
                 foreach (var invalidChar in invalidCharacters)
                     fileName = fileName.Replace(invalidChar, '_');
 
@@ -2132,21 +2132,21 @@ namespace ARKBreedingStats
         private void CreateExactSpawnCommand(Creature cr)
         {
             CreatureSpawnCommand.InstableCommandToClipboard(cr);
-            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard. The command doesn't include the XP and the imprinterName, thus the imprinting is probably not set."
+            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command doesn't include the XP and the imprinterName, thus the imprinting is probably not set."
                                 + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.", MessageBoxIcon.Warning);
         }
 
         private void CreateExactSpawnDS2Command(Creature cr)
         {
             CreatureSpawnCommand.DinoStorageV2CommandToClipboard(cr);
-            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work."
+            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work."
                                 , MessageBoxIcon.Warning);
         }
 
         private void CreateExactMutationLevelCommand(Creature cr)
         {
             CreatureSpawnCommand.MutationLevelCommandToClipboard(cr);
-            SetMessageLabelText($"The admin console command for adding the mutation levels to the creature {cr.name} ({cr.Species?.name}) was copied to the clipboard.");
+            SetMessageLabelText($"The admin console command for adding the mutation levels to the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard.");
         }
 
         #endregion

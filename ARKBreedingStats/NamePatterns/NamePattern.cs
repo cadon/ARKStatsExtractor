@@ -300,7 +300,8 @@ namespace ARKBreedingStats.NamePatterns
             // escape special characters
             oldName = oldName.Replace("|", PipeEscapeSequence);
 
-            string spcsNm = creature.Species.name;
+            var speciesName = creature.SpeciesName;
+            string spcsNm = speciesName;
             char[] vowels = { 'a', 'e', 'i', 'o', 'u' };
             while (spcsNm.LastIndexOfAny(vowels) > 0)
                 spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
@@ -345,7 +346,7 @@ namespace ARKBreedingStats.NamePatterns
 
             var model = new TokenModel
             {
-                species = creature.Species.name,
+                species = speciesName,
                 spcsnm = spcsNm,
                 firstwordofoldest = firstWordOfOldest,
 

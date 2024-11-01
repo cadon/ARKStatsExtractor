@@ -845,61 +845,64 @@ namespace ARKBreedingStats
             bool header = true;
             bool table = MessageBox.Show("Results can be copied as own table or as a long table-row. Should it be copied as own table?",
                     "Copy as own table?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-            if (_extractor.ValidResults && speciesSelector1.SelectedSpecies != null)
+            if (!_extractor.ValidResults || speciesSelector1.SelectedSpecies == null)
             {
-                List<string> tsv = new List<string>();
-                string rowLevel = speciesSelector1.SelectedSpecies.name + "\t\t";
-                string rowValues = string.Empty;
-                // if taming effectiveness is unique, display it, too
-                string effString = string.Empty;
-                double eff = _extractor.UniqueTamingEffectiveness();
-                if (eff >= 0)
+                SetMessageLabelText("Extraction not successful or no species selected.", MessageBoxIcon.Error);
+                return;
+            }
+
+            List<string> tsv = new List<string>();
+            string rowLevel = speciesSelector1.SelectedSpecies.name + "\t\t";
+            string rowValues = string.Empty;
+            // if taming effectiveness is unique, display it, too
+            string effString = string.Empty;
+            double eff = _extractor.UniqueTamingEffectiveness();
+            if (eff >= 0)
+            {
+                effString = "\tTamingEff:\t" + (100 * eff) + "%";
+            }
+            // header row
+            if (table || header)
+            {
+                if (table)
                 {
-                    effString = "\tTamingEff:\t" + (100 * eff) + "%";
+                    tsv.Add(speciesSelector1.SelectedSpecies.name + "\tLevel " + numericUpDownLevel.Value + effString);
+                    tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
                 }
-                // headerrow
-                if (table || header)
+                else
                 {
+                    tsv.Add("Species\tName\tSex\tHP-Level\tSt-Level\tOx-Level\tFo-Level\tWe-Level\tDm-Level\tSp-Level\tTo-Level\tHP-Value\tSt-Value\tOx-Value\tFo-Value\tWe-Value\tDm-Value\tSp-Value\tTo-Value");
+                }
+            }
+            for (int s = 0; s < Stats.StatsCount; s++)
+            {
+                if (_extractor.ChosenResults[s] < _extractor.Results[s].Count)
+                {
+                    string breedingV = string.Empty;
+                    if (_activeStats[s])
+                    {
+                        breedingV = _statIOs[s].BreedingValue.ToString();
+                    }
                     if (table)
                     {
-                        tsv.Add(speciesSelector1.SelectedSpecies.name + "\tLevel " + numericUpDownLevel.Value + effString);
-                        tsv.Add("Stat\tWildLevel\tDomLevel\tBreedingValue");
+                        tsv.Add(Utils.StatName(s) + "\t" + (_statIOs[s].LevelWild >= 0 ? _statIOs[s].LevelWild.ToString() : string.Empty) + "\t" + (_statIOs[s].LevelWild >= 0 ? _statIOs[s].LevelWild.ToString() : string.Empty) + "\t" + breedingV);
                     }
                     else
                     {
-                        tsv.Add("Species\tName\tSex\tHP-Level\tSt-Level\tOx-Level\tFo-Level\tWe-Level\tDm-Level\tSp-Level\tTo-Level\tHP-Value\tSt-Value\tOx-Value\tFo-Value\tWe-Value\tDm-Value\tSp-Value\tTo-Value");
+                        rowLevel += "\t" + (_activeStats[s] ? _statIOs[s].LevelWild.ToString() : string.Empty);
+                        rowValues += "\t" + breedingV;
                     }
                 }
-                for (int s = 0; s < Stats.StatsCount; s++)
+                else
                 {
-                    if (_extractor.ChosenResults[s] < _extractor.Results[s].Count)
-                    {
-                        string breedingV = string.Empty;
-                        if (_activeStats[s])
-                        {
-                            breedingV = _statIOs[s].BreedingValue.ToString();
-                        }
-                        if (table)
-                        {
-                            tsv.Add(Utils.StatName(s) + "\t" + (_statIOs[s].LevelWild >= 0 ? _statIOs[s].LevelWild.ToString() : string.Empty) + "\t" + (_statIOs[s].LevelWild >= 0 ? _statIOs[s].LevelWild.ToString() : string.Empty) + "\t" + breedingV);
-                        }
-                        else
-                        {
-                            rowLevel += "\t" + (_activeStats[s] ? _statIOs[s].LevelWild.ToString() : string.Empty);
-                            rowValues += "\t" + breedingV;
-                        }
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    return;
                 }
-                if (!table)
-                {
-                    tsv.Add(rowLevel + rowValues);
-                }
-                Clipboard.SetText(string.Join("\n", tsv));
             }
+            if (!table)
+            {
+                tsv.Add(rowLevel + rowValues);
+            }
+            Clipboard.SetText(string.Join("\n", tsv));
         }
 
         /// <summary>

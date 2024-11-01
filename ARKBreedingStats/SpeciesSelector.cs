@@ -109,6 +109,22 @@ namespace ARKBreedingStats
                     ModName = s.Mod?.title ?? string.Empty,
                     Species = s
                 });
+                if (!string.IsNullOrEmpty(s.nameFemale) && s.name != s.nameFemale)
+                    entryList.Add(new SpeciesListEntry
+                    {
+                        DisplayName = s.nameFemale + " (→" + s.name + ")",
+                        SearchName = s.nameFemale.ToLowerInvariant(),
+                        ModName = s.Mod?.title ?? string.Empty,
+                        Species = s
+                    });
+                if (!string.IsNullOrEmpty(s.nameMale) && s.name != s.nameMale)
+                    entryList.Add(new SpeciesListEntry
+                    {
+                        DisplayName = s.nameMale + " (→" + s.name + ")",
+                        SearchName = s.nameMale.ToLowerInvariant(),
+                        ModName = s.Mod?.title ?? string.Empty,
+                        Species = s
+                    });
             }
 
             foreach (var a in aliases)
@@ -119,8 +135,8 @@ namespace ARKBreedingStats
                     {
                         DisplayName = a.Key + " (→" + aliasSpecies.name + ")",
                         SearchName = a.Key.ToLowerInvariant(),
-                        Species = aliasSpecies,
                         ModName = aliasSpecies.Mod?.title ?? string.Empty,
+                        Species = aliasSpecies
                     });
                 }
             }
