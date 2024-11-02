@@ -30,7 +30,7 @@
 			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
 		},
 		"1169020368-Trex.json": {
-			"version": "358.17.1703269186",
+			"version": "358.24.1730042845",
 			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
 		},
 		"1178308359-ShadDragon.json": {
@@ -181,7 +181,7 @@
 			"mod": { "id": "1734595558", "tag": "Pyria2", "title": "Pyria: The Second Chapter" }
 		},
 		"1754846792-Zythara_Critters.json": {
-			"version": "358.24.1725312197",
+			"version": "358.24.1730043250",
 			"mod": { "id": "1754846792", "tag": "Zythara_Critters", "title": "Zythara Critters" }
 		},
 		"1768499278-BalancedJPE.json": {
@@ -398,7 +398,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"ASA-values.json": {
-			"version": "52.1.118",
+			"version": "55.9.2",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},

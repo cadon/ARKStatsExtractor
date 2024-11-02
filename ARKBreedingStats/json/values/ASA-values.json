@@ -1,5 +1,5 @@
 {
-	"version": "52.1.118",
+	"version": "55.9.2",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -9,6 +9,188 @@
 		"official": true
 	},
 	"species": [
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Archelon/Dinos/Archelon_Character_BP_ASA.Archelon_Character_BP_ASA",
+			"name": "Archelon",
+			"fullStatsRaw": [
+				[ 1400, 0.2, 0.1254, 0.35, 0 ],
+				[ 775, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.06, 0, 0.5, 0 ],
+				null,
+				[ 3500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 1000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.6, 0.4 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.5601,
+				"eggTempMin": 26,
+				"eggTempMax": 29,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 5000,
+				"affinityIncreasePL": 130,
+				"wakeAffinityMult": 1.65,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.007716,
+				"foodConsumptionMult": 180.0011,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "Spine1_M": 0.5 },
+			"TamedBaseHealthMultiplier": 0.9,
+			"displayedStats": 919,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Feathers main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Cream"
+					]
+				},
+				null,
+				{
+					"name": "Body highlights",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightWarmGray",
+						"LightCement",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"PowderBlue",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				null,
+				{
+					"name": "Feather highlights",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Body main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				}
+			]
+		},
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Ceratosaurus/Dinos/Ceratosaurus_Character_BP_ASA.Ceratosaurus_Character_BP_ASA",
 			"name": "Ceratosaurus",
@@ -26,12 +208,6 @@
 				null,
 				null
 			],
-			"altBaseStats": {
-				"0": 650,
-				"1": 500,
-				"4": 6000,
-				"7": 550
-			},
 			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
 			"breeding": {
 				"gestationTime": 0,
@@ -154,6 +330,185 @@
 						"Dino Albino",
 						"BigFoot4",
 						"NearWhite"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/DarkPegasus/DarkPegasus_Character_BP.DarkPegasus_Character_BP",
+			"name": "Dreadmare",
+			"nameMale": "Dreadstallion",
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 1000, 0.2, 0.27, 0.5, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				[ 600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1750, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 450, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 416666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 0.5,
+				"affinityNeeded0": 2500,
+				"affinityIncreasePL": 250,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_jaw": 2,
+				"c_head": 2
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Bodymain",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"MidnightBlue",
+						"BlackSands",
+						"Dino Dark Blue",
+						"DarkTurquoise"
+					]
+				},
+				{
+					"name": "Feathers",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"MidnightBlue",
+						"BlackSands"
+					]
+				},
+				{
+					"name": "Scales",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"Dino Dark Blue",
+						"DarkTurquoise"
+					]
+				},
+				{
+					"name": "Feather tips",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"Dino Dark Blue",
+						"DragonFire",
+						"DarkTurquoise"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"Dino Dark Blue",
+						"DragonFire",
+						"DarkTurquoise"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"MidnightBlue",
+						"BlackSands",
+						"Dino Dark Blue",
+						"DarkTurquoise"
 					]
 				}
 			]
@@ -589,6 +944,7 @@
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Fasolasuchus/Fasola_Character_BP_Aberrant.Fasola_Character_BP_Aberrant",
 			"name": "Aberrant Fasolasuchus",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 950, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -947,7 +1303,7 @@
 				null,
 				null,
 				[ 300, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0.04, 0.08, 0.5, 0.4 ],
 				[ 1, 0, 0.01, 0, 0 ],
 				null,
 				null
@@ -1325,6 +1681,7 @@
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Gigantoraptor/Gigantoraptor_Character_BP_Aberrant.Gigantoraptor_Character_BP_Aberrant",
 			"name": "Aberrant Gigantoraptor",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 770, 0.2, 0.27, 0.5, 0 ],
 				[ 350, 0.1, 0.1, 0, 0 ],
@@ -1602,11 +1959,6 @@
 				null,
 				null
 			],
-			"altBaseStats": {
-				"0": 3600,
-				"1": 400,
-				"7": 1300
-			},
 			"breeding": {
 				"gestationTime": 28571.4286,
 				"incubationTime": 0,
@@ -2124,7 +2476,7 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Basilisk/Ghost_Basilisk_Character_BP.Ghost_Basilisk_Character_BP",
@@ -2151,7 +2503,7 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Basilisk/MegaBasilisk_Character_BP.MegaBasilisk_Character_BP",
@@ -2178,7 +2530,7 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/CaveWolf/CaveWolf_Character_BP.CaveWolf_Character_BP",
@@ -2205,7 +2557,7 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Crab/MegaCrab_Character_BP.MegaCrab_Character_BP",
@@ -2216,7 +2568,7 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Lamprey/Lamprey_Character.Lamprey_Character",
@@ -2404,6 +2756,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Rex/MegaRex_Character_BP_Corrupt.MegaRex_Character_BP_Corrupt",
+			"name": "Enraged Corrupted Rex",
+			"variants": [ "Corrupted", "Extinction", "Mega" ],
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2424,6 +2778,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Trike/MegaTrike_Character_BP_Corrupt.MegaTrike_Character_BP_Corrupt",
+			"name": "Enraged Triceratops",
+			"variants": [ "Corrupted", "Extinction", "Mega" ],
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2480,7 +2836,6 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/Minions/Corrupt_Arthro_Character_BP.Corrupt_Arthro_Character_BP",
-			"name": "Corrupted Arthropluera",
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2576,14 +2931,6 @@
 			"skipWildLevelStats": 512
 		},
 		{
-			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VREndDrone_Character_BP.VREndDrone_Character_BP",
-			"skipWildLevelStats": 512
-		},
-		{
-			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRGigant_Character_BP.VRGigant_Character_BP",
-			"skipWildLevelStats": 512
-		},
-		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRRaptor_Character_BP.VRRaptor_Character_BP",
 			"skipWildLevelStats": 512
 		},
@@ -2593,10 +2940,6 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRTrike_Character_BP.VRTrike_Character_BP",
-			"skipWildLevelStats": 512
-		},
-		{
-			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRXenomorph_Character_BP_Male_Minion.VRXenomorph_Character_BP_Male_Minion",
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2754,6 +3097,10 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/Genesis2/Dinos/Macrophage/Macrophage_Swarm_Character.Macrophage_Swarm_Character",
+			"skipWildLevelStats": 512
+		},
+		{
 			"blueprintPath": "/Game/Genesis2/Dinos/MilkGlider/MilkGlider_Character_BP.MilkGlider_Character_BP",
 			"skipWildLevelStats": 512
 		},
@@ -2802,7 +3149,7 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Bat_Character_BP_Summoned.Bat_Character_BP_Summoned",
@@ -2837,7 +3184,7 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Daeodon_Character_BP_Eden_Summoned.Daeodon_Character_BP_Eden_Summoned",
@@ -3010,6 +3357,730 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Achatina_Character_BP_STA.Achatina_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Allo_Character_BP_STA.Allo_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ankylo_Character_BP_STA.Ankylo_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ant_Character_BP_STA.Ant_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Archa_Character_BP_STA.Archa_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Argent_Character_BP_STA.Argent_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Arthro_Character_BP_STA.Arthro_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Baryonyx_Character_BP_STA.Baryonyx_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Basilisk_Character_BP_STA.Basilisk_Character_BP_STA",
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 22498.2001,
+				"eggTempMin": 32,
+				"eggTempMax": 38,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bat_Character_BP_STA.Bat_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Beaver_Character_BP_STA.Beaver_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bee_Character_BP_STA.Bee_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bee_Queen_Character_BP_STA.Bee_Queen_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bigfoot_Character_BP_STA.Bigfoot_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/BoaFrill_Character_BP_STA.BoaFrill_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/BogSpider_Character_STA.BogSpider_Character_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/BrainSlug_Character_BP_STA.BrainSlug_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Carno_Character_BP_STA.Carno_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Carno_Character_BP_STA_Corrupted.Carno_Character_BP_STA_Corrupted",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CaveWolf_Character_BP_STA.CaveWolf_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Chalico_Character_BP_STA.Chalico_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Cherufe_Character_BP_STA.Cherufe_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Compy_Character_BP_STA.Compy_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Crab_Character_BP_STA.Crab_Character_BP_STA",
+			"breeding": {
+				"gestationTime": 35714.2857,
+				"incubationTime": 0,
+				"maturationTime": 416666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CrystalWyvern_Character_BP_Blood_STA.CrystalWyvern_Character_BP_Blood_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CrystalWyvern_Character_BP_Ember_STA.CrystalWyvern_Character_BP_Ember_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CrystalWyvern_Character_BP_WS_STA.CrystalWyvern_Character_BP_WS_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Daeodon_Character_BP_STA.Daeodon_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Deathworm_Character_BP_STA.Deathworm_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Deinonychus_Character_BP_STA.Deinonychus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dilo_Character_BP_STA.Dilo_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dimetro_Character_BP_STA.Dimetro_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dimorph_Character_BP_STA.Dimorph_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Diplocaulus_Character_BP_STA.Diplocaulus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Diplodocus_Character_BP_STA.Diplodocus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Direbear_Character_BP_STA.Direbear_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Direwolf_Character_BP_STA.Direwolf_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/DodoRex_Character_BP_STA.DodoRex_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dodo_Character_BP_STA.Dodo_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Doed_Character_BP_STA.Doed_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dragonfly_Character_BP_STA.Dragonfly_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/DungBeetle_Character_BP_STA.DungBeetle_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/EndDrone_Character_BP_STA.EndDrone_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/EndTank_Character_BP_STA.EndTank_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Enforcer_Character_BP_STA.Enforcer_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Equus_Character_BP_STA.Equus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/FlyingAnt_Character_BP_STA.FlyingAnt_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Gacha_Character_BP_STA.Gacha_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Galli_Character_BP_STA.Galli_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/GasBags_Character_BP_STA.GasBags_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/GiantTurtle_Character_BP_STA.GiantTurtle_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Gigant_Character_BP_STA.Gigant_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Griffin_Character_BP_STA.Griffin_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Hesperornis_Character_BP_STA.Hesperornis_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Hyaenodon_Character_BP_STA.Hyaenodon_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/IceJumper_Character_BP_STA.IceJumper_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ichthyornis_Character_BP_STA.Ichthyornis_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Iguanodon_Character_BP_STA.Iguanodon_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/InsectSwarmChar_BP_STA.InsectSwarmChar_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jerboa_Character_BP_STA.Jerboa_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jugbug_Oil_Character_BP_STA.Jugbug_Oil_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jugbug_Water_Character_BP_STA.Jugbug_Water_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Kairuku_Character_BP_STA.Kairuku_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Kaprosuchus_Character_BP_STA.Kaprosuchus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Kentro_Character_BP_STA.Kentro_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternBird_Character_BP_STA.LanternBird_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternGoat_Character_BP_STA.LanternGoat_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternLizard_Character_BP_STA.LanternLizard_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternPug_Character_BP_STA.LanternPug_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Leech_Character_STA.Leech_Character_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Lightbug_Character_STA.Lightbug_Character_STA",
+			"name": "Light Bug",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LionfishLion_Character_BP_STA.LionfishLion_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Lystro_Character_BP_STA.Lystro_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Macrophage_Swarm_Character_STA.Macrophage_Swarm_Character_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mammoth_Character_BP_STA.Mammoth_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mantis_Character_BP_STA.Mantis_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Megalania_Character_BP_STA.Megalania_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Megalosaurus_Character_BP_STA.Megalosaurus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Megatherium_Character_BP_STA.Megatherium_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mek_Character_BP_STA.Mek_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Microraptor_Character_BP_STA.Microraptor_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/MilkGlider_Character_BP_STA.MilkGlider_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/MoleRat_Character_BP_STA.MoleRat_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Monkey_Character_BP_STA.Monkey_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Moschops_Character_BP_STA.Moschops_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Moth_Character_BP_STA.Moth_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Otter_Character_BP_STA.Otter_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Oviraptor_Character_BP_STA.Oviraptor_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Owl_Character_BP_STA.Owl_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pachy_Character_BP_STA.Pachy_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pachyrhino_Character_BP_STA.Pachyrhino_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Para_Character_BP_STA.Para_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Paracer_Character_BP_STA.Paracer_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pegomastax_Character_BP_STA.Pegomastax_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pela_Character_BP_STA.Pela_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Phiomia_Character_BP_STA.Phiomia_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Phoenix_Character_BP_STA.Phoenix_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Procoptodon_Character_BP_STA.Procoptodon_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ptero_Character_BP_STA.Ptero_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pteroteuthis_Char_BP_STA.Pteroteuthis_Char_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Purlovia_Character_BP_STA.Purlovia_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Quetz_Character_BP_STA.Quetz_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ragnarok_Wyvern_Override_Ice_STA.Ragnarok_Wyvern_Override_Ice_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Raptor_Character_BP_STA.Raptor_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Raptor_Character_BP_STA_Corrupted.Raptor_Character_BP_STA_Corrupted",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Rex_Character_BP_STA.Rex_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Rex_Character_BP_STA_Corrupted.Rex_Character_BP_STA_Corrupted",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Rhino_Character_BP_STA.Rhino_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/RockDrake_Character_BP_STA.RockDrake_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/RockGolem_Character_BP_STA.RockGolem_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Saber_Character_BP_STA.Saber_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sarco_Character_BP_STA.Sarco_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sauropod_Character_BP_STA.Sauropod_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Scorpion_Character_BP_STA.Scorpion_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Scout_Character_BP_STA.Scout_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Shapeshifter_Large_Character_BP_STA.Shapeshifter_Large_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Shapeshifter_Small_Character_BP_STA.Shapeshifter_Small_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sheep_Character_BP_STA.Sheep_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/SpaceDolphin_Character_BP_STA.SpaceDolphin_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/SpaceWhale_Character_BP_STA.SpaceWhale_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/SpiderS_Character_BP_STA.SpiderS_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Spindles_Character_BP_STA.Spindles_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/SpineyLizard_Character_BP_STA.SpineyLizard_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Spino_Character_BP_STA.Spino_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Stag_Character_BP_STA.Stag_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Stego_Character_BP_STA.Stego_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Summoner_Character_BP_STA.Summoner_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Tapejara_Character_BP_STA.Tapejara_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/TekStrider_Character_BP_STA.TekStrider_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/TekWyvern_Character_BP_STA.TekWyvern_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/TerrorBird_Character_BP_STA.TerrorBird_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Therizino_Character_BP_STA.Therizino_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Thylacoleo_Character_BP_STA.Thylacoleo_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Titanosaur_Character_BP_STA.Titanosaur_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Toad_Character_BP_STA.Toad_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Trike_Character_BP_STA.Trike_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Trike_Character_BP_STA_Corrupted.Trike_Character_BP_STA_Corrupted",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Trilobite_Character_STA.Trilobite_Character_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Troodon_Character_BP_STA.Troodon_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Tropeognathus_Character_BP_STA.Tropeognathus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Turtle_Character_BP_STA.Turtle_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Vulture_Character_BP_STA.Vulture_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Fire_STA.Wyvern_Character_BP_Fire_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Forest_STA.Wyvern_Character_BP_Forest_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Lightning_STA.Wyvern_Character_BP_Lightning_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Poison_STA.Wyvern_Character_BP_Poison_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Yutyrannus_Character_BP_STA.Yutyrannus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA.ZombieDodo_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Huge.ZombieDodo_Character_BP_STA_Huge",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Large.ZombieDodo_Character_BP_STA_Large",
+			"name": "Zomdodo",
+			"variants": [ "Gauntlet2", "Genesis2", "Large", "Mission" ],
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Medium.ZombieDodo_Character_BP_STA_Medium",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/camelsaurus_Character_BP_STA.camelsaurus_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Allo_Character_BP_TameSTA.Allo_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/BogSpider_Character_TameSTA.BogSpider_Character_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/CaveWolf_Character_BP_TameSTA.CaveWolf_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Crab_Character_BP_TameSTA.Crab_Character_BP_TameSTA",
+			"breeding": {
+				"gestationTime": 35714.2857,
+				"incubationTime": 0,
+				"maturationTime": 416666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Dimorph_Character_BP_TameSTA.Dimorph_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Dragon_Character_BP_STA.Dragon_Character_BP_STA",
+			"fullStatsRaw": [
+				[ 150000, 0.01, 0.2, 0.3, 0 ],
+				[ 10000, 0, 0, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2600, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0, 0, 0, 0 ],
+				[ 1, 0, 0, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Enforcer_Character_BP_TameSTA.Enforcer_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Gorilla_Character_BP_STA.Gorilla_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Kaprosuchus_Character_BP_TameSTA.Kaprosuchus_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/LionfishLion_Character_BP_TameSTA.LionfishLion_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Mantis_Character_BP_TameSTA.Mantis_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Moth_Character_BP_TameSTA.Moth_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Raptor_Character_BP_TameSTA.Raptor_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Shapeshifter_Large_Character_BP_TameSTA.Shapeshifter_Large_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/SpaceDolphin_Character_BP_TameSTA.SpaceDolphin_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/SpiderL_Character_BP_STA.SpiderL_Character_BP_STA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Spindles_Character_BP_TameSTA.Spindles_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Stego_Character_BP_TameSTA.Stego_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Trike_Character_BP_TameSTA.Trike_Character_BP_TameSTA",
+			"skipWildLevelStats": 512
+		},
+		{
 			"blueprintPath": "/Game/LostIsland/Dinos/Amargasaurus/Amargasaurus_Character_BP.Amargasaurus_Character_BP",
 			"skipWildLevelStats": 512
 		},
@@ -3044,7 +4115,7 @@
 		{
 			"blueprintPath": "/Game/Packs/Frontier/Dinos/Oasisaur/Oasisaur_Character_BP.Oasisaur_Character_BP",
 			"name": "Oasisaur",
-			"variants": [ "ScorchedEarth" ],
+			"variants": [ "Frontier", "ScorchedEarth" ],
 			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 20000, 0.2, 0.2295, 0.5, 0 ],
@@ -3231,7 +4302,7 @@
 		{
 			"blueprintPath": "/Game/Packs/Frontier/Dinos/Oasisaur/TamingDinos/Vulture_Character_BP_OasisaurTaming.Vulture_Character_BP_OasisaurTaming",
 			"name": "Vulture",
-			"variants": [ "Minion", "ScorchedEarth" ],
+			"variants": [ "Frontier", "Minion" ],
 			"isFlyer": true,
 			"fullStatsRaw": [
 				[ 125, 0.2, 0.27, 0.5, 0 ],
@@ -3333,6 +4404,7 @@
 		{
 			"blueprintPath": "/Game/Packs/Steampunk/Dinos/HelperBot/HelperBot_Character_BP.HelperBot_Character_BP",
 			"name": "SIR-5rM8",
+			"variants": [ "Steampunk" ],
 			"fullStatsRaw": [
 				[ 10000, 0, 0, 0.5, 0 ],
 				null,
@@ -3368,6 +4440,7 @@
 		{
 			"blueprintPath": "/Game/Packs/Steampunk/Dinos/JumpingSpider/JumpingSpider_Character_BP.JumpingSpider_Character_BP",
 			"name": "Cosmo",
+			"variants": [ "Steampunk" ],
 			"fullStatsRaw": [
 				[ 115, 0.2, 0.27, 0.5, 0 ],
 				[ 100, 0.1, 0.125, 0, 0 ],
@@ -3629,6 +4702,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Bone_MegaCarno_Character_BP.Bone_MegaCarno_Character_BP",
+			"name": "Skeletal Carnotaurus",
+			"variants": [ "Mega", "Skeletal" ],
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3665,18 +4740,6 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Ocean.Coel_Character_BP_Ocean",
-			"skipWildLevelStats": 520
-		},
-		{
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay.Coel_Character_BP_VDay",
-			"skipWildLevelStats": 520
-		},
-		{
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Aberrant.Coel_Character_BP_VDay_Aberrant",
-			"skipWildLevelStats": 520
-		},
-		{
-			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_VDay_Ocean.Coel_Character_BP_VDay_Ocean",
 			"skipWildLevelStats": 520
 		},
 		{
@@ -3782,6 +4845,14 @@
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/Turkey_Character_BP.Turkey_Character_BP",
 			"name": "Murder Turkey",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/ZombieDodo_Character_BP.ZombieDodo_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/DodoRex/DodoRex_Character_BP.DodoRex_Character_BP",
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4074,6 +5145,7 @@
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Oviraptor/Oviraptor_Character_BP_Aberrant.Oviraptor_Character_BP_Aberrant",
 			"name": "Aberrant Oviraptor",
+			"variants": [ "Aberrant" ],
 			"fullStatsRaw": [
 				[ 140, 0.2, 0.27, 0.5, 0 ],
 				[ 120, 0.1, 0.1, 0, 0 ],
@@ -4440,6 +5512,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Bone_MegaRaptor_Character_BP.Bone_MegaRaptor_Character_BP",
+			"name": "Alpha Skeletal Raptor",
+			"variants": [ "Mega", "Skeletal" ],
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4460,6 +5534,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Bone_MegaRex_Character_BP.Bone_MegaRex_Character_BP",
+			"name": "Alpha Skeletal T-Rex",
+			"variants": [ "Mega", "Skeletal" ],
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4724,6 +5800,12 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/ScorchedEarth/Dinos/DodoWyvern/DodoWyvern_Character_BP.DodoWyvern_Character_BP",
+			"name": "Dodo Wyvern",
+			"variants": [ "ScorchedEarth" ],
+			"skipWildLevelStats": 512
+		},
+		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Jerboa/Bone_Jerboa_Character_BP.Bone_Jerboa_Character_BP",
 			"skipWildLevelStats": 512
 		},
@@ -4956,6 +6038,8 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Bone_MegaWyvern_Character_BP_Fire.Bone_MegaWyvern_Character_BP_Fire",
+			"name": "Bone Fire Wyvern",
+			"variants": [ "Mega", "ScorchedEarth", "Skeletal" ],
 			"skipWildLevelStats": 512
 		},
 		{
