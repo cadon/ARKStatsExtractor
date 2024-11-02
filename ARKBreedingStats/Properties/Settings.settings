@@ -593,5 +593,8 @@
     <Setting Name="LevelColorWindowRectangle" Type="System.Drawing.Rectangle" Scope="User">
       <Value Profile="(Default)">200, 200, 1000, 650</Value>
     </Setting>
+    <Setting Name="OverlayImportPattern" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

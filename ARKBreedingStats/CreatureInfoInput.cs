@@ -612,7 +612,8 @@ namespace ARKBreedingStats
         {
             if (!parentListValid)
                 ParentListRequested?.Invoke(this);
-            using (var pe = new PatternEditor(creature, _sameSpecies, topLevels, ColorAlreadyExistingInformation, customReplacings, namingPatternIndex, reloadCallback, LibraryCreatureCount))
+            using (var pe = new PatternEditor(creature, _sameSpecies, topLevels, ColorAlreadyExistingInformation,
+                       customReplacings, $"pattern {namingPatternIndex + 1}", Settings.Default.NamingPatterns?[namingPatternIndex], reloadCallback, LibraryCreatureCount))
             {
                 if (pe.ShowDialog() == DialogResult.OK)
                 {

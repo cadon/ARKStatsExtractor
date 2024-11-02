@@ -41,7 +41,7 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
         public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] sameSpecies, TopLevels topLevels, Dictionary<string, string> customReplacings,
-            bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
+            bool showDuplicateNameWarning = false, int namingPatternIndex = -1, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
             ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
         {
             if (pattern == null)

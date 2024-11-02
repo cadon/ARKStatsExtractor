@@ -2361,5 +2361,17 @@ namespace ARKBreedingStats.Properties {
                 this["LevelColorWindowRectangle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OverlayImportPattern {
+            get {
+                return ((string)(this["OverlayImportPattern"]));
+            }
+            set {
+                this["OverlayImportPattern"] = value;
+            }
+        }
     }
 }
