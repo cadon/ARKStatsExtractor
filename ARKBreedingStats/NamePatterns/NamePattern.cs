@@ -41,7 +41,7 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
         public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] sameSpecies, TopLevels topLevels, Dictionary<string, string> customReplacings,
-            bool showDuplicateNameWarning, int namingPatternIndex, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
+            bool showDuplicateNameWarning = false, int namingPatternIndex = -1, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
             ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
         {
             if (pattern == null)
@@ -277,10 +277,12 @@ namespace ARKBreedingStats.NamePatterns
 
             string oldName = creature.name;
 
+            speciesCreatures = speciesCreatures?.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+
             string firstWordOfOldest = string.Empty;
             if (speciesCreatures?.Any() ?? false)
             {
-                firstWordOfOldest = speciesCreatures.Where(c => c.addedToLibrary != null && !c.flags.HasFlag(CreatureFlags.Placeholder)).OrderBy(c => c.addedToLibrary).FirstOrDefault()?.name;
+                firstWordOfOldest = speciesCreatures.Where(c => c.addedToLibrary != null).OrderBy(c => c.addedToLibrary).FirstOrDefault()?.name;
                 if (!string.IsNullOrEmpty(firstWordOfOldest) && firstWordOfOldest.Contains(" "))
                 {
                     firstWordOfOldest = firstWordOfOldest.Substring(0, firstWordOfOldest.IndexOf(" "));
@@ -298,7 +300,8 @@ namespace ARKBreedingStats.NamePatterns
             // escape special characters
             oldName = oldName.Replace("|", PipeEscapeSequence);
 
-            string spcsNm = creature.Species.name;
+            var speciesName = creature.SpeciesName;
+            string spcsNm = speciesName;
             char[] vowels = { 'a', 'e', 'i', 'o', 'u' };
             while (spcsNm.LastIndexOfAny(vowels) > 0)
                 spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
@@ -343,7 +346,7 @@ namespace ARKBreedingStats.NamePatterns
 
             var model = new TokenModel
             {
-                species = creature.Species.name,
+                species = speciesName,
                 spcsnm = spcsNm,
                 firstwordofoldest = firstWordOfOldest,
 
@@ -381,7 +384,7 @@ namespace ARKBreedingStats.NamePatterns
                 sn = speciesSexCount,
                 dom = dom,
                 arkid = arkid,
-                alreadyexists = speciesCreatures.Contains(creature),
+                alreadyexists = speciesCreatures?.Contains(creature) ?? false,
                 isflyer = creature.Species.isFlyer,
                 status = creature.Status,
             };

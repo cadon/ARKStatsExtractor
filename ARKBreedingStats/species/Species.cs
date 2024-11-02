@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.species
@@ -16,6 +17,16 @@ namespace ARKBreedingStats.species
         /// </summary>
         [JsonProperty]
         public string name;
+        /// <summary>
+        /// Optional name for females if different from name.
+        /// </summary>
+        [JsonProperty]
+        public string nameFemale;
+        /// <summary>
+        /// Optional name for males if different from name.
+        /// </summary>
+        [JsonProperty]
+        public string nameMale;
         /// <summary>
         /// The name used for sorting in lists.
         /// </summary>
@@ -271,7 +282,7 @@ namespace ARKBreedingStats.species
             if (variants != null && variants.Any())
             {
                 VariantInfo = string.Join(", ", variants);
-                variantInfoForName = string.Join(", ", variants.Where(v => !name.Contains(v)));
+                variantInfoForName = string.Join(", ", string.IsNullOrEmpty(name) ? variants : variants.Where(v => !name.Contains(v)));
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(variantInfoForName) ? string.Empty : " (" + variantInfoForName + ")");
@@ -455,6 +466,8 @@ namespace ARKBreedingStats.species
         public void LoadOverrides(Species overrides)
         {
             if (overrides.name != null) name = overrides.name;
+            if (overrides.nameFemale != null) name = overrides.nameFemale;
+            if (overrides.nameMale != null) name = overrides.nameMale;
             if (overrides.variants != null) variants = overrides.variants;
             if (overrides.fullStatsRaw != null) fullStatsRaw = overrides.fullStatsRaw;
             if (overrides.altBaseStatsRaw != null) altBaseStatsRaw = overrides.altBaseStatsRaw;
@@ -497,5 +510,23 @@ namespace ARKBreedingStats.species
         /// Index of the multiplicative bonus value in fullStatsRaw.
         /// </summary>
         public const int StatsRawIndexMultiplicativeBonus = 4;
+
+        /// <summary>
+        /// Returns species name depending on sex if available.
+        /// </summary>
+        /// <param name="creatureSex"></param>
+        /// <returns></returns>
+        public string Name(Sex creatureSex)
+        {
+            switch (creatureSex)
+            {
+                case Sex.Female:
+                    return nameMale ?? name;
+                case Sex.Male:
+                    return nameFemale ?? name;
+                default:
+                    return name;
+            }
+        }
     }
 }

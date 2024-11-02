@@ -130,7 +130,8 @@ namespace ARKBreedingStats.NamePatterns
             textBox.Select(start, end - start);
         }
 
-        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, CreatureCollection.ColorExisting[] colorExistings, Dictionary<string, string> customReplacings, int namingPatternIndex, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
+        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, CreatureCollection.ColorExisting[] colorExistings,
+            Dictionary<string, string> customReplacings, string namingPatternName, string patternString, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
         {
             Utils.SetWindowRectangle(this, Properties.Settings.Default.PatternEditorFormRectangle);
             if (Properties.Settings.Default.PatternEditorSplitterDistance > 0)
@@ -145,11 +146,11 @@ namespace ARKBreedingStats.NamePatterns
             _customReplacings = customReplacings;
             _reloadCallback = reloadCallback;
             _libraryCreatureCount = libraryCreatureCount;
-            txtboxPattern.Text = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
+            txtboxPattern.Text = patternString ?? string.Empty;
             CbPatternNameToClipboardAfterManualApplication.Checked = Properties.Settings.Default.PatternNameToClipboardAfterManualApplication;
             txtboxPattern.SelectionStart = txtboxPattern.Text.Length;
 
-            Text = $"Naming Pattern Editor: pattern {namingPatternIndex + 1}";
+            Text = $"Naming Pattern Editor: {namingPatternName}";
 
             _alreadyExistingCreature = _creaturesOfSameSpecies?.FirstOrDefault(c => c.guid == creature.guid);
             _tokenModel = NamePatterns.NamePattern.CreateTokenModel(creature, _alreadyExistingCreature, _creaturesOfSameSpecies, _colorExistings, _topLevels, _libraryCreatureCount);

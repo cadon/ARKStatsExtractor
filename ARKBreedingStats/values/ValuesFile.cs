@@ -14,14 +14,13 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Checks if the version string is a format version that is supported by the version of this application.
         /// </summary>
-        protected static bool IsValidFormatVersion(string version) =>
-            version != null
-            && (version == "1.12" // format with 12 stats (minimum required format)
-                || version == "1.13" // introduced remaps for blueprintPaths
-                || version == "1.14-flyerspeed" // introduced isFlyer property for AllowFlyerSpeedLeveling
-                || version == "1.15-asa" // for new properties in ARK: Survival Ascended
-                || version == "1.16-mod-remap" // support for blueprint remap for mod files
-            );
+        protected static bool IsValidFormatVersion(string formatVersion) =>
+            formatVersion == "1.12" // format with 12 stats (minimum required format)
+            || formatVersion == "1.13" // introduced remaps for blueprintPaths
+            || formatVersion == "1.14-flyerspeed" // introduced isFlyer property for AllowFlyerSpeedLeveling
+            || formatVersion == "1.15-asa" // for new properties in ARK: Survival Ascended
+            || formatVersion == "1.16-mod-remap" // support for blueprint remap for mod files
+            ;
 
         [JsonProperty]
         private string version;

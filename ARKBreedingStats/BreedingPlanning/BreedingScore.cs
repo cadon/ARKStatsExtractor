@@ -147,10 +147,10 @@ namespace ARKBreedingStats.BreedingPlanning
                                     if (female.levelsWild[s] == bestLevelsOfSpecies[s] && male.levelsWild[s] == bestLevelsOfSpecies[s])
                                         weightedExpectedStatLevel *= 1.142;
                                 }
-                                else if (bestLevelsOfSpecies[s] > 0)
+                                else if (bestLevelsOfSpecies[s] > 0 || statWeights[s] < 0)
                                     weightedExpectedStatLevel *= .01;
                             }
-                            else if (breedingMode == BreedingMode.TopStatsConservative && bestLevelsOfSpecies[s] > 0)
+                            else if (breedingMode == BreedingMode.TopStatsConservative && (bestLevelsOfSpecies[s] > 0 || statWeights[s] < 0))
                             {
                                 bool higherIsBetter = statWeights[s] >= 0;
                                 bestPossLevels[s] = (short)(higherIsBetter ? Math.Max(female.levelsWild[s], male.levelsWild[s]) : Math.Min(female.levelsWild[s], male.levelsWild[s]));

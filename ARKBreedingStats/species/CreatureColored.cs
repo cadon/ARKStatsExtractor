@@ -5,8 +5,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Media;
-using System.Windows.Media.Effects;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using Color = System.Drawing.Color;

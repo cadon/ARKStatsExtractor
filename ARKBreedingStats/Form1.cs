@@ -335,7 +335,6 @@ namespace ARKBreedingStats
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             // check for updates
-            MoveSpeciesImagesToNewFolder();
             if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
             {
                 bool selectDefaultImagesIfNotYet = false;
@@ -1930,8 +1929,13 @@ namespace ARKBreedingStats
         /// </summary>
         private void PasteCreatureFromClipboard()
         {
-            var importedCreatures = ExportImportCreatures.ImportFromClipboard();
-            if (importedCreatures?.Any() != true) return;
+            var importedCreatures = ExportImportCreatures.ImportFromClipboard(out var errorText);
+            if (importedCreatures?.Any() != true)
+            {
+                if (!string.IsNullOrEmpty(errorText))
+                    SetMessageLabelText(errorText, MessageBoxIcon.Error);
+                return;
+            }
 
             foreach (var c in importedCreatures)
             {
@@ -3160,7 +3164,7 @@ namespace ARKBreedingStats
         {
             toolStripCBTempCreatures.Items.Clear();
             foreach (CreatureValues cv in _creatureCollection.creaturesValues)
-                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.name ?? "unknown species"}, Lv {cv.level})");
+                toolStripCBTempCreatures.Items.Add($"{cv.name} ({cv.Species?.Name(cv.sex) ?? "unknown species"}, Lv {cv.level})");
         }
 
         /// <summary>
@@ -3761,44 +3765,6 @@ namespace ARKBreedingStats
                     if (Properties.Settings.Default.SpeciesImagesFolder != null)
                         speciesSelector1.InitializeSpeciesImages(Values.V.species);
                 }
-            }
-        }
-
-        /// <summary>
-        /// If the user has downloaded the species images already but not in the new folder, move them.
-        /// This method can probably be removed at 08-2021.
-        /// </summary>
-        private void MoveSpeciesImagesToNewFolder()
-        {
-            const string relativeImageFolder = "images/speciesImages";
-            var oldImagesFolder = FileService.GetPath("img");
-            var newImagesFolder = FileService.GetPath(relativeImageFolder);
-
-            if (Directory.Exists(newImagesFolder))
-            {
-                // images are already moved
-                // check if the images folder is set correctly (currently there's only one option)
-                if (Properties.Settings.Default.SpeciesImagesFolder == relativeImageFolder) return;
-
-                Properties.Settings.Default.SpeciesImagesFolder = relativeImageFolder;
-                CreatureColored.InitializeSpeciesImageLocation();
-                speciesSelector1.InitializeSpeciesImages(Values.V.species);
-                return;
-            }
-
-            if (!Directory.Exists(oldImagesFolder)) return;
-
-            try
-            {
-                Directory.Move(oldImagesFolder, newImagesFolder);
-
-                Properties.Settings.Default.SpeciesImagesFolder = relativeImageFolder;
-                CreatureColored.InitializeSpeciesImageLocation();
-                speciesSelector1.InitializeSpeciesImages(Values.V.species);
-            }
-            catch
-            {
-                // ignore
             }
         }
 

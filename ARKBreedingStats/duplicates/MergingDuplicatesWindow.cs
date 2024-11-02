@@ -18,7 +18,7 @@ namespace ARKBreedingStats.duplicates
             InitializeComponent();
             mergingDuplicates = new MergingDuplicates
             {
-                progressBar = progressBar1
+                ProgressBar = progressBar1
             };
         }
 

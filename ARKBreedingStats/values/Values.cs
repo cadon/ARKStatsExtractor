@@ -694,18 +694,26 @@ namespace ARKBreedingStats.values
                 {
                     _blueprintToSpecies[s.blueprintPath.ToLowerInvariant()] = s;
 
-                    string speciesName = s.name;
-                    if (_nameToSpecies.TryGetValue(speciesName, out var existingSpecies))
+                    AddSpeciesNameToDict(s.name);
+                    AddSpeciesNameToDict(s.nameFemale);
+                    AddSpeciesNameToDict(s.nameMale);
+
+                    void AddSpeciesNameToDict(string speciesName)
                     {
-                        if (
-                            (!existingSpecies.IsDomesticable && s.IsDomesticable) // prefer species that are domesticable
-                            || (existingSpecies.Mod == null && s.Mod != null) // prefer species from mods with the same name
-                            || ((existingSpecies.variants?.Length ?? 0) > (s.variants?.Length ?? 0)) // prefer species that are not variants
-                        )
-                            _nameToSpecies[speciesName] = s;
+                        if (string.IsNullOrEmpty(speciesName)) return;
+
+                        if (_nameToSpecies.TryGetValue(speciesName, out var existingSpecies))
+                        {
+                            if (
+                                (!existingSpecies.IsDomesticable && s.IsDomesticable) // prefer species that are domesticable
+                                || (existingSpecies.Mod == null && s.Mod != null) // prefer species from mods with the same name
+                                || ((existingSpecies.variants?.Length ?? 0) > (s.variants?.Length ?? 0)) // prefer species that are not variants
+                            )
+                                _nameToSpecies[speciesName] = s;
+                        }
+                        else
+                            _nameToSpecies.Add(speciesName, s);
                     }
-                    else
-                        _nameToSpecies.Add(speciesName, s);
 
                     Match classNameMatch = rClassName.Match(s.blueprintPath);
                     if (classNameMatch.Success)

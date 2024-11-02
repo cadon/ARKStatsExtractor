@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
+using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.StatsOptions;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
@@ -1880,6 +1881,25 @@ namespace ARKBreedingStats.settings
         private void BtOpenLevelColorOptions_Click(object sender, EventArgs e)
         {
             StatsOptionsForm.ShowWindow(this, Form1.StatsOptionsLevelColors, Form1.StatsOptionsConsiderTopStats);
+        }
+
+        private void BtOverlayPatternEdit_Click(object sender, EventArgs e)
+        {
+            if (_infoGraphicPreviewCreature == null)
+                CreateInfoGraphicCreature();
+
+            using (var pe = new PatternEditor(_infoGraphicPreviewCreature, null, null, null,
+                       null, "Overlay pattern", Properties.Settings.Default.OverlayImportPattern, null, 0))
+            {
+                if (pe.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.OverlayImportPattern = pe.NamePattern;
+                    Properties.Settings.Default.PatternNameToClipboardAfterManualApplication = pe.PatternNameToClipboardAfterManualApplication;
+                }
+
+                (Properties.Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);
+                Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
+            }
         }
     }
 }

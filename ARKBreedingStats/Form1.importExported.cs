@@ -212,7 +212,7 @@ namespace ARKBreedingStats
                         && Properties.Settings.Default.OnAutoImportAddToLibrary)
                     {
                         creature = AddCreatureToCollection(true, goToLibraryTab: Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
-                        SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.name}) of the exported file" + Environment.NewLine + filePath, MessageBoxIcon.Information, filePath);
+                        SetMessageLabelText($"Successful {(alreadyExists ? "updated" : "added")} {creature.name} ({species.Name(creature.sex)}) of the exported file" + Environment.NewLine + filePath, MessageBoxIcon.Information, filePath);
                         addedToLibrary = true;
                     }
                     break;
@@ -235,7 +235,7 @@ namespace ARKBreedingStats
                 creature = GetCreatureFromInput(true, species, levelStep);
             }
 
-            OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExists, addedToLibrary, copiedNameToClipboard);
+            OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExistingCreature, addedToLibrary, copiedNameToClipboard);
 
             if (addedToLibrary)
             {
@@ -374,7 +374,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Give feedback in overlay for imported creature.
         /// </summary>
-        private void OverlayFeedbackForImport(Creature creature, bool uniqueExtraction, bool alreadyExists, bool addedToLibrary,
+        private void OverlayFeedbackForImport(Creature creature, bool uniqueExtraction, Creature alreadyExistingCreature, bool addedToLibrary,
             bool copiedNameToClipboard)
         {
             string infoText;
@@ -383,7 +383,7 @@ namespace ARKBreedingStats
             if (uniqueExtraction)
             {
                 var sb = new StringBuilder();
-                sb.AppendLine($"{creature.Species.name} \"{creature.name}\" {(alreadyExists ? "updated in " : "added to")} the library.");
+                sb.AppendLine($"{creature.SpeciesName} \"{creature.name}\" {(alreadyExistingCreature != null ? "updated in " : "added to")} the library.");
                 if (addedToLibrary && copiedNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
@@ -407,6 +407,20 @@ namespace ARKBreedingStats
 
             if (_overlay != null)
             {
+                var overlayPattern = Properties.Settings.Default.OverlayImportPattern;
+                if (!string.IsNullOrEmpty(overlayPattern))
+                {
+                    var overlayPatternResult = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature,
+                        _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
+                        _topLevels.TryGetValue(creature.Species, out var tl) ? tl : null,
+                        _customReplacingNamingPattern, false, -1, false, overlayPattern,
+                        false, colorsExisting: _creatureCollection.ColorAlreadyAvailable(creature.Species, creature.colors, out _),
+                        libraryCreatureCount: _creatureCollection.GetTotalCreatureCount());
+
+                    if (!string.IsNullOrEmpty(overlayPatternResult))
+                        infoText += Environment.NewLine + Environment.NewLine + overlayPatternResult;
+                }
+
                 _overlay.SetInfoText(infoText, textColor);
                 if (Properties.Settings.Default.DisplayInheritanceInOverlay)
                     _overlay.SetInheritanceCreatures(creature, creature.Mother, creature.Father);
