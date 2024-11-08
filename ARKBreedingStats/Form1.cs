@@ -18,7 +18,6 @@ using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.StatsOptions;
-using ARKBreedingStats.StatsOptions.LevelColorSettings;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
@@ -3733,7 +3732,7 @@ namespace ARKBreedingStats
             {
                 if (!modules.UpdateAvailable && !selectDefaultImagesIfNotYet && onlyShowDialogIfUpdatesAreAvailable)
                 {
-                    if (initializeImages) InitializeImages();
+                    InitializeImages(!initializeImages);
                     return;
                 }
 
@@ -3741,8 +3740,11 @@ namespace ARKBreedingStats
                     modules.SelectDefaultImages();
 
                 modules.ShowDialog();
-                if (modules.DialogResult != DialogResult.OK)
-                    return;
+                var dialogResult = modules.DialogResult;
+
+                InitializeImages(true);
+
+                if (dialogResult != DialogResult.OK) return;
 
                 var result = await modules.DownloadRequestedModulesAsync();
 
@@ -3757,12 +3759,15 @@ namespace ARKBreedingStats
                     InitializeImages();
                 }
 
-                void InitializeImages()
+                void InitializeImages(bool onlyIfNotYetSet = false)
                 {
+                    if (onlyIfNotYetSet && !string.IsNullOrEmpty(Properties.Settings.Default.SpeciesImagesFolder))
+                        return;
+
                     Properties.Settings.Default.SpeciesImagesFolder = modules.GetSpeciesImagesFolder();
                     CreatureColored.InitializeSpeciesImageLocation();
 
-                    if (Properties.Settings.Default.SpeciesImagesFolder != null)
+                    if (!string.IsNullOrEmpty(Properties.Settings.Default.SpeciesImagesFolder))
                         speciesSelector1.InitializeSpeciesImages(Values.V.species);
                 }
             }
