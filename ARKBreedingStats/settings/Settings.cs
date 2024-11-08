@@ -54,11 +54,11 @@ namespace ARKBreedingStats.settings
             {
                 cbbOCRApp.DataSource = System.Diagnostics.Process.GetProcesses()
                     .Select(p => new ProcessSelector { ProcessName = p.ProcessName, MainWindowTitle = p.MainWindowTitle })
-                    .Distinct()
                     .Where(pn =>
                         !string.IsNullOrEmpty(pn.MainWindowTitle)
                         && pn.ProcessName != "System"
                         && pn.ProcessName != "idle")
+                    .Distinct()
                     .OrderBy(pn => pn.ProcessName)
                     .ToArray();
             }
@@ -69,11 +69,23 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private struct ProcessSelector
+        private struct ProcessSelector : IEquatable<ProcessSelector>
         {
             public string ProcessName;
             public string MainWindowTitle;
             public override string ToString() => $"{ProcessName} ({MainWindowTitle})";
+
+            public bool Equals(ProcessSelector other) => ProcessName == other.ProcessName && MainWindowTitle == other.MainWindowTitle;
+
+            public override bool Equals(object obj) => obj is ProcessSelector other && Equals(other);
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return ((ProcessName != null ? ProcessName.GetHashCode() : 0) * 397) ^ (MainWindowTitle != null ? MainWindowTitle.GetHashCode() : 0);
+                }
+            }
         }
 
         private void cbOCRApp_SelectedIndexChanged(object sender, EventArgs e)
