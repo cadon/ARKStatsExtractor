@@ -707,6 +707,7 @@
     <Compile Include="utils\ExceptionMessages.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
+    <Compile Include="utils\Logging.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
     <Compile Include="NamePatterns\NamePatternFunctions.cs" />
     <Compile Include="utils\NaturalComparer.cs" />
