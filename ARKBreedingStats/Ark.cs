@@ -176,13 +176,6 @@ namespace ARKBreedingStats
             if (denominator < multipliers.BabyCuddleIntervalMultiplier) return 1;
             return Math.Min(1, multipliers.BabyCuddleIntervalMultiplier / denominator);
         }
-
-        /// <summary>
-        /// Species have stats they cannot level, these are skipped in some methods.
-        /// Some species have these changed and sometimes still use these stats.
-        /// If this setting is true, the method Species.CanLevelUpWildOrHaveMutations will always return true for oxygen.
-        /// </summary>
-        public static bool IgnoreSkipWildLevelFlagOxygen;
     }
 
     /// <summary>

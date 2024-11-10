@@ -95,6 +95,8 @@ namespace ARKBreedingStats.values
                 return this;
             }
 
+            CanHaveWildLevelExceptions.LoadDefinitions();
+
             _V = LoadBaseValuesFile(FileService.GetJsonPath(FileService.ValuesFolder, FileService.ValuesJson));
             InitializeBaseValues();
 

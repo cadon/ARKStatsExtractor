@@ -237,10 +237,6 @@ namespace ARKBreedingStats
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
             toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
 
-            _tt.SetToolTip(CbIgnoreSkipLevel, "Some species could have wild levels in oxygen in earlier versions of the game where they cannot have wild levels anymore.\n"
-                                              + "Importing an old creature with levels in oxygen can result in a failed extraction\n"
-                                              + "Enable this checkbox only for these creatures if the extraction fails. For other creatures this checkbox should be unchecked.");
-
             _reactOnCreatureSelectionChange = true;
         }
 
@@ -4025,11 +4021,6 @@ namespace ARKBreedingStats
         private void showStatsOptionsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFolderInExplorer(StatsOptionsLevelColors.SettingsFilePath);
-        }
-
-        private void CbIgnoreSkipLevel_CheckedChanged(object sender, EventArgs e)
-        {
-            Ark.IgnoreSkipWildLevelFlagOxygen = CbIgnoreSkipLevel.Checked;
         }
     }
 }

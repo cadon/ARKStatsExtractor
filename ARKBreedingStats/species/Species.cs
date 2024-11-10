@@ -185,7 +185,7 @@ namespace ARKBreedingStats.species
 
             var fullStatsRawLength = fullStatsRaw?.Length ?? 0;
 
-            _skipWildLevelStatsWithServerSettings = skipWildLevelStats;
+            _skipWildLevelStatsWithServerSettings = skipWildLevelStats & ~CanHaveWildLevelExceptions.GetWildLevelExceptions(name);
             usedStats = 0;
 
             if (statImprintMult == null)
@@ -399,8 +399,7 @@ namespace ARKBreedingStats.species
         /// Returns if a spawned creature can have wild or mutated levels in a stat.
         /// If Ark.IgnoreSkipWildLevelFlags is true, this method will always return true.
         /// </summary>
-        public bool CanLevelUpWildOrHaveMutations(int statIndex) =>
-            (Ark.IgnoreSkipWildLevelFlagOxygen && statIndex == Stats.Oxygen) || (_skipWildLevelStatsWithServerSettings & (1 << statIndex)) == 0;
+        public bool CanLevelUpWildOrHaveMutations(int statIndex) => (_skipWildLevelStatsWithServerSettings & (1 << statIndex)) == 0;
 
         public override string ToString()
         {
