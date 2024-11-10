@@ -201,6 +201,7 @@ namespace ARKBreedingStats
             this.lbTestingInfo = new System.Windows.Forms.Label();
             this.creatureInfoInputTester = new ARKBreedingStats.CreatureInfoInput();
             this.tabPageExtractor = new System.Windows.Forms.TabPage();
+            this.CbIgnoreSkipLevel = new System.Windows.Forms.CheckBox();
             this.LbAsa = new System.Windows.Forms.Label();
             this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.BtCopyIssueDumpToClipboard = new System.Windows.Forms.Button();
@@ -2019,6 +2020,7 @@ namespace ARKBreedingStats
             // tabPageExtractor
             // 
             this.tabPageExtractor.AutoScroll = true;
+            this.tabPageExtractor.Controls.Add(this.CbIgnoreSkipLevel);
             this.tabPageExtractor.Controls.Add(this.LbAsa);
             this.tabPageExtractor.Controls.Add(this.LbBlueprintPath);
             this.tabPageExtractor.Controls.Add(this.BtCopyIssueDumpToClipboard);
@@ -2048,6 +2050,17 @@ namespace ARKBreedingStats
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
             this.tabPageExtractor.UseVisualStyleBackColor = true;
+            // 
+            // CbIgnoreSkipLevel
+            // 
+            this.CbIgnoreSkipLevel.AutoSize = true;
+            this.CbIgnoreSkipLevel.Location = new System.Drawing.Point(379, 87);
+            this.CbIgnoreSkipLevel.Name = "CbIgnoreSkipLevel";
+            this.CbIgnoreSkipLevel.Size = new System.Drawing.Size(182, 17);
+            this.CbIgnoreSkipLevel.TabIndex = 57;
+            this.CbIgnoreSkipLevel.Text = "Oxygen can can have wild levels";
+            this.CbIgnoreSkipLevel.UseVisualStyleBackColor = true;
+            this.CbIgnoreSkipLevel.CheckedChanged += new System.EventHandler(this.CbIgnoreSkipLevel_CheckedChanged);
             // 
             // LbAsa
             // 
@@ -4459,5 +4472,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
         private System.Windows.Forms.ToolStripMenuItem showStatsOptionsFileInExplorerToolStripMenuItem;
         private System.Windows.Forms.Button BtRecalculateTopStatsAfterChange;
+        private System.Windows.Forms.CheckBox CbIgnoreSkipLevel;
     }
 }
