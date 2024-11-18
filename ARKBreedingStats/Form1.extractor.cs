@@ -1553,7 +1553,10 @@ namespace ARKBreedingStats
 
         private void numericUpDownLevel_ValueChanged(object sender, EventArgs e)
         {
-            if (!(rbWildExtractor.Checked && speciesSelector1.SelectedSpecies is Species species)) return;
+            if (!(Properties.Settings.Default.ExtractorConvertWildTorporTotalLevel
+                  && rbWildExtractor.Checked
+                  && speciesSelector1.SelectedSpecies is Species species
+                    )) return;
 
             _statIOs[Stats.Torpidity].Input = StatValueCalculation.CalculateValue(species,
                 Stats.Torpidity, (int)numericUpDownLevel.Value - 1, 0, 0, false);

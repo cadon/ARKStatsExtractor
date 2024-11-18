@@ -2227,13 +2227,18 @@ namespace ARKBreedingStats
         {
             _clearExtractionCreatureData =
                 true; // as soon as the user changes stat-values, it's assumed it's not an exported creature anymore
-            if (sIo.statIndex == Stats.Torpidity && rbWildExtractor.Checked)
+
+            if (sIo.statIndex == Stats.Torpidity
+                && rbWildExtractor.Checked
+                && Properties.Settings.Default.ExtractorConvertWildTorporTotalLevel
+                && speciesSelector1.SelectedSpecies?.stats is SpeciesStat[] speciesStats)
             {
-                if (!(speciesSelector1.SelectedSpecies?.stats is SpeciesStat[] speciesStats)) return;
                 var torpidity = speciesStats[Stats.Torpidity];
-                if (torpidity == null || torpidity.BaseValue == 0 || torpidity.IncPerWildLevel == 0) return;
-                numericUpDownLevel.ValueSaveDouble = Math.Round((sIo.Input / torpidity.BaseValue - 1) / torpidity.IncPerWildLevel + 1);
-                return;
+                if (torpidity != null && torpidity.BaseValue != 0 && torpidity.IncPerWildLevel != 0)
+                {
+                    numericUpDownLevel.ValueSaveDouble =
+                        Math.Round((sIo.Input / torpidity.BaseValue - 1) / torpidity.IncPerWildLevel + 1);
+                }
             }
 
             if (!cbQuickWildCheck.Checked) return;
