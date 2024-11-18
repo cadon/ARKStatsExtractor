@@ -13,7 +13,6 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.uiControls;
-using System.Reflection;
 
 namespace ARKBreedingStats
 {
@@ -1557,7 +1556,7 @@ namespace ARKBreedingStats
             if (!(rbWildExtractor.Checked && speciesSelector1.SelectedSpecies is Species species)) return;
 
             _statIOs[Stats.Torpidity].Input = StatValueCalculation.CalculateValue(species,
-                Stats.Torpidity, (int)numericUpDownLevel.Value, 0, 0, false);
+                Stats.Torpidity, (int)numericUpDownLevel.Value - 1, 0, 0, false);
         }
     }
 }

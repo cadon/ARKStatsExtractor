@@ -2230,9 +2230,9 @@ namespace ARKBreedingStats
             if (sIo.statIndex == Stats.Torpidity && rbWildExtractor.Checked)
             {
                 if (!(speciesSelector1.SelectedSpecies?.stats is SpeciesStat[] speciesStats)) return;
-                var trp = speciesStats[Stats.Torpidity];
-                if (trp == null || trp.BaseValue == 0 || trp.IncPerWildLevel == 0) return;
-                numericUpDownLevel.ValueSaveDouble = (sIo.Input / trp.BaseValue - 1) / trp.IncPerWildLevel;
+                var torpidity = speciesStats[Stats.Torpidity];
+                if (torpidity == null || torpidity.BaseValue == 0 || torpidity.IncPerWildLevel == 0) return;
+                numericUpDownLevel.ValueSaveDouble = Math.Round((sIo.Input / torpidity.BaseValue - 1) / torpidity.IncPerWildLevel + 1);
                 return;
             }
 
