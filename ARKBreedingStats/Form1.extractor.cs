@@ -442,6 +442,11 @@ namespace ARKBreedingStats
                     {
                         possibleExtractionIssues |= IssueNotes.Issue.SinglePlayer;
                     }
+                    // if the stat is speed, the allowSpeedLeveling could be set incorrectly. For bred creatures that setting affects if speed is changed by imprinting.
+                    if (s == Stats.SpeedMultiplier && rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
+                    {
+                        possibleExtractionIssues |= IssueNotes.Issue.SpeedLevelingSetting;
+                    }
                 }
             }
             if (!_extractor.ValidResults)
