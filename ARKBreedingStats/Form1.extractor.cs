@@ -13,7 +13,6 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.uiControls;
-using System.Reflection;
 
 namespace ARKBreedingStats
 {
@@ -442,6 +441,11 @@ namespace ARKBreedingStats
                         || s == Stats.MeleeDamageMultiplier)
                     {
                         possibleExtractionIssues |= IssueNotes.Issue.SinglePlayer;
+                    }
+                    // if the stat is speed, the allowSpeedLeveling could be set incorrectly. For bred creatures that setting affects if speed is changed by imprinting.
+                    if (s == Stats.SpeedMultiplier && rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
+                    {
+                        possibleExtractionIssues |= IssueNotes.Issue.SpeedLevelingSetting;
                     }
                 }
             }
@@ -1554,10 +1558,13 @@ namespace ARKBreedingStats
 
         private void numericUpDownLevel_ValueChanged(object sender, EventArgs e)
         {
-            if (!(rbWildExtractor.Checked && speciesSelector1.SelectedSpecies is Species species)) return;
+            if (!(Properties.Settings.Default.ExtractorConvertWildTorporTotalLevel
+                  && rbWildExtractor.Checked
+                  && speciesSelector1.SelectedSpecies is Species species
+                    )) return;
 
             _statIOs[Stats.Torpidity].Input = StatValueCalculation.CalculateValue(species,
-                Stats.Torpidity, (int)numericUpDownLevel.Value, 0, 0, false);
+                Stats.Torpidity, (int)numericUpDownLevel.Value - 1, 0, 0, false);
         }
     }
 }

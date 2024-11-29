@@ -2373,5 +2373,17 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayImportPattern"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ExtractorConvertWildTorporTotalLevel {
+            get {
+                return ((bool)(this["ExtractorConvertWildTorporTotalLevel"]));
+            }
+            set {
+                this["ExtractorConvertWildTorporTotalLevel"] = value;
+            }
+        }
     }
 }

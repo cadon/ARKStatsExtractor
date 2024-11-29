@@ -54,11 +54,11 @@ namespace ARKBreedingStats.settings
             {
                 cbbOCRApp.DataSource = System.Diagnostics.Process.GetProcesses()
                     .Select(p => new ProcessSelector { ProcessName = p.ProcessName, MainWindowTitle = p.MainWindowTitle })
-                    .Distinct()
                     .Where(pn =>
                         !string.IsNullOrEmpty(pn.MainWindowTitle)
                         && pn.ProcessName != "System"
                         && pn.ProcessName != "idle")
+                    .Distinct()
                     .OrderBy(pn => pn.ProcessName)
                     .ToArray();
             }
@@ -69,11 +69,23 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private struct ProcessSelector
+        private struct ProcessSelector : IEquatable<ProcessSelector>
         {
             public string ProcessName;
             public string MainWindowTitle;
             public override string ToString() => $"{ProcessName} ({MainWindowTitle})";
+
+            public bool Equals(ProcessSelector other) => ProcessName == other.ProcessName && MainWindowTitle == other.MainWindowTitle;
+
+            public override bool Equals(object obj) => obj is ProcessSelector other && Equals(other);
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    return ((ProcessName != null ? ProcessName.GetHashCode() : 0) * 397) ^ (MainWindowTitle != null ? MainWindowTitle.GetHashCode() : 0);
+                }
+            }
         }
 
         private void cbOCRApp_SelectedIndexChanged(object sender, EventArgs e)
@@ -289,8 +301,13 @@ namespace ARKBreedingStats.settings
             if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
             else radioButtonFahrenheit.Checked = true;
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
+
+            #region extractor
             checkBoxDisplayHiddenStats.Checked = Properties.Settings.Default.DisplayHiddenStats;
             CbSetMutationLevelsExtractor.Checked = Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique;
+            CbExtractorConvertWildTorporTotalLevel.Checked = Properties.Settings.Default.ExtractorConvertWildTorporTotalLevel;
+            #endregion
+
             CbbAppDefaultFontName.Text = Properties.Settings.Default.DefaultFontName;
             nudDefaultFontSize.Value = (decimal)Properties.Settings.Default.DefaultFontSize;
 
@@ -570,8 +587,13 @@ namespace ARKBreedingStats.settings
 
             Properties.Settings.Default.SpeechRecognition = chkbSpeechRecognition.Checked;
             Properties.Settings.Default.celsius = radioButtonCelsius.Checked;
+
+            #region extractor
             Properties.Settings.Default.DisplayHiddenStats = checkBoxDisplayHiddenStats.Checked;
             Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique = CbSetMutationLevelsExtractor.Checked;
+            Properties.Settings.Default.ExtractorConvertWildTorporTotalLevel = CbExtractorConvertWildTorporTotalLevel.Checked;
+            #endregion
+
             Properties.Settings.Default.DefaultFontName = CbbAppDefaultFontName.Text;
             Properties.Settings.Default.DefaultFontSize = (float)nudDefaultFontSize.Value;
 

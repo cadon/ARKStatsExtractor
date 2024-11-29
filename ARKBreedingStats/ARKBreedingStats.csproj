@@ -107,6 +107,7 @@
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
+    <Compile Include="species\CanHaveWildLevelExceptions.cs" />
     <Compile Include="StatsOptions\StatsOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -707,6 +708,7 @@
     <Compile Include="utils\ExceptionMessages.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
+    <Compile Include="utils\Logging.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
     <Compile Include="NamePatterns\NamePatternFunctions.cs" />
     <Compile Include="utils\NaturalComparer.cs" />
@@ -719,6 +721,9 @@
     <Compile Include="values\Values.cs" />
     <Compile Include="utils\Win32API.cs" />
     <Compile Include="values\ValuesFile.cs" />
+    <None Include="json\canHaveWildLevelExceptions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="json\values\ASA-values.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
