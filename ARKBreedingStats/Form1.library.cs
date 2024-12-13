@@ -2009,6 +2009,11 @@ namespace ARKBreedingStats
 
         private void applyMutagenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listViewLibrary.SelectedIndices.Count == 0
+               || MessageBox.Show("Set the mutagen flag on the selected creatures and increase their levels accordingly?",
+                   "Apply mutagen?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes
+               ) return;
+
             // a tamed creature receives 5 level in hp, st, we, dm (i.e. a total of 20 levels)
             // a bred creature receives 1 level in hp, st, we, dm (i.e. a total of 4 levels)
 
