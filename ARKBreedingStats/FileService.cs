@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -295,6 +296,23 @@ namespace ARKBreedingStats
                     _httpClient = new HttpClient();
                 return _httpClient;
             }
+        }
+
+        /// <summary>
+        /// Opens the folder in the explorer. If it's a file, it will be selected.
+        /// </summary>
+        public static void OpenFolderInExplorer(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return;
+            bool isFile = false;
+
+            if (File.Exists(path))
+                isFile = true;
+            else if (!Directory.Exists(path))
+                return;
+
+            Process.Start("explorer.exe",
+                $"{(isFile ? "/select, " : string.Empty)}\"{path}\"");
         }
     }
 }

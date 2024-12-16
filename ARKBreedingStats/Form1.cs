@@ -1536,7 +1536,7 @@ namespace ARKBreedingStats
         {
             if (!string.IsNullOrEmpty(_messageLabelClipboardContent))
                 Clipboard.SetText(_messageLabelClipboardContent);
-            OpenFolderInExplorer(_messageLabelPath);
+            FileService.OpenFolderInExplorer(_messageLabelPath);
         }
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
@@ -3434,24 +3434,7 @@ namespace ARKBreedingStats
 
         private void openFolderOfCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(_currentFileName);
-        }
-
-        /// <summary>
-        /// Opens the folder in the explorer. If it's a file, it will be selected.
-        /// </summary>
-        private static void OpenFolderInExplorer(string path)
-        {
-            if (string.IsNullOrEmpty(path)) return;
-            bool isFile = false;
-
-            if (File.Exists(path))
-                isFile = true;
-            else if (!Directory.Exists(path))
-                return;
-
-            Process.Start("explorer.exe",
-                $"{(isFile ? "/select, " : string.Empty)}\"{path}\"");
+            FileService.OpenFolderInExplorer(_currentFileName);
         }
 
         private void customStatOverridesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4009,7 +3992,7 @@ namespace ARKBreedingStats
 
         private void showSettingsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(System.Configuration.ConfigurationManager
+            FileService.OpenFolderInExplorer(System.Configuration.ConfigurationManager
                 .OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
         }
 
@@ -4025,7 +4008,7 @@ namespace ARKBreedingStats
 
         private void showStatsOptionsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(StatsOptionsLevelColors.SettingsFilePath);
+            FileService.OpenFolderInExplorer(StatsOptionsLevelColors.SettingsFilePath);
         }
     }
 }
