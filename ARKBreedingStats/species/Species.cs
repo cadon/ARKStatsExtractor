@@ -247,14 +247,17 @@ namespace ARKBreedingStats.species
             {
                 // cleanup boneDamageMultipliers. Remove duplicates. Improve names.
                 var boneDamageAdjustersCleanedUp = new Dictionary<string, double>();
-                Regex rCleanBoneDamage = new Regex(@"(^r_|^l_|^c_|Cnt_|JNT|\d+|SKL)");
+                Regex rCleanBoneDamage = new Regex(@"(^r_|^l_|^c_|Cnt_|JNT|Jnt|\d+|SKL|_L$|_R$|_M$)");
+                Regex rBoneDamageHyphen = new Regex(@"(?<=[A-Za-z])_+(?=[A-Za-z])");
                 foreach (KeyValuePair<string, double> bd in boneDamageAdjusters)
                 {
-                    string boneName = rCleanBoneDamage.Replace(bd.Key, "").Replace("_", "");
-                    if (boneName.Length < 2) continue;
-                    boneName = boneName.Substring(0, 1).ToUpper() + boneName.Substring(1);
-                    if (!boneDamageAdjustersCleanedUp.ContainsKey(boneName))
-                        boneDamageAdjustersCleanedUp.Add(boneName, Math.Round(bd.Value, 2));
+                    string boneName = rBoneDamageHyphen.Replace(
+                            rCleanBoneDamage.Replace(bd.Key, ""),
+                            "-")
+                        .Replace("_", "");
+                    if (boneName.Length > 1)
+                        boneName = boneName.Substring(0, 1).ToUpper() + boneName.Substring(1);
+                    boneDamageAdjustersCleanedUp[boneName] = Math.Round(bd.Value, 2);
                 }
                 boneDamageAdjusters = boneDamageAdjustersCleanedUp;
             }
