@@ -45,6 +45,7 @@ namespace ARKBreedingStats
 
         public void SetCreature(Creature creature)
         {
+            this.SuspendDrawing();
             Clear();
             _creature = creature;
             regionColorChooser1.SetSpecies(creature.Species, creature.colors);
@@ -52,6 +53,7 @@ namespace ARKBreedingStats
             _colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
             UpdateLabel();
+            this.ResumeDrawing();
         }
 
         public CreatureCollection CreatureCollection
