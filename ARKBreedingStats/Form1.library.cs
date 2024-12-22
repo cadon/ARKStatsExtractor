@@ -459,10 +459,13 @@ namespace ARKBreedingStats
                         case StatWeighting.StatValuePreference.Low:
                             if (highestLevels[s] > 0 && lowestLevels[s] >= 0)
                                 sumTopLevels += highestLevels[s] - lowestLevels[s];
+                            if (lowestMutationLevels[s] >= 0)
+                                sumTopLevels += highestMutationLevels[s] - lowestMutationLevels[s];
                             break;
                         case StatWeighting.StatValuePreference.High:
                             if (highestLevels[s] > 0)
                                 sumTopLevels += highestLevels[s];
+                            sumTopLevels += highestMutationLevels[s];
                             break;
                     }
                 }
@@ -478,10 +481,11 @@ namespace ARKBreedingStats
                             {
                                 case StatWeighting.StatValuePreference.Low:
                                     if (c.levelsWild[s] >= 0)
-                                        sumCreatureLevels += highestLevels[s] - c.levelsWild[s];
+                                        sumCreatureLevels += highestLevels[s] - c.levelsWild[s] + highestMutationLevels[s] - (c.levelsMutated?[s] ?? 0);
                                     break;
                                 case StatWeighting.StatValuePreference.High:
-                                    sumCreatureLevels += c.levelsWild[s] > 0 ? c.levelsWild[s] : 0;
+                                    sumCreatureLevels += (c.levelsWild[s] > 0 ? c.levelsWild[s] : 0)
+                                        + (c.levelsMutated?[s] ?? 0);
                                     break;
                             }
                         }
