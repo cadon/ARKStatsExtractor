@@ -1096,7 +1096,7 @@ namespace ARKBreedingStats
         /// <returns>True if mutation levels where adjusted, false if no levels were moved.</returns>
         private bool UpdateMutationLevels(CreatureValues cv, Creature alreadyExistingCreature)
         {
-            if (!Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique) return false;
+            if (!Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique || CreatureCollection.CurrentCreatureCollection?.Game == Ark.Ase) return false;
             bool mutationLevelsAdjusted = false;
             // Do we have enough information to assume the mutation counts are accurate
             bool AreMutationCountsAccurate(Creature creature)
@@ -1161,7 +1161,7 @@ namespace ARKBreedingStats
                 //   |   12 |         6 |             2 |
                 //
 
-                var possibileLevelsByStat = new List<(int wild, int mutated, int change)>[Stats.StatsCount];
+                var possibleLevelsByStat = new List<(int wild, int mutated, int change)>[Stats.StatsCount];
 
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
@@ -1207,17 +1207,17 @@ namespace ARKBreedingStats
                         }
                     }
 
-                    possibileLevelsByStat[s] = possibleLevels;
+                    possibleLevelsByStat[s] = possibleLevels;
                 }
 
                 // It's possible for more than one combination of parent levels and new mutations to account for the
                 // child's levels. If there is only 1 set, use that
-                if (possibileLevelsByStat.All(x => x.Count == 1))
+                if (possibleLevelsByStat.All(x => x.Count == 1))
                 {
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
                         var statIo = _statIOs[s];
-                        var levels = possibileLevelsByStat[s][0];
+                        var levels = possibleLevelsByStat[s][0];
 
                         statIo.LevelWild = levels.wild;
                         statIo.LevelMut = levels.mutated;
@@ -1234,7 +1234,7 @@ namespace ARKBreedingStats
                     var newMutationsPaternal = Math.Max(cv.mutationCounterFather - cv.Father.Mutations, 0);
                     var totalNewMutations = newMutationsMaternal + newMutationsPaternal;
 
-                    var validLevelCombinations = possibileLevelsByStat
+                    var validLevelCombinations = possibleLevelsByStat
                         .CartesianProduct()
                         .Where(x => x.Sum(y => y.change) == totalNewMutations * Ark.LevelsAddedPerMutation)
                         .ToArray();
