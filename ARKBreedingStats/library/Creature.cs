@@ -572,7 +572,7 @@ namespace ARKBreedingStats.Library
                     ? 1
                     : 1 - growingUntil.Value.Subtract(DateTime.Now).TotalSeconds /
                     Species.breeding.maturationTimeAdjusted;
-            set => growingUntil = Species?.breeding == null
+            set => growingUntil = Species?.breeding == null || value >= 1
                 ? default(DateTime?)
                 : DateTime.Now.AddSeconds(Species.breeding.maturationTimeAdjusted * (1 - value));
         }

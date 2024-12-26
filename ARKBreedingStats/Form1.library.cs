@@ -1973,15 +1973,15 @@ namespace ARKBreedingStats
                     true);
         }
 
-        private void SetMatureBreedingStateOfSelectedCreatures(bool setMature = false, bool clearMatingCooldown = false,
+        private void SetMatureBreedingStateOfSelectedCreatures(bool setMaturity = false, double maturity = 1, bool clearMatingCooldown = false,
             bool justMated = false)
         {
             listViewLibrary.BeginUpdate();
             foreach (int i in listViewLibrary.SelectedIndices)
             {
                 var c = _creaturesDisplayed[i];
-                if (setMature && c.growingUntil > DateTime.Now)
-                    c.growingUntil = null;
+                if (setMaturity)
+                    c.Maturation = maturity;
 
                 if (clearMatingCooldown && c.cooldownUntil > DateTime.Now)
                     c.cooldownUntil = null;
@@ -1996,9 +1996,9 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
         }
 
-        private void setToMatureToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SetMaturityToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetMatureBreedingStateOfSelectedCreatures(setMature: true);
+            SetMatureBreedingStateOfSelectedCreatures(setMaturity: true, maturity: ((ToolStripMenuItem)sender).Tag is double d ? d : 1);
         }
 
         private void clearMatingCooldownToolStripMenuItem_Click(object sender, EventArgs e)

@@ -291,8 +291,8 @@ namespace ARKBreedingStats
             this.copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveInfographicsToFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
-            this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setToMatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetMaturityCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maturationSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.clearMatingCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.justMatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2735,7 +2735,7 @@ namespace ARKBreedingStats
             this.copyInfographicToClipboardToolStripMenuItem,
             this.saveInfographicsToFolderToolStripMenuItem,
             this.toolStripSeparator22,
-            this.removeCooldownGrowingToolStripMenuItem,
+            this.SetMaturityCooldownToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem,
             this.breedingPlanForSelectedCreaturesToolStripMenuItem,
             this.toolStripMenuItemStatus,
@@ -2868,22 +2868,16 @@ namespace ARKBreedingStats
             this.toolStripSeparator22.Name = "toolStripSeparator22";
             this.toolStripSeparator22.Size = new System.Drawing.Size(299, 6);
             // 
-            // removeCooldownGrowingToolStripMenuItem
+            // SetMaturityCooldownToolStripMenuItem
             // 
-            this.removeCooldownGrowingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setToMatureToolStripMenuItem,
+            this.SetMaturityCooldownToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearMatingCooldownToolStripMenuItem,
-            this.justMatedToolStripMenuItem});
-            this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
-            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
-            this.removeCooldownGrowingToolStripMenuItem.Text = "Set maturity / breeding state";
-            // 
-            // setToMatureToolStripMenuItem
-            // 
-            this.setToMatureToolStripMenuItem.Name = "setToMatureToolStripMenuItem";
-            this.setToMatureToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.setToMatureToolStripMenuItem.Text = "Set to mature";
-            this.setToMatureToolStripMenuItem.Click += new System.EventHandler(this.setToMatureToolStripMenuItem_Click);
+            this.justMatedToolStripMenuItem,
+            this.maturationSeparator
+            });
+            this.SetMaturityCooldownToolStripMenuItem.Name = "SetMaturityCooldownToolStripMenuItem";
+            this.SetMaturityCooldownToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
+            this.SetMaturityCooldownToolStripMenuItem.Text = "Set cooldown / maturity";
             // 
             // clearMatingCooldownToolStripMenuItem
             // 
@@ -4273,7 +4267,7 @@ namespace ARKBreedingStats
         private RaisingControl raisingControl1;
         private System.Windows.Forms.TabPage tabPageNotes;
         private NotesControl notesControl1;
-        private System.Windows.Forms.ToolStripMenuItem removeCooldownGrowingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SetMaturityCooldownToolStripMenuItem;
         private System.Windows.Forms.Panel panelToolBar;
         private System.Windows.Forms.Label lbSpecies;
         private BreedingPlan breedingPlan1;
@@ -4353,7 +4347,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderStatusIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLibraryHeader;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetLibraryColumnWidths;
-        private System.Windows.Forms.ToolStripMenuItem setToMatureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator maturationSeparator;
         private System.Windows.Forms.ToolStripMenuItem clearMatingCooldownToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem justMatedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem libraryFilterToolStripMenuItem;
