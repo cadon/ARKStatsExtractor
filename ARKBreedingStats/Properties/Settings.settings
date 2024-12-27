@@ -90,7 +90,7 @@
       <Value Profile="(Default)">60,0</Value>
     </Setting>
     <Setting Name="inventoryCheckTimer" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="showColorsInLibrary" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
