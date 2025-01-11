@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.library;
@@ -514,18 +515,7 @@ namespace ARKBreedingStats
             get
             {
                 var arr = DontUpdateVisuals ? _colorIdsAlsoPossible : regionColorChooser1.ColorIdsAlsoPossible;
-                if (arr == null) return null;
-
-                // if array is empty, return null
-                var isEmpty = true;
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    if (arr[i] != 0)
-                    {
-                        isEmpty = false;
-                        break;
-                    }
-                }
+                var isEmpty = arr?.All(c => c == 0) ?? true;
 
                 return isEmpty ? null : arr;
             }
@@ -834,10 +824,9 @@ namespace ARKBreedingStats
         {
             if (patterns == null) return;
             var namingPatternButtons = ButtonsNamingPattern;
-            var l = Math.Min(namingPatternButtons.Length, patterns.Length);
-            for (int i = 0; i < namingPatternButtons.Length; i++)
+            for (var i = 0; i < namingPatternButtons.Length; i++)
             {
-                namingPatternButtons[i].BackColor = (patterns?.Length ?? 0) > i && !string.IsNullOrWhiteSpace(patterns[i])
+                namingPatternButtons[i].BackColor = patterns.Length > i && !string.IsNullOrWhiteSpace(patterns[i])
                     ? Color.FromArgb(150, 110, 255, 104)
                     : Color.Transparent;
             }
@@ -907,8 +896,8 @@ namespace ARKBreedingStats
             Loc.ControlText(BtSaveOTSPreset, _tt);
 
             var namingPatternButtons = new List<Button> { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
-            for (int bi = 0; bi < namingPatternButtons.Count; bi++)
-                _tt.SetToolTip(namingPatternButtons[bi], Loc.S("btnGenerateUniqueNameTT", false));
+            foreach (var bt in namingPatternButtons)
+                _tt.SetToolTip(bt, Loc.S("btnGenerateUniqueNameTT", false));
         }
 
         internal (bool newInRegion, bool newInSpecies) SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable = null)
