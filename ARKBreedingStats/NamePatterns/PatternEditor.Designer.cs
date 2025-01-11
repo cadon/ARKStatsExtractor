@@ -40,7 +40,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StopwatchLabel = new System.Windows.Forms.Label();
             this.cbPreview = new System.Windows.Forms.CheckBox();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.BtJsTemplate = new System.Windows.Forms.Button();
+            this.BtJavaScript = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabPageKeysFunctions = new System.Windows.Forms.TabPage();
             this.TlpKeysFunctions = new System.Windows.Forms.TableLayoutPanel();
@@ -56,12 +59,10 @@
             this.CbPatternNameToClipboardAfterManualApplication = new System.Windows.Forms.CheckBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.BtJavaScript = new System.Windows.Forms.Button();
-            this.BtJsTemplate = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.TabPageKeysFunctions.SuspendLayout();
             this.TlpKeysFunctions.SuspendLayout();
@@ -72,7 +73,6 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtboxPattern
@@ -199,6 +199,17 @@
             this.cbPreview.UseMnemonic = false;
             this.cbPreview.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.linkLabel1);
+            this.panel4.Controls.Add(this.BtJsTemplate);
+            this.panel4.Controls.Add(this.BtJavaScript);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 117);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(696, 26);
+            this.panel4.TabIndex = 15;
+            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -210,6 +221,28 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "More infos about the Name-Generator";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // BtJsTemplate
+            // 
+            this.BtJsTemplate.Dock = System.Windows.Forms.DockStyle.Left;
+            this.BtJsTemplate.Location = new System.Drawing.Point(139, 0);
+            this.BtJsTemplate.Name = "BtJsTemplate";
+            this.BtJsTemplate.Size = new System.Drawing.Size(116, 26);
+            this.BtJsTemplate.TabIndex = 13;
+            this.BtJsTemplate.Text = "Insert JS example";
+            this.BtJsTemplate.UseVisualStyleBackColor = true;
+            this.BtJsTemplate.Click += new System.EventHandler(this.BtJsTemplate_Click);
+            // 
+            // BtJavaScript
+            // 
+            this.BtJavaScript.Dock = System.Windows.Forms.DockStyle.Left;
+            this.BtJavaScript.Location = new System.Drawing.Point(0, 0);
+            this.BtJavaScript.Name = "BtJavaScript";
+            this.BtJavaScript.Size = new System.Drawing.Size(139, 26);
+            this.BtJavaScript.TabIndex = 11;
+            this.BtJavaScript.Text = "Use JavaScript";
+            this.BtJavaScript.UseVisualStyleBackColor = true;
+            this.BtJavaScript.Click += new System.EventHandler(this.BtJavaScript_Click);
             // 
             // tabControl1
             // 
@@ -315,7 +348,7 @@
             this.TabPagePatternTemplates.Location = new System.Drawing.Point(4, 22);
             this.TabPagePatternTemplates.Name = "TabPagePatternTemplates";
             this.TabPagePatternTemplates.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 464);
+            this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 452);
             this.TabPagePatternTemplates.TabIndex = 1;
             this.TabPagePatternTemplates.Text = "Templates";
             this.TabPagePatternTemplates.UseVisualStyleBackColor = true;
@@ -373,39 +406,6 @@
             this.splitContainer1.SplitterDistance = 40;
             this.splitContainer1.TabIndex = 8;
             // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.linkLabel1);
-            this.panel4.Controls.Add(this.BtJsTemplate);
-            this.panel4.Controls.Add(this.BtJavaScript);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 117);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(696, 26);
-            this.panel4.TabIndex = 15;
-            // 
-            // BtJavaScript
-            // 
-            this.BtJavaScript.Dock = System.Windows.Forms.DockStyle.Left;
-            this.BtJavaScript.Location = new System.Drawing.Point(0, 0);
-            this.BtJavaScript.Name = "BtJavaScript";
-            this.BtJavaScript.Size = new System.Drawing.Size(139, 26);
-            this.BtJavaScript.TabIndex = 11;
-            this.BtJavaScript.Text = "Use JavaScript";
-            this.BtJavaScript.UseVisualStyleBackColor = true;
-            this.BtJavaScript.Click += new System.EventHandler(this.BtJavaScript_Click);
-            // 
-            // BtJsTemplate
-            // 
-            this.BtJsTemplate.Dock = System.Windows.Forms.DockStyle.Left;
-            this.BtJsTemplate.Location = new System.Drawing.Point(139, 0);
-            this.BtJsTemplate.Name = "BtJsTemplate";
-            this.BtJsTemplate.Size = new System.Drawing.Size(92, 26);
-            this.BtJsTemplate.TabIndex = 13;
-            this.BtJsTemplate.Text = "JS example";
-            this.BtJsTemplate.UseVisualStyleBackColor = true;
-            this.BtJsTemplate.Click += new System.EventHandler(this.BtJsTemplate_Click);
-            // 
             // PatternEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,6 +423,8 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.TabPageKeysFunctions.ResumeLayout(false);
             this.TlpKeysFunctions.ResumeLayout(false);
@@ -437,8 +439,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }

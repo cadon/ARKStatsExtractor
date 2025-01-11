@@ -508,9 +508,21 @@ namespace ARKBreedingStats.NamePatterns
             }
         }
 
+        private static readonly Regex SimpleKeyword = new Regex(@"^\{([^\}]+)\}$");
+
         private void Btn_Click(object sender, EventArgs e)
         {
-            InsertText((string)((Button)sender).Tag);
+            var text = (string)((Button)sender).Tag;
+            // if javascript: remove curly brackets and make lowercase
+            if (JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
+            {
+                var m = SimpleKeyword.Match(text);
+                if (m.Success)
+                {
+                    text = m.Groups[1].Value.ToLowerInvariant();
+                }
+            }
+            InsertText(text);
         }
 
         private void InsertText(string text)
