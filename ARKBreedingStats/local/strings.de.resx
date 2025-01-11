@@ -1099,7 +1099,8 @@ Wenn die Kreature gezüchtet ist, überprüfe auch den BabyImprintingStatScaleMu
   </data>
   <data name="BtSaveOTSPresetTT" xml:space="preserve">
     <value>Speichere Besitzer, Stamm und Server als Voreinstellung.
-Diese kann mit BSS Preset angewandt werden.</value>
+Diese kann mit BSS Preset angewandt werden.
+Die gespeicherten Werte werden auch als Standard ausgefüllt, wenn die App gestartet wird.</value>
   </data>
   <data name="BtApplyOTSPresetTT" xml:space="preserve">
     <value>Setze die Werte für Besitzer, Stamm und Server von der Voreinstellung ein.</value>
