@@ -386,7 +386,8 @@ namespace ARKBreedingStats.NamePatterns
                 arkid = arkid,
                 alreadyexists = speciesCreatures?.Contains(creature) ?? false,
                 isflyer = creature.Species.isFlyer,
-                status = creature.Status,
+                noGender = creature.Species.noGender,
+                status = creature.Status
             };
 
             // stat index and according wild and mutation level
@@ -499,6 +500,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "arkid", model.arkid },
                 { "alreadyexists", model.alreadyexists ? "1" : string.Empty },
                 { "isflyer", model.isflyer ? "1" : string.Empty },
+                { "nogender", model.noGender ? "1" : string.Empty },
                 { "status", model.status.ToString() },
             };
 

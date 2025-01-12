@@ -614,6 +614,7 @@ namespace ARKBreedingStats.NamePatterns
                 { "arkid", "the Ark-Id (as entered or seen in-game)"},
                 { "alreadyExists", "returns 1 if the creature is already in the library, can be used with {{#if: }}"},
                 { "isFlyer", "returns 1 if the creature's species is a flyer"},
+                { "noGender", "returns 1 if the creature's species has no gender"},
                 { "status", "returns the status of the creature, e.g. Available, Obelisk, Dead"},
                 { "highest1l", "the highest stat-level of this creature (excluding torpidity)" },
                 { "highest2l", "the second highest stat-level of this creature (excluding torpidity)" },
