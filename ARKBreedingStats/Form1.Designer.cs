@@ -405,6 +405,9 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.columnHeaderCurrentLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMaxPossibleLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTraits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -535,7 +538,7 @@ namespace ARKBreedingStats
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
@@ -2401,7 +2404,10 @@ namespace ARKBreedingStats
             this.columnHeaderStatus,
             this.columnHeaderTribe,
             this.columnHeaderStatusIcon,
-            this.columnHeaderMutagen});
+            this.columnHeaderMutagen,
+            this.columnHeaderCurrentLevel,
+            this.columnHeaderMaxPossibleLevel,
+            this.columnHeaderTraits});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -3972,6 +3978,23 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // columnHeaderCurrentLevel
+            // 
+            this.columnHeaderCurrentLevel.Text = "Lvl";
+            this.columnHeaderCurrentLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderCurrentLevel.Width = 40;
+            // 
+            // columnHeaderMaxPossibleLevel
+            // 
+            this.columnHeaderMaxPossibleLevel.Text = "max Lvl";
+            this.columnHeaderMaxPossibleLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderMaxPossibleLevel.Width = 40;
+            // 
+            // columnHeaderTraits
+            // 
+            this.columnHeaderTraits.Text = "Traits";
+            this.columnHeaderTraits.Width = 60;
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4453,5 +4476,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
         private System.Windows.Forms.ToolStripMenuItem showStatsOptionsFileInExplorerToolStripMenuItem;
         private System.Windows.Forms.Button BtRecalculateTopStatsAfterChange;
+        private System.Windows.Forms.ColumnHeader columnHeaderCurrentLevel;
+        private System.Windows.Forms.ColumnHeader columnHeaderMaxPossibleLevel;
+        private System.Windows.Forms.ColumnHeader columnHeaderTraits;
     }
 }

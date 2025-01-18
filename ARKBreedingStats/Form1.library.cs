@@ -1124,7 +1124,13 @@ namespace ARKBreedingStats
                         cr.Status.ToString(),
                         cr.tribe,
                         Utils.StatusSymbol(cr.Status, string.Empty),
-                        (cr.flags & CreatureFlags.MutagenApplied) != 0 ? "M" : string.Empty
+                        (cr.flags & CreatureFlags.MutagenApplied) != 0 ? "M" : string.Empty,
+                        cr.Level.ToString(),
+                        (CreatureCollection.CurrentCreatureCollection.maxServerLevel>0
+                            ? Math.Min (cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel, CreatureCollection.CurrentCreatureCollection.maxServerLevel)
+                            : cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel
+                        ).ToString(),
+                        cr.TraitsString
                     })
                     .ToArray();
 
