@@ -11,17 +11,26 @@ namespace ARKBreedingStats.miscClasses
         /// <summary>
         /// Returns a list of possible reasons that could cause the issues.
         /// </summary>
-        /// <param name="issues"></param>
-        /// <returns></returns>
-        public static string getHelpTexts(Issue issues)
+        public static string GetHelpTexts(Issue issues, params string[] prependIssues)
         {
-            List<string> notes = new List<string>();
-            int n = 1;
-            int i = (int)issues;
-            while (i >= n)
+            var notes = new List<string>();
+            var issueNumber = 1;
+
+            if (prependIssues != null)
             {
-                if ((i & n) != 0)
-                    notes.Add($"{(notes.Count + 1)}. {GetHelpText((Issue)n)}");
+                foreach (var preIssue in prependIssues)
+                {
+                    if (!string.IsNullOrEmpty(preIssue))
+                        notes.Add($"{issueNumber++}. {preIssue}");
+                }
+            }
+
+            var n = 1;
+            var issueFlags = (int)issues;
+            while (issueFlags >= n)
+            {
+                if ((issueFlags & n) != 0)
+                    notes.Add($"{issueNumber++}. {GetHelpText((Issue)n)}");
                 n <<= 1;
             }
             return string.Join("\n\n", notes.ToArray());

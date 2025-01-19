@@ -135,6 +135,14 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// Loads json file if available, returns null if an error occured.
+        /// </summary>
+        public static T LoadJsonFileIfAvailable<T>(string filePath) where T : class =>
+            !string.IsNullOrEmpty(filePath)
+            && File.Exists(filePath)
+            && LoadJsonFile(filePath, out T data, out _) ? data : null;
+
+        /// <summary>
         /// Tries to create a directory if not existing. Returns true if the path exists.
         /// </summary>
         public static bool TryCreateDirectory(string path, out string error)

@@ -82,6 +82,12 @@ namespace ARKBreedingStats
         /// </summary>
         private Dictionary<string, string> _customReplacingNamingPattern;
 
+        /// <summary>
+        /// Some species can have specific issues when extracting.
+        /// </summary>
+        private readonly Dictionary<string, string> _speciesSpecificExtractionFails
+            = FileService.LoadJsonFileIfAvailable<Dictionary<string, string>>(FileService.GetJsonPath("speciesSpecificExtractionFails.json"));
+
         // OCR stuff
         private ARKOverlay _overlay;
         private static double[] _lastOcrValues;

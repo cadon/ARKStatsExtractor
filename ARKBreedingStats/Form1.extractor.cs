@@ -625,7 +625,12 @@ namespace ARKBreedingStats
             if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)
                 issues |= IssueNotes.Issue.ImpossibleTe;
 
-            labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.getHelpTexts(issues)}";
+            // some species have specific extraction issues, e.g. due to a unique taming method that results in a bred status but with a TE less than 100 %.
+            var speciesName = speciesSelector1.SelectedSpecies.name;
+            string speciesSpecificExtractionFail = null;
+            _speciesSpecificExtractionFails?.TryGetValue(speciesName, out speciesSpecificExtractionFail);
+
+            labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.GetHelpTexts(issues, speciesSpecificExtractionFail)}";
             labelErrorHelp.Visible = true;
             llOnlineHelpExtractionIssues.Visible = true;
             groupBoxPossibilities.Visible = false;
