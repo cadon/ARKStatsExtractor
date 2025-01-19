@@ -22,12 +22,12 @@ string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/As
       "Category": "Species Images",
       "Name": "Species Images",
       "Author": "cadaei, Myrmecoleon, coldino",
-      "Description": "Download this package to have a visualization for the colors of creatures (~21 MB), uncheck if you don't want to download these files.",
+      "Description": "Download this package to have a visualization for the colors of creatures (~22 MB), uncheck if you don't want to download these files.",
       "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
       "Selectable": true,
-      "version": "2024.03.11"
+      "version": "2025.01.19"
     },
     "NamePatternTemplates": {
       "Id": "NamePatternTemplates",
