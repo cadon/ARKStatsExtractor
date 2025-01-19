@@ -595,13 +595,25 @@ namespace ARKBreedingStats
             // set global species that was set before loading
             selectedSpecies = Values.V.SpeciesByBlueprint(selectedSpecies?.blueprintPath);
             if (selectedSpecies != null
-                && _creatureCollection.creatures.Any(c => c.Species != null && c.Species.Equals(selectedSpecies))
+                && _creatureCollection.creatures.Any(c => c.Species != null && !c.flags.HasFlag(CreatureFlags.Placeholder) && c.Species.Equals(selectedSpecies))
                 )
             {
                 speciesSelector1.SetSpecies(selectedSpecies);
             }
-            else if (_creatureCollection.creatures.Any())
-                speciesSelector1.SetSpecies(_creatureCollection.creatures[0].Species);
+            else
+            {
+                selectedSpecies = _creatureCollection.creatures.FirstOrDefault(c => !c.flags.HasFlag(CreatureFlags.Placeholder))?.Species;
+                if (selectedSpecies != null)
+                {
+                    speciesSelector1.SetSpecies(selectedSpecies);
+                }
+            }
+
+            if (selectedSpecies == null)
+            {
+                // set to last set species if no creatures in library
+                speciesSelector1.SetToLastSetSpecies();
+            }
 
             // set library species to what it was before loading
             selectedLibrarySpecies = Values.V.SpeciesByBlueprint(selectedLibrarySpecies?.blueprintPath);
