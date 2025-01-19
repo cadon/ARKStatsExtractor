@@ -112,8 +112,7 @@ namespace ARKBreedingStats.uiControls
 
             _tlbMain.Controls.Add(flpButtons, 1, 0);
             _tlbMain.SetColumnSpan(flpButtons, 2);
-            _colorPicker = new ColorPickerControl();
-            _colorPicker.CbOnlyNatural.Checked = false;
+            _colorPicker = new ColorPickerControl(false);
             _colorPicker.DisableAlternativeColor();
             _tlbMain.Controls.Add(_colorPicker, 1, 1);
             _colorPicker.UserMadeSelection += ColorPickerColorChosen;

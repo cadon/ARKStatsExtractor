@@ -27,7 +27,7 @@ namespace ARKBreedingStats.uiControls
         public event Action<bool> UserMadeSelection;
         public event Action<int> HeightChanged;
 
-        public ColorPickerControl()
+        public ColorPickerControl(bool? setCheckboxOnlyNaturalColors = null)
         {
             InitializeComponent();
             _tt = new ToolTip { AutomaticDelay = 200 };
@@ -43,6 +43,7 @@ namespace ARKBreedingStats.uiControls
             Disposed += MyColorPicker_Disposed;
 
             checkBoxOnlyNatural.Text = Loc.S("showOnlyNaturalOccurring");
+            checkBoxOnlyNatural.Checked = setCheckboxOnlyNaturalColors ?? !Properties.Settings.Default.ColorSelectorShowAllColors;
         }
 
         private void MyColorPicker_Disposed(object sender, EventArgs e)
@@ -55,8 +56,6 @@ namespace ARKBreedingStats.uiControls
         {
             buttonCancel.Visible = visible;
         }
-
-        public CheckBox CbOnlyNatural => checkBoxOnlyNatural;
 
         /// <summary>
         /// Disables handling of alternative colors.
@@ -244,6 +243,8 @@ namespace ARKBreedingStats.uiControls
                 flowLayoutPanel1.Controls[c].Visible = ColorVisible((byte)flowLayoutPanel1.Controls[c].Tag);
             flowLayoutPanel1.ResumeLayout();
             flowLayoutPanel1.ResumeDrawing();
+
+            Properties.Settings.Default.ColorSelectorShowAllColors = !checkBoxOnlyNatural.Checked;
         }
 
         private class NoPaddingButton : Button

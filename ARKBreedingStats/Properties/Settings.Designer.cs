@@ -2385,5 +2385,17 @@ namespace ARKBreedingStats.Properties {
                 this["ExtractorConvertWildTorporTotalLevel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ColorSelectorShowAllColors {
+            get {
+                return ((bool)(this["ColorSelectorShowAllColors"]));
+            }
+            set {
+                this["ColorSelectorShowAllColors"] = value;
+            }
+        }
     }
 }
