@@ -259,6 +259,26 @@ namespace ARKBreedingStats
 
             UpdateTempCreatureDropDown();
 
+            // if collection is loaded, set export folder to default if there's a match
+            if (!keepCurrentSelection && !string.IsNullOrEmpty(_currentFilePath))
+            {
+                var exportFoldersString = Properties.Settings.Default.ExportCreatureFolders;
+                if (exportFoldersString.Any())
+                {
+                    var currentDefault = ATImportExportedFolderLocation.CreateFromString(exportFoldersString[0]);
+                    var exportFolders = exportFoldersString.Select(ATImportExportedFolderLocation.CreateFromString).ToArray();
+                    var setToDefault = exportFolders.FirstOrDefault(f => f.IsDefaultForLibraryFile(_currentFilePath));
+                    if (setToDefault != null && setToDefault.FolderPath != null &&
+                        currentDefault.FolderPath != setToDefault.FolderPath)
+                    {
+                        Properties.Settings.Default.ExportCreatureFolders = exportFolders
+                            .OrderByDescending(f => f == setToDefault)
+                            .Select(location => location.ToString()).ToArray();
+                        SetupExportFileWatcher();
+                    }
+                }
+            }
+
             return duplicatesWereRemoved;
         }
 
@@ -711,7 +731,7 @@ namespace ARKBreedingStats
 
                     text.AppendLine();
                     text.AppendLine("If you click on Yes, the first listed creature will be kept, all the other creatures will be removed. A backup file of the following library file will be created:");
-                    text.AppendLine(_currentFileName);
+                    text.AppendLine(_currentFilePath);
                     text.AppendLine("If you click on No, the application will quit.");
                     text.AppendLine("Remove duplicates?");
 
@@ -729,10 +749,10 @@ namespace ARKBreedingStats
 
                 creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
                 // create backup file of file before duplicates were removed
-                if (!string.IsNullOrEmpty(_currentFileName)
-                    && File.Exists(_currentFileName))
+                if (!string.IsNullOrEmpty(_currentFilePath)
+                    && File.Exists(_currentFilePath))
                 {
-                    File.Copy(_currentFileName, Path.Combine(Path.GetDirectoryName(_currentFileName), $"{Path.GetFileNameWithoutExtension(_currentFileName)}_BackupBeforeRemovingDuplicates_{DateTime.Now:yyyy-MM-dd_HH-mm-ss-ffff}.asb"));
+                    File.Copy(_currentFilePath, Path.Combine(Path.GetDirectoryName(_currentFilePath), $"{Path.GetFileNameWithoutExtension(_currentFilePath)}_BackupBeforeRemovingDuplicates_{DateTime.Now:yyyy-MM-dd_HH-mm-ss-ffff}.asb"));
                 }
 
                 duplicatesWereRemoved = true;

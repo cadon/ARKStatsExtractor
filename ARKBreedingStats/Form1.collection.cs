@@ -15,7 +15,6 @@ using System.Xml.Serialization;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
-using ARKBreedingStats.AsbServer;
 using ARKBreedingStats.library;
 
 namespace ARKBreedingStats
@@ -92,8 +91,8 @@ namespace ARKBreedingStats
                 serverMultipliersEvents = oldEventMultipliers,
                 ModList = new List<Mod>()
             };
-            _currentFileName = null;
-            _fileSync?.ChangeFile(_currentFileName);
+            _currentFilePath = null;
+            _fileSync?.ChangeFile(_currentFilePath);
 
             if (asaMode)
             {
@@ -132,7 +131,7 @@ namespace ARKBreedingStats
             }
             else
             {
-                LoadCollectionFile(_currentFileName, true, true, true);
+                LoadCollectionFile(_currentFilePath, true, true, true);
             }
         }
 
@@ -192,8 +191,8 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the directory of the currently used file or the last used directory when loading a file.
         /// </summary>
-        private string InitialDirectoryForLoadSave => !string.IsNullOrEmpty(_currentFileName)
-            ? Path.GetDirectoryName(_currentFileName)
+        private string InitialDirectoryForLoadSave => !string.IsNullOrEmpty(_currentFilePath)
+            ? Path.GetDirectoryName(_currentFilePath)
             : !string.IsNullOrEmpty(Properties.Settings.Default.LastUsedCollectionFolder)
               && Directory.Exists(Properties.Settings.Default.LastUsedCollectionFolder)
                 ? Properties.Settings.Default.LastUsedCollectionFolder
@@ -205,15 +204,15 @@ namespace ARKBreedingStats
         /// </summary>
         private void SaveCollection()
         {
-            if (string.IsNullOrEmpty(_currentFileName))
+            if (string.IsNullOrEmpty(_currentFilePath))
             {
                 SaveNewCollection();
-                if (!string.IsNullOrEmpty(_currentFileName))
-                    Properties.Settings.Default.LastUsedCollectionFolder = Path.GetDirectoryName(_currentFileName);
+                if (!string.IsNullOrEmpty(_currentFilePath))
+                    Properties.Settings.Default.LastUsedCollectionFolder = Path.GetDirectoryName(_currentFilePath);
             }
             else
             {
-                SaveCollectionToFileName(_currentFileName);
+                SaveCollectionToFileName(_currentFilePath);
             }
         }
 
@@ -227,10 +226,10 @@ namespace ARKBreedingStats
             {
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    _currentFileName = dlg.FileName;
-                    SaveCollectionToFileName(_currentFileName);
-                    AddPathToRecentlyUsed(_currentFileName);
-                    _fileSync?.ChangeFile(_currentFileName);
+                    _currentFilePath = dlg.FileName;
+                    SaveCollectionToFileName(_currentFilePath);
+                    AddPathToRecentlyUsed(_currentFilePath);
+                    _fileSync?.ChangeFile(_currentFilePath);
                 }
             }
         }
@@ -556,8 +555,8 @@ namespace ARKBreedingStats
             }
             else
             {
-                _currentFileName = filePath;
-                _fileSync?.ChangeFile(_currentFileName);
+                _currentFilePath = filePath;
+                _fileSync?.ChangeFile(_currentFilePath);
                 creatureBoxListView.Clear();
             }
 
@@ -674,9 +673,9 @@ namespace ARKBreedingStats
                 return;
             }
 
-            var currentFileNotEmpty = !string.IsNullOrEmpty(_currentFileName);
+            var currentFileNotEmpty = !string.IsNullOrEmpty(_currentFilePath);
             _collectionDirty = changed;
-            string fileName = currentFileNotEmpty ? Path.GetFileName(_currentFileName) : null;
+            string fileName = currentFileNotEmpty ? Path.GetFileName(_currentFilePath) : null;
             Text = $"{Utils.ApplicationNameVersion}{(currentFileNotEmpty ? " - " + fileName : string.Empty)}{(changed ? " *" : string.Empty)}";
             openFolderOfCurrentFileToolStripMenuItem.Enabled = currentFileNotEmpty;
         }
@@ -753,7 +752,7 @@ namespace ARKBreedingStats
                 FileService.TryDeleteDirectory(tempFolder);
 
                 Properties.Settings.Default.LastSaveFile = null;
-                _currentFileName = null;
+                _currentFilePath = null;
 
                 // select last creature values
                 var tempCreatureCount = toolStripCBTempCreatures.Items.Count;

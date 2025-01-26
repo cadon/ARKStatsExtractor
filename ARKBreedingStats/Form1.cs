@@ -29,7 +29,7 @@ namespace ARKBreedingStats
     public partial class Form1 : Form
     {
         private CreatureCollection _creatureCollection = new CreatureCollection();
-        private string _currentFileName;
+        private string _currentFilePath;
         private bool _collectionDirty;
 
         /// <summary>
@@ -2200,7 +2200,7 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.syncCollection)
             {
                 if (_fileSync == null)
-                    _fileSync = new FileSync(_currentFileName, CollectionChanged);
+                    _fileSync = new FileSync(_currentFilePath, CollectionChanged);
             }
             else if (_fileSync != null)
             {
@@ -3449,7 +3449,7 @@ namespace ARKBreedingStats
 
         private void openFolderOfCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileService.OpenFolderInExplorer(_currentFileName);
+            FileService.OpenFolderInExplorer(_currentFilePath);
         }
 
         private void customStatOverridesToolStripMenuItem_Click(object sender, EventArgs e)
