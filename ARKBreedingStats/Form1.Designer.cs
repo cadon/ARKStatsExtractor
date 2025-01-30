@@ -408,6 +408,7 @@ namespace ARKBreedingStats
             this.columnHeaderCurrentLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderMaxPossibleLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTraits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.editVariantTagsToHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1311,6 +1312,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator23,
             this.openJsonDataFolderToolStripMenuItem,
             this.speciesSortingToolStripMenuItem,
+            this.editVariantTagsToHideToolStripMenuItem,
             this.appSettingsToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -3995,6 +3997,15 @@ namespace ARKBreedingStats
             this.columnHeaderTraits.Text = "Traits";
             this.columnHeaderTraits.Width = 60;
             // 
+            // editVariantTagsToHideToolStripMenuItem
+            // 
+            this.editVariantTagsToHideToolStripMenuItem.Name = "editVariantTagsToHideToolStripMenuItem";
+            this.editVariantTagsToHideToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.editVariantTagsToHideToolStripMenuItem.Text = "Edit variant tags to hide";
+            this.editVariantTagsToHideToolStripMenuItem.ToolTipText = "Add all variant tags that should be hidden in species names in this file, one var" +
+                                                                      "iant per line.";
+            this.editVariantTagsToHideToolStripMenuItem.Click += new System.EventHandler(this.editVariantTagsToHideToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4479,5 +4490,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderCurrentLevel;
         private System.Windows.Forms.ColumnHeader columnHeaderMaxPossibleLevel;
         private System.Windows.Forms.ColumnHeader columnHeaderTraits;
+        private System.Windows.Forms.ToolStripMenuItem editVariantTagsToHideToolStripMenuItem;
     }
 }

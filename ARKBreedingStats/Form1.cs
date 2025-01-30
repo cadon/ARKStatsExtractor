@@ -4025,5 +4025,16 @@ namespace ARKBreedingStats
         {
             FileService.OpenFolderInExplorer(StatsOptionsLevelColors.SettingsFilePath);
         }
+
+        private void editVariantTagsToHideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var filePath = FileService.GetJsonPath(FileService.HideVariantsInSpeciesNameFile);
+
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, string.Empty);
+            if (File.Exists(filePath))
+                Process.Start(filePath);
+            else MessageBoxes.ShowMessageBox($"Couldn't create file {filePath} automatically. Maybe you can create that file manually.");
+        }
     }
 }

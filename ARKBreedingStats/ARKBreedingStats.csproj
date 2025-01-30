@@ -826,7 +826,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="ARKSmartBreeding.ico" />
-    <Content Include="json\sortNames.txt" />
+    <None Include="json\sortNames.txt" />
     <EmbeddedResource Include="ARKOverlay.resx">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
     </EmbeddedResource>

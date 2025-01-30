@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
+using System.IO;
 
 namespace ARKBreedingStats.species
 {
@@ -170,6 +171,8 @@ namespace ARKBreedingStats.species
         [OnDeserialized]
         private void Initialize(StreamingContext _) => Initialize();
 
+        private static string[] _ignoreVariantInName;
+
         public void Initialize()
         {
             // TODO: Base species are maybe not used in game and may only lead to confusion (e.g. Giganotosaurus).
@@ -284,8 +287,10 @@ namespace ARKBreedingStats.species
             string variantInfoForName = null;
             if (variants != null && variants.Any())
             {
+                var ignoreVariants = _getIgnoreVariantInName();
                 VariantInfo = string.Join(", ", variants);
-                variantInfoForName = string.Join(", ", string.IsNullOrEmpty(name) ? variants : variants.Where(v => !name.Contains(v)));
+                var gaun = variants.Any(v => ignoreVariants.Contains(v));
+                variantInfoForName = string.Join(", ", string.IsNullOrEmpty(name) ? variants : variants.Where(v => !name.Contains(v) && !ignoreVariants.Contains(v)));
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(variantInfoForName) ? string.Empty : " (" + variantInfoForName + ")");
@@ -532,5 +537,16 @@ namespace ARKBreedingStats.species
                     return name;
             }
         }
+
+        private static string[] _getIgnoreVariantInName()
+        {
+            if (_ignoreVariantInName != null) return _ignoreVariantInName;
+
+            var filePath = FileService.GetJsonPath(FileService.HideVariantsInSpeciesNameFile);
+            _ignoreVariantInName = !File.Exists(filePath) ? Array.Empty<string>() : File.ReadAllLines(filePath).Where(l => !string.IsNullOrEmpty(l)).ToArray();
+            return _ignoreVariantInName;
+        }
+
+        public static void ClearIgnoreVariantsInName() => _ignoreVariantInName = null;
     }
 }

@@ -177,6 +177,7 @@ namespace ARKBreedingStats.values
 
             InitializeArkColors(undefinedColorAsa);
             _speciesAndColorsInitialized = true;
+            Species.ClearIgnoreVariantsInName();
         }
 
         /// <summary>
