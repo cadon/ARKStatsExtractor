@@ -474,6 +474,11 @@ namespace ARKBreedingStats
             VariantSelector.FilterToDefault();
             TextBoxTextChanged(null, null);
         }
+
+        /// <summary>
+        /// Selects the last user selected species.
+        /// </summary>
+        internal void SetToLastSetSpecies() => SetSpecies(Values.V.SpeciesByBlueprint(LastSpecies?.FirstOrDefault()));
     }
 
     class SpeciesListEntry

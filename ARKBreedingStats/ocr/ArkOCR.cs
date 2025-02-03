@@ -58,9 +58,9 @@ namespace ARKBreedingStats.ocr
             return screenshot.Width == ocrConfig.resolutionWidth && screenshot.Height == ocrConfig.resolutionHeight;
         }
 
-        private Bitmap SubImage(Bitmap source, int x, int y, int width, int height)
+        private static Bitmap SubImage(Bitmap source, int x, int y, int width, int height)
         {
-            //// test if first column only contains very few whites, then ommit this column
+            //// test if first column only contains very few whites, then omit this column
             //if (height > 7) // TODO this extra check is better for 'a', but worse for 'l'
             //{
             //    int firstWhites = 0, minNeeded = 2;
@@ -91,7 +91,16 @@ namespace ARKBreedingStats.ocr
             //}
 
             Rectangle cropRect = new Rectangle(x, y, width, height);
-            Bitmap target = new Bitmap(cropRect.Width, cropRect.Height);
+            Bitmap target = null;
+            try
+            {
+                target = new Bitmap(cropRect.Width, cropRect.Height);
+            }
+            catch (Exception ex)
+            {
+                _ocrControl.output.Text += $"Error when creating subimage (width {cropRect.Width}, height {cropRect.Height}): {ex.Message}\n\n";
+                return null;
+            }
 
             using (Graphics g = Graphics.FromImage(target))
             {

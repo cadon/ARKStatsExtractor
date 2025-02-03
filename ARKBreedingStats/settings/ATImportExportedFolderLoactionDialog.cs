@@ -10,12 +10,15 @@ namespace ARKBreedingStats.settings
         {
             get => new ATImportExportedFolderLocation(textBox_ConvenientName.Text,
                     textBox_ownerSuffix.Text,
-                    textBox_FolderPath.Text);
+                    textBox_FolderPath.Text,
+                    TbSetDefaultForLibraries.Text);
             set
             {
                 textBox_ConvenientName.Text = value.ConvenientName;
                 textBox_ownerSuffix.Text = value.OwnerSuffix;
                 textBox_FolderPath.Text = value.FolderPath;
+                TbSetDefaultForLibraries.Text = value.SetDefaultForLibraryFiles == null ? string.Empty
+                    : string.Join("; ", value.SetDefaultForLibraryFiles);
             }
         }
 

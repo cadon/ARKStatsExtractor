@@ -29,7 +29,7 @@ namespace ARKBreedingStats
     public partial class Form1 : Form
     {
         private CreatureCollection _creatureCollection = new CreatureCollection();
-        private string _currentFileName;
+        private string _currentFilePath;
         private bool _collectionDirty;
 
         /// <summary>
@@ -81,6 +81,12 @@ namespace ARKBreedingStats
         /// Custom replacings for species names used in naming patterns.
         /// </summary>
         private Dictionary<string, string> _customReplacingNamingPattern;
+
+        /// <summary>
+        /// Some species can have specific issues when extracting.
+        /// </summary>
+        private readonly Dictionary<string, string> _speciesSpecificExtractionFails
+            = FileService.LoadJsonFileIfAvailable<Dictionary<string, string>>(FileService.GetJsonPath("speciesSpecificExtractionFails.json"));
 
         // OCR stuff
         private ARKOverlay _overlay;
@@ -233,6 +239,15 @@ namespace ARKBreedingStats
             }
 
             libraryContextMenuItems[0].ShortcutKeys = Keys.Control | Keys.G;
+
+            var libraryContextMenuMaturitySettings = new[] { 0, 0.05, 0.1, 0.25, 0.5, 0.75, 1 };
+            foreach (var m in libraryContextMenuMaturitySettings)
+            {
+                var suffix = m < 0.1 ? "baby" : m < 1 ? "juvenile" : "mature";
+                var tsmi = new ToolStripMenuItem($"Set maturity to {m:p0} ({suffix})", null, SetMaturityToolStripMenuItem_Click);
+                tsmi.Tag = m;
+                SetMaturityCooldownToolStripMenuItem.DropDownItems.Add(tsmi);
+            }
 
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
             toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
@@ -1536,7 +1551,7 @@ namespace ARKBreedingStats
         {
             if (!string.IsNullOrEmpty(_messageLabelClipboardContent))
                 Clipboard.SetText(_messageLabelClipboardContent);
-            OpenFolderInExplorer(_messageLabelPath);
+            FileService.OpenFolderInExplorer(_messageLabelPath);
         }
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
@@ -2185,7 +2200,7 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.syncCollection)
             {
                 if (_fileSync == null)
-                    _fileSync = new FileSync(_currentFileName, CollectionChanged);
+                    _fileSync = new FileSync(_currentFilePath, CollectionChanged);
             }
             else if (_fileSync != null)
             {
@@ -3434,24 +3449,7 @@ namespace ARKBreedingStats
 
         private void openFolderOfCurrentFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(_currentFileName);
-        }
-
-        /// <summary>
-        /// Opens the folder in the explorer. If it's a file, it will be selected.
-        /// </summary>
-        private static void OpenFolderInExplorer(string path)
-        {
-            if (string.IsNullOrEmpty(path)) return;
-            bool isFile = false;
-
-            if (File.Exists(path))
-                isFile = true;
-            else if (!Directory.Exists(path))
-                return;
-
-            Process.Start("explorer.exe",
-                $"{(isFile ? "/select, " : string.Empty)}\"{path}\"");
+            FileService.OpenFolderInExplorer(_currentFilePath);
         }
 
         private void customStatOverridesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4009,7 +4007,7 @@ namespace ARKBreedingStats
 
         private void showSettingsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(System.Configuration.ConfigurationManager
+            FileService.OpenFolderInExplorer(System.Configuration.ConfigurationManager
                 .OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
         }
 
@@ -4025,7 +4023,18 @@ namespace ARKBreedingStats
 
         private void showStatsOptionsFileInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFolderInExplorer(StatsOptionsLevelColors.SettingsFilePath);
+            FileService.OpenFolderInExplorer(StatsOptionsLevelColors.SettingsFilePath);
+        }
+
+        private void editVariantTagsToHideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var filePath = FileService.GetJsonPath(FileService.HideVariantsInSpeciesNameFile);
+
+            if (!File.Exists(filePath))
+                File.WriteAllText(filePath, string.Empty);
+            if (File.Exists(filePath))
+                Process.Start(filePath);
+            else MessageBoxes.ShowMessageBox($"Couldn't create file {filePath} automatically. Maybe you can create that file manually.");
         }
     }
 }

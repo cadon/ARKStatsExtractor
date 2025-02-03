@@ -358,6 +358,15 @@ namespace ARKBreedingStats.BreedingPlanning
             Creature[] selectedFemales = selectFemales.ToArray();
             Creature[] selectedMales = selectMales?.ToArray();
 
+            // if only pairings for one specific creatures are shown, add the creature after the filtering
+            if (considerChosenCreature)
+            {
+                if (_chosenCreature.sex == Sex.Female)
+                    selectedFemales = new[] { _chosenCreature };
+                if (_chosenCreature.sex == Sex.Male)
+                    selectedMales = new[] { _chosenCreature };
+            }
+
             bool creaturesTagFilteredOut = (crCountF != selectedFemales.Length)
                                               || (crCountM != (selectedMales?.Length ?? 0));
 
@@ -388,15 +397,6 @@ namespace ARKBreedingStats.BreedingPlanning
             else
             {
                 pedigreeCreatureBestPossibleInSpeciesFiltered.Visible = false;
-            }
-
-            // if only pairings for one specific creatures are shown, add the creature after the filtering
-            if (considerChosenCreature)
-            {
-                if (_chosenCreature.sex == Sex.Female)
-                    selectedFemales = new[] { _chosenCreature };
-                if (_chosenCreature.sex == Sex.Male)
-                    selectedMales = new[] { _chosenCreature };
             }
 
             if (!selectedFemales.Any() || !selectedMales.Any())

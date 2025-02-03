@@ -474,19 +474,48 @@ namespace ARKBreedingStats
             {
                 // sum of dom levels is not correct. Try to find another combination
                 domLevelsChosenSum -= _extractor.Results[Stats.MeleeDamageMultiplier][_extractor.ChosenResults[Stats.MeleeDamageMultiplier]].levelDom;
-                bool changeChosenResult = false;
-                int cR = 0;
                 for (int r = 0; r < _extractor.Results[Stats.MeleeDamageMultiplier].Count; r++)
                 {
                     if (domLevelsChosenSum + _extractor.Results[Stats.MeleeDamageMultiplier][r].levelDom == _extractor.LevelDomSum)
                     {
-                        cR = r;
-                        changeChosenResult = true;
+                        SetLevelCombination(Stats.MeleeDamageMultiplier, r);
                         break;
                     }
                 }
-                if (changeChosenResult)
-                    SetLevelCombination(Stats.MeleeDamageMultiplier, cR);
+            }
+
+            // if all stats have at least one (not unknown) result and only one stat has more than 1 result, loop these and select a valid one
+            if (_extractor.Results.All(r => r.Count >= 1 && r[0].levelWild != -1))
+            {
+                var statsWithNonUniqueResults = _extractor.Results.Select((results, statIndex) => (results, statIndex))
+                    .Where(r => r.results.Count != 1).ToArray();
+                // if only one stat has multiple options
+                if (statsWithNonUniqueResults.Length == 1)
+                {
+                    var statIndexToLoopResults = statsWithNonUniqueResults[0].statIndex;
+                    var statResults = statsWithNonUniqueResults[0].results;
+                    var wildLevelsToDistribute = _extractor.Results[Stats.Torpidity][0].levelWild;
+                    for (int s = 0; s < Stats.StatsCount; s++)
+                    {
+                        if (s != Stats.Torpidity && s != statIndexToLoopResults)
+                            wildLevelsToDistribute -= _extractor.Results[s][0].levelWild;
+                    }
+
+                    // take first result that gives a valid level combination without changing the dom level distribution
+                    var setDomLevel =
+                        _extractor.Results[statIndexToLoopResults][_extractor.ChosenResults[statIndexToLoopResults]].levelDom;
+                    if (wildLevelsToDistribute >= 0)
+                    {
+                        for (var ri = 0; ri < statResults.Count; ri++)
+                        {
+                            if (statResults[ri].levelWild == wildLevelsToDistribute && statResults[ri].levelDom == setDomLevel)
+                            {
+                                SetLevelCombination(Stats.MeleeDamageMultiplier, ri);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
 
             if (_extractor.PostTamed)
@@ -625,7 +654,12 @@ namespace ARKBreedingStats
             if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)
                 issues |= IssueNotes.Issue.ImpossibleTe;
 
-            labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.getHelpTexts(issues)}";
+            // some species have specific extraction issues, e.g. due to a unique taming method that results in a bred status but with a TE less than 100 %.
+            var speciesName = speciesSelector1.SelectedSpecies.name;
+            string speciesSpecificExtractionFail = null;
+            _speciesSpecificExtractionFails?.TryGetValue(speciesName, out speciesSpecificExtractionFail);
+
+            labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.GetHelpTexts(issues, speciesSpecificExtractionFail)}";
             labelErrorHelp.Visible = true;
             llOnlineHelpExtractionIssues.Visible = true;
             groupBoxPossibilities.Visible = false;
@@ -1096,7 +1130,7 @@ namespace ARKBreedingStats
         /// <returns>True if mutation levels where adjusted, false if no levels were moved.</returns>
         private bool UpdateMutationLevels(CreatureValues cv, Creature alreadyExistingCreature)
         {
-            if (!Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique) return false;
+            if (!Properties.Settings.Default.MoveMutationLevelsOnExtractionIfUnique || CreatureCollection.CurrentCreatureCollection?.Game == Ark.Ase) return false;
             bool mutationLevelsAdjusted = false;
             // Do we have enough information to assume the mutation counts are accurate
             bool AreMutationCountsAccurate(Creature creature)
@@ -1161,7 +1195,7 @@ namespace ARKBreedingStats
                 //   |   12 |         6 |             2 |
                 //
 
-                var possibileLevelsByStat = new List<(int wild, int mutated, int change)>[Stats.StatsCount];
+                var possibleLevelsByStat = new List<(int wild, int mutated, int change)>[Stats.StatsCount];
 
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
@@ -1207,17 +1241,17 @@ namespace ARKBreedingStats
                         }
                     }
 
-                    possibileLevelsByStat[s] = possibleLevels;
+                    possibleLevelsByStat[s] = possibleLevels;
                 }
 
                 // It's possible for more than one combination of parent levels and new mutations to account for the
                 // child's levels. If there is only 1 set, use that
-                if (possibileLevelsByStat.All(x => x.Count == 1))
+                if (possibleLevelsByStat.All(x => x.Count == 1))
                 {
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
                         var statIo = _statIOs[s];
-                        var levels = possibileLevelsByStat[s][0];
+                        var levels = possibleLevelsByStat[s][0];
 
                         statIo.LevelWild = levels.wild;
                         statIo.LevelMut = levels.mutated;
@@ -1234,7 +1268,7 @@ namespace ARKBreedingStats
                     var newMutationsPaternal = Math.Max(cv.mutationCounterFather - cv.Father.Mutations, 0);
                     var totalNewMutations = newMutationsMaternal + newMutationsPaternal;
 
-                    var validLevelCombinations = possibileLevelsByStat
+                    var validLevelCombinations = possibleLevelsByStat
                         .CartesianProduct()
                         .Where(x => x.Sum(y => y.change) == totalNewMutations * Ark.LevelsAddedPerMutation)
                         .ToArray();

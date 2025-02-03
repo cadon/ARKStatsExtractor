@@ -259,6 +259,26 @@ namespace ARKBreedingStats
 
             UpdateTempCreatureDropDown();
 
+            // if collection is loaded, set export folder to default if there's a match
+            if (!keepCurrentSelection && !string.IsNullOrEmpty(_currentFilePath))
+            {
+                var exportFoldersString = Properties.Settings.Default.ExportCreatureFolders;
+                if (exportFoldersString.Any())
+                {
+                    var currentDefault = ATImportExportedFolderLocation.CreateFromString(exportFoldersString[0]);
+                    var exportFolders = exportFoldersString.Select(ATImportExportedFolderLocation.CreateFromString).ToArray();
+                    var setToDefault = exportFolders.FirstOrDefault(f => f.IsDefaultForLibraryFile(_currentFilePath));
+                    if (setToDefault != null && setToDefault.FolderPath != null &&
+                        currentDefault.FolderPath != setToDefault.FolderPath)
+                    {
+                        Properties.Settings.Default.ExportCreatureFolders = exportFolders
+                            .OrderByDescending(f => f == setToDefault)
+                            .Select(location => location.ToString()).ToArray();
+                        SetupExportFileWatcher();
+                    }
+                }
+            }
+
             return duplicatesWereRemoved;
         }
 
@@ -304,7 +324,8 @@ namespace ARKBreedingStats
                 var species = g.Key;
                 if (species == null)
                     continue;
-                var speciesCreatures = g.ToArray();
+                var speciesCreatures = g.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+                if (!speciesCreatures.Any()) continue;
 
                 var usedStatIndices = new List<int>(8);
                 var usedAndConsideredStatIndices = new List<int>();
@@ -459,10 +480,13 @@ namespace ARKBreedingStats
                         case StatWeighting.StatValuePreference.Low:
                             if (highestLevels[s] > 0 && lowestLevels[s] >= 0)
                                 sumTopLevels += highestLevels[s] - lowestLevels[s];
+                            if (lowestMutationLevels[s] >= 0)
+                                sumTopLevels += highestMutationLevels[s] - lowestMutationLevels[s];
                             break;
                         case StatWeighting.StatValuePreference.High:
                             if (highestLevels[s] > 0)
                                 sumTopLevels += highestLevels[s];
+                            sumTopLevels += highestMutationLevels[s];
                             break;
                     }
                 }
@@ -478,10 +502,11 @@ namespace ARKBreedingStats
                             {
                                 case StatWeighting.StatValuePreference.Low:
                                     if (c.levelsWild[s] >= 0)
-                                        sumCreatureLevels += highestLevels[s] - c.levelsWild[s];
+                                        sumCreatureLevels += highestLevels[s] - c.levelsWild[s] + highestMutationLevels[s] - (c.levelsMutated?[s] ?? 0);
                                     break;
                                 case StatWeighting.StatValuePreference.High:
-                                    sumCreatureLevels += c.levelsWild[s] > 0 ? c.levelsWild[s] : 0;
+                                    sumCreatureLevels += (c.levelsWild[s] > 0 ? c.levelsWild[s] : 0)
+                                        + (c.levelsMutated?[s] ?? 0);
                                     break;
                             }
                         }
@@ -707,7 +732,7 @@ namespace ARKBreedingStats
 
                     text.AppendLine();
                     text.AppendLine("If you click on Yes, the first listed creature will be kept, all the other creatures will be removed. A backup file of the following library file will be created:");
-                    text.AppendLine(_currentFileName);
+                    text.AppendLine(_currentFilePath);
                     text.AppendLine("If you click on No, the application will quit.");
                     text.AppendLine("Remove duplicates?");
 
@@ -725,10 +750,10 @@ namespace ARKBreedingStats
 
                 creatureGuids = _creatureCollection.creatures.ToDictionary(c => c.guid);
                 // create backup file of file before duplicates were removed
-                if (!string.IsNullOrEmpty(_currentFileName)
-                    && File.Exists(_currentFileName))
+                if (!string.IsNullOrEmpty(_currentFilePath)
+                    && File.Exists(_currentFilePath))
                 {
-                    File.Copy(_currentFileName, Path.Combine(Path.GetDirectoryName(_currentFileName), $"{Path.GetFileNameWithoutExtension(_currentFileName)}_BackupBeforeRemovingDuplicates_{DateTime.Now:yyyy-MM-dd_HH-mm-ss-ffff}.asb"));
+                    File.Copy(_currentFilePath, Path.Combine(Path.GetDirectoryName(_currentFilePath), $"{Path.GetFileNameWithoutExtension(_currentFilePath)}_BackupBeforeRemovingDuplicates_{DateTime.Now:yyyy-MM-dd_HH-mm-ss-ffff}.asb"));
                 }
 
                 duplicatesWereRemoved = true;
@@ -1120,7 +1145,13 @@ namespace ARKBreedingStats
                         cr.Status.ToString(),
                         cr.tribe,
                         Utils.StatusSymbol(cr.Status, string.Empty),
-                        (cr.flags & CreatureFlags.MutagenApplied) != 0 ? "M" : string.Empty
+                        (cr.flags & CreatureFlags.MutagenApplied) != 0 ? "M" : string.Empty,
+                        cr.Level.ToString(),
+                        (CreatureCollection.CurrentCreatureCollection.maxServerLevel>0
+                            ? Math.Min (cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel, CreatureCollection.CurrentCreatureCollection.maxServerLevel)
+                            : cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel
+                        ).ToString(),
+                        cr.TraitsString
                     })
                     .ToArray();
 
@@ -1969,15 +2000,15 @@ namespace ARKBreedingStats
                     true);
         }
 
-        private void SetMatureBreedingStateOfSelectedCreatures(bool setMature = false, bool clearMatingCooldown = false,
+        private void SetMatureBreedingStateOfSelectedCreatures(bool setMaturity = false, double maturity = 1, bool clearMatingCooldown = false,
             bool justMated = false)
         {
             listViewLibrary.BeginUpdate();
             foreach (int i in listViewLibrary.SelectedIndices)
             {
                 var c = _creaturesDisplayed[i];
-                if (setMature && c.growingUntil > DateTime.Now)
-                    c.growingUntil = null;
+                if (setMaturity)
+                    c.Maturation = maturity;
 
                 if (clearMatingCooldown && c.cooldownUntil > DateTime.Now)
                     c.cooldownUntil = null;
@@ -1992,9 +2023,9 @@ namespace ARKBreedingStats
             listViewLibrary.EndUpdate();
         }
 
-        private void setToMatureToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SetMaturityToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetMatureBreedingStateOfSelectedCreatures(setMature: true);
+            SetMatureBreedingStateOfSelectedCreatures(setMaturity: true, maturity: ((ToolStripMenuItem)sender).Tag is double d ? d : 1);
         }
 
         private void clearMatingCooldownToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2009,6 +2040,11 @@ namespace ARKBreedingStats
 
         private void applyMutagenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listViewLibrary.SelectedIndices.Count == 0
+               || MessageBox.Show("Set the mutagen flag on the selected creatures and increase their levels accordingly?",
+                   "Apply mutagen?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes
+               ) return;
+
             // a tamed creature receives 5 level in hp, st, we, dm (i.e. a total of 20 levels)
             // a bred creature receives 1 level in hp, st, we, dm (i.e. a total of 4 levels)
 

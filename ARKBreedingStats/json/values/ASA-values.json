@@ -1,5 +1,5 @@
 {
-	"version": "55.9.2",
+	"version": "57.12.1",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -47,13 +47,16 @@
 				"foodConsumptionMult": 180.0011,
 				"babyFoodConsumptionMult": 510
 			},
-			"boneDamageAdjusters": { "Spine1_M": 0.5 },
+			"boneDamageAdjusters": {
+				"Spine1_M": 0.5,
+				"Head_M": 1
+			},
 			"TamedBaseHealthMultiplier": 0.9,
 			"displayedStats": 919,
 			"skipWildLevelStats": 520,
 			"colors": [
 				{
-					"name": "Feathers main",
+					"name": "Face, Fins and Body side",
 					"colors": [
 						"Dino Light Orange",
 						"Dino Light Brown",
@@ -75,52 +78,10 @@
 					]
 				},
 				null,
-				{
-					"name": "Body highlights",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Yellow",
-						"Dino Dark Yellow",
-						"Dino Light Green",
-						"Dino Medium Green",
-						"Dino Light Blue",
-						"Dino Light Purple",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Light Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonGreen0",
-						"DragonGreen1",
-						"DragonGreen2",
-						"DragonGreen3",
-						"WyvernPurple0",
-						"WyvernPurple1",
-						"WyvernBlue0",
-						"Dino Medium Blue",
-						"LightWarmGray",
-						"LightCement",
-						"Coral",
-						"Orange",
-						"Peach",
-						"LightAutumn",
-						"Mustard",
-						"PowderBlue",
-						"Glacial",
-						"DryMoss",
-						"Custard",
-						"Cream"
-					]
-				},
+				null,
 				null,
 				{
-					"name": "Feather highlights",
+					"name": "Main Body",
 					"colors": [
 						"Dino Light Orange",
 						"Dino Light Brown",
@@ -144,7 +105,7 @@
 					]
 				},
 				{
-					"name": "Body main",
+					"name": "Spots Neck and Back",
 					"colors": [
 						"Dino Light Orange",
 						"Dino Dark Orange",
@@ -229,6 +190,10 @@
 				"foodConsumptionBase": 0.002314,
 				"foodConsumptionMult": 208.0343,
 				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Jaw_M": 1.5,
+				"Head_M": 1.5
 			},
 			"displayedStats": 927,
 			"skipWildLevelStats": 512,
@@ -642,6 +607,231 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/Dreadnoughtus/Dreadnoughtus_Character_BP.Dreadnoughtus_Character_BP",
+			"name": "Dreadnoughtus",
+			"fullStatsRaw": [
+				[ 100000, 0.032, 0.02112, -80000, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 3250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 13500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 3000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.033333, 0.066667, 0, 0 ],
+				[ 1, 0, 0.02, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.5601,
+				"eggTempMin": 40,
+				"eggTempMax": 42,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"violent": false,
+				"nonViolent": true,
+				"tamingIneffectiveness": 0.06,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 200,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 240,
+				"babyFoodConsumptionMult": 1000,
+				"adultFoodConsumptionMult": 2.5
+			},
+			"boneDamageAdjusters": {
+				"c_jaw": 1.25,
+				"c_head": 1.25
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Outline stripes",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightWarmGray",
+						"LightCement",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"PowderBlue",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Secondary pattern",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"LightAutumn",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Peach",
+						"Lavender"
+					]
+				},
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Fasolasuchus/Fasola_Character_BP.Fasola_Character_BP",
 			"name": "Fasolasuchus",
 			"variants": [ "ScorchedEarth" ],
@@ -678,6 +868,10 @@
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 288.0392,
 				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 0.75,
+				"c_jaw": 0.75
 			},
 			"displayedStats": 927,
 			"skipWildLevelStats": 512,
@@ -978,6 +1172,10 @@
 				"foodConsumptionBase": 0.001543,
 				"foodConsumptionMult": 288.0392,
 				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 0.75,
+				"c_jaw": 0.75
 			},
 			"TamedBaseHealthMultiplier": 0.96,
 			"displayedStats": 927,
@@ -1328,8 +1526,8 @@
 				"babyFoodConsumptionMult": 510
 			},
 			"boneDamageAdjusters": {
-				"Head": 1.5,
-				"Jaw": 1.5
+				"c_head": 1.5,
+				"c_jaw": 1.5
 			},
 			"displayedStats": 927,
 			"skipWildLevelStats": 512,
@@ -1455,9 +1653,8 @@
 				"babyFoodConsumptionMult": 510
 			},
 			"boneDamageAdjusters": {
-				"Cnt_Head_JNT_SKL": 3,
-				"Cnt_Neck_002_JNT_SKL": 3,
-				"Cnt_Neck_000_JNT_SKL": 3
+				"c_head": 1.5,
+				"c_jaw": 1.5
 			},
 			"displayedStats": 927,
 			"skipWildLevelStats": 512,
@@ -1718,9 +1915,8 @@
 				"babyFoodConsumptionMult": 510
 			},
 			"boneDamageAdjusters": {
-				"Cnt_Head_JNT_SKL": 3,
-				"Cnt_Neck_002_JNT_SKL": 3,
-				"Cnt_Neck_000_JNT_SKL": 3
+				"c_head": 1.5,
+				"c_jaw": 1.5
 			},
 			"TamedBaseHealthMultiplier": 0.96,
 			"displayedStats": 927,
@@ -1978,6 +2174,10 @@
 				"foodConsumptionMult": 180.0011,
 				"babyFoodConsumptionMult": 510
 			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"displayedStats": 919,
 			"skipWildLevelStats": 520,
 			"colors": [
@@ -2169,6 +2369,10 @@
 				"foodConsumptionBase": 0.001578,
 				"foodConsumptionMult": 352.0631,
 				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Gill_L": 1.5,
+				"Gill_R": 1.5
 			},
 			"displayedStats": 919,
 			"skipWildLevelStats": 520,
@@ -2521,31 +2725,38 @@
 				null,
 				null
 			],
-			"breeding": {
-				"gestationTime": 0,
-				"incubationTime": 22498.2001,
-				"eggTempMin": 32,
-				"eggTempMax": 38,
-				"maturationTime": 666666.667,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/CaveWolf/CaveWolf_Character_BP.CaveWolf_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP.ChupaCabra_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP_Minion.ChupaCabra_Character_BP_Minion",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/ChupaCabra/ChupaCabra_Character_BP_Surface.ChupaCabra_Character_BP_Surface",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2557,17 +2768,12 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Crab/MegaCrab_Character_BP.MegaCrab_Character_BP",
-			"breeding": {
-				"gestationTime": 35714.2857,
-				"incubationTime": 0,
-				"maturationTime": 416666.667,
-				"matingCooldownMin": 64800,
-				"matingCooldownMax": 172800
-			},
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
@@ -2576,26 +2782,50 @@
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/LanternBird/LanternBird_Character_BP.LanternBird_Character_BP",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/LanternGoat/LanternGoat_Character_BP.LanternGoat_Character_BP",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/LanternLizard/LanternLizard_Character_BP.LanternLizard_Character_BP",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/LanternPug/Ghost_LanternPug_Character_BP.Ghost_LanternPug_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 3,
+				"Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/LanternPug/LanternPug_Character_BP.LanternPug_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 3,
+				"Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/MoleRat/MoleRat_Character_BP.MoleRat_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.25,
+				"c_jaw": 1.25
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2640,18 +2870,40 @@
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/RockDrake/RockDrake_Character_BP.RockDrake_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP.EndDrone_Character_BP",
+			"boneDamageAdjusters": {
+				"l_Arm_01_03": 1.5,
+				"r_Arm_01_03": 1.5,
+				"l_Ring": 1.5,
+				"r_Ring": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP_Hard.EndDrone_Character_BP_Hard",
+			"boneDamageAdjusters": {
+				"l_Arm_01_03": 1.5,
+				"r_Arm_01_03": 1.5,
+				"l_Ring": 1.5,
+				"r_Ring": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP_Med.EndDrone_Character_BP_Med",
+			"boneDamageAdjusters": {
+				"l_Arm_01_03": 1.5,
+				"r_Arm_01_03": 1.5,
+				"l_Ring": 1.5,
+				"r_Ring": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2720,10 +2972,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Carno/Carno_Character_BP_Corrupt.Carno_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Chalicotherium/Chalico_Character_BP_Corrupt.Chalico_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2732,10 +2992,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Dimorphodon/Dimorph_Character_BP_Corrupt.Dimorph_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Giganotosaurus/Gigant_Character_BP_Corrupt.Gigant_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2744,10 +3012,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Paraceratherium/Paracer_Character_BP_Corrupt.Paracer_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Ptero/Ptero_Character_BP_Corrupt.Ptero_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2758,18 +3034,36 @@
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Rex/MegaRex_Character_BP_Corrupt.MegaRex_Character_BP_Corrupt",
 			"name": "Enraged Corrupted Rex",
 			"variants": [ "Corrupted", "Extinction", "Mega" ],
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Rex/Rex_Character_BP_Corrupt.Rex_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/RockDrake/RockDrake_Character_BP_Corrupt.RockDrake_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Spino/Spino_Character_BP_Corrupt.Spino_Character_BP_Corrupt",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2778,7 +3072,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Trike/MegaTrike_Character_BP_Corrupt.MegaTrike_Character_BP_Corrupt",
-			"name": "Enraged Triceratops",
+			"name": "Enraged Corrupted Triceratops",
 			"variants": [ "Corrupted", "Extinction", "Mega" ],
 			"skipWildLevelStats": 512
 		},
@@ -2788,6 +3082,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Wyvern/Wyvern_Character_BP_Fire_Corrupt.Wyvern_Character_BP_Fire_Corrupt",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2800,6 +3095,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Enforcer/Enforcer_Character_BP.Enforcer_Character_BP",
+			"boneDamageAdjusters": {
+				"tail_01_01_Jnt": 1.25,
+				"tail_01_02_Jnt": 1.25,
+				"tail_01_03_Jnt": 1.25,
+				"tail_01_04_Jnt": 1.25,
+				"tail_01_05_Jnt": 1.25,
+				"tail_01_06_Jnt": 1.25,
+				"tail_01_07_Jnt": 1.25,
+				"tail_01_08_Jnt": 1.25,
+				"tail_01_09_Jnt": 1.25,
+				"tail_01_10_Jnt": 1.25
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2808,18 +3115,28 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/Minion/Wyvern_Character_BP_Fire_Minion.Wyvern_Character_BP_Fire_Minion",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Gacha/Gacha_Character_BP.Gacha_Character_BP",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 1.5,
+				"Head_Top_Jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/GasBag/GasBags_Character_BP.GasBags_Character_BP",
+			"boneDamageAdjusters": { "Neck_Top_Jnt": 0.8 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/IceJumper/IceJumper_Character_BP.IceJumper_Character_BP",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 3,
+				"Head_Top_Jnt": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2835,31 +3152,184 @@
 			"skipWildLevelStats": 512
 		},
 		{
-			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/Minions/Corrupt_Arthro_Character_BP.Corrupt_Arthro_Character_BP",
+			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP_Alpha.KingKaiju_Character_BP_Alpha",
+			"name": "Alpha King Titan",
+			"variants": [ "Alpha", "Boss", "Extinction" ],
+			"fullStatsRaw": [
+				[ 2500000, 0, 0, 0, 0 ],
+				[ 100000, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP_Beta.KingKaiju_Character_BP_Beta",
+			"fullStatsRaw": [
+				[ 2000000, 0, 0, 0, 0 ],
+				[ 100000, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP_WorldBoss.KingKaiju_Character_BP_WorldBoss",
+			"name": "King Titan",
+			"variants": [ "Boss", "Extinction", "WorldBoss" ],
+			"fullStatsRaw": [
+				[ 500000, 0.2, 0.27, 0.5, 0 ],
+				[ 100000, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/Extinction/Dinos/Mek/MegaMek_Character_BP.MegaMek_Character_BP",
+			"boneDamageAdjusters": { "Neck_Top_Jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Mek/Mek_Character_BP.Mek_Character_BP",
+			"boneDamageAdjusters": { "Neck_Top_Jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Owl/Ghost_Owl_Character_BP.Ghost_Owl_Character_BP",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 2,
+				"Head_Top_Jnt": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Owl/Owl_Character_BP.Owl_Character_BP",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 2,
+				"Head_Top_Jnt": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Scout/Scout_Character_BP.Scout_Character_BP",
+			"boneDamageAdjusters": {
+				"l_arm_Shoulder_JNT": 1.5,
+				"r_arm_Shoulder_JNT": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Spindles/Spindles_Character_BP.Spindles_Character_BP",
+			"boneDamageAdjusters": {
+				"Head_Top_Jnt": 1.1,
+				"Jaw_01_01_Jnt": 1.1,
+				"Tail_01_06_Jnt": 1.5,
+				"Tail_01_07_Jnt": 1.5
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Extinction/Dinos/Tank/Defender_Character_BP.Defender_Character_BP",
+			"boneDamageAdjusters": { "c_Back_08": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2868,10 +3338,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Fjordur/Dinos/Desmodus/Desmodus_Character_BP.Desmodus_Character_BP",
+			"boneDamageAdjusters": {
+				"head": 3,
+				"jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/BogParaceratherium/Bog_Paracer_Character_BP.Bog_Paracer_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2880,38 +3358,71 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Bog_Spino/Bog_Spino_Character_BP.Bog_Spino_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Lunar_Salmon/Lunar_Salmon_Character_BP.Lunar_Salmon_Character_BP",
+			"boneDamageAdjusters": { "Head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Basilosaurus/Ocean_Basilosaurus_Character_BP.Ocean_Basilosaurus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Dolphin/Ocean_Dolphin_Character_BP.Ocean_Dolphin_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Dunkleosteus/Ocean_Dunkle_Character_BP.Ocean_Dunkle_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Megalodon/Ocean_Megalodon_Character_BP.Ocean_Megalodon_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Mosasaurus/Ocean_Mosa_Character_BP.Ocean_Mosa_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Argentavis/Snow_Argent_Character_BP.Snow_Argent_Character_BP",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Otter/Snow_Otter_Character_BP.Snow_Otter_Character_BP",
+			"boneDamageAdjusters": {
+				"c_Head": 1.5,
+				"c_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2920,14 +3431,27 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_WoollyRhino/Snow_Rhino_Character_BP.Snow_Rhino_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Yutyrannus/Snow_Yutyrannus_Character_BP.Snow_Yutyrannus_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRDaeodon_Character_BP.VRDaeodon_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 2,
+				"c_jaw": 2,
+				"c_snout": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2936,6 +3460,11 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRRex_Character_BP.VRRex_Character_BP",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2944,6 +3473,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRYutyrannus_Character_BP.VRYutyrannus_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2960,10 +3493,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/MissionVariants/Race/Manta_Character_BP_Race.Manta_Character_BP_Race",
+			"boneDamageAdjusters": {
+				"c_neck8": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/Shapeshifter/Shapeshifter_Large/Shapeshifter_Large_Character_BP.Shapeshifter_Large_Character_BP",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2986,6 +3527,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/SpaceWhale/SpaceWhale_Character_BP.SpaceWhale_Character_BP",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -2998,14 +3543,27 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Allo_Character_BP_Rockwell.Allo_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Carno_Character_BP_Rockwell.Carno_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Daeodon_Character_BP_Eden.Daeodon_Character_BP_Eden",
+			"boneDamageAdjusters": {
+				"c_neck3": 2,
+				"c_jaw": 2,
+				"c_snout": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3014,6 +3572,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Direbear_Character_BP_Rockwell.Direbear_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3022,22 +3584,39 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Equus_Character_BP_Eden.Equus_Character_BP_Eden",
+			"boneDamageAdjusters": {
+				"c_jaw": 2,
+				"c_neck3": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/GasBags_Character_BP_Eden.GasBags_Character_BP_Eden",
+			"boneDamageAdjusters": { "Neck_Top_Jnt": 0.8 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Gigant_Character_BP_Rockwell.Gigant_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Megatherium_Character_BP_Eden.Megatherium_Character_BP_Eden",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Owl_Character_BP_Eden.Owl_Character_BP_Eden",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 2,
+				"Head_Top_Jnt": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3046,18 +3625,36 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Procoptodon_Character_BP_Eden.Procoptodon_Character_BP_Eden",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Quetz_Character_BP_Rockwell.Quetz_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Sauropod_Character_BP_Rockwell.Sauropod_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Spindles_Character_BP_Rockwell.Spindles_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"Head_Top_Jnt": 1.1,
+				"Jaw_01_01_Jnt": 1.1,
+				"Tail_01_06_Jnt": 1.5,
+				"Tail_01_07_Jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3066,6 +3663,15 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Turtle_Character_BP_Rockwell.Turtle_Character_BP_Rockwell",
+			"boneDamageAdjusters": {
+				"c_neck2": 0.5,
+				"c_neck5": 1,
+				"c_jaw": 1,
+				"c_body": 0.2,
+				"c_tail1": 0.5,
+				"c_tail2": 0.5,
+				"c_tail3": 0.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -3106,14 +3712,26 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/SpaceDolphin/SpaceDolphin_Character_BP.SpaceDolphin_Character_BP",
+			"boneDamageAdjusters": {
+				"head": 3,
+				"jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Allo_Character_BP_Rockwell_Summoned.Allo_Character_BP_Rockwell_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Argent_Character_BP_Summoned.Argent_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3122,6 +3740,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Baryonyx_Character_BP_Summoned.Baryonyx_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -3153,6 +3775,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Bat_Character_BP_Summoned.Bat_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3165,10 +3791,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Carno_Character_BP_Rockwell_Summoned.Carno_Character_BP_Rockwell_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/CaveWolf_Character_BP_Summoned.CaveWolf_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3184,10 +3818,16 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Daeodon_Character_BP_Eden_Summoned.Daeodon_Character_BP_Eden_Summoned",
+			"boneDamageAdjusters": {
+				"c_neck3": 2,
+				"c_jaw": 2,
+				"c_snout": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3196,6 +3836,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Direbear_Character_BP_Summoned.Direbear_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3204,10 +3848,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/IceJumper_Character_BP_Summoned.IceJumper_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 3,
+				"Head_Top_Jnt": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Kaprosuchus_Character_BP_Summoned.Kaprosuchus_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -3216,42 +3868,81 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Mantis_Character_BP_Summoned.Mantis_Character_BP_Summoned",
+			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Megatherium_Character_BP_Eden_Summoned.Megatherium_Character_BP_Eden_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Microraptor_Character_BP_Summoned.Microraptor_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"Neck_Top": 1.5,
+				"Head_Top": 1.5,
+				"Head_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Owl_Character_BP_Eden_Summoned.Owl_Character_BP_Eden_Summoned",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 2,
+				"Head_Top_Jnt": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Paracer_Character_BP_Summoned.Paracer_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Ptero_Character_BP_Summoned.Ptero_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Purlovia_Character_BP_Summoned.Purlovia_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Quetz_Character_BP_Rockwell_Summoned.Quetz_Character_BP_Rockwell_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Rex_Character_BP_Summoned.Rex_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/RockDrake_Character_BP_Summoned.RockDrake_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3264,22 +3955,44 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Sarco_Character_BP_Summoned.Sarco_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Sauropod_Character_BP_Rockwell_Summoned.Sauropod_Character_BP_Rockwell_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Shapeshifter_Large_Character_BP_Summoned.Shapeshifter_Large_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/SpiderS_Character_BP_Summoned.SpiderS_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Spindles_Character_BP_Rockwell_Summoned.Spindles_Character_BP_Rockwell_Summoned",
+			"boneDamageAdjusters": {
+				"Head_Top_Jnt": 1.1,
+				"Jaw_01_01_Jnt": 1.1,
+				"Tail_01_06_Jnt": 1.5,
+				"Tail_01_07_Jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3288,6 +4001,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Spino_Character_BP_Summoned.Spino_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3296,10 +4013,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/TerrorBird_Character_BP_Summoned.TerrorBird_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Therizino_Character_BP_Summoned.Therizino_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3316,6 +4041,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Yutyrannus_Character_BP_Summoned.Yutyrannus_Character_BP_Summoned",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3354,14 +4083,26 @@
 				"foodConsumptionMult": 199.984,
 				"babyFoodConsumptionMult": 39
 			},
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Achatina_Character_BP_STA.Achatina_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck2": 1,
+				"c_neck3": 1,
+				"c_neck4": 1,
+				"c_tail1": 0.5,
+				"joint17": 0.1
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Allo_Character_BP_STA.Allo_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3374,10 +4115,19 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Archa_Character_BP_STA.Archa_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Neck_Top": 3,
+				"Head_Top": 3,
+				"Head_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Argent_Character_BP_STA.Argent_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3386,6 +4136,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Baryonyx_Character_BP_STA.Baryonyx_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3403,10 +4157,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bat_Character_BP_STA.Bat_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Beaver_Character_BP_STA.Beaver_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3419,6 +4181,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bigfoot_Character_BP_STA.Bigfoot_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3435,18 +4201,34 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Carno_Character_BP_STA.Carno_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Carno_Character_BP_STA_Corrupted.Carno_Character_BP_STA_Corrupted",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CaveWolf_Character_BP_STA.CaveWolf_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Chalico_Character_BP_STA.Chalico_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3455,6 +4237,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Compy_Character_BP_STA.Compy_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3466,30 +4252,53 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CrystalWyvern_Character_BP_Blood_STA.CrystalWyvern_Character_BP_Blood_STA",
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CrystalWyvern_Character_BP_Ember_STA.CrystalWyvern_Character_BP_Ember_STA",
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CrystalWyvern_Character_BP_WS_STA.CrystalWyvern_Character_BP_WS_STA",
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Daeodon_Character_BP_STA.Daeodon_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 2,
+				"c_jaw": 2,
+				"c_snout": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Deathworm_Character_BP_STA.Deathworm_Character_BP_STA",
+			"boneDamageAdjusters": { "Deathworm_Neck_01_02SHJnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Deinonychus_Character_BP_STA.Deinonychus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3498,22 +4307,42 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dimetro_Character_BP_STA.Dimetro_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dimorph_Character_BP_STA.Dimorph_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Diplocaulus_Character_BP_STA.Diplocaulus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Diplodocus_Character_BP_STA.Diplodocus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Direbear_Character_BP_STA.Direbear_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3530,6 +4359,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Doed_Character_BP_STA.Doed_Character_BP_STA",
+			"boneDamageAdjusters": { "c_neck3": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3542,6 +4372,12 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/EndDrone_Character_BP_STA.EndDrone_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"l_Arm_01_03": 1.5,
+				"r_Arm_01_03": 1.5,
+				"l_Ring": 1.5,
+				"r_Ring": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3550,10 +4386,26 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Enforcer_Character_BP_STA.Enforcer_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"tail_01_01_Jnt": 1.25,
+				"tail_01_02_Jnt": 1.25,
+				"tail_01_03_Jnt": 1.25,
+				"tail_01_04_Jnt": 1.25,
+				"tail_01_05_Jnt": 1.25,
+				"tail_01_06_Jnt": 1.25,
+				"tail_01_07_Jnt": 1.25,
+				"tail_01_08_Jnt": 1.25,
+				"tail_01_09_Jnt": 1.25,
+				"tail_01_10_Jnt": 1.25
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Equus_Character_BP_STA.Equus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_jaw": 2,
+				"c_neck3": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3562,6 +4414,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Gacha_Character_BP_STA.Gacha_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 1.5,
+				"Head_Top_Jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3570,6 +4426,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/GasBags_Character_BP_STA.GasBags_Character_BP_STA",
+			"boneDamageAdjusters": { "Neck_Top_Jnt": 0.8 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3578,10 +4435,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Gigant_Character_BP_STA.Gigant_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Griffin_Character_BP_STA.Griffin_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"head_exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3590,10 +4455,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Hyaenodon_Character_BP_STA.Hyaenodon_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/IceJumper_Character_BP_STA.IceJumper_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 3,
+				"Head_Top_Jnt": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3610,6 +4483,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jerboa_Character_BP_STA.Jerboa_Character_BP_STA",
+			"boneDamageAdjusters": { "d_neck2_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3626,26 +4500,47 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Kaprosuchus_Character_BP_STA.Kaprosuchus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Kentro_Character_BP_STA.Kentro_Character_BP_STA",
+			"boneDamageAdjusters": { "Head": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternBird_Character_BP_STA.LanternBird_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternGoat_Character_BP_STA.LanternGoat_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternLizard_Character_BP_STA.LanternLizard_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternPug_Character_BP_STA.LanternPug_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head": 3,
+				"Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3663,6 +4558,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Lystro_Character_BP_STA.Lystro_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3671,30 +4570,53 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mammoth_Character_BP_STA.Mammoth_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mantis_Character_BP_STA.Mantis_Character_BP_STA",
+			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Megalania_Character_BP_STA.Megalania_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Megalosaurus_Character_BP_STA.Megalosaurus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Megatherium_Character_BP_STA.Megatherium_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mek_Character_BP_STA.Mek_Character_BP_STA",
+			"boneDamageAdjusters": { "Neck_Top_Jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Microraptor_Character_BP_STA.Microraptor_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Neck_Top": 1.5,
+				"Head_Top": 1.5,
+				"Head_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3703,6 +4625,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/MoleRat_Character_BP_STA.MoleRat_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.25,
+				"c_jaw": 1.25
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3711,6 +4637,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Moschops_Character_BP_STA.Moschops_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3719,6 +4649,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Otter_Character_BP_STA.Otter_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_Head": 1.5,
+				"c_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3727,6 +4661,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Owl_Character_BP_STA.Owl_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head_Jaw_Jnt": 2,
+				"Head_Top_Jnt": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3743,6 +4681,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Paracer_Character_BP_STA.Paracer_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3759,14 +4701,23 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Phoenix_Character_BP_STA.Phoenix_Character_BP_STA",
+			"boneDamageAdjusters": { "c_Head": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Procoptodon_Character_BP_STA.Procoptodon_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ptero_Character_BP_STA.Ptero_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3775,14 +4726,23 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Purlovia_Character_BP_STA.Purlovia_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Quetz_Character_BP_STA.Quetz_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ragnarok_Wyvern_Override_Ice_STA.Ragnarok_Wyvern_Override_Ice_STA",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3795,18 +4755,36 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Rex_Character_BP_STA.Rex_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Rex_Character_BP_STA_Corrupted.Rex_Character_BP_STA_Corrupted",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Rhino_Character_BP_STA.Rhino_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/RockDrake_Character_BP_STA.RockDrake_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3819,22 +4797,39 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sarco_Character_BP_STA.Sarco_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sauropod_Character_BP_STA.Sauropod_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Scorpion_Character_BP_STA.Scorpion_Character_BP_STA",
+			"boneDamageAdjusters": { "rig_c_tail9": 2 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Scout_Character_BP_STA.Scout_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"l_arm_Shoulder_JNT": 1.5,
+				"r_arm_Shoulder_JNT": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Shapeshifter_Large_Character_BP_STA.Shapeshifter_Large_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3843,22 +4838,44 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sheep_Character_BP_STA.Sheep_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/SpaceDolphin_Character_BP_STA.SpaceDolphin_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"head": 3,
+				"jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/SpaceWhale_Character_BP_STA.SpaceWhale_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/SpiderS_Character_BP_STA.SpiderS_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Spindles_Character_BP_STA.Spindles_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head_Top_Jnt": 1.1,
+				"Jaw_01_01_Jnt": 1.1,
+				"Tail_01_06_Jnt": 1.5,
+				"Tail_01_07_Jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3867,10 +4884,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Spino_Character_BP_STA.Spino_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Stag_Character_BP_STA.Stag_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck3": 2.5,
+				"c_jaw": 2.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3883,6 +4908,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Tapejara_Character_BP_STA.Tapejara_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3891,14 +4920,23 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/TekWyvern_Character_BP_STA.TekWyvern_Character_BP_STA",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/TerrorBird_Character_BP_STA.TerrorBird_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Therizino_Character_BP_STA.Therizino_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3911,6 +4949,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Toad_Character_BP_STA.Toad_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3931,34 +4973,56 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Tropeognathus_Character_BP_STA.Tropeognathus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Turtle_Character_BP_STA.Turtle_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_neck2": 0.5,
+				"c_neck5": 1,
+				"c_jaw": 1,
+				"c_body": 0.2,
+				"c_tail1": 0.5,
+				"c_tail2": 0.5,
+				"c_tail3": 0.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Vulture_Character_BP_STA.Vulture_Character_BP_STA",
+			"boneDamageAdjusters": { "c_neck3": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Fire_STA.Wyvern_Character_BP_Fire_STA",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Forest_STA.Wyvern_Character_BP_Forest_STA",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Lightning_STA.Wyvern_Character_BP_Lightning_STA",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Poison_STA.Wyvern_Character_BP_Poison_STA",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Yutyrannus_Character_BP_STA.Yutyrannus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3985,6 +5049,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Allo_Character_BP_TameSTA.Allo_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3993,6 +5061,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/CaveWolf_Character_BP_TameSTA.CaveWolf_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4004,10 +5076,15 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Dimorph_Character_BP_TameSTA.Dimorph_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4030,6 +5107,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Enforcer_Character_BP_TameSTA.Enforcer_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"tail_01_01_Jnt": 1.25,
+				"tail_01_02_Jnt": 1.25,
+				"tail_01_03_Jnt": 1.25,
+				"tail_01_04_Jnt": 1.25,
+				"tail_01_05_Jnt": 1.25,
+				"tail_01_06_Jnt": 1.25,
+				"tail_01_07_Jnt": 1.25,
+				"tail_01_08_Jnt": 1.25,
+				"tail_01_09_Jnt": 1.25,
+				"tail_01_10_Jnt": 1.25
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4038,6 +5127,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Kaprosuchus_Character_BP_TameSTA.Kaprosuchus_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4046,6 +5139,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Mantis_Character_BP_TameSTA.Mantis_Character_BP_TameSTA",
+			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4058,10 +5152,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Shapeshifter_Large_Character_BP_TameSTA.Shapeshifter_Large_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/SpaceDolphin_Character_BP_TameSTA.SpaceDolphin_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"head": 3,
+				"jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4070,6 +5172,12 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Spindles_Character_BP_TameSTA.Spindles_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"Head_Top_Jnt": 1.1,
+				"Jaw_01_01_Jnt": 1.1,
+				"Tail_01_06_Jnt": 1.5,
+				"Tail_01_07_Jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4082,10 +5190,15 @@
 		},
 		{
 			"blueprintPath": "/Game/LostIsland/Dinos/Amargasaurus/Amargasaurus_Character_BP.Amargasaurus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/LostIsland/Dinos/Dinopithecus/Dinopithecus_Character_BP.Dinopithecus_Character_BP",
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4094,14 +5207,20 @@
 		},
 		{
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Polar_Bear/Polar_Bear.Polar_Bear",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ice_Wyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ragnarok_Wyvern_Override.Ragnarok_Wyvern_Override",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4133,7 +5252,15 @@
 			],
 			"taming": {
 				"violent": false,
-				"nonViolent": true
+				"nonViolent": true,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 0,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
 			},
 			"displayedStats": 663,
 			"noGender": true,
@@ -4337,7 +5464,7 @@
 				"foodConsumptionMult": 1152.074,
 				"babyFoodConsumptionMult": 510
 			},
-			"boneDamageAdjusters": { "c_head": 3 },
+			"boneDamageAdjusters": { "c_neck3": 1.5 },
 			"displayedStats": 927,
 			"skipWildLevelStats": 512,
 			"colors": [
@@ -4581,27 +5708,231 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/Packs/Wasteland/Dinos/Doggo/Doggo_Character_BP.Doggo_Character_BP",
+			"name": "Armadoggo",
+			"variants": [ "Compantion", "Wasteland" ],
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.27, 0.66, 0 ],
+				[ 260, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 200, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.4, 0.35 ],
+				[ 1, 0, 0.01, 0.3, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 196078.431,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"violent": false,
+				"nonViolent": true,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"wakeAffinityMult": 1.6,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Skin",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Fur highlight",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				null,
+				{
+					"name": "Armor",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Fur main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				null
+			]
+		},
+		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Achatina/Achatina_Character_BP.Achatina_Character_BP",
+			"fullStatsRaw": [
+				[ 75, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 60, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"boneDamageAdjusters": {
+				"c_neck2": 1,
+				"c_neck3": 1,
+				"c_neck4": 1,
+				"c_tail1": 0.5,
+				"joint17": 0.1
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Achatina/Achatina_Character_BP_Aberrant.Achatina_Character_BP_Aberrant",
+			"fullStatsRaw": [
+				[ 75, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 50, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 60, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"boneDamageAdjusters": {
+				"c_neck2": 1,
+				"c_neck3": 1,
+				"c_neck4": 1,
+				"c_tail1": 0.5,
+				"joint17": 0.1
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Allosaurus/Allo_Character_BP.Allo_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ammonite/Ammonite_Character.Ammonite_Character",
+			"boneDamageAdjusters": {
+				"c_body": 0.2,
+				"c_head": 1
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Anglerfish/Angler_Character_BP.Angler_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_bait7": 2,
+				"r_eye": 1.5,
+				"l_eye": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Anglerfish/Angler_Character_BP_Aberrant.Angler_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_bait7": 2,
+				"r_eye": 1.5,
+				"l_eye": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -4622,10 +5953,19 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Archaeopteryx/Archa_Character_BP.Archa_Character_BP",
+			"boneDamageAdjusters": {
+				"Neck_Top": 3,
+				"Head_Top": 3,
+				"Head_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Argentavis/Argent_Character_BP.Argent_Character_BP",
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4638,22 +5978,42 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Baryonyx/Baryonyx_Character_BP.Baryonyx_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Baryonyx/Baryonyx_Character_BP_Aberrant.Baryonyx_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Basilosaurus/Basilosaurus_Character_BP.Basilosaurus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bat/Bat_Character_BP.Bat_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Beaver/Beaver_Character_BP.Beaver_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4666,26 +6026,50 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP.Bigfoot_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aberrant.Bigfoot_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive.Bigfoot_Character_BP_Aggressive",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive_Hard.Bigfoot_Character_BP_Aggressive_Hard",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP_Aggressive_Med.Bigfoot_Character_BP_Aggressive_Med",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Yeti_Character_BP.Yeti_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4698,28 +6082,52 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carcharodontosaurus/Carcha_Character_BP.Carcha_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Bone_MegaCarno_Character_BP.Bone_MegaCarno_Character_BP",
-			"name": "Skeletal Carnotaurus",
+			"name": "Alpha Skeletal Carnotaurus",
 			"variants": [ "Mega", "Skeletal" ],
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Carno_Character_BP.Carno_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/Carno_Character_BP_Aberrant.Carno_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carno/MegaCarno_Character_BP.MegaCarno_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Chalicotherium/Chalico_Character_BP.Chalico_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4732,34 +6140,58 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP.Coel_Character_BP",
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Aberrant.Coel_Character_BP_Aberrant",
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Ocean.Coel_Character_BP_Ocean",
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Compy/Compy_Character_BP.Compy_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Blood.CrystalWyvern_Character_BP_Blood",
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_Ember.CrystalWyvern_Character_BP_Ember",
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/CrystalWyvern/CrystalWyvern_Character_BP_WS.CrystalWyvern_Character_BP_WS",
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Daeodon/Daeodon_Character_BP.Daeodon_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 2,
+				"c_jaw": 2,
+				"c_snout": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4768,54 +6200,106 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimetrodon/Dimetro_Character_BP.Dimetro_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimetrodon/Dimetro_Character_BP_Aberrant.Dimetro_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP.Dimorph_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aberrant.Dimorph_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss.Dimorph_Character_BP_Aggressive_DragonBoss",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Hard.Dimorph_Character_BP_Aggressive_DragonBoss_Hard",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Med.Dimorph_Character_BP_Aggressive_DragonBoss_Med",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP.Diplocaulus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP_Aberrant.Diplocaulus_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplodocus/Diplodocus_Character_BP.Diplodocus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplodocus/Diplodocus_Character_BP_Aberrant.Diplodocus_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_BP.Direbear_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_BP_Aberrant.Direbear_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4857,14 +6341,20 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Doedicurus/Doed_Character_BP.Doed_Character_BP",
+			"boneDamageAdjusters": { "c_neck3": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Doedicurus/Doed_Character_BP_Aberrant.Doed_Character_BP_Aberrant",
+			"boneDamageAdjusters": { "c_neck3": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dolphin/Dolphin_Character_BP.Dolphin_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -4897,26 +6387,50 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dunkleosteus/Dunkle_Character_BP.Dunkle_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Eel/Eel_Character_BP.Eel_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Eel/Eel_Character_BP_Aberrant.Eel_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Equus/Equus_Character_BP.Equus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_jaw": 2,
+				"c_neck3": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Equus/Equus_Character_BP_Aberrant.Equus_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_jaw": 2,
+				"c_neck3": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Equus/Equus_Character_BP_Unicorn.Equus_Character_BP_Unicorn",
+			"boneDamageAdjusters": {
+				"c_jaw": 2,
+				"c_neck3": 2
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4929,14 +6443,26 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/BionicGigant_Character_BP.BionicGigant_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Bone_Gigant_Character_BP.Bone_Gigant_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Giganotosaurus/Gigant_Character_BP.Gigant_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4969,6 +6495,10 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Griffin/Griffin_Character_BP.Griffin_Character_BP",
+			"boneDamageAdjusters": {
+				"head_exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4977,6 +6507,10 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Hyaenodon/Hyaenodon_Character_BP.Hyaenodon_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4997,10 +6531,15 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Kaprosuchus/Kaprosuchus_Character_BP.Kaprosuchus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Kentrosaurus/Kentro_Character_BP.Kentro_Character_BP",
+			"boneDamageAdjusters": { "Head": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5013,70 +6552,139 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Leedsichthys/Alpha_Leedsichthys_Character_BP.Alpha_Leedsichthys_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Leedsichthys/Leedsichthys_Character_BP.Leedsichthys_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Liopleurodon/Liopleurodon_Character_BP.Liopleurodon_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck8": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Lystrosaurus/Lystro_Character_BP.Lystro_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Lystrosaurus/Lystro_Character_BP_Aberrant.Lystro_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck3": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mammoth/Mammoth_Character_BP.Mammoth_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Manta/Manta_Character_BP.Manta_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck8": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Manta/Manta_Character_BP_Aberrant.Manta_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck8": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalania/Megalania_Character_BP.Megalania_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalania/Megalania_Character_BP_Aberrant.Megalania_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/MEgaMegalodon_Character_BP.MegaMegalodon_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/Megalodon_Character_BP.Megalodon_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP.Megalosaurus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP_Aberrant.Megalosaurus_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP_TekCave.Megalosaurus_Character_BP_TekCave",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megatherium/Megatherium_Character_BP.Megatherium_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Microraptor/Microraptor_Character_BP.Microraptor_Character_BP",
+			"boneDamageAdjusters": {
+				"Neck_Top": 1.5,
+				"Head_Top": 1.5,
+				"Head_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5097,6 +6705,10 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP.Mosa_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -5108,30 +6720,58 @@
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega.Mosa_Character_BP_Mega",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega_Cave.Mosa_Character_BP_Mega_Cave",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Moschops/Moschops_Character_BP.Moschops_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Moschops/Moschops_Character_BP_Aberrant.Moschops_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Otter/Otter_Character_BP.Otter_Character_BP",
+			"boneDamageAdjusters": {
+				"c_Head": 1.5,
+				"c_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Otter/Otter_Character_BP_Aberrant.Otter_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_Head": 1.5,
+				"c_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5427,6 +7067,10 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Para/BionicPara_Character_BP.BionicPara_Character_BP",
+			"skipWildLevelStats": 512
+		},
+		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Para/Para_Character_BP.Para_Character_BP",
 			"skipWildLevelStats": 512
 		},
@@ -5436,10 +7080,18 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP.Paracer_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Paraceratherium/Paracer_Character_BP_Aberrant.Paracer_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5456,58 +7108,126 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP.Piranha_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_Aberrant.Piranha_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_BreakNet.Piranha_Character_BP_BreakNet",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Plesiosaur/Plesiosaur_Character_BP.Plesiosaur_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck8": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Procoptodon/Procoptodon_Character_BP.Procoptodon_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Character_BP.Ptero_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_BP.Ptero_Minion_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Hard.Ptero_Minion_Character_Hard",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Med.Ptero_Minion_Character_Med",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP.Purlovia_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP_Aberrant.Purlovia_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP_Polar.Purlovia_Character_BP_Polar",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/BionicQuetz_Character_BP.BionicQuetz_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/Bone_Quetz_Character_BP.Bone_Quetz_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Quetzalcoatlus/Quetz_Character_BP.Quetz_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/BionicRaptor_Character_BP.BionicRaptor_Character_BP",
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5530,24 +7250,58 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Uberraptor/Deinonychus_Character_BP.Deinonychus_Character_BP",
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/BionicRex_Character_BP.BionicRex_Character_BP",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Bone_MegaRex_Character_BP.Bone_MegaRex_Character_BP",
-			"name": "Alpha Skeletal T-Rex",
+			"name": "Alpha Skeletal Rex",
 			"variants": [ "Mega", "Skeletal" ],
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Ghost_Rex_Character_BP.Ghost_Rex_Character_BP",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/MegaRex_Character_BP.MegaRex_Character_BP",
+			"name": "Alpha Rex",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Rex_Character_BP.Rex_Character_BP",
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5566,6 +7320,7 @@
 				null,
 				null
 			],
+			"boneDamageAdjusters": { "c_head": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5574,46 +7329,75 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_Aberrant.Salmon_Character_Aberrant",
+			"boneDamageAdjusters": { "Head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_BP.Salmon_Character_BP",
+			"boneDamageAdjusters": { "Head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_Rare_BP.Salmon_Character_Rare_BP",
+			"boneDamageAdjusters": { "Head": 1.5 },
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sarco/Sarco_Character_BP.Sarco_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sarco/Sarco_Character_BP_Aberrant.Sarco_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck3": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sauropod/Bone_Sauropod_Character_BP.Bone_Sauropod_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sauropod/Sauropod_Character_BP.Sauropod_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Scorpion/Scorpion_Character_BP.Scorpion_Character_BP",
+			"boneDamageAdjusters": { "rig_c_tail9": 2 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Scorpion/Scorpion_Character_BP_Aberrant.Scorpion_Character_BP_Aberrant",
+			"boneDamageAdjusters": { "rig_c_tail9": 2 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sheep/Sheep_Character_BP.Sheep_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sheep/Sheep_Character_BP_Aberrant.Sheep_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5642,34 +7426,70 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP.SpiderS_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aberrant.SpiderS_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive.SpiderS_Character_BP_Aggressive",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Hard.SpiderS_Character_BP_Aggressive_Hard",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Med.SpiderS_Character_BP_Aggressive_Med",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spino/Spino_Character_BP.Spino_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spino/Spino_Character_BP_Aberrant.Spino_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stag/Stag_Character_BP.Stag_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck3": 2.5,
+				"c_jaw": 2.5
+			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/BionicStego_Character_BP.BionicStego_Character_BP",
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5686,14 +7506,26 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tapejara/Tapejara_Character_BP.Tapejara_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/TerrorBird/TerrorBird_Character_BP.TerrorBird_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Therizinosaurus/Therizino_Character_BP.Therizino_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5706,10 +7538,18 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Toad/Toad_Character_BP.Toad_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Toad/Toad_Character_BP_Aberrant.Toad_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -5742,14 +7582,36 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tropeognathus/Tropeognathus_Character_BP.Tropeognathus_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Turtle/Turtle_Character_BP.Turtle_Character_BP",
+			"boneDamageAdjusters": {
+				"c_neck2": 0.5,
+				"c_neck5": 1,
+				"c_jaw": 1,
+				"c_body": 0.2,
+				"c_tail1": 0.5,
+				"c_tail2": 0.5,
+				"c_tail3": 0.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Turtle/Turtle_Character_BP_Aberrant.Turtle_Character_BP_Aberrant",
+			"boneDamageAdjusters": {
+				"c_neck2": 0.5,
+				"c_neck5": 1,
+				"c_jaw": 1,
+				"c_body": 0.2,
+				"c_tail1": 0.5,
+				"c_tail2": 0.5,
+				"c_tail3": 0.5
+			},
 			"skipWildLevelStats": 520
 		},
 		{
@@ -5766,10 +7628,18 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/WoollyRhino/Rhino_Character_BP.Rhino_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Yutyrannus/Yutyrannus_Character_BP.Yutyrannus_Character_BP",
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5793,24 +7663,29 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Deathworm/Deathworm_Character_BP.Deathworm_Character_BP",
+			"boneDamageAdjusters": { "Deathworm_Neck_01_02SHJnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Deathworm/MegaDeathworm_Character_BP.MegaDeathworm_Character_BP",
+			"boneDamageAdjusters": { "Deathworm_Neck_01_02SHJnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/DodoWyvern/DodoWyvern_Character_BP.DodoWyvern_Character_BP",
 			"name": "Dodo Wyvern",
 			"variants": [ "ScorchedEarth" ],
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Jerboa/Bone_Jerboa_Character_BP.Bone_Jerboa_Character_BP",
+			"boneDamageAdjusters": { "d_neck2_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Jerboa/Jerboa_Character_BP.Jerboa_Character_BP",
+			"boneDamageAdjusters": { "d_neck2_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5835,6 +7710,7 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Minions/Deathworm_Character_Minion_BP.Deathworm_Character_Minion_BP",
+			"boneDamageAdjusters": { "Deathworm_Neck_01_02SHJnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5843,10 +7719,12 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Mantis/Ghost_Mantis_Character_BP.Ghost_Mantis_Character_BP",
+			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Mantis/Mantis_Character_BP.Mantis_Character_BP",
+			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5855,6 +7733,7 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Phoenix/Phoenix_Character_BP.Phoenix_Character_BP",
+			"boneDamageAdjusters": { "c_Head": 1.5 },
 			"skipWildLevelStats": 512,
 			"colors": [
 				{
@@ -6034,24 +7913,29 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Vulture/Vulture_Character_BP.Vulture_Character_BP",
+			"boneDamageAdjusters": { "c_neck3": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Bone_MegaWyvern_Character_BP_Fire.Bone_MegaWyvern_Character_BP_Fire",
-			"name": "Bone Fire Wyvern",
+			"name": "Alpha Skeletal Fire Wyvern",
 			"variants": [ "Mega", "ScorchedEarth", "Skeletal" ],
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/MegaWyvern_Character_BP_Fire.MegaWyvern_Character_BP_Fire",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Fire.Wyvern_Character_BP_Fire",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Lightning.Wyvern_Character_BP_Lightning",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512,
 			"colors": [
 				{
@@ -6176,18 +8060,22 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Poison.Wyvern_Character_BP_Poison",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieFire.Wyvern_Character_BP_ZombieFire",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieLightning.Wyvern_Character_BP_ZombieLightning",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombiePoison.Wyvern_Character_BP_ZombiePoison",
+			"boneDamageAdjusters": { "neck3_exp": 1.5 },
 			"skipWildLevelStats": 512
 		}
 	],

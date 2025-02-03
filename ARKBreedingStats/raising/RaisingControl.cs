@@ -81,7 +81,12 @@ namespace ARKBreedingStats.raising
             var selectIndex = string.IsNullOrEmpty(_lastSelectedFood) ? 0 : eats.IndexOf(_lastSelectedFood);
             if (selectIndex == -1) selectIndex = 0;
             if (CbGrowingFood.Items.Count > 0)
+            {
+                var triggerFoodManually = CbGrowingFood.SelectedIndex == selectIndex;
                 CbGrowingFood.SelectedIndex = selectIndex;
+                if (triggerFoodManually)
+                    CbGrowingFood_SelectedIndexChanged(CbGrowingFood, null);
+            }
 
             if (Raising.GetRaisingTimes(_selectedSpecies, out TimeSpan matingTime, out string incubationMode,
                 out TimeSpan incubationTime, out _babyTime, out _maturationTime, out TimeSpan nextMatingMin,

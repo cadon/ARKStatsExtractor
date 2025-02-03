@@ -30,7 +30,7 @@
 			"mod": { "id": "1139775728", "tag": "Confuciusornis", "title": "Confuciusornis" }
 		},
 		"1169020368-Trex.json": {
-			"version": "358.24.1730398078",
+			"version": "358.24.1737045997",
 			"mod": { "id": "1169020368", "tag": "Trex", "title": "Ark Creature Rebalance (AG Reborn)" }
 		},
 		"1178308359-ShadDragon.json": {
@@ -314,7 +314,7 @@
 			"mod": { "id": "2447186973", "tag": "ArkOmega", "title": "Ark Omega" }
 		},
 		"2453342929-MoreDragonsMod.json": {
-			"version": "358.24.1718837193",
+			"version": "358.24.1735281960",
 			"mod": { "id": "2453342929", "tag": "MoreDragonsMod", "title": "More Dragons Evolved" }
 		},
 		"2472371628-MilicrocaWarriors_MOD.json": {
@@ -398,7 +398,7 @@
 			"mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" }
 		},
 		"ASA-values.json": {
-			"version": "55.9.2",
+			"version": "57.12.1",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},

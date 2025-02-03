@@ -177,6 +177,7 @@ namespace ARKBreedingStats.values
 
             InitializeArkColors(undefinedColorAsa);
             _speciesAndColorsInitialized = true;
+            Species.ClearIgnoreVariantsInName();
         }
 
         /// <summary>
@@ -870,15 +871,17 @@ namespace ARKBreedingStats.values
 
         /// <summary>
         /// Returns the taming food data for a species.
-        /// Returns null if no data is found.
+        /// Returns null if no data is found or the species doesn't eat the food.
         /// </summary>
         internal TamingFood GetTamingFood(Species species, string foodName)
         {
-            if (species?.taming?.specialFoodValues != null
-                && species.taming.specialFoodValues.TryGetValue(foodName, out var food))
+            if (species?.taming == null) return null;
+
+            if (species.taming.specialFoodValues?.TryGetValue(foodName, out var food) == true)
                 return food;
 
             if (defaultFoodData != null
+                && species.taming.eats?.Contains(foodName) == true
                 && defaultFoodData.TryGetValue(foodName, out food))
                 return food;
             return null;

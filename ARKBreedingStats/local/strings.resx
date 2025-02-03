@@ -1114,7 +1114,8 @@ If the creature is bred, also check if the BabyImprintingStatScaleMultiplier is 
   </data>
   <data name="BtSaveOTSPresetTT" xml:space="preserve">
     <value>Save Owner, Tribe and Server as preset.
-The preset can be applied by the Apply Preset button</value>
+The preset can be applied by the Apply Preset button.
+The values also will be prefilled when starting the app.</value>
   </data>
   <data name="BtApplyOTSPresetTT" xml:space="preserve">
     <value>Set the values for owner, tribe and server from the saved preset</value>

@@ -3,7 +3,6 @@ using System.Configuration;
 using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.uiControls;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -47,33 +46,31 @@ namespace ARKBreedingStats
             {
                 if (ex.InnerException is ConfigurationErrorsException configEx)
                 {
-                    switch (MessageBox.Show("Error while accessing the configuration file.\n\n" +
+                    if (MessageBox.Show("Error while accessing the configuration file.\n\n" +
                             $"Message:\n{e.Message}\n" +
                             $"{configEx.Message}\n" +
                             $"File: {configEx.Filename}\n\n" +
-                            "Ark Smart Breeding will stop now.\n" +
-                            "Should the file be deleted? This might fix it.\n" +
-                            "The library file remains untouched.",
-                            $"Error reading configuration file - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error))
-                    {
-                        case DialogResult.Yes:
-                            File.Delete(configEx.Filename);
-                            //Properties.Settings.Default.Reload();
-                            break;
-                    }
+                            "Ark Smart Breeding cannot continue without valid settings and will stop now.\n" +
+                            "You can try to rename the settings file to reset it, this may solve the issue.\n\n" +
+                            "Show the settings file in the explorer?",
+                            $"Error reading configuration file - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
+                        == DialogResult.Yes)
+                        FileService.OpenFolderInExplorer(configEx.Filename);
                 }
                 else
                 {
-                    string folder = Path.Combine(
-                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                            System.Reflection.Assembly.GetExecutingAssembly().EntryPoint.ReflectedType.Namespace);
-                    MessageBoxes.ShowMessageBox("Error while accessing the configuration file.\n\n" +
-                            $"Message:\n{e.Message}\n\n" +
-                            "Ark Smart Breeding will stop now.\n" +
-                            $"You can try to delete/rename the folder\n{folder}",
-                            "Error reading configuration file");
+                    string settingsFilePath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+                    if (MessageBox.Show("Error while accessing the configuration file.\n\n" +
+                                        $"Message:\n{e.Message}\n\n" +
+                                        "Ark Smart Breeding cannot continue without valid settings and will stop now.\n" +
+                                        "You can try to rename the settings file to reset it, this may solve the issue.\n" +
+                                        settingsFilePath + "\n\n" +
+                                        "Show the settings file in the explorer?",
+                            $"Error reading configuration file - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
+                        == DialogResult.Yes)
+                        FileService.OpenFolderInExplorer(settingsFilePath);
                 }
-                Environment.Exit(0);
+                Environment.Exit(78);
             }
             else
             {

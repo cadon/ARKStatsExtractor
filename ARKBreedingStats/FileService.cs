@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -24,6 +25,7 @@ namespace ARKBreedingStats
         public const string DataFolderName = "data";
         public const string OcrReplacingsFile = "ocrReplacings.txt";
         public const string EqualColorIdsFile = "equalColorIds.json";
+        public const string HideVariantsInSpeciesNameFile = "hideVariantsInSpeciesName.txt";
 
         /// <summary>
         /// Where the colored species images are cached.
@@ -132,6 +134,14 @@ namespace ARKBreedingStats
             }
             return false;
         }
+
+        /// <summary>
+        /// Loads json file if available, returns null if an error occured.
+        /// </summary>
+        public static T LoadJsonFileIfAvailable<T>(string filePath) where T : class =>
+            !string.IsNullOrEmpty(filePath)
+            && File.Exists(filePath)
+            && LoadJsonFile(filePath, out T data, out _) ? data : null;
 
         /// <summary>
         /// Tries to create a directory if not existing. Returns true if the path exists.
@@ -295,6 +305,23 @@ namespace ARKBreedingStats
                     _httpClient = new HttpClient();
                 return _httpClient;
             }
+        }
+
+        /// <summary>
+        /// Opens the folder in the explorer. If it's a file, it will be selected.
+        /// </summary>
+        public static void OpenFolderInExplorer(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return;
+            bool isFile = false;
+
+            if (File.Exists(path))
+                isFile = true;
+            else if (!Directory.Exists(path))
+                return;
+
+            Process.Start("explorer.exe",
+                $"{(isFile ? "/select, " : string.Empty)}\"{path}\"");
         }
     }
 }

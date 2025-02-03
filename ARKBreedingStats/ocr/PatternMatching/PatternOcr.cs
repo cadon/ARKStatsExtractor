@@ -30,6 +30,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
         /// <returns></returns>
         public static string ReadImageOcr(Bitmap source, bool onlyNumbers, byte whiteThreshold, int x = 0, int y = 0, OCRControl ocrControl = null)
         {
+            if (source == null) return string.Empty;
             var ret = string.Empty;
             var maxDistanceForNonSpace = Math.Max(2, source.Height / 4);
 

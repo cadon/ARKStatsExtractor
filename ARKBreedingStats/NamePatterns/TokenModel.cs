@@ -38,6 +38,7 @@ namespace ARKBreedingStats.NamePatterns
         public string arkid { get; set; }
         public bool alreadyexists { get; set; }
         public bool isflyer { get; set; }
+        public bool noGender { get; set; }
         public int genn { get; set; }
         public int rnd { get; set; }
         public string dom { get; set; }

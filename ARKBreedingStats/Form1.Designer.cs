@@ -291,8 +291,8 @@ namespace ARKBreedingStats
             this.copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveInfographicsToFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
-            this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setToMatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetMaturityCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maturationSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.clearMatingCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.justMatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -405,6 +405,10 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.columnHeaderCurrentLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderMaxPossibleLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderTraits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.editVariantTagsToHideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -535,7 +539,7 @@ namespace ARKBreedingStats
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
             | System.Windows.Forms.Keys.S)));
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
             this.saveAsToolStripMenuItem.Text = "Save &as...";
@@ -1308,6 +1312,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator23,
             this.openJsonDataFolderToolStripMenuItem,
             this.speciesSortingToolStripMenuItem,
+            this.editVariantTagsToHideToolStripMenuItem,
             this.appSettingsToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -2401,7 +2406,10 @@ namespace ARKBreedingStats
             this.columnHeaderStatus,
             this.columnHeaderTribe,
             this.columnHeaderStatusIcon,
-            this.columnHeaderMutagen});
+            this.columnHeaderMutagen,
+            this.columnHeaderCurrentLevel,
+            this.columnHeaderMaxPossibleLevel,
+            this.columnHeaderTraits});
             this.listViewLibrary.ContextMenuStrip = this.contextMenuStripLibrary;
             this.listViewLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLibrary.FullRowSelect = true;
@@ -2735,7 +2743,7 @@ namespace ARKBreedingStats
             this.copyInfographicToClipboardToolStripMenuItem,
             this.saveInfographicsToFolderToolStripMenuItem,
             this.toolStripSeparator22,
-            this.removeCooldownGrowingToolStripMenuItem,
+            this.SetMaturityCooldownToolStripMenuItem,
             this.bestBreedingPartnersToolStripMenuItem,
             this.breedingPlanForSelectedCreaturesToolStripMenuItem,
             this.toolStripMenuItemStatus,
@@ -2751,7 +2759,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(303, 480);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(303, 502);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit
@@ -2868,22 +2876,16 @@ namespace ARKBreedingStats
             this.toolStripSeparator22.Name = "toolStripSeparator22";
             this.toolStripSeparator22.Size = new System.Drawing.Size(299, 6);
             // 
-            // removeCooldownGrowingToolStripMenuItem
+            // SetMaturityCooldownToolStripMenuItem
             // 
-            this.removeCooldownGrowingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.setToMatureToolStripMenuItem,
+            this.SetMaturityCooldownToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearMatingCooldownToolStripMenuItem,
-            this.justMatedToolStripMenuItem});
-            this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
-            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
-            this.removeCooldownGrowingToolStripMenuItem.Text = "Set maturity / breeding state";
-            // 
-            // setToMatureToolStripMenuItem
-            // 
-            this.setToMatureToolStripMenuItem.Name = "setToMatureToolStripMenuItem";
-            this.setToMatureToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.setToMatureToolStripMenuItem.Text = "Set to mature";
-            this.setToMatureToolStripMenuItem.Click += new System.EventHandler(this.setToMatureToolStripMenuItem_Click);
+            this.justMatedToolStripMenuItem,
+            this.maturationSeparator
+            });
+            this.SetMaturityCooldownToolStripMenuItem.Name = "SetMaturityCooldownToolStripMenuItem";
+            this.SetMaturityCooldownToolStripMenuItem.Size = new System.Drawing.Size(302, 22);
+            this.SetMaturityCooldownToolStripMenuItem.Text = "Set cooldown / maturity";
             // 
             // clearMatingCooldownToolStripMenuItem
             // 
@@ -3978,6 +3980,32 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // columnHeaderCurrentLevel
+            // 
+            this.columnHeaderCurrentLevel.Text = "Lvl";
+            this.columnHeaderCurrentLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderCurrentLevel.Width = 40;
+            // 
+            // columnHeaderMaxPossibleLevel
+            // 
+            this.columnHeaderMaxPossibleLevel.Text = "max Lvl";
+            this.columnHeaderMaxPossibleLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.columnHeaderMaxPossibleLevel.Width = 40;
+            // 
+            // columnHeaderTraits
+            // 
+            this.columnHeaderTraits.Text = "Traits";
+            this.columnHeaderTraits.Width = 60;
+            // 
+            // editVariantTagsToHideToolStripMenuItem
+            // 
+            this.editVariantTagsToHideToolStripMenuItem.Name = "editVariantTagsToHideToolStripMenuItem";
+            this.editVariantTagsToHideToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.editVariantTagsToHideToolStripMenuItem.Text = "Edit variant tags to hide";
+            this.editVariantTagsToHideToolStripMenuItem.ToolTipText = "Add all variant tags that should be hidden in species names in this file, one var" +
+                                                                      "iant per line.";
+            this.editVariantTagsToHideToolStripMenuItem.Click += new System.EventHandler(this.editVariantTagsToHideToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4273,7 +4301,7 @@ namespace ARKBreedingStats
         private RaisingControl raisingControl1;
         private System.Windows.Forms.TabPage tabPageNotes;
         private NotesControl notesControl1;
-        private System.Windows.Forms.ToolStripMenuItem removeCooldownGrowingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SetMaturityCooldownToolStripMenuItem;
         private System.Windows.Forms.Panel panelToolBar;
         private System.Windows.Forms.Label lbSpecies;
         private BreedingPlan breedingPlan1;
@@ -4353,7 +4381,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderStatusIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripLibraryHeader;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemResetLibraryColumnWidths;
-        private System.Windows.Forms.ToolStripMenuItem setToMatureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator maturationSeparator;
         private System.Windows.Forms.ToolStripMenuItem clearMatingCooldownToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem justMatedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem libraryFilterToolStripMenuItem;
@@ -4459,5 +4487,9 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
         private System.Windows.Forms.ToolStripMenuItem showStatsOptionsFileInExplorerToolStripMenuItem;
         private System.Windows.Forms.Button BtRecalculateTopStatsAfterChange;
+        private System.Windows.Forms.ColumnHeader columnHeaderCurrentLevel;
+        private System.Windows.Forms.ColumnHeader columnHeaderMaxPossibleLevel;
+        private System.Windows.Forms.ColumnHeader columnHeaderTraits;
+        private System.Windows.Forms.ToolStripMenuItem editVariantTagsToHideToolStripMenuItem;
     }
 }

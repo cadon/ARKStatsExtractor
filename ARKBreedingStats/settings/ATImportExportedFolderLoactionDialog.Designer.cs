@@ -38,6 +38,8 @@
             this.button_Ok = new System.Windows.Forms.Button();
             this.textBox_ownerSuffix = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.TbSetDefaultForLibraries = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label_ConvenientName
@@ -86,7 +88,7 @@
             // 
             this.button_Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button_Cancel.Location = new System.Drawing.Point(280, 98);
+            this.button_Cancel.Location = new System.Drawing.Point(280, 170);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(75, 23);
             this.button_Cancel.TabIndex = 4;
@@ -97,7 +99,7 @@
             // 
             this.button_Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button_Ok.Location = new System.Drawing.Point(361, 98);
+            this.button_Ok.Location = new System.Drawing.Point(361, 170);
             this.button_Ok.Name = "button_Ok";
             this.button_Ok.Size = new System.Drawing.Size(75, 23);
             this.button_Ok.TabIndex = 5;
@@ -120,13 +122,32 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Owner suffix";
             // 
+            // TbSetDefaultForLibraries
+            // 
+            this.TbSetDefaultForLibraries.Location = new System.Drawing.Point(12, 127);
+            this.TbSetDefaultForLibraries.Name = "TbSetDefaultForLibraries";
+            this.TbSetDefaultForLibraries.Size = new System.Drawing.Size(395, 20);
+            this.TbSetDefaultForLibraries.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 90);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(293, 26);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Set this export folder as default if these library files are loaded\r\n(file name o" +
+    "r full path, semicolon separated list)";
+            // 
             // ATImportExportedFolderLocationDialog
             // 
             this.AcceptButton = this.button_Ok;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button_Cancel;
-            this.ClientSize = new System.Drawing.Size(448, 133);
+            this.ClientSize = new System.Drawing.Size(448, 205);
+            this.Controls.Add(this.TbSetDefaultForLibraries);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox_ownerSuffix);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_Ok);
@@ -160,5 +181,7 @@
         private System.Windows.Forms.Button button_Ok;
         private System.Windows.Forms.TextBox textBox_ownerSuffix;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox TbSetDefaultForLibraries;
+        private System.Windows.Forms.Label label2;
     }
 }
