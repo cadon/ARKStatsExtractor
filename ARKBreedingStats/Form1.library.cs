@@ -324,7 +324,8 @@ namespace ARKBreedingStats
                 var species = g.Key;
                 if (species == null)
                     continue;
-                var speciesCreatures = g.ToArray();
+                var speciesCreatures = g.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+                if (!speciesCreatures.Any()) continue;
 
                 var usedStatIndices = new List<int>(8);
                 var usedAndConsideredStatIndices = new List<int>();
