@@ -263,7 +263,7 @@ namespace ARKBreedingStats
             if (!keepCurrentSelection && !string.IsNullOrEmpty(_currentFilePath))
             {
                 var exportFoldersString = Properties.Settings.Default.ExportCreatureFolders;
-                if (exportFoldersString.Any())
+                if (exportFoldersString?.Any() == true)
                 {
                     var currentDefault = ATImportExportedFolderLocation.CreateFromString(exportFoldersString[0]);
                     var exportFolders = exportFoldersString.Select(ATImportExportedFolderLocation.CreateFromString).ToArray();
