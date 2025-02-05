@@ -257,7 +257,8 @@ namespace ARKBreedingStats.library
             var newCreatures = new List<Creature>();
             var rand = new Random();
             var levelStep = CreatureCollection.CurrentCreatureCollection?.wildLevelStep ?? 5;
-            var bestLevels = new int[Stats.StatsCount];
+            var bestLevelsWild = new int[Stats.StatsCount];
+            var bestLevelsMutated = new int[Stats.StatsCount];
             var statWeights = new double[Stats.StatsCount];
             for (int si = 0; si < Stats.StatsCount; si++) statWeights[si] = 1;
 
@@ -278,11 +279,11 @@ namespace ARKBreedingStats.library
                     allCreatures.AddRange(femalesMales[Sex.Male]);
                 }
 
-                BreedingScore.SetBestLevels(allCreatures, bestLevels, statWeights);
+                BreedingScore.SetBestLevels(allCreatures, bestLevelsWild, bestLevelsMutated, statWeights);
 
                 var allCreaturesArray = noGender ? allCreatures.ToArray() : null;
                 var pairs = BreedingScore.CalculateBreedingScores(noGender ? allCreaturesArray : femalesMales[Sex.Female].ToArray(),
-                    noGender ? allCreaturesArray : femalesMales[Sex.Male].ToArray(), species, bestPossibleLevels, statWeights, bestLevels,
+                    noGender ? allCreaturesArray : femalesMales[Sex.Male].ToArray(), species, bestPossibleLevels, statWeights, bestLevelsWild,
                     BreedingScore.BreedingMode.TopStatsConservative, false, false, 0, ref filteredOutByMutationLimit);
 
                 var pairsCount = Math.Min(usePairsPerGeneration, pairs.Count);
