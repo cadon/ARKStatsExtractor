@@ -819,6 +819,7 @@ namespace ARKBreedingStats
         private void SetLevelCombination(int s, int i, bool validateCombination = false)
         {
             _statIOs[s].LevelWild = _extractor.Results[s][i].levelWild;
+            _statIOs[s].LevelMut = 0;
             _statIOs[s].LevelDom = _extractor.Results[s][i].levelDom;
             _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, 0, true, 1, 0);
             _extractor.ChosenResults[s] = i;
@@ -1548,6 +1549,7 @@ namespace ARKBreedingStats
         {
             var cr = CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
             radarChartExtractor.SetLevels(cr.levelsWild, cr.levelsMutated, cr.Species);
+            UpdateStatusInfoOfExtractorCreature();
             creatureInfoInputExtractor.UpdateParentInheritances(cr);
         }
 
