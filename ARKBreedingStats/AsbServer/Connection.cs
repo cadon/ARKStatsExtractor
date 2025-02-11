@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms.VisualStyles;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.Library;
 using Newtonsoft.Json.Linq;
@@ -141,7 +140,8 @@ namespace ARKBreedingStats.AsbServer
             }
         }
 
-        private static readonly Regex ServerEventRegex = new Regex(@"^event: (welcome|ping|replaced|export|server|closing)(?: (\-?\d+))?(?:\ndata:\s(.+))?$");
+        private static readonly Regex RgServerHash = new Regex(@"^event: server (\-?\d+)$");
+        private static readonly Regex RgEventData = new Regex(@"^(data|id):\s*(.+)$");
 
         private static async Task<ProgressReportAsbServer> ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string serverToken, CancellationToken cancellationToken)
         {
@@ -186,46 +186,81 @@ namespace ARKBreedingStats.AsbServer
                             Message = "ASB Server listening stopped. Connection closed by the server, trying to reconnect",
                             IsError = true
                         };
-                }
+                    case "event: export":
+                        var report = new ProgressReportAsbServer();
+                        while (true)
+                        {
+                            var data = await ReadEventData(reader, cancellationToken, report);
+                            if (data.cancelled) return null;
+                            if (!data.endOfEvent) continue;
 
-                if (received != "event: export" && !received.StartsWith("event: server"))
-                {
-                    Console.WriteLine($"{DateTime.Now}: unknown server event: {received}");
-                    continue;
-                }
-
-                received += "\n" + await reader.ReadLineAsync();
-                if (cancellationToken.IsCancellationRequested)
-                    break;
-                var m = ServerEventRegex.Match(received);
-                if (m.Success)
-                {
-                    switch (m.Groups[1].Value)
-                    {
-                        case "export":
-                            var report = new ProgressReportAsbServer
-                            {
-                                JsonText = m.Groups[3].Value,
-                                TaskNameGenerated = new TaskCompletionSource<string>()
-                            };
+                            report.TaskNameGenerated = new TaskCompletionSource<string>();
                             progressDataSent.Report(report);
                             var nameGeneratedTask = report.TaskNameGenerated.Task;
-                            string creatureName = null;
                             if (nameGeneratedTask.Wait(TimeSpan.FromSeconds(5))
                                 && nameGeneratedTask.Status == TaskStatus.RanToCompletion)
                             {
-                                creatureName = nameGeneratedTask.Result;
+                                var creatureName = nameGeneratedTask.Result;
                                 // TODO send creatureName as response
                             }
                             break;
-                        case "server":
-                            progressDataSent.Report(new ProgressReportAsbServer { JsonText = m.Groups[3].Value, ServerHash = m.Groups[2].Value });
+                        }
+                        break;
+                    default:
+                        var matchServerHash = RgServerHash.Match(received);
+                        if (matchServerHash.Success)
+                        {
+                            report = new ProgressReportAsbServer { ServerHash = matchServerHash.Groups[2].Value };
+
+                            while (true)
+                            {
+                                var data = await ReadEventData(reader, cancellationToken, report);
+                                if (data.cancelled) return null;
+                                if (!data.endOfEvent) continue;
+
+                                progressDataSent.Report(report);
+                                break;
+                            }
+
                             break;
-                    }
+                        }
+                        Console.WriteLine($"{DateTime.Now}: unknown server event: {received}");
+                        break;
                 }
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Reads a server event line.
+        /// </summary>
+        private static async Task<(bool cancelled, bool endOfEvent)> ReadEventData(StreamReader reader, CancellationToken cancellationToken, ProgressReportAsbServer report)
+        {
+            var data = await reader.ReadLineAsync();
+            if (cancellationToken.IsCancellationRequested)
+                return (true, false);
+
+            if (string.IsNullOrEmpty(data))
+                return (false, true);
+
+            var match = RgEventData.Match(data);
+            if (match.Success)
+            {
+                switch (match.Groups[1].Value)
+                {
+                    case "data":
+                        report.JsonText = match.Groups[2].Value;
+                        break;
+                    case "id":
+                        report.SendId = match.Groups[2].Value;
+                        break;
+                }
+
+                return (false, false);
+            }
+            Console.WriteLine($"{DateTime.Now}: unknown event data: {data}");
+            return (false, false);
         }
 
         /// <summary>
