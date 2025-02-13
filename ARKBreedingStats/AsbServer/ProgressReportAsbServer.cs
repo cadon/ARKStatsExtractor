@@ -18,6 +18,6 @@ namespace ARKBreedingStats.AsbServer
         public bool IsError;
         public bool StoppedListening;
         public string ClipboardText;
-        public TaskCompletionSource<string> TaskNameGenerated;
+        public TaskCompletionSource<ServerSendName> TaskNameGenerated;
     }
 }

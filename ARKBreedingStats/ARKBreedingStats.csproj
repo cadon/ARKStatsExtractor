@@ -85,6 +85,7 @@
     <Compile Include="Ark.cs" />
     <Compile Include="AsbServer\Connection.cs" />
     <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
+    <Compile Include="AsbServer\ServerSendName.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="Form1.exportGun.cs">

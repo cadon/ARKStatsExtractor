@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -187,21 +188,40 @@ namespace ARKBreedingStats.AsbServer
                             IsError = true
                         };
                     case "event: export":
-                        var report = new ProgressReportAsbServer();
+                        var report = new ProgressReportAsbServer { ServerToken = serverToken };
                         while (true)
                         {
                             var data = await ReadEventData(reader, cancellationToken, report);
                             if (data.cancelled) return null;
                             if (!data.endOfEvent) continue;
 
-                            report.TaskNameGenerated = new TaskCompletionSource<string>();
+                            report.TaskNameGenerated = new TaskCompletionSource<ServerSendName>();
                             progressDataSent.Report(report);
                             var nameGeneratedTask = report.TaskNameGenerated.Task;
                             if (nameGeneratedTask.Wait(TimeSpan.FromSeconds(5))
                                 && nameGeneratedTask.Status == TaskStatus.RanToCompletion)
                             {
-                                var creatureName = nameGeneratedTask.Result;
-                                // TODO send creatureName as response
+                                var serverSendName = nameGeneratedTask.Result;
+                                if (!string.IsNullOrEmpty(serverSendName.CreatureName)
+                                    && !string.IsNullOrEmpty(serverSendName.ConnectionToken)
+                                    && !string.IsNullOrEmpty(serverSendName.ExportId)
+                                    )
+                                {
+                                    // send creatureName as response
+#if DEBUG
+                                    Console.WriteLine($"{DateTime.Now}: sending creature name {serverSendName.CreatureName} to: {ApiUri}respond/{serverSendName.ConnectionToken}/{serverSendName.ExportId}");
+#endif
+                                    var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(new { generatedName = serverSendName.CreatureName });
+                                    var msg = new HttpRequestMessage(HttpMethod.Post,
+                                        $"{ApiUri}respond/{serverSendName.ConnectionToken}/{serverSendName.ExportId}");
+                                    msg.Content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+                                    msg.Content.Headers.Add("Content-Length", jsonString.Length.ToString());
+
+                                    var sendResponse = await FileService.GetHttpClient.SendAsync(msg, cancellationToken);
+#if DEBUG
+                                    Console.WriteLine($"{DateTime.Now}: received send response: {await sendResponse.Content.ReadAsStringAsync()})");
+#endif
+                                }
                             }
                             break;
                         }
@@ -283,22 +303,31 @@ namespace ARKBreedingStats.AsbServer
 
         /// <summary>
         /// Sends creature data to the server, this is done for testing, usually other tools like the export gun mod do this.
+        /// <param name="waitForResponse">If &gt; 0 a response is awaited for that many seconds. Else no waiting for a response.</param>
         /// </summary>
-        public static async void SendCreatureData(Creature creature, string token)
+        public static async void SendCreatureData(Creature creature, string token, int waitForResponse = 5)
         {
             if (creature == null || string.IsNullOrEmpty(token)) return;
 
-            var client = FileService.GetHttpClient;
-
-            var contentString = Newtonsoft.Json.JsonConvert.SerializeObject(ImportExportGun.ConvertCreatureToExportGunFile(creature, out _));
-            var msg = new HttpRequestMessage(HttpMethod.Put, ApiUri + "export/" + token);
-            msg.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
-            msg.Content.Headers.Add("Content-Length", contentString.Length.ToString());
-            Console.WriteLine($"{DateTime.Now}: Sending creature data of {creature} using token: {token}"); //\nContent:\n{contentString}");
-            using (var response = await client.SendAsync(msg))
+            // don't use the static FileService.GetHttpClient here, it will block the other sending connection
+            using (var client = new HttpClient())
             {
-                //Console.WriteLine(msg.ToString());
-                Console.WriteLine($"{DateTime.Now}: Response: StatusCode {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}");
+                var contentString =
+                    Newtonsoft.Json.JsonConvert.SerializeObject(
+                        ImportExportGun.ConvertCreatureToExportGunFile(creature, out _));
+                var msg = new HttpRequestMessage(HttpMethod.Put,
+                    ApiUri + "export/" + token + (waitForResponse > 0 ? $"?wait={waitForResponse}" : ""));
+                msg.Content = new StringContent(contentString, Encoding.UTF8, "application/json");
+                msg.Content.Headers.Add("Content-Length", contentString.Length.ToString());
+                Console.WriteLine(
+                    $"{DateTime.Now}: [simulating Export gun] Sending creature data of {creature} to {msg.RequestUri}");
+                using (var response = await client.SendAsync(msg))
+                {
+                    //Console.WriteLine(msg.ToString());
+                    Console.WriteLine(
+                        $"{DateTime.Now}: [simulating Export gun] Response of sending creature: StatusCode {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}, Content: ");
+                    Console.WriteLine(await response.Content.ReadAsStringAsync());
+                }
             }
         }
 

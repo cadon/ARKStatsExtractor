@@ -129,7 +129,7 @@ namespace ARKBreedingStats
 
                 if (addCreature)
                 {
-                    data.TaskNameGenerated?.SetResult(creature.name);
+                    data.TaskNameGenerated?.SetResult(new ServerSendName { CreatureName = creature.name, ConnectionToken = data.ServerToken, ExportId = data.SendId });
 
                     _creatureCollection.MergeCreatureList(new[] { creature }, true);
                     UpdateCreatureParentLinkingSort(goToLibraryTab: gotoLibraryTab);
