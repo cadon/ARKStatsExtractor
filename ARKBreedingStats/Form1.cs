@@ -252,6 +252,11 @@ namespace ARKBreedingStats
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
             toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
 
+            var copyTopCreatureStatsToClipboardMenuItem = new ToolStripMenuItem("Copy library top stats to clipboard");
+            copyTopCreatureStatsToClipboardMenuItem.Click += CopyTopCreatureStatsToClipboard;
+            editToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+            editToolStripMenuItem.DropDownItems.Add(copyTopCreatureStatsToClipboardMenuItem);
+
             _reactOnCreatureSelectionChange = true;
         }
 
