@@ -257,6 +257,8 @@ namespace ARKBreedingStats
             editToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
             editToolStripMenuItem.DropDownItems.Add(copyTopCreatureStatsToClipboardMenuItem);
 
+            listBoxSpeciesLib.SupportSeparatorLines();
+
             _reactOnCreatureSelectionChange = true;
         }
 
@@ -1093,6 +1095,22 @@ namespace ARKBreedingStats
             listBoxSpeciesLib.BeginUpdate();
             listBoxSpeciesLib.Items.Add(Loc.S("All"));
             listBoxSpeciesLib.Items.AddRange(_speciesInLibraryOrdered);
+            // highlight favorite entries
+            var favoriteEntryFound = false;
+            for (var i = 0; i < listBoxSpeciesLib.Items.Count; i++)
+            {
+                if (!(listBoxSpeciesLib.Items[i] is Species species)) continue;
+                if (species.SortName.StartsWith(Species.FavoritePrefix))
+                {
+                    favoriteEntryFound = true;
+                }
+                else if (favoriteEntryFound)
+                {
+                    listBoxSpeciesLib.Items.Insert(i, CustomListBoxDrawing.SeparatorString);
+                    break;
+                }
+            }
+
             listBoxSpeciesLib.EndUpdate();
 
             if (selectedSpeciesLibrary != null)
@@ -1561,6 +1579,7 @@ namespace ARKBreedingStats
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listBoxSpeciesLib.SelectedItem == CustomListBoxDrawing.SeparatorString) return;
             SetSpecies(listBoxSpeciesLib.SelectedItem as Species);
             FilterLibRecalculate(true);
         }
