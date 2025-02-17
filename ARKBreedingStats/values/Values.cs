@@ -397,7 +397,34 @@ namespace ARKBreedingStats.values
             var favoriteOrderEntry = species.name + "@" + favoritePrefix + species.name;
             var i = lines.IndexOf(favoriteOrderEntry);
             if (i != -1) lines.RemoveAt(i);
-            else lines.Add(favoriteOrderEntry);
+            else
+            {
+                // check if species has already a manual sort name
+                var lineIndex = lines.FindIndex(l => l.StartsWith(species.name + '@'));
+                if (lineIndex >= 0)
+                {
+                    var m = Regex.Match(lines[lineIndex], @"([^@]+)@(" + Regex.Escape(favoritePrefix) + @")?(.*)");
+                    if (m.Success)
+                    {
+                        if (m.Groups[2].Value == favoritePrefix)
+                        {
+                            // remove fav prefix
+                            lines[lineIndex] = m.Groups[1].Value + "@" + m.Groups[3].Value;
+                        }
+                        else
+                        {
+                            // add fav prefix
+                            lines[lineIndex] = m.Groups[1].Value + "@" + favoritePrefix + m.Groups[3].Value;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"unknown format for sort entry: {lines[lineIndex]}");
+                    }
+                }
+                else
+                    lines.Add(favoriteOrderEntry);
+            }
             File.WriteAllLines(filePath, lines);
             ApplySpeciesOrdering();
         }
