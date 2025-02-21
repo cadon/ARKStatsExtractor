@@ -140,17 +140,18 @@ namespace ARKBreedingStats
                     return;
                 }
 
-                if (data.SetFlag == CreatureFlags.Neutered)
+                switch (data.SetFlag)
                 {
-                    SetFlagNeutered(new[] { cr }, true);
-                    SetMessageLabelText($"Set {cr.name} to neutered", MessageBoxIcon.Information);
-                    return;
-                }
-
-                if (data.SetFlag == CreatureFlags.Dead)
-                {
-                    SetCreatureStatus(new[] { cr }, CreatureStatus.Dead);
-                    SetMessageLabelText($"Set status of {cr.name} to dead", MessageBoxIcon.Information);
+                    case CreatureFlags.Neutered:
+                        SetFlagNeutered(new[] { cr }, true);
+                        SetMessageLabelText($"Set {cr.name} to neutered", MessageBoxIcon.Information);
+                        _ignoreNextMessageLabel = true; // ignore message of index changed
+                        return;
+                    case CreatureFlags.Dead:
+                        SetCreatureStatus(new[] { cr }, CreatureStatus.Dead);
+                        SetMessageLabelText($"Set status of {cr.name} to dead", MessageBoxIcon.Information);
+                        _ignoreNextMessageLabel = true; // ignore message of index changed
+                        return;
                 }
 
                 return;
