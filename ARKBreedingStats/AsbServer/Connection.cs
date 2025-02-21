@@ -19,6 +19,7 @@ namespace ARKBreedingStats.AsbServer
     /// </summary>
     internal static class Connection
     {
+        // api doc: https://github.com/coldino/ASB-export-server/blob/main/docs/API.md
         private const string ApiUri = "https://export.arkbreeder.com/api/v1/";
 
         private static CancellationTokenSource _lastCancellationTokenSource;
@@ -142,6 +143,7 @@ namespace ARKBreedingStats.AsbServer
         }
 
         private static readonly Regex RgServerHash = new Regex(@"^event: server (\-?\d+)$");
+        private static readonly Regex RgEventStatus = new Regex(@"^event: (neuter|dead) (\-?\d+) (\-?\d+)$");
         private static readonly Regex RgEventData = new Regex(@"^(data|id):\s*(.+)$");
 
         private static async Task<ProgressReportAsbServer> ReadServerSentEvents(StreamReader reader, IProgress<ProgressReportAsbServer> progressDataSent, string serverToken, CancellationToken cancellationToken)
@@ -227,6 +229,36 @@ namespace ARKBreedingStats.AsbServer
                         }
                         break;
                     default:
+                        // supported options are: server <hash>, neuter <id1> <id2>, dead <id1> <id2>
+                        var matchSetStatus = RgEventStatus.Match(received);
+                        if (matchSetStatus.Success)
+                        {
+                            var creatureStatus = CreatureFlags.None;
+                            switch (matchSetStatus.Groups[1].Value)
+                            {
+                                case ServerCreatureStatusNeuter:
+                                    creatureStatus = CreatureFlags.Neutered;
+                                    break;
+                                case ServerCreatureStatusDead:
+                                    creatureStatus = CreatureFlags.Dead;
+                                    break;
+                            }
+
+                            if (creatureStatus == CreatureFlags.None)
+                            {
+                                Console.WriteLine($"{DateTime.Now}: unknown server event: {received}");
+                                break;
+                            }
+                            progressDataSent.Report(new ProgressReportAsbServer
+                            {
+                                creatureId = Utils.ConvertArkIdsToLongArkId(
+                                    int.Parse(matchSetStatus.Groups[2].Value),
+                                    int.Parse(matchSetStatus.Groups[3].Value)),
+                                SetFlag = creatureStatus
+                            });
+                            break;
+                        }
+
                         var matchServerHash = RgServerHash.Match(received);
                         if (matchServerHash.Success)
                         {
@@ -301,6 +333,8 @@ namespace ARKBreedingStats.AsbServer
             return true;
         }
 
+        #region send tests
+
         /// <summary>
         /// Sends creature data to the server, this is done for testing, usually other tools like the export gun mod do this.
         /// <param name="waitForResponse">If &gt; 0 a response is awaited for that many seconds. Else no waiting for a response.</param>
@@ -330,6 +364,40 @@ namespace ARKBreedingStats.AsbServer
                 }
             }
         }
+
+        public const string ServerCreatureStatusNeuter = "neuter";
+        public const string ServerCreatureStatusDead = "dead";
+
+        /// <summary>
+        /// Sends creature data to the server, this is done for testing, usually other tools like the export gun mod do this.
+        /// <param name="creatureId">If of the creature which status should be updated</param>
+        /// <param name="status">Status</param>
+        /// </summary>
+        public static async void SendCreatureStatus(long creatureId, string token, string status)
+        {
+            if (string.IsNullOrEmpty(token) || (
+                    status != ServerCreatureStatusNeuter
+                    && status != ServerCreatureStatusDead
+                    )
+                ) return;
+
+            var client = FileService.GetHttpClient;
+
+            var id1 = (int)(creatureId >> 32);
+            var id2 = (int)creatureId;
+            var msg = new HttpRequestMessage(HttpMethod.Put,
+                ApiUri + status + "/" + token + "/" + id1 + "/" + id2);
+            Console.WriteLine(
+                $"{DateTime.Now}: [simulating Export gun] Sending creature status for creature id {creatureId} to {msg.RequestUri}");
+            using (var response = await client.SendAsync(msg))
+            {
+                Console.WriteLine(
+                    $"{DateTime.Now}: [simulating Export gun] Response of sending creature: StatusCode {(int)response.StatusCode}, ReasonPhrase: {response.ReasonPhrase}, Content: ");
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Returns a new string token that can be used as identifier in combination with the export gun mod.

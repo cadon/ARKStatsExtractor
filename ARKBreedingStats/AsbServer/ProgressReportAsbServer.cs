@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats.AsbServer
 {
@@ -19,5 +20,7 @@ namespace ARKBreedingStats.AsbServer
         public bool StoppedListening;
         public string ClipboardText;
         public TaskCompletionSource<ServerSendName> TaskNameGenerated;
+        public CreatureFlags SetFlag;
+        public long creatureId;
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats
 {
@@ -69,6 +70,28 @@ namespace ARKBreedingStats
             AsbServer.Connection.SendCreatureData(DummyCreatures.CreateCreature(speciesSelector1.SelectedSpecies), Properties.Settings.Default.ExportServerToken);
         }
 
+        private void sendServerCreatureStatusNeuterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendServerCreatureStatusForSelectedCreature(Connection.ServerCreatureStatusNeuter);
+        }
+
+        private void sendServerCreatureStatusDeadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SendServerCreatureStatusForSelectedCreature(Connection.ServerCreatureStatusDead);
+        }
+
+        private void SendServerCreatureStatusForSelectedCreature(string status)
+        {
+            // debug function, sends a status change of the selected creature to the server
+            Creature cr = null;
+            if (listViewLibrary.SelectedIndices.Count > 0)
+                cr = (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag;
+            if (cr == null) return;
+
+            // debug function, sends a status change of the selected creature to the server
+            AsbServer.Connection.SendCreatureStatus(cr.ArkId, Properties.Settings.Default.ExportServerToken, status);
+        }
+
         /// <summary>
         /// Handle reports from the AsbServer listening, e.g. importing creatures or handle errors.
         /// </summary>
@@ -103,6 +126,32 @@ namespace ARKBreedingStats
 
                 SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText,
                     displayPopup: displayPopup, customPopupText: popupMessage);
+
+                return;
+            }
+
+            if (data.SetFlag != CreatureFlags.None)
+            {
+                // set creature flag
+                var cr = _creatureCollection.creatures.FirstOrDefault(c => c.ArkId == data.creatureId);
+                if (cr == null)
+                {
+                    SetMessageLabelText($"No creature found with id {data.creatureId}", MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (data.SetFlag == CreatureFlags.Neutered)
+                {
+                    SetFlagNeutered(new[] { cr }, true);
+                    SetMessageLabelText($"Set {cr.name} to neutered", MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (data.SetFlag == CreatureFlags.Dead)
+                {
+                    SetCreatureStatus(new[] { cr }, CreatureStatus.Dead);
+                    SetMessageLabelText($"Set status of {cr.name} to dead", MessageBoxIcon.Information);
+                }
 
                 return;
             }
