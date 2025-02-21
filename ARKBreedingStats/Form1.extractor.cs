@@ -431,6 +431,7 @@ namespace ARKBreedingStats
                 {
                     // no results for this stat
                     _statIOs[s].Status = StatIOStatus.Error;
+                    _statIOs[s].LevelWild = -1;
                     _extractor.ValidResults = false;
                     if (rbTamedExtractor.Checked && _extractor.StatsWithTE.Contains(s))
                     {
