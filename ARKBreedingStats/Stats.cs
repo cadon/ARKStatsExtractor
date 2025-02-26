@@ -16,12 +16,13 @@ namespace ARKBreedingStats
             bool dom, double tamingEff = 0, double imprintingBonus = 0, bool roundToIngamePrecision = true,
             Troodonism.AffectedStats useTroodonismStats = Troodonism.AffectedStats.None)
         {
-            if (species == null)
-                return 0;
+            if (species?.stats == null) return 0;
 
             var speciesStat = useTroodonismStats == Troodonism.AffectedStats.None
                 ? species.stats[statIndex]
                 : Troodonism.SelectStats(species.stats[statIndex], species.altStats[statIndex], useTroodonismStats);
+
+            if (speciesStat == null) return 0;
 
             // if stat is generally available but level is set to -1 (== unknown), return -1 (== unknown)
             if (levelWild < 0 && speciesStat.IncPerWildLevel != 0)
