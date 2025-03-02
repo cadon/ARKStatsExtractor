@@ -201,12 +201,12 @@ namespace ARKBreedingStats.uiControls
                 if (_topLevel == value) return;
                 _topLevel = value;
 
-                if (_topLevel == LevelStatusFlags.LevelStatus.Neutral)
-                {
-                    labelWildLevel.BackColor = Color.Transparent;
-                    _tt.SetToolTip(labelWildLevel, null);
-                    return;
-                }
+                labelWildLevel.BackColor = Color.Transparent;
+                labelMutatedLevel.BackColor = Color.Transparent;
+                _tt.SetToolTip(labelWildLevel, null);
+                _tt.SetToolTip(labelMutatedLevel, null);
+
+                if (_topLevel == LevelStatusFlags.LevelStatus.Neutral) return;
 
                 if (_topLevel.HasFlag(LevelStatusFlags.LevelStatus.TopLevel))
                 {
@@ -233,6 +233,12 @@ namespace ARKBreedingStats.uiControls
                 {
                     labelWildLevel.BackColor = Color.LightCoral;
                     _tt.SetToolTip(labelWildLevel, Loc.S("ultraMaxLevel"));
+                }
+
+                if (_topLevel.HasFlag(LevelStatusFlags.LevelStatus.NewMutation))
+                {
+                    labelMutatedLevel.BackColor = Color.Gold;
+                    _tt.SetToolTip(labelMutatedLevel, Loc.S("new mutation"));
                 }
             }
         }
@@ -331,9 +337,7 @@ namespace ARKBreedingStats.uiControls
             panel.BackColor = _statLevelColors.GetLevelColor(level, useCustomOdd, mutationLevel);
         }
 
-        private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, FireLevelChanged, Dispatcher.CurrentDispatcher);
-
-        private void FireLevelChanged() => LevelChanged?.Invoke(this);
+        private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, () => LevelChanged?.Invoke(this), Dispatcher.CurrentDispatcher);
 
         private void numericUpDownInput_ValueChanged(object sender, EventArgs e)
         {

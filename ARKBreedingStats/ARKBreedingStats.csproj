@@ -85,6 +85,7 @@
     <Compile Include="Ark.cs" />
     <Compile Include="AsbServer\Connection.cs" />
     <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
+    <Compile Include="AsbServer\ServerSendName.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="Form1.exportGun.cs">
@@ -703,6 +704,7 @@
     <Compile Include="utils\ArkWiki.cs" />
     <Compile Include="utils\ColorModeColors.cs" />
     <Compile Include="utils\Convert32.cs" />
+    <Compile Include="utils\CustomListBoxDrawing.cs" />
     <Compile Include="utils\Debouncer.cs" />
     <Compile Include="utils\ArkInstallationPath.cs" />
     <Compile Include="utils\ExceptionMessages.cs" />

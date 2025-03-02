@@ -1085,6 +1085,7 @@ namespace ARKBreedingStats
 
         private void UpdateCreatureListViewItem(Creature creature)
         {
+            if (_libraryListViewItemCache == null) return;
             // int listViewLibrary replace old row with new one
             var index = Array.IndexOf(_creaturesDisplayed, creature);
             if (index == -1) return; // not in cache currently

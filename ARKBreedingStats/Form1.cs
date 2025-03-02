@@ -252,6 +252,13 @@ namespace ARKBreedingStats
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
             toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
 
+            var copyTopCreatureStatsToClipboardMenuItem = new ToolStripMenuItem("Copy library top stats to clipboard");
+            copyTopCreatureStatsToClipboardMenuItem.Click += CopyTopCreatureStatsToClipboard;
+            editToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+            editToolStripMenuItem.DropDownItems.Add(copyTopCreatureStatsToClipboardMenuItem);
+
+            listBoxSpeciesLib.SupportSeparatorLines();
+
             _reactOnCreatureSelectionChange = true;
         }
 
@@ -338,6 +345,8 @@ namespace ARKBreedingStats
                 tabControlMain.TabPages.Remove(tabPageMultiplierTesting);
                 devToolStripMenuItem.Visible = false;
                 sendExampleCreatureToolStripMenuItem.Visible = false;
+                sendServerCreatureStatusNeuterToolStripMenuItem.Visible = false;
+                sendServerCreatureStatusDeadToolStripMenuItem.Visible = false;
                 cbExactlyImprinting.Visible = false;
             }
             else
@@ -1088,6 +1097,22 @@ namespace ARKBreedingStats
             listBoxSpeciesLib.BeginUpdate();
             listBoxSpeciesLib.Items.Add(Loc.S("All"));
             listBoxSpeciesLib.Items.AddRange(_speciesInLibraryOrdered);
+            // highlight favorite entries
+            var favoriteEntryFound = false;
+            for (var i = 0; i < listBoxSpeciesLib.Items.Count; i++)
+            {
+                if (!(listBoxSpeciesLib.Items[i] is Species species)) continue;
+                if (species.SortName.StartsWith(Species.FavoritePrefix))
+                {
+                    favoriteEntryFound = true;
+                }
+                else if (favoriteEntryFound)
+                {
+                    listBoxSpeciesLib.Items.Insert(i, CustomListBoxDrawing.SeparatorString);
+                    break;
+                }
+            }
+
             listBoxSpeciesLib.EndUpdate();
 
             if (selectedSpeciesLibrary != null)
@@ -1556,6 +1581,7 @@ namespace ARKBreedingStats
 
         private void listBoxSpeciesLib_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listBoxSpeciesLib.SelectedItem == CustomListBoxDrawing.SeparatorString) return;
             SetSpecies(listBoxSpeciesLib.SelectedItem as Species);
             FilterLibRecalculate(true);
         }
@@ -2009,7 +2035,7 @@ namespace ARKBreedingStats
             var changed = false;
             var deadStatusWasSet = false;
             var changedSpecies = new List<Species>();
-            foreach (Creature c in cs)
+            foreach (var c in cs)
             {
                 if (c.Status != s)
                 {
@@ -2034,6 +2060,32 @@ namespace ARKBreedingStats
                 }
                 FilterLibRecalculate();
                 UpdateStatusBar();
+                SetCollectionChanged(true, speciesIfOnlyOne);
+            }
+        }
+
+        private void SetFlagNeutered(IEnumerable<Creature> cs, bool neutered)
+        {
+            var changed = false;
+            var changedSpecies = new List<Species>();
+            foreach (var c in cs)
+            {
+                if (c.flags.HasFlag(CreatureFlags.Neutered) != neutered)
+                {
+                    changed = true;
+                    if (neutered)
+                        c.flags |= CreatureFlags.Neutered;
+                    else c.flags &= ~CreatureFlags.Neutered;
+
+                    if (!changedSpecies.Contains(c.Species))
+                        changedSpecies.Add(c.Species);
+                }
+            }
+
+            if (changed)
+            {
+                FilterLibRecalculate();
+                Species speciesIfOnlyOne = changedSpecies.Count == 1 ? changedSpecies[0] : null;
                 SetCollectionChanged(true, speciesIfOnlyOne);
             }
         }
@@ -2173,6 +2225,8 @@ namespace ARKBreedingStats
             cbExactlyImprinting.Visible = Properties.Settings.Default.DevTools;
             devToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
             sendExampleCreatureToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
+            sendServerCreatureStatusNeuterToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
+            sendServerCreatureStatusDeadToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
 
             bool recalculateTopStats = considerWastedStatsForTopCreatures != Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             if (recalculateTopStats)

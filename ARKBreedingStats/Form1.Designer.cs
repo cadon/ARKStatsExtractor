@@ -152,6 +152,8 @@ namespace ARKBreedingStats
             this.currentTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listenWithNewTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendExampleCreatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendServerCreatureStatusNeuterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sendServerCreatureStatusDeadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showTokenPopupOnListeningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
             this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1480,10 +1482,12 @@ namespace ARKBreedingStats
             this.listenToolStripMenuItem,
             this.currentTokenToolStripMenuItem,
             this.listenWithNewTokenToolStripMenuItem,
-            this.sendExampleCreatureToolStripMenuItem,
             this.showTokenPopupOnListeningToolStripMenuItem,
             this.toolStripSeparator28,
-            this.openModPageInBrowserToolStripMenuItem});
+            this.openModPageInBrowserToolStripMenuItem,
+            this.sendExampleCreatureToolStripMenuItem,
+            this.sendServerCreatureStatusNeuterToolStripMenuItem,
+            this.sendServerCreatureStatusDeadToolStripMenuItem});
             this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
             this.serverToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.serverToolStripMenuItem.Text = "Export gun";
@@ -1516,6 +1520,20 @@ namespace ARKBreedingStats
             this.sendExampleCreatureToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.sendExampleCreatureToolStripMenuItem.Text = "Send example creature";
             this.sendExampleCreatureToolStripMenuItem.Click += new System.EventHandler(this.sendExampleCreatureToolStripMenuItem_Click);
+            // 
+            // sendServerCreatureStatusNeuterToolStripMenuItem
+            // 
+            this.sendServerCreatureStatusNeuterToolStripMenuItem.Name = "sendServerCreatureStatusNeuterToolStripMenuItem";
+            this.sendServerCreatureStatusNeuterToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.sendServerCreatureStatusNeuterToolStripMenuItem.Text = "Send neuter status";
+            this.sendServerCreatureStatusNeuterToolStripMenuItem.Click += new System.EventHandler(this.sendServerCreatureStatusNeuterToolStripMenuItem_Click);
+            // 
+            // sendServerCreatureStatusDeadToolStripMenuItem
+            // 
+            this.sendServerCreatureStatusDeadToolStripMenuItem.Name = "sendServerCreatureStatusNeuterToolStripMenuItem";
+            this.sendServerCreatureStatusDeadToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.sendServerCreatureStatusDeadToolStripMenuItem.Text = "Send dead status";
+            this.sendServerCreatureStatusDeadToolStripMenuItem.Click += new System.EventHandler(this.sendServerCreatureStatusDeadToolStripMenuItem_Click);
             // 
             // showTokenPopupOnListeningToolStripMenuItem
             // 
@@ -4461,6 +4479,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem serverToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sendExampleCreatureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendServerCreatureStatusNeuterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sendServerCreatureStatusDeadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listenWithNewTokenToolStripMenuItem;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

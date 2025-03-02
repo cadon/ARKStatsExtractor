@@ -173,6 +173,11 @@ namespace ARKBreedingStats.species
 
         private static string[] _ignoreVariantInName;
 
+        /// <summary>
+        /// Used as prefix for the sort name if marked as favorite.
+        /// </summary>
+        public const string FavoritePrefix = "!fav_";
+
         public void Initialize()
         {
             // TODO: Base species are maybe not used in game and may only lead to confusion (e.g. Giganotosaurus).

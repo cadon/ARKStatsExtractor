@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats.AsbServer
 {
@@ -11,9 +12,15 @@ namespace ARKBreedingStats.AsbServer
         public string ServerHash;
         public string Message;
         public string ServerToken;
+        /// <summary>
+        /// Identification used to send an answer to the user.
+        /// </summary>
+        public string SendId;
         public bool IsError;
         public bool StoppedListening;
         public string ClipboardText;
-        public TaskCompletionSource<string> TaskNameGenerated;
+        public TaskCompletionSource<ServerSendName> TaskNameGenerated;
+        public CreatureFlags SetFlag;
+        public long creatureId;
     }
 }

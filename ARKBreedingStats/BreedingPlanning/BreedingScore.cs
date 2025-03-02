@@ -259,10 +259,13 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <summary>
         /// Sets the best levels in the passed bestLevels array, depending on the statWeights and onlyHighEvenLevels.
         /// </summary>
-        public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, double[] statWeights, StatValueEvenOdd[] anyOddEven = null)
+        public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, int[] bestLevelsMutated, double[] statWeights, StatValueEvenOdd[] anyOddEven = null)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 bestLevels[s] = -1;
+                bestLevelsMutated[s] = -1;
+            }
 
             foreach (Creature c in creatures)
             {
@@ -273,11 +276,22 @@ namespace ARKBreedingStats.BreedingPlanning
                         if ((anyOddEven?[s] ?? StatValueEvenOdd.Indifferent) == StatValueEvenOdd.Indifferent
                             || (anyOddEven[s] == StatValueEvenOdd.Odd && c.levelsWild[s] % 2 == 1)
                             || (anyOddEven[s] == StatValueEvenOdd.Even && c.levelsWild[s] % 2 == 0)
-                            )
+                           )
                             bestLevels[s] = c.levelsWild[s];
                     }
-                    else if (s != Stats.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 && (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
+                    else if (s != Stats.Torpidity && statWeights[s] < 0 && c.levelsWild[s] >= 0 &&
+                             (c.levelsWild[s] < bestLevels[s] || bestLevels[s] < 0))
                         bestLevels[s] = c.levelsWild[s];
+
+                    // mutation levels (ASA only)
+                    if (c.levelsMutated == null) continue;
+                    if ((s == Stats.Torpidity || statWeights[s] >= 0) && c.levelsMutated[s] > bestLevelsMutated[s])
+                    {
+                        bestLevelsMutated[s] = c.levelsMutated[s];
+                    }
+                    else if (s != Stats.Torpidity && statWeights[s] < 0 && c.levelsMutated[s] >= 0 &&
+                             (c.levelsMutated[s] < bestLevelsMutated[s] || bestLevelsMutated[s] < 0))
+                        bestLevelsMutated[s] = c.levelsMutated[s];
                 }
             }
         }
