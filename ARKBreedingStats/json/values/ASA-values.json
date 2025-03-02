@@ -1,5 +1,5 @@
 {
-	"version": "57.12.1",
+	"version": "61.17.0",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -2139,6 +2139,214 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/Maelizard/Maelizard_Character_BP.Maelizard_Character_BP",
+			"name": "Maeguana",
+			"fullStatsRaw": [
+				[ 700, 0.085, 0.2025, 0, 0 ],
+				[ 450, 0.05, 0.05, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5142.44575,
+				"eggTempMin": 24,
+				"eggTempMax": 28,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 129600,
+				"matingCooldownMax": 345600
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 0.2,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 150,
+				"torporDepletionPS0": 0.3,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main body",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Dino Light Brown",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"WolfFur",
+						"BigFoot5",
+						"NearWhite",
+						"NearBlack",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"NearBlack",
+						"NearWhite",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna"
+					]
+				},
+				{
+					"name": "Membrane accents",
+					"colors": [
+						"Dino Light Brown",
+						"Dino Dark Orange",
+						"BigFoot0",
+						"DarkWolfFur",
+						"WolfFur",
+						"BigFoot5",
+						"NearWhite",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"NearWhite",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Cream",
+						"BurntSienna",
+						"DragonBase0",
+						"DragonBase1",
+						"Peach",
+						"LightAutumn"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Dino Light Brown",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"WolfFur",
+						"BigFoot5",
+						"NearWhite",
+						"NearBlack",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"NearBlack",
+						"NearWhite",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Custard",
+						"Cream",
+						"BurntSienna"
+					]
+				},
+				{
+					"name": "Beak",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Dino Light Brown",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"WolfFur",
+						"BigFoot5",
+						"NearWhite",
+						"NearBlack",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"NearBlack",
+						"NearWhite",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Cream",
+						"BurntSienna",
+						"WyvernPurple1",
+						"Light Red",
+						"BlackSands",
+						"PowderBlue",
+						"NearBlack"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Brown",
+						"Dino Light Brown",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"BigFoot0",
+						"DarkWolfFur",
+						"WolfFur",
+						"BigFoot5",
+						"NearWhite",
+						"NearBlack",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"NearWhite",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Cream",
+						"BurntSienna",
+						"DragonBase0",
+						"DragonBase1",
+						"Peach",
+						"LightAutumn"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Dino Light Brown",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"DarkWolfFur",
+						"WolfFur",
+						"BigFoot5",
+						"NearWhite",
+						"NearBlack",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"NearBlack",
+						"NearWhite",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Cream",
+						"BurntSienna"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Shastasaurus/Shastasaurus_Character_BP.Shastasaurus_Character_BP",
 			"name": "Shastasaurus",
 			"fullStatsRaw": [
@@ -2877,6 +3085,59 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/ClubARk/Dino/ScrapGolem/ScrapGolem_Character_BP_ClubARK.ScrapGolem_Character_BP_ClubARK",
+			"name": "Scrap Elemental",
+			"variants": [ "ClubARK" ],
+			"fullStatsRaw": [
+				[ 25000, 0.0125, 0.135, -22000, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 5000, 0.02, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 6000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 660, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.125, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 6500,
+				"affinityIncreasePL": 325,
+				"torporDepletionPS0": 0.325,
+				"foodConsumptionBase": 0.002543,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				null,
+				{
+					"name": "Body",
+					"colors": [
+						"Red",
+						"Dark Red",
+						"Dino Light Red",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Blue",
+						"Dino Albino",
+						"Black"
+					]
+				},
+				null,
+				null,
+				null,
+				null
+			]
+		},
+		{
 			"blueprintPath": "/Game/EndGame/Dinos/Drone/EndDrone_Character_BP.EndDrone_Character_BP",
 			"boneDamageAdjusters": {
 				"l_Arm_01_03": 1.5,
@@ -3082,7 +3343,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Wyvern/Wyvern_Character_BP_Fire_Corrupt.Wyvern_Character_BP_Fire_Corrupt",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3115,7 +3379,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/Minion/Wyvern_Character_BP_Fire_Minion.Wyvern_Character_BP_Fire_Minion",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -3783,7 +4050,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/BoaFrill_Character_BP_Summoned.BoaFrill_Character_BP_Summoned",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/BogSpider_Character_BP_Summoned.BogSpider_Character_BP_Summoned",
@@ -3868,7 +4135,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Mantis_Character_BP_Summoned.Mantis_Character_BP_Summoned",
-			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_L_jaw_A_jnt": 1.5,
+				"d_R_jaw_A_jnt": 1.5,
+				"d_L_jaw_B_jnt": 1.5,
+				"d_R_jaw_B_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4083,7 +4356,10 @@
 				"foodConsumptionMult": 199.984,
 				"babyFoodConsumptionMult": 39
 			},
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4483,7 +4759,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jerboa_Character_BP_STA.Jerboa_Character_BP_STA",
-			"boneDamageAdjusters": { "d_neck2_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_jaw_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4578,7 +4857,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mantis_Character_BP_STA.Mantis_Character_BP_STA",
-			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_L_jaw_A_jnt": 1.5,
+				"d_R_jaw_A_jnt": 1.5,
+				"d_L_jaw_B_jnt": 1.5,
+				"d_R_jaw_B_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4645,6 +4930,11 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Moth_Character_BP_STA.Moth_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"l_tooth": 3,
+				"r_tooth": 3,
+				"c_stinger1": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4701,7 +4991,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Phoenix_Character_BP_STA.Phoenix_Character_BP_STA",
-			"boneDamageAdjusters": { "c_Head": 1.5 },
+			"boneDamageAdjusters": {
+				"c_Head": 1.5,
+				"c_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4742,7 +5035,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ragnarok_Wyvern_Override_Ice_STA.Ragnarok_Wyvern_Override_Ice_STA",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4920,7 +5216,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/TekWyvern_Character_BP_STA.TekWyvern_Character_BP_STA",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -4994,27 +5293,42 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Vulture_Character_BP_STA.Vulture_Character_BP_STA",
-			"boneDamageAdjusters": { "c_neck3": 1.5 },
+			"boneDamageAdjusters": {
+				"c_neck4": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Fire_STA.Wyvern_Character_BP_Fire_STA",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Forest_STA.Wyvern_Character_BP_Forest_STA",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Lightning_STA.Wyvern_Character_BP_Lightning_STA",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Wyvern_Character_BP_Poison_STA.Wyvern_Character_BP_Poison_STA",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5045,6 +5359,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/camelsaurus_Character_BP_STA.camelsaurus_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1,
+				"d_jaw_jnt": 1,
+				"d_spine2_jnt": 0.2,
+				"d_tail4_jnt": 0.5,
+				"d_tail7_jnt": 0.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5139,11 +5460,22 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Mantis_Character_BP_TameSTA.Mantis_Character_BP_TameSTA",
-			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_L_jaw_A_jnt": 1.5,
+				"d_R_jaw_A_jnt": 1.5,
+				"d_L_jaw_B_jnt": 1.5,
+				"d_R_jaw_B_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Moth_Character_BP_TameSTA.Moth_Character_BP_TameSTA",
+			"boneDamageAdjusters": {
+				"l_tooth": 3,
+				"r_tooth": 3,
+				"c_stinger1": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5206,6 +5538,2173 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Argentavis/AstralArgent_Character_BP.AstralArgent_Character_BP",
+			"name": "Astral Argentavis",
+			"variants": [ "Astraeos" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 3600, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Carno/AstralCarno_Character_BP.AstralCarno_Character_BP",
+			"name": "Astral Carnotaurus",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 6400, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 300, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				null,
+				null,
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Deinosuchus/AstralDeinosuchusASA_Character_BP.AstralDeinosuchusASA_Character_BP",
+			"name": "Astral Deinosuchus",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 6400, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 300, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 5000,
+				"affinityIncreasePL": 160,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Head": 0.5,
+				"Jaw": 0.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				null,
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Megalodon/AstralMegalodon_Character_BP.AstralMegalodon_Character_BP",
+			"name": "Astral Megalodon",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 9600, 0.2, 0.27, 0.3, 0 ],
+				[ 320, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "All -gvnew +primaries",
+					"colors": [ "Black", "Dino Albino" ]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Dark muted",
+					"colors": [ "Dark Red", "Red", "Black", "Dino Albino" ]
+				},
+				{
+					"name": "Light muted -g +w",
+					"colors": [ "Dark Red", "Red", "Black", "Dino Albino" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Mosasaurus/Astral_Mosa_Character_BP.Astral_Mosa_Character_BP",
+			"name": "Astral Mosasaur",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 54000, 0.12, 0.21, 0.3, 0 ],
+				[ 400, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 8000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 1300, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.65, 0.4 ],
+				[ 1, 0, 0.005, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.06,
+				"affinityNeeded0": 11000,
+				"affinityIncreasePL": 600,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 180.0011,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Raptor/AstralRaptor_Character_BP.AstralRaptor_Character_BP",
+			"name": "Astral Raptor",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 3600, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Head_JNT_SKL": 3,
+				"Cnt_Neck_002_JNT_SKL": 3,
+				"Cnt_Neck_000_JNT_SKL": 3
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Rex/AstralRex_Character_BP.AstralRex_Character_BP",
+			"name": "Astral T-Rex",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 17500, 0.2, 0.27, 0.5, 0 ],
+				[ 420, 0.1, 0.1, 0, 0 ],
+				[ 1550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 3450,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Tusoteuthis/Astral_Tusoteuthis_Character_BP.Astral_Tusoteuthis_Character_BP",
+			"name": "Astral Tusoteuthis",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 30000, 0.2, 0.2025, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.06, 0, 0.5, 0 ],
+				[ 215, 0.1, 0.1, 0, 0 ],
+				[ 3200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.75,
+				"affinityNeeded0": 12500,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 180.0011,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"upper_beak": 3,
+				"lower_beak": 3
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body highlights",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				{
+					"name": "Tentacle highlights",
+					"colors": [
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Tentacle main",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				{
+					"name": "Body main",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"DryMoss"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Cyclops/Boss_Cyclops_Character_BP_Easy.Boss_Cyclops_Character_BP_Easy",
+			"name": "Thodes the Widowmaker",
+			"variants": [ "Astraeos", "Boss", "Gamma" ],
+			"fullStatsRaw": [
+				[ 400000, 0, 0, 0.3, 0 ],
+				[ 650, 0, 0, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2600, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0, 0, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 180000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"eye_01_Jnt": 10
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Cyclops/Boss_Cyclops_Character_BP_Hard.Boss_Cyclops_Character_BP_Hard",
+			"name": "Thodes the Widowmaker",
+			"variants": [ "Alpha", "Astraeos", "Boss" ],
+			"fullStatsRaw": [
+				[ 1800000, 0, 0, 0.3, 0 ],
+				[ 650, 0, 0, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2600, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0, 0, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 280000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"eye_01_Jnt": 10
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Cyclops/Boss_Cyclops_Character_BP_Medium.Boss_Cyclops_Character_BP_Medium",
+			"name": "Thodes the Widowmaker",
+			"variants": [ "Astraeos", "Beta", "Boss" ],
+			"fullStatsRaw": [
+				[ 1200000, 0, 0, 0.3, 0 ],
+				[ 650, 0, 0, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 2000, 0, 0, 0, 0 ],
+				[ 2600, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.02, 0, 0 ],
+				[ 1, 0, 0, 0.3, 0.3 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 200000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"eye_01_Jnt": 10
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Gorgon/Bat_Character_BP_Gamma.Bat_Character_BP_Gamma",
+			"name": "Natrix's Onyc",
+			"variants": [ "Astraeos", "Boss", "Gamma" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 250, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 200, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 14285.7143,
+				"incubationTime": 0,
+				"maturationTime": 101010.101,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 90,
+				"foodConsumptionBase": 0.002893,
+				"foodConsumptionMult": 192.0344,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted -g",
+					"colors": [
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black"
+					]
+				},
+				{
+					"name": "Dark muted -g",
+					"colors": [
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black"
+					]
+				},
+				{
+					"name": "Light muted -g",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black"
+					]
+				},
+				null,
+				{
+					"name": "Light muted -g",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black"
+					]
+				},
+				{
+					"name": "Light muted -g",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Gorgon/BoaFrill_Character_BP_Gamma.BoaFrill_Character_BP_Gamma",
+			"name": "Natrix's Titanoboa",
+			"variants": [ "Astraeos", "Boss", "Gamma" ],
+			"fullStatsRaw": [
+				[ 170, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 175, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 150, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3,
+				"affinityNeeded0": 1950,
+				"affinityIncreasePL": 90,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"c_jaw": 2.5,
+				"l_jaw": 2.5,
+				"r_jaw": 2.5
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Inner frill",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"LemonLime",
+						"Mint",
+						"Jade",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Mid frill",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"LemonLime",
+						"Mint",
+						"Jade",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Frill accent",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"LemonLime",
+						"Mint",
+						"Jade",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Outer frill",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"LemonLime",
+						"Mint",
+						"Jade",
+						"LeafGreen",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Gorgon/Boss_Gorgon_Character_BP_Alpha.Boss_Gorgon_Character_BP_Alpha",
+			"name": "Natrix The Devious",
+			"variants": [ "Alpha", "Astraeos", "Boss" ],
+			"fullStatsRaw": [
+				[ 972000.06, 0.25, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.075, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 470000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3,
+				"affinityNeeded0": 1950,
+				"affinityIncreasePL": 90,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_head": 2.5 },
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Gorgon/Boss_Gorgon_Character_BP_Beta.Boss_Gorgon_Character_BP_Beta",
+			"name": "Natrix The Devious",
+			"variants": [ "Astraeos", "Beta", "Boss" ],
+			"fullStatsRaw": [
+				[ 648000, 0.15, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.035, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 280000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3,
+				"affinityNeeded0": 1950,
+				"affinityIncreasePL": 90,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_head": 2.5 },
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Gorgon/Boss_Gorgon_Character_BP_Gamma.Boss_Gorgon_Character_BP_Gamma",
+			"name": "Natrix The Devious",
+			"variants": [ "Astraeos", "Boss", "Gamma" ],
+			"fullStatsRaw": [
+				[ 324000, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3,
+				"affinityNeeded0": 1950,
+				"affinityIncreasePL": 90,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_head": 2.5 },
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kirayli/Kirayli_Character_BP.Kirayli_Character_BP",
+			"name": "Kirayli",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 100, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 85, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 90, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 15037.594,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 1584.284,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Arthro/Arthro_Character_BP_Lightning.Arthro_Character_BP_Lightning",
+			"name": "Lightning Arthropluera",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 500, 0.2, 0.27, 0.5, 0 ],
+				[ 200, 0.1, 0.1, 0, 0 ],
+				[ 175, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 75,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 2.5,
+				"c_jaw": 2.5,
+				"l_jaw": 2.5,
+				"r_jaw": 2.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 520
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Carno/Carno_Character_BP_Lightning.Carno_Character_BP_Lightning",
+			"name": "Lightning Carnotaurus",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 420, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 300, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0125, 0.085, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Chalicotherium/Chalico_Character_BP_Lightning.Chalico_Character_BP_Lightning",
+			"name": "Lightning Chalicotherium",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 600, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 4000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.16,
+				"affinityNeeded0": 5000,
+				"affinityIncreasePL": 275,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 352.0631,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Dilo/Dilo_Character_BP_Lightning.Dilo_Character_BP_Lightning",
+			"name": "Lightning Dilophosaur",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 130, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 75, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 45, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 8.333333,
+				"affinityNeeded0": 450,
+				"affinityIncreasePL": 22.5,
+				"foodConsumptionBase": 0.000868,
+				"foodConsumptionMult": 1728.111,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3,
+				"c_neck3": 3
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Dimorphodon/Dimorph_Character_BP_Lightning.Dimorph_Character_BP_Lightning",
+			"name": "Lightning Dimorphodon",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 125, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 4.166666,
+				"affinityNeeded0": 900,
+				"affinityIncreasePL": 45,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Giganotosaurus/Gigant_Character_BP_Lightning.Gigant_Character_BP_Lightning",
+			"name": "Lightning Giganotosaurus",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 35000, 0.0005, 0.002, 0, 0 ],
+				[ 400, 0.0005, 0.01, 0, 0 ],
+				[ 10000, 0.06, 0, 0, 0 ],
+				[ 150, 0.0025, 0.025, 0, 0 ],
+				[ 4000, 0.0025, 0.025, 0, 0 ],
+				null,
+				null,
+				[ 700, 0.01, 0.01, 0, 0 ],
+				[ 1, 0.05, 0.05, -0.8, 0 ],
+				[ 1, 0, 0.0031, 0, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 65000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 5000,
+				"affinityIncreasePL": 160,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 160.0563,
+				"babyFoodConsumptionMult": 900,
+				"adultFoodConsumptionMult": 3
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Nameless/Xenomorph_Character_BP_Male_Tamed_Lightning.Xenomorph_Character_BP_Male_Tamed_Lightning",
+			"name": "Lightning Reaper King",
+			"variants": [ "Astraeos", "Corrupted", "Male", "Tamed" ],
+			"fullStatsRaw": [
+				[ 18500, 0.001, 0.135, 0, 0 ],
+				[ 480, 0.1, 0.1, 0, 0 ],
+				[ 925, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 415, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.06,
+				"affinityNeeded0": 6800,
+				"affinityIncreasePL": 160,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Head_JNT_SKL": 3,
+				"Cnt_Neck_002_JNT_SKL": 3,
+				"Cnt_Neck_000_JNT_SKL": 3
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/PTero/Ptero_Character_BP_Lightning.Ptero_Character_BP_Lightning",
+			"name": "Lightning Pteranodon",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 210, 0.2, 0.15, 0.5, 0 ],
+				[ 150, 0.05, 0.04, 0, 0 ],
+				[ 120, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 120, 0.02, 0.03, 0, 0 ],
+				[ 1, 0.05, 0.075, 0.65, 0.4 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 216.0294,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"TamedBaseHealthMultiplier": 0.9,
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Paraceratherium/Paracer_Character_BP_Lightning.Paracer_Character_BP_Lightning",
+			"name": "Lightning Paraceratherium",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 1026, 0.2, 0.172125, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 1300, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 6500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 850, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.0923,
+				"affinityNeeded0": 6500,
+				"affinityIncreasePL": 325,
+				"foodConsumptionBase": 0.0035,
+				"foodConsumptionMult": 327.6474,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Raptor/Raptor_Character_BP_Lightning.Raptor_Character_BP_Lightning",
+			"name": "Lightning Raptor",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Head_JNT_SKL": 3,
+				"Cnt_Neck_002_JNT_SKL": 3,
+				"Cnt_Neck_000_JNT_SKL": 3
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Rex/MegaRex_Character_BP_Lightning.MegaRex_Character_BP_Lightning",
+			"name": "Enraged Lightning Rex",
+			"variants": [ "Astraeos", "Corrupted", "Mega" ],
+			"fullStatsRaw": [
+				[ 8500, 0.2, 0.27, 0.5, 0 ],
+				[ 420, 0.1, 0.1, 0, 0 ],
+				[ 1550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 3450,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Rex/Rex_Character_BP_Lightning.Rex_Character_BP_Lightning",
+			"name": "Lightning Infused Rex",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 1100, 0.2, 0.27, 0.5, 0 ],
+				[ 420, 0.1, 0.1, 0, 0 ],
+				[ 1550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 3450,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Neck_003_JNT_SKL": 1.5,
+				"Cnt_Head_JNT_SKL": 1.5,
+				"Cnt_Jaw_JNT_SKL": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/RockDrake/RockDrake_Character_BP_Lightning.RockDrake_Character_BP_Lightning",
+			"name": "Lightning Rock Drake",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 1950, 0.085, 0.2025, -1050, 0 ],
+				[ 450, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 85,
+				"foodConsumptionBase": 0.000185,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Spino/Spino_Character_BP_Lightning.Spino_Character_BP_Lightning",
+			"name": "Lightning Spino",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 700, 0.2, 0.27, 0.5, 0 ],
+				[ 350, 0.1, 0.1, 0, 0 ],
+				[ 850, 0.06, 0, 0.5, 0 ],
+				[ 650, 0.1, 0.1, 0, 0 ],
+				[ 2600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 350, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 3200,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Stegosaurus/Stego_Character_BP_Lightning.Stego_Character_BP_Lightning",
+			"name": "Lightning Stegosaurus",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 650, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 6000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.02, 0.964, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.1,
+				"affinityNeeded0": 6000,
+				"affinityIncreasePL": 300,
+				"foodConsumptionBase": 0.005341,
+				"foodConsumptionMult": 208.0343,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Cnt_Head_JNT_SKL": 1.67,
+				"Cnt_Jaw_JNT_SKL": 1.67,
+				"Cnt_Neck_004_JNT_SKL": 1.67,
+				"Cnt_Spine_002_JNT_SKL": 0.7,
+				"Cnt_Spine_001_JNT_SKL": 0.7,
+				"Cnt_Spine_000_JNT_SKL": 0.7,
+				"Cnt_Spine_003_JNT_SKL": 0.7,
+				"Cnt_Tail_000_JNT_SKL": 0.7
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Trike/MegaTrike_Character_BP_Lightning.MegaTrike_Character_BP_Lightning",
+			"name": "Enraged Lightning Triceratops",
+			"variants": [ "Astraeos", "Corrupted", "Mega" ],
+			"fullStatsRaw": [
+				[ 2500, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 365, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.2,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 352.0631,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 0.15,
+				"c_jaw": 0.15
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Trike/Trike_Character_BP_Lightning.Trike_Character_BP_Lightning",
+			"name": "Lightning Triceratops",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"fullStatsRaw": [
+				[ 375, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 250, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 365, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.2,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 352.0631,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 0.15,
+				"c_jaw": 0.15
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Wyvern/Wyvern_Character_BP_Fire_Lightning.Wyvern_Character_BP_Fire_Lightning",
+			"name": "Lightning Wyvern",
+			"variants": [ "Astraeos", "Corrupted" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 1295, 0.15, 0.162, -785, 0 ],
+				[ 315, 0.05, 0.05, 0, 0 ],
+				[ 725, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, -0.25, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.000185,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 450
+			},
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Minotaur/CaveMinotaur_Character_BP_New.CaveMinotaur_Character_BP_New",
+			"name": "Cave Minotaur",
+			"variants": [ "Astraeos", "Cave" ],
+			"fullStatsRaw": [
+				[ 1100, 0.2, 0.27, 0.5, 0 ],
+				[ 420, 0.1, 0.1, 0, 0 ],
+				[ 1550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Spine",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonFire",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"MediumTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"DarkViolet",
+						"BurntSienna",
+						"MediumAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"PineGreen",
+						"SpruceGreen",
+						"DarkLavender",
+						"DarkTeal",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				null
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Worldboss/KingKaiju_Character_BP_WorldBoss_Astraeos.KingKaiju_Character_BP_WorldBoss_Astraeos",
+			"name": "Thanatos",
+			"variants": [ "Astraeos", "Boss", "WorldBoss" ],
+			"fullStatsRaw": [
+				[ 500000, 0.2, 0.27, 0.5, 0 ],
+				[ 100000, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Polar_Bear/Polar_Bear.Polar_Bear",
 			"boneDamageAdjusters": {
 				"c_head": 1.5,
@@ -5215,12 +7714,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ice_Wyvern/Ragnarok_Wyvern_Override_Ice.Ragnarok_Wyvern_Override_Ice",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Mods/Ragnarok/Custom_Assets/Dinos/Wyvern/Ragnarok_Wyvern_Override.Ragnarok_Wyvern_Override",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5464,7 +7969,10 @@
 				"foodConsumptionMult": 1152.074,
 				"babyFoodConsumptionMult": 510
 			},
-			"boneDamageAdjusters": { "c_neck3": 1.5 },
+			"boneDamageAdjusters": {
+				"c_neck4": 1.5,
+				"c_jaw": 1.5
+			},
 			"displayedStats": 927,
 			"skipWildLevelStats": 512,
 			"colors": [
@@ -5735,7 +8243,7 @@
 			"taming": {
 				"violent": false,
 				"nonViolent": true,
-				"tamingIneffectiveness": 2000,
+				"tamingIneffectiveness": 1.875,
 				"affinityNeeded0": 10000,
 				"affinityIncreasePL": 5,
 				"wakeAffinityMult": 1.6,
@@ -6074,11 +8582,11 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/BoaFrill/BoaFrill_Character_BP.BoaFrill_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/BoaFrill/BoaFrill_Character_BP_Aberrant.BoaFrill_Character_BP_Aberrant",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Carcharodontosaurus/Carcha_Character_BP.Carcha_Character_BP",
@@ -7658,6 +10166,13 @@
 				null,
 				null
 			],
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1,
+				"d_jaw_jnt": 1,
+				"d_spine2_jnt": 0.2,
+				"d_tail4_jnt": 0.5,
+				"d_tail7_jnt": 0.5
+			},
 			"displayedStats": 959,
 			"skipWildLevelStats": 544
 		},
@@ -7675,17 +10190,26 @@
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/DodoWyvern/DodoWyvern_Character_BP.DodoWyvern_Character_BP",
 			"name": "Dodo Wyvern",
 			"variants": [ "ScorchedEarth" ],
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Jerboa/Bone_Jerboa_Character_BP.Bone_Jerboa_Character_BP",
-			"boneDamageAdjusters": { "d_neck2_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_jaw_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Jerboa/Jerboa_Character_BP.Jerboa_Character_BP",
-			"boneDamageAdjusters": { "d_neck2_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_jaw_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -7719,21 +10243,41 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Mantis/Ghost_Mantis_Character_BP.Ghost_Mantis_Character_BP",
-			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_L_jaw_A_jnt": 1.5,
+				"d_R_jaw_A_jnt": 1.5,
+				"d_L_jaw_B_jnt": 1.5,
+				"d_R_jaw_B_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Mantis/Mantis_Character_BP.Mantis_Character_BP",
-			"boneDamageAdjusters": { "d_head_jnt": 1.5 },
+			"boneDamageAdjusters": {
+				"d_head_jnt": 1.5,
+				"d_L_jaw_A_jnt": 1.5,
+				"d_R_jaw_A_jnt": 1.5,
+				"d_L_jaw_B_jnt": 1.5,
+				"d_R_jaw_B_jnt": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Moth/Moth_Character_BP.Moth_Character_BP",
+			"boneDamageAdjusters": {
+				"l_tooth": 3,
+				"r_tooth": 3,
+				"c_stinger1": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Phoenix/Phoenix_Character_BP.Phoenix_Character_BP",
-			"boneDamageAdjusters": { "c_Head": 1.5 },
+			"boneDamageAdjusters": {
+				"c_Head": 1.5,
+				"c_Jaw": 1.5
+			},
 			"skipWildLevelStats": 512,
 			"colors": [
 				{
@@ -7913,29 +10457,44 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Vulture/Vulture_Character_BP.Vulture_Character_BP",
-			"boneDamageAdjusters": { "c_neck3": 1.5 },
+			"boneDamageAdjusters": {
+				"c_neck4": 1.5,
+				"c_jaw": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Bone_MegaWyvern_Character_BP_Fire.Bone_MegaWyvern_Character_BP_Fire",
 			"name": "Alpha Skeletal Fire Wyvern",
 			"variants": [ "Mega", "ScorchedEarth", "Skeletal" ],
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/MegaWyvern_Character_BP_Fire.MegaWyvern_Character_BP_Fire",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Fire.Wyvern_Character_BP_Fire",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Lightning.Wyvern_Character_BP_Lightning",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512,
 			"colors": [
 				{
@@ -8060,22 +10619,34 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Poison.Wyvern_Character_BP_Poison",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieFire.Wyvern_Character_BP_ZombieFire",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombieLightning.Wyvern_Character_BP_ZombieLightning",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_ZombiePoison.Wyvern_Character_BP_ZombiePoison",
-			"boneDamageAdjusters": { "neck3_exp": 1.5 },
+			"boneDamageAdjusters": {
+				"neck_4exp": 1.5,
+				"jaw_exp": 1.5
+			},
 			"skipWildLevelStats": 512
 		}
 	],
