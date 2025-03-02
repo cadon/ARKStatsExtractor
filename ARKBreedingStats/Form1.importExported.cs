@@ -361,10 +361,24 @@ namespace ARKBreedingStats
             if (Properties.Settings.Default.CopyNameToClipboardOnImport
                 || (nameWasJustApplied && Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied))
             {
-                Clipboard.SetText(string.IsNullOrEmpty(creatureName)
-                    ? "<no name>"
-                    : creatureName);
-                return true;
+                // clipboard operation can throw exception, try thrice
+                const int tries = 3;
+                const int delayMs = 300;
+                for (var i = 0; i < tries; i++)
+                {
+                    try
+                    {
+                        Clipboard.SetText(string.IsNullOrEmpty(creatureName)
+                            ? "<no name>"
+                            : creatureName);
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        if (i == tries - 1)
+                            SetMessageLabelText($"Error while trying to copy name to clipboard: {ex.Message}", MessageBoxIcon.Error);
+                    }
+                }
             }
 
             AsbServer.Connection.ClearTokenFromClipboard();
