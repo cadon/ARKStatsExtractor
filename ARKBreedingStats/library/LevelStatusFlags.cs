@@ -50,7 +50,7 @@ namespace ARKBreedingStats.library
 
                 var statName = Utils.StatName(s, false, species.statNames);
                 var statNameAbb = Utils.StatName(s, true, species.statNames);
-                var statWeight = statWeights.Item1?[s] ?? 1;
+                var statWeight = statWeights.Item1[s];
                 var weighting = statWeight == 0
                     ? StatWeighting.StatValuePreference.Indifferent
                     : statWeight > 0 ? StatWeighting.StatValuePreference.High
@@ -65,7 +65,7 @@ namespace ARKBreedingStats.library
                     // higher stats are considered to be good. If no custom weightings are available, consider higher levels to be better.
 
                     // check if higher level is only considered if even or odd
-                    if ((statWeights.Item2?[s] ?? StatValueEvenOdd.Indifferent) == StatValueEvenOdd.Indifferent // even/odd doesn't matter
+                    if (statWeights.Item2[s] == StatValueEvenOdd.Indifferent // even/odd doesn't matter
                         || (statWeights.Item2[s] == StatValueEvenOdd.Odd && levelsWild[s] % 2 == 1)
                         || (statWeights.Item2[s] == StatValueEvenOdd.Even && levelsWild[s] % 2 == 0)
                         )

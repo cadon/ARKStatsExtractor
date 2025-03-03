@@ -351,7 +351,7 @@ namespace ARKBreedingStats
                 var statPreferences = new StatWeighting.StatValuePreference[Stats.StatsCount];
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    var statWeight = statWeights.Item1?[s] ?? 1;
+                    var statWeight = statWeights.Item1[s];
                     statPreferences[s] = statWeight > 0 ? StatWeighting.StatValuePreference.High :
                         statWeight < 0 ? StatWeighting.StatValuePreference.Low :
                         StatWeighting.StatValuePreference.Indifferent;
@@ -406,7 +406,7 @@ namespace ARKBreedingStats
                                 {
                                     // creature has a higher level than the current highest level
                                     // check if highest stats are only counted if odd or even
-                                    if ((statWeights.Item2?[s] ?? StatWeighting.StatValueEvenOdd.Indifferent) == StatWeighting.StatValueEvenOdd.Indifferent // even/odd doesn't matter
+                                    if (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Indifferent // even/odd doesn't matter
                                         || (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Odd && c.levelsWild[s] % 2 == 1)
                                         || (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Even && c.levelsWild[s] % 2 == 0)
                                        )
