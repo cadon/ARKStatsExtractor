@@ -1067,11 +1067,19 @@ namespace ARKBreedingStats
                     var si = Stats.DisplayOrder[s];
                     if (si == Stats.Torpidity) continue;
                     var level = sp.Key.UsesStat(si)
-                        ? (statWeights.Item1[si] < 0 ? sp.Value.WildLevelsLowest[si] : sp.Value.WildLevelsHighest[si]) : -1;
-                    if (level < 0) continue;
-                    maxLevel += level;
-                    columns[s + 1].Add(level.ToString());
+                        ? (statWeights.Item1[si] < 0 ? sp.Value.WildLevelsLowest[si] : sp.Value.WildLevelsHighest[si])
+                        : -1;
+                    if (level >= 0)
+                    {
+                        maxLevel += level;
+                        columns[s + 1].Add(level.ToString());
+                    }
+                    else
+                    {
+                        columns[s + 1].Add(string.Empty);
+                    }
                 }
+
                 columns[Stats.StatsCount + 1].Add(maxLevel.ToString());
             }
 

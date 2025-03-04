@@ -233,8 +233,8 @@ namespace ARKBreedingStats.uiControls
             if (_customWeightings.TryGetValue(species.name, out weightings)) return weightings;
             return useDefaultBackupIfAvailable
                    && _customWeightings.TryGetValue(DefaultPreset, out weightings)
-                ? weightings
-                : (Enumerable.Repeat(1d, Stats.StatsCount).ToArray(), Enumerable.Repeat(StatValueEvenOdd.Indifferent, Stats.StatsCount).ToArray());
+                   ? weightings
+                   : (Enumerable.Repeat(1d, Stats.StatsCount).ToArray(), Enumerable.Repeat(StatValueEvenOdd.Indifferent, Stats.StatsCount).ToArray());
         }
 
         public (double[], StatValueEvenOdd[]) GetWeightingByPresetName(string presetName, bool useDefaultBackupIfAvailable = true)
