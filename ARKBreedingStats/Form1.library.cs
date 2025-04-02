@@ -804,7 +804,7 @@ namespace ARKBreedingStats
             if (string.IsNullOrEmpty(name))
                 name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
 
-            var creature = new Creature(tmpl.Species, name, tmpl.owner, tmpl.tribe, sex, levelStep: _creatureCollection.getWildLevelStep())
+            var creature = new Creature(tmpl.Species, name, null, null, sex, levelStep: _creatureCollection.getWildLevelStep())
             {
                 guid = guid,
                 Status = CreatureStatus.Unavailable,

@@ -1366,6 +1366,38 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
+        /// If a Creature has parent guids, set the parent creature objects from the library.
+        /// If they don't exist yet, create placeholders for later import.
+        /// </summary>
+        private void SetParentsOfCreatureCreatePlaceholderIfNeeded(Creature c)
+        {
+            if (c.Mother == null && c.motherGuid != Guid.Empty)
+            {
+                if (_creatureCollection.CreatureById(c.motherGuid, 0, out var mother))
+                {
+                    c.Mother = mother;
+                }
+                else
+                {
+                    c.Mother = new Creature(c.motherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Female);
+                    _creatureCollection.creatures.Add(c.Mother);
+                }
+            }
+            if (c.Father == null && c.fatherGuid != Guid.Empty)
+            {
+                if (_creatureCollection.CreatureById(c.fatherGuid, 0, out var father))
+                {
+                    c.Father = father;
+                }
+                else
+                {
+                    c.Father = new Creature(c.fatherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Male);
+                    _creatureCollection.creatures.Add(c.Father);
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a creature from the infos in inputs, extractor or tester.
         /// </summary>
         /// <param name="fromExtractor"></param>

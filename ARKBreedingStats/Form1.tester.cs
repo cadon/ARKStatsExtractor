@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -60,8 +61,8 @@ namespace ARKBreedingStats
                 _testingIOs[s].LevelMut = c.levelsMutated?[s] ?? 0;
                 _testingIOs[s].LevelDom = c.levelsDom[s];
             }
-            tabControlMain.SelectedTab = tabPageStatTesting;
             SetInfoInputCreature(c, virtualCreature);
+            tabControlMain.SelectedTab = tabPageStatTesting;
         }
 
         private void UpdateAllTesterValues()
@@ -285,15 +286,18 @@ namespace ARKBreedingStats
         /// <summary>
         /// Set values in extractor to values of given creature
         /// </summary>
-        /// <param name="c"></param>
         private void SetCreatureValuesLevelsAndInfoToExtractor(Creature c)
         {
             IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out var alreadyExistingCreature);
             SetNameOfImportedCreature(c, null, out _, alreadyExistingCreature);
+            SetParentsOfCreatureCreatePlaceholderIfNeeded(c);
+            creatureInfoInputExtractor.Parents = new[] { new List<Creature> { c.Mother }, new List<Creature> { c.Father } };
             SetInfoInputCreature(c, tester: false);
             SetCreatureValuesToExtractor(c);
             creatureInfoInputExtractor.CreatureGuid = c.guid;
             creatureInfoInputExtractor.SetArkId(c.ArkId, c.ArkIdImported);
+            creatureInfoInputExtractor.MotherArkId = Utils.ConvertCreatureGuidToArkId(c.motherGuid);
+            creatureInfoInputExtractor.FatherArkId = Utils.ConvertCreatureGuidToArkId(c.fatherGuid);
             SetCreatureLevelsToExtractor(c);
             SetAllExtractorLevelsToStatus(StatIOStatus.Unique);
             creatureInfoInputExtractor.AlreadyExistingCreature = alreadyExistingCreature;
