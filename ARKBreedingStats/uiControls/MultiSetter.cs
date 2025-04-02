@@ -63,7 +63,7 @@ namespace ARKBreedingStats.uiControls
             SpeciesChanged = false;
 
             pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_colors, _uniqueSpecies ? creatureList[0].Species : null,
-                    new[] { true, true, true, true, true, true }));
+                    new[] { true, true, true, true, true, true }, game: CreatureCollection.CurrentCreatureCollection?.Game));
 
             // tags
             foreach (string t in tagList)
@@ -285,7 +285,7 @@ namespace ARKBreedingStats.uiControls
                     _colors[region] = _cp.Cp.SelectedColorId;
                     sender.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(_colors[region]));
                     pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_colors, _uniqueSpecies ? _creatureList[0].Species : null,
-                            new[] { true, true, true, true, true, true }));
+                            new[] { true, true, true, true, true, true }, game: CreatureCollection.CurrentCreatureCollection?.Game));
                 }
             }
         }

@@ -151,7 +151,7 @@ namespace ARKBreedingStats
                 labelNotes.Text = _creature.note;
                 _tt.SetToolTip(labelNotes, _creature.note);
                 labelSpecies.Text = _creature.SpeciesName;
-                pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex));
+                pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex, game: _cc.Game));
                 _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
                     + "\n\nClick to copy creature infos as image to the clipboard");
                 pictureBox1.Visible = true;
@@ -251,7 +251,7 @@ namespace ARKBreedingStats
             if (_creature == null) return;
 
             _creature.colors = regionColorChooser1.ColorIds;
-            pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex));
+            pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex, game: _cc.Game));
             Changed?.Invoke(_creature, false, false);
         }
 

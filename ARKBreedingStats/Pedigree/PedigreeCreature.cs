@@ -265,7 +265,8 @@ namespace ARKBreedingStats.Pedigree
         /// Update the colors displayed in the wheel.
         /// </summary>
         internal void UpdateColors(byte[] colorIds)
-            => pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colorIds, null, enabledColorRegions, 24, 22, true));
+            => pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colorIds, null, enabledColorRegions, 24, 22, true,
+                game: CreatureCollection.CurrentCreatureCollection?.Game));
 
         /// <summary>
         /// Sets the displayed title of the control.

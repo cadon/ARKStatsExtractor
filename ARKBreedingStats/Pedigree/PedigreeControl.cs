@@ -384,7 +384,7 @@ namespace ARKBreedingStats.Pedigree
             }
 
             PbRegionColors.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedCreature.colors,
-                _selectedCreature.Species, _enabledColorRegions, 256, creatureSex: _selectedCreature.sex));
+                _selectedCreature.Species, _enabledColorRegions, 256, creatureSex: _selectedCreature.sex, game: CreatureCollection.CurrentCreatureCollection?.Game));
             PbRegionColors.Visible = true;
 
             ResumeLayout();

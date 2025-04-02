@@ -231,7 +231,7 @@ namespace ARKBreedingStats.library
                 {
                     using (var crBmp =
                         CreatureColored.GetColoredCreature(creature.colors, creature.Species, creature.Species.EnabledColorRegions,
-                            imageSize, onlyImage: true, creatureSex: creature.sex))
+                            imageSize, onlyImage: true, creatureSex: creature.sex, game: cc.Game))
                     {
                         if (crBmp != null)
                         {
