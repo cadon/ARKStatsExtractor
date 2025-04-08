@@ -10,13 +10,13 @@
       "Id": "SpeciesColorImages",
       "Category": "Species Images",
       "Name": "Species Images",
-      "Author": "cadaei, Myrmecoleon, coldino",
-      "Description": "Download this package to have a visualization for the colors of creatures (~22 MB), uncheck if you don't want to download these files.",
+      "Author": "cadaei, Myrmecoleon, coldino, Shen",
+      "Description": "Download this package to have a visualization for the colors of creatures (~25 MB), uncheck if you don't want to download these files.",
       "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
       "LocalPath": "images/speciesImages",
       "IsFolder": true,
       "Selectable": true,
-      "version": "2025.01.19"
+      "version": "2025.04.08"
     },
     "NamePatternTemplates": {
       "Id": "NamePatternTemplates",
