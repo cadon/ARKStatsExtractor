@@ -1039,7 +1039,8 @@ namespace ARKBreedingStats
             var species = c.Species;
             _topLevels.TryGetValue(species, out var topLevels);
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights,
+            var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat,
                 c.levelsWild, c.levelsMutated, c.valuesBreeding, out _, out _);
 
             if (playImportSound)

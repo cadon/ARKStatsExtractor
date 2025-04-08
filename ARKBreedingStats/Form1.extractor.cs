@@ -157,8 +157,9 @@ namespace ARKBreedingStats
             _topLevels.TryGetValue(species, out var topLevels);
 
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
+            var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
 
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(),
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights,considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
                 GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
