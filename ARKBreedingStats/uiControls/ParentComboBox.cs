@@ -81,10 +81,11 @@ namespace ARKBreedingStats.uiControls
 
                 for (int c = 0; c < parentList.Count; c++)
                 {
+                    if (parentList[c] == null) continue;
                     string similarities = string.Empty;
                     string status = string.Empty;
                     if (parentsSimilarity != null && parentsSimilarity.Count > c)
-                        similarities = " (" + parentsSimilarity[c] + ")";
+                        similarities = " (" + (parentsSimilarity[c] >= 0 ? parentsSimilarity[c].ToString() : "?") + ")";
                     if (parentList[c].Status != CreatureStatus.Available)
                     {
                         status = " (" + Utils.StatusSymbol(parentList[c].Status) + ")";
@@ -120,7 +121,7 @@ namespace ARKBreedingStats.uiControls
             {
                 myBrush = Brushes.DarkGray; // no parent selected
             }
-            else if (parentsSimilarity != null && parentsSimilarity.Count > i)
+            else if (parentsSimilarity != null && parentsSimilarity.Count > i && parentsSimilarity[i] >= 0)
             {
                 // Determine the color of the brush to draw each item based on the similarity of the wildlevels
                 myBrush = brushes[parentsSimilarity[i]];

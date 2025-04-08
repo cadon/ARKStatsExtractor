@@ -802,7 +802,7 @@ namespace ARKBreedingStats
                 return existingCreature;
 
             if (string.IsNullOrEmpty(name))
-                name = (sex == Sex.Female ? "Mother" : "Father") + " of " + tmpl.name;
+                name = (sex == Sex.Female ? "Mother" : sex == Sex.Male ? "Father" : "Parent") + " of " + tmpl.name;
 
             var creature = new Creature(tmpl.Species, name, null, null, sex, levelStep: _creatureCollection.getWildLevelStep())
             {

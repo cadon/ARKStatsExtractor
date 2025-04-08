@@ -1380,6 +1380,7 @@ namespace ARKBreedingStats
                 else
                 {
                     c.Mother = new Creature(c.motherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Female);
+                    c.Mother.name = (c.Mother.sex == Sex.Female ? "Mother" : "Parent") + " of " + c.name;
                     _creatureCollection.creatures.Add(c.Mother);
                 }
             }
@@ -1392,6 +1393,7 @@ namespace ARKBreedingStats
                 else
                 {
                     c.Father = new Creature(c.fatherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Male);
+                    c.Father.name = (c.Father.sex == Sex.Male ? "Father" : "Parent") + " of " + c.name;
                     _creatureCollection.creatures.Add(c.Father);
                 }
             }

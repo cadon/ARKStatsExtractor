@@ -273,6 +273,7 @@ namespace ARKBreedingStats
                 infoInput.ColorIdsAlsoPossible = c.ColorIdsAlsoPossible;
                 infoInput.CreatureGuid = c.guid;
                 infoInput.SetArkId(c.ArkId, c.ArkIdImported);
+                speciesSelector1.SetSpecies(c.Species);
                 UpdateParentListInput(infoInput);
                 infoInput.MutationCounterMother = c.mutationsMaternal;
                 infoInput.MutationCounterFather = c.mutationsPaternal;

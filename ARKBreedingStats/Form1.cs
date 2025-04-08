@@ -1659,7 +1659,7 @@ namespace ARKBreedingStats
                 {
                     if (c.levelsWild == null)
                     {
-                        parentListSimilarities[ps].Add(0);
+                        parentListSimilarities[ps].Add(-1);
                         continue;
                     }
                     var equalWildLevels = 0;
