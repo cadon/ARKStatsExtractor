@@ -415,6 +415,12 @@ namespace ARKBreedingStats
             }
 
             UpdateAsaIndicator();
+
+            if (Properties.Settings.Default.BeginServerListeningOnLaunch)
+            {
+                AsbServerStartListening();
+                listenToolStripMenuItem.Checked = true;
+            }
         }
 
         private void LoadAppSettings()
@@ -468,6 +474,7 @@ namespace ARKBreedingStats
 
             CbLibraryInfoUseFilter.Checked = Properties.Settings.Default.LibraryColorInfoUseFilter;
             showTokenPopupOnListeningToolStripMenuItem.Checked = Properties.Settings.Default.DisplayPopupForServerToken;
+            beginListeningToExportGunOnLaunchToolStripMenuItem.Checked = Properties.Settings.Default.BeginServerListeningOnLaunch;
 
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -3993,6 +4000,11 @@ namespace ARKBreedingStats
         private void showTokenPopupOnListeningToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayPopupForServerToken = showTokenPopupOnListeningToolStripMenuItem.Checked;
+        }
+
+        private void startListeningToExportGunOnLaunchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.BeginServerListeningOnLaunch = beginListeningToExportGunOnLaunchToolStripMenuItem.Checked;
         }
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)

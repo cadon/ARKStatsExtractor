@@ -155,6 +155,7 @@ namespace ARKBreedingStats
             this.sendServerCreatureStatusNeuterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendServerCreatureStatusDeadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showTokenPopupOnListeningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.beginListeningToExportGunOnLaunchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
             this.openModPageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1483,6 +1484,7 @@ namespace ARKBreedingStats
             this.currentTokenToolStripMenuItem,
             this.listenWithNewTokenToolStripMenuItem,
             this.showTokenPopupOnListeningToolStripMenuItem,
+            this.beginListeningToExportGunOnLaunchToolStripMenuItem,
             this.toolStripSeparator28,
             this.openModPageInBrowserToolStripMenuItem,
             this.sendExampleCreatureToolStripMenuItem,
@@ -1542,6 +1544,14 @@ namespace ARKBreedingStats
             this.showTokenPopupOnListeningToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.showTokenPopupOnListeningToolStripMenuItem.Text = "Show token popup on listening";
             this.showTokenPopupOnListeningToolStripMenuItem.Click += new System.EventHandler(this.showTokenPopupOnListeningToolStripMenuItem_Click);
+            // 
+            // startListeningToExportGunOnLaunchToolStripMenuItem
+            // 
+            this.beginListeningToExportGunOnLaunchToolStripMenuItem.CheckOnClick = true;
+            this.beginListeningToExportGunOnLaunchToolStripMenuItem.Name = "beginListeningToExportGunOnLaunchToolStripMenuItem";
+            this.beginListeningToExportGunOnLaunchToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.beginListeningToExportGunOnLaunchToolStripMenuItem.Text = "Start listening on app launch";
+            this.beginListeningToExportGunOnLaunchToolStripMenuItem.Click += new System.EventHandler(this.startListeningToExportGunOnLaunchToolStripMenuItem_Click);
             // 
             // toolStripSeparator28
             // 
@@ -4494,6 +4504,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem nameGeneratorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectSavegameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showTokenPopupOnListeningToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem beginListeningToExportGunOnLaunchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adminCommandSetMutationLevelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem commandMutationLevelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statsOptionsToolStripMenuItem;
