@@ -115,7 +115,7 @@ namespace ARKBreedingStats.Library
         /// The real, unique creature's id in ARK is created by id1 &lt;&lt; 32 | id2. This is not the one that is shown to the user in game (see ArkIdInGame for that).
         /// This property is only set if the creature was imported.
         /// If ArkIdImported is false, this field can contain any user input value, intended is the creature's id in ARK like it is shown to the user in game.
-        /// The shown id is not always unique. It's build from two 32 bit integers which are converted to strings and then concatenated.
+        /// The shown id is not always unique. It's build from two 32-bit integers which are converted to strings and then concatenated.
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public long ArkId;
@@ -138,8 +138,10 @@ namespace ARKBreedingStats.Library
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool isBred;
+
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Guid fatherGuid;
+
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Guid motherGuid;
         /// <summary>
@@ -298,6 +300,20 @@ namespace ARKBreedingStats.Library
             ArkIdImported = true;
             guid = Utils.ConvertArkIdToGuid(arkId);
             Species = species;
+            flags = CreatureFlags.Placeholder;
+        }
+
+        /// <summary>
+        /// Creates a placeholder creature with the given guid based on an imported ARK id, which have to be imported
+        /// </summary>
+        /// <param name="guid">Guid converted from an imported ARK id (no user input)</param>
+        public Creature(Guid guid, Species species, Sex sex = Sex.Unknown)
+        {
+            ArkId = Utils.ConvertCreatureGuidToArkId(guid);
+            ArkIdImported = true;
+            this.guid = guid;
+            Species = species;
+            this.sex = sex;
             flags = CreatureFlags.Placeholder;
         }
 

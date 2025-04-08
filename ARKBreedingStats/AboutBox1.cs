@@ -119,6 +119,7 @@ namespace ARKBreedingStats
 * Lunat1q: improved OCR
 * ThatGamerBlue: species dividers in virtual listView
 * Jaymei: ATLAS species data
+* Shen: many ASA color region images
 
 Translations:
 * French by Vykan and Yanuut

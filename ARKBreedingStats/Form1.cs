@@ -415,6 +415,12 @@ namespace ARKBreedingStats
             }
 
             UpdateAsaIndicator();
+
+            if (Properties.Settings.Default.BeginServerListeningOnLaunch)
+            {
+                AsbServerStartListening();
+                listenToolStripMenuItem.Checked = true;
+            }
         }
 
         private void LoadAppSettings()
@@ -468,6 +474,7 @@ namespace ARKBreedingStats
 
             CbLibraryInfoUseFilter.Checked = Properties.Settings.Default.LibraryColorInfoUseFilter;
             showTokenPopupOnListeningToolStripMenuItem.Checked = Properties.Settings.Default.DisplayPopupForServerToken;
+            beginListeningToExportGunOnLaunchToolStripMenuItem.Checked = Properties.Settings.Default.BeginServerListeningOnLaunch;
 
             // load stat weights
             double[][] custWd = Properties.Settings.Default.customStatWeights;
@@ -1623,7 +1630,7 @@ namespace ARKBreedingStats
         {
             var parentList = _creatureCollection.creatures
                 .Where(cr =>
-                    cr.Species == creature.Species && cr.guid != creature.guid && !cr.flags.HasFlag(CreatureFlags.Placeholder))
+                    cr.Species == creature.Species && cr.guid != creature.guid)
                 .OrderBy(cr => cr.name).ToList();
 
             if (creature.Species?.noGender == true)
@@ -1641,26 +1648,35 @@ namespace ARKBreedingStats
         /// </summary>
         private List<int>[] FindParentSimilarities(List<Creature>[] parents, Creature creature)
         {
-            if (parents.Length != 2 || (parents[0] == null && parents[1] == null)) return new List<int>[] { null, null };
+            if (parents.Length != 2
+                || (parents[0] == null && parents[1] == null)
+                || creature?.levelsWild == null)
+                return new List<int>[] { null, null };
 
             var parentListCount = parents[1] == null ? 1 : 2;
             List<int> motherListSimilarities = new List<int>();
             List<int> fatherListSimilarities = parentListCount == 2 ? new List<int>() : null;
             List<int>[] parentListSimilarities = { motherListSimilarities, fatherListSimilarities };
-            int e; // number of equal wildLevels
+            var statsUsedBySpecies = Enumerable.Range(0, Stats.StatsCount)
+                .Where(s => creature.Species.UsesStat(s) && s != Stats.Torpidity)
+                .ToArray();
             for (int ps = 0; ps < parentListCount; ps++)
             {
                 foreach (Creature c in parents[ps])
                 {
-                    e = 0;
-                    for (int s = 0; s < Stats.StatsCount; s++)
+                    if (c.levelsWild == null)
                     {
-                        if (s != Stats.Torpidity && creature.levelsWild[s] >= 0 &&
-                            creature.levelsWild[s] == c.levelsWild[s])
-                            e++;
+                        parentListSimilarities[ps].Add(-1);
+                        continue;
+                    }
+                    var equalWildLevels = 0;
+                    foreach (var s in statsUsedBySpecies)
+                    {
+                        if (creature.levelsWild[s] == c.levelsWild[s])
+                            equalWildLevels++;
                     }
 
-                    parentListSimilarities[ps].Add(e);
+                    parentListSimilarities[ps].Add(equalWildLevels);
                 }
 
                 // sort parents: put all creatures not available to the end, then the ones with 0 common stats to the end
@@ -3984,6 +4000,11 @@ namespace ARKBreedingStats
         private void showTokenPopupOnListeningToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DisplayPopupForServerToken = showTokenPopupOnListeningToolStripMenuItem.Checked;
+        }
+
+        private void startListeningToExportGunOnLaunchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.BeginServerListeningOnLaunch = beginListeningToExportGunOnLaunchToolStripMenuItem.Checked;
         }
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)

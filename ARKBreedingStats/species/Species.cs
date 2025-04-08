@@ -100,6 +100,11 @@ namespace ARKBreedingStats.species
         private int _skipWildLevelStatsWithServerSettings;
 
         /// <summary>
+        /// Info about multiple color region patterns.
+        /// </summary>
+        public ColorPattern patterns;
+
+        /// <summary>
         /// Indicates if the species is affected by the setting AllowFlyerSpeedLeveling
         /// </summary>
         [JsonProperty] public bool isFlyer;

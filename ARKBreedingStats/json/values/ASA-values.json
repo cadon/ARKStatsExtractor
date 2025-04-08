@@ -1,5 +1,5 @@
 {
-	"version": "61.17.0",
+	"version": "64.2.1",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -148,6 +148,138 @@
 						"Cammo",
 						"DryMoss",
 						"Custard"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Cat/Cat_Character_BP.Cat_Character_BP",
+			"name": "Cat",
+			"fullStatsRaw": [
+				[ 125, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 75, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 60, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 9523.80952,
+				"incubationTime": 0,
+				"maturationTime": 111111.111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 2.65,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 65,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.0008,
+				"foodConsumptionMult": 1000,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_Head": 3 },
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"patterns": {
+				"selectRegion": 1,
+				"count": 4
+			},
+			"colors": [
+				{
+					"name": "Body fur",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray"
+					]
+				},
+				{
+					"name": "Pattern definition",
+					"colors": [ "Red", "Blue", "Green", "Yellow" ]
+				},
+				{
+					"name": "Calico",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"None",
+						"None",
+						"LightWarmGray"
+					]
+				},
+				{
+					"name": "Pattern",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray"
 					]
 				}
 			]
@@ -602,6 +734,173 @@
 						"Black",
 						"Dino Light Brown",
 						"Dino Albino"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Deinotherium/Dinos/DeinotheriumASA_Character_BP.DeinotheriumASA_Character_BP",
+			"name": "Deinotherium",
+			"fullStatsRaw": [
+				[ 1750, 0.2, 0.2025, 0.5, 0 ],
+				[ 450, 0.1, 0.1, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 8000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 0.95,
+				"affinityNeeded0": 1000,
+				"affinityIncreasePL": 30,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 4,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5"
 					]
 				}
 			]
@@ -2178,7 +2477,7 @@
 			},
 			"displayedStats": 919,
 			"noGender": true,
-			"skipWildLevelStats": 512,
+			"skipWildLevelStats": 520,
 			"colors": [
 				{
 					"name": "Main body",
@@ -3975,7 +4274,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/MilkGlider/MilkGlider_Character_BP.MilkGlider_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 520
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/SpaceDolphin/SpaceDolphin_Character_BP.SpaceDolphin_Character_BP",
@@ -6122,10 +6421,7 @@
 				"foodConsumptionMult": 150,
 				"babyFoodConsumptionMult": 510
 			},
-			"boneDamageAdjusters": {
-				"c_head": 2.5,
-				"eye_01_Jnt": 10
-			},
+			"boneDamageAdjusters": { "c_head": 2.5 },
 			"displayedStats": 919,
 			"skipWildLevelStats": 512
 		},
@@ -6158,10 +6454,7 @@
 				"foodConsumptionMult": 150,
 				"babyFoodConsumptionMult": 510
 			},
-			"boneDamageAdjusters": {
-				"c_head": 2.5,
-				"eye_01_Jnt": 10
-			},
+			"boneDamageAdjusters": { "c_head": 2.5 },
 			"displayedStats": 919,
 			"skipWildLevelStats": 512
 		},
@@ -6194,10 +6487,7 @@
 				"foodConsumptionMult": 150,
 				"babyFoodConsumptionMult": 510
 			},
-			"boneDamageAdjusters": {
-				"c_head": 2.5,
-				"eye_01_Jnt": 10
-			},
+			"boneDamageAdjusters": { "c_head": 2.5 },
 			"displayedStats": 919,
 			"skipWildLevelStats": 512
 		},

@@ -157,8 +157,9 @@ namespace ARKBreedingStats
             _topLevels.TryGetValue(species, out var topLevels);
 
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
+            var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
 
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, GetCurrentWildLevels(), GetCurrentMutLevels(),
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights,considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
                 GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
@@ -1363,6 +1364,40 @@ namespace ARKBreedingStats
             else
                 rbWildExtractor.Checked = true;
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)cv.imprintingBonus * 100;
+        }
+
+        /// <summary>
+        /// If a Creature has parent guids, set the parent creature objects from the library.
+        /// If they don't exist yet, create placeholders for later import.
+        /// </summary>
+        private void SetParentsOfCreatureCreatePlaceholderIfNeeded(Creature c)
+        {
+            if (c.Mother == null && c.motherGuid != Guid.Empty)
+            {
+                if (_creatureCollection.CreatureById(c.motherGuid, 0, out var mother))
+                {
+                    c.Mother = mother;
+                }
+                else
+                {
+                    c.Mother = new Creature(c.motherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Female);
+                    c.Mother.name = (c.Mother.sex == Sex.Female ? "Mother" : "Parent") + " of " + c.name;
+                    _creatureCollection.creatures.Add(c.Mother);
+                }
+            }
+            if (c.Father == null && c.fatherGuid != Guid.Empty)
+            {
+                if (_creatureCollection.CreatureById(c.fatherGuid, 0, out var father))
+                {
+                    c.Father = father;
+                }
+                else
+                {
+                    c.Father = new Creature(c.fatherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Male);
+                    c.Father.name = (c.Father.sex == Sex.Male ? "Father" : "Parent") + " of " + c.name;
+                    _creatureCollection.creatures.Add(c.Father);
+                }
+            }
         }
 
         /// <summary>
