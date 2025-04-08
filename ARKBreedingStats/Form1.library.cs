@@ -16,6 +16,8 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using ARKBreedingStats.NamePatterns;
+using Brushes = System.Drawing.Brushes;
+using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats
 {
@@ -1639,26 +1641,55 @@ namespace ARKBreedingStats
             if (creatures == null)
                 return Enumerable.Empty<Creature>();
 
+            var anyFilterSet = false;
+
             if (Properties.Settings.Default.FilterHideOwners?.Any() ?? false)
+            {
                 creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner ?? string.Empty));
+                anyFilterSet = true;
+            }
 
             if (Properties.Settings.Default.FilterHideTribes?.Any() ?? false)
+            {
                 creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe ?? string.Empty));
+                anyFilterSet = true;
+            }
 
             if (Properties.Settings.Default.FilterHideServers?.Any() ?? false)
+            {
                 creatures = creatures.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server ?? string.Empty));
+                anyFilterSet = true;
+            }
 
             if (Properties.Settings.Default.FilterOnlyIfColorId != 0)
+            {
                 creatures = creatures.Where(c => c.colors.Contains(Properties.Settings.Default.FilterOnlyIfColorId));
+                anyFilterSet = true;
+            }
 
             if (Properties.Settings.Default.FilterHideAdults)
+            {
                 creatures = creatures.Where(c => c.Maturation < 1);
+                anyFilterSet = true;
+            }
+
             if (Properties.Settings.Default.FilterHideNonAdults)
+            {
                 creatures = creatures.Where(c => c.Maturation >= 1);
+                anyFilterSet = true;
+            }
+
             if (Properties.Settings.Default.FilterHideCooldowns)
+            {
                 creatures = creatures.Where(c => c.cooldownUntil == null || c.cooldownUntil < DateTime.Now);
+                anyFilterSet = true;
+            }
+
             if (Properties.Settings.Default.FilterHideNonCooldowns)
+            {
                 creatures = creatures.Where(c => c.cooldownUntil != null && c.cooldownUntil > DateTime.Now);
+                anyFilterSet = true;
+            }
 
             // tags filter
             if (Properties.Settings.Default.FilterHideTags?.Any() ?? false)
@@ -1667,23 +1698,29 @@ namespace ARKBreedingStats
                 creatures = creatures.Where(c =>
                     !hideCreaturesWOTags && c.tags.Count == 0 ||
                     c.tags.Except(Properties.Settings.Default.FilterHideTags).Any());
+                anyFilterSet = true;
             }
 
             // hide creatures with the set hide flags
             if (Properties.Settings.Default.FilterFlagsExclude != 0)
             {
                 creatures = creatures.Where(c => ((int)c.flags & Properties.Settings.Default.FilterFlagsExclude) == 0);
+                anyFilterSet = true;
             }
             if (Properties.Settings.Default.FilterFlagsAllNeeded != 0)
             {
                 creatures = creatures.Where(c => ((int)c.flags & Properties.Settings.Default.FilterFlagsAllNeeded) == Properties.Settings.Default.FilterFlagsAllNeeded);
+                anyFilterSet = true;
             }
             if (Properties.Settings.Default.FilterFlagsOneNeeded != 0)
             {
                 int flagsOneNeeded = Properties.Settings.Default.FilterFlagsOneNeeded |
                                      Properties.Settings.Default.FilterFlagsAllNeeded;
                 creatures = creatures.Where(c => ((int)c.flags & flagsOneNeeded) != 0);
+                anyFilterSet = true;
             }
+
+            libraryFilterToolStripMenuItem.BackColor = anyFilterSet ? Color.LightGoldenrodYellow : SystemColors.Control;
 
             return creatures;
         }
