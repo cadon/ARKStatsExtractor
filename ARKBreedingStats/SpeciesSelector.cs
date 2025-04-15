@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -163,11 +164,9 @@ namespace ARKBreedingStats
             {
                 foreach (Species s in species)
                 {
-                    //var colors = s.RandomSpeciesColors(rand);
-
                     var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
-                        s.name.Contains("Polar") ? creatureColorsPolar : creatureColors
-                        //colors
+                        s.name.Contains("Polar") ? creatureColorsPolar : creatureColors,
+                        CreatureCollection.CurrentCreatureCollection?.Game
                         );
                     //if (!imgExists && s.IsDomesticable && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
                     if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
@@ -183,7 +182,8 @@ namespace ARKBreedingStats
                         if (FileService.TryDeleteFile(imagePath))
                         {
                             (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
-                                s.name.Contains("Polar") ? creatureColorsPolar : creatureColors);
+                                s.name.Contains("Polar") ? creatureColorsPolar : creatureColors,
+                                CreatureCollection.CurrentCreatureCollection?.Game);
                             if (imgExists)
                             {
                                 try
@@ -225,7 +225,7 @@ namespace ARKBreedingStats
                     Text = s.DescriptiveNameAndMod,
                     Tag = s
                 };
-                int ii = SpeciesImageIndex(s.name);
+                int ii = SpeciesImageIndex(s);
                 if (ii != -1)
                     lvi.ImageIndex = ii;
                 newItems.Add(lvi);
@@ -241,7 +241,7 @@ namespace ARKBreedingStats
         {
             foreach (ListViewItem lvi in lvSpeciesInLibrary.Items)
             {
-                int ii = SpeciesImageIndex((lvi.Tag as Species)?.name);
+                int ii = SpeciesImageIndex(lvi.Tag as Species);
                 if (ii != -1)
                     lvi.ImageIndex = ii;
             }
@@ -265,7 +265,7 @@ namespace ARKBreedingStats
                         Text = species.DescriptiveNameAndMod,
                         Tag = species
                     };
-                    int ii = SpeciesImageIndex(species.name);
+                    int ii = SpeciesImageIndex(species);
                     if (ii != -1)
                         lvi.ImageIndex = ii;
                     newItems.Add(lvi);
@@ -425,21 +425,20 @@ namespace ARKBreedingStats
             }
         }
 
-        private int SpeciesImageIndex(string speciesName = null)
+        private int SpeciesImageIndex(Species species = null)
         {
             if (_iconIndices == null) return -1;
 
-            if (string.IsNullOrWhiteSpace(speciesName))
-                speciesName = SelectedSpecies.name;
-            else speciesName = Values.V.SpeciesName(speciesName);
-            speciesName = CreatureColored.SpeciesImageName(speciesName, false);
-            return _iconIndices.IndexOf(speciesName);
+            if (species == null)
+                species = SelectedSpecies;
+            var speciesImageName = CreatureColored.SpeciesImageName(species, CreatureCollection.CurrentCreatureCollection?.Game, false);
+            return _iconIndices.IndexOf(speciesImageName);
         }
 
-        public Image SpeciesImage(string speciesName = null)
+        public Image SpeciesImage(Species species = null)
         {
             if (lvLastSpecies.LargeImageList == null) return null;
-            int ii = SpeciesImageIndex(speciesName);
+            int ii = SpeciesImageIndex(species);
             if (ii != -1 && ii < lvLastSpecies.LargeImageList.Images.Count)
                 return lvLastSpecies.LargeImageList.Images[ii];
             return null;
