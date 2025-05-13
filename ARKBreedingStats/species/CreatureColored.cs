@@ -29,14 +29,45 @@ namespace ARKBreedingStats.species
 
         /// <summary>
         /// Returns the name of the image file used for the species. E.g. parts like Aberrant or Brute are removed, they share the same graphics.
+        /// There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
         /// </summary>
-        internal static string SpeciesImageName(string speciesName, bool replacePolar = true)
+        internal static string SpeciesImageName(Species species, string game = null, Sex creatureSex = Sex.Unknown, int patternId = -1, bool replacePolar = true)
         {
+            var speciesName = species?.name;
             if (string.IsNullOrEmpty(speciesName)) return string.Empty;
-            return replacePolar
-                ? speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty)
-                    .Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty)
-                : speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty);
+            speciesName = speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty);
+            if (replacePolar)
+            {
+                speciesName = speciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty);
+            }
+
+            var gameString = string.IsNullOrEmpty(game) ? string.Empty : "_" + game;
+            var sexString = creatureSex == Sex.Female ? "_sf" : creatureSex == Sex.Male ? "_sm" : string.Empty;
+            var patternString = patternId >= 0 ? "_" + patternId : string.Empty;
+            var keyString = speciesName + gameString + sexString + patternString;
+            if (cachedSpeciesFileNames?.TryGetValue(keyString, out var fileNameWithoutExtension) == true)
+                return fileNameWithoutExtension;
+
+            if (cachedSpeciesFileNames == null) cachedSpeciesFileNames = new Dictionary<string, string>();
+
+            // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
+            var fileNames = new List<string>
+            {
+                speciesName + gameString + sexString + patternString,
+                speciesName + gameString + patternString,
+                speciesName + sexString + patternString,
+                speciesName + patternString
+            }.Distinct().ToArray();
+
+            foreach (var fileNameBase in fileNames)
+            {
+                if (File.Exists(Path.Combine(ImageFolder, fileNameBase + Extension)))
+                {
+                    cachedSpeciesFileNames.Add(keyString, fileNameBase);
+                    return fileNameBase;
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -47,15 +78,18 @@ namespace ARKBreedingStats.species
                 + Convert32.ToBase32String(colorIds.Select(ci => ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-')
                 + (listView ? "_lv" : string.Empty) + Extension);
 
+        internal static string SpeciesImageName(Species species, string game = null, bool replacePolar = true) =>
+            SpeciesImageName(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null), Sex.Unknown, (species?.patterns?.count ?? 0) > 0 ? 1 : -1, replacePolar);
+
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to create one. Returns false if there's no image.
         /// </summary>
-        internal static (bool imageExists, string imagePath, string speciesListName) SpeciesImageExists(Species species, byte[] colorIds)
+        internal static (bool imageExists, string imagePath, string speciesListName) SpeciesImageExists(Species species, byte[] colorIds, string game = null)
         {
-            string speciesImageName = SpeciesImageName(species?.name);
-            string speciesNameForList = SpeciesImageName(species?.name, false);
-            string cacheFileName = ColoredCreatureCacheFilePath(speciesImageName, colorIds, true);
-            if (File.Exists(cacheFileName))
+            var speciesNameForList = SpeciesImageName(species, game, false);
+            var speciesImageName = SpeciesImageName(species, game, true);
+            var cacheFileName = string.IsNullOrEmpty(speciesImageName) ? null : ColoredCreatureCacheFilePath(speciesImageName, colorIds, true);
+            if (!string.IsNullOrEmpty(cacheFileName) && File.Exists(cacheFileName))
                 return (true, cacheFileName, speciesNameForList);
 
             string speciesBaseImageFilePath = Path.Combine(ImageFolder, speciesImageName + Extension);
@@ -86,14 +120,9 @@ namespace ARKBreedingStats.species
         {
             if (colorIds == null) colorIds = new byte[Ark.ColorRegionCount];
 
-            string speciesName = null;
-            if (string.IsNullOrEmpty(species?.name))
-                onlyColors = true;
-            else
-                speciesName = SpeciesImageName(species.name);
-
-            if (onlyColors || string.IsNullOrEmpty(ImageFolder))
+            if (string.IsNullOrEmpty(species?.name) || string.IsNullOrEmpty(ImageFolder))
                 return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
+
             var patternId = -1;
             if (species.patterns != null)
             {
@@ -102,7 +131,7 @@ namespace ARKBreedingStats.species
                 if (patternId <= 0) patternId += species.patterns.count;
             }
 
-            var baseSpeciesFileName = GetColorFileName(speciesName, game, creatureSex, patternId);
+            var baseSpeciesFileName = SpeciesImageName(species, game, creatureSex, patternId);
 
             if (string.IsNullOrEmpty(baseSpeciesFileName))
                 return onlyImage ? null : DrawPieChart(colorIds, enabledColorRegions, size, pieSize); // no available images
@@ -185,45 +214,6 @@ namespace ARKBreedingStats.species
             }
 
             return bm;
-        }
-
-        /// <summary>
-        /// Get species image file name. There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
-        /// </summary>
-        /// <param name="speciesName"></param>
-        /// <param name="game"></param>
-        /// <param name="creatureSex"></param>
-        /// <param name="patternId"></param>
-        /// <returns></returns>
-        private static string GetColorFileName(string speciesName, string game, Sex creatureSex, int patternId)
-        {
-            var gameString = string.IsNullOrEmpty(game) ? string.Empty : "_" + game;
-            var sexString = creatureSex == Sex.Female ? "_sf" : creatureSex == Sex.Male ? "_sm" : string.Empty;
-            var patternString = patternId >= 0 ? "_" + patternId : string.Empty;
-            var keyString = speciesName + gameString + sexString + patternString;
-            if (cachedSpeciesFileNames?.TryGetValue(keyString, out var fileNameWithoutExtension) == true)
-                return fileNameWithoutExtension;
-
-            if (cachedSpeciesFileNames == null) cachedSpeciesFileNames = new Dictionary<string, string>();
-
-            // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
-            var fileNames = new List<string>
-            {
-                speciesName + gameString + sexString + patternString,
-                speciesName + gameString + patternString,
-                speciesName + sexString + patternString,
-                speciesName + patternString
-            }.Distinct().ToArray();
-
-            foreach (var fileNameBase in fileNames)
-            {
-                if (File.Exists(Path.Combine(ImageFolder, fileNameBase + Extension)))
-                {
-                    cachedSpeciesFileNames.Add(keyString, fileNameBase);
-                    return fileNameBase;
-                }
-            }
-            return null;
         }
 
         /// <summary>
