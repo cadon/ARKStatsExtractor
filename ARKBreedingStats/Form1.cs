@@ -3310,7 +3310,7 @@ namespace ARKBreedingStats
                 cr.levelsWild = _statIOs.Select(s => s.LevelWild).ToArray();
                 cr.levelsMutated = _statIOs.Select(s => s.LevelMut).ToArray();
                 cr.imprintingBonus = _extractor.ImprintingBonus;
-                cr.tamingEff = _extractor.UniqueTamingEffectiveness();
+                cr.tamingEff = rbWildExtractor.Checked ? -3 : _extractor.UniqueTamingEffectiveness();
                 cr.isBred = rbBredExtractor.Checked;
                 for (int s = 0; s < Stats.StatsCount; s++)
                     cr.SetTopStat(s, _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.TopLevel) || _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel));

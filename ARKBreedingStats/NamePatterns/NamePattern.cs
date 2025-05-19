@@ -246,7 +246,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <returns>A strongly typed model containing all tokens and their values</returns>
         public static TokenModel CreateTokenModel(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, ColorExisting[] colorExistings, TopLevels topLevels, int libraryCreatureCount)
         {
-            string dom = creature.isBred ? "B" : "T";
+            string dom = creature.isBred ? "B" : creature.isDomesticated ? "T" : "W";
             double imp = creature.imprintingBonus * 100;
             double eff = creature.tamingEff * 100;
 
