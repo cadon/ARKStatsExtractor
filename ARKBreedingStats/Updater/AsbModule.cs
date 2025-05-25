@@ -71,7 +71,7 @@ namespace ARKBreedingStats.Updater
         public bool LocallyAvailable;
 
         [OnDeserialized]
-        private void SetVersion(StreamingContext context)
+        internal void SetVersion(StreamingContext context)
         {
             Version.TryParse(version, out VersionOnline);
 
