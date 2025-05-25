@@ -431,20 +431,23 @@ namespace ARKBreedingStats.NamePatterns
                 model.highest_s_m[s] = s < usedStatsCount ? Utils.StatName(levelOrderMutated[s].Item1, true, creature.Species.statNames) : string.Empty;
             }
 
-            for (int i = 0; i < 6; i++)
+            if (creature.colors != null)
             {
-                var colorId = creature.colors[i];
-                ColorExisting colorExisting = colorExistings != null ? colorExistings[i] : ColorExisting.Unknown;
-
-                model.colors[i] = new ColorModel
+                for (int i = 0; i < 6; i++)
                 {
-                    id = colorId,
-                    name = CreatureColors.CreatureColorName(colorId),
-                    used = creature.Species.EnabledColorRegions[i],
-                    @new = colorExisting == ColorExisting.ColorExistingInOtherRegion ? "newInRegion"
-                     : colorExisting == ColorExisting.ColorIsNew ? "newInSpecies"
-                     : string.Empty
-                };
+                    var colorId = creature.colors[i];
+                    ColorExisting colorExisting = colorExistings != null ? colorExistings[i] : ColorExisting.Unknown;
+
+                    model.colors[i] = new ColorModel
+                    {
+                        id = colorId,
+                        name = CreatureColors.CreatureColorName(colorId),
+                        used = creature.Species.EnabledColorRegions[i],
+                        @new = colorExisting == ColorExisting.ColorExistingInOtherRegion ? "newInRegion"
+                            : colorExisting == ColorExisting.ColorIsNew ? "newInSpecies"
+                            : string.Empty
+                    };
+                }
             }
 
             return model;

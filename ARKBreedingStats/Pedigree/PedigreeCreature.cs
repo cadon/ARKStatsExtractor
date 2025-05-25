@@ -39,6 +39,11 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         public event Action RecalculateBreedingPlan;
 
+        /// <summary>
+        /// Generate name pattern for creature and copy to clipboard.
+        /// </summary>
+        public static event Action<Creature, int> CopyGeneratedPatternToClipboard;
+
         private readonly List<Label> _labels;
         private readonly ToolTip _ttMonospaced;
         private readonly ToolTip _tt;
@@ -92,6 +97,23 @@ namespace ARKBreedingStats.Pedigree
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             Disposed += PedigreeCreature_Disposed;
             comboId = -1;
+
+            // name patterns menu entries
+            const int namePatternCount = 6;
+            var libraryContextMenuItemsCopyToClipboard = new ToolStripMenuItem[namePatternCount];
+            for (var i = 0; i < namePatternCount; i++)
+            {
+                // library context menu copy name pattern to clipboard
+                var mi = new ToolStripMenuItem { Text = $"Pattern {i + 1}", Tag = i };
+                mi.Click += CopyGeneratedNamePatternToClipboard;
+                libraryContextMenuItemsCopyToClipboard[i] = mi;
+            }
+            toolStripMenuItemCopyGeneratedNameToClipboard.DropDownItems.AddRange(libraryContextMenuItemsCopyToClipboard);
+        }
+
+        private void CopyGeneratedNamePatternToClipboard(object sender, EventArgs e)
+        {
+            CopyGeneratedPatternToClipboard?.Invoke(Creature, (int)((ToolStripMenuItem)sender).Tag);
         }
 
         #region Tooltip font

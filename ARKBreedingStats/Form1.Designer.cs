@@ -282,6 +282,7 @@ namespace ARKBreedingStats
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemGenerateCreatureName = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCopyGeneratedCreatureName = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCopyCreatureName = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.copyValuesToExtractorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2764,6 +2765,7 @@ namespace ARKBreedingStats
             this.editAllSelectedToolStripMenuItem,
             this.toolStripSeparator17,
             this.toolStripMenuItemGenerateCreatureName,
+            this.toolStripMenuItemCopyGeneratedCreatureName,
             this.toolStripMenuItemCopyCreatureName,
             this.toolStripSeparator9,
             this.copyValuesToExtractorToolStripMenuItem,
@@ -2817,6 +2819,13 @@ namespace ARKBreedingStats
             this.toolStripMenuItemGenerateCreatureName.Size = new System.Drawing.Size(302, 22);
             this.toolStripMenuItemGenerateCreatureName.Text = "Apply Name Pattern";
             this.toolStripMenuItemGenerateCreatureName.ToolTipText = "Applies the naming pattern on the selected creatures";
+            // 
+            // toolStripMenuItemCopyGeneratedCreatureName
+            // 
+            this.toolStripMenuItemCopyGeneratedCreatureName.Name = "toolStripMenuItemCopyGeneratedCreatureName";
+            this.toolStripMenuItemCopyGeneratedCreatureName.Size = new System.Drawing.Size(302, 22);
+            this.toolStripMenuItemCopyGeneratedCreatureName.Text = "Copy generated name to clipboard";
+            this.toolStripMenuItemCopyGeneratedCreatureName.ToolTipText = "Generates a name and copies it to the clipboard";
             // 
             // toolStripMenuItemCopyCreatureName
             // 
@@ -4392,6 +4401,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopyCreatureName;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemGenerateCreatureName;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopyGeneratedCreatureName;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem adminCommandToSetColorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fixColorsToolStripMenuItem;

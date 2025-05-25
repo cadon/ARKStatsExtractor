@@ -17,6 +17,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.StatsOptions;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
@@ -224,21 +225,27 @@ namespace ARKBreedingStats
             // name patterns menu entries
             const int namePatternCount = 6;
             var namePatternMenuItems = new ToolStripMenuItem[namePatternCount];
-            var libraryContextMenuItems = new ToolStripMenuItem[namePatternCount];
-            for (int i = 0; i < namePatternCount; i++)
+            var libraryContextMenuItemsSetNamePattern = new ToolStripMenuItem[namePatternCount];
+            var libraryContextMenuItemsCopyToClipboard = new ToolStripMenuItem[namePatternCount];
+            for (var i = 0; i < namePatternCount; i++)
             {
                 var displayedPatternIndex = i + 1;
                 var mi = new ToolStripMenuItem { Text = $"Pattern {displayedPatternIndex}{(i == 0 ? " (used for auto import)" : string.Empty)}", Tag = i };
                 mi.Click += MenuOpenNamePattern;
                 namePatternMenuItems[i] = mi;
 
-                // library context menu
+                // library context menu set name pattern
                 mi = new ToolStripMenuItem { Text = $"Pattern {i + 1} (NumPad{displayedPatternIndex})", Tag = i };
                 mi.Click += GenerateCreatureNames;
-                libraryContextMenuItems[i] = mi;
+                libraryContextMenuItemsSetNamePattern[i] = mi;
+
+                // library context menu copy name pattern to clipboard
+                mi = new ToolStripMenuItem { Text = $"Pattern {i + 1} (Ctrl + NumPad{displayedPatternIndex})", Tag = i };
+                mi.Click += CopyGeneratedNamePatternToClipboard;
+                libraryContextMenuItemsCopyToClipboard[i] = mi;
             }
 
-            libraryContextMenuItems[0].ShortcutKeys = Keys.Control | Keys.G;
+            libraryContextMenuItemsSetNamePattern[0].ShortcutKeys = Keys.Control | Keys.G;
 
             var libraryContextMenuMaturitySettings = new[] { 0, 0.05, 0.1, 0.25, 0.5, 0.75, 1 };
             foreach (var m in libraryContextMenuMaturitySettings)
@@ -250,7 +257,9 @@ namespace ARKBreedingStats
             }
 
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
-            toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
+            toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItemsSetNamePattern);
+            toolStripMenuItemCopyGeneratedCreatureName.DropDownItems.AddRange(libraryContextMenuItemsCopyToClipboard);
+            PedigreeCreature.CopyGeneratedPatternToClipboard += CopyCreatureNamePatternToClipboard;
 
             var copyTopCreatureStatsToClipboardMenuItem = new ToolStripMenuItem("Copy library top stats to clipboard");
             copyTopCreatureStatsToClipboardMenuItem.Click += CopyTopCreatureStatsToClipboard;
