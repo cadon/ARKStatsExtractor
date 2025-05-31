@@ -64,7 +64,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="species"></param>
         /// <param name="aliases"></param>
-        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases)
+        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases, string game = null)
         {
             if (SelectedSpecies != null)
             {
@@ -77,7 +77,7 @@ namespace ARKBreedingStats
                 SetSpecies(species.FirstOrDefault(), ignoreInRecent: true);
             }
 
-            InitializeSpeciesImages(species);
+            InitializeSpeciesImages(species, game);
 
             _entryList = CreateSpeciesList(species, aliases);
 
@@ -150,7 +150,7 @@ namespace ARKBreedingStats
             return entryList;
         }
 
-        public void InitializeSpeciesImages(List<Species> species)
+        public void InitializeSpeciesImages(List<Species> species, string game = null)
         {
             var creatureColors = new byte[] { 44, 42, 57, 10, 26, 78 }; // uniform color pattern that is used for all species in the selector
             var creatureColorsPolar = new byte[] { 18, 18, 18, 18, 18, 18 }; // uniform color pattern that is used for all polar species in the selector
@@ -166,7 +166,7 @@ namespace ARKBreedingStats
                 {
                     var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
                         s.name.Contains("Polar") ? creatureColorsPolar : creatureColors,
-                        CreatureCollection.CurrentCreatureCollection?.Game
+                        game ?? CreatureCollection.CurrentCreatureCollection?.Game
                         );
                     //if (!imgExists && s.IsDomesticable && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
                     if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
@@ -432,7 +432,7 @@ namespace ARKBreedingStats
             if (species == null)
                 species = SelectedSpecies;
             var speciesImageName = CreatureColored.SpeciesImageName(species, CreatureCollection.CurrentCreatureCollection?.Game, false);
-            return _iconIndices.IndexOf(speciesImageName);
+            return string.IsNullOrEmpty(speciesImageName) ? -1 : _iconIndices.IndexOf(speciesImageName);
         }
 
         public Image SpeciesImage(Species species = null)

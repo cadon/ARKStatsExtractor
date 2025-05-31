@@ -69,6 +69,7 @@ namespace ARKBreedingStats.species
                     return fileNameBase;
                 }
             }
+            cachedSpeciesFileNames.Add(keyString, null);
             return null;
         }
 
