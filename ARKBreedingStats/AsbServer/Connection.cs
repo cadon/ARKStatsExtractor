@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -452,7 +451,7 @@ namespace ARKBreedingStats.AsbServer
             var clipboardText = Clipboard.GetText();
             if (!string.IsNullOrEmpty(clipboardText) && clipboardText == Properties.Settings.Default.ExportServerToken)
             {
-                Clipboard.SetText(string.Empty);
+                utils.ClipboardHandler.SetText(string.Empty);
             }
         }
     }

@@ -324,6 +324,7 @@
     <Compile Include="ARKOverlay.Designer.cs">
       <DependentUpon>ARKOverlay.cs</DependentUpon>
     </Compile>
+    <Compile Include="utils\ClipboardHandler.cs" />
     <Compile Include="utils\ControlExtensions.cs" />
     <Compile Include="IncubationTimerEntry.cs" />
     <Compile Include="library\Note.cs" />

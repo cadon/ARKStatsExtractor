@@ -412,7 +412,7 @@ namespace ARKBreedingStats.Pedigree
         private void copyNameToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_creature?.name))
-                Clipboard.SetText(_creature.name);
+                utils.ClipboardHandler.SetText(_creature.name);
         }
 
         private void copyInfoGraphicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

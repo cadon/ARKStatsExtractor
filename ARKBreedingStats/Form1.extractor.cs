@@ -159,7 +159,7 @@ namespace ARKBreedingStats
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
             var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
 
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights,considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
                 GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
@@ -943,7 +943,9 @@ namespace ARKBreedingStats
             {
                 tsv.Add(rowLevel + rowValues);
             }
-            Clipboard.SetText(string.Join("\n", tsv));
+
+            if (!ClipboardHandler.SetText(string.Join("\n", tsv), out var error))
+                SetMessageLabelText($"Error while trying to copy data to the clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1577,8 +1579,9 @@ namespace ARKBreedingStats
         {
             // copy blueprint path to clipboard
             if (speciesSelector1.SelectedSpecies?.blueprintPath is string bp
-                && !string.IsNullOrEmpty(bp))
-                Clipboard.SetText(bp);
+                && !string.IsNullOrEmpty(bp)
+                && !utils.ClipboardHandler.SetText(bp, out var error))
+                SetMessageLabelText($"Error while trying to copy blueprint path to the clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         private void ExtractorStatLevelChanged(StatIO _)

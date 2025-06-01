@@ -12,7 +12,6 @@ using System.Windows.Forms;
 using ARKBreedingStats.utils;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using ARKBreedingStats.importExportGun;
 
 namespace ARKBreedingStats.multiplierTesting
@@ -780,8 +779,9 @@ To determine all species values, the files with the following creature combinati
             }
 
             CultureInfo.CurrentCulture = currentCulture;
-            Clipboard.SetText(sb.ToString());
-            SetMessageLabelText?.Invoke("Raw stat values copied to clipboard.", MessageBoxIcon.Information);
+            if (ClipboardHandler.SetText(sb.ToString(), out var error))
+                SetMessageLabelText?.Invoke("Raw stat values copied to clipboard.", MessageBoxIcon.Information);
+            else SetMessageLabelText?.Invoke($"Error while trying to copy raw stat values to clipboard. Error: {error}", MessageBoxIcon.Error);
         }
 
         private void LbSpeciesValuesExtractor_DragEnter(object sender, DragEventArgs e)

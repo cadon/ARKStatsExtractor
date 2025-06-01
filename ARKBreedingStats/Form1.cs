@@ -1591,7 +1591,7 @@ namespace ARKBreedingStats
         private void TbMessageLabel_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_messageLabelClipboardContent))
-                Clipboard.SetText(_messageLabelClipboardContent);
+                utils.ClipboardHandler.SetText(_messageLabelClipboardContent);
             FileService.OpenFolderInExplorer(_messageLabelPath);
         }
 
@@ -3299,8 +3299,8 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.PatternNameToClipboardAfterManualApplication)
                 {
                     if (string.IsNullOrEmpty(input.CreatureName))
-                        Clipboard.Clear();
-                    else Clipboard.SetText(input.CreatureName);
+                        utils.ClipboardHandler.Clear();
+                    else utils.ClipboardHandler.SetText(input.CreatureName);
                 }
             }
         }
@@ -3694,9 +3694,9 @@ namespace ARKBreedingStats
             {
                 string name = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name;
                 if (string.IsNullOrEmpty(name))
-                    Clipboard.Clear();
+                    utils.ClipboardHandler.Clear();
                 else
-                    Clipboard.SetText(name);
+                    utils.ClipboardHandler.SetText(name);
             }
         }
 
@@ -3972,7 +3972,8 @@ namespace ARKBreedingStats
         private void colorDefinitionsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // copy currently loaded color definitions to the clipboard
-            Clipboard.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")));
+            if (!utils.ClipboardHandler.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")), out var error))
+                SetMessageLabelText($"Error while trying to copy color definitions to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         private void BtCopyLibraryColorToClipboard_Click(object sender, EventArgs e)
@@ -3980,8 +3981,10 @@ namespace ARKBreedingStats
             LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked);
             libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             var colorInfo = LibraryInfo.GetSpeciesInfo();
-            Clipboard.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo);
-            SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.", MessageBoxIcon.Information);
+            if (utils.ClipboardHandler.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo, out var error))
+                SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.",
+                    MessageBoxIcon.Information);
+            else SetMessageLabelText($"Error while trying to copy color information to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         private void CbLibraryInfoUseFilter_CheckedChanged(object sender, EventArgs e)

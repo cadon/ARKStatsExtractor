@@ -168,7 +168,7 @@ namespace ARKBreedingStats.values
                     }
                     //if (sp.IsDomesticable && !specialFoodData.ContainsKey(sp.name)) speciesWoFoodData.Add(sp.name);
                 }
-                //System.Windows.Forms.Clipboard.SetText(speciesWoFoodData.Any() ? string.Join("\n", speciesWoFoodData) : string.Empty);
+                //utils.ClipboardHandler.SetText(speciesWoFoodData.Any() ? string.Join("\n", speciesWoFoodData) : string.Empty);
             }
 
             OrderSpeciesAndApplyCustomVariants();

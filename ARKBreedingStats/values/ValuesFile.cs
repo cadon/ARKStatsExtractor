@@ -77,7 +77,7 @@ namespace ARKBreedingStats.values
             //                                   .Select(x => x.Key)
             //                                   .ToArray());
             //if (!string.IsNullOrEmpty(duplicateSpeciesNames))
-            //    Clipboard.SetText(duplicateSpeciesNames);
+            //    utils.ClipboardHandler.SetText(duplicateSpeciesNames);
         }
 
         protected static Values LoadBaseValuesFile(string filePath)

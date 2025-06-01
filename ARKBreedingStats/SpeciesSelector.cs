@@ -200,7 +200,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            //Clipboard.SetText(speciesWOImage.Any() ? string.Join("\n", speciesWOImage) : string.Empty);
+            //utils.ClipboardHandler.SetText(speciesWOImage.Any() ? string.Join("\n", speciesWOImage) : string.Empty);
 
             lImgList.ImageSize = new Size(64, 64);
             lvLastSpecies.LargeImageList = lImgList;

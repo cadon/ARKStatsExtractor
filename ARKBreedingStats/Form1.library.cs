@@ -2159,7 +2159,8 @@ namespace ARKBreedingStats
                 var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
                     ? "cheat "
                     : string.Empty;
-                Clipboard.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands));
+                if (!utils.ClipboardHandler.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands), out var error))
+                    SetMessageLabelText($"Error while trying to copy command to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
             }
         }
 
@@ -2211,7 +2212,7 @@ namespace ARKBreedingStats
 
         private void CreateExactSpawnCommand(Creature cr)
         {
-            CreatureSpawnCommand.InstableCommandToClipboard(cr);
+            CreatureSpawnCommand.UnstableCommandToClipboard(cr);
             SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command doesn't include the XP and the imprinterName, thus the imprinting is probably not set."
                                 + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.", MessageBoxIcon.Warning);
         }
@@ -2376,8 +2377,9 @@ namespace ARKBreedingStats
                 SetMessageLabelText($"Generated name for creature {creature} using pattern {namePatternIndex + 1} resulted in an empty name, nothing was copied to the clipboard.", MessageBoxIcon.Error);
                 return;
             }
-            Clipboard.SetText(generatedName);
-            SetMessageLabelText($"Copied generated name of creature {creature} using pattern {namePatternIndex + 1} to the clipboard.{Environment.NewLine}The generated name is: {generatedName}");
+            if (utils.ClipboardHandler.SetText(generatedName, out var error))
+                SetMessageLabelText($"Copied generated name of creature {creature} using pattern {namePatternIndex + 1} to the clipboard.{Environment.NewLine}The generated name is: {generatedName}");
+            else SetMessageLabelText($"Error while trying to copy name to clipboard. Error: {error}", MessageBoxIcon.Error);
         }
 
         private string GenerateSingleCreatureNamePattern(Creature creature, int namePatternIndex)

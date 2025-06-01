@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using System.Windows.Forms;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.library
 {
@@ -16,7 +16,7 @@ namespace ARKBreedingStats.library
         /// <summary>
         /// Creates a spawn command that works in the vanilla game, but that command can cause the game to crash if the result of this method is changed. Also the stat values and colors are only correct after cryoing the creature.
         /// </summary>
-        public static void InstableCommandToClipboard(Creature cr)
+        public static void UnstableCommandToClipboard(Creature cr)
         {
             // see https://ark.fandom.com/wiki/Console_commands#SpawnExactDino for this command in ARK. It's unstable and can crash the game if the format or data is not correct.
             var xp = 0; // TODO
@@ -27,7 +27,7 @@ namespace ARKBreedingStats.library
                                + $"0 {(cr.flags.HasFlag(CreatureFlags.Neutered) ? "1" : "0")} \"\" \"\" \"{cr.imprinterName}\" 0 {cr.imprintingBonus} "
                                + $"\"{(cr.colors == null ? string.Empty : string.Join(",", cr.colors))}\" {arkIdInGame} {xp} 0 20 20";
 
-            Clipboard.SetText(CheatPrefix + spawnCommand);
+            ClipboardHandler.SetText(CheatPrefix + spawnCommand);
         }
 
         private static string GetLevelStringForExactSpawningCommand(int[] levels)
@@ -61,7 +61,7 @@ namespace ARKBreedingStats.library
                                + GetLevelStringForExactSpawningCommandDS2(cr.levelsWild, cr.levelsDom)
                                + $"{(cr.colors == null ? "0 0 0 0 0 0" : string.Join(" ", cr.colors))}";
 
-            Clipboard.SetText(CheatPrefix + spawnCommand);
+            ClipboardHandler.SetText(CheatPrefix + spawnCommand);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace ARKBreedingStats.library
             else
                 command = $"{CheatPrefix}{string.Join("|", cr.levelsMutated.Select((l, i) => (l, i)).Where(li => li.l > 0).Select(li => $"addmutations {li.i} {li.l}"))}";
 
-            Clipboard.SetText(command);
+            ClipboardHandler.SetText(command);
         }
     }
 }

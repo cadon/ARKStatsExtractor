@@ -723,12 +723,14 @@ namespace ARKBreedingStats
 
             using (StreamWriter file = File.CreateText(tempFilePath))
             {
-                JsonSerializer serializer = new JsonSerializer()
+                JsonSerializer serializer = new JsonSerializer
                 {
-                    DateTimeZoneHandling = DateTimeZoneHandling.Utc // save all date-times as UTC, so synced files don't change the timezones
+                    DateTimeZoneHandling = DateTimeZoneHandling
+                            .Utc // save all date-times as UTC, so synced files don't change the timezones
                 };
                 serializer.Serialize(file, _creatureCollection);
             }
+
             // remove debug creature
             _creatureCollection.creaturesValues.Remove(debugCreatureValues);
 
@@ -748,10 +750,21 @@ namespace ARKBreedingStats
             FileService.TryDeleteDirectory(tempFolder);
 
             // copy zip file to clipboard
-            Clipboard.SetFileDropList(new StringCollection { tempZipFilePath });
+            try
+            {
+                Clipboard.SetFileDropList(new StringCollection { tempZipFilePath });
 
-            // display info that debug file is in clipboard
-            SetMessageLabelText("A File with the current library and the values in the extractor has been created and copied to the clipboard. You can paste this file to a folder to add it to an issue report.", MessageBoxIcon.Information, tempZipFilePath);
+                // display info that debug file is in clipboard
+                SetMessageLabelText(
+                    "A File with the current library and the values in the extractor has been created and copied to the clipboard. You can paste this file to a folder to add it to an issue report.",
+                    MessageBoxIcon.Information, tempZipFilePath);
+            }
+            catch
+            {
+                SetMessageLabelText(
+                    "A File with the current library and the values in the extractor has been created, click this message to view it in the explorer. You can paste this file to a folder to add it to an issue report.",
+                    MessageBoxIcon.Information, tempZipFilePath);
+            }
         }
 
         /// <summary>
@@ -1097,8 +1110,10 @@ namespace ARKBreedingStats
                     sb.Append(columns[col][row] + (col == columnCount - 1 ? Environment.NewLine : "\t"));
 
             if (sb.Length == 0) return;
-            Clipboard.SetText(sb.ToString());
-            SetMessageLabelText($"Top stats of this library for all {rowCount - 1} species copied to clipboard");
+            if (ClipboardHandler.SetText(sb.ToString(), out var error))
+                SetMessageLabelText($"Top stats of this library for all {rowCount - 1} species copied to clipboard");
+            else
+                SetMessageLabelText($"Error while copying the stats to the clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
     }
 }
