@@ -1349,6 +1349,14 @@ namespace ARKBreedingStats
 
             ClearAll();
             speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(cv.speciesBlueprint));
+
+            if (cv.isBred)
+                rbBredExtractor.Checked = true;
+            else if (cv.isTamed)
+                rbTamedExtractor.Checked = true;
+            else
+                rbWildExtractor.Checked = true;
+
             for (int s = 0; s < Stats.StatsCount; s++)
                 _statIOs[s].Input = cv.statValues[s];
 
@@ -1358,13 +1366,6 @@ namespace ARKBreedingStats
             numericUpDownLevel.ValueSave = cv.level;
             numericUpDownLowerTEffBound.ValueSave = (decimal)cv.tamingEffMin * 100;
             numericUpDownUpperTEffBound.ValueSave = (decimal)cv.tamingEffMax * 100;
-
-            if (cv.isBred)
-                rbBredExtractor.Checked = true;
-            else if (cv.isTamed)
-                rbTamedExtractor.Checked = true;
-            else
-                rbWildExtractor.Checked = true;
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)cv.imprintingBonus * 100;
         }
 
