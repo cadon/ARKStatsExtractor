@@ -1067,6 +1067,10 @@
       <Project>{4353eda3-8092-4641-9b69-347f7da9fd59}</Project>
       <Name>SavegameToolkit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.csproj">
+      <Project>{58682a27-c03c-4244-813f-3907c1785bec}</Project>
+      <Name>ArkSmartBreeding</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP">
