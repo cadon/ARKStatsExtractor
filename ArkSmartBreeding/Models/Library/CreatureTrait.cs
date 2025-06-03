@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ARKBreedingStats.library
+namespace ArkSmartBreeding.Models.Library
 {
     /// <summary>
     /// Can give bonus or malus on inheritance or mutations.

@@ -104,7 +104,6 @@
       <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
-    <Compile Include="library\CreatureTrait.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
