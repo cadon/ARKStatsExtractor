@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class BreedingData

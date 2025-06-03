@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using System.IO;
+using ArkSmartBreeding.Models.Species;
 
 namespace ARKBreedingStats.species
 {

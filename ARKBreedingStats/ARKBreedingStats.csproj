@@ -398,7 +398,6 @@
     <Compile Include="SpeciesSelector.Designer.cs">
       <DependentUpon>SpeciesSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="species\BreedingData.cs" />
     <Compile Include="species\BreedingPair.cs" />
     <Compile Include="species\ColorRegion.cs" />
     <Compile Include="library\Creature.cs" />
