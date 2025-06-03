@@ -56,7 +56,9 @@ namespace ARKBreedingStats.raising
             if (!forceUpdate && _selectedSpecies == species) return;
 
             _selectedSpecies = species;
+            _ignoreChangedFood = true;
             CbGrowingFood.DataSource = null;
+            _ignoreChangedFood = false;
             listViewRaisingTimes.Items.Clear();
 
             if (_selectedSpecies?.taming == null || _selectedSpecies.breeding == null)
@@ -68,25 +70,6 @@ namespace ARKBreedingStats.raising
             }
 
             SuspendLayout();
-
-            var eats = new List<string>();
-            if (_selectedSpecies.taming.eats != null)
-                eats.AddRange(_selectedSpecies.taming.eats);
-            if (_selectedSpecies.taming.eatsAlsoPostTame != null)
-                eats.AddRange(_selectedSpecies.taming.eatsAlsoPostTame);
-
-            _ignoreChangedFood = true;
-            CbGrowingFood.DataSource = eats;
-            _ignoreChangedFood = false;
-            var selectIndex = string.IsNullOrEmpty(_lastSelectedFood) ? 0 : eats.IndexOf(_lastSelectedFood);
-            if (selectIndex == -1) selectIndex = 0;
-            if (CbGrowingFood.Items.Count > 0)
-            {
-                var triggerFoodManually = CbGrowingFood.SelectedIndex == selectIndex;
-                CbGrowingFood.SelectedIndex = selectIndex;
-                if (triggerFoodManually)
-                    CbGrowingFood_SelectedIndexChanged(CbGrowingFood, null);
-            }
 
             if (Raising.GetRaisingTimes(_selectedSpecies, out TimeSpan matingTime, out string incubationMode,
                 out TimeSpan incubationTime, out _babyTime, out _maturationTime, out TimeSpan nextMatingMin,
@@ -140,6 +123,25 @@ namespace ARKBreedingStats.raising
             {
                 labelRaisingInfos.Text = "No raising-data available.";
                 tabPageMaturationProgress.Enabled = false;
+            }
+
+            var eats = new List<string>();
+            if (_selectedSpecies.taming.eats != null)
+                eats.AddRange(_selectedSpecies.taming.eats);
+            if (_selectedSpecies.taming.eatsAlsoPostTame != null)
+                eats.AddRange(_selectedSpecies.taming.eatsAlsoPostTame);
+
+            _ignoreChangedFood = true;
+            CbGrowingFood.DataSource = eats;
+            _ignoreChangedFood = false;
+            var selectIndex = string.IsNullOrEmpty(_lastSelectedFood) ? 0 : eats.IndexOf(_lastSelectedFood);
+            if (selectIndex == -1) selectIndex = 0;
+            if (CbGrowingFood.Items.Count > 0)
+            {
+                var triggerFoodManually = CbGrowingFood.SelectedIndex == selectIndex;
+                CbGrowingFood.SelectedIndex = selectIndex;
+                if (triggerFoodManually)
+                    CbGrowingFood_SelectedIndexChanged(CbGrowingFood, null);
             }
 
             ResumeLayout();
