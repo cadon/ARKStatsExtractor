@@ -414,7 +414,6 @@
       <DependentUpon>CreatureInfoInput.cs</DependentUpon>
     </Compile>
     <Compile Include="species\SpeciesStat.cs" />
-    <Compile Include="species\Kibble.cs" />
     <Compile Include="Kibbles.cs" />
     <Compile Include="library\CreatureValues.cs" />
     <Compile Include="species\Species.cs" />

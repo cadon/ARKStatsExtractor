@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.species;
+﻿using ArkSmartBreeding.Models.Species;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
