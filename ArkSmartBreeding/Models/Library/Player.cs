@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.Library
+﻿namespace ArkSmartBreeding.Models.Library
 {
     public class Player
     {
