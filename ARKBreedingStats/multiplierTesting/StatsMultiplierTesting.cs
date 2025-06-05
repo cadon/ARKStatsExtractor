@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using ARKBreedingStats.importExportGun;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Values;
 
 namespace ARKBreedingStats.multiplierTesting
 {

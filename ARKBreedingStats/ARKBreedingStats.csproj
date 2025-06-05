@@ -715,7 +715,6 @@
     <Compile Include="utils\Themes.cs" />
     <Compile Include="values\TamingFoodData.cs" />
     <Compile Include="values\ServerMultipliersPresets.cs" />
-    <Compile Include="values\ServerMultipliers.cs" />
     <Compile Include="values\Values.cs" />
     <Compile Include="utils\Win32API.cs" />
     <Compile Include="values\ValuesFile.cs" />

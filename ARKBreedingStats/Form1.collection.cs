@@ -18,6 +18,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.library;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Values;
 
 namespace ARKBreedingStats
 {

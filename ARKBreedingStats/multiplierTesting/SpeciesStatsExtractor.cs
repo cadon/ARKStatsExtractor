@@ -6,6 +6,7 @@ using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Values;
 
 namespace ARKBreedingStats.multiplierTesting
 {

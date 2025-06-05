@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-namespace ARKBreedingStats.values
+namespace ArkSmartBreeding.Models.Values
 {
     /// <summary>
     /// Contains the multipliers of a server for stats, taming and breeding and levels

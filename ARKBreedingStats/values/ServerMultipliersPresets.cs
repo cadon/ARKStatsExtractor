@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Values;
 
 namespace ARKBreedingStats.values
 {
