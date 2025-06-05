@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.uiControls;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 
 namespace ARKBreedingStats
 {

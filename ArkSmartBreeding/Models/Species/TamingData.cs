@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     /// <summary>
     /// Info about taming a creature

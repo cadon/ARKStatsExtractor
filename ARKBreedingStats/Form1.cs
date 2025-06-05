@@ -25,6 +25,7 @@ using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
 using static ARKBreedingStats.uiControls.StatWeighting;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 
 namespace ARKBreedingStats
 {

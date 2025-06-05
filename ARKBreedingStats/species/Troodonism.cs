@@ -1,4 +1,5 @@
 ﻿using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 using System;
 
 namespace ARKBreedingStats.species

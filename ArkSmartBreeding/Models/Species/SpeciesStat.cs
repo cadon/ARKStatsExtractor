@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     [JsonObject]
     public class SpeciesStat

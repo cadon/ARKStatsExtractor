@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     [JsonObject]
     public class TamingFood
