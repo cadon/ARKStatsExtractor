@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.Library;
+using ArkSmartBreeding.Models.Ark;
 using System;
 using System.Windows.Forms;
 

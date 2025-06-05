@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.library
 {

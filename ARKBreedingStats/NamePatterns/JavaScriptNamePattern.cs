@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Ark;
 using Jint;
 using static ARKBreedingStats.Library.CreatureCollection;
 

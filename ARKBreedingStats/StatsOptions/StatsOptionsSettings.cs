@@ -5,6 +5,7 @@ using System.Linq;
 using ARKBreedingStats.species;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.StatsOptions
 {

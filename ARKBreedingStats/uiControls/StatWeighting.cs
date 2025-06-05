@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.uiControls
 {

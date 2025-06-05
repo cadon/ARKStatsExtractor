@@ -10,6 +10,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.Pedigree
 {

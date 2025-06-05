@@ -8,7 +8,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
-
+using ArkSmartBreeding.Models.Ark;
 using static ARKBreedingStats.Library.CreatureCollection;
 
 namespace ARKBreedingStats.NamePatterns

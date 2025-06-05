@@ -8,6 +8,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using System.IO;
 using ArkSmartBreeding.Models.Species;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.species
 {

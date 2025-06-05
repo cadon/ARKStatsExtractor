@@ -17,6 +17,7 @@ using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.library;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats
 {

@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.importExportGun
+﻿using ArkSmartBreeding.Models.Ark;
+
+namespace ARKBreedingStats.importExportGun
 {
     internal static class ExportGunFileExtensions
     {

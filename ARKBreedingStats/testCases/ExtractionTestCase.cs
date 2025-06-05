@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Models.Ark;
 using System;
 using System.Collections.Generic;
 using System.Linq;

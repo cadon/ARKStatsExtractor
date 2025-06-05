@@ -11,6 +11,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.NamePatterns
 {

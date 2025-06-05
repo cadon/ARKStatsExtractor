@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ArkSmartBreeding.Models.Library;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.Library
 {

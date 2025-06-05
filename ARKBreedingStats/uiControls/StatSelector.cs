@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.uiControls
 {

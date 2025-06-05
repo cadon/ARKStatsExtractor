@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
+using ArkSmartBreeding.Models.Ark;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

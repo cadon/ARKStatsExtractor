@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArkSmartBreeding.Models.Ark;
+using System;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.StatsOptions.LevelColorSettings

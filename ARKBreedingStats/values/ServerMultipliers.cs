@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ArkSmartBreeding.Models.Ark;
+using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
 namespace ARKBreedingStats.values

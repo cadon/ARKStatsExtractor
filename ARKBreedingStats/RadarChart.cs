@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
+using ArkSmartBreeding.Models.Ark;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 

@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ArkSmartBreeding.Models.Ark;
+
+namespace ARKBreedingStats
 {
     public partial class Form1
     {

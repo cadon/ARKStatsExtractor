@@ -4,6 +4,7 @@ using System.Text;
 using ARKBreedingStats.species;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.uiControls;
+using ArkSmartBreeding.Models.Ark;
 using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.library

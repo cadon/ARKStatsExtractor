@@ -19,6 +19,7 @@ using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using ARKBreedingStats.NamePatterns;
 using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats
 {

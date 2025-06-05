@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Models.Ark;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.importExportGun

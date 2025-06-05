@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArkSmartBreeding.Models.Ark;
+using System;
 using System.Xml.Serialization;
 
 namespace ARKBreedingStats.oldLibraryFormat

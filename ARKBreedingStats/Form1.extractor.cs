@@ -13,6 +13,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.uiControls;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats
 {
