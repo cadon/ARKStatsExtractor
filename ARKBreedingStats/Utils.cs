@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.Library;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -9,6 +8,7 @@ using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.values;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats
 {

@@ -14,6 +14,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
 using static ARKBreedingStats.uiControls.StatWeighting;
 

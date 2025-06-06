@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.Library;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -13,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARKBreedingStats.ocr.PatternMatching;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats.ocr
 {

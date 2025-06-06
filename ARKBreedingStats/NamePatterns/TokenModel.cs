@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Library;
+﻿using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.NamePatterns

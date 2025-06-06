@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
 using ArkSmartBreeding.Models.Values;
 using Newtonsoft.Json;

@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
 using Newtonsoft.Json;
 using System;

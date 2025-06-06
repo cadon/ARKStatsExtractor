@@ -1,5 +1,5 @@
-﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
+﻿using ARKBreedingStats.species;
+using ArkSmartBreeding.Enums;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;

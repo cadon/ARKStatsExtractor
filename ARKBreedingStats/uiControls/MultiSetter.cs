@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats.uiControls
 {

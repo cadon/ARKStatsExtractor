@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
 using System;
 using System.Drawing;

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats
 {

@@ -6,6 +6,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.library

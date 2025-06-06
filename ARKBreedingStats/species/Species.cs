@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
-using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using System.IO;
 using ArkSmartBreeding.Models.Species;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats.species
 {

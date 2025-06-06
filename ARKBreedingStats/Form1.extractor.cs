@@ -14,6 +14,7 @@ using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.uiControls;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats.utils
 {

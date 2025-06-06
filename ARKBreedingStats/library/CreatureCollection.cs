@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 using ARKBreedingStats.mods;
 using ArkSmartBreeding.Models.Library;
 using ArkSmartBreeding.Models.Values;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats.Library
 {

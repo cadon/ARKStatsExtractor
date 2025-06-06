@@ -8,6 +8,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
 using static ARKBreedingStats.Library.CreatureCollection;
 

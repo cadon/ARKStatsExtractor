@@ -7,6 +7,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats.uiControls
 {

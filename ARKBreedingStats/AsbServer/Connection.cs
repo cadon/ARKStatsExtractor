@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.Library;
+using ArkSmartBreeding.Enums;
 using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats.AsbServer

@@ -19,6 +19,7 @@ using ARKBreedingStats.utils;
 using ARKBreedingStats.library;
 using ArkSmartBreeding.Models.Ark;
 using ArkSmartBreeding.Models.Values;
+using ArkSmartBreeding.Enums;
 
 namespace ARKBreedingStats
 {

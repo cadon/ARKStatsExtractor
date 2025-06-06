@@ -1,4 +1,5 @@
-﻿using ArkSmartBreeding.Models.Ark;
+﻿using ArkSmartBreeding.Enums;
+using ArkSmartBreeding.Models.Ark;
 using System;
 using System.Xml.Serialization;
 
@@ -16,7 +17,7 @@ namespace ARKBreedingStats.oldLibraryFormat
         public Guid guid;
         public long ARKID;
         public string name;
-        public Library.Sex sex;
+        public Sex sex;
         public double[] statValues = new double[Stats.StatsCount];
         public int[] levelsWild = new int[Stats.StatsCount];
         public int[] levelsDom = new int[Stats.StatsCount];
