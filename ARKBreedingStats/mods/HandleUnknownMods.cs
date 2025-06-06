@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ARKBreedingStats.species;
+using ArkSmartBreeding.Models.Mods;
 
 namespace ARKBreedingStats.mods
 {

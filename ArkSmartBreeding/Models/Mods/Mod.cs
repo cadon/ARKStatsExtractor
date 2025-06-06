@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ARKBreedingStats.mods
+namespace ArkSmartBreeding.Models.Mods
 {
     /// <summary>
     /// Information about a mod which contains new species
@@ -85,7 +85,7 @@ namespace ARKBreedingStats.mods
             get
             {
                 if (_otherMod == null)
-                    _otherMod = new Mod { FileName = string.Empty, id = Mod.OtherModName, tag = Mod.OtherModName, title = Mod.OtherModName };
+                    _otherMod = new Mod { FileName = string.Empty, id = OtherModName, tag = OtherModName, title = OtherModName };
                 return _otherMod;
             }
         }

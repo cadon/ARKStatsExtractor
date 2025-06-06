@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace ARKBreedingStats.mods
+namespace ArkSmartBreeding.Models.Mods
 {
     /// <summary>
     /// Contains infos about a mod and its version
@@ -40,7 +40,7 @@ namespace ARKBreedingStats.mods
         {
             return (mod?.title ?? "unknown mod")
                 + (OnlineAvailable
-                    ? (!LocallyAvailable ? " (DL)" : string.Empty)
+                    ? !LocallyAvailable ? " (DL)" : string.Empty
                     : string.IsNullOrEmpty(mod?.FileName) ? string.Empty : " (Custom)");
         }
     }

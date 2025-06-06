@@ -2,6 +2,7 @@
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Mods;
 using ArkSmartBreeding.Models.Species;
 using ArkSmartBreeding.Models.Values;
 using Newtonsoft.Json;

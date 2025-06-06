@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using ARKBreedingStats.mods;
 using ArkSmartBreeding.Models.Library;
 using ArkSmartBreeding.Models.Values;
 using ArkSmartBreeding.Enums;
+using ArkSmartBreeding.Models.Mods;
 
 namespace ARKBreedingStats.Library
 {

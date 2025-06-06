@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using ArkSmartBreeding.Models.Mods;
 
 namespace ARKBreedingStats.mods
 {

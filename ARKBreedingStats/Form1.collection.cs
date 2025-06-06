@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
@@ -20,6 +19,7 @@ using ARKBreedingStats.library;
 using ArkSmartBreeding.Models.Ark;
 using ArkSmartBreeding.Models.Values;
 using ArkSmartBreeding.Enums;
+using ArkSmartBreeding.Models.Mods;
 
 namespace ARKBreedingStats
 {

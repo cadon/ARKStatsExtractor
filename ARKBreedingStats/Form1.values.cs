@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Mods;
 
 namespace ARKBreedingStats
 {

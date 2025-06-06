@@ -265,7 +265,6 @@
     <Compile Include="miscClasses\FtpCredentials.cs" />
     <Compile Include="miscClasses\IssueNotes.cs" />
     <Compile Include="mods\HandleUnknownMods.cs" />
-    <Compile Include="mods\ModInfo.cs" />
     <Compile Include="mods\ModsManifest.cs" />
     <Compile Include="multiplierTesting\StatMultiplierTestingControl.cs">
       <SubType>UserControl</SubType>
@@ -314,7 +313,6 @@
     <Compile Include="multiplierTesting\StatsMultiplierTesting.Designer.cs">
       <DependentUpon>StatsMultiplierTesting.cs</DependentUpon>
     </Compile>
-    <Compile Include="mods\Mod.cs" />
     <Compile Include="testCases\ExtractionTestCase.cs" />
     <Compile Include="ocr\ArkOcr.cs" />
     <Compile Include="ARKOverlay.cs">
