@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArkSmartBreeding.Models.Species;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace ARKBreedingStats.species
             // example 2: 2 mods are loaded, the first defines colors up until id 100, the second has no color definitions: 100 mod colors are used, then the base colors not appearing yet are appended (from the second mod that inherits the base colors)
 
             _colorsByName = new Dictionary<string, ArkColor>();
-            _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor() } };
+            _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor(Loc.S("noColor")) } };
             var nextFreeColorId = Ark.ColorFirstId;
             var nextFreeDyeId = Ark.DyeFirstIdASE;
             var colorIdMax = Ark.DyeFirstIdASE - 1;

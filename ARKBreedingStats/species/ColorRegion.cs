@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ArkSmartBreeding.Models.Species;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace ARKBreedingStats.species

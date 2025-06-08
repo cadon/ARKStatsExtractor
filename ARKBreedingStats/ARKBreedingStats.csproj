@@ -298,7 +298,6 @@
     <Compile Include="settings\FtpProgress.Designer.cs">
       <DependentUpon>FtpProgress.cs</DependentUpon>
     </Compile>
-    <Compile Include="species\ArkColor.cs" />
     <Compile Include="settings\FtpCredentials.cs">
       <SubType>Form</SubType>
     </Compile>

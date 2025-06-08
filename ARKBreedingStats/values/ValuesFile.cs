@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using ARKBreedingStats.species;
 using ArkSmartBreeding.Models.Mods;
+using ArkSmartBreeding.Models.Species;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.values

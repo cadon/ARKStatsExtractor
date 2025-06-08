@@ -8,6 +8,7 @@ using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 
 namespace ARKBreedingStats.uiControls
 {

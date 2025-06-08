@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     /// <summary>
     /// Class that represents a color in ARK.
@@ -22,10 +22,10 @@ namespace ARKBreedingStats.species
 
         public bool IsDye;
 
-        public ArkColor()
+        public ArkColor(string missingColorName)
         {
             Id = 0;
-            Name = Loc.S("noColor");
+            Name = missingColorName;
             Color = Color.LightGray;
             LinearRgba = null;
         }
