@@ -108,7 +108,6 @@
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
     <Compile Include="species\CanHaveWildLevelExceptions.cs" />
-    <Compile Include="species\ColorPattern.cs" />
     <Compile Include="StatsOptions\StatsOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>

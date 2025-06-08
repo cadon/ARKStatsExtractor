@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.species
+﻿namespace ArkSmartBreeding.Models.Species
 {
     /// <summary>
     /// Info about color region pattern. This is used if a species has multiple color region patterns.
