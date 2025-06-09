@@ -959,6 +959,26 @@ namespace ARKBreedingStats
             nameCopiedToClipboard = false;
             alreadyExistingCreature = null;
 
+            if (string.IsNullOrEmpty(exportFilePath))
+            {
+                MessageBoxes.ShowMessageBox("Cannot import export-file, no file path given.");
+                return null;
+            }
+
+            var fi = new FileInfo(exportFilePath);
+
+            if (!fi.Exists)
+            {
+                MessageBoxes.ShowMessageBox($"Cannot import export-file, it does not exist.\n{exportFilePath}");
+                return null;
+            }
+
+            if (fi.Length == 0)
+            {
+                MessageBoxes.ShowMessageBox($"Cannot import export-file, it is empty.\nThis might be a bug in ARK where the game does not write anything to the file.\n{exportFilePath}");
+                return null;
+            }
+
             // if the file is blocked, try it again
             const int waitingTimeBase = 200;
             const int tryCount = 3;
