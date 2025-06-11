@@ -14,7 +14,7 @@ namespace ArkSmartBreeding.Models.Species
         /// <summary>
         /// Linear color values.
         /// </summary>
-        public readonly double[] LinearRgba;
+        public readonly double[]? LinearRgba;
         /// <summary>
         /// Color Id in Ark.
         /// </summary>

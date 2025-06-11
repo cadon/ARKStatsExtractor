@@ -2,10 +2,10 @@
 {
     public class Player
     {
-        public string PlayerName;
-        public string Tribe;
+        public string? PlayerName;
+        public string? Tribe;
         public int Level;
         public int Rank;
-        public string Note;
+        public string? Note;
     }
 }

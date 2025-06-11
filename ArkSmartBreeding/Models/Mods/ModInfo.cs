@@ -11,12 +11,12 @@ namespace ArkSmartBreeding.Models.Mods
     public class ModInfo
     {
         [JsonProperty]
-        public string version;
-        public Version Version;
+        public string? version;
+        public Version? Version;
         [JsonProperty]
-        public string format;
+        public string? format;
         [JsonProperty]
-        public Mod mod;
+        public Mod? mod;
         /// <summary>
         /// Indicates if the according json-file is downloaded.
         /// </summary>

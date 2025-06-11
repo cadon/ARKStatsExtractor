@@ -12,25 +12,25 @@ namespace ArkSmartBreeding.Models.Mods
         /// The id used by steam
         /// </summary>
         [JsonProperty]
-        public string id;
+        public string? id;
 
         /// <summary>
         /// The tag used by ARK in the blueprints
         /// </summary>
         [JsonProperty]
-        public string tag;
+        public string? tag;
 
         /// <summary>
         /// Commonly used name to describe the mod
         /// </summary>
         [JsonProperty]
-        public string title;
+        public string? title;
 
         /// <summary>
         /// Commonly used short name to describe the mod, is preferred over title for species suffix if available.
         /// </summary>
         [JsonProperty]
-        public string shortTitle;
+        public string? shortTitle;
 
         /// <summary>
         /// Game expansions are usually maps. The species of these expansion are usually included in the vanilla game and thus these files are loaded automatically by this application.
@@ -43,10 +43,13 @@ namespace ArkSmartBreeding.Models.Mods
         /// <summary>
         /// Filename of the mod-values
         /// </summary>
-        public string FileName;
+        public string? FileName;
 
         public override int GetHashCode()
         {
+            if (id is null)
+                throw new System.NullReferenceException();
+
             return id.GetHashCode();
         }
 
@@ -63,7 +66,7 @@ namespace ArkSmartBreeding.Models.Mods
             return obj is Mod speciesObj && Equals(speciesObj);
         }
 
-        public override string ToString()
+        public override string? ToString()
         {
             return title;
         }
@@ -75,7 +78,7 @@ namespace ArkSmartBreeding.Models.Mods
         /// </summary>
         public const string OtherModName = "[other mod]";
 
-        private static Mod _otherMod;
+        private static Mod? _otherMod;
 
         /// <summary>
         /// Generic entry for not available mods. Can be important for correctly determining the available colors.

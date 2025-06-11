@@ -21,15 +21,15 @@ namespace ArkSmartBreeding.Models.Species
         /// <summary>
         /// Names of food the species eats during taming.
         /// </summary>
-        public string[] eats;
+        public string[]? eats;
         /// <summary>
         /// If a food has non default values for this species, it's defined here.
         /// </summary>
-        public Dictionary<string, TamingFood> specialFoodValues;
+        public Dictionary<string, TamingFood>? specialFoodValues;
         /// <summary>
         /// Food a species eats after being tamed, additionally to the taming food in eats.
         /// </summary>
-        public string[] eatsAlsoPostTame;
+        public string[]? eatsAlsoPostTame;
         /// <summary>
         /// Base value of needed affinity.
         /// </summary>

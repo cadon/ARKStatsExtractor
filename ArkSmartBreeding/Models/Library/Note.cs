@@ -2,8 +2,8 @@
 {
     public class Note
     {
-        public string Title;
-        public string Text;
+        public string? Title;
+        public string? Text;
 
         public Note() { }
 

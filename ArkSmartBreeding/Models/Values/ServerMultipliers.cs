@@ -14,7 +14,7 @@ namespace ArkSmartBreeding.Models.Values
         /// statMultipliers[statIndex][m], m: 0: Stats.IndexTamingAdd, 1: Stats.IndexTamingMult, 2: Stats.IndexLevelDom, 3: Stats.IndexLevelWild
         /// </summary>
         [JsonProperty]
-        public double[][] statMultipliers;
+        public double[][]? statMultipliers;
 
         [JsonProperty]
         public double TamingSpeedMultiplier { get; set; } = 1;

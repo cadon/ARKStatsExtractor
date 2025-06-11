@@ -9,7 +9,7 @@ namespace ArkSmartBreeding.Models.Library
     public class CreatureTrait
     {
         [JsonProperty("n")]
-        public string Name;
+        public string? Name;
         [JsonProperty("si")]
         public int StatIndex;
         [JsonProperty("t")]
