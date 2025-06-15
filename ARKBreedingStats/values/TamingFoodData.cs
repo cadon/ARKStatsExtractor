@@ -48,7 +48,6 @@ namespace ARKBreedingStats.values
             {
                 if (IsValidFormat(readData.format))
                 {
-                    SetUnconfirmedFlags(readData);
                     tamingFoodData = readData.tamingFoodData;
                     return tamingFoodData != null;
                 }
@@ -63,23 +62,6 @@ namespace ARKBreedingStats.values
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// Apply unconfirmed flag to according food.
-        /// </summary>
-        private static void SetUnconfirmedFlags(TamingFoodData tamingFoodData)
-        {
-            if (tamingFoodData?.tamingFoodData == null
-                || tamingFoodData.UnconfirmedFoods?.Any() != true)
-                return;
-
-            foreach (var species in tamingFoodData.tamingFoodData)
-            {
-                foreach (var food in species.Value.specialFoodValues)
-                    if (tamingFoodData.UnconfirmedFoods.Contains(food.Key))
-                        food.Value.Unconfirmed = true;
-            }
         }
     }
 }

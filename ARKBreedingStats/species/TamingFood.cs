@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Runtime.Serialization;
 
 namespace ARKBreedingStats.species
 {
@@ -20,18 +19,12 @@ namespace ARKBreedingStats.species
         /// When taming, some foods can only be feed in higher quantities, this indicates that amount.
         /// </summary>
         [JsonProperty("q")]
-        public int quantity;
+        public int quantity = 1;
 
         /// <summary>
         /// If the food data is not completely confirmed or tested, this is true.
         /// </summary>
+        [JsonProperty("u")]
         public bool Unconfirmed;
-
-        [OnDeserializing]
-        private void SetDefaultValues(StreamingContext context)
-        {
-            // set default value if not given
-            quantity = 1;
-        }
     }
 }
