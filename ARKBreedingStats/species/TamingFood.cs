@@ -22,6 +22,11 @@ namespace ARKBreedingStats.species
         [JsonProperty("q")]
         public int quantity;
 
+        /// <summary>
+        /// If the food data is not completely confirmed or tested, this is true.
+        /// </summary>
+        public bool Unconfirmed;
+
         [OnDeserializing]
         private void SetDefaultValues(StreamingContext context)
         {

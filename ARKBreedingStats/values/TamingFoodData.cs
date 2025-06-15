@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.values
@@ -21,10 +22,16 @@ namespace ARKBreedingStats.values
 
         /// <summary>
         /// The key is the species name, so it can be used for modded species with the same name, they often have the same taming-data.
-        /// The value is a dictionary with the food-name as key and TamingFood info as value.
+        /// The value is a dictionary with the food name as key and TamingFood info as value.
         /// </summary>
         [JsonProperty]
         public Dictionary<string, TamingData> tamingFoodData = new Dictionary<string, TamingData>();
+
+        /// <summary>
+        /// Food with not completely confirmed or tested values. It will display a warning in the app.
+        /// </summary>
+        [JsonProperty]
+        public string[] UnconfirmedFoods;
 
         /// <summary>
         /// Loads the default food data.
@@ -41,6 +48,7 @@ namespace ARKBreedingStats.values
             {
                 if (IsValidFormat(readData.format))
                 {
+                    SetUnconfirmedFlags(readData);
                     tamingFoodData = readData.tamingFoodData;
                     return tamingFoodData != null;
                 }
@@ -55,6 +63,23 @@ namespace ARKBreedingStats.values
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Apply unconfirmed flag to according food.
+        /// </summary>
+        private static void SetUnconfirmedFlags(TamingFoodData tamingFoodData)
+        {
+            if (tamingFoodData?.tamingFoodData == null
+                || tamingFoodData.UnconfirmedFoods?.Any() != true)
+                return;
+
+            foreach (var species in tamingFoodData.tamingFoodData)
+            {
+                foreach (var food in species.Value.specialFoodValues)
+                    if (tamingFoodData.UnconfirmedFoods.Contains(food.Key))
+                        food.Value.Unconfirmed = true;
+            }
         }
     }
 }
