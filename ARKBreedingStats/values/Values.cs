@@ -546,7 +546,7 @@ namespace ARKBreedingStats.values
                 {
                     bool customOverrideExists = cc.CustomSpeciesStats?.ContainsKey(sp.blueprintPath) ?? false;
                     double?[][] customFullStatsRaw = customOverrideExists ? cc.CustomSpeciesStats[sp.blueprintPath] : null;
-                    bool useSpeedLevelup = currentServerMultipliers.AllowFlyerSpeedLeveling || !sp.isFlyer;
+                    bool useSpeedLevelup = currentServerMultipliers.AllowFlyerSpeedLeveling || !sp.IsFlyer;
 
                     // stat-multiplier
                     for (int s = 0; s < Stats.StatsCount; s++)

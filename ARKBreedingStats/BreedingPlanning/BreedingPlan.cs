@@ -209,7 +209,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 else
                 {
                     var includeWithCooldown = cbBPIncludeCooldowneds.Checked;
-                    var ignoreBreedingCooldown = _currentSpecies?.noGender == true; // for hermaphrodites only one partner needs to be not on cooldown
+                    var ignoreBreedingCooldown = _currentSpecies?.NoGender == true; // for hermaphrodites only one partner needs to be not on cooldown
                     Creatures = CreatureCollection.creatures
                         .Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
                                     && !c.flags.HasFlag(CreatureFlags.Neutered)
@@ -313,7 +313,7 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 females = _females.Where(c => c.topStatsCountBP > 0).ToArray();
                 males = _males?.Where(c => c.topStatsCountBP > 0).ToArray();
-                noCreaturesWithTopStatsInBothSexes = !females.Any() || (males?.Any() != true && !_currentSpecies.noGender);
+                noCreaturesWithTopStatsInBothSexes = !females.Any() || (males?.Any() != true && !_currentSpecies.NoGender);
             }
 
             // filter by tags
@@ -321,7 +321,7 @@ namespace ARKBreedingStats.BreedingPlanning
             int crCountM = males?.Length ?? 0;
             IEnumerable<Creature> selectFemales;
             IEnumerable<Creature> selectMales = null;
-            if (considerChosenCreature && (_chosenCreature.sex == Sex.Female || _currentSpecies.noGender))
+            if (considerChosenCreature && (_chosenCreature.sex == Sex.Female || _currentSpecies.NoGender))
             {
                 selectFemales = new List<Creature>(); // the specific creature is added after the filtering
             }
@@ -332,7 +332,7 @@ namespace ARKBreedingStats.BreedingPlanning
             }
             else selectFemales = FilterByTags(females);
 
-            if (considerChosenCreature && !_currentSpecies.noGender && _chosenCreature.sex == Sex.Male)
+            if (considerChosenCreature && !_currentSpecies.NoGender && _chosenCreature.sex == Sex.Male)
             {
                 selectMales = new List<Creature>(); // the specific creature is added after the filtering
             }
@@ -393,7 +393,7 @@ namespace ARKBreedingStats.BreedingPlanning
             if (selectedMales != null)
                 combinedCreatures.AddRange(selectedMales);
 
-            if (Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.noGender)
+            if (Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.NoGender)
             {
                 selectedFemales = combinedCreatures.ToArray();
                 selectedMales = combinedCreatures.ToArray();
@@ -429,7 +429,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     bestPossLevels, _statWeights, _bestLevelsWild, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
                     ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
-                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.noGender, CbConsiderMutationLevels.Checked);
+                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.NoGender, CbConsiderMutationLevels.Checked);
 
                 double minScore = _breedingPairs.LastOrDefault()?.BreedingScore.OneNumber ?? 0;
                 var displayScoreOffset = (minScore < 0 ? -minScore : 0) + .5; // don't display negative scores, could be confusing
@@ -787,7 +787,7 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 if (value == null) return;
 
-                if (_currentSpecies.noGender)
+                if (_currentSpecies.NoGender)
                 {
                     _females = value.ToArray();
                     _males = null;
@@ -1076,7 +1076,7 @@ namespace ARKBreedingStats.BreedingPlanning
             foreach (Species s in species)
             {
                 ListViewItem lvi = new ListViewItem { Text = s.DescriptiveNameAndMod, Tag = s };
-                var ignoreSexInSpecies = ignoreSex || s.noGender;
+                var ignoreSexInSpecies = ignoreSex || s.NoGender;
 
                 // check if species has both available males and females
                 if (availableCreaturesBySpecies.TryGetValue(s, out var cs)

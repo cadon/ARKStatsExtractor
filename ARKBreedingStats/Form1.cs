@@ -1642,7 +1642,7 @@ namespace ARKBreedingStats
                     cr.Species == creature.Species && cr.guid != creature.guid)
                 .OrderBy(cr => cr.name).ToList();
 
-            if (creature.Species?.noGender == true)
+            if (creature.Species?.NoGender == true)
                 return new[] { parentList, null };
 
             var motherList = parentList.Where(cr => cr.sex == Sex.Female).ToList();

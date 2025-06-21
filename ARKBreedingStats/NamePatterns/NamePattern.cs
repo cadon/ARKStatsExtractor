@@ -385,8 +385,8 @@ namespace ARKBreedingStats.NamePatterns
                 dom = dom,
                 arkid = arkid,
                 alreadyexists = speciesCreatures?.Contains(creature) ?? false,
-                isflyer = creature.Species.isFlyer,
-                noGender = creature.Species.noGender,
+                isflyer = creature.Species.IsFlyer,
+                noGender = creature.Species.NoGender,
                 status = creature.Status
             };
 

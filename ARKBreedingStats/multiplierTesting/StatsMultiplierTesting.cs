@@ -256,7 +256,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
                     _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][Species.StatsRawIndexBase] : 1,
-                    s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.isFlyer)));
+                    s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.IsFlyer)));
                 _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Stats.StatsCount]?[s] ?? statImprintMultipliers[s] : statImprintMultipliers[s];
                 _statControls[s].Visible = species.UsesStat(s);
                 _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
@@ -522,7 +522,7 @@ namespace ARKBreedingStats.multiplierTesting
         private void SetAllowSpeedLeveling(bool allowSpeedLeveling, bool allowFlyerSpeedleveling)
         {
             if (_selectedSpecies == null) return;
-            var speedLevelingAllowed = allowSpeedLeveling && (allowFlyerSpeedleveling || !_selectedSpecies.isFlyer);
+            var speedLevelingAllowed = allowSpeedLeveling && (allowFlyerSpeedleveling || !_selectedSpecies.IsFlyer);
 
             double?[][] customStatOverrides = null;
             bool customStatsAvailable =
