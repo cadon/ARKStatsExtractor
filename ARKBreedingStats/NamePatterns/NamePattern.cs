@@ -311,9 +311,9 @@ namespace ARKBreedingStats.NamePatterns
             int speciesCount = (speciesCreatures?.Length ?? 0) + addOne;
             if (addOne == 1) libraryCreatureCount++;
             // the index of the creature in its generation, ordered by addedToLibrary
-            int nrInGeneration = (speciesCreatures?.Count(c => c.guid != creature.guid && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
-            int nrInGenerationAndSameSex = (speciesCreatures?.Count(c => c.guid != creature.guid && c.sex == creature.sex && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
-            int speciesSexCount = (speciesCreatures?.Count(c => c.guid != creature.guid && c.sex == creature.sex) ?? 0) + addOne;
+            int nrInGeneration = (speciesCreatures?.Count(c => c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
+            int nrInGenerationAndSameSex = (speciesCreatures?.Count(c => c.sex == creature.sex && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
+            int speciesSexCount = (speciesCreatures?.Count(c => c.sex == creature.sex) ?? 0) + addOne;
 
             string arkid = string.Empty;
             if (creature.ArkId != 0)
