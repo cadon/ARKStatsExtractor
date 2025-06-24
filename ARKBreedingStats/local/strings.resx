@@ -1377,4 +1377,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
       Takes a name from a list in the file creatureNames[suffix].txt
 */</value>
   </data>
+  <data name="issueBondedTamingRank" xml:space="preserve">
+    <value>Maybe the setting for the rank of the Bonded Taming talent is set incorrectly.</value>
+  </data>
 </root>

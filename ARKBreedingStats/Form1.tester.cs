@@ -19,9 +19,9 @@ namespace ARKBreedingStats
             SetTesterInputsTamed(!rbWildTester.Checked);
             NumericUpDownTestingTE.Enabled = rbTamedTester.Checked;
             labelTesterTE.Enabled = rbTamedTester.Checked;
-            numericUpDownImprintingBonusTester.Enabled = rbBredTester.Checked;
-            labelImprintingTester.Enabled = rbBredTester.Checked;
-            lbImprintedCount.Enabled = rbBredTester.Checked;
+            numericUpDownImprintingBonusTester.Enabled = !rbWildTester.Checked;
+            labelImprintingTester.Enabled = !rbWildTester.Checked;
+            lbImprintedCount.Enabled = !rbWildTester.Checked;
 
             UpdateAllTesterValues();
         }
@@ -79,11 +79,11 @@ namespace ARKBreedingStats
             TestingStatIOsRecalculateValue(_testingIOs[Stats.Torpidity]);
         }
 
-        private void SetTesterInputsTamed(bool tamed)
+        private void SetTesterInputsTamed(bool domesticated)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
-                _testingIOs[s].postTame = tamed;
-            lbNotYetTamed.Visible = !tamed;
+                _testingIOs[s].postTame = domesticated;
+            lbNotYetTamed.Visible = !domesticated;
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace ARKBreedingStats
             sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : Math.Max(0, TamingEffectivenessTester),
-                    rbBredTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0, roundToIngamePrecision: false);
+                    !rbWildTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0, roundToIngamePrecision: false);
         }
 
         private void creatureInfoInputTester_Add2Library_Clicked(CreatureInfoInput sender)

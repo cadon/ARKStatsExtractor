@@ -91,9 +91,11 @@ namespace ARKBreedingStats
         /// <param name="highPrecisionInputs">If true, the input is expected to be a float value from an export file.
         /// If false, it's assumed to be a displayed value from the game with one decimal digit.</param>
         /// <param name="imprintingChanged"></param>
+        /// <param name="fixedImprinting">If >=0 this will be assumed to be the set imprinting.</param>
         public void ExtractLevels(Species species, int level, StatIO[] statIOs, double lowerTEBound, double upperTEBound,
             bool tamed, bool bred, double imprintingBonusRounded, bool adjustImprinting, bool allowMoreThanHundredImprinting, double imprintingBonusMultiplier,
-            bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, bool mutagenApplied, out bool imprintingChanged, Troodonism.AffectedStats troodonismStats)
+            bool considerWildLevelSteps, int wildLevelSteps, bool highPrecisionInputs, bool mutagenApplied, out bool imprintingChanged, Troodonism.AffectedStats troodonismStats,
+            double fixedImprinting = -1)
         {
             var stats = troodonismStats == Troodonism.AffectedStats.None
                 ? species.stats
@@ -111,8 +113,10 @@ namespace ARKBreedingStats
             _bred = bred;
             PostTamed = bred || tamed;
 
-            List<MinMaxDouble> imprintingBonusList = null;
-            if (bred)
+            List<MinMaxDouble> imprintingBonusList;
+            if (fixedImprinting >= 0)
+                imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(fixedImprinting) };
+            else if (bred)
             {
                 if (!adjustImprinting)
                 {
@@ -123,7 +127,7 @@ namespace ARKBreedingStats
                     imprintingBonusList = CalculateImprintingBonus(species, stats, imprintingBonusRounded, imprintingBonusMultiplier, statIOs[Stats.Torpidity].Input, statIOs[Stats.Food].Input, troodonismStats);
                 }
             }
-            if (imprintingBonusList == null)
+            else
                 imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
 
             double[] statImprintMultipliers = species.StatImprintMultipliers;
@@ -249,11 +253,6 @@ namespace ARKBreedingStats
                     if (maxLD > _levelsUndeterminedDom) maxLD = _levelsUndeterminedDom;
                     if (maxLD < 0) maxLD = 0;
 
-                    MinMaxDouble statImprintingMultiplierRange = new MinMaxDouble(1);
-                    // only use imprintingMultiplier for stats that use them. Stamina and Oxygen don't use ist. Sometimes speed neither.
-                    if (bred && statImprintMultipliers[s] != 0)
-                        statImprintingMultiplierRange = imprintingMultiplierRanges[s].Clone();
-
                     // if dom levels have no effect, just calculate the wild level
                     // for flyers (without mods) this means for speed no wild levels at all (i.e. not unknown, but 0)
                     // for the Diplodocus this means 0 wild levels in melee
@@ -271,8 +270,8 @@ namespace ARKBreedingStats
                         }
                         else
                         {
-                            MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (PostTamed ? 1 + stats[s].MultAffinity : 1) - (PostTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Max) - 1) / stats[s].IncPerWildLevel,
-                                                                    ((inputValue.Max / (PostTamed ? 1 + stats[s].MultAffinity : 1) - (PostTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * statImprintingMultiplierRange.Min) - 1) / stats[s].IncPerWildLevel);
+                            MinMaxDouble lwRange = new MinMaxDouble(((inputValue.Min / (PostTamed ? 1 + stats[s].MultAffinity : 1) - (PostTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * imprintingMultiplierRanges[s].Max) - 1) / stats[s].IncPerWildLevel,
+                                                                    ((inputValue.Max / (PostTamed ? 1 + stats[s].MultAffinity : 1) - (PostTamed ? stats[s].AddWhenTamed : 0)) / (statBaseValue * imprintingMultiplierRanges[s].Min) - 1) / stats[s].IncPerWildLevel);
                             int lw = (int)Math.Round(lwRange.Mean);
                             if (lwRange.Includes(lw) && lw >= 0 && lw <= maxLW)
                             {
@@ -287,8 +286,8 @@ namespace ARKBreedingStats
                     for (int lw = minLW; lw <= maxLW; lw++)
                     {
                         // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
-                        MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Min + (PostTamed ? stats[s].AddWhenTamed : 0),
-                                                                        statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * statImprintingMultiplierRange.Max + (PostTamed ? stats[s].AddWhenTamed : 0)); // value without domesticated levels
+                        MinMaxDouble valueWODomRange = new MinMaxDouble(statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * imprintingMultiplierRanges[s].Min + (PostTamed ? stats[s].AddWhenTamed : 0),
+                                                                        statBaseValue * (1 + stats[s].IncPerWildLevel * lw) * imprintingMultiplierRanges[s].Max + (PostTamed ? stats[s].AddWhenTamed : 0)); // value without domesticated levels
                         if (!withTEff)
                         {
                             // calculate the only possible Ld, if it's an integer, take it.

@@ -57,6 +57,7 @@ namespace ARKBreedingStats.miscClasses
                 case Issue.CreatureLevel: return Loc.S("issueCauseCreatureLevel");
                 case Issue.OutdatedInGameValues: return Loc.S("issueCauseOutdatedIngameValues");
                 case Issue.ImpossibleTe: return Loc.S("issueCauseImpossibleTe");
+                case Issue.BondedTaming: return Loc.S("issueBondedTamingRank");
             }
             return string.Empty;
         }
@@ -82,7 +83,8 @@ namespace ARKBreedingStats.miscClasses
             WildLevelSteps = 1 << 13,
             ArkStatIssue = 1 << 14,
             OutdatedInGameValues = 1 << 15,
-            ImpossibleTe = 1 << 16
+            ImpossibleTe = 1 << 16,
+            BondedTaming = 1 << 17
         }
     }
 }

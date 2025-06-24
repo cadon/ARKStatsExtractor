@@ -287,7 +287,8 @@ namespace ARKBreedingStats
                     _creatureCollection.allowMoreThanHundredImprinting,
                     _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
                     _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep,
-                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged, useTroodonism);
+                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged, useTroodonism,
+                    rbTamedExtractor.Checked ? Ark.ImprintingPerBondedTamingRank(BondedTamingRankExtractor) : -1);
 
                 // wild claimed babies look like bred creatures in the export files, but have to be considered tamed when imported
                 // if the extraction of an exported creature doesn't work, try with tamed settings
@@ -597,6 +598,7 @@ namespace ARKBreedingStats
                 panelSums.BackColor = Color.Transparent;
                 panelWildTamedBred.BackColor = Color.Transparent;
                 labelTE.BackColor = Color.Transparent;
+                pBondedTamingExtractor.BackColor = Color.Transparent;
                 llOnlineHelpExtractionIssues.Visible = false;
                 labelErrorHelp.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
@@ -650,8 +652,13 @@ namespace ARKBreedingStats
             if (!issues.HasFlag(IssueNotes.Issue.StatMultipliers))
                 issues |= IssueNotes.Issue.StatMultipliers; // add this always?
 
-            if (rbTamedExtractor.Checked && _creatureCollection.considerWildLevelSteps)
-                issues |= IssueNotes.Issue.WildLevelSteps;
+            if (rbTamedExtractor.Checked)
+            {
+                if (_creatureCollection.considerWildLevelSteps)
+                    issues |= IssueNotes.Issue.WildLevelSteps;
+                issues |= IssueNotes.Issue.BondedTaming;
+                pBondedTamingExtractor.BackColor = Color.LightSalmon;
+            }
 
             if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)
                 issues |= IssueNotes.Issue.ImpossibleTe;
@@ -1661,6 +1668,17 @@ namespace ARKBreedingStats
 
             _statIOs[Stats.Torpidity].Input = StatValueCalculation.CalculateValue(species,
                 Stats.Torpidity, (int)numericUpDownLevel.Value - 1, 0, 0, false);
+        }
+
+        private int BondedTamingRankExtractor
+        {
+            get
+            {
+                if (RbBondedTaming3.Checked) return 3;
+                if (RbBondedTaming2.Checked) return 2;
+                if (RbBondedTaming1.Checked) return 1;
+                return 0;
+            }
         }
     }
 }
