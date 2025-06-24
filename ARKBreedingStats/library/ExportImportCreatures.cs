@@ -161,16 +161,10 @@ namespace ARKBreedingStats.library
                 output.AppendLine();
             }
 
-            try
-            {
-                Clipboard.SetText(output.ToString());
-                return creatures.Count();
-            }
-            catch (Exception ex)
-            {
-                MessageBoxes.ExceptionMessageBox(ex);
-            }
+            if (ClipboardHandler.SetText(output.ToString(), out var error))
+                return creatures.Count;
 
+            MessageBoxes.ShowMessageBox(error);
             return 0;
         }
 

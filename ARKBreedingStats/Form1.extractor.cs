@@ -159,7 +159,7 @@ namespace ARKBreedingStats
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
             var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
 
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights,considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
+            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
                 GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
@@ -287,7 +287,8 @@ namespace ARKBreedingStats
                     _creatureCollection.allowMoreThanHundredImprinting,
                     _creatureCollection.serverMultipliers.BabyImprintingStatScaleMultiplier,
                     _creatureCollection.considerWildLevelSteps, _creatureCollection.wildLevelStep,
-                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged, useTroodonism);
+                    statInputsHighPrecision, mutagenApplied, out imprintingBonusChanged, useTroodonism,
+                    rbTamedExtractor.Checked ? Ark.ImprintingPerBondedTamingRank(BondedTamingRankExtractor) : -1);
 
                 // wild claimed babies look like bred creatures in the export files, but have to be considered tamed when imported
                 // if the extraction of an exported creature doesn't work, try with tamed settings
@@ -597,6 +598,7 @@ namespace ARKBreedingStats
                 panelSums.BackColor = Color.Transparent;
                 panelWildTamedBred.BackColor = Color.Transparent;
                 labelTE.BackColor = Color.Transparent;
+                pBondedTamingExtractor.BackColor = Color.Transparent;
                 llOnlineHelpExtractionIssues.Visible = false;
                 labelErrorHelp.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
@@ -650,8 +652,13 @@ namespace ARKBreedingStats
             if (!issues.HasFlag(IssueNotes.Issue.StatMultipliers))
                 issues |= IssueNotes.Issue.StatMultipliers; // add this always?
 
-            if (rbTamedExtractor.Checked && _creatureCollection.considerWildLevelSteps)
-                issues |= IssueNotes.Issue.WildLevelSteps;
+            if (rbTamedExtractor.Checked)
+            {
+                if (_creatureCollection.considerWildLevelSteps)
+                    issues |= IssueNotes.Issue.WildLevelSteps;
+                issues |= IssueNotes.Issue.BondedTaming;
+                pBondedTamingExtractor.BackColor = Color.LightSalmon;
+            }
 
             if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)
                 issues |= IssueNotes.Issue.ImpossibleTe;
@@ -943,7 +950,9 @@ namespace ARKBreedingStats
             {
                 tsv.Add(rowLevel + rowValues);
             }
-            Clipboard.SetText(string.Join("\n", tsv));
+
+            if (!ClipboardHandler.SetText(string.Join("\n", tsv), out var error))
+                SetMessageLabelText($"Error while trying to copy data to the clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -956,6 +965,26 @@ namespace ARKBreedingStats
             CreatureValues cv = null;
             nameCopiedToClipboard = false;
             alreadyExistingCreature = null;
+
+            if (string.IsNullOrEmpty(exportFilePath))
+            {
+                MessageBoxes.ShowMessageBox("Cannot import export-file, no file path given.");
+                return null;
+            }
+
+            var fi = new FileInfo(exportFilePath);
+
+            if (!fi.Exists)
+            {
+                MessageBoxes.ShowMessageBox($"Cannot import export-file, it does not exist.\n{exportFilePath}");
+                return null;
+            }
+
+            if (fi.Length == 0)
+            {
+                MessageBoxes.ShowMessageBox($"Cannot import export-file, it is empty.\nThis might be a bug in ARK where the game does not write anything to the file.\n{exportFilePath}");
+                return null;
+            }
 
             // if the file is blocked, try it again
             const int waitingTimeBase = 200;
@@ -1347,6 +1376,14 @@ namespace ARKBreedingStats
 
             ClearAll();
             speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(cv.speciesBlueprint));
+
+            if (cv.isBred)
+                rbBredExtractor.Checked = true;
+            else if (cv.isTamed)
+                rbTamedExtractor.Checked = true;
+            else
+                rbWildExtractor.Checked = true;
+
             for (int s = 0; s < Stats.StatsCount; s++)
                 _statIOs[s].Input = cv.statValues[s];
 
@@ -1356,13 +1393,6 @@ namespace ARKBreedingStats
             numericUpDownLevel.ValueSave = cv.level;
             numericUpDownLowerTEffBound.ValueSave = (decimal)cv.tamingEffMin * 100;
             numericUpDownUpperTEffBound.ValueSave = (decimal)cv.tamingEffMax * 100;
-
-            if (cv.isBred)
-                rbBredExtractor.Checked = true;
-            else if (cv.isTamed)
-                rbTamedExtractor.Checked = true;
-            else
-                rbWildExtractor.Checked = true;
             numericUpDownImprintingBonusExtractor.ValueSave = (decimal)cv.imprintingBonus * 100;
         }
 
@@ -1380,7 +1410,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    c.Mother = new Creature(c.motherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Female);
+                    c.Mother = new Creature(c.motherGuid, c.Species, c.Species.NoGender ? Sex.Unknown : Sex.Female);
                     c.Mother.name = (c.Mother.sex == Sex.Female ? "Mother" : "Parent") + " of " + c.name;
                     _creatureCollection.creatures.Add(c.Mother);
                 }
@@ -1393,7 +1423,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    c.Father = new Creature(c.fatherGuid, c.Species, c.Species.noGender ? Sex.Unknown : Sex.Male);
+                    c.Father = new Creature(c.fatherGuid, c.Species, c.Species.NoGender ? Sex.Unknown : Sex.Male);
                     c.Father.name = (c.Father.sex == Sex.Male ? "Father" : "Parent") + " of " + c.name;
                     _creatureCollection.creatures.Add(c.Father);
                 }
@@ -1577,8 +1607,9 @@ namespace ARKBreedingStats
         {
             // copy blueprint path to clipboard
             if (speciesSelector1.SelectedSpecies?.blueprintPath is string bp
-                && !string.IsNullOrEmpty(bp))
-                Clipboard.SetText(bp);
+                && !string.IsNullOrEmpty(bp)
+                && !utils.ClipboardHandler.SetText(bp, out var error))
+                SetMessageLabelText($"Error while trying to copy blueprint path to the clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         private void ExtractorStatLevelChanged(StatIO _)
@@ -1637,6 +1668,17 @@ namespace ARKBreedingStats
 
             _statIOs[Stats.Torpidity].Input = StatValueCalculation.CalculateValue(species,
                 Stats.Torpidity, (int)numericUpDownLevel.Value - 1, 0, 0, false);
+        }
+
+        private int BondedTamingRankExtractor
+        {
+            get
+            {
+                if (RbBondedTaming3.Checked) return 3;
+                if (RbBondedTaming2.Checked) return 2;
+                if (RbBondedTaming1.Checked) return 1;
+                return 0;
+            }
         }
     }
 }

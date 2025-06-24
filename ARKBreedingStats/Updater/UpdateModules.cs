@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -47,8 +48,7 @@ namespace ARKBreedingStats.Updater
                 }
             }
 
-            InitiallySelectedSpeciesImageCollectionId = _checkboxesSelectModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
-                .FirstOrDefault(m => (m?.LocallyAvailable ?? false) && m?.Category == "Species Images")?.Id;
+            _initiallySelectedSpeciesImageCollectionIdAndVersion = GetCurrentImageModuleIdAndVersion();
         }
 
         private Control CreateModuleControl(AsbModule module, bool onlyOneEntry)
@@ -143,8 +143,7 @@ namespace ARKBreedingStats.Updater
         {
             var cbImages = _checkboxesUpdateModule.FirstOrDefault(cb => cb.Tag is AsbModule mod && mod.Category == "Species Images");
             if (cbImages == null) return;
-            var moduleImages = cbImages.Tag as AsbModule;
-            if (moduleImages == null) return;
+            if (!(cbImages.Tag is AsbModule moduleImages)) return;
             if (!moduleImages.LocallyAvailable)
                 cbImages.Checked = true;
         }
@@ -154,15 +153,23 @@ namespace ARKBreedingStats.Updater
         /// </summary>
         internal bool UpdateAvailable { get; private set; }
 
-        private string InitiallySelectedSpeciesImageCollectionId;
+        private readonly string _initiallySelectedSpeciesImageCollectionIdAndVersion;
 
         /// <summary>
         /// The species images were changed and need to be initialized again.
         /// </summary>
-        public bool ImagesWereChanged => InitiallySelectedSpeciesImageCollectionId != _checkboxesSelectModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
-            .FirstOrDefault(m => m?.Category == "Species Images")?.Id;
+        public bool ImagesWereChanged => _initiallySelectedSpeciesImageCollectionIdAndVersion != GetCurrentImageModuleIdAndVersion();
 
-        private AsbManifest _asbManifest;
+        private string GetCurrentImageModuleIdAndVersion()
+        {
+            var moduleImages = _checkboxesSelectModule
+                .Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
+                .FirstOrDefault(m => m?.Category == "Species Images");
+
+            return moduleImages == null ? null : $"{moduleImages.Id}_{moduleImages.VersionLocal}";
+        }
+
+        private readonly AsbManifest _asbManifest;
         private readonly List<CheckBox> _checkboxesUpdateModule;
         private readonly List<CheckBox> _checkboxesSelectModule;
 
@@ -182,6 +189,7 @@ namespace ARKBreedingStats.Updater
                 // if downloaded successfully, also select the module
                 if (success)
                 {
+                    module.SetVersion(new StreamingContext());
                     var checkBox = _checkboxesSelectModule.FirstOrDefault(cb => (cb.Tag as AsbModule) == module);
                     if (checkBox != null)
                         checkBox.Checked = true;

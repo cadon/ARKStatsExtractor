@@ -104,10 +104,17 @@ namespace ARKBreedingStats.species
         /// </summary>
         public ColorPattern patterns;
 
+        [JsonProperty] private bool? isFlyer;
         /// <summary>
         /// Indicates if the species is affected by the setting AllowFlyerSpeedLeveling
         /// </summary>
-        [JsonProperty] public bool isFlyer;
+        public bool IsFlyer => isFlyer == true;
+
+        /// <summary>
+        /// Blueprintpaths of species this species can mate with.
+        /// </summary>
+        [JsonProperty]
+        public string[] matesWith;
 
         [JsonProperty]
         public float? TamedBaseHealthMultiplier;
@@ -143,11 +150,17 @@ namespace ARKBreedingStats.species
         public TamingData taming;
         [JsonProperty]
         public BreedingData breeding;
+
         /// <summary>
         /// If the species uses no gender, ignore the sex in the breeding planner.
         /// </summary>
         [JsonProperty]
-        public bool noGender;
+        private bool? noGender;
+        /// <summary>
+        /// If the species uses no gender, ignore the sex in the breeding planner.
+        /// </summary>
+        public bool NoGender => noGender == true;
+
         [JsonProperty]
         public Dictionary<string, double> boneDamageAdjusters;
         [JsonProperty]
@@ -277,6 +290,8 @@ namespace ARKBreedingStats.species
 
             IsDomesticable = (taming != null && (taming.nonViolent || taming.violent))
                              || (breeding != null && (breeding.incubationTime > 0 || breeding.gestationTime > 0));
+
+            matesWith = matesWith?.Select(bp => bp.EndsWith("_C") ? bp.Substring(0, bp.Length - 2) : bp).ToArray();
         }
 
         /// <summary>
@@ -387,7 +402,7 @@ namespace ARKBreedingStats.species
         {
             var statBit = (1 << Stats.SpeedMultiplier);
 
-            bool speedStatCanBeLeveled = canLevelSpeedStat && (canFlyerLevelSpeedStat || !isFlyer);
+            bool speedStatCanBeLeveled = canLevelSpeedStat && (canFlyerLevelSpeedStat || !IsFlyer);
             if (speedStatCanBeLeveled)
             {
                 DisplayedStats |= statBit;
@@ -501,6 +516,9 @@ namespace ARKBreedingStats.species
             if (overrides.boneDamageAdjusters != null) boneDamageAdjusters = overrides.boneDamageAdjusters;
             if (overrides.immobilizedBy != null) immobilizedBy = overrides.immobilizedBy;
             if (overrides.statNames != null) statNames = overrides.statNames;
+            if (overrides.isFlyer != null) isFlyer = overrides.isFlyer;
+            if (overrides.noGender != null) noGender = overrides.noGender;
+            if (overrides.matesWith != null) matesWith = overrides.matesWith;
 
             Initialize(new StreamingContext());
         }

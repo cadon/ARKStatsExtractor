@@ -36,7 +36,7 @@ namespace ARKBreedingStats
 
             if (modFilesLoaded)
             {
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
+                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases, _creatureCollection.Game);
                 if (applySettings)
                     ApplySettingsToValues();
             }

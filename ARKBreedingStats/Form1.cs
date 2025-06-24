@@ -17,6 +17,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.StatsOptions;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
@@ -224,21 +225,27 @@ namespace ARKBreedingStats
             // name patterns menu entries
             const int namePatternCount = 6;
             var namePatternMenuItems = new ToolStripMenuItem[namePatternCount];
-            var libraryContextMenuItems = new ToolStripMenuItem[namePatternCount];
-            for (int i = 0; i < namePatternCount; i++)
+            var libraryContextMenuItemsSetNamePattern = new ToolStripMenuItem[namePatternCount];
+            var libraryContextMenuItemsCopyToClipboard = new ToolStripMenuItem[namePatternCount];
+            for (var i = 0; i < namePatternCount; i++)
             {
                 var displayedPatternIndex = i + 1;
                 var mi = new ToolStripMenuItem { Text = $"Pattern {displayedPatternIndex}{(i == 0 ? " (used for auto import)" : string.Empty)}", Tag = i };
                 mi.Click += MenuOpenNamePattern;
                 namePatternMenuItems[i] = mi;
 
-                // library context menu
+                // library context menu set name pattern
                 mi = new ToolStripMenuItem { Text = $"Pattern {i + 1} (NumPad{displayedPatternIndex})", Tag = i };
                 mi.Click += GenerateCreatureNames;
-                libraryContextMenuItems[i] = mi;
+                libraryContextMenuItemsSetNamePattern[i] = mi;
+
+                // library context menu copy name pattern to clipboard
+                mi = new ToolStripMenuItem { Text = $"Pattern {i + 1} (Ctrl + NumPad{displayedPatternIndex})", Tag = i };
+                mi.Click += CopyGeneratedNamePatternToClipboard;
+                libraryContextMenuItemsCopyToClipboard[i] = mi;
             }
 
-            libraryContextMenuItems[0].ShortcutKeys = Keys.Control | Keys.G;
+            libraryContextMenuItemsSetNamePattern[0].ShortcutKeys = Keys.Control | Keys.G;
 
             var libraryContextMenuMaturitySettings = new[] { 0, 0.05, 0.1, 0.25, 0.5, 0.75, 1 };
             foreach (var m in libraryContextMenuMaturitySettings)
@@ -250,7 +257,9 @@ namespace ARKBreedingStats
             }
 
             nameGeneratorToolStripMenuItem.DropDownItems.AddRange(namePatternMenuItems);
-            toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItems);
+            toolStripMenuItemGenerateCreatureName.DropDownItems.AddRange(libraryContextMenuItemsSetNamePattern);
+            toolStripMenuItemCopyGeneratedCreatureName.DropDownItems.AddRange(libraryContextMenuItemsCopyToClipboard);
+            PedigreeCreature.CopyGeneratedPatternToClipboard += CopyCreatureNamePatternToClipboard;
 
             var copyTopCreatureStatsToClipboardMenuItem = new ToolStripMenuItem("Copy library top stats to clipboard");
             copyTopCreatureStatsToClipboardMenuItem.Click += CopyTopCreatureStatsToClipboard;
@@ -550,6 +559,22 @@ namespace ARKBreedingStats
             }
 
             timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
+
+            switch (Properties.Settings.Default.BondedTamingRank)
+            {
+                case 3:
+                    RbBondedTaming3.Checked = true;
+                    break;
+                case 2:
+                    RbBondedTaming2.Checked = true;
+                    break;
+                case 1:
+                    RbBondedTaming1.Checked = true;
+                    break;
+                default:
+                    RbBondedTaming0.Checked = true;
+                    break;
+            }
 
             SetupAutoLoadFileWatcher();
             SetupExportFileWatcher();
@@ -1493,6 +1518,8 @@ namespace ARKBreedingStats
             Properties.Settings.Default.RaisingFoodLastSelected = raisingControl1.LastSelectedFood;
             Properties.Settings.Default.LibraryColorInfoUseFilter = CbLibraryInfoUseFilter.Checked;
 
+            Properties.Settings.Default.BondedTamingRank = BondedTamingRankExtractor;
+
             /////// save settings for next session
             Properties.Settings.Default.Save();
 
@@ -1582,7 +1609,7 @@ namespace ARKBreedingStats
         private void TbMessageLabel_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_messageLabelClipboardContent))
-                Clipboard.SetText(_messageLabelClipboardContent);
+                utils.ClipboardHandler.SetText(_messageLabelClipboardContent);
             FileService.OpenFolderInExplorer(_messageLabelPath);
         }
 
@@ -1633,7 +1660,7 @@ namespace ARKBreedingStats
                     cr.Species == creature.Species && cr.guid != creature.guid)
                 .OrderBy(cr => cr.name).ToList();
 
-            if (creature.Species?.noGender == true)
+            if (creature.Species?.NoGender == true)
                 return new[] { parentList, null };
 
             var motherList = parentList.Where(cr => cr.sex == Sex.Female).ToList();
@@ -3290,8 +3317,8 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.PatternNameToClipboardAfterManualApplication)
                 {
                     if (string.IsNullOrEmpty(input.CreatureName))
-                        Clipboard.Clear();
-                    else Clipboard.SetText(input.CreatureName);
+                        utils.ClipboardHandler.Clear();
+                    else utils.ClipboardHandler.SetText(input.CreatureName);
                 }
             }
         }
@@ -3310,7 +3337,7 @@ namespace ARKBreedingStats
                 cr.levelsWild = _statIOs.Select(s => s.LevelWild).ToArray();
                 cr.levelsMutated = _statIOs.Select(s => s.LevelMut).ToArray();
                 cr.imprintingBonus = _extractor.ImprintingBonus;
-                cr.tamingEff = _extractor.UniqueTamingEffectiveness();
+                cr.tamingEff = rbWildExtractor.Checked ? -3 : _extractor.UniqueTamingEffectiveness();
                 cr.isBred = rbBredExtractor.Checked;
                 for (int s = 0; s < Stats.StatsCount; s++)
                     cr.SetTopStat(s, _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.TopLevel) || _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel));
@@ -3685,9 +3712,9 @@ namespace ARKBreedingStats
             {
                 string name = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name;
                 if (string.IsNullOrEmpty(name))
-                    Clipboard.Clear();
+                    utils.ClipboardHandler.Clear();
                 else
-                    Clipboard.SetText(name);
+                    utils.ClipboardHandler.SetText(name);
             }
         }
 
@@ -3963,7 +3990,8 @@ namespace ARKBreedingStats
         private void colorDefinitionsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // copy currently loaded color definitions to the clipboard
-            Clipboard.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")));
+            if (!utils.ClipboardHandler.SetText(string.Join("\n", Values.V.Colors.ColorsList.Select(c => $"{c.Id,3}: {c}")), out var error))
+                SetMessageLabelText($"Error while trying to copy color definitions to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         private void BtCopyLibraryColorToClipboard_Click(object sender, EventArgs e)
@@ -3971,8 +3999,10 @@ namespace ARKBreedingStats
             LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked);
             libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             var colorInfo = LibraryInfo.GetSpeciesInfo();
-            Clipboard.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo);
-            SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.", MessageBoxIcon.Information);
+            if (utils.ClipboardHandler.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo, out var error))
+                SetMessageLabelText($"Color information about {speciesSelector1.SelectedSpecies} has been copied to the clipboard, you can paste it in a text editor to view it.",
+                    MessageBoxIcon.Information);
+            else SetMessageLabelText($"Error while trying to copy color information to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
         private void CbLibraryInfoUseFilter_CheckedChanged(object sender, EventArgs e)

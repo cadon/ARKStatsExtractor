@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -108,9 +107,14 @@ namespace ARKBreedingStats.AsbServer
                     catch (Exception ex)
                     {
                         var tryToReconnect = reconnectTries++ < 3;
-                        WriteErrorMessage(
-                            $"ASB Server listening {ex.GetType()}: {ex.Message}{Environment.NewLine}{(tryToReconnect ? "Trying to reconnect" + Environment.NewLine : string.Empty)}Stack trace: {ex.StackTrace}",
-                            stopListening: !tryToReconnect);
+                        if (tryToReconnect)
+                            WriteErrorMessage(
+                                $"ASB Server listening error, attempting to reconnect (try {reconnectTries})",
+                                stopListening: false);
+                        else
+                            WriteErrorMessage(
+                                $"ASB Server listening error: {ex.GetType()}: {ex.Message}{Environment.NewLine}Stack trace: {ex.StackTrace}",
+                                stopListening: true);
 
                         if (!tryToReconnect)
                             break;
@@ -452,7 +456,7 @@ namespace ARKBreedingStats.AsbServer
             var clipboardText = Clipboard.GetText();
             if (!string.IsNullOrEmpty(clipboardText) && clipboardText == Properties.Settings.Default.ExportServerToken)
             {
-                Clipboard.SetText(string.Empty);
+                utils.ClipboardHandler.SetText(string.Empty);
             }
         }
     }

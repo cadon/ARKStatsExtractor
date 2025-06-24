@@ -153,7 +153,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
         /// </summary>
         private void CopyHueSetting()
         {
-            Clipboard.SetText(JsonConvert.SerializeObject(LevelGraphRepresentation));
+            ClipboardHandler.SetText(JsonConvert.SerializeObject(LevelGraphRepresentation));
         }
 
         /// <summary>

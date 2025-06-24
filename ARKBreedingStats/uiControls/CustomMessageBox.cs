@@ -76,8 +76,8 @@ namespace ARKBreedingStats.uiControls
             if (string.IsNullOrEmpty(message)) return;
 
             if (ActiveForm != null)
-                ActiveForm.Invoke(new Action(() => { Clipboard.SetText(message); }));
-            else Clipboard.SetText(message);
+                ActiveForm.Invoke(new Action(() => { utils.ClipboardHandler.SetText(message); }));
+            else utils.ClipboardHandler.SetText(message);
         }
 
         private void CustomMessageBox_SizeChanged(object sender, System.EventArgs e)

@@ -47,10 +47,10 @@ namespace ARKBreedingStats
             if (tokenIsSet)
             {
                 message = $"Currently {(Connection.IsCurrentlyListening ? string.Empty : "not ")}listening to the server."
-                          + " The current token is " + Environment.NewLine + Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)
-                          + Environment.NewLine + "(token copied to clipboard)";
+                          + " The current token is " + Environment.NewLine + Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken);
 
-                Clipboard.SetText(Properties.Settings.Default.ExportServerToken);
+                if (utils.ClipboardHandler.SetText(Properties.Settings.Default.ExportServerToken))
+                    message += Environment.NewLine + "(token copied to clipboard)";
                 isError = false;
             }
             else
@@ -102,6 +102,9 @@ namespace ARKBreedingStats
                 var message = data.Message;
                 string popupMessage = null;
                 var copyToClipboard = !string.IsNullOrEmpty(data.ClipboardText);
+                if (copyToClipboard && !utils.ClipboardHandler.SetText(data.ClipboardText))
+                    copyToClipboard = false;
+
                 if (!string.IsNullOrEmpty(data.ServerToken))
                 {
                     displayPopup = !Properties.Settings.Default.StreamerMode && Properties.Settings.Default.DisplayPopupForServerToken;
@@ -116,9 +119,6 @@ namespace ARKBreedingStats
                             + Environment.NewLine + Environment.NewLine + "Enable Streamer mode in Settings -> General to mask the token in the future";
                     message += tokenInfo;
                 }
-
-                if (copyToClipboard)
-                    Clipboard.SetText(data.ClipboardText);
 
                 if (listenToolStripMenuItem.Checked == data.StoppedListening)
                     listenToolStripMenuItem.Checked = !data.StoppedListening;

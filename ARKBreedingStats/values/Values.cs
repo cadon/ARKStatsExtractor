@@ -168,7 +168,7 @@ namespace ARKBreedingStats.values
                     }
                     //if (sp.IsDomesticable && !specialFoodData.ContainsKey(sp.name)) speciesWoFoodData.Add(sp.name);
                 }
-                //System.Windows.Forms.Clipboard.SetText(speciesWoFoodData.Any() ? string.Join("\n", speciesWoFoodData) : string.Empty);
+                //utils.ClipboardHandler.SetText(speciesWoFoodData.Any() ? string.Join("\n", speciesWoFoodData) : string.Empty);
             }
 
             OrderSpeciesAndApplyCustomVariants();
@@ -546,7 +546,7 @@ namespace ARKBreedingStats.values
                 {
                     bool customOverrideExists = cc.CustomSpeciesStats?.ContainsKey(sp.blueprintPath) ?? false;
                     double?[][] customFullStatsRaw = customOverrideExists ? cc.CustomSpeciesStats[sp.blueprintPath] : null;
-                    bool useSpeedLevelup = currentServerMultipliers.AllowFlyerSpeedLeveling || !sp.isFlyer;
+                    bool useSpeedLevelup = currentServerMultipliers.AllowFlyerSpeedLeveling || !sp.IsFlyer;
 
                     // stat-multiplier
                     for (int s = 0; s < Stats.StatsCount; s++)

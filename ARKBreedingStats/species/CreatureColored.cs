@@ -33,6 +33,8 @@ namespace ARKBreedingStats.species
         /// </summary>
         internal static string SpeciesImageName(Species species, string game = null, Sex creatureSex = Sex.Unknown, int patternId = -1, bool replacePolar = true)
         {
+            if (string.IsNullOrEmpty(ImageFolder))
+                return null;
             var speciesName = species?.name;
             if (string.IsNullOrEmpty(speciesName)) return string.Empty;
             speciesName = speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty);
@@ -67,6 +69,7 @@ namespace ARKBreedingStats.species
                     return fileNameBase;
                 }
             }
+            cachedSpeciesFileNames.Add(keyString, null);
             return null;
         }
 

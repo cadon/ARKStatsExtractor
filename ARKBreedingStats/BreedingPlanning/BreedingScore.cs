@@ -41,7 +41,7 @@ namespace ARKBreedingStats.BreedingPlanning
             bool considerMutationLevels = false)
         {
             var breedingPairs = new List<BreedingPair>();
-            var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.noGender;
+            var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.NoGender;
             if (anyOddEven != null && anyOddEven.Length != Stats.StatsCount)
                 anyOddEven = null;
 

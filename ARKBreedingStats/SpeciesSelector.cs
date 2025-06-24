@@ -64,7 +64,8 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="species"></param>
         /// <param name="aliases"></param>
-        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases)
+        /// <param name="game">Can be ASE or ASA (some species use different images depending on the game)</param>
+        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases, string game = null)
         {
             if (SelectedSpecies != null)
             {
@@ -77,7 +78,7 @@ namespace ARKBreedingStats
                 SetSpecies(species.FirstOrDefault(), ignoreInRecent: true);
             }
 
-            InitializeSpeciesImages(species);
+            InitializeSpeciesImages(species, game);
 
             _entryList = CreateSpeciesList(species, aliases);
 
@@ -150,12 +151,14 @@ namespace ARKBreedingStats
             return entryList;
         }
 
-        public void InitializeSpeciesImages(List<Species> species)
+        public void InitializeSpeciesImages(List<Species> species, string game = null)
         {
             var creatureColors = new byte[] { 44, 42, 57, 10, 26, 78 }; // uniform color pattern that is used for all species in the selector
             var creatureColorsPolar = new byte[] { 18, 18, 18, 18, 18, 18 }; // uniform color pattern that is used for all polar species in the selector
             var lImgList = new ImageList();
             _iconIndices = new List<string>();
+            if (game == null)
+                game = CreatureCollection.CurrentCreatureCollection?.Game ?? Ark.Asa;
             bool imageFolderExist = !string.IsNullOrEmpty(CreatureColored.ImageFolder) && Directory.Exists(CreatureColored.ImageFolder);
             //var rand = new Random();
 
@@ -166,7 +169,7 @@ namespace ARKBreedingStats
                 {
                     var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
                         s.name.Contains("Polar") ? creatureColorsPolar : creatureColors,
-                        CreatureCollection.CurrentCreatureCollection?.Game
+                        game
                         );
                     //if (!imgExists && s.IsDomesticable && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
                     if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
@@ -183,7 +186,7 @@ namespace ARKBreedingStats
                         {
                             (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
                                 s.name.Contains("Polar") ? creatureColorsPolar : creatureColors,
-                                CreatureCollection.CurrentCreatureCollection?.Game);
+                                game);
                             if (imgExists)
                             {
                                 try
@@ -200,13 +203,13 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            //Clipboard.SetText(speciesWOImage.Any() ? string.Join("\n", speciesWOImage) : string.Empty);
+            //utils.ClipboardHandler.SetText(speciesWOImage.Any() ? string.Join("\n", speciesWOImage) : string.Empty);
 
             lImgList.ImageSize = new Size(64, 64);
             lvLastSpecies.LargeImageList = lImgList;
             lvSpeciesInLibrary.LargeImageList = lImgList;
-            UpdateLastSpecies();
-            UpdateImagesLibraryList();
+            UpdateLastSpecies(game);
+            UpdateImagesLibraryList(game);
         }
 
         /// <summary>
@@ -218,6 +221,7 @@ namespace ARKBreedingStats
             lvSpeciesInLibrary.BeginUpdate();
             lvSpeciesInLibrary.Items.Clear();
             var newItems = new List<ListViewItem>();
+            var game = CreatureCollection.CurrentCreatureCollection?.Game ?? Ark.Asa;
             foreach (Species s in librarySpeciesList)
             {
                 ListViewItem lvi = new ListViewItem
@@ -225,7 +229,7 @@ namespace ARKBreedingStats
                     Text = s.DescriptiveNameAndMod,
                     Tag = s
                 };
-                int ii = SpeciesImageIndex(s);
+                int ii = SpeciesImageIndex(s, game);
                 if (ii != -1)
                     lvi.ImageIndex = ii;
                 newItems.Add(lvi);
@@ -237,11 +241,11 @@ namespace ARKBreedingStats
         /// <summary>
         /// Updates the images of the list that displays species of the library.
         /// </summary>
-        private void UpdateImagesLibraryList()
+        private void UpdateImagesLibraryList(string game = null)
         {
             foreach (ListViewItem lvi in lvSpeciesInLibrary.Items)
             {
-                int ii = SpeciesImageIndex(lvi.Tag as Species);
+                int ii = SpeciesImageIndex(lvi.Tag as Species, game);
                 if (ii != -1)
                     lvi.ImageIndex = ii;
             }
@@ -250,7 +254,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Updates the list displaying the last selected species. Also sets the images.
         /// </summary>
-        private void UpdateLastSpecies()
+        private void UpdateLastSpecies(string game = null)
         {
             lvLastSpecies.BeginUpdate();
             lvLastSpecies.Items.Clear();
@@ -265,7 +269,7 @@ namespace ARKBreedingStats
                         Text = species.DescriptiveNameAndMod,
                         Tag = species
                     };
-                    int ii = SpeciesImageIndex(species);
+                    int ii = SpeciesImageIndex(species, game);
                     if (ii != -1)
                         lvi.ImageIndex = ii;
                     newItems.Add(lvi);
@@ -425,14 +429,17 @@ namespace ARKBreedingStats
             }
         }
 
-        private int SpeciesImageIndex(Species species = null)
+        private int SpeciesImageIndex(Species species = null, string game = null)
         {
             if (_iconIndices == null) return -1;
 
             if (species == null)
                 species = SelectedSpecies;
-            var speciesImageName = CreatureColored.SpeciesImageName(species, CreatureCollection.CurrentCreatureCollection?.Game, false);
-            return _iconIndices.IndexOf(speciesImageName);
+            if (game == null)
+                game = CreatureCollection.CurrentCreatureCollection?.Game ?? Ark.Asa;
+
+            var speciesImageName = CreatureColored.SpeciesImageName(species, game, false);
+            return string.IsNullOrEmpty(speciesImageName) ? -1 : _iconIndices.IndexOf(speciesImageName);
         }
 
         public Image SpeciesImage(Species species = null)

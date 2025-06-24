@@ -186,7 +186,7 @@ namespace ARKBreedingStats.library
 
             levelsWild[Stats.Torpidity] = torpidityLevel;
 
-            var sex = species.noGender ? Sex.Unknown : rand.Next(2) == 0 ? Sex.Female : Sex.Male;
+            var sex = species.NoGender ? Sex.Unknown : rand.Next(2) == 0 ? Sex.Female : Sex.Male;
             string name = null;
             if (doTame)
             {
@@ -243,7 +243,7 @@ namespace ARKBreedingStats.library
         /// </summary>
         private static List<Creature> BreedCreatures(Creature[] creatures, Species species, int generations, int usePairsPerGeneration, bool useMutatedLevels = true, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025)
         {
-            var noGender = species.noGender;
+            var noGender = species.NoGender;
 
             var femalesMales = creatures.GroupBy(c => c.sex).ToDictionary(g => g.Key, g => g.ToList());
             if ((noGender && creatures.Length < 2)

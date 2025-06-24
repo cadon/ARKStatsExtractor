@@ -1304,7 +1304,8 @@ namespace ARKBreedingStats.settings
 
         private void BtSettingsToClipboard_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(GetMultiplierSettings());
+            if (!ClipboardHandler.SetText(GetMultiplierSettings(), out var error))
+                MessageBoxes.ShowMessageBox($"Error while trying to copy data to the clipboard. Error: {error}");
         }
 
         /// <summary>

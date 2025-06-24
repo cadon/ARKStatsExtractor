@@ -737,7 +737,7 @@ namespace ARKBreedingStats
         private void lblName_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBoxName.Text))
-                Clipboard.SetText(textBoxName.Text);
+                utils.ClipboardHandler.SetText(textBoxName.Text);
         }
 
         private void btClearColors_Click(object sender, EventArgs e)

@@ -14,6 +14,10 @@ namespace ARKBreedingStats.Pedigree
     {
         public const int HorizontalStatDistance = 29;
         public const int XOffsetFirstStat = 38;
+        /// <summary>
+        /// Display the species name after the creature name.
+        /// </summary>
+        public bool DisplaySpecies;
 
         public delegate void CreatureChangedEventHandler(Creature creature, int comboId, MouseEventArgs e);
 
@@ -38,6 +42,11 @@ namespace ARKBreedingStats.Pedigree
         /// Recalculate the breeding plan, e.g. if the cooldown was reset.
         /// </summary>
         public event Action RecalculateBreedingPlan;
+
+        /// <summary>
+        /// Generate name pattern for creature and copy to clipboard.
+        /// </summary>
+        public static event Action<Creature, int> CopyGeneratedPatternToClipboard;
 
         private readonly List<Label> _labels;
         private readonly ToolTip _ttMonospaced;
@@ -92,6 +101,23 @@ namespace ARKBreedingStats.Pedigree
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             Disposed += PedigreeCreature_Disposed;
             comboId = -1;
+
+            // name patterns menu entries
+            const int namePatternCount = 6;
+            var libraryContextMenuItemsCopyToClipboard = new ToolStripMenuItem[namePatternCount];
+            for (var i = 0; i < namePatternCount; i++)
+            {
+                // library context menu copy name pattern to clipboard
+                var mi = new ToolStripMenuItem { Text = $"Pattern {i + 1}", Tag = i };
+                mi.Click += CopyGeneratedNamePatternToClipboard;
+                libraryContextMenuItemsCopyToClipboard[i] = mi;
+            }
+            toolStripMenuItemCopyGeneratedNameToClipboard.DropDownItems.AddRange(libraryContextMenuItemsCopyToClipboard);
+        }
+
+        private void CopyGeneratedNamePatternToClipboard(object sender, EventArgs e)
+        {
+            CopyGeneratedPatternToClipboard?.Invoke(Creature, (int)((ToolStripMenuItem)sender).Tag);
         }
 
         #region Tooltip font
@@ -110,11 +136,12 @@ namespace ARKBreedingStats.Pedigree
             e.Graphics.DrawString(e.ToolTipText, TooltipFont, Brushes.Black, 0, 0);
         }
 
-        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false) : this()
+        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false, bool displaySpecies = false) : this()
         {
             Cursor = Cursors.Hand;
             this.enabledColorRegions = enabledColorRegions;
             this.comboId = comboId;
+            DisplaySpecies = displaySpecies;
             Creature = creature;
             TsMiViewInPedigree.Visible = displayPedigreeLink;
         }
@@ -281,6 +308,8 @@ namespace ARKBreedingStats.Pedigree
                 groupBox1.Text += $" (grown at {Utils.ShortTimeDate(_creature.growingUntil)})";
             else if (_creature.cooldownUntil > DateTime.Now)
                 groupBox1.Text += $" (cooldown until {Utils.ShortTimeDate(_creature.cooldownUntil)})";
+            if (DisplaySpecies)
+                groupBox1.Text += $" - {_creature.SpeciesName}";
         }
 
         public bool Highlight
@@ -390,7 +419,7 @@ namespace ARKBreedingStats.Pedigree
         private void copyNameToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_creature?.name))
-                Clipboard.SetText(_creature.name);
+                utils.ClipboardHandler.SetText(_creature.name);
         }
 
         private void copyInfoGraphicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

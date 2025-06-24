@@ -12,6 +12,7 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
@@ -1735,28 +1736,33 @@ namespace ARKBreedingStats
 
         private void listViewLibrary_KeyDown(object sender, KeyEventArgs e)
         {
+            int index;
             switch (e.KeyCode)
             {
                 case Keys.NumPad1:
-                    GenerateCreatureNames(0);
+                    index = 0;
                     break;
                 case Keys.NumPad2:
-                    GenerateCreatureNames(1);
+                    index = 1;
                     break;
                 case Keys.NumPad3:
-                    GenerateCreatureNames(2);
+                    index = 2;
                     break;
                 case Keys.NumPad4:
-                    GenerateCreatureNames(3);
+                    index = 3;
                     break;
                 case Keys.NumPad5:
-                    GenerateCreatureNames(4);
+                    index = 4;
                     break;
                 case Keys.NumPad6:
-                    GenerateCreatureNames(5);
+                    index = 5;
                     break;
                 default: return;
             }
+
+            if (Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))
+                CopyCreatureNamePatternToClipboard(index);
+            else GenerateCreatureNames(index);
 
             e.Handled = true;
             e.SuppressKeyPress = true;
@@ -2153,7 +2159,8 @@ namespace ARKBreedingStats
                 var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
                     ? "cheat "
                     : string.Empty;
-                Clipboard.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands));
+                if (!utils.ClipboardHandler.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands), out var error))
+                    SetMessageLabelText($"Error while trying to copy command to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
             }
         }
 
@@ -2205,7 +2212,7 @@ namespace ARKBreedingStats
 
         private void CreateExactSpawnCommand(Creature cr)
         {
-            CreatureSpawnCommand.InstableCommandToClipboard(cr);
+            CreatureSpawnCommand.UnstableCommandToClipboard(cr);
             SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command doesn't include the XP and the imprinterName, thus the imprinting is probably not set."
                                 + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.", MessageBoxIcon.Warning);
         }
@@ -2351,6 +2358,40 @@ namespace ARKBreedingStats
                 UpdateDisplayedCreatureValues(cr, false, false);
 
             listViewLibrary.EndUpdate();
+        }
+        private void CopyGeneratedNamePatternToClipboard(object sender, EventArgs e) => CopyCreatureNamePatternToClipboard((int)((ToolStripMenuItem)sender).Tag);
+
+        private void CopyCreatureNamePatternToClipboard(int namePatternIndex)
+        {
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            var creature = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
+            CopyCreatureNamePatternToClipboard(creature, namePatternIndex);
+        }
+
+        internal void CopyCreatureNamePatternToClipboard(Creature creature, int namePatternIndex)
+        {
+            if (creature == null) return;
+            var generatedName = GenerateSingleCreatureNamePattern(creature, namePatternIndex);
+            if (string.IsNullOrEmpty(generatedName))
+            {
+                SetMessageLabelText($"Generated name for creature {creature} using pattern {namePatternIndex + 1} resulted in an empty name, nothing was copied to the clipboard.", MessageBoxIcon.Error);
+                return;
+            }
+            if (utils.ClipboardHandler.SetText(generatedName, out var error))
+                SetMessageLabelText($"Copied generated name of creature {creature} using pattern {namePatternIndex + 1} to the clipboard.{Environment.NewLine}The generated name is: {generatedName}");
+            else SetMessageLabelText($"Error while trying to copy name to clipboard. Error: {error}", MessageBoxIcon.Error);
+        }
+
+        private string GenerateSingleCreatureNamePattern(Creature creature, int namePatternIndex)
+        {
+            var libraryCreatureCount = _creatureCollection.GetTotalCreatureCount();
+
+            if (creature.Species == null) return null;
+            var sameSpecies = _creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder) && c.Species == creature.Species).ToArray();
+
+            return NamePattern.GenerateCreatureName(creature, creature, sameSpecies, _topLevels.TryGetValue(creature.Species, out var tl) ? tl : null,
+                _customReplacingNamingPattern, false, namePatternIndex,
+                false, libraryCreatureCount: libraryCreatureCount);
         }
 
         #region library list view columns

@@ -121,6 +121,7 @@ namespace ARKBreedingStats.BreedingPlanning
             CbIgnoreSexInPlanning.Checked = Settings.Default.IgnoreSexInBreedingPlan;
             CbDontSuggestOverLimitOffspring.Checked = Settings.Default.BreedingPlanDontSuggestOverLimitOffspring;
             CbConsiderMutationLevels.Checked = Settings.Default.BreedingPlanConsiderMutatedLevels;
+            CbOnlySameSpecies.Checked = Settings.Default.BreedingPlanOnlySameSpecies;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
 
@@ -196,11 +197,19 @@ namespace ARKBreedingStats.BreedingPlanning
             _statWeights = StatWeighting.Weightings;
             _statOddEvens = StatWeighting.AnyOddEven;
 
-            if (forceUpdate || BreedingPlanNeedsUpdate || _onlyShowingASubset)
+            HashSet<string> includeBpSpecies = null;
+            if (_currentSpecies != null)
+            {
+                includeBpSpecies = new HashSet<string> { _currentSpecies.blueprintPath };
+                if (_currentSpecies.matesWith != null && !Settings.Default.BreedingPlanOnlySameSpecies)
+                    includeBpSpecies.UnionWith(_currentSpecies.matesWith);
+            }
+
+            if (includeBpSpecies != null && (forceUpdate || BreedingPlanNeedsUpdate || _onlyShowingASubset))
             {
                 if (_onlyShowingASubset)
                 {
-                    Creatures = onlyConsiderTheseCreatures.Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
+                    Creatures = onlyConsiderTheseCreatures.Where(c => includeBpSpecies.Contains(c.speciesBlueprint)
                                                                       && !c.flags.HasFlag(CreatureFlags.Neutered)
                                                                       && !c.flags.HasFlag(CreatureFlags.Placeholder)
                         )
@@ -209,9 +218,9 @@ namespace ARKBreedingStats.BreedingPlanning
                 else
                 {
                     var includeWithCooldown = cbBPIncludeCooldowneds.Checked;
-                    var ignoreBreedingCooldown = _currentSpecies?.noGender == true; // for hermaphrodites only one partner needs to be not on cooldown
+                    var ignoreBreedingCooldown = _currentSpecies?.NoGender == true; // for hermaphrodites only one partner needs to be not on cooldown
                     Creatures = CreatureCollection.creatures
-                        .Where(c => c.speciesBlueprint == _currentSpecies.blueprintPath
+                        .Where(c => includeBpSpecies.Contains(c.speciesBlueprint)
                                     && !c.flags.HasFlag(CreatureFlags.Neutered)
                                     && !c.flags.HasFlag(CreatureFlags.Placeholder)
                                     && (c.Status == CreatureStatus.Available
@@ -313,7 +322,7 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 females = _females.Where(c => c.topStatsCountBP > 0).ToArray();
                 males = _males?.Where(c => c.topStatsCountBP > 0).ToArray();
-                noCreaturesWithTopStatsInBothSexes = !females.Any() || (males?.Any() != true && !_currentSpecies.noGender);
+                noCreaturesWithTopStatsInBothSexes = !females.Any() || (males?.Any() != true && !_currentSpecies.NoGender);
             }
 
             // filter by tags
@@ -321,7 +330,7 @@ namespace ARKBreedingStats.BreedingPlanning
             int crCountM = males?.Length ?? 0;
             IEnumerable<Creature> selectFemales;
             IEnumerable<Creature> selectMales = null;
-            if (considerChosenCreature && (_chosenCreature.sex == Sex.Female || _currentSpecies.noGender))
+            if (considerChosenCreature && (_chosenCreature.sex == Sex.Female || _currentSpecies.NoGender))
             {
                 selectFemales = new List<Creature>(); // the specific creature is added after the filtering
             }
@@ -332,7 +341,7 @@ namespace ARKBreedingStats.BreedingPlanning
             }
             else selectFemales = FilterByTags(females);
 
-            if (considerChosenCreature && !_currentSpecies.noGender && _chosenCreature.sex == Sex.Male)
+            if (considerChosenCreature && !_currentSpecies.NoGender && _chosenCreature.sex == Sex.Male)
             {
                 selectMales = new List<Creature>(); // the specific creature is added after the filtering
             }
@@ -393,7 +402,7 @@ namespace ARKBreedingStats.BreedingPlanning
             if (selectedMales != null)
                 combinedCreatures.AddRange(selectedMales);
 
-            if (Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.noGender)
+            if (Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.NoGender)
             {
                 selectedFemales = combinedCreatures.ToArray();
                 selectedMales = combinedCreatures.ToArray();
@@ -429,7 +438,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     bestPossLevels, _statWeights, _bestLevelsWild, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
                     ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
-                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.noGender, CbConsiderMutationLevels.Checked);
+                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.NoGender, CbConsiderMutationLevels.Checked);
 
                 double minScore = _breedingPairs.LastOrDefault()?.BreedingScore.OneNumber ?? 0;
                 var displayScoreOffset = (minScore < 0 ? -minScore : 0) + .5; // don't display negative scores, could be confusing
@@ -437,6 +446,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 _breedingPairs = _breedingPairs.Take(CreatureCollection.maxBreedingSuggestions).ToList();
 
                 var sb = new StringBuilder();
+                var displaySpeciesOnCreatureControls = _currentSpecies.matesWith?.Any() == true && !Properties.Settings.Default.BreedingPlanOnlySameSpecies;
                 // draw best parents
                 using (var brush = new SolidBrush(Color.Black))
                 {
@@ -445,6 +455,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         PedigreeCreature pc;
                         if (2 * i < _pcs.Count)
                         {
+                            _pcs[2 * i].DisplaySpecies = displaySpeciesOnCreatureControls;
                             _pcs[2 * i].Creature = _breedingPairs[i].Mother;
                             _pcs[2 * i].enabledColorRegions = _enabledColorRegions;
                             _pcs[2 * i].comboId = i;
@@ -452,7 +463,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         }
                         else
                         {
-                            pc = new PedigreeCreature(_breedingPairs[i].Mother, _enabledColorRegions, i, true);
+                            pc = new PedigreeCreature(_breedingPairs[i].Mother, _enabledColorRegions, i, true, displaySpeciesOnCreatureControls);
                             pc.CreatureClicked += SetBreedingPair;
                             pc.CreatureEdit += CreatureEdit;
                             pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
@@ -478,6 +489,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
                         if (2 * i + 1 < _pcs.Count)
                         {
+                            _pcs[2 * i + 1].DisplaySpecies = displaySpeciesOnCreatureControls;
                             _pcs[2 * i + 1].Creature = _breedingPairs[i].Father;
                             _pcs[2 * i + 1].enabledColorRegions = _enabledColorRegions;
                             _pcs[2 * i + 1].comboId = i;
@@ -485,7 +497,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         }
                         else
                         {
-                            pc = new PedigreeCreature(_breedingPairs[i].Father, _enabledColorRegions, i, true);
+                            pc = new PedigreeCreature(_breedingPairs[i].Father, _enabledColorRegions, i, true, displaySpeciesOnCreatureControls);
                             pc.CreatureClicked += SetBreedingPair;
                             pc.CreatureEdit += CreatureEdit;
                             pc.RecalculateBreedingPlan += RecalculateBreedingPlan;
@@ -787,7 +799,7 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 if (value == null) return;
 
-                if (_currentSpecies.noGender)
+                if (_currentSpecies.NoGender)
                 {
                     _females = value.ToArray();
                     _males = null;
@@ -1076,7 +1088,7 @@ namespace ARKBreedingStats.BreedingPlanning
             foreach (Species s in species)
             {
                 ListViewItem lvi = new ListViewItem { Text = s.DescriptiveNameAndMod, Tag = s };
-                var ignoreSexInSpecies = ignoreSex || s.noGender;
+                var ignoreSexInSpecies = ignoreSex || s.NoGender;
 
                 // check if species has both available males and females
                 if (availableCreaturesBySpecies.TryGetValue(s, out var cs)
@@ -1238,6 +1250,12 @@ namespace ARKBreedingStats.BreedingPlanning
         {
             Settings.Default.BreedingPlanConsiderMutatedLevels = CbConsiderMutationLevels.Checked;
             CalculateBreedingScoresAndDisplayPairs();
+        }
+
+        private void CbOnlySameSpecies_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.BreedingPlanOnlySameSpecies = CbOnlySameSpecies.Checked;
+            DetermineBestBreeding(_chosenCreature, true);
         }
     }
 }

@@ -150,7 +150,7 @@ namespace ARKBreedingStats.importExportGun
 
             var arkId = Utils.ConvertArkIdsToLongArkId(ec.DinoId1Int, ec.DinoId2Int);
 
-            var c = new Creature(species, ec.DinoName, ec.Owner(), ec.TribeName, species?.noGender != false ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male,
+            var c = new Creature(species, ec.DinoName, ec.Owner(), ec.TribeName, species?.NoGender != false ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male,
                 wildLevels, domLevels, mutLevels, ec.IsWild() ? -3 : ec.TameEffectiveness, ec.IsBred(), ec.DinoImprintingQuality,
                 CreatureCollection.CurrentCreatureCollection?.wildLevelStep)
             {
