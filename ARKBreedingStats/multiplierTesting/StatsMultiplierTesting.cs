@@ -691,7 +691,7 @@ To determine all species values, the files with the following creature combinati
                 for (int si = 0; si < Stats.StatsCount; si++)
                     levelsWildAndMutated[si] = cr.levelsWild[si] + cr.levelsMutated[si];
             }
-            SetCreatureValues(statValues ?? cr.valuesDom, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.isBred, cr.Species);
+            SetCreatureValues(statValues ?? cr.valuesCurrent, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.isBred, cr.Species);
         }
 
         private void SetServerMultipliers(ExportGunServerFile esm)

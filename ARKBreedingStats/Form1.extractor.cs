@@ -1521,7 +1521,7 @@ namespace ARKBreedingStats
                 _statIOs[s].Input = onlyWild
                     ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], c.levelsMutated[s], 0, true, c.tamingEff,
                         c.imprintingBonus)
-                    : c.valuesDom[s];
+                    : c.valuesCurrent[s];
                 if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
             }
 

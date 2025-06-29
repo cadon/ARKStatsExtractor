@@ -1170,7 +1170,7 @@ namespace ARKBreedingStats
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (cr.valuesDom[s] == 0)
+                if (cr.valuesCurrent[s] == 0)
                 {
                     // not used
                     lvi.SubItems[ColumnIndexFirstStat + s].ForeColor = Color.White;

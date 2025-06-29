@@ -118,7 +118,7 @@ namespace ARKBreedingStats.library
                             break;
                         case TableExportFields.CurrentValues:
                             foreach (var si in Stats.DisplayOrder)
-                                output.Append($"{c.valuesDom[si]}\t");
+                                output.Append($"{c.valuesCurrent[si]}\t");
                             break;
                         case TableExportFields.IdInGame:
                             output.Append(c.ArkIdInGame + "\t");
@@ -238,7 +238,7 @@ namespace ARKBreedingStats.library
                 if (c.levelsWild[si] >= 0 &&
                     c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
                     sb.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + ": " +
-                              (breeding ? c.valuesBreeding[si] : c.valuesDom[si]) * (Stats.IsPercentage(si) ? 100 : 1) +
+                              (breeding ? c.valuesBreeding[si] : c.valuesCurrent[si]) * (Stats.IsPercentage(si) ? 100 : 1) +
                               (Stats.IsPercentage(si) ? " %" : string.Empty) +
                               " (" + (ARKml
                                   ? Utils.GetARKmlFromPercent(c.levelsWild[si].ToString(),

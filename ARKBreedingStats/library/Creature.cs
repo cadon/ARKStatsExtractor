@@ -42,7 +42,7 @@ namespace ARKBreedingStats.Library
         public double imprintingBonus;
 
         public double[] valuesBreeding;
-        public double[] valuesDom;
+        public double[] valuesCurrent;
 
         /// <summary>
         /// Set a stat index to a top stat or not for that species in the creatureCollection.
@@ -504,7 +504,7 @@ namespace ARKBreedingStats.Library
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 valuesBreeding[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsMutated?[s] ?? 0, 0, true, 1, 0);
-                valuesDom[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsMutated?[s] ?? 0, levelsDom[s], true, tamingEff, imprintingBonus);
+                valuesCurrent[s] = StatValueCalculation.CalculateValue(Species, s, levelsWild[s], levelsMutated?[s] ?? 0, levelsDom[s], isDomesticated, tamingEff, imprintingBonus);
             }
         }
 
@@ -615,7 +615,7 @@ namespace ARKBreedingStats.Library
         {
             if (levelsDom == null) levelsDom = new int[Stats.StatsCount];
             if (valuesBreeding == null) valuesBreeding = new double[Stats.StatsCount];
-            if (valuesDom == null) valuesDom = new double[Stats.StatsCount];
+            if (valuesCurrent == null) valuesCurrent = new double[Stats.StatsCount];
         }
 
         /// <summary>
