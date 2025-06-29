@@ -52,7 +52,7 @@ namespace ARKBreedingStats.uiControls
             {
                 int si = displayedStats[s];
                 stats[s].SetCustomStatNames(creature.Species?.statNames);
-                stats[s].SetNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesDom[si]);
+                stats[s].SetNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesCurrent[si]);
             }
 
             labelSex.Text = Utils.SexSymbol(creature.sex);

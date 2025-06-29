@@ -360,7 +360,7 @@ namespace ARKBreedingStats.Pedigree
                     for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
                     {
                         int si = PedigreeCreature.DisplayedStats[s];
-                        if (_selectedCreature.valuesDom[si] > 0 && _selectedCreature.levelsWild[si] >= 0 &&
+                        if (_selectedCreature.valuesCurrent[si] > 0 && _selectedCreature.levelsWild[si] >= 0 &&
                             _selectedCreature.levelsWild[si] == c.levelsWild[si])
                             _lines[0].Add(new[]
                             {

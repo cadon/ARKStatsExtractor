@@ -251,6 +251,10 @@ namespace ARKBreedingStats
                     labelCurrentTesterCreature.Text = c.name;
                 lbCurrentCreature.Visible = enable;
                 _creatureTesterEdit = c;
+                if (c != null && CreatureCollection.CurrentCreatureCollection?.CreatureById(c.guid, c.ArkId, out var alreadyExistingCreature) == true)
+                    creatureInfoInputTester.AlreadyExistingCreature = alreadyExistingCreature;
+                else
+                    creatureInfoInputTester.AlreadyExistingCreature = null;
             }
 
             if (enable)

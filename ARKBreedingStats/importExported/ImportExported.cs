@@ -48,6 +48,7 @@ namespace ARKBreedingStats.importExported
             bool inStatSection = false;
             foreach (string line in iniLines)
             {
+                if (line.TrimStart().StartsWith(";")) continue; // comment
                 if (line.Contains("[Max Character Status Values]"))
                 {
                     inStatSection = true;

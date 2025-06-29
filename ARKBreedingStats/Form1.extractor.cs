@@ -1377,6 +1377,13 @@ namespace ARKBreedingStats
             ClearAll();
             speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(cv.speciesBlueprint));
 
+            // creatures tamed with the Bonded Taming skill currently look like they're tamed
+            if (cv.isBred && cv.imprintingBonus - Ark.ImprintingPerBondedTamingRank(BondedTamingRankExtractor) < 0.00001)
+            {
+                cv.isTamed = true;
+                cv.isBred = false;
+            }
+
             if (cv.isBred)
                 rbBredExtractor.Checked = true;
             else if (cv.isTamed)
@@ -1521,7 +1528,7 @@ namespace ARKBreedingStats
                 _statIOs[s].Input = onlyWild
                     ? StatValueCalculation.CalculateValue(species, s, c.levelsWild[s], c.levelsMutated[s], 0, true, c.tamingEff,
                         c.imprintingBonus)
-                    : c.valuesDom[s];
+                    : c.valuesCurrent[s];
                 if (c.levelsDom[s] > 0) _statIOs[s].DomLevelLockedZero = false;
             }
 
