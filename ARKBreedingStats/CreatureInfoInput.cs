@@ -48,6 +48,11 @@ namespace ARKBreedingStats
         /// Creature if it's already existing in the library.
         /// </summary>
         private Creature _alreadyExistingCreature;
+        /// <summary>
+        /// If true, it's the tester input. This affects the behaviour of the saveToLibrary button.
+        /// In the extractor it will change colour and text if a creature is reimported, in the tester it will always display add to library.
+        /// </summary>
+        public bool IsTester;
 
         private readonly Debouncer _parentsChangedDebouncer = new Debouncer();
         private readonly Debouncer _nameChangedDebouncer = new Debouncer();
@@ -707,9 +712,9 @@ namespace ARKBreedingStats
         {
             set
             {
-                btAdd2Library.Text = value != null ?
-                                     Loc.S("btUpdateLibraryCreature") :
-                                     Loc.S("btAdd2Library");
+                btAdd2Library.Text = value == null || IsTester
+                    ? Loc.S("btAdd2Library")
+                    : Loc.S("btUpdateLibraryCreature");
 
                 _alreadyExistingCreature = value;
                 SetAdd2LibColor(btAdd2Library.Enabled);
@@ -726,7 +731,7 @@ namespace ARKBreedingStats
         {
             btAdd2Library.BackColor = !buttonEnabled
                 ? SystemColors.Control
-                : _alreadyExistingCreature == null ? Color.LightGreen
+                : IsTester || _alreadyExistingCreature == null ? Color.LightGreen
                 : Color.LightSkyBlue;
         }
 
