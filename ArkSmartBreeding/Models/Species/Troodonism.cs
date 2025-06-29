@@ -1,8 +1,7 @@
 ﻿using ArkSmartBreeding.Models.Ark;
-using ArkSmartBreeding.Models.Species;
 using System;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     /// <summary>
     /// Handling the troodonism bug in ARK.
@@ -61,8 +60,8 @@ namespace ARKBreedingStats.species
             if (speciesAltStats == null) return speciesStats;
             return new SpeciesStat
             {
-                BaseValue = (troodonismStats.HasFlag(Troodonism.AffectedStats.Base) ? speciesAltStats : speciesStats).BaseValue,
-                IncPerWildLevel = (troodonismStats.HasFlag(Troodonism.AffectedStats.IncreaseWild) ? speciesAltStats : speciesStats).IncPerWildLevel,
+                BaseValue = (troodonismStats.HasFlag(AffectedStats.Base) ? speciesAltStats : speciesStats).BaseValue,
+                IncPerWildLevel = (troodonismStats.HasFlag(AffectedStats.IncreaseWild) ? speciesAltStats : speciesStats).IncPerWildLevel,
                 AddWhenTamed = speciesStats.AddWhenTamed,
                 MultAffinity = speciesStats.MultAffinity,
                 IncPerTamedLevel = speciesStats.IncPerTamedLevel

@@ -2,6 +2,7 @@
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 using System;
 
 namespace ARKBreedingStats
