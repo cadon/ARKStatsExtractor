@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using ArkSmartBreeding.Models.Ark;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls

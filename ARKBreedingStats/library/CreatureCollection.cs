@@ -9,6 +9,7 @@ using ArkSmartBreeding.Models.Library;
 using ArkSmartBreeding.Models.Values;
 using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Mods;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.Library
 {

@@ -1,7 +1,6 @@
-﻿using ArkSmartBreeding.Models.Ark;
-using System;
+﻿using System;
 
-namespace ARKBreedingStats
+namespace ArkSmartBreeding.Models.Ark
 {
     /// <summary>
     /// Constants of the game Ark.

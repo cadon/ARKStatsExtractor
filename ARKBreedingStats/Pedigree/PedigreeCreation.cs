@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.uiControls;
 using ArkSmartBreeding.Enums;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.Pedigree
 {

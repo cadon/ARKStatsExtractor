@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using ArkSmartBreeding.Models.Ark;
 using ArkSmartBreeding.Models.Species;
 
 namespace ARKBreedingStats.uiControls

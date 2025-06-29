@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using ARKBreedingStats.utils;
 using ArkSmartBreeding.Enums;
+using ArkSmartBreeding.Models.Ark;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;

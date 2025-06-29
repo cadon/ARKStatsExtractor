@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ArkSmartBreeding.Enums;
+using ArkSmartBreeding.Models.Ark;
 
 namespace ARKBreedingStats.uiControls
 {

@@ -1,4 +1,5 @@
-﻿using ArkSmartBreeding.Models.Species;
+﻿using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 using System;
 using System.Collections.Generic;
 using System.IO;

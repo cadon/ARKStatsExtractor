@@ -82,7 +82,6 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Ark.cs" />
     <Compile Include="AsbServer\Connection.cs" />
     <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
     <Compile Include="AsbServer\ServerSendName.cs" />

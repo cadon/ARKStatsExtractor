@@ -2221,9 +2221,9 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public global::ARKBreedingStats.Ark.Game NewLibraryGame {
+        public global::ArkSmartBreeding.Models.Ark.Ark.Game NewLibraryGame {
             get {
-                return ((global::ARKBreedingStats.Ark.Game)(this["NewLibraryGame"]));
+                return ((global::ArkSmartBreeding.Models.Ark.Ark.Game)(this["NewLibraryGame"]));
             }
             set {
                 this["NewLibraryGame"] = value;
