@@ -132,7 +132,6 @@
     <Compile Include="NamePatterns\PatternTemplates.cs" />
     <Compile Include="Pedigree\PedigreeCreation.cs" />
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
-    <Compile Include="species\ArkColors.cs" />
     <Compile Include="species\Troodonism.cs" />
     <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStatsControl.cs">
       <SubType>Component</SubType>

@@ -1,8 +1,8 @@
 ﻿using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using ArkSmartBreeding.Enums;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 using System;
 using System.Globalization;
 using System.IO;

@@ -293,7 +293,7 @@ namespace ARKBreedingStats.values
         private void InitializeArkColors(bool undefinedColorAsa)
         {
             Ark.SetUndefinedColorId(undefinedColorAsa);
-            _V.Colors.InitializeArkColors(Ark.UndefinedColorId);
+            _V.Colors.InitializeArkColors(Ark.UndefinedColorId, Loc.S("noColor"));
             foreach (var s in _V.species)
                 s.InitializeColors(_V.Colors);
             _V.InvisibleColorRegionsExist = _V.species.Any(s => s.colors?.Any(r => r?.invisible == true) == true);

@@ -1,11 +1,9 @@
-﻿using ArkSmartBreeding.Models.Ark;
-using ArkSmartBreeding.Models.Species;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     /// <summary>
     /// Loaded color definitions used by the library.
@@ -18,7 +16,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Color used if there's no definition for it.
         /// </summary>
-        private static readonly ArkColor UndefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 1 }, false) { Id = Ark.UndefinedColorId };
+        private static readonly ArkColor UndefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 1 }, false) { Id = Ark.Ark.UndefinedColorId };
 
         /// <summary>
         /// Color definitions of the base game.
@@ -38,7 +36,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Adds Ark colors of a mod value file to the base values. Should be called even if the mod has no color definitions (ARK can then add missing colors that where left out before due to mod-overwriting).
         /// </summary>
-        internal void AddModArkColors((List<ArkColor> colors, int dyeStartIndex) modColors)
+        public void AddModArkColors((List<ArkColor> colors, int dyeStartIndex) modColors)
         {
             if (_modColors == null) _modColors = new List<(List<ArkColor> colors, int dyeStartIndex)>();
             _modColors.Add(modColors);
@@ -48,7 +46,7 @@ namespace ARKBreedingStats.species
         /// Creates the color id table according to the mod order and the lookup tables to find colors by their name or id.
         /// Call this function after the values file is loaded and after mod values are loaded that contain colors.
         /// </summary>
-        public void InitializeArkColors(byte undefinedColorId)
+        public void InitializeArkColors(byte undefinedColorId, string missingColorName)
         {
             if (_baseColors == null) return;
 
@@ -60,10 +58,10 @@ namespace ARKBreedingStats.species
             // example 2: 2 mods are loaded, the first defines colors up until id 100, the second has no color definitions: 100 mod colors are used, then the base colors not appearing yet are appended (from the second mod that inherits the base colors)
 
             _colorsByName = new Dictionary<string, ArkColor>();
-            _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor(Loc.S("noColor")) } };
-            var nextFreeColorId = Ark.ColorFirstId;
-            var nextFreeDyeId = Ark.DyeFirstIdASE;
-            var colorIdMax = Ark.DyeFirstIdASE - 1;
+            _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor(missingColorName) } };
+            var nextFreeColorId = Ark.Ark.ColorFirstId;
+            var nextFreeDyeId = Ark.Ark.DyeFirstIdASE;
+            var colorIdMax = Ark.Ark.DyeFirstIdASE - 1;
             var noMoreAvailableColorId = false;
             var noMoreAvailableDyeId = false;
 
@@ -112,7 +110,7 @@ namespace ARKBreedingStats.species
             {
                 if (colorDefinitions == null) return;
 
-                if (dyeStartIndex != 0 && dyeStartIndex <= Ark.DyeMaxId)
+                if (dyeStartIndex != 0 && dyeStartIndex <= Ark.Ark.DyeMaxId)
                 {
                     nextFreeDyeId = dyeStartIndex;
                     noMoreAvailableDyeId = false;
@@ -128,7 +126,7 @@ namespace ARKBreedingStats.species
                         if (noMoreAvailableDyeId) continue;
 
                         c.Id = nextFreeDyeId;
-                        if (nextFreeDyeId == Ark.DyeMaxId)
+                        if (nextFreeDyeId == Ark.Ark.DyeMaxId)
                             noMoreAvailableDyeId = true;
                         else nextFreeDyeId++;
                     }
@@ -264,14 +262,14 @@ namespace ARKBreedingStats.species
         public byte[] GetRandomColors(Random rand = null)
         {
             if (ColorsList?.Any() != true)
-                return new byte[Ark.ColorRegionCount];
+                return new byte[Ark.Ark.ColorRegionCount];
 
             if (rand == null)
                 rand = new Random();
 
-            var colors = new byte[Ark.ColorRegionCount];
+            var colors = new byte[Ark.Ark.ColorRegionCount];
             var colorCount = ColorsList.Length;
-            for (int i = 0; i < Ark.ColorRegionCount; i++)
+            for (int i = 0; i < Ark.Ark.ColorRegionCount; i++)
                 colors[i] = ColorsList[rand.Next(colorCount)].Id;
             return colors;
         }
