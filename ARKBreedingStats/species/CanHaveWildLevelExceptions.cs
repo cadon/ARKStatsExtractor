@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using ARKBreedingStats.utils;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.species
@@ -16,27 +13,6 @@ namespace ARKBreedingStats.species
     internal static class CanHaveWildLevelExceptions
     {
         [JsonProperty] public static Dictionary<string, int> SpeciesStatBits;
-
-        public static void LoadDefinitions()
-        {
-            const string fileName = "canHaveWildLevelExceptions.json";
-            var filePath = FileService.GetJsonPath(fileName);
-            if (!File.Exists(filePath))
-                return;
-
-            try
-            {
-                FileService.LoadJsonFile(filePath, out SpeciesStatBits, out var errorMessage);
-                if (!string.IsNullOrEmpty(errorMessage))
-                    MessageBoxes.ShowMessageBox(errorMessage, "error when loading wild level exception file");
-            }
-            catch (Exception ex)
-            {
-                {
-                    MessageBoxes.ExceptionMessageBox(ex);
-                }
-            }
-        }
 
         /// <summary>
         /// Returns the bit flags of stats that can have wild levels despite the current definitions doesn't contain them.

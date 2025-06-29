@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.utils;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -322,6 +323,27 @@ namespace ARKBreedingStats
 
             Process.Start("explorer.exe",
                 $"{(isFile ? "/select, " : string.Empty)}\"{path}\"");
+        }
+
+        public static void LoadCanHaveWildLevelExceptionsDefinitions()
+        {
+            const string fileName = "canHaveWildLevelExceptions.json";
+            var filePath = GetJsonPath(fileName);
+            if (!File.Exists(filePath))
+                return;
+
+            try
+            {
+                LoadJsonFile(filePath, out species.CanHaveWildLevelExceptions.SpeciesStatBits, out var errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    MessageBoxes.ShowMessageBox(errorMessage, "error when loading wild level exception file");
+            }
+            catch (Exception ex)
+            {
+                {
+                    MessageBoxes.ExceptionMessageBox(ex);
+                }
+            }
         }
     }
 }
