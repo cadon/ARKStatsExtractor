@@ -392,7 +392,6 @@
       <DependentUpon>SpeciesSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="species\BreedingPair.cs" />
-    <Compile Include="species\ColorRegion.cs" />
     <Compile Include="library\Creature.cs" />
     <Compile Include="CreatureBox.cs">
       <SubType>UserControl</SubType>

@@ -1,8 +1,7 @@
-﻿using ArkSmartBreeding.Models.Species;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace ARKBreedingStats.species
+namespace ArkSmartBreeding.Models.Species
 {
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class ColorRegion
@@ -27,15 +26,15 @@ namespace ARKBreedingStats.species
         /// </summary>
         public List<ArkColor> naturalColors;
 
-        public ColorRegion()
+        public ColorRegion(string missingColorName)
         {
-            name = Loc.S("Unknown");
+            name = missingColorName;
         }
 
         /// <summary>
         /// Sets the ARKColor objects for the natural occurring colors.
         /// </summary>
-        internal void Initialize(ArkColors arkColors)
+        public void Initialize(ArkColors arkColors)
         {
             if (colors == null) return;
             naturalColors = new List<ArkColor>();

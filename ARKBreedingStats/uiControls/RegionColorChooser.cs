@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using ArkSmartBreeding.Models.Ark;
+using ArkSmartBreeding.Models.Species;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -69,7 +70,7 @@ namespace ARKBreedingStats.uiControls
                 _colorRegions = new ColorRegion[Ark.ColorRegionCount];
                 for (int i = 0; i < Ark.ColorRegionCount; i++)
                 {
-                    _colorRegions[i] = new ColorRegion();
+                    _colorRegions[i] = new ColorRegion(Loc.S("Unknown"));
                     ColorRegionsUseds[i] = true;
                 }
             }
