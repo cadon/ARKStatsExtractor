@@ -108,9 +108,14 @@ namespace ARKBreedingStats.AsbServer
                     catch (Exception ex)
                     {
                         var tryToReconnect = reconnectTries++ < 3;
-                        WriteErrorMessage(
-                            $"ASB Server listening {ex.GetType()}: {ex.Message}{Environment.NewLine}{(tryToReconnect ? "Trying to reconnect" + Environment.NewLine : string.Empty)}Stack trace: {ex.StackTrace}",
-                            stopListening: !tryToReconnect);
+                        if (tryToReconnect)
+                            WriteErrorMessage(
+                                $"ASB Server listening error, attempting to reconnect (try {reconnectTries})",
+                                stopListening: false);
+                        else
+                            WriteErrorMessage(
+                                $"ASB Server listening error: {ex.GetType()}: {ex.Message}{Environment.NewLine}Stack trace: {ex.StackTrace}",
+                                stopListening: true);
 
                         if (!tryToReconnect)
                             break;

@@ -153,7 +153,7 @@ namespace ARKBreedingStats.importExportGun
 
             var arkId = Utils.ConvertArkIdsToLongArkId(ec.DinoId1Int, ec.DinoId2Int);
 
-            var c = new Creature(species, ec.DinoName, ec.Owner(), ec.TribeName, species?.noGender != false ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male,
+            var c = new Creature(species, ec.DinoName, ec.Owner(), ec.TribeName, species?.NoGender != false ? Sex.Unknown : ec.IsFemale ? Sex.Female : Sex.Male,
                 wildLevels, domLevels, mutLevels, ec.IsWild() ? -3 : ec.TameEffectiveness, ec.IsBred(), ec.DinoImprintingQuality,
                 CreatureCollection.CurrentCreatureCollection?.wildLevelStep)
             {
@@ -204,7 +204,7 @@ namespace ARKBreedingStats.importExportGun
                     Wild = c.levelsWild?[si] ?? 0,
                     Tamed = c.levelsDom?[si] ?? 0,
                     Mutated = c.levelsMutated?[si] ?? 0,
-                    Value = (float)(c.valuesDom[si] - (Stats.IsPercentage(si) ? 1 : 0))
+                    Value = (float)(c.valuesCurrent[si] - (Stats.IsPercentage(si) ? 1 : 0))
                 };
             }
 

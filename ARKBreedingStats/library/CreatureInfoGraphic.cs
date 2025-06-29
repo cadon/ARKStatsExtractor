@@ -199,7 +199,7 @@ namespace ARKBreedingStats.library
                     if (displayStatValues && creature.valuesBreeding != null)
                     {
                         var displayedValue =
-                            displayWithDomLevels ? creature.valuesDom[si] : creature.valuesBreeding[si];
+                            displayWithDomLevels ? creature.valuesCurrent[si] : creature.valuesBreeding[si];
                         string statValueRepresentation;
                         if (displayedValue < 0)
                         {

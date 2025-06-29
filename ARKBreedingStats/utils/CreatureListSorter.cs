@@ -176,7 +176,10 @@ namespace ARKBreedingStats.utils
             c => c.Status,
             c => c.tribe,
             c => c.Status,
-            c => c.flags & CreatureFlags.MutagenApplied
+            c => c.flags & CreatureFlags.MutagenApplied,
+            c => c.Level,
+            c => c.MaxPossibleLevel,
+            c => c.TraitsString
         };
     }
 }

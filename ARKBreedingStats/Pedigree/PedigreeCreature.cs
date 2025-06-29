@@ -16,6 +16,10 @@ namespace ARKBreedingStats.Pedigree
     {
         public const int HorizontalStatDistance = 29;
         public const int XOffsetFirstStat = 38;
+        /// <summary>
+        /// Display the species name after the creature name.
+        /// </summary>
+        public bool DisplaySpecies;
 
         public delegate void CreatureChangedEventHandler(Creature creature, int comboId, MouseEventArgs e);
 
@@ -134,11 +138,12 @@ namespace ARKBreedingStats.Pedigree
             e.Graphics.DrawString(e.ToolTipText, TooltipFont, Brushes.Black, 0, 0);
         }
 
-        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false) : this()
+        public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false, bool displaySpecies = false) : this()
         {
             Cursor = Cursors.Hand;
             this.enabledColorRegions = enabledColorRegions;
             this.comboId = comboId;
+            DisplaySpecies = displaySpecies;
             Creature = creature;
             TsMiViewInPedigree.Visible = displayPedigreeLink;
         }
@@ -305,6 +310,8 @@ namespace ARKBreedingStats.Pedigree
                 groupBox1.Text += $" (grown at {Utils.ShortTimeDate(_creature.growingUntil)})";
             else if (_creature.cooldownUntil > DateTime.Now)
                 groupBox1.Text += $" (cooldown until {Utils.ShortTimeDate(_creature.cooldownUntil)})";
+            if (DisplaySpecies)
+                groupBox1.Text += $" - {_creature.SpeciesName}";
         }
 
         public bool Highlight

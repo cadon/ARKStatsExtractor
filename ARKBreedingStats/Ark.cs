@@ -176,5 +176,10 @@ namespace ARKBreedingStats
             if (denominator < babyImprintAmountMultiplier) return 1;
             return Math.Min(1, babyImprintAmountMultiplier / denominator);
         }
+
+        /// <summary>
+        /// Returns the imprinting bonus applied when taming a creature with a given rank in the talend Bonded Taming.
+        /// </summary>
+        public static double ImprintingPerBondedTamingRank(int rank) => rank * 0.1;
     }
 }

@@ -163,6 +163,8 @@ namespace ARKBreedingStats.raising
                     Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
                     0, .1, out double babyPhaseFood);
 
+                var unconfirmedFoods = new List<string>();
+
                 if (!string.IsNullOrEmpty(_lastSelectedFood))
                     foodAmount = FoodAmountString(_lastSelectedFood);
                 if (string.IsNullOrEmpty(foodAmount))
@@ -185,11 +187,13 @@ namespace ARKBreedingStats.raising
                     var foodValue = food.foodValue;
                     if (foodValue == 0) return null;
 
-                    return (babyPhaseFoodValid ? $"\n\nFood for Baby-Phase: ~{Math.Ceiling(babyPhaseFood / foodValue)} {foodName}" : string.Empty)
-                           + $"\nTotal Food for maturation: ~{Math.Ceiling(totalFood / foodValue)} {foodName}";
-                }
 
-                foodAmount += "\n- Loss by spoiling is not considered!";
+
+                    return (babyPhaseFoodValid ? $"\n\nFood for Baby-Phase: ~{Math.Ceiling(babyPhaseFood / foodValue)} {foodName}" : string.Empty)
+                           + $"\nTotal Food for maturation: ~{Math.Ceiling(totalFood / foodValue)} {foodName}"
+                           + "\n- Loss by spoiling is not considered!"
+                           + (food.Unconfirmed ? "\n⚠ The data for this food is not tested for all species and may be incorrect." : string.Empty);
+                }
             }
 
             LbFoodInfoGeneral.Text = foodAmount;

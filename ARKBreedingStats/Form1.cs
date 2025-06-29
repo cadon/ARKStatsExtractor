@@ -563,6 +563,22 @@ namespace ARKBreedingStats
 
             timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
 
+            switch (Properties.Settings.Default.BondedTamingRank)
+            {
+                case 3:
+                    RbBondedTaming3.Checked = true;
+                    break;
+                case 2:
+                    RbBondedTaming2.Checked = true;
+                    break;
+                case 1:
+                    RbBondedTaming1.Checked = true;
+                    break;
+                default:
+                    RbBondedTaming0.Checked = true;
+                    break;
+            }
+
             SetupAutoLoadFileWatcher();
             SetupExportFileWatcher();
         }
@@ -1505,6 +1521,8 @@ namespace ARKBreedingStats
             Properties.Settings.Default.RaisingFoodLastSelected = raisingControl1.LastSelectedFood;
             Properties.Settings.Default.LibraryColorInfoUseFilter = CbLibraryInfoUseFilter.Checked;
 
+            Properties.Settings.Default.BondedTamingRank = BondedTamingRankExtractor;
+
             /////// save settings for next session
             Properties.Settings.Default.Save();
 
@@ -1645,7 +1663,7 @@ namespace ARKBreedingStats
                     cr.Species == creature.Species && cr.guid != creature.guid)
                 .OrderBy(cr => cr.name).ToList();
 
-            if (creature.Species?.noGender == true)
+            if (creature.Species?.NoGender == true)
                 return new[] { parentList, null };
 
             var motherList = parentList.Where(cr => cr.sex == Sex.Female).ToList();
@@ -3517,8 +3535,7 @@ namespace ARKBreedingStats
                 (double)(fromExtractor
                     ? numericUpDownImprintingBonusExtractor.Value
                     : numericUpDownImprintingBonusTester.Value) / 100,
-                tamed,
-                bred,
+                tamed || bred,
                 speciesSelector1.SelectedSpecies);
             tabControlMain.SelectedTab = tabPageMultiplierTesting;
         }

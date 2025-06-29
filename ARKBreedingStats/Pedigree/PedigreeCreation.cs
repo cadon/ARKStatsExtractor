@@ -303,7 +303,7 @@ namespace ARKBreedingStats.Pedigree
         internal static void CreateGeneInheritanceLines(Creature offspring, Creature mother, Creature father, List<int[]>[] lines, int x, int y)
         {
             if (offspring.levelsWild == null
-                || offspring.valuesDom == null
+                || offspring.valuesCurrent == null
                 || (mother?.flags.HasFlag(CreatureFlags.Placeholder) != false
                     && father?.flags.HasFlag(CreatureFlags.Placeholder) != false)
                 )
@@ -312,7 +312,7 @@ namespace ARKBreedingStats.Pedigree
             for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
             {
                 int si = PedigreeCreature.DisplayedStats[s];
-                if (offspring.valuesDom[si] <= 0) continue; // don't display arrows for non used stats
+                if (offspring.valuesCurrent[si] <= 0) continue; // don't display arrows for non used stats
 
                 var levelMother = mother?.levelsWild?[si] ?? -1;
                 var levelFather = father?.levelsWild?[si] ?? -1;
