@@ -7,6 +7,7 @@ using System.Linq;
 using ARKBreedingStats.uiControls;
 using ArkSmartBreeding.Models.Ark;
 using ArkSmartBreeding.Models.Species;
+using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
 {
@@ -469,7 +470,7 @@ namespace ARKBreedingStats
             double imprintingBonusFromGainPerCuddle = 0;
             if (species.breeding != null)
             {
-                double imprintingGainPerCuddle = Ark.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted);
+                double imprintingGainPerCuddle = Ark.ImprintingGainPerCuddle(species.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier);
                 if (imprintingGainPerCuddle > 0)
                     imprintingBonusFromGainPerCuddle = Math.Round(imprintingBonusRounded / imprintingGainPerCuddle) * imprintingGainPerCuddle;
             }

@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.values;
-using ArkSmartBreeding.Models.Ark;
+﻿using ArkSmartBreeding.Models.Ark;
 using System;
 
 namespace ARKBreedingStats
@@ -167,15 +166,15 @@ namespace ARKBreedingStats
         /// Returns the imprinting gain per cuddle, dependent on the maturation time and the cuddle interval multiplier.
         /// </summary>
         /// <param name="maturationTime">Maturation time in seconds</param>
-        public static double ImprintingGainPerCuddle(double maturationTime)
+        /// <param name="babyImprintAmountMultiplier">The server's BabyImprintAmountMultiplier.</param>
+        public static double ImprintingGainPerCuddle(double maturationTime, double babyImprintAmountMultiplier)
         {
-            var multipliers = Values.V.currentServerMultipliers;
             // this is assumed to be the used formula
-            var maxPossibleCuddles = maturationTime / (DefaultCuddleIntervalInSeconds * multipliers.BabyImprintAmountMultiplier);
+            var maxPossibleCuddles = maturationTime / (DefaultCuddleIntervalInSeconds * babyImprintAmountMultiplier);
             var denominator = maxPossibleCuddles - 0.25;
             if (denominator < 0) return 0;
-            if (denominator < multipliers.BabyCuddleIntervalMultiplier) return 1;
-            return Math.Min(1, multipliers.BabyCuddleIntervalMultiplier / denominator);
+            if (denominator < babyImprintAmountMultiplier) return 1;
+            return Math.Min(1, babyImprintAmountMultiplier / denominator);
         }
     }
 }

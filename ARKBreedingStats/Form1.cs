@@ -1847,7 +1847,7 @@ namespace ARKBreedingStats
                 lbImprintedCount.Text =
                     "(" + Math.Round(
                         (double)numericUpDownImprintingBonusTester.Value /
-                        (100 * Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted)),
+                        (100 * Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier)),
                         2) + "×)";
             else lbImprintedCount.Text = string.Empty;
             BtSetImprinting100Tester.Text = numericUpDownImprintingBonusTester.Value == 100 ? "0" : "100";
@@ -1862,7 +1862,7 @@ namespace ARKBreedingStats
                                                         Math.Round(
                                                             (double)numericUpDownImprintingBonusExtractor.Value /
                                                             (100 * Ark.ImprintingGainPerCuddle(speciesSelector1
-                                                                .SelectedSpecies.breeding.maturationTimeAdjusted))) +
+                                                                .SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier))) +
                                                         "×)";
             else lbImprintingCuddleCountExtractor.Text = string.Empty;
         }
@@ -2914,7 +2914,7 @@ namespace ARKBreedingStats
                     speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
                     double imprintingGainPerCuddle =
-                        Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted);
+                        Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers.BabyImprintAmountMultiplier);
                     int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value /
                                                        (100 * imprintingGainPerCuddle));
                     double imprintingBonus;
