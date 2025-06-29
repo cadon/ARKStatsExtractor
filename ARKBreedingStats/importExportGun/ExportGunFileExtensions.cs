@@ -6,7 +6,6 @@
         // wild creatures have a TE of 100 %, so don't use that here
             => string.IsNullOrEmpty(ec.DinoName)
                          && string.IsNullOrEmpty(ec.TribeName)
-                         && string.IsNullOrEmpty(ec.TamerString)
                          && string.IsNullOrEmpty(ec.OwningPlayerName)
                          && string.IsNullOrEmpty(ec.ImprinterName)
                          && ec.OwningPlayerID == 0
