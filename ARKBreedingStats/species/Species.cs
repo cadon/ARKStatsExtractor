@@ -329,7 +329,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Sets the ArkColor objects for the natural occurring colors. Call after colors are loaded or changed by loading mods.
         /// </summary>
-        public void InitializeColors(ArkColors arkColors)
+        public void InitializeColors(ArkColors arkColors, bool alwaysShowAllColorRegions, bool hideInvisibleColorRegions)
         {
             if (colors != null)
             {
@@ -337,17 +337,17 @@ namespace ARKBreedingStats.species
                     colors[i]?.Initialize(arkColors);
             }
 
-            InitializeColorRegions();
+            InitializeColorRegions(alwaysShowAllColorRegions, hideInvisibleColorRegions);
         }
 
         /// <summary>
         /// Sets which color regions are enabled. Call after Properties.Settings.Default.HideInvisibleColorRegions was changed.
         /// </summary>
-        public void InitializeColorRegions()
+        public void InitializeColorRegions(bool alwaysShowAllColorRegions, bool hideInvisibleColorRegions)
         {
-            EnabledColorRegions = colors != null && !Properties.Settings.Default.AlwaysShowAllColorRegions
+            EnabledColorRegions = colors != null && !alwaysShowAllColorRegions
                 ? colors.Select(n =>
-                      !string.IsNullOrEmpty(n?.name) && (!n.invisible || !Properties.Settings.Default.HideInvisibleColorRegions)
+                      !string.IsNullOrEmpty(n?.name) && (!n.invisible || !hideInvisibleColorRegions)
                 ).ToArray()
                 : new[] { true, true, true, true, true, true, };
         }

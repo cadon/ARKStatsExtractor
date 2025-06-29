@@ -2238,7 +2238,7 @@ namespace ARKBreedingStats
                 if (settingsForm.ColorRegionDisplayChanged)
                 {
                     foreach (var sp in Values.V.species)
-                        sp.InitializeColorRegions();
+                        sp.InitializeColorRegions(Properties.Settings.Default.AlwaysShowAllColorRegions, Properties.Settings.Default.HideInvisibleColorRegions);
                     // update visible color region buttons
                     creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
                     creatureInfoInputTester.RegionColors = creatureInfoInputTester.RegionColors;

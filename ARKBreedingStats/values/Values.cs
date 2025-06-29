@@ -295,7 +295,7 @@ namespace ARKBreedingStats.values
             Ark.SetUndefinedColorId(undefinedColorAsa);
             _V.Colors.InitializeArkColors(Ark.UndefinedColorId, Loc.S("noColor"));
             foreach (var s in _V.species)
-                s.InitializeColors(_V.Colors);
+                s.InitializeColors(_V.Colors, Properties.Settings.Default.AlwaysShowAllColorRegions, Properties.Settings.Default.HideInvisibleColorRegions);
             _V.InvisibleColorRegionsExist = _V.species.Any(s => s.colors?.Any(r => r?.invisible == true) == true);
         }
 
