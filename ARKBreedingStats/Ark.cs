@@ -172,7 +172,6 @@ namespace ARKBreedingStats
             // this is assumed to be the used formula
             var maxPossibleCuddles = maturationTime / (DefaultCuddleIntervalInSeconds * multipliers.BabyImprintAmountMultiplier);
             var denominator = maxPossibleCuddles - 0.25;
-            if (denominator < 0) return 0;
             if (denominator < multipliers.BabyCuddleIntervalMultiplier) return 1;
             return Math.Min(1, multipliers.BabyCuddleIntervalMultiplier / denominator);
         }
