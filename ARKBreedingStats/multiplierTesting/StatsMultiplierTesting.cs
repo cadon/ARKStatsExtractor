@@ -57,7 +57,7 @@ namespace ARKBreedingStats.multiplierTesting
             flowLayoutPanel1.Controls.Add(LbAbbreviations);
 
             _fineAdjustmentRange = new MinMaxDouble(0);
-            rbTamed.Checked = true;
+            rbDomesticated.Checked = true;
             gbFineAdjustment.Hide();
             SetToolTips();
         }
@@ -158,7 +158,7 @@ namespace ARKBreedingStats.multiplierTesting
             var te = (double)nudTE.Value / 100;
             for (int s = 0; s < Stats.StatsCount; s++)
                 _statControls[s].TE = te;
-            if (rbTamed.Checked)
+            if (rbDomesticated.Checked)
                 LbCalculatedWildLevel.Text = $"LW: {Creature.CalculatePreTameWildLevel(_statControls[Stats.Torpidity].LevelWild + 1, te)}";
         }
 
@@ -187,29 +187,16 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
-        private void rbTamed_CheckedChanged(object sender, EventArgs e)
+        private void rbDomesticated_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbTamed.Checked)
+            if (rbDomesticated.Checked)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    _statControls[s].Tamed = true;
+                    _statControls[s].Domesticated = true;
                 nudTE.BackColor = Color.FromArgb(215, 186, 255);
-                nudIB.BackColor = SystemColors.Window;
-                nudIBM.BackColor = SystemColors.Window;
-                LbCalculatedWildLevel.Visible = true;
-            }
-        }
-
-        private void rbBred_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbBred.Checked)
-            {
-                for (int s = 0; s < Stats.StatsCount; s++)
-                    _statControls[s].Bred = true;
-                nudTE.BackColor = SystemColors.Window;
                 nudIB.BackColor = Color.FromArgb(255, 186, 242);
                 nudIBM.BackColor = Color.FromArgb(255, 153, 236);
-                LbCalculatedWildLevel.Visible = false;
+                LbCalculatedWildLevel.Visible = true;
             }
         }
 
@@ -280,7 +267,7 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="IB">Imprinting Bonus of the creature</param>
         /// <param name="tamed"></param>
         /// <param name="bred"></param>
-        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, int totalLevel, double TE, double IB, bool tamed, bool bred, Species species)
+        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, int totalLevel, double TE, double IB, bool domesticated, Species species)
         {
             int level = 1;
 
@@ -311,10 +298,8 @@ namespace ARKBreedingStats.multiplierTesting
             SetTE(TE);
             SetIB(IB);
 
-            if (bred)
-                rbBred.Checked = true;
-            else if (tamed)
-                rbTamed.Checked = true;
+            if (domesticated)
+                rbDomesticated.Checked = true;
             else rbWild.Checked = true;
 
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -680,7 +665,7 @@ To determine all species values, the files with the following creature combinati
 
         private void SetCreatureValueValues(CreatureValues cv)
         {
-            SetCreatureValues(cv.statValues, null, null, cv.level, (cv.tamingEffMax - cv.tamingEffMin) / 2, cv.imprintingBonus, cv.isTamed, cv.isBred, cv.Species);
+            SetCreatureValues(cv.statValues, null, null, cv.level, (cv.tamingEffMax - cv.tamingEffMin) / 2, cv.imprintingBonus, cv.isTamed || cv.isBred, cv.Species);
         }
 
         private void SetCreatureValuesAndLevels(Creature cr, double[] statValues = null)
@@ -691,7 +676,7 @@ To determine all species values, the files with the following creature combinati
                 for (int si = 0; si < Stats.StatsCount; si++)
                     levelsWildAndMutated[si] = cr.levelsWild[si] + cr.levelsMutated[si];
             }
-            SetCreatureValues(statValues ?? cr.valuesCurrent, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.isBred, cr.Species);
+            SetCreatureValues(statValues ?? cr.valuesCurrent, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.Species);
         }
 
         private void SetServerMultipliers(ExportGunServerFile esm)
@@ -868,6 +853,26 @@ To determine all species values, the files with the following creature combinati
         private void openWikiPageOnStatCalculationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ArkWiki.OpenPage("Creature stats calculation");
+        }
+
+        private void BtTe0_Click(object sender, EventArgs e)
+        {
+            SetTE(0);
+        }
+
+        private void BtTe100_Click(object sender, EventArgs e)
+        {
+            SetTE(1);
+        }
+
+        private void BtIb0_Click(object sender, EventArgs e)
+        {
+            SetIB(0);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SetIB(1);
         }
     }
 }

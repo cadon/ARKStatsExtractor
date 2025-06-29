@@ -42,8 +42,7 @@
             this.LbSpeciesValuesExtractor = new System.Windows.Forms.Label();
             this.LbBlueprintPath = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbBred = new System.Windows.Forms.RadioButton();
-            this.rbTamed = new System.Windows.Forms.RadioButton();
+            this.rbDomesticated = new System.Windows.Forms.RadioButton();
             this.rbWild = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.LbCalculatedWildLevel = new System.Windows.Forms.Label();
@@ -94,6 +93,11 @@
             this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyStatValuesToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openWikiPageOnStatCalculationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtTe100 = new System.Windows.Forms.Button();
+            this.BtTe0 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.BtIb0 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.nudTE = new ARKBreedingStats.uiControls.Nud();
             this.nudIBM = new ARKBreedingStats.uiControls.Nud();
             this.nudIB = new ARKBreedingStats.uiControls.Nud();
@@ -267,8 +271,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbBred);
-            this.groupBox1.Controls.Add(this.rbTamed);
+            this.groupBox1.Controls.Add(this.rbDomesticated);
             this.groupBox1.Controls.Add(this.rbWild);
             this.groupBox1.Location = new System.Drawing.Point(3, 138);
             this.groupBox1.Name = "groupBox1";
@@ -277,27 +280,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Status";
             // 
-            // rbBred
+            // rbDomesticated
             // 
-            this.rbBred.AutoSize = true;
-            this.rbBred.Location = new System.Drawing.Point(115, 19);
-            this.rbBred.Name = "rbBred";
-            this.rbBred.Size = new System.Drawing.Size(46, 17);
-            this.rbBred.TabIndex = 2;
-            this.rbBred.Text = "bred";
-            this.rbBred.UseVisualStyleBackColor = true;
-            this.rbBred.CheckedChanged += new System.EventHandler(this.rbBred_CheckedChanged);
-            // 
-            // rbTamed
-            // 
-            this.rbTamed.AutoSize = true;
-            this.rbTamed.Location = new System.Drawing.Point(55, 19);
-            this.rbTamed.Name = "rbTamed";
-            this.rbTamed.Size = new System.Drawing.Size(54, 17);
-            this.rbTamed.TabIndex = 1;
-            this.rbTamed.Text = "tamed";
-            this.rbTamed.UseVisualStyleBackColor = true;
-            this.rbTamed.CheckedChanged += new System.EventHandler(this.rbTamed_CheckedChanged);
+            this.rbDomesticated.AutoSize = true;
+            this.rbDomesticated.Location = new System.Drawing.Point(55, 19);
+            this.rbDomesticated.Name = "rbDomesticated";
+            this.rbDomesticated.Size = new System.Drawing.Size(88, 17);
+            this.rbDomesticated.TabIndex = 1;
+            this.rbDomesticated.Text = "domesticated";
+            this.rbDomesticated.UseVisualStyleBackColor = true;
+            this.rbDomesticated.CheckedChanged += new System.EventHandler(this.rbDomesticated_CheckedChanged);
             // 
             // rbWild
             // 
@@ -312,12 +304,14 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BtTe0);
+            this.groupBox2.Controls.Add(this.BtTe100);
             this.groupBox2.Controls.Add(this.LbCalculatedWildLevel);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.nudTE);
             this.groupBox2.Location = new System.Drawing.Point(176, 138);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(163, 49);
+            this.groupBox2.Size = new System.Drawing.Size(187, 49);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "TamingEffectiveness";
@@ -325,7 +319,7 @@
             // LbCalculatedWildLevel
             // 
             this.LbCalculatedWildLevel.AutoSize = true;
-            this.LbCalculatedWildLevel.Location = new System.Drawing.Point(104, 21);
+            this.LbCalculatedWildLevel.Location = new System.Drawing.Point(128, 21);
             this.LbCalculatedWildLevel.Name = "LbCalculatedWildLevel";
             this.LbCalculatedWildLevel.Size = new System.Drawing.Size(13, 13);
             this.LbCalculatedWildLevel.TabIndex = 3;
@@ -342,12 +336,15 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.BtIb0);
+            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.nudIBM);
             this.groupBox3.Controls.Add(this.nudIB);
-            this.groupBox3.Location = new System.Drawing.Point(345, 138);
+            this.groupBox3.Location = new System.Drawing.Point(369, 138);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(213, 49);
+            this.groupBox3.Size = new System.Drawing.Size(238, 49);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Imprinting";
@@ -355,16 +352,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(92, 21);
+            this.label2.Location = new System.Drawing.Point(133, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "% IBM";
+            this.label2.Text = "IBM";
             // 
             // gbFineAdjustment
             // 
             this.gbFineAdjustment.Controls.Add(this.tbFineAdjustments);
-            this.gbFineAdjustment.Location = new System.Drawing.Point(564, 138);
+            this.gbFineAdjustment.Location = new System.Drawing.Point(613, 138);
             this.gbFineAdjustment.Name = "gbFineAdjustment";
             this.gbFineAdjustment.Size = new System.Drawing.Size(376, 49);
             this.gbFineAdjustment.TabIndex = 7;
@@ -387,7 +384,7 @@
             // 
             this.lBDummyEmptyFlowBreak.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.lBDummyEmptyFlowBreak, true);
-            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(946, 135);
+            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(995, 135);
             this.lBDummyEmptyFlowBreak.Name = "lBDummyEmptyFlowBreak";
             this.lBDummyEmptyFlowBreak.Size = new System.Drawing.Size(0, 13);
             this.lBDummyEmptyFlowBreak.TabIndex = 11;
@@ -660,47 +657,47 @@
             // idMToolStripMenuItem1
             // 
             this.idMToolStripMenuItem1.Name = "idMToolStripMenuItem1";
-            this.idMToolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.idMToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
             this.idMToolStripMenuItem1.Text = "all IwM";
             this.idMToolStripMenuItem1.Click += new System.EventHandler(this.iwMToolStripMenuItem_Click);
             // 
             // idMToolStripMenuItem
             // 
             this.idMToolStripMenuItem.Name = "idMToolStripMenuItem";
-            this.idMToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.idMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.idMToolStripMenuItem.Text = "all IdM";
             this.idMToolStripMenuItem.Click += new System.EventHandler(this.idMToolStripMenuItem_Click);
             // 
             // taMToolStripMenuItem
             // 
             this.taMToolStripMenuItem.Name = "taMToolStripMenuItem";
-            this.taMToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.taMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.taMToolStripMenuItem.Text = "all TaM";
             this.taMToolStripMenuItem.Click += new System.EventHandler(this.taMToolStripMenuItem_Click);
             // 
             // tmMToolStripMenuItem
             // 
             this.tmMToolStripMenuItem.Name = "tmMToolStripMenuItem";
-            this.tmMToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.tmMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.tmMToolStripMenuItem.Text = "all TmM";
             this.tmMToolStripMenuItem.Click += new System.EventHandler(this.tmMToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(113, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(114, 6);
             // 
             // allIwToolStripMenuItem
             // 
             this.allIwToolStripMenuItem.Name = "allIwToolStripMenuItem";
-            this.allIwToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIwToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.allIwToolStripMenuItem.Text = "all Iw";
             this.allIwToolStripMenuItem.Click += new System.EventHandler(this.allIwToolStripMenuItem_Click);
             // 
             // allIdToolStripMenuItem
             // 
             this.allIdToolStripMenuItem.Name = "allIdToolStripMenuItem";
-            this.allIdToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.allIdToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.allIdToolStripMenuItem.Text = "all Id";
             this.allIdToolStripMenuItem.Click += new System.EventHandler(this.allIdToolStripMenuItem_Click);
             // 
@@ -763,6 +760,59 @@
             this.openWikiPageOnStatCalculationToolStripMenuItem.Text = "Open wiki page on stat calculation";
             this.openWikiPageOnStatCalculationToolStripMenuItem.Click += new System.EventHandler(this.openWikiPageOnStatCalculationToolStripMenuItem_Click);
             // 
+            // BtTe100
+            // 
+            this.BtTe100.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtTe100.Location = new System.Drawing.Point(98, 27);
+            this.BtTe100.Name = "BtTe100";
+            this.BtTe100.Size = new System.Drawing.Size(24, 15);
+            this.BtTe100.TabIndex = 4;
+            this.BtTe100.Text = "100";
+            this.BtTe100.UseVisualStyleBackColor = true;
+            this.BtTe100.Click += new System.EventHandler(this.BtTe100_Click);
+            // 
+            // BtTe0
+            // 
+            this.BtTe0.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtTe0.Location = new System.Drawing.Point(98, 13);
+            this.BtTe0.Name = "BtTe0";
+            this.BtTe0.Size = new System.Drawing.Size(24, 15);
+            this.BtTe0.TabIndex = 5;
+            this.BtTe0.Text = "0";
+            this.BtTe0.UseVisualStyleBackColor = true;
+            this.BtTe0.Click += new System.EventHandler(this.BtTe0_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(92, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(15, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "%";
+            // 
+            // BtIb0
+            // 
+            this.BtIb0.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtIb0.Location = new System.Drawing.Point(107, 13);
+            this.BtIb0.Name = "BtIb0";
+            this.BtIb0.Size = new System.Drawing.Size(24, 15);
+            this.BtIb0.TabIndex = 7;
+            this.BtIb0.Text = "0";
+            this.BtIb0.UseVisualStyleBackColor = true;
+            this.BtIb0.Click += new System.EventHandler(this.BtIb0_Click);
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(107, 27);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(24, 15);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "100";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // nudTE
             // 
             this.nudTE.DecimalPlaces = 3;
@@ -787,7 +837,7 @@
             0,
             0,
             65536});
-            this.nudIBM.Location = new System.Drawing.Point(135, 19);
+            this.nudIBM.Location = new System.Drawing.Point(161, 19);
             this.nudIBM.Name = "nudIBM";
             this.nudIBM.NeutralNumber = new decimal(new int[] {
             0,
@@ -909,8 +959,7 @@
         private System.Windows.Forms.Label LbLw;
         private System.Windows.Forms.Label LbBaseValue;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton rbBred;
-        private System.Windows.Forms.RadioButton rbTamed;
+        private System.Windows.Forms.RadioButton rbDomesticated;
         private System.Windows.Forms.RadioButton rbWild;
         private System.Windows.Forms.GroupBox gbLevel;
         private System.Windows.Forms.Label lbLevelSumDom;
@@ -952,5 +1001,10 @@
         private System.Windows.Forms.ToolStripMenuItem copyStatValuesToClipboardToolStripMenuItem;
         private System.Windows.Forms.Label LbSpeciesValuesExtractor;
         private System.Windows.Forms.ToolStripMenuItem openWikiPageOnStatCalculationToolStripMenuItem;
+        private System.Windows.Forms.Button BtTe0;
+        private System.Windows.Forms.Button BtTe100;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button BtIb0;
+        private System.Windows.Forms.Button button2;
     }
 }

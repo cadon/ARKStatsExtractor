@@ -3532,8 +3532,7 @@ namespace ARKBreedingStats
                 (double)(fromExtractor
                     ? numericUpDownImprintingBonusExtractor.Value
                     : numericUpDownImprintingBonusTester.Value) / 100,
-                tamed,
-                bred,
+                tamed || bred,
                 speciesSelector1.SelectedSpecies);
             tabControlMain.SelectedTab = tabPageMultiplierTesting;
         }
