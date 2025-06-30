@@ -1301,7 +1301,7 @@ namespace ARKBreedingStats
             }
 
             if (Kibbles.K.kibble == null
-                && !Kibbles.K.LoadValues(out var errorMessageKibbleLoading))
+                && !FileService.LoadKibblesValues(out var errorMessageKibbleLoading))
             {
                 if (MessageBox.Show(errorMessageKibbleLoading +
                                     "\n\nDo you want to visit the homepage of the tool to redownload it?",

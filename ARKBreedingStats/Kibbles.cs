@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace ARKBreedingStats
 {
@@ -17,29 +16,18 @@ namespace ARKBreedingStats
 
         public Version version = new Version(0, 0);
         private static Kibbles _K;
-        public static Kibbles K => _K ?? (_K = new Kibbles());
-
-        public bool LoadValues(out string errorMessage)
+        public static Kibbles K
         {
-            _K.version = new Version(0, 0);
+            get => _K ?? (K = new Kibbles());
+            set
+            {
+                _K = value;
 
-            string filePath = FileService.GetJsonPath(FileService.KibblesJson);
-            if (!File.Exists(filePath))
-            {
-                errorMessage = $"Kibble file {FileService.KibblesJson} not found. This tool will not show kibble recipes without this file.";
+                if (value is null)
+                    return;
+
+                value.version = new Version(value.ver);
             }
-            else if (FileService.LoadJsonFile(filePath, out Kibbles tempK, out string errorMessageFileLoading))
-            {
-                _K = tempK;
-                _K.version = new Version(_K.ver);
-                errorMessage = null;
-                return true;
-            }
-            else
-            {
-                errorMessage = $"File {FileService.KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessageFileLoading}";
-            }
-            return false;
         }
     }
 

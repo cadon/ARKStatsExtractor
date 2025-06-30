@@ -345,5 +345,27 @@ namespace ARKBreedingStats
                 }
             }
         }
+
+        public static bool LoadKibblesValues(out string errorMessage)
+        {
+            Kibbles.K.version = new Version(0, 0);
+
+            string filePath = GetJsonPath(KibblesJson);
+            if (!File.Exists(filePath))
+            {
+                errorMessage = $"Kibble file {KibblesJson} not found. This tool will not show kibble recipes without this file.";
+            }
+            else if (LoadJsonFile(filePath, out Kibbles tempK, out string errorMessageFileLoading))
+            {
+                Kibbles.K = tempK;
+                errorMessage = null;
+                return true;
+            }
+            else
+            {
+                errorMessage = $"File {KibblesJson} couldn\'t be opened or read.\nErrormessage:\n\n{errorMessageFileLoading}";
+            }
+            return false;
+        }
     }
 }
