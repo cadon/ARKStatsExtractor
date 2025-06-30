@@ -560,6 +560,7 @@ namespace ARKBreedingStats.species
             {
                 FileService.TryDeleteFile(f);
             }
+            cachedSpeciesFileNames?.Clear();
         }
 
         /// <summary>

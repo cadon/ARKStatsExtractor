@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -71,9 +72,13 @@ namespace ARKBreedingStats.Updater
             c.Controls.Add(header);
             c.SetColumnSpan(header, 2);
 
+            var localPath = module.LocallyAvailable
+                ? $"{Environment.NewLine}{Environment.NewLine}Used local path: {Path.GetFullPath(FileService.GetPath(module.LocalPath))}"
+                : string.Empty;
+
             var desc = new Label
             {
-                Text = (string.IsNullOrEmpty(module.Author) ? string.Empty : $"Author: {module.Author}\n") + $"{module.Description}",
+                Text = (string.IsNullOrEmpty(module.Author) ? string.Empty : $"Author: {module.Author}\n") + $"{module.Description}{localPath}",
                 AutoSize = true,
                 MaximumSize = new Size(300, 0),
                 Margin = new Padding(3)
