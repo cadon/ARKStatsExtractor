@@ -1381,7 +1381,7 @@ namespace ARKBreedingStats
             speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(cv.speciesBlueprint));
 
             // creatures tamed with the Bonded Taming skill currently look like they're tamed
-            if (cv.isBred && cv.imprintingBonus - Ark.ImprintingPerBondedTamingRank(BondedTamingRankExtractor) < 0.00001)
+            if (cv.isBred && cv.imprintingBonus > 0.01 && cv.imprintingBonus - Ark.ImprintingPerBondedTamingRank(BondedTamingRankExtractor) < 0.00001)
             {
                 cv.isTamed = true;
                 cv.isBred = false;

@@ -113,7 +113,7 @@ namespace ARKBreedingStats.Updater
         }
 
         /// <summary>
-        /// Downloads the module. Assuming it's a zip file.
+        /// Downloads the module. Assuming it's a zip file if the module is a folder.
         /// </summary>
         /// <returns>Bool if successful, string with error message.</returns>
         public async Task<(bool, string)> DownloadAsync(bool overwrite)
@@ -123,47 +123,62 @@ namespace ARKBreedingStats.Updater
             if (string.IsNullOrEmpty(Url))
                 return (false, "Url is empty, couldn't download anything.");
 
-            string moduleFolderPath = FileService.GetPath(LocalPath);
-            string tempFilePath = Path.GetTempFileName();
+            var moduleFolderPath = FileService.GetPath(LocalPath);
+            var tempFilePath = Path.GetTempFileName();
             var (success, _) = await Updater.DownloadAsync(Url, tempFilePath);
             if (!success)
                 return (false, $"File\n{Url}\ncouldn't be downloaded");
 
-            int fileCountExtracted = 0;
-            int fileCountSkipped = 0;
+            if (IsFolder)
+            {
+                var fileCountExtracted = 0;
+                var fileCountSkipped = 0;
+                try
+                {
+                    Directory.CreateDirectory(moduleFolderPath);
+                    using (var archive = ZipFile.OpenRead(tempFilePath))
+                    {
+                        foreach (ZipArchiveEntry file in archive.Entries)
+                        {
+                            if (string.IsNullOrEmpty(file.Name)) continue;
+
+                            var filePathUnzipped = Path.Combine(moduleFolderPath, file.Name);
+                            if (File.Exists(filePathUnzipped) &&
+                                (!overwrite || !FileService.TryDeleteFile(filePathUnzipped)))
+                            {
+                                fileCountSkipped++;
+                                continue;
+                            }
+
+                            file.ExtractToFile(filePathUnzipped);
+                            fileCountExtracted++;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return (false, $"Error while extracting the files in {moduleFolderPath}\n\n{ex.Message}");
+                }
+                finally
+                {
+                    FileService.TryDeleteFile(tempFilePath);
+                }
+                return (true, $"Files of {Name} were downloaded successfully.\n{fileCountExtracted} files extracted{(fileCountSkipped != 0 ? $"\n{fileCountSkipped} already existing files skipped" : string.Empty)}.");
+            }
 
             try
             {
-                Directory.CreateDirectory(moduleFolderPath);
-                using (var archive = ZipFile.OpenRead(tempFilePath))
-                {
-                    foreach (ZipArchiveEntry file in archive.Entries)
-                    {
-                        if (string.IsNullOrEmpty(file.Name)) continue;
-
-                        var filePathUnzipped = Path.Combine(moduleFolderPath, file.Name);
-                        if (File.Exists(filePathUnzipped) &&
-                            (!overwrite || !FileService.TryDeleteFile(filePathUnzipped)))
-                        {
-                            fileCountSkipped++;
-                            continue;
-                        }
-
-                        file.ExtractToFile(filePathUnzipped);
-                        fileCountExtracted++;
-                    }
-                }
+                File.Copy(tempFilePath, moduleFolderPath, true);
             }
             catch (Exception ex)
             {
-                return (false, $"Error while extracting the files in {moduleFolderPath}\n\n{ex.Message}");
+                return (false, $"Error while copying the file {moduleFolderPath}\n\n{ex.Message}");
             }
             finally
             {
                 FileService.TryDeleteFile(tempFilePath);
             }
-
-            return (true, $"Files of {Name} were downloaded successfully.\n{fileCountExtracted} files extracted{(fileCountSkipped != 0 ? $"\n{fileCountSkipped} already existing files skipped" : string.Empty)}.");
+            return (true, $"The file of {Name} was downloaded successfully.");
         }
     }
 }

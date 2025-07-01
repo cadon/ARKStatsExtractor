@@ -428,6 +428,8 @@ namespace ARKBreedingStats
 
             UpdateAsaIndicator();
 
+            creatureInfoInputTester.IsTester = true;
+
             if (Properties.Settings.Default.BeginServerListeningOnLaunch)
             {
                 AsbServerStartListening();
