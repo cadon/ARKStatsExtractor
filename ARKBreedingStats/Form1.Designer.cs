@@ -419,6 +419,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.saveExportFileLocallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1503,6 +1504,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator28,
             this.openModPageInBrowserToolStripMenuItem,
             this.sendExampleCreatureToolStripMenuItem,
+            this.saveExportFileLocallyToolStripMenuItem,
             this.sendServerCreatureStatusNeuterToolStripMenuItem,
             this.sendServerCreatureStatusDeadToolStripMenuItem});
             this.serverToolStripMenuItem.Name = "serverToolStripMenuItem";
@@ -4125,6 +4127,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // saveExportFileLocallyToolStripMenuItem
+            // 
+            this.saveExportFileLocallyToolStripMenuItem.Name = "saveExportFileLocallyToolStripMenuItem";
+            this.saveExportFileLocallyToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.saveExportFileLocallyToolStripMenuItem.Text = "Save export file locally…";
+            this.saveExportFileLocallyToolStripMenuItem.Click += new System.EventHandler(this.saveExportFileLocallyToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4622,5 +4631,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.RadioButton RbBondedTaming1;
         private System.Windows.Forms.RadioButton RbBondedTaming0;
         private System.Windows.Forms.Label LbBondedTaming;
+        private System.Windows.Forms.ToolStripMenuItem saveExportFileLocallyToolStripMenuItem;
     }
 }

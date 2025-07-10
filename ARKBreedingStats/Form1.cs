@@ -357,6 +357,7 @@ namespace ARKBreedingStats
                 sendServerCreatureStatusNeuterToolStripMenuItem.Visible = false;
                 sendServerCreatureStatusDeadToolStripMenuItem.Visible = false;
                 cbExactlyImprinting.Visible = false;
+                saveExportFileLocallyToolStripMenuItem.Visible = false;
             }
             else
             {
@@ -2272,6 +2273,7 @@ namespace ARKBreedingStats
             sendExampleCreatureToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
             sendServerCreatureStatusNeuterToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
             sendServerCreatureStatusDeadToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
+            saveExportFileLocallyToolStripMenuItem.Visible = Properties.Settings.Default.DevTools;
 
             bool recalculateTopStats = considerWastedStatsForTopCreatures != Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             if (recalculateTopStats)
