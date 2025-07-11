@@ -231,6 +231,7 @@ namespace ARKBreedingStats.importExported
             // if file was not recognized, return null
             if (string.IsNullOrEmpty(cv.speciesBlueprint)) return null;
 
+            if (cv.Species?.NoGender == true) cv.sex = Sex.Unknown;
             cv.ColorIdsAlsoPossible = ArkColors.GetAlternativeColorIds(cv.colorIDs);
 
             return cv;
