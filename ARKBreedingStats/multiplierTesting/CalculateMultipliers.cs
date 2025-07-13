@@ -8,30 +8,32 @@
         /// <summary>
         /// Calculates the Increase per wild level multiplier (IwM) to the value that solves the equation, assuming all other values are correct.
         /// </summary>
-        public static double? IwM(double statValue, double baseValue, int wildLevel, double iw, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
+        public static double? IwM(double statValue, double baseValue, int wildLevel, double iw, double iwSingleplayer, double levelMutation, double mutationMultiplier, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
         {
-            if (wildLevel == 0 || iw == 0) return null;
+            var denominator = (wildLevel + levelMutation * mutationMultiplier) * iw * iwSingleplayer;
+            if (denominator == 0) return null;
 
-            return ((statValue / (domesticated ? (1 + te * tm * (tm > 0 ? tmM * tmSingleplayer : 1)) * (1 + domLevel * id * idSingleplayer * idM) : 1) - (domesticated ? ta * (ta > 0 ? taM * taSingleplayer : 1) : 0)) / (baseValue * (domesticated ? tbhm : 1) * (domesticated ? 1 + ib * ibm * sIBM : 1)) - 1) / (wildLevel * iw * iwSingleplayer);
+            return ((statValue / (domesticated ? (1 + te * tm * (tm > 0 ? tmM * tmSingleplayer : 1)) * (1 + domLevel * id * idSingleplayer * idM) : 1) - (domesticated ? ta * (ta > 0 ? taM * taSingleplayer : 1) : 0)) / (baseValue * (domesticated ? tbhm : 1) * (domesticated ? 1 + ib * ibm * sIBM : 1)) - 1) / denominator;
         }
 
         /// <summary>
         /// Calculates the Increase per wild level (Iw) to the value that solves the equation, assuming all other values are correct.
         /// </summary>
-        public static double? Iw(double statValue, double baseValue, int wildLevel, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
+        public static double? Iw(double statValue, double baseValue, int wildLevel, double iwM, double iwSingleplayer, double levelMutation, double mutationMultiplier, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
         {
-            if (wildLevel == 0 || iwM == 0) return null;
+            var denominator = (wildLevel + levelMutation * mutationMultiplier) * iwM * iwSingleplayer;
+            if (denominator == 0) return null;
 
-            return ((statValue / (domesticated ? (1 + te * tm * (tm > 0 ? tmM * tmSingleplayer : 1)) * (1 + domLevel * id * idSingleplayer * idM) : 1) - (domesticated ? ta * (ta > 0 ? taM * taSingleplayer : 1) : 0)) / (baseValue * (domesticated ? tbhm : 1) * (domesticated ? 1 + ib * ibm * sIBM : 1)) - 1) / (wildLevel * iwM * iwSingleplayer);
+            return ((statValue / (domesticated ? (1 + te * tm * (tm > 0 ? tmM * tmSingleplayer : 1)) * (1 + domLevel * id * idSingleplayer * idM) : 1) - (domesticated ? ta * (ta > 0 ? taM * taSingleplayer : 1) : 0)) / (baseValue * (domesticated ? tbhm : 1) * (domesticated ? 1 + ib * ibm * sIBM : 1)) - 1) / denominator;
         }
 
         /// <summary>
         /// Stat value after taming with bonus, without dom levels.
         /// </summary>
-        private static double ValueDomWithoutDomLevel(double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, double ib, double ibm, double sIBM)
+        private static double ValueDomWithoutDomLevel(double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double levelMutation, double mutationMultiplier, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, double ib, double ibm, double sIBM)
         {
             // ValueWild
-            double valueWild = baseValue * (1 + wildLevel * iw * iwSingleplayer * iwM);
+            double valueWild = baseValue * (1 + (wildLevel + levelMutation * mutationMultiplier) * iw * iwSingleplayer * iwM);
 
             if (domesticated)
             {
@@ -45,10 +47,10 @@
         /// <summary>
         /// Stat value after taming with bonus, with dom levels.
         /// </summary>
-        private static double ValueDomWithDomLevel(double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer,
+        private static double ValueDomWithDomLevel(double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double levelMutation, double mutationMultiplier, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer,
             bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM, out double valueDomWithoutDomLevels)
         {
-            valueDomWithoutDomLevels = ValueDomWithoutDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, ib, ibm, sIBM);
+            valueDomWithoutDomLevels = ValueDomWithoutDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, levelMutation, mutationMultiplier, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, ib, ibm, sIBM);
 
             if (domesticated)
             {
@@ -60,9 +62,9 @@
         /// <summary>
         /// Calculates the Increase per domesticated level multiplier (IdM) to the value that solves the equation, assuming all other values are correct.
         /// </summary>
-        public static double? IdM(double statValue, double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
+        public static double? IdM(double statValue, double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double levelMutation, double mutationMultiplier, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
         {
-            return IdM(statValue, ValueDomWithoutDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, ib, ibm, sIBM), domLevel, id, idSingleplayer);
+            return IdM(statValue, ValueDomWithoutDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, levelMutation, mutationMultiplier, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, ib, ibm, sIBM), domLevel, id, idSingleplayer);
         }
 
         /// <summary>
@@ -88,10 +90,10 @@
         /// <summary>
         /// Calculates the Tame additive bonus multiplier (TaM) to the value that solves the equation, assuming all other values are correct.
         /// </summary>
-        public static double? TaM(double statValue, double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
+        public static double? TaM(double statValue, double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double levelMutation, double mutationMultiplier, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
         {
             if (ta == 0) return null;
-            var valueDomLeveled = ValueDomWithDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, domLevel, id, idM, idSingleplayer, ib, ibm, sIBM, out double valueDomWithoutDomLevels);
+            var valueDomLeveled = ValueDomWithDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, levelMutation, mutationMultiplier, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, domLevel, id, idM, idSingleplayer, ib, ibm, sIBM, out double valueDomWithoutDomLevels);
             if (valueDomLeveled == 0) return null;
 
             return (statValue * valueDomWithoutDomLevels / (valueDomLeveled * (1 + te *
@@ -104,10 +106,10 @@
         /// <summary>
         /// Calculates the Tame multiplicative bonus multiplier (TmM) to the value that solves the equation, assuming all other values are correct.
         /// </summary>
-        public static double? TmM(double statValue, double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
+        public static double? TmM(double statValue, double baseValue, int wildLevel, double iw, double iwM, double iwSingleplayer, double levelMutation, double mutationMultiplier, double tbhm, double ta, double taM, double taSingleplayer, double tm, double tmM, double tmSingleplayer, bool domesticated, double te, int domLevel, double id, double idM, double idSingleplayer, double ib, double ibm, double sIBM)
         {
             if (te <= 0 || tm == 0) return null;
-            var valueDomLeveled = ValueDomWithDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, domLevel, id, idM, idSingleplayer, ib, ibm, sIBM, out double valueDomWithoutDomLevels);
+            var valueDomLeveled = ValueDomWithDomLevel(baseValue, wildLevel, iw, iwM, iwSingleplayer, levelMutation, mutationMultiplier, tbhm, ta, taM, taSingleplayer, tm, tmM, tmSingleplayer, domesticated, te, domLevel, id, idM, idSingleplayer, ib, ibm, sIBM, out double valueDomWithoutDomLevels);
             if (valueDomWithoutDomLevels == 0) return null;
 
             return (statValue * valueDomWithoutDomLevels / (valueDomLeveled * (baseValue * (1 + wildLevel * iw * iwSingleplayer * iwM) * tbhm * (1 + ib * ibm * sIBM) + ta * (ta > 0 ? taM * taSingleplayer : 1))) - 1) / (te * tm * tmSingleplayer);

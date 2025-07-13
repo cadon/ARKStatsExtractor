@@ -45,18 +45,18 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="ld">domestic levels</param>
         /// <param name="id">increase per domestic level of species</param>
         /// <param name="idm">increase per domestic level server multiplier</param>
-        public void SetFirstEquation(double statValue, double baseValue, double lw, double iw, double iwm, double tbhm,
+        public void SetFirstEquation(double statValue, double baseValue, double lw, double iw, double iwm, double lm, double mm, double tbhm,
             double ib, double ibs, double ibm, double te, double ld, double id, double idm)
         {
-            SetValues(statValue, baseValue, lw, iw, iwm, tbhm, ib, ibs, ibm, te, ld, id, idm, out _fW, out _fX, out _fXWithoutTbhm, out _fTe);
+            SetValues(statValue, baseValue, lw, iw, iwm, lm, mm, tbhm, ib, ibs, ibm, te, ld, id, idm, out _fW, out _fX, out _fXWithoutTbhm, out _fTe);
         }
 
-        private void SetValues(double statValue, double baseValue, double lw, double iw, double iwm, double tbhm,
-            double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double w,
+        private void SetValues(double statValue, double baseValue, double lw, double iw, double iwm, double lm, double mm,
+            double tbhm, double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double w,
             out double x, out double xWithoutTbhm, out double teOut)
         {
             w = statValue / (1 + ld * id * idm);
-            xWithoutTbhm = baseValue * (1 + lw * iw * iwm) * (1 + ib * ibs * ibm);
+            xWithoutTbhm = baseValue * (1 + (lw + lm * mm) * iw * iwm) * (1 + ib * ibs * ibm);
             x = xWithoutTbhm * tbhm;
             teOut = te;
         }
@@ -70,6 +70,8 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="lw">wild levels</param>
         /// <param name="iw">increase per wild level of this species</param>
         /// <param name="iwm">increase per wild level server multiplier</param>
+        /// <param name="lm">mutated levels</param>
+        /// <param name="mm">mutation level multiplier</param>
         /// <param name="tbhm">tamed bonus health multiplier of species</param>
         /// <param name="ib">imprinting bonus of creature</param>
         /// <param name="ibs">imprinting bonus species stat multiplier</param>
@@ -80,10 +82,10 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="idm">increase per domestic level server multiplier</param>
         /// <param name="taTaM">product of taming additive bonus of species and server multiplier</param>
         /// <param name="tmTmM">product of taming multiplicative bonus of species and server multiplier</param>
-        public string CalculateTaTm(double statValue, double baseValue, double lw, double iw, double iwm, double tbhm,
+        public string CalculateTaTm(double statValue, double baseValue, double lw, double iw, double iwm, double lm, double mm, double tbhm,
             double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double taTaM, out double tmTmM)
         {
-            SetValues(statValue, baseValue, lw, iw, iwm, tbhm, ib, ibs, ibm, te, ld, id, idm, out var sW, out var sX, out _, out var sTe);
+            SetValues(statValue, baseValue, lw, iw, iwm, lm, mm, tbhm, ib, ibs, ibm, te, ld, id, idm, out var sW, out var sX, out _, out var sTe);
 
             taTaM = 0;
             tmTmM = 0;
@@ -135,6 +137,8 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="lw">wild levels</param>
         /// <param name="iw">increase per wild level of this species</param>
         /// <param name="iwm">increase per wild level server multiplier</param>
+        /// <param name="lm">mutated levels</param>
+        /// <param name="mm">mutation level multiplier</param>
         /// <param name="ib">imprinting bonus of creature</param>
         /// <param name="ibs">imprinting bonus species stat multiplier</param>
         /// <param name="ibm">imprinting bonus multiplier of server</param>
@@ -144,11 +148,11 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="idm">increase per domestic level server multiplier</param>
         /// <param name="taTaM">product of taming additive bonus of species and server multiplier</param>
         /// <param name="tbhm">tamed bonus health multiplier of species</param>
-        public string CalculateTaTbhm(double statValue, double baseValue, double lw, double iw, double iwm,
+        public string CalculateTaTbhm(double statValue, double baseValue, double lw, double iw, double iwm, double lm, double mm,
             double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double taTaM,
             out double tbhm)
         {
-            SetValues(statValue, baseValue, lw, iw, iwm, 1, ib, ibs, ibm, te, ld, id, idm, out var sW, out _, out var sXWithoutTbhm, out _);
+            SetValues(statValue, baseValue, lw, iw, iwm, lm, mm, 1, ib, ibs, ibm, te, ld, id, idm, out var sW, out _, out var sXWithoutTbhm, out _);
 
             taTaM = 0;
             tbhm = 0;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace ARKBreedingStats.species
 {
@@ -62,6 +61,7 @@ namespace ARKBreedingStats.species
             {
                 BaseValue = (troodonismStats.HasFlag(Troodonism.AffectedStats.Base) ? speciesAltStats : speciesStats).BaseValue,
                 IncPerWildLevel = (troodonismStats.HasFlag(Troodonism.AffectedStats.IncreaseWild) ? speciesAltStats : speciesStats).IncPerWildLevel,
+                IncPerMutatedLevel = (troodonismStats.HasFlag(Troodonism.AffectedStats.IncreaseWild) ? speciesAltStats : speciesStats).IncPerMutatedLevel,
                 AddWhenTamed = speciesStats.AddWhenTamed,
                 MultAffinity = speciesStats.MultAffinity,
                 IncPerTamedLevel = speciesStats.IncPerTamedLevel

@@ -123,6 +123,7 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 if (s == Stats.Torpidity) continue;
                 sumW += _statControls[s].LevelWild;
+                sumW += _statControls[s].LevelMutations;
                 sumD += _statControls[s].LevelDom;
             }
             lbLevelSumWild.Text = "Sum LevelWild = " + sumW;
@@ -243,7 +244,8 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
                     _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][Species.StatsRawIndexBase] : 1,
-                    s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.IsFlyer)));
+                    s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.IsFlyer)),
+                    _selectedSpecies.mutationMult[s]);
                 _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Stats.StatsCount]?[s] ?? statImprintMultipliers[s] : statImprintMultipliers[s];
                 _statControls[s].Visible = species.UsesStat(s);
                 _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
@@ -267,7 +269,7 @@ namespace ARKBreedingStats.multiplierTesting
         /// <param name="IB">Imprinting Bonus of the creature</param>
         /// <param name="tamed"></param>
         /// <param name="bred"></param>
-        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsDom, int totalLevel, double TE, double IB, bool domesticated, Species species)
+        public void SetCreatureValues(double[] statValues, int[] levelsWild, int[] levelsMut, int[] levelsDom, int totalLevel, double TE, double IB, bool domesticated, Species species)
         {
             int level = 1;
 
@@ -286,6 +288,14 @@ namespace ARKBreedingStats.multiplierTesting
                 for (int s = 0; s < Stats.StatsCount; s++)
                     _statControls[s].LevelWild = levelsWild[s];
                 level += levelsWild[Stats.Torpidity];
+            }
+            if (levelsMut != null)
+            {
+                for (int s = 0; s < Stats.StatsCount; s++)
+                {
+                    _statControls[s].LevelMutations = levelsMut[s];
+                    level += levelsMut[s];
+                }
             }
             if (levelsDom != null)
             {
@@ -517,7 +527,8 @@ namespace ARKBreedingStats.multiplierTesting
                     _selectedSpecies.altBaseStatsRaw != null
                     && _selectedSpecies.altBaseStatsRaw.TryGetValue(Stats.SpeedMultiplier, out var altV)
                         ? altV / _selectedSpecies.fullStatsRaw[Stats.SpeedMultiplier][Species.StatsRawIndexBase] : 1,
-                    !speedLevelingAllowed);
+                    !speedLevelingAllowed,
+                    _selectedSpecies.mutationMult[Stats.SpeedMultiplier]);
         }
 
         private void allWildLvlToToolStripMenuItem_Click(object sender, EventArgs e)
@@ -526,6 +537,15 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
                     if (_selectedSpecies.UsesStat(s)) _statControls[s].LevelWild = lv;
+            }
+        }
+
+        private void setAllMutLevelsToToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Utils.ShowTextInput("Mutation Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
+            {
+                for (int s = 0; s < Stats.StatsCount; s++)
+                    if (_selectedSpecies.UsesStat(s)) _statControls[s].LevelMutations = lv;
             }
         }
 
@@ -561,6 +581,8 @@ namespace ARKBreedingStats.multiplierTesting
             _tt.SetToolTip(LbLw, "Wild levels | Points applied wild");
             _tt.SetToolTip(LbIw, "Increase per wild level | Amount max gained per level up value wild");
             _tt.SetToolTip(LbIwM, "Increase per wild level global multiplier | per level stats multiplier dino wild");
+            _tt.SetToolTip(LbLm, "Mutation levels");
+            _tt.SetToolTip(LbMm, "Mutation multiplier | Factor of stat increase per mutation level compared to increase of wild level");
             _tt.SetToolTip(LbTBHM, "Tamed base health multiplier");
             _tt.SetToolTip(LbTa, "Additive taming bonus | Taming max stat additions");
             _tt.SetToolTip(LbTaM, "Additive taming bonus global multiplier | per level stats multiplier dino tamed add");
@@ -665,18 +687,12 @@ To determine all species values, the files with the following creature combinati
 
         private void SetCreatureValueValues(CreatureValues cv)
         {
-            SetCreatureValues(cv.statValues, null, null, cv.level, (cv.tamingEffMax - cv.tamingEffMin) / 2, cv.imprintingBonus, cv.isTamed || cv.isBred, cv.Species);
+            SetCreatureValues(cv.statValues, null, null, null, cv.level, (cv.tamingEffMax - cv.tamingEffMin) / 2, cv.imprintingBonus, cv.isTamed || cv.isBred, cv.Species);
         }
 
         private void SetCreatureValuesAndLevels(Creature cr, double[] statValues = null)
         {
-            var levelsWildAndMutated = cr.levelsWild.ToArray();
-            if (cr.levelsMutated != null)
-            {
-                for (int si = 0; si < Stats.StatsCount; si++)
-                    levelsWildAndMutated[si] = cr.levelsWild[si] + cr.levelsMutated[si];
-            }
-            SetCreatureValues(statValues ?? cr.valuesCurrent, levelsWildAndMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.Species);
+            SetCreatureValues(statValues ?? cr.valuesCurrent, cr.levelsWild, cr.levelsMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.Species);
         }
 
         private void SetServerMultipliers(ExportGunServerFile esm)
@@ -741,6 +757,7 @@ To determine all species values, the files with the following creature combinati
             sb.AppendLine("\"fullStatsRaw\": [");
             var currentCulture = CultureInfo.CurrentCulture;
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            var mutationMultipliers = new double[Stats.StatsCount];
 
             for (var s = 0; s < Stats.StatsCount; s++)
             {
@@ -755,13 +772,22 @@ To determine all species values, the files with the following creature combinati
                 }
 
                 sb.AppendLine(s + 1 < Stats.StatsCount ? "," : string.Empty);
+                mutationMultipliers[s] = _statControls[s].MutationMultiplier;
             }
-            sb.AppendLine("]");
+            sb.Append("]");
+
+            if (!mutationMultipliers.All(mm => mm == 1))
+            {
+                sb.AppendLine(",");
+                sb.Append($"\"mutationMult\": [{string.Join(", ", mutationMultipliers)}]");
+            }
 
             if (speciesImprintingMultipliers != null)
             {
-                sb.AppendLine($"\"statImprintMult\": [ {string.Join(", ", speciesBlueprintPath)} ]");
+                sb.AppendLine(",");
+                sb.Append($"\"statImprintMult\": [ {string.Join(", ", speciesBlueprintPath)} ]");
             }
+            sb.AppendLine();
 
             CultureInfo.CurrentCulture = currentCulture;
             if (ClipboardHandler.SetText(sb.ToString(), out var error))

@@ -3531,12 +3531,14 @@ namespace ARKBreedingStats
             }
 
             var wildLevels = GetCurrentWildLevels(false);
+            var levelMutations = GetCurrentMutLevels(false);
             // the torpor level of the tester is only the sum of the recognized stats. Use the level of the extractor, if that value was recognized.
             if (_statIOs[Stats.Torpidity].LevelWild > 0)
                 wildLevels[Stats.Torpidity] = _statIOs[Stats.Torpidity].LevelWild;
 
             statsMultiplierTesting1.SetCreatureValues(statValues,
                 wildLevels,
+                levelMutations,
                 GetCurrentDomLevels(false),
                 (int)numericUpDownLevel.Value,
                 TamingEffectivenessTester,

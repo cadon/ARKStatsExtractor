@@ -77,6 +77,11 @@ namespace ARKBreedingStats.multiplierTesting
         /// The values of this stat. 0: Base, 1: Iw, 2: Id, 3: Ta, 4: Tm
         /// </summary>
         private double[] _statValues;
+
+        /// <summary>
+        /// The factor applied to mutation levels
+        /// </summary>
+        private double _mutationMultiplier;
         /// <summary>
         /// The factor the correct value is multiplied with to get the alt / Troodonism value.
         /// </summary>
@@ -122,9 +127,10 @@ namespace ARKBreedingStats.multiplierTesting
             if (!updateValues) return;
 
             // ValueWild
-            double Vw = (double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value);
+            double Vw = (double)nudB.Value * AtlasBaseMultiplier * (1 + ((double)nudLw.Value + (double)nudLm.Value * (double)nudMm.Value) * (double)nudIw.Value * _spIw * (double)nudIwM.Value);
             string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), DecimalPlaces) + (_percent ? "%" : string.Empty);
-            tbVw.Text = $"{nudB.Value + (AtlasBaseMultiplier != 1 ? $" * {AtlasBaseMultiplier}" : string.Empty)} * ( 1 + {nudLw.Value} * {nudIw.Value}{(_spIw != 1 ? " * " + _spIw : string.Empty)} * {nudIwM.Value} ) = {VwDisplay}";
+            var wildAndMutationLevelsDisplay = nudLm.Value == 0 ? $"{nudLw.Value}" : $"({nudLw.Value} + {nudLm.Value} * {nudMm.Value})";
+            tbVw.Text = $"{nudB.Value + (AtlasBaseMultiplier != 1 ? $" * {AtlasBaseMultiplier}" : string.Empty)} * ( 1 + {wildAndMutationLevelsDisplay} * {nudIw.Value}{(_spIw != 1 ? " * " + _spIw : string.Empty)} * {nudIwM.Value} ) = {VwDisplay}";
             if (_domesticated)
             {
                 // ValueDom
@@ -188,7 +194,7 @@ namespace ARKBreedingStats.multiplierTesting
             SetResetButtonColor(nudIwM, _multipliersOfSettings[3], btResetIwM);
         }
 
-        public void SetStatValues(double[] statValues, double?[] customOverrides, double altStatFactor, bool ignoreIncreaseDom)
+        public void SetStatValues(double[] statValues, double?[] customOverrides, double altStatFactor, bool ignoreIncreaseDom, double mutationMultiplier)
         {
             if (statValues != null && statValues.Length == 5)
             {
@@ -196,11 +202,12 @@ namespace ARKBreedingStats.multiplierTesting
 
                 var updateValuesKeeper = updateValues;
                 updateValues = false;
-                nudB.Value = (decimal)(_statValues[0] = customOverrides?[0] ?? statValues[0]);
-                nudIw.Value = (decimal)(_statValues[1] = customOverrides?[1] ?? statValues[1]);
-                nudId.Value = (decimal)(ignoreIncreaseDom ? 0 : _statValues[2] = customOverrides?[2] ?? statValues[2]);
-                nudTa.Value = (decimal)(_statValues[3] = customOverrides?[3] ?? statValues[3]);
-                nudTm.Value = (decimal)(_statValues[4] = customOverrides?[4] ?? statValues[4]);
+                nudB.ValueSaveDouble = _statValues[0] = customOverrides?[0] ?? statValues[0];
+                nudIw.ValueSaveDouble = _statValues[1] = customOverrides?[1] ?? statValues[1];
+                nudMm.ValueSaveDouble = mutationMultiplier;
+                nudId.ValueSaveDouble = ignoreIncreaseDom ? 0 : _statValues[2] = customOverrides?[2] ?? statValues[2];
+                nudTa.ValueSaveDouble = _statValues[3] = customOverrides?[3] ?? statValues[3];
+                nudTm.ValueSaveDouble = _statValues[4] = customOverrides?[4] ?? statValues[4];
 
                 _altStatFactor = altStatFactor;
 
@@ -217,17 +224,28 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        /// <summary>
+        /// Get stat values in an array: [base, IncWild, IncDom, TameAdd, TameMult]
+        /// </summary>
         public double[] StatValues => new[] { nudB.ValueDouble, nudIw.ValueDouble, nudId.ValueDouble, nudTa.ValueDouble, nudTm.ValueDouble };
+
+        public double MutationMultiplier => nudMm.ValueDouble;
 
         public double StatValue
         {
-            set => nudStatValue.ValueSave = (decimal)value * (_percent ? 100 : 1);
+            set => nudStatValue.ValueSaveDouble = value * (_percent ? 100 : 1);
         }
 
         public int LevelWild
         {
             get => (int)nudLw.Value;
             set => nudLw.ValueSave = value > 0 ? value : 0;
+        }
+
+        public int LevelMutations
+        {
+            get => (int)nudLm.Value;
+            set => nudLm.ValueSave = value > 0 ? value : 0;
         }
 
         public int LevelDom
@@ -360,7 +378,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (nudLw.Value != 0 && nudIw.Value != 0)
             {
                 var iwM = CalculateMultipliers.IwM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value * AtlasBaseMultiplier, (int)nudLw.Value,
-                    (double)nudIw.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                    (double)nudIw.Value, _spIw, nudLm.ValueDouble, nudMm.ValueDouble, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
                     (double)nudTm.Value, (double)nudTmM.Value, _spTm, _domesticated, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value * AtlasIdMultiplier,
                     _spId, _IB, _IBM, _sIBM) ?? 0;
                 nudIwM.ValueSaveDouble = Math.Round(iwM, DecimalPlaces);
@@ -386,7 +404,7 @@ namespace ARKBreedingStats.multiplierTesting
         public bool CalculateTaM(bool silent = true)
         {
             var taM = CalculateMultipliers.TaM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value * AtlasBaseMultiplier, (int)nudLw.Value, (double)nudIw.Value,
-                (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                (double)nudIwM.Value, _spIw, nudLm.ValueDouble, nudMm.ValueDouble, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
                 (double)nudTm.Value, (double)nudTmM.Value, _spTm, _domesticated, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value * AtlasIdMultiplier,
                 _spId, _IB, _IBM, _sIBM);
 
@@ -405,7 +423,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (_TE > 0 && nudTm.Value > 0)
             {
                 var tmM = CalculateMultipliers.TmM((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value * AtlasBaseMultiplier, (int)nudLw.Value, (double)nudIw.Value,
-                    (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                    (double)nudIwM.Value, _spIw, nudLm.ValueDouble, nudMm.ValueDouble, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
                     (double)nudTm.Value, (double)nudTmM.Value, _spTm, _domesticated, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value * AtlasIdMultiplier,
                     _spId, _IB, _IBM, _sIBM) ?? 0;
                 nudTmM.ValueSaveDouble = Math.Round(tmM, DecimalPlaces);
@@ -421,7 +439,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (nudLw.Value != 0 && nudIwM.Value != 0)
             {
                 var iw = CalculateMultipliers.Iw((double)nudStatValue.Value * (_percent ? 0.01 : 1), (double)nudB.Value * AtlasBaseMultiplier, (int)nudLw.Value,
-                    (double)nudIwM.Value, _spIw, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
+                    (double)nudIwM.Value, _spIw, nudLm.ValueDouble, nudMm.ValueDouble, (double)nudTBHM.Value, (double)nudTa.Value, (double)nudTaM.Value, _spTa,
                     (double)nudTm.Value, (double)nudTmM.Value, _spTm, _domesticated, _TE, (int)nudLd.Value, (double)nudId.Value, (double)nudIdM.Value * AtlasIdMultiplier,
                     _spId, _IB, _IBM, _sIBM) ?? 0;
                 nudIw.ValueSaveDouble = Math.Round(iw, DecimalPlaces);
@@ -453,8 +471,8 @@ namespace ARKBreedingStats.multiplierTesting
                 statValue.Min *= _percent ? 0.01 : 1;
                 statValue.Max *= _percent ? 0.01 : 1;
                 OnTECalculated?.Invoke(new MinMaxDouble(
-                        (statValue.Min * Vd / (V * ((double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (1 + _IB * _IBM * _sIBM) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1)),
-                        (statValue.Max * Vd / (V * ((double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (1 + _IB * _IBM * _sIBM) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))
+                        (statValue.Min * Vd / (V * ((double)nudB.Value * AtlasBaseMultiplier * (1 + (nudLw.ValueDouble + nudLm.ValueDouble * nudMm.ValueDouble) * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (1 + _IB * _IBM * _sIBM) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1)),
+                        (statValue.Max * Vd / (V * ((double)nudB.Value * AtlasBaseMultiplier * (1 + (nudLw.ValueDouble + nudLm.ValueDouble * nudMm.ValueDouble) * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value * (1 + _IB * _IBM * _sIBM) + (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) - 1) / ((double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))
                 ));
             }
             else MessageBox.Show("Divide by Zero-error, e.g. Tm and TmM both needs to be > 0, the stat has to be affected by TE and the creature has to be tamed or bred.");
@@ -469,8 +487,8 @@ namespace ARKBreedingStats.multiplierTesting
                 statValue.Min *= _percent ? 0.01 : 1;
                 statValue.Max *= _percent ? 0.01 : 1;
                 OnIBCalculated?.Invoke(new MinMaxDouble(
-                        ((statValue.Min * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IBM,
-                        ((statValue.Max * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IBM
+                        ((statValue.Min * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (nudLw.ValueDouble + nudLm.ValueDouble * nudMm.ValueDouble) * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IBM,
+                        ((statValue.Max * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (nudLw.ValueDouble + nudLm.ValueDouble * nudMm.ValueDouble) * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IBM
                 ));
             }
             else MessageBox.Show("Divide by Zero-error, e.g. IBM needs to be > 0 and stat has to be affected by IB.");
@@ -485,8 +503,8 @@ namespace ARKBreedingStats.multiplierTesting
                 statValue.Min *= _percent ? 0.01 : 1;
                 statValue.Max *= _percent ? 0.01 : 1;
                 OnIBMCalculated?.Invoke(new MinMaxDouble(
-                        ((statValue.Min * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IB,
-                        ((statValue.Max * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (double)nudLw.Value * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IB
+                        ((statValue.Min * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (nudLw.ValueDouble + nudLm.ValueDouble * nudMm.ValueDouble) * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IB,
+                        ((statValue.Max * Vd / (V * (1 + _TE * (double)nudTm.Value * (nudTm.Value > 0 ? (double)nudTmM.Value * _spTm : 1))) - (double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1)) / ((double)nudB.Value * AtlasBaseMultiplier * (1 + (nudLw.ValueDouble + nudLm.ValueDouble * nudMm.ValueDouble) * (double)nudIw.Value * _spIw * (double)nudIwM.Value) * (double)nudTBHM.Value) - 1) * 5 / _IB
                 ));
             }
             else MessageBox.Show("Divide by Zero-error, e.g. IB needs to be > 0, creature has to be bred and stat has to be affected by IB.");
@@ -597,9 +615,10 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         public void SetClosestWildLevel()
         {
-            double denominator = (double)nudIw.Value * (double)nudIwM.Value;
+            var denominator = (double)nudIw.Value * (double)nudIwM.Value;
             if (denominator == 0) return;
-            nudLw.ValueSave = (decimal)Math.Round((((double)nudStatValue.Value / ((_percent ? 100 : 1) * (1 + _TE * (double)nudTm.Value * (nudTmM.Value > 0 ? (double)nudTmM.Value * _spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * _spId * AtlasIdMultiplier * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) / ((double)nudB.Value * AtlasBaseMultiplier * (double)nudTBHM.Value * (1 + _IB * _IBM * _sIBM)) - 1) / denominator);
+            var levelWildAndMutations = (((double)nudStatValue.Value / ((_percent ? 100 : 1) * (1 + _TE * (double)nudTm.Value * (nudTmM.Value > 0 ? (double)nudTmM.Value * _spTm : 1)) * (1 + (double)nudLd.Value * (double)nudId.Value * _spId * AtlasIdMultiplier * (double)nudIdM.Value)) - ((double)nudTa.Value * (nudTa.Value > 0 ? (double)nudTaM.Value * _spTa : 1))) / ((double)nudB.Value * AtlasBaseMultiplier * (double)nudTBHM.Value * (1 + _IB * _IBM * _sIBM)) - 1) / denominator;
+            nudLw.ValueSaveDouble = Math.Round(levelWildAndMutations - nudLm.ValueDouble * nudMm.ValueDouble);
             UpdateCalculations(true);
         }
 
@@ -713,6 +732,21 @@ namespace ARKBreedingStats.multiplierTesting
                     nudIw, Color.FromArgb(219, 253, 201),
                     nudIwM, Color.FromArgb(167, 246, 125));
             SetResetButtonColor(nudIwM, _multipliersOfSettings[3], btResetIwM);
+        }
+
+        private void nudLm_ValueChanged(object sender, EventArgs e)
+        {
+            OnLevelChanged?.Invoke();
+            UpdateCalculations();
+            SetBackColorDependingOnNeutral(nudLm, Color.FromArgb(0, 120, 116),
+                nudMm, Color.FromArgb(171, 237, 235));
+        }
+
+        private void nudMm_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateCalculations();
+            SetBackColorDependingOnNeutral(nudLm, Color.FromArgb(0, 120, 116),
+                nudMm, Color.FromArgb(171, 237, 235));
         }
 
         private void nudTBHM_ValueChanged(object sender, EventArgs e)
@@ -894,7 +928,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (_taTmSolver == null) _taTmSolver = new TaTmSolver();
             _taTmSolver.SetFirstEquation(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
-                nudIwM.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble, nudIdM.ValueDouble);
+                nudIwM.ValueDouble, nudLm.ValueDouble, nudMm.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble, nudIdM.ValueDouble);
             LbTaTmTeStored.Text = $"TE: {_TE:p0}";
             LbTaTmTeStored.BackColor = Color.LightGreen;
         }
@@ -929,7 +963,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
 
             var errorText = _taTmSolver.CalculateTaTm(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
-                nudIwM.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
+                nudIwM.ValueDouble, nudLm.ValueDouble, nudMm.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
                 nudIdM.ValueDouble, out var taTaM, out var tmTmM);
             if (!string.IsNullOrEmpty(errorText))
             {
@@ -965,7 +999,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
 
             var errorText = _taTmSolver.CalculateTaTbhm(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
-                nudIwM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
+                nudIwM.ValueDouble, nudLm.ValueDouble, nudMm.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
                 nudIdM.ValueDouble, out var taTaM, out var tbhm);
             if (!string.IsNullOrEmpty(errorText))
             {
