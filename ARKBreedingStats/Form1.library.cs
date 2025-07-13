@@ -316,18 +316,28 @@ namespace ARKBreedingStats
             else
             {
                 _topLevels.Remove(onlySpecies);
+                if (onlySpecies.matesWith?.Any() == true)
+                {
+                    foreach (var bp in onlySpecies.matesWith)
+                    {
+                        var sp = Values.V.SpeciesByBlueprint(bp);
+                        if (sp != null)
+                            _topLevels.Remove(sp);
+                    }
+                }
             }
 
             var filteredCreaturesHash = Properties.Settings.Default.useFiltersInTopStatCalculation ? new HashSet<Creature>(ApplyLibraryFilterSettings(creatures)) : null;
 
-            var speciesCreaturesGroups = creatures.GroupBy(c => c.Species);
+            var speciesList = creatures.Select(c => c.Species).Distinct().ToArray();
 
-            foreach (var g in speciesCreaturesGroups)
+            foreach (var species in speciesList)
             {
-                var species = g.Key;
                 if (species == null)
                     continue;
-                var speciesCreatures = g.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder)).ToArray();
+
+                var speciesCreatures = _creatureCollection.GetSpeciesCompatibleCreatures(species);
+
                 if (!speciesCreatures.Any()) continue;
 
                 var usedStatIndices = new List<int>(8);
@@ -362,9 +372,6 @@ namespace ARKBreedingStats
 
                 foreach (var c in speciesCreatures)
                 {
-                    if (c.flags.HasFlag(CreatureFlags.Placeholder))
-                        continue;
-
                     c.ResetTopStats();
                     c.ResetTopMutationStats();
                     c.topBreedingCreature = false;

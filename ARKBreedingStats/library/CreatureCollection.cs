@@ -205,6 +205,8 @@ namespace ARKBreedingStats.Library
         /// </summary>
         public bool ModValueReloadNeeded => modListHash == 0 || modListHash != Values.V.loadedModsHash;
 
+        private Dictionary<string, Creature[]> _creaturesByBlueprint;
+
         /// <summary>
         /// Adds creatures to the current library.
         /// </summary>
@@ -374,6 +376,7 @@ namespace ARKBreedingStats.Library
                 ResetExistingColors(onlyOneSpeciesAdded ? onlyThisSpeciesBlueprintAdded : null);
                 _creatureCountBySpecies = null;
                 _totalCreatureCount = -1;
+                _creaturesByBlueprint = null;
             }
 
             return creaturesWereAddedOrUpdated;
@@ -392,6 +395,7 @@ namespace ARKBreedingStats.Library
             ResetExistingColors(c.Species.blueprintPath);
             _creatureCountBySpecies = null;
             _totalCreatureCount = -1;
+            _creaturesByBlueprint = null;
         }
 
         public int? getWildLevelStep()
@@ -674,6 +678,37 @@ namespace ARKBreedingStats.Library
             if (_totalCreatureCount == -1)
                 _totalCreatureCount = creatures.Count(c => !c.flags.HasFlag(CreatureFlags.Placeholder));
             return _totalCreatureCount;
+        }
+
+        /// <summary>
+        /// Returns all creatures of a species and if available all creatures of mating compatible species. Ignores placeholder creatures.
+        /// </summary>
+        public List<Creature> GetSpeciesCompatibleCreatures(Species species)
+        {
+            if (species == null) return null;
+            if (_creaturesByBlueprint == null) ReGroupCreaturesByBp();
+
+            var creaturesResult = new List<Creature>();
+            var bpList = new List<string> { species.blueprintPath };
+
+            if (species.matesWith?.Any() == true)
+                bpList.AddRange(species.matesWith);
+
+            foreach (var bp in bpList)
+            {
+                _creaturesByBlueprint.TryGetValue(bp, out var creatures);
+                if (creatures != null) creaturesResult.AddRange(creatures);
+            }
+
+            return creaturesResult;
+        }
+
+        private void ReGroupCreaturesByBp()
+        {
+            _creaturesByBlueprint = creatures
+                 .Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder))
+                 .GroupBy(c => c.speciesBlueprint)
+                 .ToDictionary(g => g.Key, g => g.ToArray());
         }
     }
 }
