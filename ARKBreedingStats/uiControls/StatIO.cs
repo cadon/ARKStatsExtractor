@@ -12,18 +12,21 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class StatIO : UserControl
     {
-        public bool postTame; // if false (aka creature untamed) display note that stat can be higher after taming
+        /// <summary>
+        /// If false (aka creature untamed/wild) display note that stat can be higher after taming.
+        /// </summary>
+        public bool PostTame;
         private StatIOStatus _status;
-        public bool percent; // indicates whether this stat is expressed as a percentile
+        private bool _percent;
         private string _statName;
         private double _breedingValue;
         private StatIOInputType _inputType;
         public event Action<StatIO> LevelChanged;
         public event Action<StatIO> InputValueChanged;
-        public int statIndex;
+        public int StatIndex;
         private bool _domZeroFixed;
         private readonly ToolTip _tt;
-        public int barMaxLevel = 45;
+        public int BarMaxLevel = 45;
         private const int MaxBarLength = 335;
         private bool _linkWildMutated;
         private int _wildMutatedSum;
@@ -36,19 +39,19 @@ namespace ARKBreedingStats.uiControls
             nudLvW.Value = 0;
             nudLvD.Value = 0;
             labelBValue.Text = string.Empty;
-            postTame = true;
-            percent = false;
+            PostTame = true;
+            _percent = false;
             _breedingValue = 0;
             groupBox1.Click += groupBox1_Click;
             InputType = _inputType;
-            // ToolTips
+            
             _tt = new ToolTip { InitialDelay = 300 };
             _tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
         }
 
         public double Input
         {
-            get => (double)numericUpDownInput.Value * (percent ? 0.01 : 1);
+            get => (double)numericUpDownInput.Value * (_percent ? 0.01 : 1);
             set
             {
                 if (value < 0)
@@ -58,7 +61,7 @@ namespace ARKBreedingStats.uiControls
                 }
                 else
                 {
-                    if (percent) value *= 100;
+                    if (_percent) value *= 100;
                     numericUpDownInput.ValueSave = (decimal)value;
                     labelFinalValue.Text = value.ToString("N1");
                 }
@@ -127,7 +130,7 @@ namespace ARKBreedingStats.uiControls
             {
                 if (value >= 0)
                 {
-                    labelBValue.Text = Math.Round((percent ? 100 : 1) * value, 1).ToString("N1") + (postTame ? string.Empty : " +*");
+                    labelBValue.Text = Math.Round((_percent ? 100 : 1) * value, 1).ToString("N1") + (PostTame ? string.Empty : " +*");
                     _breedingValue = value;
                 }
                 else
@@ -137,12 +140,15 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        /// <summary>
+        /// Indicates whether this stat is expressed as a percentage.
+        /// </summary>
         public bool Percent
         {
-            get => percent;
+            get => _percent;
             set
             {
-                percent = value;
+                _percent = value;
                 Title = _statName;
             }
         }

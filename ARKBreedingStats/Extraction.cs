@@ -190,7 +190,7 @@ namespace ARKBreedingStats
                         continue;
                     }
 
-                    statIOs[s].postTame = PostTamed;
+                    statIOs[s].PostTame = PostTamed;
 
                     // determine the precision of the input value
                     float toleranceForThisStat = StatValueCalculation.DisplayedAberration(statIOs[s].Input, Stats.Precision(s), highPrecisionInputs);

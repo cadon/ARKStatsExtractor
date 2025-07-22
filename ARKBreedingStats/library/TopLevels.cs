@@ -42,18 +42,18 @@ namespace ARKBreedingStats.library
 
         private int[][] GetZeros() => new[]
         {
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray()
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray()
         };
 
         private int[][] GetUninitialized() => new[]
         {
-            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray()
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(int.MaxValue, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(int.MaxValue, Stats.StatsCount).ToArray()
         };
     }
 }

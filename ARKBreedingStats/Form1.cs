@@ -184,13 +184,13 @@ namespace ARKBreedingStats
                 {
                     InputType = StatIOInputType.FinalValueInputType,
                     Title = Utils.StatName(s),
-                    statIndex = s
+                    StatIndex = s
                 };
                 var statIoTesting = new StatIO
                 {
                     InputType = StatIOInputType.LevelsInputType,
                     Title = Utils.StatName(s),
-                    statIndex = s
+                    StatIndex = s
                 };
 
                 if (Stats.IsPercentage(s))
@@ -688,7 +688,7 @@ namespace ARKBreedingStats
             StatIO se = (StatIO)sender;
             if (se != null)
             {
-                SetActiveStat(se.statIndex);
+                SetActiveStat(se.StatIndex);
             }
         }
 
@@ -895,8 +895,8 @@ namespace ARKBreedingStats
             creatureBoxListView.CreatureCollection = _creatureCollection;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                _statIOs[s].barMaxLevel = _creatureCollection.maxChartLevel;
-                _testingIOs[s].barMaxLevel = _creatureCollection.maxChartLevel;
+                _statIOs[s].BarMaxLevel = _creatureCollection.maxChartLevel;
+                _testingIOs[s].BarMaxLevel = _creatureCollection.maxChartLevel;
             }
 
             breedingPlan1.MaxWildLevels = _creatureCollection.maxWildLevel;
@@ -2344,7 +2344,7 @@ namespace ARKBreedingStats
             _clearExtractionCreatureData =
                 true; // as soon as the user changes stat-values, it's assumed it's not an exported creature anymore
 
-            if (sIo.statIndex == Stats.Torpidity
+            if (sIo.StatIndex == Stats.Torpidity
                 && rbWildExtractor.Checked
                 && Properties.Settings.Default.ExtractorConvertWildTorporTotalLevel
                 && speciesSelector1.SelectedSpecies?.stats is SpeciesStat[] speciesStats)
@@ -2360,13 +2360,13 @@ namespace ARKBreedingStats
             if (!cbQuickWildCheck.Checked) return;
 
             int lvlWild = (int)Math.Round(
-                (sIo.Input - speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue) /
-                (speciesSelector1.SelectedSpecies.stats[sIo.statIndex].BaseValue *
-                 speciesSelector1.SelectedSpecies.stats[sIo.statIndex].IncPerWildLevel));
+                (sIo.Input - speciesSelector1.SelectedSpecies.stats[sIo.StatIndex].BaseValue) /
+                (speciesSelector1.SelectedSpecies.stats[sIo.StatIndex].BaseValue *
+                 speciesSelector1.SelectedSpecies.stats[sIo.StatIndex].IncPerWildLevel));
             sIo.LevelWild = lvlWild < 0 ? 0 : lvlWild;
             sIo.LevelMut = 0;
             sIo.LevelDom = 0;
-            if (sIo.statIndex == Stats.Torpidity)
+            if (sIo.StatIndex == Stats.Torpidity)
             {
                 SetQuickTamingInfo(_statIOs[Stats.Torpidity].LevelWild + 1);
             }
@@ -2422,7 +2422,7 @@ namespace ARKBreedingStats
 
             for (int i = 0; i < displayedStatIndices.Length; i++)
             {
-                _statIOs[displayedStatIndices[i]].Input = _statIOs[displayedStatIndices[i]].percent
+                _statIOs[displayedStatIndices[i]].Input = _statIOs[displayedStatIndices[i]].Percent
                     ? OcrValues[i] / 100
                     : OcrValues[i];
             }
