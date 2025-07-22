@@ -313,11 +313,13 @@ namespace ARKBreedingStats.Library
                     (creatureExisting.Status == CreatureStatus.Unavailable && creatureNew.Status == CreatureStatus.Available))
                 {
                     creatureExisting.levelFound = creatureNew.levelFound;
-                    creatureExisting.levelsDom = creatureNew.levelsDom;
                     creatureExisting.levelsWild = creatureNew.levelsWild;
+                    creatureExisting.levelsMutated = creatureNew.levelsMutated;
+                    creatureExisting.levelsDom = creatureNew.levelsDom;
                     creatureExisting.mutationsMaternal = creatureNew.mutationsMaternal;
                     creatureExisting.mutationsPaternal = creatureNew.mutationsPaternal;
                     creatureExisting.tamingEff = creatureNew.tamingEff;
+                    creatureExisting.Traits = creatureNew.Traits;
                     creaturesWereAddedOrUpdated = true;
                     recalculate = true;
                 }
