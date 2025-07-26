@@ -1,5 +1,7 @@
 ﻿using ARKBreedingStats.values;
 using System;
+using System.Collections.Generic;
+using ARKBreedingStats.Traits;
 
 namespace ARKBreedingStats
 {

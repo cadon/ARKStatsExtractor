@@ -104,7 +104,7 @@
       <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
-    <Compile Include="library\CreatureTrait.cs" />
+    <Compile Include="Traits\CreatureTrait.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
@@ -140,6 +140,7 @@
     <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStatsControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Traits\TraitDefinition.cs" />
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -729,6 +730,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\speciesSpecificExtractionFails.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\traitDefinitions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\values\ASA-values.json">

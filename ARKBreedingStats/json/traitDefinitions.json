@@ -1,0 +1,296 @@
+{
+  "Giantslaying": {
+    "name": "Giantslaying",
+    "description": "This Creature deals additional damage to larger targets, but less damage to smaller targets",
+    "effect": "This Creature deals additional damage to larger targets, but less damage to smaller targets\nOutgoing damage against Creatures with DragWeight 500+ is increased by 2.5%/3.75%/5.0%\nOutgoing damage against Creatures with DragWeight 200- is decreased by 7.5%/11.25%/15.0%",
+    "maxCopies": 2
+  },
+  "Protective": {
+    "name": "Protective",
+    "description": "This Creature is fiercely protective of its rider, even after they're no longer riding it",
+    "effect": "Reduce rider damage taken by 15.0%/22.5%/30.0%. Persists for 10 seconds after dismounting",
+    "maxCopies": 2
+  },
+  "Kingslaying": {
+    "name": "Kingslaying",
+    "description": "This Creature has an instinctual dislike for \"important\" enemies, but is less aggressive otherwise",
+    "effect": "Increase damage done to Alphas and Bosses by 5.0%/7.5%/10.0%, but reduce damage to everything else by 10%/15%/20%",
+    "maxCopies": 3
+  },
+  "Angry": {
+    "name": "Angry",
+    "description": "Gain an outgoing-damage boost as health falls",
+    "effect": "Deal an additional up to 1.25%/1.875%/2.5% outgoing-damage as health reaches 50-25%",
+    "maxCopies": 2
+  },
+  "Swimmer": {
+    "name": "Aquatic/Swimmer",
+    "description": "This Creature has adapted to life in water",
+    "effect": "Swimming speed increased by 7.5%/11.25%/15%\nOxygen drain while submerged reduced by 12.5%/18.75%/25.0%\nStamina-drain from swim-sprinting reduced by 4%/6%/8%",
+    "maxCopies": 3
+  },
+  "FrailBase": {
+    "name": "%s-Frail",
+    "description": "This Creature has a frail %s gene, and its offspring are more likely to inherit the lower of its parent's %s stats",
+    "effect": "This Creature's offspring have a -1.5%/2.25%/3% chance to inherit the higher %s stat of its parents",
+    "maxCopies": 3,
+    "inheritHigherProbability": [ -0.015, -0.0225, -0.03 ]
+  },
+  "MutableBase": {
+    "name": "Mutable %s",
+    "description": "This Creature's %s stat is highly mutable, making its offspring more likely to gain mutations",
+    "effect": "This Creature's offspring have a +1%/1.5%/2% chance to mutate, and an extra chance to mutate into %s",
+    "maxCopies": 3,
+    "mutationProbability": [ 0.01, 0.015, 0.02 ]
+  },
+  "RobustBase": {
+    "name": "%s-Robust",
+    "description": "This Creature has a robust %s gene, and its offspring are more likely to inherit the higher of its parent's %s stats",
+    "effect": "This Creature's offspring have a +1.5%/2.25%/3% chance to inherit the higher %s stat of its parents",
+    "maxCopies": 3,
+    "inheritHigherProbability": [ 0.015, 0.0225, 0.03 ]
+  },
+  "InheritFoodFrail": {
+    "traitBase": "FrailBase",
+    "statIndex": 4
+  },
+  "InheritFoodMutable": {
+    "traitBase": "MutableBase",
+    "statIndex": 4
+  },
+  "InheritFoodRobust": {
+    "traitBase": "RobustBase",
+    "statIndex": 4
+  },
+  "InheritHPFrail": {
+    "traitBase": "FrailBase",
+    "statIndex": 0
+  },
+  "InheritHPMutable": {
+    "traitBase": "MutableBase",
+    "statIndex": 0
+  },
+  "InheritHPRobust": {
+    "traitBase": "RobustBase",
+    "statIndex": 0
+  },
+  "InheritMeleeFrail": {
+    "traitBase": "FrailBase",
+    "statIndex": 8
+  },
+  "InheritMeleeMutable": {
+    "traitBase": "MutableBase",
+    "statIndex": 8
+  },
+  "InheritMeleeRobust": {
+    "traitBase": "RobustBase",
+    "statIndex": 8
+  },
+  "InheritOxygenFrail": {
+    "traitBase": "FrailBase",
+    "statIndex": 3
+  },
+  "InheritOxygenMutable": {
+    "traitBase": "MutableBase",
+    "statIndex": 3
+  },
+  "InheritOxygenRobust": {
+    "traitBase": "RobustBase",
+    "statIndex": 3
+  },
+  "InheritStaminaFrail": {
+    "traitBase": "FrailBase",
+    "statIndex": 1
+  },
+  "InheritStaminaMutable": {
+    "traitBase": "MutableBase",
+    "statIndex": 1
+  },
+  "InheritStaminaRobust": {
+    "traitBase": "RobustBase",
+    "statIndex": 1
+  },
+  "InheritWeightFrail": {
+    "traitBase": "FrailBase",
+    "statIndex": 7
+  },
+  "InheritWeightMutable": {
+    "traitBase": "MutableBase",
+    "statIndex": 7
+  },
+  "InheritWeightRobust": {
+    "traitBase": "RobustBase",
+    "statIndex": 7
+  },
+  "CarrierCave": {
+    "name": "Cave-Bearing",
+    "description": "Reduces the weight of Aberration Items in its inventory",
+    "maxCopies": 3
+  },
+  "CarrierPlant": {
+    "name": "Plant-Bearing",
+    "description": "Reduces the weight of plants in its inventory",
+    "effect": "Reduces the weight of the following Resources by 15.0%/22.5%/30%, when in its in its inventory:\nThatch, Wood, Fibers, Berries (all types)",
+    "maxCopies": 3
+  },
+  "CarrierExotic": {
+    "name": "Exotic-Bearing",
+    "description": "Reduces the weight of exotic Items in its inventory",
+    "maxCopies": 3
+  },
+  "CarrierDesert": {
+    "name": "Desert-Bearing",
+    "description": "Reduces the weight of Scorched Earth Items in its inventory",
+    "maxCopies": 3
+  },
+  "CarrierMeat": {
+    "name": "Meat-Bearing",
+    "description": "Reduces the weight of meat in its inventory",
+    "maxCopies": 3
+  },
+  "CarrierCarcass": {
+    "name": "Carcass-Bearing",
+    "description": "Reduces the weight of carcasses in its inventory",
+    "maxCopies": 3
+  },
+  "CarrierWaste": {
+    "name": "Waste-Bearing",
+    "maxCopies": 3
+  },
+  "CarrierMineral": {
+    "name": "Mineral-Bearing",
+    "description": "Reduces the weight of minerals in its inventory",
+    "maxCopies": 3
+  },
+  "Numb": {
+    "name": "Numb",
+    "description": "This Creature can ignore damage... for a time",
+    "effect": "Damage taken by this Creature is reduced by 25%/37.5%/50%, but it gains a DoT that deals that damage over the next 5 seconds\nThis DoT cannot be reduced by any means",
+    "maxCopies": 1
+  },
+  "Nocturnal": {
+    "name": "Nocturnal",
+    "description": "This Creature has adapted to be more active at night",
+    "effect": "Reduces Stamina consumption during night time by 2.5%/3.7%/5.0%",
+    "maxCopies": 3
+  },
+  "Distracting": {
+    "name": "Distracting",
+    "description": "This Creature distracts targets it hits, causing them to deal less damage to anything other than itself",
+    "effect": "Non-allied targets that take damage from this Creature's melee attacks deal 5.0%/7.5%/10.0% less damage to all other targets for 20 seconds",
+    "maxCopies": 1
+  },
+  "Tenacious": {
+    "name": "Tenacious",
+    "description": "This Creature gains incoming-damage reduction as health falls",
+    "effect": "This Creature gains incoming-damage reduction as health falls\nDamage taken is reduced by up to 12.5%/18.75%/25.0% as health reaches 50-25%",
+    "maxCopies": 3
+  },
+  "Fatty": {
+    "name": "Fatty",
+    "description": "This Creature's fat acts as a protective layer against incoming damage",
+    "effect": "Gain X Armor for each point in Food",
+    "maxCopies": 3
+  },
+  "Cowardly": {
+    "name": "Cowardly",
+    "description": "This Creature gets faster when being attacked",
+    "effect": "Whenever this Creature receives damage from a non-allied target, it gains a 2.5%/3.75%/5.0% movespeed buff for 5 seconds, refreshing on subsequent hits",
+    "maxCopies": 3
+  },
+  "Frenetic": {
+    "name": "Frenetic",
+    "description": "This Creature recovers torpor more quickly than normal",
+    "effect": "Torpor regen increased by 7.5%/11.25%/15.0%",
+    "maxCopies": 3
+  },
+  "Athletic": {
+    "name": "Athletic",
+    "description": "This Creature's high lung capacity allows it to quickly regenerate Health and Stamina",
+    "effect": "Gain 0.05/0.075/0.1 health-regen and 0.0005/0.00075/0.001 stamina-regen for each point in Oxygen",
+    "maxCopies": 3
+  },
+  "Vampiric": {
+    "name": "Vampiric",
+    "description": "This Creature recovers health equal to a percentage of the damage it deals",
+    "effect": "Gains 5.0%/7.5%/10.0% of damage dealt as health, determined by size (smaller Creatures get more)",
+    "maxCopies": 1
+  },
+  "HeavyHitting": {
+    "name": "Heavy-Hitting",
+    "description": "This Creature hits harder, but less quickly",
+    "effect": "Melee damage increased by 2.5%/3.75%/5.0%, but attack speed reduced by 5%/7.5%/10.0%",
+    "maxCopies": 3
+  },
+  "Carefree": {
+    "name": "Carefree",
+    "description": "This Creature is faster when it isn't thinking about fighting",
+    "effect": "Gains X% movespeed that is lost for 20 seconds after dealing/receiving damage or gaining a rider",
+    "maxCopies": 1
+  },
+  "QuickHitting": {
+    "name": "Quick-Hitting",
+    "description": "This Creature hits more quickly, but for less damage",
+    "effect": "Attack speed increased by 2.5%/3.75%/5.0%, but melee damage reduced by 5.0%/7.5%/10.0%",
+    "maxCopies": 3
+  },
+  "Diurnal": {
+    "name": "Diurnal",
+    "description": "This Creature has adapted to be more active at day",
+    "effect": "Reduces Stamina consumption during day time by 2.5%/3.75%/5.0%",
+    "maxCopies": 3
+  },
+  "Warm": {
+    "name": "Warm",
+    "description": "This Creature is uncommonly warm, protecting its rider from the cold",
+    "effect": "Creature and its rider gain 40/60/80 Hypothermic Insulation\nReduces incoming damage from Cold attacks (ice-breath type stuff) by 5.0%/7.5%/10.0%",
+    "maxCopies": 3
+  },
+  "HighEndurance": {
+    "name": "High Endurance",
+    "description": "This Creature can run for longer than most",
+    "effect": "Stamina-drain from sprinting is decreased by 4%/6%/8%",
+    "maxCopies": 3
+  },
+  "SlowMetabolism": {
+    "name": "Slow-Metabolism",
+    "description": "This Creature burns through its food stores slowly",
+    "effect": "Reduce food consumption by 5.0%/7.5%/10.0%",
+    "maxCopies": 3
+  },
+  "Cold": {
+    "name": "Cold",
+    "description": "This Creature is uncommonly cool, protecting its rider from the heat",
+    "effect": "Creature and its rider gain 40/60/80 Hyperthermic Insulation\nReduces incoming damage from Heat attacks (fire-breath type stuff) by 5.0%/7.5%/10.0%",
+    "maxCopies": 3
+  },
+  "Aggressive": {
+    "name": "Aggressive",
+    "description": "This Creature gets faster when attacking",
+    "effect": "Whenever this Creature deals damage to a non-allied target, it gains a 2.5%/3.75%/5.0% movespeed buff for 5 seconds, refreshing on subsequent hits",
+    "maxCopies": 2
+  },
+  "AggressiveCheatDuration": {
+    "name": "Aggressive (cheat 1)",
+    "description": "This Creature gets faster when attacking",
+    "effect": "Whenever this Creature deals damage to a non-allied target, it gains a X% movespeed buff for 5 seconds, refreshing on subsequent hits",
+    "maxCopies": 3
+  },
+  "AggressiveCheatDuration2": {
+    "name": "Aggressive (cheat 2)",
+    "description": "This Creature gets faster when attacking",
+    "effect": "Whenever this Creature deals damage to a non-allied target, it gains a X% movespeed buff for 5 seconds, refreshing on subsequent hits",
+    "maxCopies": 3
+  },
+  "Excitable": {
+    "name": "Excitable",
+    "description": "This Creature gets excited the more it's in combat, following up simple attacks with more powerful ones",
+    "effect": "Hitting an enemy with this Creature's basic melee attack reduces the cooldown of its other abilities by 0.25/0.375/0.5 seconds",
+    "maxCopies": 1
+  },
+  "FastLearner": {
+    "name": "Fast Learner",
+    "description": "This Creature has a natural aptitude for growth and learning new skills",
+    "effect": "Increased XP by 15.0%/22.5%/30.0%"
+  }
+}

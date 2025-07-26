@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using ARKBreedingStats.library;
+using ARKBreedingStats.Traits;
 
 namespace ARKBreedingStats.Library
 {
@@ -599,7 +600,7 @@ namespace ARKBreedingStats.Library
         }
 
         [OnDeserialized]
-        private void Initialize(StreamingContext ct)
+        private void Initialize(StreamingContext _)
         {
             InitializeArkIdInGame();
             if (flags.HasFlag(CreatureFlags.Placeholder)) return;

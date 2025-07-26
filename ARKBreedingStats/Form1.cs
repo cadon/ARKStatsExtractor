@@ -20,6 +20,7 @@ using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.StatsOptions;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.Traits;
 using ARKBreedingStats.utils;
 using static ARKBreedingStats.settings.Settings;
 using Color = System.Drawing.Color;
@@ -294,6 +295,8 @@ namespace ARKBreedingStats
             _statIOs[Stats.Food].DomLevelLockedZero = true;
 
             LbWarningLevel255.Visible = false;
+
+            TraitDefinition.LoadTraitDefinitions();
 
             InitializeCollection();
 
