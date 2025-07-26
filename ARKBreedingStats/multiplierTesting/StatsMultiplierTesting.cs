@@ -745,7 +745,7 @@ To determine all species values, the files with the following creature combinati
 
         private void copyStatValuesToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CopySpeciesStatsToClipboard();
+            CopySpeciesStatsToClipboard(_selectedSpecies.blueprintPath, _selectedSpecies.StatImprintMultipliersRaw);
         }
 
         private void CopySpeciesStatsToClipboard(string speciesBlueprintPath = null, double[] speciesImprintingMultipliers = null)
@@ -785,7 +785,7 @@ To determine all species values, the files with the following creature combinati
             if (speciesImprintingMultipliers != null)
             {
                 sb.AppendLine(",");
-                sb.Append($"\"statImprintMult\": [ {string.Join(", ", speciesBlueprintPath)} ]");
+                sb.Append($"\"statImprintMult\": [ {string.Join(", ", speciesImprintingMultipliers)} ]");
             }
             sb.AppendLine();
 
@@ -861,14 +861,14 @@ To determine all species values, the files with the following creature combinati
 
             SpeciesStatsExtractor.ExtractStatValues(creatureFiles, sm, out var species, out var resultText, out var isError);
             SetSpecies(species);
+            CopySpeciesStatsToClipboard(species.blueprintPath, species.StatImprintMultipliersRaw);
 
             if (isError)
             {
-                SetMessageLabelText?.Invoke("Error while trying to determine the species stats." + Environment.NewLine + resultText, MessageBoxIcon.Error);
+                SetMessageLabelText?.Invoke("Possible error while trying to determine the species stats. If the errors are only in stats the species does not use, the extraction was successful." + Environment.NewLine + resultText, MessageBoxIcon.Warning);
                 return;
             }
 
-            CopySpeciesStatsToClipboard(species.blueprintPath, species.StatImprintMultipliersRaw);
             if (!string.IsNullOrEmpty(resultText))
                 resultText += Environment.NewLine;
             SetMessageLabelText?.Invoke(resultText +
