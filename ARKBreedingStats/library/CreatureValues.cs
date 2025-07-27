@@ -2,7 +2,9 @@
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using ARKBreedingStats.Traits;
 
 namespace ARKBreedingStats.Library
 {
@@ -100,6 +102,9 @@ namespace ARKBreedingStats.Library
             set => ColorIdsAlsoPossible = value?.Select(i => (byte)i).ToArray();
             get => ColorIdsAlsoPossible?.Select(i => (int)i).ToArray();
         }
+
+        [JsonProperty("traits", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public List<CreatureTrait> Traits;
 
         public CreatureValues() { }
 

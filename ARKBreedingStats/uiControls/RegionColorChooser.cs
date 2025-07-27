@@ -186,11 +186,7 @@ namespace ARKBreedingStats.uiControls
             _tt.SetToolTip(bt, $"[{region}] {_colorRegions?[region]?.name}:\n{colorId}: {CreatureColors.CreatureColorName(colorId)}");
         }
 
-        private void RegionColorChooser_Disposed(object sender, EventArgs e)
-        {
-            _tt.RemoveAll();
-            _tt.Dispose();
-        }
+        private void RegionColorChooser_Disposed(object sender, EventArgs e) => _tt.RemoveAllAndDispose();
 
         /// <summary>
         /// True if a color is new in this species.

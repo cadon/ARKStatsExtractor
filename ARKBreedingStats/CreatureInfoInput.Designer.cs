@@ -84,6 +84,7 @@ namespace ARKBreedingStats
             this.lbOwner = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.btAdd2Library = new System.Windows.Forms.Button();
+            this.BtTraits = new System.Windows.Forms.Button();
             this.gbCreatureInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
@@ -92,6 +93,7 @@ namespace ARKBreedingStats
             // 
             // gbCreatureInfo
             // 
+            this.gbCreatureInfo.Controls.Add(this.BtTraits);
             this.gbCreatureInfo.Controls.Add(this.CbMutagen);
             this.gbCreatureInfo.Controls.Add(this.LbColorNewInRegion);
             this.gbCreatureInfo.Controls.Add(this.LbColorNewInSpecies);
@@ -713,6 +715,16 @@ namespace ARKBreedingStats
             this.btAdd2Library.UseVisualStyleBackColor = true;
             this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
             // 
+            // BtTraits
+            // 
+            this.BtTraits.Location = new System.Drawing.Point(9, 412);
+            this.BtTraits.Name = "BtTraits";
+            this.BtTraits.Size = new System.Drawing.Size(53, 23);
+            this.BtTraits.TabIndex = 54;
+            this.BtTraits.Text = "Traits";
+            this.BtTraits.UseVisualStyleBackColor = true;
+            this.BtTraits.Click += new System.EventHandler(this.BtTraits_Click);
+            // 
             // CreatureInfoInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -785,5 +797,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label LbColorNewInRegion;
         private System.Windows.Forms.Label LbColorNewInSpecies;
         private System.Windows.Forms.CheckBox CbMutagen;
+        private System.Windows.Forms.Button BtTraits;
     }
 }

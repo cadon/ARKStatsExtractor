@@ -33,11 +33,7 @@ namespace ARKBreedingStats
             {
                 AutoPopDelay = 10000
             };
-            Disposed += (s, e) =>
-            {
-                _tt.RemoveAll();
-                _tt.Dispose();
-            };
+            Disposed += (s, e) => _tt.RemoveAllAndDispose();
 
             _creature = null;
             regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;

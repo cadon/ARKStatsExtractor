@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.Traits
@@ -9,6 +10,7 @@ namespace ARKBreedingStats.Traits
     [JsonObject(MemberSerialization.OptIn)]
     public class TraitDefinition
     {
+        public string Id;
         [JsonProperty("name")]
         public string Name;
         [JsonProperty("description")]
@@ -43,6 +45,16 @@ namespace ARKBreedingStats.Traits
         /// </summary>
         [JsonProperty("traitBase")]
         public string BaseId;
+        /// <summary>
+        /// If true this is a base trait definition which should not be displayed in the user interface and only used for other definitions as base.
+        /// </summary>
+        [JsonProperty("isBase")]
+        public bool IsBase;
+
+        public override string ToString()
+        {
+            return Name;
+        }
 
         private static Dictionary<string, TraitDefinition> _traitDefinitions;
 
@@ -51,25 +63,28 @@ namespace ARKBreedingStats.Traits
             FileService.LoadJsonFile(FileService.GetJsonPath(FileService.TraitDefinitionsFile), out _traitDefinitions, out _);
             if (_traitDefinitions == null) return;
 
-            foreach (var t in _traitDefinitions.Values)
+            foreach (var t in _traitDefinitions)
             {
-                if (!string.IsNullOrEmpty(t.BaseId)
-                    && _traitDefinitions.TryGetValue(t.BaseId, out var baseTrait))
+                var traitDef = t.Value;
+                if (traitDef == null) continue;
+                traitDef.Id = t.Key;
+                if (!string.IsNullOrEmpty(traitDef.BaseId)
+                    && _traitDefinitions.TryGetValue(traitDef.BaseId, out var baseTrait))
                 {
-                    if (string.IsNullOrEmpty(t.Name)) t.Name = baseTrait.Name;
-                    if (string.IsNullOrEmpty(t.Description)) t.Description = baseTrait.Description;
-                    if (string.IsNullOrEmpty(t.Effect)) t.Effect = baseTrait.Effect;
-                    if (t.MutationProbability == null) t.MutationProbability = baseTrait.MutationProbability;
-                    if (t.InheritHigherProbability == null) t.InheritHigherProbability = baseTrait.InheritHigherProbability;
-                    if (t.MaxCopies == -1) t.MaxCopies = baseTrait.MaxCopies;
+                    if (string.IsNullOrEmpty(traitDef.Name)) traitDef.Name = baseTrait.Name;
+                    if (string.IsNullOrEmpty(traitDef.Description)) traitDef.Description = baseTrait.Description;
+                    if (string.IsNullOrEmpty(traitDef.Effect)) traitDef.Effect = baseTrait.Effect;
+                    if (traitDef.MutationProbability == null) traitDef.MutationProbability = baseTrait.MutationProbability;
+                    if (traitDef.InheritHigherProbability == null) traitDef.InheritHigherProbability = baseTrait.InheritHigherProbability;
+                    if (traitDef.MaxCopies == -1) traitDef.MaxCopies = baseTrait.MaxCopies;
                 }
 
-                if (t.StatIndex >= 0)
+                if (traitDef.StatIndex >= 0)
                 {
-                    var statName = Utils.StatName(t.StatIndex);
-                    t.Name = t.Name.Replace("%s", statName);
-                    t.Description = t.Description.Replace("%s", statName);
-                    t.Effect = t.Effect.Replace("%s", statName);
+                    var statName = Utils.StatName(traitDef.StatIndex);
+                    traitDef.Name = traitDef.Name.Replace("%s", statName);
+                    traitDef.Description = traitDef.Description.Replace("%s", statName);
+                    traitDef.Effect = traitDef.Effect.Replace("%s", statName);
                 }
             }
         }
@@ -80,5 +95,7 @@ namespace ARKBreedingStats.Traits
                 return traitDefinition;
             return null;
         }
+
+        public static TraitDefinition[] GetTraitDefinitions() => _traitDefinitions?.Values.ToArray();
     }
 }

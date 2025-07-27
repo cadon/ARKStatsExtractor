@@ -611,5 +611,8 @@
     <Setting Name="BondedTamingRank" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="WindowPositionTraitSelection" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">200, 200, 450, 600</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

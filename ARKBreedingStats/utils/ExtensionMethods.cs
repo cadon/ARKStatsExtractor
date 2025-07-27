@@ -51,5 +51,15 @@ namespace ARKBreedingStats.utils
         /// Returns the hsv values of this color.
         /// </summary>
         public static (float h, float s, float v) GetHsv(this Color c) => (c.GetHue(), c.GetSaturation(), c.GetValue());
+
+        /// <summary>
+        /// Call when parent of tooltip is closed to avoid memory leak.
+        /// </summary>
+        /// <param name="tt"></param>
+        public static void RemoveAllAndDispose(this ToolTip tt)
+        {
+            tt.RemoveAll();
+            tt.Dispose();
+        }
     }
 }

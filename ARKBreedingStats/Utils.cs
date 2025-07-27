@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
@@ -541,8 +542,7 @@ namespace ARKBreedingStats
             inputForm.Height = Math.Min(y + 50, 800);
 
             var dialogResult = inputForm.ShowDialog();
-            tt.RemoveAll();
-            tt.Dispose();
+            tt.RemoveAllAndDispose();
 
             return dialogResult != DialogResult.OK ? -1 : result;
         }

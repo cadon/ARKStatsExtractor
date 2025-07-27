@@ -2,7 +2,7 @@
   "Giantslaying": {
     "name": "Giantslaying",
     "description": "This Creature deals additional damage to larger targets, but less damage to smaller targets",
-    "effect": "This Creature deals additional damage to larger targets, but less damage to smaller targets\nOutgoing damage against Creatures with DragWeight 500+ is increased by 2.5%/3.75%/5.0%\nOutgoing damage against Creatures with DragWeight 200- is decreased by 7.5%/11.25%/15.0%",
+    "effect": "Outgoing damage against Creatures with DragWeight 500+ is increased by 2.5%/3.75%/5.0%\nOutgoing damage against Creatures with DragWeight 200- is decreased by 7.5%/11.25%/15.0%",
     "maxCopies": 2
   },
   "Protective": {
@@ -34,21 +34,24 @@
     "description": "This Creature has a frail %s gene, and its offspring are more likely to inherit the lower of its parent's %s stats",
     "effect": "This Creature's offspring have a -1.5%/2.25%/3% chance to inherit the higher %s stat of its parents",
     "maxCopies": 3,
-    "inheritHigherProbability": [ -0.015, -0.0225, -0.03 ]
+    "inheritHigherProbability": [ -0.015, -0.0225, -0.03 ],
+    "isBase": true
   },
   "MutableBase": {
     "name": "Mutable %s",
     "description": "This Creature's %s stat is highly mutable, making its offspring more likely to gain mutations",
     "effect": "This Creature's offspring have a +1%/1.5%/2% chance to mutate, and an extra chance to mutate into %s",
     "maxCopies": 3,
-    "mutationProbability": [ 0.01, 0.015, 0.02 ]
+    "mutationProbability": [ 0.01, 0.015, 0.02 ],
+    "isBase": true
   },
   "RobustBase": {
     "name": "%s-Robust",
     "description": "This Creature has a robust %s gene, and its offspring are more likely to inherit the higher of its parent's %s stats",
     "effect": "This Creature's offspring have a +1.5%/2.25%/3% chance to inherit the higher %s stat of its parents",
     "maxCopies": 3,
-    "inheritHigherProbability": [ 0.015, 0.0225, 0.03 ]
+    "inheritHigherProbability": [ 0.015, 0.0225, 0.03 ],
+    "isBase": true
   },
   "InheritFoodFrail": {
     "traitBase": "FrailBase",

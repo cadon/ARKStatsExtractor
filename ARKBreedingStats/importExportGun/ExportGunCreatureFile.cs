@@ -52,6 +52,7 @@ namespace ARKBreedingStats.importExportGun
         public float TameEffectiveness { get; set; }
         public int BaseCharacterLevel { get; set; }
         public float DinoImprintingQuality { get; set; }
+        public string[] Traits { get; set; }
     }
 
     [JsonObject]

@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.StatsOptions
 {
@@ -62,8 +63,7 @@ namespace ARKBreedingStats.StatsOptions
             if (_displayedForm == null) return;
             Properties.Settings.Default.LevelColorWindowRectangle =
                 new Rectangle(_displayedForm.Left, _displayedForm.Top, _displayedForm.Width, _displayedForm.Height);
-            _displayedForm.Tt.RemoveAll();
-            _displayedForm.Tt.Dispose();
+            _displayedForm.Tt.RemoveAllAndDispose();
             _displayedForm = null;
         }
     }

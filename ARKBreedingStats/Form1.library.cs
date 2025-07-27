@@ -1790,6 +1790,9 @@ namespace ARKBreedingStats
                     if (listViewLibrary.SelectedIndices.Count > 0)
                         ShowMultiSetter();
                     break;
+                case Keys.F4:
+                    EditTraitsOfSelectedCreaturesInLibrary();
+                    break;
                 case Keys.F5:
                     if (listViewLibrary.SelectedIndices.Count > 0)
                         AdminCommandToSetColors();
@@ -2504,5 +2507,29 @@ namespace ARKBreedingStats
         }
 
         #endregion
+
+        private void editTraitsToolStripMenuItem_Click(object sender, EventArgs e) => EditTraitsOfSelectedCreaturesInLibrary();
+
+        private void EditTraitsOfSelectedCreaturesInLibrary()
+        {
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            EditTraits(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]).ToArray());
+        }
+
+        private void EditTraits(IList<Creature> creatures)
+        {
+            if (creatures?.Any() != true) return;
+            if (!TraitSelection.ShowTraitSelectionWindow(creatures[0].Traits?.ToList(),
+                $"Trait Selection for {creatures[0].name} ({creatures[0].Species}){(creatures.Count > 1 ? $" and {creatures.Count - 1} other creature{(creatures.Count > 2 ? "s" : string.Empty)}" : string.Empty)}",
+                out var appliedTraits))
+                return;
+
+            foreach (int i in listViewLibrary.SelectedIndices)
+            {
+                _creaturesDisplayed[i].Traits = appliedTraits?.ToList();
+            }
+            // update list display
+            FilterLib();
+        }
     }
 }

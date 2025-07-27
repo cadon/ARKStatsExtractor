@@ -54,6 +54,12 @@ namespace ARKBreedingStats
         /// </summary>
         public const double ProbabilityOfOneMutationFromOneParent = 1 - (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2);
 
+        /// <summary>
+        /// Returns the probability of at least one mutation considering a possible additive mutation probability offset, e.g. by using traits.
+        /// </summary>
+        public static double ProbabilityOfOneMutationWithOffset(double mutationProbabilityOffset)
+            => 1 - Math.Pow(1 - (ProbabilityOfMutation + mutationProbabilityOffset), 3);
+
         #endregion
 
         #region Mutagen

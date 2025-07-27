@@ -164,10 +164,8 @@ namespace ARKBreedingStats.Pedigree
 
         private void PedigreeCreature_Disposed(object sender, EventArgs e)
         {
-            _ttMonospaced.RemoveAll();
-            _ttMonospaced.Dispose();
-            _tt.RemoveAll();
-            _tt.Dispose();
+            _ttMonospaced.RemoveAllAndDispose();
+            _tt.RemoveAllAndDispose();
         }
 
         private Creature _creature;

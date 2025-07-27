@@ -1489,7 +1489,8 @@ namespace ARKBreedingStats
                 colors = input.RegionColors,
                 ColorIdsAlsoPossible = input.ColorIdsAlsoPossible,
                 guid = fromExtractor && input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid(),
-                ArkId = input.ArkId
+                ArkId = input.ArkId,
+                Traits = input.Traits?.ToList()
             };
 
             creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);

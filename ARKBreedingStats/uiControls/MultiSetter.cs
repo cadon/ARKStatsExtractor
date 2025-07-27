@@ -315,11 +315,7 @@ namespace ARKBreedingStats.uiControls
             mst.TagCheckState = CheckState.Checked;
         }
 
-        private void MultiSetter_Disposed(object sender, EventArgs e)
-        {
-            _tt.RemoveAll();
-            _tt.Dispose();
-        }
+        private void MultiSetter_Disposed(object sender, EventArgs e) => _tt.RemoveAllAndDispose();
 
         private void SetLocalizations()
         {

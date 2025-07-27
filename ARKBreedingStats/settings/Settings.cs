@@ -1078,8 +1078,7 @@ namespace ARKBreedingStats.settings
 
         private void Settings_Disposed(object sender, EventArgs e)
         {
-            _tt.RemoveAll();
-            _tt.Dispose();
+            _tt.RemoveAllAndDispose();
         }
 
         private void buttonEventToDefault_Click(object sender, EventArgs e)

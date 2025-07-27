@@ -2770,6 +2770,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureStatus = creatureInfoInputExtractor.CreatureStatus;
             creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
             creatureInfoInputTester.ColorIdsAlsoPossible = creatureInfoInputExtractor.ColorIdsAlsoPossible;
+            creatureInfoInputTester.Traits = creatureInfoInputExtractor.Traits?.ToList();
 
             tabControlMain.SelectedTab = tabPageStatTesting;
         }
@@ -3271,6 +3272,7 @@ namespace ARKBreedingStats
             else if (rbTamedExtractor.Checked)
                 cv.isTamed = true;
             cv.imprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value * 0.01;
+            cv.Traits = creatureInfoInputExtractor.Traits?.ToList();
 
             return cv;
         }
@@ -4155,6 +4157,16 @@ namespace ARKBreedingStats
             if (File.Exists(filePath))
                 Process.Start(filePath);
             else MessageBoxes.ShowMessageBox($"Couldn't create file {filePath} automatically. Maybe you can create that file manually.");
+        }
+
+        private void howManyFemalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://arkutils.netlify.app/tools/howmanyfemales");
+        }
+
+        private void howGoodAreMyStatsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://arkutils.netlify.app/tools/wildstats");
         }
     }
 }

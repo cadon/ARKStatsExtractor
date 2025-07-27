@@ -2433,5 +2433,17 @@ namespace ARKBreedingStats.Properties {
                 this["BondedTamingRank"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200, 200, 450, 600")]
+        public global::System.Drawing.Rectangle WindowPositionTraitSelection {
+            get {
+                return ((global::System.Drawing.Rectangle)(this["WindowPositionTraitSelection"]));
+            }
+            set {
+                this["WindowPositionTraitSelection"] = value;
+            }
+        }
     }
 }

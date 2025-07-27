@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -23,10 +24,7 @@ namespace ARKBreedingStats.uiControls
             Disposed += TagSelector_Disposed;
         }
 
-        private void TagSelector_Disposed(object sender, EventArgs e)
-        {
-            tt.RemoveAll();
-        }
+        private void TagSelector_Disposed(object sender, EventArgs e) => tt.RemoveAllAndDispose();
 
         private void button1_Click(object sender, EventArgs e)
         {

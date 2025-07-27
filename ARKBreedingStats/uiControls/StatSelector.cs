@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -44,7 +45,7 @@ namespace ARKBreedingStats.uiControls
                 flowLayoutPanel1.Controls.Add(r);
             }
 
-            Disposed += (s, e) => _tt.RemoveAll();
+            Disposed += (s, e) => _tt.RemoveAllAndDispose();
         }
 
         private void RadioButtonCheckedChanged(object sender, EventArgs e)

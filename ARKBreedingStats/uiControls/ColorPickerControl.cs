@@ -46,11 +46,7 @@ namespace ARKBreedingStats.uiControls
             checkBoxOnlyNatural.Checked = setCheckboxOnlyNaturalColors ?? !Properties.Settings.Default.ColorSelectorShowAllColors;
         }
 
-        private void MyColorPicker_Disposed(object sender, EventArgs e)
-        {
-            _tt.RemoveAll();
-            _tt.Dispose();
-        }
+        private void MyColorPicker_Disposed(object sender, EventArgs e) => _tt.RemoveAllAndDispose();
 
         public void CancelButtonVisible(bool visible)
         {

@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using System;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -80,9 +81,6 @@ namespace ARKBreedingStats.uiControls
             labelSex.Text = "";
         }
 
-        private void StatsDisplay_Disposed(object sender, EventArgs e)
-        {
-            tt.RemoveAll();
-        }
+        private void StatsDisplay_Disposed(object sender, EventArgs e) => tt.RemoveAllAndDispose();
     }
 }

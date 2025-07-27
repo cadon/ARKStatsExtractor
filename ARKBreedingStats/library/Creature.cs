@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Traits;
 
 namespace ARKBreedingStats.Library
@@ -633,14 +632,7 @@ namespace ARKBreedingStats.Library
             flags = (flags & ~CreatureFlags.Mutated) | (Mutations > 0 ? CreatureFlags.Mutated : CreatureFlags.None);
         }
 
-        public void AddTrait(CreatureTrait trait)
-        {
-            if (Traits == null)
-                Traits = new List<CreatureTrait> { trait };
-            else Traits.Add(trait);
-        }
-
-        public string TraitsString => Traits == null ? string.Empty : string.Join(", ", Traits);
+        public string TraitsString => CreatureTrait.StringList(Traits);
 
         /// <summary>
         /// Calculates the pretame wild level. This value can be off due to wrong inputs due to ingame rounding.
