@@ -86,6 +86,7 @@
     <Compile Include="AsbServer\Connection.cs" />
     <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
     <Compile Include="AsbServer\ServerSendName.cs" />
+    <Compile Include="BreedingPlanning\CurrentBreedingPair.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="Form1.exportGun.cs">
@@ -155,6 +156,12 @@
     </Compile>
     <Compile Include="uiControls\CreatureAnalysis.Designer.cs">
       <DependentUpon>CreatureAnalysis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\CurrentBreeds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\CurrentBreeds.Designer.cs">
+      <DependentUpon>CurrentBreeds.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\Hatching.cs">
       <SubType>UserControl</SubType>
@@ -790,6 +797,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\CreatureAnalysis.resx">
       <DependentUpon>CreatureAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\CurrentBreeds.resx">
+      <DependentUpon>CurrentBreeds.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>

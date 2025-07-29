@@ -243,6 +243,8 @@ namespace ARKBreedingStats
 
             notesControl1.CheckForUnsavedChanges();
 
+            _creatureCollection.CurrentBreedingPairs = currentBreeds1.CurrentBreedingPairs;
+
             // Wait until the file is writable
             const int numberOfRetries = 5;
             const int delayOnRetryBase = 500;
@@ -651,6 +653,8 @@ namespace ARKBreedingStats
 
             // apply last sorting
             SortLibrary();
+
+            currentBreeds1.DisplaySpeciesCurrentBreedingPairs(speciesSelector1.SelectedSpecies, true);
 
             UpdateTempCreatureDropDown();
 

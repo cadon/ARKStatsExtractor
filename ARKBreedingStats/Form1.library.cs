@@ -260,6 +260,8 @@ namespace ARKBreedingStats
 
             ApplySpeciesObjectsToCollection(_creatureCollection);
 
+            currentBreeds1.CurrentBreedingPairs = _creatureCollection.CurrentBreedingPairs;
+
             UpdateTempCreatureDropDown();
 
             // if collection is loaded, set export folder to default if there's a match

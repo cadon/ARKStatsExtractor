@@ -40,21 +40,28 @@ namespace ARKBreedingStats.uiControls
 
             foreach (var si in Stats.DisplayOrder)
             {
-                if (!species.UsesStat(si)) continue;
-
-                var isPercentage = Stats.IsPercentage(si);
-                var statValue = StatValueCalculation.CalculateValue(species, si, highLevels[si], 0, 0, true, 1, 0);
-                var statRepresentation = isPercentage ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
+                if (!species.UsesStat(si) || si == Stats.Torpidity) continue;
 
                 sbNames += $"{Utils.StatName(si, customStatNames: species.statNames)}\n";
+                var isPercentage = Stats.IsPercentage(si);
+                string statRepresentation;
+                if (highLevels[si] >= 0)
+                {
+                    var statValue = StatValueCalculation.CalculateValue(species, si, highLevels[si], 0, 0, true, 1, 0);
+                    statRepresentation = isPercentage ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
+                }
+                else statRepresentation = "?";
                 sbValues += statRepresentation + "\n";
-                sbLevels += highLevels[si] + "\n";
+                sbLevels += (highLevels[si] >= 0 ? highLevels[si].ToString() : "?") + "\n";
 
-                statValue = StatValueCalculation.CalculateValue(species, si, lowLevels[si], 0, 0, true, 1, 0);
-                statRepresentation = isPercentage ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
-
+                if (lowLevels[si] >= 0)
+                {
+                    var statValue = StatValueCalculation.CalculateValue(species, si, lowLevels[si], 0, 0, true, 1, 0);
+                    statRepresentation = isPercentage ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
+                }
+                else statRepresentation = "?";
                 sbLowestValues += statRepresentation + "\n";
-                sbLowestLevels += lowLevels[si] + "\n";
+                sbLowestLevels += (lowLevels[si] >= 0 ? lowLevels[si].ToString() : "?") + "\n";
             }
 
             LbStatNames.Text = sbNames;

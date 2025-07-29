@@ -357,7 +357,8 @@ namespace ARKBreedingStats
             this.tamingControl1 = new ARKBreedingStats.TamingControl();
             this.tabPageBreedingPlan = new System.Windows.Forms.TabPage();
             this.breedingPlan1 = new ARKBreedingStats.BreedingPlanning.BreedingPlan();
-            this.tabPageHatching = new System.Windows.Forms.TabPage();
+            this.tabPageCurrentBreeds = new System.Windows.Forms.TabPage();
+            this.currentBreeds1 = new ARKBreedingStats.uiControls.CurrentBreeds();
             this.hatching1 = new ARKBreedingStats.uiControls.Hatching();
             this.tabPageRaising = new System.Windows.Forms.TabPage();
             this.raisingControl1 = new ARKBreedingStats.raising.RaisingControl();
@@ -474,7 +475,7 @@ namespace ARKBreedingStats
             this.tabPagePedigree.SuspendLayout();
             this.tabPageTaming.SuspendLayout();
             this.tabPageBreedingPlan.SuspendLayout();
-            this.tabPageHatching.SuspendLayout();
+            this.tabPageCurrentBreeds.SuspendLayout();
             this.tabPageRaising.SuspendLayout();
             this.tabPageTimer.SuspendLayout();
             this.tabPagePlayerTribes.SuspendLayout();
@@ -1785,7 +1786,7 @@ namespace ARKBreedingStats
             this.tabControlMain.Controls.Add(this.tabPagePedigree);
             this.tabControlMain.Controls.Add(this.tabPageTaming);
             this.tabControlMain.Controls.Add(this.tabPageBreedingPlan);
-            this.tabControlMain.Controls.Add(this.tabPageHatching);
+            this.tabControlMain.Controls.Add(this.tabPageCurrentBreeds);
             this.tabControlMain.Controls.Add(this.tabPageRaising);
             this.tabControlMain.Controls.Add(this.tabPageTimer);
             this.tabControlMain.Controls.Add(this.tabPagePlayerTribes);
@@ -2933,7 +2934,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator14,
             this.toolStripMenuItemRemove});
             this.contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            this.contextMenuStripLibrary.Size = new System.Drawing.Size(302, 546);
+            this.contextMenuStripLibrary.Size = new System.Drawing.Size(302, 524);
             this.contextMenuStripLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLibrary_Opening);
             // 
             // toolStripMenuItemEdit
@@ -3512,23 +3513,31 @@ namespace ARKBreedingStats
             this.breedingPlan1.Size = new System.Drawing.Size(1864, 778);
             this.breedingPlan1.TabIndex = 0;
             // 
-            // tabPageHatching
+            // tabPageCurrentBreeds
             // 
-            this.tabPageHatching.Controls.Add(this.hatching1);
-            this.tabPageHatching.Location = new System.Drawing.Point(4, 22);
-            this.tabPageHatching.Name = "tabPageHatching";
-            this.tabPageHatching.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHatching.Size = new System.Drawing.Size(1870, 784);
-            this.tabPageHatching.TabIndex = 13;
-            this.tabPageHatching.Text = "Hatching";
-            this.tabPageHatching.UseVisualStyleBackColor = true;
+            this.tabPageCurrentBreeds.Controls.Add(this.currentBreeds1);
+            this.tabPageCurrentBreeds.Controls.Add(this.hatching1);
+            this.tabPageCurrentBreeds.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCurrentBreeds.Name = "tabPageCurrentBreeds";
+            this.tabPageCurrentBreeds.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCurrentBreeds.Size = new System.Drawing.Size(1870, 784);
+            this.tabPageCurrentBreeds.TabIndex = 13;
+            this.tabPageCurrentBreeds.Text = "Current Breeds";
+            this.tabPageCurrentBreeds.UseVisualStyleBackColor = true;
+            // 
+            // currentBreeds1
+            // 
+            this.currentBreeds1.CurrentBreedingPairs = null;
+            this.currentBreeds1.Location = new System.Drawing.Point(8, 6);
+            this.currentBreeds1.Name = "currentBreeds1";
+            this.currentBreeds1.Size = new System.Drawing.Size(796, 539);
+            this.currentBreeds1.TabIndex = 1;
             // 
             // hatching1
             // 
-            this.hatching1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hatching1.Location = new System.Drawing.Point(3, 3);
+            this.hatching1.Location = new System.Drawing.Point(794, 6);
             this.hatching1.Name = "hatching1";
-            this.hatching1.Size = new System.Drawing.Size(1864, 778);
+            this.hatching1.Size = new System.Drawing.Size(430, 386);
             this.hatching1.TabIndex = 0;
             // 
             // tabPageRaising
@@ -4264,7 +4273,7 @@ namespace ARKBreedingStats
             this.tabPagePedigree.ResumeLayout(false);
             this.tabPageTaming.ResumeLayout(false);
             this.tabPageBreedingPlan.ResumeLayout(false);
-            this.tabPageHatching.ResumeLayout(false);
+            this.tabPageCurrentBreeds.ResumeLayout(false);
             this.tabPageRaising.ResumeLayout(false);
             this.tabPageTimer.ResumeLayout(false);
             this.tabPagePlayerTribes.ResumeLayout(false);
@@ -4580,7 +4589,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem addRandomCreaturesToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ToolStripMenuItem breedingPlanForSelectedCreaturesToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPageHatching;
+        private System.Windows.Forms.TabPage tabPageCurrentBreeds;
         private uiControls.Hatching hatching1;
         private System.Windows.Forms.ToolStripMenuItem speciesSortingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetSortingToolStripMenuItem;
@@ -4675,5 +4684,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem arkUtilsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem howManyFemalesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem howGoodAreMyStatsToolStripMenuItem;
+        private uiControls.CurrentBreeds currentBreeds1;
     }
 }

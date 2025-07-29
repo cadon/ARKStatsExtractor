@@ -133,6 +133,7 @@ namespace ARKBreedingStats
             breedingPlan1.EditCreature += EditCreatureInTester;
             breedingPlan1.DisplayInPedigree += DisplayCreatureInPedigree;
             breedingPlan1.CreateIncubationTimer += CreateIncubationTimer;
+            breedingPlan1.PairMated += AddCurrentBreedingPair;
             breedingPlan1.BestBreedingPartners += ShowBestBreedingPartner;
             breedingPlan1.SetGlobalSpecies += SetSpecies;
             breedingPlan1.SetMessageLabelText += SetMessageLabelText;
@@ -747,6 +748,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.SelectedSpecies = species;
             creatureInfoInputTester.SelectedSpecies = species;
             radarChart1.SetLevels(species: species);
+            currentBreeds1.DisplaySpeciesCurrentBreedingPairs(species);
             var statNames = species.statNames;
             var levelGraphRepresentations = StatsOptionsLevelColors.GetStatsOptions(species);
 
@@ -3119,6 +3121,11 @@ namespace ARKBreedingStats
         {
             raisingControl1.AddIncubationTimer(mother, father, incubationDuration, incubationStarted);
             _libraryNeedsUpdate = true; // because mating-cooldown of mother was set
+        }
+
+        private void AddCurrentBreedingPair(Creature mother, Creature father)
+        {
+            currentBreeds1.AddPair(mother, father);
         }
 
         private void EnableGlobalTimerIfNeeded()

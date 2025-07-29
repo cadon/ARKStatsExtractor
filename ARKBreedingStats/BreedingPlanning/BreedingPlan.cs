@@ -23,6 +23,7 @@ namespace ARKBreedingStats.BreedingPlanning
         public event Action<Creature, bool> EditCreature;
         public event Action<Creature> BestBreedingPartners;
         public event Action<Creature> DisplayInPedigree;
+        public event Action<Creature, Creature> PairMated;
         public event Raising.createIncubationEventHandler CreateIncubationTimer;
         public event Form1.SetMessageLabelTextEventHandler SetMessageLabelText;
         public event Action<Species> SetGlobalSpecies;
@@ -970,6 +971,7 @@ namespace ARKBreedingStats.BreedingPlanning
         private void buttonJustMated_Click(object sender, EventArgs e)
         {
             CreateIncubationEntry();
+            PairMated?.Invoke(pedigreeCreatureBest.Creature?.Mother, pedigreeCreatureBest.Creature?.Father);
         }
 
         public Species CurrentSpecies

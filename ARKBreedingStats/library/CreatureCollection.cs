@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.Library
@@ -42,7 +43,7 @@ namespace ARKBreedingStats.Library
         public int maxChartLevel = 50;
         [JsonProperty]
         public int maxBreedingSuggestions = 10;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool considerWildLevelSteps;
         [JsonProperty]
         public int wildLevelStep = 5;
@@ -54,7 +55,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Contains a list of creature's guids that are deleted. This is needed for synced libraries.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<Guid> DeletedCreatureGuids;
 
         [JsonProperty]
@@ -63,7 +64,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Only the taming and breeding multipliers of this are used.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ServerMultipliers serverMultipliersEvents;
 
         /// <summary>
@@ -71,12 +72,6 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool singlePlayerSettings;
-
-        /// <summary>
-        /// Deprecated setting, remove on 2025-01-01
-        /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool AtlasSettings;
 
         /// <summary>
         /// Indicates the game the library is used for. Possible values are "ASE" (default) for ARK: Survival Evolved or "ASA" for ARK: Survival Ascended.
@@ -94,7 +89,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool allowMoreThanHundredImprinting;
 
         [JsonProperty]
@@ -146,7 +141,7 @@ namespace ARKBreedingStats.Library
         /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
         /// The last item (i.e. index StatNames.StatsCount) is an array of possible imprintingMultiplier overrides.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Dictionary<string, double?[][]> CustomSpeciesStats;
 
         private Dictionary<string, int> _creatureCountBySpecies;
@@ -157,6 +152,12 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string ServerSettingsUriSource;
+
+        /// <summary>
+        /// List of pairs currently breeding.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CurrentBreedingPair[] CurrentBreedingPairs;
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
@@ -497,11 +498,6 @@ namespace ARKBreedingStats.Library
                 serverMultipliers.SinglePlayerSettings = singlePlayerSettings;
                 singlePlayerSettings = false;
             }
-            if (AtlasSettings && serverMultipliers != null)
-            {
-                serverMultipliers.AtlasSettings = AtlasSettings;
-                AtlasSettings = false;
-            }
 
             // convert DateTimes to local times
             foreach (var tle in timerListEntries)
@@ -516,6 +512,18 @@ namespace ARKBreedingStats.Library
                 c.growingUntil = c.growingUntil?.ToLocalTime();
                 c.domesticatedAt = c.domesticatedAt?.ToLocalTime();
                 c.addedToLibrary = c.addedToLibrary?.ToLocalTime();
+            }
+
+            if (CurrentBreedingPairs != null)
+            {
+                var guids = creatures.ToDictionary(c => c.guid);
+                foreach (var pair in CurrentBreedingPairs)
+                {
+                    if (guids.TryGetValue(pair.GuidMother, out var m))
+                        pair.Mother = m;
+                    if (guids.TryGetValue(pair.GuidFather, out var f))
+                        pair.Father = f;
+                }
             }
         }
 
