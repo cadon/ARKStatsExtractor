@@ -1771,7 +1771,7 @@ namespace ARKBreedingStats
 
             if (Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))
                 CopyCreatureNamePatternToClipboard(index);
-            else GenerateCreatureNames(index);
+            else GenerateCreatureNames(index, true);
 
             e.Handled = true;
             e.SuppressKeyPress = true;
@@ -2336,14 +2336,20 @@ namespace ARKBreedingStats
             MessageBoxes.ShowMessageBox(result, "Creatures imported from tsv file", MessageBoxIcon.Information);
         }
 
-        private void GenerateCreatureNames(object sender, EventArgs e) => GenerateCreatureNames((int)((ToolStripMenuItem)sender).Tag);
+        private void GenerateCreatureNames(object sender, EventArgs e) => GenerateCreatureNames((int)((ToolStripMenuItem)sender).Tag, false);
 
         /// <summary>
         /// Replaces the names of the selected creatures with a pattern generated name.
         /// </summary>
-        private void GenerateCreatureNames(int namePatternIndex)
+        private void GenerateCreatureNames(int namePatternIndex, bool askForConfirmation)
         {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            if (listViewLibrary.SelectedIndices.Count == 0
+                || string.IsNullOrEmpty(Properties.Settings.Default.NamingPatterns?[namePatternIndex])
+                || (askForConfirmation
+                    && MessageBox.Show($"Apply the naming pattern {namePatternIndex + 1} to the selected creatures?",
+                    "Apply naming pattern?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
+                )
+                return;
 
             var creaturesToUpdate = new List<Creature>();
             Creature[] sameSpecies = null;
