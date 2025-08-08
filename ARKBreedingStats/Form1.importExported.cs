@@ -348,7 +348,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.applyNamePatternOnAutoImportAlways
             || (Properties.Settings.Default.applyNamePatternOnImportIfEmptyName
                 && string.IsNullOrEmpty(creature.name))
-            || (alreadyExistingCreature == null
+            || ((alreadyExistingCreature == null || alreadyExistingCreature.flags.HasFlag(CreatureFlags.Placeholder))
                 && Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures);
 
         /// <summary>
