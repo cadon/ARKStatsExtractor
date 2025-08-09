@@ -29,33 +29,34 @@
         private void InitializeComponent()
         {
             this.FlpBreedingPairs = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.LbTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // FlpBreedingPairs
             // 
             this.FlpBreedingPairs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FlpBreedingPairs.Location = new System.Drawing.Point(0, 13);
+            this.FlpBreedingPairs.Location = new System.Drawing.Point(0, 20);
             this.FlpBreedingPairs.Name = "FlpBreedingPairs";
-            this.FlpBreedingPairs.Size = new System.Drawing.Size(598, 322);
+            this.FlpBreedingPairs.Size = new System.Drawing.Size(598, 315);
             this.FlpBreedingPairs.TabIndex = 0;
             // 
-            // label1
+            // LbTitle
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Current breeding pairs";
+            this.LbTitle.AutoSize = true;
+            this.LbTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.LbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbTitle.Location = new System.Drawing.Point(0, 0);
+            this.LbTitle.Name = "LbTitle";
+            this.LbTitle.Size = new System.Drawing.Size(188, 20);
+            this.LbTitle.TabIndex = 1;
+            this.LbTitle.Text = "Current breeding pairs";
             // 
             // CurrentBreeds
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.FlpBreedingPairs);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.LbTitle);
             this.Name = "CurrentBreeds";
             this.Size = new System.Drawing.Size(598, 335);
             this.ResumeLayout(false);
@@ -66,6 +67,6 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel FlpBreedingPairs;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LbTitle;
     }
 }

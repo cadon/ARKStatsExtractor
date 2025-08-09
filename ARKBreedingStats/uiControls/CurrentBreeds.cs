@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using ARKBreedingStats.BreedingPlanning;
+﻿using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
     public partial class CurrentBreeds : UserControl
     {
         private Species _currentSpecies;
+        public event Form1.CollectionChangedEventHandler Changed;
 
         public CurrentBreedingPair[] CurrentBreedingPairs
         {
@@ -59,6 +61,7 @@ namespace ARKBreedingStats.uiControls
                 if (_currentSpecies == species && !forceUpdate)
                     return;
                 _currentSpecies = species;
+                LbTitle.Text = "Current breeding pairs of " + species.name;
             }
             else if (!forceUpdate) return;
             var pairsToDisplay = GetCurrentBreedingPairs(_currentSpecies, out var interSpeciesMating);
@@ -128,6 +131,8 @@ namespace ARKBreedingStats.uiControls
 
             if (_currentSpecies == mother.Species)
                 DisplaySpeciesCurrentBreedingPairs(mother.Species, true);
+
+            Changed?.Invoke();
         }
 
         public void RemovePair(CurrentBreedingPair pair)
@@ -143,6 +148,8 @@ namespace ARKBreedingStats.uiControls
 
             if (_currentSpecies == pair.Mother?.Species)
                 DisplaySpeciesCurrentBreedingPairs(pair.Mother?.Species, true);
+
+            Changed?.Invoke();
         }
     }
 }
