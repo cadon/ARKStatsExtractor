@@ -495,7 +495,7 @@
             // btCalculateIB
             // 
             this.btCalculateIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateIB.Location = new System.Drawing.Point(1060, 26);
+            this.btCalculateIB.Location = new System.Drawing.Point(1062, 26);
             this.btCalculateIB.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIB.Name = "btCalculateIB";
             this.btCalculateIB.Size = new System.Drawing.Size(43, 20);
@@ -507,7 +507,7 @@
             // btCalculateIBM
             // 
             this.btCalculateIBM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateIBM.Location = new System.Drawing.Point(1101, 26);
+            this.btCalculateIBM.Location = new System.Drawing.Point(1105, 26);
             this.btCalculateIBM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIBM.Name = "btCalculateIBM";
             this.btCalculateIBM.Size = new System.Drawing.Size(43, 20);
