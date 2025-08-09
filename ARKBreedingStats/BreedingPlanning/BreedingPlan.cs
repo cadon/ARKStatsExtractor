@@ -300,8 +300,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 )
                 return;
 
-            SuspendLayout();
-            this.SuspendDrawing();
+            this.SuspendDrawingAndLayout();
             ClearControls();
 
             // chosen Creature (only consider this one for its sex)
@@ -618,12 +617,10 @@ namespace ARKBreedingStats.BreedingPlanning
                 if (!string.IsNullOrEmpty(warningText)) SetMessageLabelText(warningText, MessageBoxIcon.Warning);
             }
 
-            this.ResumeDrawing();
-
             if (considerChosenCreature) btShowAllCreatures.Text = string.Format(Loc.S("BPCancelRestrictionOn"), _chosenCreature.name);
             if (_onlyShowingASubset) btShowAllCreatures.Text = string.Format(Loc.S("BPCancelRestrictionOn"), "subset");
             btShowAllCreatures.Visible = considerChosenCreature || _onlyShowingASubset;
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Acornima.Ast;
 
 namespace ARKBreedingStats.utils
 {
@@ -23,15 +24,27 @@ namespace ARKBreedingStats.utils
 
         private const int WM_SETREDRAW = 11;
 
-        public static void SuspendDrawing(this Control parent)
+        public static void SuspendDrawing(this Control control)
         {
-            SendMessage(parent.Handle, WM_SETREDRAW, false, 0);
+            SendMessage(control.Handle, WM_SETREDRAW, false, 0);
         }
 
-        public static void ResumeDrawing(this Control parent)
+        public static void ResumeDrawing(this Control control)
         {
-            SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
-            parent.Refresh();
+            SendMessage(control.Handle, WM_SETREDRAW, true, 0);
+            control.Refresh();
+        }
+
+        public static void SuspendDrawingAndLayout(this Control control)
+        {
+            control.SuspendDrawing();
+            control.SuspendLayout();
+        }
+
+        public static void ResumeDrawingAndLayout(this Control control)
+        {
+            control.ResumeLayout();
+            control.ResumeDrawing();
         }
 
         /// <summary>

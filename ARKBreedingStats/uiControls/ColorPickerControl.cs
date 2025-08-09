@@ -84,8 +84,7 @@ namespace ARKBreedingStats.uiControls
         public void PickColor(byte selectedColorId, string headerText, List<ArkColor> naturalColors = null,
             byte selectedColorIdAlternative = 0, HashSet<byte> existingColors = null)
         {
-            flowLayoutPanel1.SuspendDrawing();
-            flowLayoutPanel1.SuspendLayout();
+            flowLayoutPanel1.SuspendDrawingAndLayout();
 
             label1.Text = headerText;
 
@@ -166,8 +165,7 @@ namespace ARKBreedingStats.uiControls
             var controlHeight = (int)Math.Ceiling(colors.Length / 10d) * colorButtonHeight + 99;
             Height = controlHeight;
             HeightChanged?.Invoke(controlHeight);
-            flowLayoutPanel1.ResumeLayout();
-            flowLayoutPanel1.ResumeDrawing();
+            flowLayoutPanel1.ResumeDrawingAndLayout();
             if (Window != null)
                 Window.isShown = true;
         }
@@ -233,12 +231,10 @@ namespace ARKBreedingStats.uiControls
 
         private void checkBoxOnlyNatural_CheckedChanged(object sender, EventArgs e)
         {
-            flowLayoutPanel1.SuspendDrawing();
-            flowLayoutPanel1.SuspendLayout();
+            flowLayoutPanel1.SuspendDrawingAndLayout();
             for (int c = 0; c < flowLayoutPanel1.Controls.Count; c++)
                 flowLayoutPanel1.Controls[c].Visible = ColorVisible((byte)flowLayoutPanel1.Controls[c].Tag);
-            flowLayoutPanel1.ResumeLayout();
-            flowLayoutPanel1.ResumeDrawing();
+            flowLayoutPanel1.ResumeDrawingAndLayout();
 
             Properties.Settings.Default.ColorSelectorShowAllColors = !checkBoxOnlyNatural.Checked;
         }

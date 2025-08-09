@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -97,7 +98,7 @@ namespace ARKBreedingStats
                 return;
             }
 
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             Clear(false);
 
             int totalWidth = Width;

@@ -234,10 +234,7 @@ namespace ARKBreedingStats.Pedigree
         {
             // clear pedigree
             if (suspendDrawingAndLayout)
-            {
-                splitContainer1.Panel2.SuspendDrawing();
-                SuspendLayout();
-            }
+                this.SuspendDrawingAndLayout();
 
             foreach (var pc in _pedigreeControls)
                 pc.Dispose();
@@ -250,10 +247,7 @@ namespace ARKBreedingStats.Pedigree
             PbRegionColors.Visible = false;
             LbCreatureName.Text = null;
             if (suspendDrawingAndLayout)
-            {
-                ResumeLayout();
-                splitContainer1.Panel2.ResumeDrawing();
-            }
+                this.ResumeDrawingAndLayout();
         }
 
         private void SetViewMode(PedigreeViewMode viewMode)
@@ -298,15 +292,13 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         private void CreatePedigree()
         {
-            splitContainer1.Panel2.SuspendDrawing();
-            SuspendLayout();
+            splitContainer1.Panel2.SuspendDrawingAndLayout();
             // clear old pedigreeCreatures
             ClearControls(false);
             if (_selectedCreature == null)
             {
                 NoCreatureSelected();
-                ResumeLayout();
-                splitContainer1.Panel2.ResumeDrawing();
+                splitContainer1.Panel2.ResumeDrawingAndLayout();
                 return;
             }
 
@@ -387,8 +379,7 @@ namespace ARKBreedingStats.Pedigree
                 _selectedCreature.Species, _enabledColorRegions, 256, creatureSex: _selectedCreature.sex, game: CreatureCollection.CurrentCreatureCollection?.Game));
             PbRegionColors.Visible = true;
 
-            ResumeLayout();
-            splitContainer1.Panel2.ResumeDrawing();
+            splitContainer1.Panel2.ResumeDrawingAndLayout();
         }
 
         private static void DrawKey(PictureBox pb, Species species)

@@ -64,11 +64,11 @@ namespace ARKBreedingStats.uiControls
             var pairsToDisplay = GetCurrentBreedingPairs(_currentSpecies, out var interSpeciesMating);
             var controls = CreateControlsOfBreedingPairs(pairsToDisplay, _currentSpecies, interSpeciesMating);
 
-            FlpBreedingPairs.SuspendDrawing();
+            FlpBreedingPairs.SuspendDrawingAndLayout();
             FlpBreedingPairs.Controls.Clear();
             if (controls != null)
                 FlpBreedingPairs.Controls.AddRange(controls);
-            FlpBreedingPairs.ResumeDrawing();
+            FlpBreedingPairs.ResumeDrawingAndLayout();
         }
 
         private List<CurrentBreedingPair> GetCurrentBreedingPairs(Species species, out bool interSpeciesMating)
