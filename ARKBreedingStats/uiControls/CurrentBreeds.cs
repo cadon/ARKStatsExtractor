@@ -104,10 +104,10 @@ namespace ARKBreedingStats.uiControls
             foreach (var pair in pairsToDisplay)
             {
                 var leftParentControl =
-                    new PedigreeCreature(pair.Mother, enabledColorRegions, displaySpecies: displaySpecies);
+                    new PedigreeCreature(pair.Mother, enabledColorRegions, displaySpecies: displaySpecies, cursorHand: false);
                 var rightParentControl =
-                    new PedigreeCreature(pair.Father, enabledColorRegions, displaySpecies: displaySpecies);
-                var delButton = new Button { Text = "×", BackColor = Color.LightSalmon, Width = 23, Height = 30, Tag = pair, Anchor = AnchorStyles.Bottom };
+                    new PedigreeCreature(pair.Father, enabledColorRegions, displaySpecies: displaySpecies, cursorHand: false);
+                var delButton = new Button { Text = "×", BackColor = Color.LightSalmon, Width = 23, Height = PedigreeCreation.PedigreeElementHeight - 5, Tag = pair, Anchor = AnchorStyles.Bottom };
                 FlpBreedingPairs.SetFlowBreak(delButton, true);
                 delButton.Click += (s, e) => RemovePair(((Button)s).Tag as CurrentBreedingPair);
                 controls.Add(leftParentControl);

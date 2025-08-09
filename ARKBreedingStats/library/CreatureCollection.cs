@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.mods;
+using ARKBreedingStats.Pedigree;
 
 namespace ARKBreedingStats.Library
 {

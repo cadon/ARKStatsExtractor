@@ -2984,6 +2984,8 @@ namespace ARKBreedingStats
         {
             if (cc == null) return false;
 
+            PedigreeCreation.DisplayMutationLevels(cc.Game == Ark.Asa);
+
             if (!applySettings && (cc.modIDs == null || !cc.modIDs.Any()))
             {
                 // nothing to do, and no error, the modHash seems to be wrong.

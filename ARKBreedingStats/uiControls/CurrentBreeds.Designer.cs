@@ -35,9 +35,9 @@
             // FlpBreedingPairs
             // 
             this.FlpBreedingPairs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FlpBreedingPairs.Location = new System.Drawing.Point(0, 20);
+            this.FlpBreedingPairs.Location = new System.Drawing.Point(0, 30);
             this.FlpBreedingPairs.Name = "FlpBreedingPairs";
-            this.FlpBreedingPairs.Size = new System.Drawing.Size(598, 315);
+            this.FlpBreedingPairs.Size = new System.Drawing.Size(598, 305);
             this.FlpBreedingPairs.TabIndex = 0;
             // 
             // LbTitle
@@ -47,7 +47,8 @@
             this.LbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbTitle.Location = new System.Drawing.Point(0, 0);
             this.LbTitle.Name = "LbTitle";
-            this.LbTitle.Size = new System.Drawing.Size(188, 20);
+            this.LbTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.LbTitle.Size = new System.Drawing.Size(188, 30);
             this.LbTitle.TabIndex = 1;
             this.LbTitle.Text = "Current breeding pairs";
             // 

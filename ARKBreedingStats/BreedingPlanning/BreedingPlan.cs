@@ -482,7 +482,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         }
                         else
                         {
-                            pb = new PictureBox { Size = new Size(87, 35) };
+                            pb = new PictureBox { Size = new Size(87, PedigreeCreation.PedigreeElementHeight), SizeMode = PictureBoxSizeMode.CenterImage };
                             _pbs.Add(pb);
                             flowLayoutPanelPairs.Controls.Add(pb);
                         }
@@ -510,7 +510,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
                         sb.Clear();
 
-                        Bitmap bm = new Bitmap(pb.Width, pb.Height);
+                        Bitmap bm = new Bitmap(pb.Width, 29);
                         using (Graphics g = Graphics.FromImage(bm))
                         {
                             g.TextRenderingHint = TextRenderingHint.AntiAlias;
@@ -546,7 +546,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             brush.Color = Color.Black;
                             g.DrawString((_breedingPairs[i].BreedingScore.Primary + displayScoreOffset).ToString("N4"),
                                 new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
-                            pb.Image = bm;
+                            pb.SetImageAndDisposeOld(bm);
                         }
 
                         _tt.SetToolTip(pb, sb.Length > 0 ? sb.ToString() : null);

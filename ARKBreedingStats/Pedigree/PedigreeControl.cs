@@ -48,7 +48,7 @@ namespace ARKBreedingStats.Pedigree
         private int _compactGenerations;
         private int _displayedGenerations;
         private int _highlightInheritanceStatIndex = -1;
-        private int _yBottomOfPedigree; // used for descendents
+        private int _yBottomOfPedigree; // used for descendants
         private readonly PedigreeCreature _pedigreeHeader, _pedigreeHeaderMaternal, _pedigreeHeaderPaternal;
 
         public PedigreeControl()
@@ -335,7 +335,7 @@ namespace ARKBreedingStats.Pedigree
                 {
                     Location = new Point(PedigreeCreation.LeftMargin, _yBottomOfPedigree + PedigreeCreation.Margin)
                 });
-                _yBottomOfPedigree += 50;
+                _yBottomOfPedigree += PedigreeCreation.PedigreeElementHeight + 2 * PedigreeCreation.Margin;
             }
 
             // create descendants
@@ -343,9 +343,11 @@ namespace ARKBreedingStats.Pedigree
             var yDescendants = _yBottomOfPedigree + 3 * PedigreeCreation.Margin;
             foreach (Creature c in _creatureChildren)
             {
+                var y = yDescendants + (PedigreeCreation.Margin / 2 + PedigreeCreation.PedigreeElementHeight) * row;
+
                 PedigreeCreature pc = new PedigreeCreature(c, _enabledColorRegions)
                 {
-                    Location = new Point(PedigreeCreation.LeftMargin, yDescendants + 35 * row)
+                    Location = new Point(PedigreeCreation.LeftMargin, y)
                 };
                 if (c.levelsWild != null && _selectedCreature.levelsWild != null)
                 {
@@ -356,8 +358,8 @@ namespace ARKBreedingStats.Pedigree
                             _selectedCreature.levelsWild[si] == c.levelsWild[si])
                             _lines[0].Add(new[]
                             {
-                                PedigreeCreation.LeftMargin + PedigreeCreature.XOffsetFirstStat + PedigreeCreature.HorizontalStatDistance * s, yDescendants + 35 * row + 6,
-                                PedigreeCreation.LeftMargin + PedigreeCreature.XOffsetFirstStat + PedigreeCreature.HorizontalStatDistance * s, yDescendants + 35 * row + 15, 0, 0
+                                PedigreeCreation.LeftMargin + PedigreeCreature.XOffsetFirstStat + PedigreeCreature.HorizontalStatDistance * s, y + 6,
+                                PedigreeCreation.LeftMargin + PedigreeCreature.XOffsetFirstStat + PedigreeCreature.HorizontalStatDistance * s, y + 15, 0, 0
                         });
                     }
                 }
