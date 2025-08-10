@@ -822,7 +822,8 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
             {
-                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText);
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
+                    CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
                 libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
@@ -1802,7 +1803,8 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
             {
-                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText);
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
+                    CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
                 libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
@@ -4039,7 +4041,8 @@ namespace ARKBreedingStats
 
         private void CbLibraryInfoUseFilter_CheckedChanged(object sender, EventArgs e)
         {
-            LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText);
+            LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
+                CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
         }
 
         private void discordServerToolStripMenuItem_Click(object sender, EventArgs e)
