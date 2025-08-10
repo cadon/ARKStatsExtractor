@@ -9,6 +9,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
+using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -44,6 +45,19 @@ namespace ARKBreedingStats
         private byte[] _colorIdsAlsoPossible;
         private bool _tribeLock, _ownerLock;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the info input
+
+        private CreatureTrait[] _traits;
+        public CreatureTrait[] Traits
+        {
+            get => _traits;
+            set
+            {
+                _traits = value;
+                BtTraits.BackColor = _traits == null ? SystemColors.Control : Color.Aquamarine;
+                _tt.SetToolTip(BtTraits, _traits == null ? null : CreatureTrait.StringList(_traits, Environment.NewLine));
+            }
+
+        }
         /// <summary>
         /// Creature if it's already existing in the library.
         /// </summary>
@@ -650,6 +664,7 @@ namespace ARKBreedingStats
             cr.domesticatedAt = DomesticatedAt;
             cr.ArkId = ArkId;
             cr.InitializeArkIdInGame();
+            cr.Traits = Traits?.ToArray();
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
@@ -870,6 +885,14 @@ namespace ARKBreedingStats
                 textBoxTribe.Clear();
                 cbServer.Text = string.Empty;
             }
+
+            Traits = null;
+        }
+
+        private void BtTraits_Click(object sender, EventArgs e)
+        {
+            if (TraitSelection.ShowTraitSelectionWindow(Traits.ToList(), "Trait Selection", out var traits))
+                Traits = traits?.ToArray();
         }
 
         public void SetLocalizations()

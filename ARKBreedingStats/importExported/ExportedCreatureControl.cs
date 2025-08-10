@@ -25,11 +25,7 @@ namespace ARKBreedingStats.importExported
         {
             InitializeComponent();
             validValues = true;
-            Disposed += (s, e) =>
-            {
-                _tt.RemoveAll();
-                _tt.Dispose();
-            };
+            Disposed += (s, e) => _tt.RemoveAllAndDispose();
         }
 
         public ExportedCreatureControl(string filePath) : this()

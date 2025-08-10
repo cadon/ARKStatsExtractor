@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -84,10 +85,6 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        private void OnDisposed(object sender, EventArgs e)
-        {
-            _tt.RemoveAll();
-            _tt.Dispose();
-        }
+        private void OnDisposed(object sender, EventArgs e) => _tt.RemoveAllAndDispose();
     }
 }

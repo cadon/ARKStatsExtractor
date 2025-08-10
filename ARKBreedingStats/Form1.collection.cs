@@ -243,6 +243,8 @@ namespace ARKBreedingStats
 
             notesControl1.CheckForUnsavedChanges();
 
+            _creatureCollection.CurrentBreedingPairs = currentBreeds1.CurrentBreedingPairs;
+
             // Wait until the file is writable
             const int numberOfRetries = 5;
             const int delayOnRetryBase = 500;
@@ -652,6 +654,8 @@ namespace ARKBreedingStats
             // apply last sorting
             SortLibrary();
 
+            currentBreeds1.DisplaySpeciesCurrentBreedingPairs(speciesSelector1.SelectedSpecies, true);
+
             UpdateTempCreatureDropDown();
 
             Properties.Settings.Default.LastSaveFile = filePath;
@@ -1050,7 +1054,7 @@ namespace ARKBreedingStats
         private void DetermineLevelStatusAndSoundFeedback(Creature c, bool playImportSound)
         {
             var species = c.Species;
-            _topLevels.TryGetValue(species, out var topLevels);
+            _creatureCollection.TopLevels.TryGetValue(species, out var topLevels);
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
             var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
             LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat,
@@ -1071,7 +1075,7 @@ namespace ARKBreedingStats
             columns.AddRange(Stats.DisplayOrder.Select(s => new List<string> { Utils.StatName(s) }));
             columns.Add(new List<string> { "MaxLevel" });
 
-            foreach (var sp in _topLevels)
+            foreach (var sp in _creatureCollection.TopLevels)
             {
                 var maxLevel = 1; // base level
                 columns[0].Add(sp.Key.name);

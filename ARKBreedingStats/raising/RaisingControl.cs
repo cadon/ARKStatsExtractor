@@ -69,7 +69,7 @@ namespace ARKBreedingStats.raising
                 return;
             }
 
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
 
             if (Raising.GetRaisingTimes(_selectedSpecies, out TimeSpan matingTime, out string incubationMode,
                 out TimeSpan incubationTime, out _babyTime, out _maturationTime, out TimeSpan nextMatingMin,
@@ -144,7 +144,7 @@ namespace ARKBreedingStats.raising
                     CbGrowingFood_SelectedIndexChanged(CbGrowingFood, null);
             }
 
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         private void FoodAmountNeeded()

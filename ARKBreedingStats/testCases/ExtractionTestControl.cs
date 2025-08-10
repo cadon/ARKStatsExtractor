@@ -94,7 +94,7 @@ namespace ARKBreedingStats.testCases
         /// </summary>
         private void ShowTestCases()
         {
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             ClearAll();
 
             foreach (ExtractionTestCase c in cases.testCases)
@@ -107,7 +107,7 @@ namespace ARKBreedingStats.testCases
                 flowLayoutPanelTestCases.Controls.Add(tcc);
                 flowLayoutPanelTestCases.SetFlowBreak(tcc, true);
             }
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         private void Tcc_RemoveTestCase(TestCaseControl tcc)

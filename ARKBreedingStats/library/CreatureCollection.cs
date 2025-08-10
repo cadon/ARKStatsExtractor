@@ -1,11 +1,13 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.library;
+using ARKBreedingStats.mods;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using ARKBreedingStats.mods;
 
 namespace ARKBreedingStats.Library
 {
@@ -42,7 +44,7 @@ namespace ARKBreedingStats.Library
         public int maxChartLevel = 50;
         [JsonProperty]
         public int maxBreedingSuggestions = 10;
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool considerWildLevelSteps;
         [JsonProperty]
         public int wildLevelStep = 5;
@@ -54,7 +56,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Contains a list of creature's guids that are deleted. This is needed for synced libraries.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<Guid> DeletedCreatureGuids;
 
         [JsonProperty]
@@ -63,7 +65,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Only the taming and breeding multipliers of this are used.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ServerMultipliers serverMultipliersEvents;
 
         /// <summary>
@@ -71,12 +73,6 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool singlePlayerSettings;
-
-        /// <summary>
-        /// Deprecated setting, remove on 2025-01-01
-        /// </summary>
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool AtlasSettings;
 
         /// <summary>
         /// Indicates the game the library is used for. Possible values are "ASE" (default) for ARK: Survival Evolved or "ASA" for ARK: Survival Ascended.
@@ -94,7 +90,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Allow more than 100% imprinting, can happen with mods, e.g. S+ Nanny
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool allowMoreThanHundredImprinting;
 
         [JsonProperty]
@@ -146,7 +142,7 @@ namespace ARKBreedingStats.Library
         /// Some mods allow to change stat values of species in an extra ini file. These overrides are stored here.
         /// The last item (i.e. index StatNames.StatsCount) is an array of possible imprintingMultiplier overrides.
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Dictionary<string, double?[][]> CustomSpeciesStats;
 
         private Dictionary<string, int> _creatureCountBySpecies;
@@ -157,6 +153,17 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string ServerSettingsUriSource;
+
+        /// <summary>
+        /// List of pairs currently breeding.
+        /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CurrentBreedingPair[] CurrentBreedingPairs;
+
+        /// <summary>
+        /// List of all top stats per species.
+        /// </summary>
+        public readonly Dictionary<Species, TopLevels> TopLevels = new Dictionary<Species, TopLevels>();
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.
@@ -204,6 +211,8 @@ namespace ARKBreedingStats.Library
         /// Returns true if the currently loaded modValues differ from the listed modValues of the library-file.
         /// </summary>
         public bool ModValueReloadNeeded => modListHash == 0 || modListHash != Values.V.loadedModsHash;
+
+        private Dictionary<string, Creature[]> _creaturesByBlueprint;
 
         /// <summary>
         /// Adds creatures to the current library.
@@ -311,11 +320,13 @@ namespace ARKBreedingStats.Library
                     (creatureExisting.Status == CreatureStatus.Unavailable && creatureNew.Status == CreatureStatus.Available))
                 {
                     creatureExisting.levelFound = creatureNew.levelFound;
-                    creatureExisting.levelsDom = creatureNew.levelsDom;
                     creatureExisting.levelsWild = creatureNew.levelsWild;
+                    creatureExisting.levelsMutated = creatureNew.levelsMutated;
+                    creatureExisting.levelsDom = creatureNew.levelsDom;
                     creatureExisting.mutationsMaternal = creatureNew.mutationsMaternal;
                     creatureExisting.mutationsPaternal = creatureNew.mutationsPaternal;
                     creatureExisting.tamingEff = creatureNew.tamingEff;
+                    creatureExisting.Traits = creatureNew.Traits;
                     creaturesWereAddedOrUpdated = true;
                     recalculate = true;
                 }
@@ -374,6 +385,7 @@ namespace ARKBreedingStats.Library
                 ResetExistingColors(onlyOneSpeciesAdded ? onlyThisSpeciesBlueprintAdded : null);
                 _creatureCountBySpecies = null;
                 _totalCreatureCount = -1;
+                _creaturesByBlueprint = null;
             }
 
             return creaturesWereAddedOrUpdated;
@@ -392,6 +404,7 @@ namespace ARKBreedingStats.Library
             ResetExistingColors(c.Species.blueprintPath);
             _creatureCountBySpecies = null;
             _totalCreatureCount = -1;
+            _creaturesByBlueprint = null;
         }
 
         public int? getWildLevelStep()
@@ -491,11 +504,6 @@ namespace ARKBreedingStats.Library
                 serverMultipliers.SinglePlayerSettings = singlePlayerSettings;
                 singlePlayerSettings = false;
             }
-            if (AtlasSettings && serverMultipliers != null)
-            {
-                serverMultipliers.AtlasSettings = AtlasSettings;
-                AtlasSettings = false;
-            }
 
             // convert DateTimes to local times
             foreach (var tle in timerListEntries)
@@ -510,6 +518,18 @@ namespace ARKBreedingStats.Library
                 c.growingUntil = c.growingUntil?.ToLocalTime();
                 c.domesticatedAt = c.domesticatedAt?.ToLocalTime();
                 c.addedToLibrary = c.addedToLibrary?.ToLocalTime();
+            }
+
+            if (CurrentBreedingPairs != null)
+            {
+                var guids = creatures.ToDictionary(c => c.guid);
+                foreach (var pair in CurrentBreedingPairs)
+                {
+                    if (guids.TryGetValue(pair.GuidMother, out var m))
+                        pair.Mother = m;
+                    if (guids.TryGetValue(pair.GuidFather, out var f))
+                        pair.Father = f;
+                }
             }
         }
 
@@ -674,6 +694,37 @@ namespace ARKBreedingStats.Library
             if (_totalCreatureCount == -1)
                 _totalCreatureCount = creatures.Count(c => !c.flags.HasFlag(CreatureFlags.Placeholder));
             return _totalCreatureCount;
+        }
+
+        /// <summary>
+        /// Returns all creatures of a species and if available all creatures of mating compatible species. Ignores placeholder creatures.
+        /// </summary>
+        public List<Creature> GetSpeciesCompatibleCreatures(Species species)
+        {
+            if (species == null) return null;
+            if (_creaturesByBlueprint == null) ReGroupCreaturesByBp();
+
+            var creaturesResult = new List<Creature>();
+            var bpList = new List<string> { species.blueprintPath };
+
+            if (species.matesWith?.Any() == true)
+                bpList.AddRange(species.matesWith);
+
+            foreach (var bp in bpList)
+            {
+                _creaturesByBlueprint.TryGetValue(bp, out var creatures);
+                if (creatures != null) creaturesResult.AddRange(creatures);
+            }
+
+            return creaturesResult;
+        }
+
+        private void ReGroupCreaturesByBp()
+        {
+            _creaturesByBlueprint = creatures
+                 .Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder))
+                 .GroupBy(c => c.speciesBlueprint)
+                 .ToDictionary(g => g.Key, g => g.ToArray());
         }
     }
 }

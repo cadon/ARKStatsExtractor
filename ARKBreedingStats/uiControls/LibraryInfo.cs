@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -36,7 +37,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Returns information about what color ids exist in which regions of the creatures of a species.
         /// </summary>
-        internal static bool SetColorInfo(Species species, IList<Creature> creatures, bool libraryFilterConsidered, TableLayoutPanel tlp = null)
+        internal static bool SetColorInfo(Species species, IList<Creature> creatures, bool libraryFilterConsidered, TableLayoutPanel tlpColorInfoText = null, ListView lvColorTable = null)
         {
             if (species == null || creatures == null) return false;
             if (species == _infoForSpecies
@@ -45,10 +46,10 @@ namespace ARKBreedingStats.uiControls
 
             _infoForSpecies = species;
             _libraryFilterConsidered = libraryFilterConsidered;
-            if (tlp != null)
+            if (tlpColorInfoText != null)
             {
-                tlp.SuspendLayout();
-                tlp.Controls.Clear();
+                tlpColorInfoText.SuspendDrawingAndLayout();
+                tlpColorInfoText.Controls.Clear();
             }
 
             var colorsDontExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
@@ -124,10 +125,10 @@ namespace ARKBreedingStats.uiControls
 
             void AddParagraph(string text, string suffixForPlainText = null, bool bold = false, float relativeFontSize = 1)
             {
-                if (tlp != null)
+                if (tlpColorInfoText != null)
                 {
-                    while (tlp.RowStyles.Count <= tableRow)
-                        tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    while (tlpColorInfoText.RowStyles.Count <= tableRow)
+                        tlpColorInfoText.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                     var l = new Label
                     {
                         Text = text,
@@ -139,7 +140,7 @@ namespace ARKBreedingStats.uiControls
                         AutoSize = true,
                         MaximumSize = new Size(440, 0)
                     };
-                    tlp.Controls.Add(l, 0, tableRow++);
+                    tlpColorInfoText.Controls.Add(l, 0, tableRow++);
                 }
 
                 sb.AppendLine(text + suffixForPlainText);
@@ -247,7 +248,10 @@ namespace ARKBreedingStats.uiControls
             }
 
             _speciesInfo = sb.ToString();
-            tlp?.ResumeLayout();
+            tlpColorInfoText?.ResumeDrawingAndLayout();
+
+            UpdateColorListView(lvColorTable);
+
             return true;
         }
 
@@ -286,6 +290,56 @@ namespace ARKBreedingStats.uiControls
                 if (inAllUsedRegions && speciesUsesAnyRegion)
                     ColorsExistInAllUsedRegions.Add(colorId);
             }
+        }
+
+        private static void UpdateColorListView(ListView lvColorTable)
+        {
+            if (lvColorTable == null) return;
+
+            lvColorTable.BeginUpdate();
+            lvColorTable.Items.Clear();
+
+            var colors = values.Values.V.Colors.ColorsList.ToDictionary(c => c.Id);
+            var rows = new List<ListViewItem>();
+            if (ColorsExistPerRegion.Any(r => r.Any()))
+            {
+                for (var ci = 0; ci <= byte.MaxValue; ci++)
+                {
+                    var row = new ListViewItem(new string[Ark.ColorRegionCount + 1])
+                    {
+                        UseItemStyleForSubItems = false,
+                    };
+                    var subitem = row.SubItems[0];
+                    subitem.Text = ci.ToString();
+                    if (colors.TryGetValue((byte)ci, out var color))
+                    {
+                        subitem.SetBackColorAndAccordingForeColor(color.Color);
+                        row.ToolTipText = $"{color.Id}: {color.Name}";
+                    }
+                    else
+                    {
+                        subitem.ForeColor = Color.LightSlateGray;
+                        row.ToolTipText = "undefined color id";
+                    }
+
+                    for (var i = 0; i < Ark.ColorRegionCount; i++)
+                    {
+                        var subItem = row.SubItems[i + 1];
+                        if (ColorsExistPerRegion[i].Contains((byte)ci))
+                        {
+                            subItem.Text = "✓";
+                            subItem.BackColor = Color.LightGreen;
+                        }
+                        else
+                        {
+                            subItem.BackColor = Color.IndianRed;
+                        }
+                    }
+                    rows.Add(row);
+                }
+            }
+            lvColorTable.Items.AddRange(rows.ToArray());
+            lvColorTable.EndUpdate();
         }
     }
 }

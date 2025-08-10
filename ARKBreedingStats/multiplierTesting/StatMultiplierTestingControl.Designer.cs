@@ -78,6 +78,7 @@
             this.CbTrodTm = new System.Windows.Forms.CheckBox();
             this.CbTrodId = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtSolveTaTbhm = new System.Windows.Forms.Button();
             this.LbTaTmTeStored = new System.Windows.Forms.Label();
             this.BtSolveTaTm = new System.Windows.Forms.Button();
             this.BtSolveTaMTmM = new System.Windows.Forms.Button();
@@ -95,7 +96,8 @@
             this.nudStatValue = new ARKBreedingStats.uiControls.Nud();
             this.nudLd = new ARKBreedingStats.uiControls.Nud();
             this.nudLw = new ARKBreedingStats.uiControls.Nud();
-            this.BtSolveTaTbhm = new System.Windows.Forms.Button();
+            this.nudMm = new ARKBreedingStats.uiControls.Nud();
+            this.nudLm = new ARKBreedingStats.uiControls.Nud();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIdM)).BeginInit();
@@ -111,6 +113,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudStatValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLw)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLm)).BeginInit();
             this.SuspendLayout();
             // 
             // tbVw
@@ -119,7 +123,7 @@
             this.tbVw.Location = new System.Drawing.Point(127, 49);
             this.tbVw.Name = "tbVw";
             this.tbVw.ReadOnly = true;
-            this.tbVw.Size = new System.Drawing.Size(207, 20);
+            this.tbVw.Size = new System.Drawing.Size(329, 20);
             this.tbVw.TabIndex = 13;
             this.tbVw.TabStop = false;
             // 
@@ -135,7 +139,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 51);
+            this.label2.Location = new System.Drawing.Point(462, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 13);
             this.label2.TabIndex = 17;
@@ -144,17 +148,17 @@
             // tbVd
             // 
             this.tbVd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbVd.Location = new System.Drawing.Point(394, 49);
+            this.tbVd.Location = new System.Drawing.Point(516, 49);
             this.tbVd.Name = "tbVd";
             this.tbVd.ReadOnly = true;
-            this.tbVd.Size = new System.Drawing.Size(359, 20);
+            this.tbVd.Size = new System.Drawing.Size(361, 20);
             this.tbVd.TabIndex = 14;
             this.tbVd.TabStop = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(759, 51);
+            this.label3.Location = new System.Drawing.Point(881, 51);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(23, 13);
             this.label3.TabIndex = 19;
@@ -163,10 +167,10 @@
             // tbV
             // 
             this.tbV.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbV.Location = new System.Drawing.Point(788, 49);
+            this.tbV.Location = new System.Drawing.Point(910, 49);
             this.tbV.Name = "tbV";
             this.tbV.ReadOnly = true;
-            this.tbV.Size = new System.Drawing.Size(259, 20);
+            this.tbV.Size = new System.Drawing.Size(261, 20);
             this.tbV.TabIndex = 15;
             this.tbV.TabStop = false;
             this.tbV.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -184,7 +188,7 @@
             // lPercent
             // 
             this.lPercent.AutoSize = true;
-            this.lPercent.Location = new System.Drawing.Point(876, 5);
+            this.lPercent.Location = new System.Drawing.Point(998, 5);
             this.lPercent.Name = "lPercent";
             this.lPercent.Size = new System.Drawing.Size(15, 13);
             this.lPercent.TabIndex = 21;
@@ -387,10 +391,10 @@
             // btResetTaM
             // 
             this.btResetTaM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btResetTaM.Location = new System.Drawing.Point(529, 26);
+            this.btResetTaM.Location = new System.Drawing.Point(651, 26);
             this.btResetTaM.Margin = new System.Windows.Forms.Padding(0);
             this.btResetTaM.Name = "btResetTaM";
-            this.btResetTaM.Size = new System.Drawing.Size(28, 20);
+            this.btResetTaM.Size = new System.Drawing.Size(30, 20);
             this.btResetTaM.TabIndex = 26;
             this.btResetTaM.Text = "R";
             this.btResetTaM.UseVisualStyleBackColor = true;
@@ -399,10 +403,10 @@
             // btCalculateTaM
             // 
             this.btCalculateTaM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateTaM.Location = new System.Drawing.Point(499, 26);
+            this.btCalculateTaM.Location = new System.Drawing.Point(621, 26);
             this.btCalculateTaM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateTaM.Name = "btCalculateTaM";
-            this.btCalculateTaM.Size = new System.Drawing.Size(28, 20);
+            this.btCalculateTaM.Size = new System.Drawing.Size(30, 20);
             this.btCalculateTaM.TabIndex = 25;
             this.btCalculateTaM.Text = "C";
             this.btCalculateTaM.UseVisualStyleBackColor = true;
@@ -411,10 +415,10 @@
             // btResetTmM
             // 
             this.btResetTmM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btResetTmM.Location = new System.Drawing.Point(657, 26);
+            this.btResetTmM.Location = new System.Drawing.Point(779, 26);
             this.btResetTmM.Margin = new System.Windows.Forms.Padding(0);
             this.btResetTmM.Name = "btResetTmM";
-            this.btResetTmM.Size = new System.Drawing.Size(28, 20);
+            this.btResetTmM.Size = new System.Drawing.Size(30, 20);
             this.btResetTmM.TabIndex = 28;
             this.btResetTmM.Text = "R";
             this.btResetTmM.UseVisualStyleBackColor = true;
@@ -423,10 +427,10 @@
             // btCalculateTmM
             // 
             this.btCalculateTmM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateTmM.Location = new System.Drawing.Point(627, 26);
+            this.btCalculateTmM.Location = new System.Drawing.Point(749, 26);
             this.btCalculateTmM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateTmM.Name = "btCalculateTmM";
-            this.btCalculateTmM.Size = new System.Drawing.Size(28, 20);
+            this.btCalculateTmM.Size = new System.Drawing.Size(30, 20);
             this.btCalculateTmM.TabIndex = 27;
             this.btCalculateTmM.Text = "C";
             this.btCalculateTmM.UseVisualStyleBackColor = true;
@@ -435,10 +439,10 @@
             // btCalculateDomLevel
             // 
             this.btCalculateDomLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateDomLevel.Location = new System.Drawing.Point(691, 26);
+            this.btCalculateDomLevel.Location = new System.Drawing.Point(813, 26);
             this.btCalculateDomLevel.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateDomLevel.Name = "btCalculateDomLevel";
-            this.btCalculateDomLevel.Size = new System.Drawing.Size(52, 20);
+            this.btCalculateDomLevel.Size = new System.Drawing.Size(54, 20);
             this.btCalculateDomLevel.TabIndex = 29;
             this.btCalculateDomLevel.Text = "C";
             this.btCalculateDomLevel.UseVisualStyleBackColor = true;
@@ -447,10 +451,10 @@
             // btResetIdM
             // 
             this.btResetIdM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btResetIdM.Location = new System.Drawing.Point(843, 26);
+            this.btResetIdM.Location = new System.Drawing.Point(965, 26);
             this.btResetIdM.Margin = new System.Windows.Forms.Padding(0);
             this.btResetIdM.Name = "btResetIdM";
-            this.btResetIdM.Size = new System.Drawing.Size(28, 20);
+            this.btResetIdM.Size = new System.Drawing.Size(30, 20);
             this.btResetIdM.TabIndex = 31;
             this.btResetIdM.Text = "R";
             this.btResetIdM.UseVisualStyleBackColor = true;
@@ -459,10 +463,10 @@
             // btCalculateIdM
             // 
             this.btCalculateIdM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateIdM.Location = new System.Drawing.Point(813, 26);
+            this.btCalculateIdM.Location = new System.Drawing.Point(935, 26);
             this.btCalculateIdM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIdM.Name = "btCalculateIdM";
-            this.btCalculateIdM.Size = new System.Drawing.Size(28, 20);
+            this.btCalculateIdM.Size = new System.Drawing.Size(30, 20);
             this.btCalculateIdM.TabIndex = 30;
             this.btCalculateIdM.Text = "C";
             this.btCalculateIdM.UseVisualStyleBackColor = true;
@@ -473,16 +477,16 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Location = new System.Drawing.Point(0, 73);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1053, 2);
+            this.panel1.Size = new System.Drawing.Size(1175, 2);
             this.panel1.TabIndex = 32;
             // 
             // btCalculateTE
             // 
             this.btCalculateTE.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateTE.Location = new System.Drawing.Point(897, 26);
+            this.btCalculateTE.Location = new System.Drawing.Point(1019, 26);
             this.btCalculateTE.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateTE.Name = "btCalculateTE";
-            this.btCalculateTE.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateTE.Size = new System.Drawing.Size(43, 20);
             this.btCalculateTE.TabIndex = 33;
             this.btCalculateTE.Text = "TE";
             this.btCalculateTE.UseVisualStyleBackColor = true;
@@ -491,10 +495,10 @@
             // btCalculateIB
             // 
             this.btCalculateIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateIB.Location = new System.Drawing.Point(938, 26);
+            this.btCalculateIB.Location = new System.Drawing.Point(1062, 26);
             this.btCalculateIB.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIB.Name = "btCalculateIB";
-            this.btCalculateIB.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateIB.Size = new System.Drawing.Size(43, 20);
             this.btCalculateIB.TabIndex = 34;
             this.btCalculateIB.Text = "IB";
             this.btCalculateIB.UseVisualStyleBackColor = true;
@@ -503,10 +507,10 @@
             // btCalculateIBM
             // 
             this.btCalculateIBM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btCalculateIBM.Location = new System.Drawing.Point(979, 26);
+            this.btCalculateIBM.Location = new System.Drawing.Point(1105, 26);
             this.btCalculateIBM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIBM.Name = "btCalculateIBM";
-            this.btCalculateIBM.Size = new System.Drawing.Size(41, 20);
+            this.btCalculateIBM.Size = new System.Drawing.Size(43, 20);
             this.btCalculateIBM.TabIndex = 35;
             this.btCalculateIBM.Text = "IBM";
             this.btCalculateIBM.UseVisualStyleBackColor = true;
@@ -540,7 +544,7 @@
             // 
             this.CbTrodTa.AutoSize = true;
             this.CbTrodTa.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodTa.Location = new System.Drawing.Point(435, 28);
+            this.CbTrodTa.Location = new System.Drawing.Point(557, 28);
             this.CbTrodTa.Name = "CbTrodTa";
             this.CbTrodTa.Size = new System.Drawing.Size(64, 17);
             this.CbTrodTa.TabIndex = 38;
@@ -552,7 +556,7 @@
             // 
             this.CbTrodTm.AutoSize = true;
             this.CbTrodTm.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodTm.Location = new System.Drawing.Point(563, 28);
+            this.CbTrodTm.Location = new System.Drawing.Point(685, 28);
             this.CbTrodTm.Name = "CbTrodTm";
             this.CbTrodTm.Size = new System.Drawing.Size(66, 17);
             this.CbTrodTm.TabIndex = 39;
@@ -564,7 +568,7 @@
             // 
             this.CbTrodId.AutoSize = true;
             this.CbTrodId.BackColor = System.Drawing.Color.LightPink;
-            this.CbTrodId.Location = new System.Drawing.Point(749, 28);
+            this.CbTrodId.Location = new System.Drawing.Point(871, 28);
             this.CbTrodId.Name = "CbTrodId";
             this.CbTrodId.Size = new System.Drawing.Size(60, 17);
             this.CbTrodId.TabIndex = 40;
@@ -579,12 +583,22 @@
             this.groupBox1.Controls.Add(this.BtSolveTaTm);
             this.groupBox1.Controls.Add(this.BtSolveTaMTmM);
             this.groupBox1.Controls.Add(this.BtStoreTaTm);
-            this.groupBox1.Location = new System.Drawing.Point(1059, 3);
+            this.groupBox1.Location = new System.Drawing.Point(1181, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(126, 69);
+            this.groupBox1.Size = new System.Drawing.Size(128, 69);
             this.groupBox1.TabIndex = 41;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ta-Tm-TBHM-Solver";
+            // 
+            // BtSolveTaTbhm
+            // 
+            this.BtSolveTaTbhm.Location = new System.Drawing.Point(77, 43);
+            this.BtSolveTaTbhm.Name = "BtSolveTaTbhm";
+            this.BtSolveTaTbhm.Size = new System.Drawing.Size(47, 23);
+            this.BtSolveTaTbhm.TabIndex = 4;
+            this.BtSolveTaTbhm.Text = "TBHM";
+            this.BtSolveTaTbhm.UseVisualStyleBackColor = true;
+            this.BtSolveTaTbhm.Click += new System.EventHandler(this.BtSolveTaTbhm_Click);
             // 
             // LbTaTmTeStored
             // 
@@ -633,7 +647,7 @@
             0,
             0,
             131072});
-            this.nudIdM.Location = new System.Drawing.Point(813, 3);
+            this.nudIdM.Location = new System.Drawing.Point(935, 3);
             this.nudIdM.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -645,7 +659,7 @@
             0,
             0,
             0});
-            this.nudIdM.Size = new System.Drawing.Size(58, 20);
+            this.nudIdM.Size = new System.Drawing.Size(60, 20);
             this.nudIdM.TabIndex = 11;
             this.nudIdM.ValueChanged += new System.EventHandler(this.nudId_ValueChanged);
             // 
@@ -658,7 +672,7 @@
             0,
             0,
             131072});
-            this.nudId.Location = new System.Drawing.Point(749, 3);
+            this.nudId.Location = new System.Drawing.Point(871, 3);
             this.nudId.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -670,7 +684,7 @@
             0,
             0,
             0});
-            this.nudId.Size = new System.Drawing.Size(58, 20);
+            this.nudId.Size = new System.Drawing.Size(60, 20);
             this.nudId.TabIndex = 10;
             this.nudId.ValueChanged += new System.EventHandler(this.nudId_ValueChanged);
             // 
@@ -683,7 +697,7 @@
             0,
             0,
             131072});
-            this.nudTmM.Location = new System.Drawing.Point(627, 3);
+            this.nudTmM.Location = new System.Drawing.Point(749, 3);
             this.nudTmM.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -695,7 +709,7 @@
             0,
             0,
             0});
-            this.nudTmM.Size = new System.Drawing.Size(58, 20);
+            this.nudTmM.Size = new System.Drawing.Size(60, 20);
             this.nudTmM.TabIndex = 8;
             this.nudTmM.Value = new decimal(new int[] {
             1,
@@ -713,7 +727,7 @@
             0,
             0,
             131072});
-            this.nudTm.Location = new System.Drawing.Point(563, 3);
+            this.nudTm.Location = new System.Drawing.Point(685, 3);
             this.nudTm.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -730,7 +744,7 @@
             0,
             0,
             0});
-            this.nudTm.Size = new System.Drawing.Size(58, 20);
+            this.nudTm.Size = new System.Drawing.Size(60, 20);
             this.nudTm.TabIndex = 7;
             this.nudTm.ValueChanged += new System.EventHandler(this.nudTm_ValueChanged);
             // 
@@ -773,7 +787,7 @@
             0,
             0,
             131072});
-            this.nudTaM.Location = new System.Drawing.Point(499, 3);
+            this.nudTaM.Location = new System.Drawing.Point(621, 3);
             this.nudTaM.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -785,7 +799,7 @@
             0,
             0,
             0});
-            this.nudTaM.Size = new System.Drawing.Size(58, 20);
+            this.nudTaM.Size = new System.Drawing.Size(60, 20);
             this.nudTaM.TabIndex = 6;
             this.nudTaM.Value = new decimal(new int[] {
             1,
@@ -803,7 +817,7 @@
             0,
             0,
             65536});
-            this.nudTa.Location = new System.Drawing.Point(435, 3);
+            this.nudTa.Location = new System.Drawing.Point(557, 3);
             this.nudTa.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -820,7 +834,7 @@
             0,
             0,
             0});
-            this.nudTa.Size = new System.Drawing.Size(58, 20);
+            this.nudTa.Size = new System.Drawing.Size(60, 20);
             this.nudTa.TabIndex = 5;
             this.nudTa.ValueChanged += new System.EventHandler(this.nudTa_ValueChanged);
             // 
@@ -833,7 +847,7 @@
             0,
             0,
             131072});
-            this.nudTBHM.Location = new System.Drawing.Point(371, 3);
+            this.nudTBHM.Location = new System.Drawing.Point(493, 3);
             this.nudTBHM.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -845,7 +859,7 @@
             0,
             0,
             0});
-            this.nudTBHM.Size = new System.Drawing.Size(58, 20);
+            this.nudTBHM.Size = new System.Drawing.Size(60, 20);
             this.nudTBHM.TabIndex = 4;
             this.nudTBHM.Value = new decimal(new int[] {
             1,
@@ -904,7 +918,7 @@
             // 
             this.nudStatValue.DecimalPlaces = 6;
             this.nudStatValue.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudStatValue.Location = new System.Drawing.Point(897, 3);
+            this.nudStatValue.Location = new System.Drawing.Point(1019, 3);
             this.nudStatValue.Maximum = new decimal(new int[] {
             1661992959,
             1808227885,
@@ -916,7 +930,7 @@
             0,
             0,
             0});
-            this.nudStatValue.Size = new System.Drawing.Size(150, 20);
+            this.nudStatValue.Size = new System.Drawing.Size(152, 20);
             this.nudStatValue.TabIndex = 12;
             this.nudStatValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.nudStatValue.ValueChanged += new System.EventHandler(this.nudStatValue_ValueChanged);
@@ -924,7 +938,7 @@
             // nudLd
             // 
             this.nudLd.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudLd.Location = new System.Drawing.Point(691, 3);
+            this.nudLd.Location = new System.Drawing.Point(813, 3);
             this.nudLd.Maximum = new decimal(new int[] {
             2000000000,
             0,
@@ -936,7 +950,7 @@
             0,
             0,
             0});
-            this.nudLd.Size = new System.Drawing.Size(52, 20);
+            this.nudLd.Size = new System.Drawing.Size(54, 20);
             this.nudLd.TabIndex = 9;
             this.nudLd.ValueChanged += new System.EventHandler(this.nudLd_ValueChanged);
             // 
@@ -959,21 +973,62 @@
             this.nudLw.TabIndex = 1;
             this.nudLw.ValueChanged += new System.EventHandler(this.nudLw_ValueChanged);
             // 
-            // BtSolveTaTbhm
+            // nudMm
             // 
-            this.BtSolveTaTbhm.Location = new System.Drawing.Point(77, 43);
-            this.BtSolveTaTbhm.Name = "BtSolveTaTbhm";
-            this.BtSolveTaTbhm.Size = new System.Drawing.Size(47, 23);
-            this.BtSolveTaTbhm.TabIndex = 4;
-            this.BtSolveTaTbhm.Text = "TBHM";
-            this.BtSolveTaTbhm.UseVisualStyleBackColor = true;
-            this.BtSolveTaTbhm.Click += new System.EventHandler(this.BtSolveTaTbhm_Click);
+            this.nudMm.DecimalPlaces = 4;
+            this.nudMm.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.nudMm.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudMm.Location = new System.Drawing.Point(429, 3);
+            this.nudMm.Maximum = new decimal(new int[] {
+            2000000000,
+            0,
+            0,
+            0});
+            this.nudMm.Name = "nudMm";
+            this.nudMm.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudMm.Size = new System.Drawing.Size(58, 20);
+            this.nudMm.TabIndex = 43;
+            this.nudMm.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudMm.ValueChanged += new System.EventHandler(this.nudMm_ValueChanged);
+            // 
+            // nudLm
+            // 
+            this.nudLm.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.nudLm.Location = new System.Drawing.Point(371, 3);
+            this.nudLm.Maximum = new decimal(new int[] {
+            2000000000,
+            0,
+            0,
+            0});
+            this.nudLm.Name = "nudLm";
+            this.nudLm.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudLm.Size = new System.Drawing.Size(52, 20);
+            this.nudLm.TabIndex = 42;
+            this.nudLm.ValueChanged += new System.EventHandler(this.nudLm_ValueChanged);
             // 
             // StatMultiplierTestingControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.contextMenuStrip1;
+            this.Controls.Add(this.nudMm);
+            this.Controls.Add(this.nudLm);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.CbTrodId);
             this.Controls.Add(this.CbTrodTm);
@@ -1016,7 +1071,7 @@
             this.Controls.Add(this.nudLw);
             this.Controls.Add(this.lStatName);
             this.Name = "StatMultiplierTestingControl";
-            this.Size = new System.Drawing.Size(1188, 75);
+            this.Size = new System.Drawing.Size(1337, 75);
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1033,6 +1088,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudStatValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudLw)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudLm)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1107,5 +1164,7 @@
         private System.Windows.Forms.ToolStripMenuItem calculateIdToolStripMenuItem;
         private System.Windows.Forms.Label LbTaTmTeStored;
         private System.Windows.Forms.Button BtSolveTaTbhm;
+        private uiControls.Nud nudMm;
+        private uiControls.Nud nudLm;
     }
 }

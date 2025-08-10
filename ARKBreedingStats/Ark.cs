@@ -1,5 +1,7 @@
 ﻿using ARKBreedingStats.values;
 using System;
+using System.Collections.Generic;
+using ARKBreedingStats.Traits;
 
 namespace ARKBreedingStats
 {
@@ -51,6 +53,12 @@ namespace ARKBreedingStats
         /// If they differ, the probability for a mutation from the parent with the higher stat is probabilityHigherLevel * probabilityOfMutation etc.
         /// </summary>
         public const double ProbabilityOfOneMutationFromOneParent = 1 - (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2) * (1 - ProbabilityOfMutation / 2);
+
+        /// <summary>
+        /// Returns the probability of at least one mutation considering a possible additive mutation probability offset, e.g. by using traits.
+        /// </summary>
+        public static double ProbabilityOfOneMutationWithOffset(double baseMutationProbability, double mutationProbabilityOffset)
+            => 1 - Math.Pow(1 - (baseMutationProbability + mutationProbabilityOffset), 3);
 
         #endregion
 

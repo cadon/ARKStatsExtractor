@@ -53,20 +53,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
             var now = DateTime.Now;
 
-            (int higherLevel, int lowerLevel) GetHigherLowerLevel(Creature parent1, Creature parent2, int statIndex)
-            {
-                int levelParent1 = parent1.levelsWild[statIndex];
-                int levelParent2 = parent2.levelsWild[statIndex];
-                return (Math.Max(levelParent1, levelParent2), Math.Min(levelParent1, levelParent2));
-            }
-            (int higherLevel, int lowerLevel) GetHigherLowerLevelWithMutationLevels(Creature parent1, Creature parent2, int statIndex)
-            {
-                int levelParent1 = parent1.levelsWild[statIndex] + (parent1.levelsMutated?[statIndex] ?? 0);
-                int levelParent2 = parent2.levelsWild[statIndex] + (parent2.levelsMutated?[statIndex] ?? 0);
-                return (Math.Max(levelParent1, levelParent2), Math.Min(levelParent1, levelParent2));
-            }
-
-            var getHigherLowerLevels = considerMutationLevels ? (Func<Creature, Creature, int, (int, int)>)GetHigherLowerLevelWithMutationLevels : GetHigherLowerLevel;
+            var getHigherLowerLevels = considerMutationLevels ? (Func<Creature, Creature, int, (int, int, double)>)GetHigherLowerLevelWithMutationLevels : GetHigherLowerLevel;
 
             for (int fi = 0; fi < females.Length; fi++)
             {
@@ -115,7 +102,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     {
                         if (s == Stats.Torpidity || !species.UsesStat(s)) continue;
                         bestPossLevels[s] = 0;
-                        var (higherLevel, lowerLevel) = getHigherLowerLevels(female, male, s);
+                        var (higherLevel, lowerLevel, probabilityOfHigherLevel) = getHigherLowerLevels(female, male, s);
                         if (higherLevel < 0) higherLevel = 0;
                         if (lowerLevel < 0) lowerLevel = 0;
                         maxPossibleOffspringLevel += higherLevel;
@@ -137,7 +124,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             }
                         }
 
-                        double weightedExpectedStatLevel = statWeights[s] * (Ark.ProbabilityInheritHigherLevel * higherLevel + Ark.ProbabilityInheritLowerLevel * lowerLevel) / 40;
+                        double weightedExpectedStatLevel = statWeights[s] * (probabilityOfHigherLevel * higherLevel + (1 - probabilityOfHigherLevel) * lowerLevel) / 40;
                         if (weightedExpectedStatLevel != 0)
                         {
                             if (breedingMode == BreedingMode.TopStatsLucky)
@@ -232,10 +219,27 @@ namespace ARKBreedingStats.BreedingPlanning
                     int mutationPossibleFrom = female.Mutations < Ark.MutationPossibleWithLessThan && male.Mutations < Ark.MutationPossibleWithLessThan ? 2
                         : female.Mutations < Ark.MutationPossibleWithLessThan || male.Mutations < Ark.MutationPossibleWithLessThan ? 1 : 0;
 
+                    var mutationOffset = female.Traits?.Aggregate(0d, (d, trait) => d + trait.MutationProbability) ?? 0d;
+                    mutationOffset = male.Traits?.Aggregate(mutationOffset, (d, trait) => d + trait.MutationProbability) ?? mutationOffset;
+
+                    double mutationProbability;
+                    if (mutationOffset != 0)
+                    {
+                        mutationProbability = Ark.ProbabilityOfOneMutationWithOffset(mutationPossibleFrom == 2
+                                ? Ark.ProbabilityOfMutation
+                                : mutationPossibleFrom == 1
+                                    ? Ark.ProbabilityOfMutation * Ark.ProbabilityInheritHigherLevel
+                                    : 0,
+                            mutationOffset);
+                    }
+                    else
+                    {
+                        mutationProbability = (mutationPossibleFrom == 2 ? Ark.ProbabilityOfOneMutation :
+                            mutationPossibleFrom == 1 ? Ark.ProbabilityOfOneMutationFromOneParent : 0);
+                    }
+
                     breedingPairs.Add(new BreedingPair(female, male,
-                        new Score(t * 1.25),
-                        (mutationPossibleFrom == 2 ? Ark.ProbabilityOfOneMutation : mutationPossibleFrom == 1 ? Ark.ProbabilityOfOneMutationFromOneParent : 0),
-                        highestOffspringOverLevelLimit));
+                        new Score(t * 1.25), mutationProbability, highestOffspringOverLevelLimit));
                 }
             }
 
@@ -254,6 +258,24 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             return breedingPairs;
+        }
+
+        private static (int higherLevel, int lowerLevel, double probabilityInheritingHigherLevel) GetHigherLowerLevel(Creature parent1, Creature parent2, int statIndex)
+        {
+            var levelParent1 = parent1.levelsWild[statIndex];
+            var levelParent2 = parent2.levelsWild[statIndex];
+            return (Math.Max(levelParent1, levelParent2),
+                Math.Min(levelParent1, levelParent2),
+                Ark.ProbabilityInheritHigherLevel + parent1.ProbabilityOffsetInheritingHigherLevel(statIndex) + parent2.ProbabilityOffsetInheritingHigherLevel(statIndex));
+        }
+
+        private static (int higherLevel, int lowerLevel, double probabilityInheritingHigherLevel) GetHigherLowerLevelWithMutationLevels(Creature parent1, Creature parent2, int statIndex)
+        {
+            var levelParent1 = parent1.levelsWild[statIndex] + (parent1.levelsMutated?[statIndex] ?? 0);
+            var levelParent2 = parent2.levelsWild[statIndex] + (parent2.levelsMutated?[statIndex] ?? 0);
+            return (Math.Max(levelParent1, levelParent2),
+                Math.Min(levelParent1, levelParent2),
+                Ark.ProbabilityInheritHigherLevel + parent1.ProbabilityOffsetInheritingHigherLevel(statIndex) + parent2.ProbabilityOffsetInheritingHigherLevel(statIndex));
         }
 
         /// <summary>

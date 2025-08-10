@@ -575,7 +575,7 @@ namespace ARKBreedingStats.values
                         }
 
                         sp.stats[s].IncPerWildLevel = GetRawStatValue(s, Species.StatsRawIndexIncPerWildLevel, customOverrideForThisStatExists) * statMultipliers[3];
-                        sp.stats[s].IncPerMutatedLevel = sp.stats[s].IncPerWildLevel; // todo consider adjustments if they're implemented
+                        sp.stats[s].IncPerMutatedLevel = sp.stats[s].IncPerWildLevel * sp.mutationMult[s];
 
                         var altBaseValue = 0d;
                         var thisStatHasAltValues = sp.altBaseStatsRaw?.TryGetValue(s, out altBaseValue) == true;
@@ -590,6 +590,7 @@ namespace ARKBreedingStats.values
                             var altFactor = altBaseValue / sp.stats[s].BaseValue;
 
                             sp.altStats[s].IncPerWildLevel = altFactor * sp.stats[s].IncPerWildLevel;
+                            sp.altStats[s].IncPerMutatedLevel = altFactor * sp.stats[s].IncPerMutatedLevel;
                             // maybe not affected, maybe depends on postTame stat value (and then maybe on different troodonism variants)
                             sp.altStats[s].IncPerTamedLevel = sp.stats[s].IncPerTamedLevel;
                             // taming bonus probably not affected by troodonism
@@ -608,6 +609,7 @@ namespace ARKBreedingStats.values
                         sp.stats[s].MultAffinity *= sp.stats[s].MultAffinity > 0 ? singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexTamingMult] : 1;
                         sp.stats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelDom];
                         sp.stats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelWild];
+                        sp.stats[s].IncPerMutatedLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelWild];
 
                         // troodonism values singleplayer adjustment
                         if (thisStatHasAltValues
@@ -621,6 +623,7 @@ namespace ARKBreedingStats.values
                                 : 1;
                             sp.altStats[s].IncPerTamedLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelDom];
                             sp.altStats[s].IncPerWildLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelWild];
+                            sp.altStats[s].IncPerMutatedLevel *= singlePlayerServerMultipliers.statMultipliers[s][ServerMultipliers.IndexLevelWild];
                         }
 
                         double GetRawStatValue(int statIndex, int statValueTypeIndex, bool customOverride)

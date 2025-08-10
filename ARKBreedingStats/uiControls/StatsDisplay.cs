@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using System;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -46,7 +47,7 @@ namespace ARKBreedingStats.uiControls
 
         public void SetCreatureValues(Creature creature)
         {
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
 
             for (int s = 0; s < displayedStatsCount; s++)
             {
@@ -57,7 +58,7 @@ namespace ARKBreedingStats.uiControls
 
             labelSex.Text = Utils.SexSymbol(creature.sex);
 
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         public int BarMaxLevel
@@ -80,9 +81,6 @@ namespace ARKBreedingStats.uiControls
             labelSex.Text = "";
         }
 
-        private void StatsDisplay_Disposed(object sender, EventArgs e)
-        {
-            tt.RemoveAll();
-        }
+        private void StatsDisplay_Disposed(object sender, EventArgs e) => tt.RemoveAllAndDispose();
     }
 }

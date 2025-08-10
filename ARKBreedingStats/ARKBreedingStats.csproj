@@ -86,6 +86,7 @@
     <Compile Include="AsbServer\Connection.cs" />
     <Compile Include="AsbServer\ProgressReportAsbServer.cs" />
     <Compile Include="AsbServer\ServerSendName.cs" />
+    <Compile Include="BreedingPlanning\CurrentBreedingPair.cs" />
     <Compile Include="BreedingPlanning\Score.cs" />
     <Compile Include="BreedingPlanning\BreedingScore.cs" />
     <Compile Include="Form1.exportGun.cs">
@@ -104,7 +105,7 @@
       <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
-    <Compile Include="library\CreatureTrait.cs" />
+    <Compile Include="Traits\CreatureTrait.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStatsControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Traits\TraitDefinition.cs" />
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +156,12 @@
     </Compile>
     <Compile Include="uiControls\CreatureAnalysis.Designer.cs">
       <DependentUpon>CreatureAnalysis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\CurrentBreeds.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uiControls\CurrentBreeds.Designer.cs">
+      <DependentUpon>CurrentBreeds.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\Hatching.cs">
       <SubType>UserControl</SubType>
@@ -178,7 +186,7 @@
     </Compile>
     <Compile Include="uiControls\LibraryInfo.cs" />
     <Compile Include="uiControls\LibraryInfoControl.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\PopupMessage.cs">
       <SubType>Form</SubType>
@@ -203,6 +211,12 @@
     </Compile>
     <Compile Include="uiControls\StatSelector.Designer.cs">
       <DependentUpon>StatSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="uiControls\TraitSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\TraitSelection.Designer.cs">
+      <DependentUpon>TraitSelection.cs</DependentUpon>
     </Compile>
     <Compile Include="Updater\AsbManifest.cs" />
     <Compile Include="Updater\AsbModule.cs" />
@@ -731,6 +745,9 @@
     <None Include="json\speciesSpecificExtractionFails.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="json\traitDefinitions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="json\values\ASA-values.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -781,6 +798,9 @@
     <EmbeddedResource Include="uiControls\CreatureAnalysis.resx">
       <DependentUpon>CreatureAnalysis.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\CurrentBreeds.resx">
+      <DependentUpon>CurrentBreeds.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="uiControls\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -804,6 +824,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">
       <DependentUpon>StatSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uiControls\TraitSelection.resx">
+      <DependentUpon>TraitSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\VariantSelector.resx">
       <DependentUpon>VariantSelector.cs</DependentUpon>

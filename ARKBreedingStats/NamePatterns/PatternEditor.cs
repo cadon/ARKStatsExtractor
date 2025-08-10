@@ -757,11 +757,11 @@ namespace ARKBreedingStats.NamePatterns
         private static void FilterEntries(TableLayoutPanel tlp, List<Panel> namePatternEntries, string filter)
         {
             filter = string.IsNullOrEmpty(filter) ? null : filter;
-            tlp.SuspendLayout();
+            tlp.SuspendDrawingAndLayout();
             foreach (NamePatternEntry npe in namePatternEntries)
                 npe.Visible = filter == null
                               || npe.FilterString.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1;
-            tlp.ResumeLayout();
+            tlp.ResumeDrawingAndLayout();
             // needed to reevaluate the need of the scrollbar
             tlp.AutoScroll = false;
             tlp.AutoScroll = true;

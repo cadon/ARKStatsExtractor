@@ -33,11 +33,7 @@ namespace ARKBreedingStats
             {
                 AutoPopDelay = 10000
             };
-            Disposed += (s, e) =>
-            {
-                _tt.RemoveAll();
-                _tt.Dispose();
-            };
+            Disposed += (s, e) => _tt.RemoveAllAndDispose();
 
             _creature = null;
             regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;
@@ -45,7 +41,7 @@ namespace ARKBreedingStats
 
         public void SetCreature(Creature creature)
         {
-            this.SuspendDrawing();
+            this.SuspendDrawingAndLayout();
             Clear();
             _creature = creature;
             regionColorChooser1.SetSpecies(creature.Species, creature.colors);
@@ -53,7 +49,7 @@ namespace ARKBreedingStats
             _colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
 
             UpdateLabel();
-            this.ResumeDrawing();
+            this.ResumeDrawingAndLayout();
         }
 
         public CreatureCollection CreatureCollection

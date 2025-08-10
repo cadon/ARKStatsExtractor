@@ -73,19 +73,19 @@ namespace ARKBreedingStats.library
                         || (statWeights.Item2[s] == StatValueEvenOdd.Even && levelsWild[s] % 2 == 0)
                         )
                     {
-                        if (levelsWild[s] == highSpeciesLevels[s])
-                        {
-                            LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.TopLevel;
-                            CombinedLevelStatusFlags |= LevelStatus.TopLevel;
-                            topStatsText.Add(statName);
-                            sbStatInfoText.Append($" {Loc.S("topLevel")}");
-                        }
-                        else if (levelsWild[s] > highSpeciesLevels[s])
+                        if (levelsWild[s] > highSpeciesLevels[s])
                         {
                             LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.NewTopLevel;
                             CombinedLevelStatusFlags |= LevelStatus.NewTopLevel;
                             newTopStatsText.Add(statName);
                             sbStatInfoText.Append($" {Loc.S("newTopLevel")}");
+                        }
+                        else if (levelsWild[s] > 0 && levelsWild[s] == highSpeciesLevels[s])
+                        {
+                            LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.TopLevel;
+                            CombinedLevelStatusFlags |= LevelStatus.TopLevel;
+                            topStatsText.Add(statName);
+                            sbStatInfoText.Append($" {Loc.S("topLevel")}");
                         }
                     }
                 }

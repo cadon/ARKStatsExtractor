@@ -8,6 +8,11 @@ namespace ARKBreedingStats.library
     public class TopLevels
     {
         private readonly int[][] _levels;
+        /// <summary>
+        /// The minimum total level for a creature to have at least all current top levels.
+        /// Offspring with less than that level miss at least one top level.
+        /// </summary>
+        public int MinLevelForTopCreature = -1;
 
         public TopLevels()
         {
@@ -42,18 +47,18 @@ namespace ARKBreedingStats.library
 
         private int[][] GetZeros() => new[]
         {
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(0,Stats.StatsCount).ToArray()
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray()
         };
 
         private int[][] GetUninitialized() => new[]
         {
-            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(-1,Stats.StatsCount).ToArray(),
-            Enumerable.Repeat(int.MaxValue,Stats.StatsCount).ToArray()
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(int.MaxValue, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(0, Stats.StatsCount).ToArray(),
+            Enumerable.Repeat(int.MaxValue, Stats.StatsCount).ToArray()
         };
     }
 }

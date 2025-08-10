@@ -64,7 +64,7 @@ namespace ARKBreedingStats.mods
                 return;
             }
 
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
 
             if (!(lvSpecies.SelectedItems[0].Tag is Species species)) return;
             selectedSpecies = species;
@@ -78,7 +78,7 @@ namespace ARKBreedingStats.mods
                 overrideEdits[s].SetStatOverrides(selectedSpecies.fullStatsRaw[s], overrides?[s]);
                 overrideEdits[s].SetImprintingMultiplierOverride(selectedSpecies.StatImprintingMultipliersDefault[s], overrides != null && overrides.Length > Stats.StatsCount ? overrides[Stats.StatsCount]?[s] : null);
             }
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         private void btRemoveOverride_Click(object sender, EventArgs e)

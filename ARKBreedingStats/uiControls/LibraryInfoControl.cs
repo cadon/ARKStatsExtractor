@@ -1,19 +1,20 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using ARKBreedingStats.library;
+﻿using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace ARKBreedingStats.uiControls
 {
-    internal class LibraryInfoControl : UserControl
+    internal class LibraryInfoControl : TableLayoutPanel
     {
-        private readonly TableLayoutPanel _tlbMain = new TableLayoutPanel();
         public readonly TableLayoutPanel TlpColorInfoText = new TableLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, MinimumSize = new Size(450, 300) };
+        public readonly ListView LvColors = new ListView();
         private Button[] _colorRegionButtons;
         private ColorPickerControl _colorPicker;
         private Species _species;
@@ -35,18 +36,16 @@ namespace ARKBreedingStats.uiControls
 
         private void InitializeControls()
         {
-            _tlbMain.AutoScroll = true;
-            _tlbMain.RowCount = 2;
-            _tlbMain.ColumnCount = 3;
-            for (int i = 0; i < _tlbMain.RowCount; i++)
-                _tlbMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            for (int i = 0; i < _tlbMain.ColumnCount; i++)
-                _tlbMain.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-            _tlbMain.Dock = DockStyle.Fill;
-            Controls.Add(_tlbMain);
+            this.AutoScroll = true;
+            this.RowCount = 2;
+            this.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            this.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            this.ColumnCount = 5;
+            for (int i = 0; i < this.ColumnCount; i++)
+                this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
 
-            _tlbMain.Controls.Add(TlpColorInfoText, 0, 0);
-            _tlbMain.SetRowSpan(TlpColorInfoText, 2);
+            this.Controls.Add(TlpColorInfoText, 0, 0);
+            this.SetRowSpan(TlpColorInfoText, 2);
 
             const int buttonsTotalWidth = 850;
             const int buttonMargins = 6;
@@ -110,18 +109,30 @@ namespace ARKBreedingStats.uiControls
             colorsButton.Click += ButtonRandomColorsClick;
             flpButtons.Controls.Add(colorsButton);
 
-            _tlbMain.Controls.Add(flpButtons, 1, 0);
-            _tlbMain.SetColumnSpan(flpButtons, 2);
+            this.Controls.Add(flpButtons, 1, 0);
+            this.SetColumnSpan(flpButtons, 2);
             _colorPicker = new ColorPickerControl(false);
             _colorPicker.DisableAlternativeColor();
-            _tlbMain.Controls.Add(_colorPicker, 1, 1);
+            this.Controls.Add(_colorPicker, 1, 1);
             _colorPicker.UserMadeSelection += ColorPickerColorChosen;
 
-            _tlbMain.Controls.Add(_speciesPictureBox, 2, 1);
-            _tlbMain.SetRowSpan(_speciesPictureBox, 2);
+            this.Controls.Add(_speciesPictureBox, 2, 1);
+            this.SetRowSpan(_speciesPictureBox, 2);
 
             _speciesPictureBox.Click += _speciesPictureBoxClick;
             _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard\nLeft click: plain image\nRight click: image with color info");
+
+            LvColors.View = View.Details;
+            LvColors.FullRowSelect = true;
+            LvColors.ShowItemToolTips = true;
+            LvColors.Columns.Add("Id", 28);
+            LvColors.Columns[0].TextAlign = HorizontalAlignment.Right; // doesn't work
+            for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
+                LvColors.Columns.Add($"{ci}", 20);
+            Controls.Add(LvColors, 3, 0);
+            SetRowSpan(LvColors, 2);
+            LvColors.MinimumSize = new Size(152 + SystemInformation.VerticalScrollBarWidth, 0);
+            LvColors.Dock = DockStyle.Right;
         }
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
@@ -194,7 +205,7 @@ namespace ARKBreedingStats.uiControls
                 SetRegionColorButton(i);
             _colorRegionButtons[0].PerformClick();
             UpdateCreatureImage();
-            _tlbMain.PerformLayout();
+            this.PerformLayout();
         }
 
         public void SetRegionColorButton(int region)

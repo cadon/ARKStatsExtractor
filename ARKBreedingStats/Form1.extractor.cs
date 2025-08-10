@@ -154,7 +154,7 @@ namespace ARKBreedingStats
             radarChartExtractor.SetLevels(_statIOs.Select(s => s.LevelWild).ToArray(), _statIOs.Select(s => s.LevelMut).ToArray(), speciesSelector1.SelectedSpecies);
             cbExactlyImprinting.BackColor = Color.Transparent;
             var species = speciesSelector1.SelectedSpecies;
-            _topLevels.TryGetValue(species, out var topLevels);
+            _creatureCollection.TopLevels.TryGetValue(species, out var topLevels);
 
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
             var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
@@ -827,8 +827,17 @@ namespace ARKBreedingStats
         /// <param name="validateCombination"></param>
         private void SetLevelCombination(int s, int i, bool validateCombination = false)
         {
-            _statIOs[s].LevelWild = _extractor.Results[s][i].levelWild;
-            _statIOs[s].LevelMut = 0;
+            var levelsWild = _extractor.Results[s][i].levelWild;
+            var levelsMutated = 0;
+            if (levelsWild > 255 && _creatureCollection.Game == Ark.Asa)
+            {
+                // TODO assuming wild and mutated levels have the same effect, this is not true for all species
+                var moveToMutation = ((levelsWild - 254) / 2) * 2;
+                levelsWild -= moveToMutation;
+                levelsMutated += moveToMutation;
+            }
+            _statIOs[s].LevelWild = levelsWild;
+            _statIOs[s].LevelMut = levelsMutated;
             _statIOs[s].LevelDom = _extractor.Results[s][i].levelDom;
             _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, 0, true, 1, 0);
             _extractor.ChosenResults[s] = i;
@@ -1489,7 +1498,8 @@ namespace ARKBreedingStats
                 colors = input.RegionColors,
                 ColorIdsAlsoPossible = input.ColorIdsAlsoPossible,
                 guid = fromExtractor && input.CreatureGuid != Guid.Empty ? input.CreatureGuid : Guid.NewGuid(),
-                ArkId = input.ArkId
+                ArkId = input.ArkId,
+                Traits = input.Traits?.ToArray()
             };
 
             creature.ArkIdImported = Utils.IsArkIdImported(creature.ArkId, creature.guid);

@@ -164,6 +164,7 @@ namespace ARKBreedingStats.multiplierTesting
 
                     taTmSolver.SetFirstEquation(lowLevelHpCreature.GetStatValue(s), baseValue,
                         lowLevelHpCreature.Stats[s].Wild, incPerWild, svStats[ServerMultipliers.IndexLevelWild],
+                        0, 1,
                         1, lowLevelHpCreature.DinoImprintingQuality, species.StatImprintMultipliers[s],
                         serverMultipliers.BabyImprintingStatScaleMultiplier,
                         lowLevelHpCreature.TameEffectiveness, lowLevelHpCreature.Stats[s].Tamed, 0, 0);
@@ -171,6 +172,7 @@ namespace ARKBreedingStats.multiplierTesting
                     resultText = taTmSolver.CalculateTaTbhm(highLevelHpCreature.GetStatValue(s), baseValue,
                         highLevelHpCreature.Stats[s].Wild, incPerWild,
                         svStats[ServerMultipliers.IndexLevelWild],
+                        0, 1,
                          highLevelHpCreature.DinoImprintingQuality, species.StatImprintMultipliers[s],
                         serverMultipliers.BabyImprintingStatScaleMultiplier,
                         highLevelHpCreature.TameEffectiveness, highLevelHpCreature.Stats[s].Tamed, 0, 0, out var taTaM, out tbhm);
@@ -192,6 +194,7 @@ namespace ARKBreedingStats.multiplierTesting
                     // ta, tm
                     taTmSolver.SetFirstEquation(crHighTe.GetStatValue(s), baseValue,
                         crHighTe.Stats[s].Wild, incPerWild, svStats[ServerMultipliers.IndexLevelWild],
+                        0, 1,
                         1, crHighTe.DinoImprintingQuality, species.StatImprintMultipliers[s],
                         serverMultipliers.BabyImprintingStatScaleMultiplier,
                         crHighTe.TameEffectiveness, crHighTe.Stats[s].Tamed, 0, 0);
@@ -199,6 +202,7 @@ namespace ARKBreedingStats.multiplierTesting
                     resultText = taTmSolver.CalculateTaTm(crLowTe.GetStatValue(s), baseValue,
                         crLowTe.Stats[s].Wild, incPerWild,
                         svStats[ServerMultipliers.IndexLevelWild],
+                        0, 1,
                         1, crLowTe.DinoImprintingQuality, species.StatImprintMultipliers[s],
                         serverMultipliers.BabyImprintingStatScaleMultiplier,
                         crLowTe.TameEffectiveness, crLowTe.Stats[s].Tamed, 0, 0, out var taTaM, out var tmTmM);

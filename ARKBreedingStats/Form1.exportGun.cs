@@ -2,6 +2,7 @@
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -209,6 +210,54 @@ namespace ARKBreedingStats
             // import server settings
             var success = ImportExportGun.ImportServerMultipliersFromJson(_creatureCollection, data.JsonText, data.ServerHash, out resultText);
             SetMessageLabelText(resultText, success ? MessageBoxIcon.Information : MessageBoxIcon.Error, resultText);
+        }
+
+        /// <summary>
+        /// Saving export gun files created by using existing creatures.
+        /// </summary>
+        private void saveExportFileLocallyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
+
+            using (var folderBrowserDialog = new FolderBrowserDialog())
+            {
+                folderBrowserDialog.Description = "Save Export File Locally";
+
+                if (folderBrowserDialog.ShowDialog() != DialogResult.OK
+                    || string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
+                    return;
+
+                var savedCount = 0;
+                var path = folderBrowserDialog.SelectedPath;
+
+                try
+                {
+                    foreach (int i in listViewLibrary.SelectedIndices)
+                    {
+                        var creature = _creaturesDisplayed[i];
+
+                        var contentString =
+                            Newtonsoft.Json.JsonConvert.SerializeObject(
+                                ImportExportGun.ConvertCreatureToExportGunFile(creature, out _));
+
+                        var fileName = $"{creature.SpeciesName}_{creature.ArkId}";
+                        var filePath = Path.Combine(path, fileName + ".json");
+                        var suffix = 1;
+                        while (File.Exists(filePath))
+                            filePath = Path.Combine(path, fileName + "_" + (++suffix) + ".json");
+
+                        System.IO.File.WriteAllText(filePath, contentString);
+                        savedCount++;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    SetMessageLabelText($"Error saving file: {ex.Message}", MessageBoxIcon.Error);
+                    return;
+                }
+
+                SetMessageLabelText($"Saved {savedCount} files successfully.", MessageBoxIcon.Information, path);
+            }
         }
     }
 }

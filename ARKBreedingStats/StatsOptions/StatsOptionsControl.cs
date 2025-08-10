@@ -163,7 +163,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             SelectedStatsOptions = CbbOptions.SelectedItem as StatsOptions<T>;
             if (SelectedStatsOptions == null) return;
 
-            this.SuspendDrawing();
+            this.SuspendDrawingAndLayout();
             TbOptionsName.Text = SelectedStatsOptions.Name;
             var isNotRoot = SelectedStatsOptions.Name != string.Empty;
             TbOptionsName.Enabled = isNotRoot;
@@ -178,7 +178,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             UpdateStatsControls(isNotRoot);
 
             CbbParent.SelectedItem = SelectedStatsOptions.ParentOptions;
-            this.ResumeDrawing();
+            this.ResumeDrawingAndLayout();
         }
 
         private void TbAffectedSpeciesLeave(object sender, EventArgs e)

@@ -82,7 +82,7 @@ namespace ARKBreedingStats
         private void SetTesterInputsTamed(bool domesticated)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
-                _testingIOs[s].postTame = domesticated;
+                _testingIOs[s].PostTame = domesticated;
             lbNotYetTamed.Visible = !domesticated;
         }
 
@@ -95,7 +95,7 @@ namespace ARKBreedingStats
             TestingStatIOsRecalculateValue(sIo);
 
             // update Torpor-level if changed value is not from torpor-StatIO
-            if (_updateTorporInTester && sIo.statIndex != Stats.Torpidity)
+            if (_updateTorporInTester && sIo.StatIndex != Stats.Torpidity)
             {
                 int torporLvl = 0;
                 for (int s = 0; s < Stats.StatsCount; s++)
@@ -134,7 +134,7 @@ namespace ARKBreedingStats
             statPotentials1.SetLevels(levelsWild, levelsMutations, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
 
-            if (sIo.statIndex == Stats.Torpidity)
+            if (sIo.StatIndex == Stats.Torpidity)
             {
                 DisplayPreTamedLevelTester();
             }
@@ -155,8 +155,8 @@ namespace ARKBreedingStats
 
         private void TestingStatIOsRecalculateValue(StatIO sIo)
         {
-            sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, 0, true, 1, 0);
-            sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.statIndex, sIo.LevelWild, sIo.LevelMut, sIo.LevelDom,
+            sIo.BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.StatIndex, sIo.LevelWild, sIo.LevelMut, 0, true, 1, 0);
+            sIo.Input = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, sIo.StatIndex, sIo.LevelWild, sIo.LevelMut, sIo.LevelDom,
                     rbTamedTester.Checked || rbBredTester.Checked,
                     rbBredTester.Checked ? 1 : Math.Max(0, TamingEffectivenessTester),
                     !rbWildTester.Checked ? (double)numericUpDownImprintingBonusTester.Value / 100 : 0, roundToIngamePrecision: false);
@@ -281,6 +281,7 @@ namespace ARKBreedingStats
                 UpdateParentListInput(infoInput);
                 infoInput.MutationCounterMother = c.mutationsMaternal;
                 infoInput.MutationCounterFather = c.mutationsPaternal;
+                infoInput.Traits = c.Traits?.ToArray();
             }
             else
             {

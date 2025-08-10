@@ -31,7 +31,7 @@ namespace ARKBreedingStats.uiControls
             InitializeComponent();
             Disposed += MultiSetter_Disposed;
 
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             _colors = new byte[Ark.ColorRegionCount];
             _tagControls = new List<MultiSetterTag>();
 
@@ -122,7 +122,7 @@ namespace ARKBreedingStats.uiControls
                 cbbServer.Items.Add(s);
 
             SetLocalizations();
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         private void buttonStatus_Click(object sender, EventArgs e)
@@ -315,11 +315,7 @@ namespace ARKBreedingStats.uiControls
             mst.TagCheckState = CheckState.Checked;
         }
 
-        private void MultiSetter_Disposed(object sender, EventArgs e)
-        {
-            _tt.RemoveAll();
-            _tt.Dispose();
-        }
+        private void MultiSetter_Disposed(object sender, EventArgs e) => _tt.RemoveAllAndDispose();
 
         private void SetLocalizations()
         {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Traits;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
 
@@ -165,6 +167,8 @@ namespace ARKBreedingStats.importExportGun
                 generation = -1 // indication that it has to be recalculated
             };
 
+            c.Traits = ec.Traits?.Select(CreatureTrait.TryParse).ToArray();
+
             c.RecalculateCreatureValues(CreatureCollection.CurrentCreatureCollection?.wildLevelStep);
             if (ec.NextAllowedMatingTimeDuration > 0)
                 c.cooldownUntil = DateTime.Now.AddSeconds(ec.NextAllowedMatingTimeDuration);
@@ -241,7 +245,8 @@ namespace ARKBreedingStats.importExportGun
                 TameEffectiveness = (float)c.tamingEff,
                 TamerString = c.owner,
                 TribeName = c.tribe,
-                NextAllowedMatingTimeDuration = c.cooldownUntil == null ? 0 : (c.cooldownUntil.Value - DateTime.Now).Seconds
+                NextAllowedMatingTimeDuration = c.cooldownUntil == null ? 0 : (c.cooldownUntil.Value - DateTime.Now).Seconds,
+                Traits = c.Traits?.Select(t => t.ToDefinitionString()).ToArray()
             };
 
             return ec;
