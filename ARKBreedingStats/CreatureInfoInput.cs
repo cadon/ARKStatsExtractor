@@ -891,7 +891,7 @@ namespace ARKBreedingStats
 
         private void BtTraits_Click(object sender, EventArgs e)
         {
-            if (TraitSelection.ShowTraitSelectionWindow(Traits.ToList(), "Trait Selection", out var traits))
+            if (TraitSelection.ShowTraitSelectionWindow(Traits?.ToList(), "Trait Selection", out var traits))
                 Traits = traits?.ToArray();
         }
 
