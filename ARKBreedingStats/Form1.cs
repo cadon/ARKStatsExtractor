@@ -4176,7 +4176,9 @@ namespace ARKBreedingStats
 
         private void howGoodAreMyStatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://arkutils.netlify.app/tools/wildstats");
+            var usedStats = speciesSelector1.SelectedSpecies == null ? 6
+                : Enumerable.Range(0, Stats.StatsCount).Count(si => si != Stats.Torpidity && speciesSelector1.SelectedSpecies.CanLevelUpWildOrHaveMutations(si));
+            Process.Start($"https://arkutils.netlify.app/tools/wildstats/150/{usedStats}");
         }
     }
 }
