@@ -621,6 +621,8 @@ namespace ARKBreedingStats.BreedingPlanning
             if (considerChosenCreature) btShowAllCreatures.Text = string.Format(Loc.S("BPCancelRestrictionOn"), _chosenCreature.name);
             if (_onlyShowingASubset) btShowAllCreatures.Text = string.Format(Loc.S("BPCancelRestrictionOn"), "subset");
             btShowAllCreatures.Visible = considerChosenCreature || _onlyShowingASubset;
+
+            SetMinTotalLevelWithTopStats();
             this.ResumeDrawingAndLayout();
         }
 
@@ -984,6 +986,19 @@ namespace ARKBreedingStats.BreedingPlanning
                 _currentSpecies = value;
                 StatWeighting.SetSpecies(value);
             }
+        }
+
+        private void SetMinTotalLevelWithTopStats()
+        {
+            if (_currentSpecies == null || CreatureCollection == null) return;
+
+            if (CreatureCollection.TopLevels.TryGetValue(_currentSpecies, out var topLevels)
+                && topLevels.MinLevelForTopCreature >= 0)
+            {
+                LbMinTotalLevelTopStats.Text = $"Min level for creatures with all desired high top stats: {topLevels.MinLevelForTopCreature}";
+            }
+            else
+                LbMinTotalLevelTopStats.Text = "Min level for creatures with all desired high top stats: unknown";
         }
 
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)

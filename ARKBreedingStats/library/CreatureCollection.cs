@@ -1,13 +1,13 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.library;
+using ARKBreedingStats.mods;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using ARKBreedingStats.BreedingPlanning;
-using ARKBreedingStats.mods;
-using ARKBreedingStats.Pedigree;
 
 namespace ARKBreedingStats.Library
 {
@@ -159,6 +159,11 @@ namespace ARKBreedingStats.Library
         /// </summary>
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public CurrentBreedingPair[] CurrentBreedingPairs;
+
+        /// <summary>
+        /// List of all top stats per species.
+        /// </summary>
+        public readonly Dictionary<Species, TopLevels> TopLevels = new Dictionary<Species, TopLevels>();
 
         /// <summary>
         /// Calculates a hashcode for a list of mods and their order. Can be used to check for changes.

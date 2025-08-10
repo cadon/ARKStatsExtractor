@@ -34,10 +34,6 @@ namespace ARKBreedingStats
         private string _currentFilePath;
         private bool _collectionDirty;
 
-        /// <summary>
-        /// List of all top stats per species
-        /// </summary>
-        private readonly Dictionary<Species, TopLevels> _topLevels = new Dictionary<Species, TopLevels>();
         private readonly StatIO[] _statIOs = new StatIO[Stats.StatsCount];
         private readonly StatIO[] _testingIOs = new StatIO[Stats.StatsCount];
         private int _activeStatIndex = -1;
@@ -852,7 +848,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            hatching1.SetSpecies(species, _topLevels.TryGetValue(species, out var tl) ? tl : null);
+            hatching1.SetSpecies(species, _creatureCollection.TopLevels.TryGetValue(species, out var tl) ? tl : null);
 
             _hiddenLevelsCreatureTester = 0;
 
@@ -3326,7 +3322,7 @@ namespace ARKBreedingStats
 
             if (openPatternEditor)
             {
-                input.OpenNamePatternEditor(cr, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
+                input.OpenNamePatternEditor(cr, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _customReplacingNamingPattern, namingPatternIndex, ReloadNamePatternCustomReplacings);
 
                 UpdatePatternButtons();
@@ -3345,7 +3341,7 @@ namespace ARKBreedingStats
                     colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _);
                 input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
 
-                input.GenerateCreatureName(cr, alreadyExistingCreature, _topLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
+                input.GenerateCreatureName(cr, alreadyExistingCreature, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _customReplacingNamingPattern, showDuplicateNameWarning, namingPatternIndex);
                 if (Properties.Settings.Default.PatternNameToClipboardAfterManualApplication)
                 {

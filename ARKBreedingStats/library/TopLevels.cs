@@ -8,6 +8,11 @@ namespace ARKBreedingStats.library
     public class TopLevels
     {
         private readonly int[][] _levels;
+        /// <summary>
+        /// The minimum total level for a creature to have at least all current top levels.
+        /// Offspring with less than that level miss at least one top level.
+        /// </summary>
+        public int MinLevelForTopCreature = -1;
 
         public TopLevels()
         {

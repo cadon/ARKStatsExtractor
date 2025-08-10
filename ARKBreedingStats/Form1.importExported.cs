@@ -329,7 +329,7 @@ namespace ARKBreedingStats
                         totalCreatureCount = _creatureCollection.GetTotalCreatureCount();
 
                     creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
-                        _topLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
+                        _creatureCollection.TopLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
                         _customReplacingNamingPattern, false, 0, Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: totalCreatureCount);
                     if (alreadyExistingCreature != null)
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
@@ -411,7 +411,7 @@ namespace ARKBreedingStats
                 {
                     var overlayPatternResult = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature,
                         _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
-                        _topLevels.TryGetValue(creature.Species, out var tl) ? tl : null,
+                        _creatureCollection.TopLevels.TryGetValue(creature.Species, out var tl) ? tl : null,
                         _customReplacingNamingPattern, false, -1, false, overlayPattern,
                         false, colorsExisting: _creatureCollection.ColorAlreadyAvailable(creature.Species, creature.colors, out _),
                         libraryCreatureCount: _creatureCollection.GetTotalCreatureCount());
