@@ -50,6 +50,11 @@ namespace ARKBreedingStats.Pedigree
         public event Action RecalculateBreedingPlan;
 
         /// <summary>
+        /// Trigger collection changed.
+        /// </summary>
+        public static event Form1.CollectionChangedEventHandler CollectionChanged;
+
+        /// <summary>
         /// Generate name pattern for creature and copy to clipboard.
         /// </summary>
         public static event Action<Creature, int> CopyGeneratedPatternToClipboard;
@@ -516,6 +521,7 @@ namespace ARKBreedingStats.Pedigree
                 return;
             Creature.Traits = appliedTraits?.ToArray();
             RecalculateBreedingPlan?.Invoke();
+            CollectionChanged?.Invoke();
         }
     }
 }

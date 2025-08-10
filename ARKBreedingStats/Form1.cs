@@ -159,6 +159,7 @@ namespace ARKBreedingStats
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
             raisingControl1.AdjustTimersByOffset += timerList1.AdjustAllTimersByOffset;
             currentBreeds1.Changed += SetCollectionChanged;
+            PedigreeCreature.CollectionChanged += SetCollectionChanged;
 
             listViewLibrary.VirtualMode = true;
             listViewLibrary.RetrieveVirtualItem += ListViewLibrary_RetrieveVirtualItem;
