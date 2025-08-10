@@ -3030,7 +3030,11 @@ namespace ARKBreedingStats
         /// </summary>
         private void UpdateAsaIndicator()
         {
-            LbAsa.Visible = _creatureCollection.Game == Ark.Asa;
+            var asa = _creatureCollection.Game == Ark.Asa;
+            LbAsa.Visible = asa;
+            pBondedTamingExtractor.Visible = asa;
+            if (!asa)
+                RbBondedTaming0.Checked = true;
         }
 
         private void loadAdditionalValuesToolStripMenuItem_Click(object sender, EventArgs e)
