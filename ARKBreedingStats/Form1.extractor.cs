@@ -827,8 +827,17 @@ namespace ARKBreedingStats
         /// <param name="validateCombination"></param>
         private void SetLevelCombination(int s, int i, bool validateCombination = false)
         {
-            _statIOs[s].LevelWild = _extractor.Results[s][i].levelWild;
-            _statIOs[s].LevelMut = 0;
+            var levelsWild = _extractor.Results[s][i].levelWild;
+            var levelsMutated = 0;
+            if (levelsWild > 255 && _creatureCollection.Game == Ark.Asa)
+            {
+                // TODO assuming wild and mutated levels have the same effect, this is not true for all species
+                var moveToMutation = ((levelsWild - 254) / 2) * 2;
+                levelsWild -= moveToMutation;
+                levelsMutated += moveToMutation;
+            }
+            _statIOs[s].LevelWild = levelsWild;
+            _statIOs[s].LevelMut = levelsMutated;
             _statIOs[s].LevelDom = _extractor.Results[s][i].levelDom;
             _statIOs[s].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, s, _extractor.Results[s][i].levelWild, 0, 0, true, 1, 0);
             _extractor.ChosenResults[s] = i;

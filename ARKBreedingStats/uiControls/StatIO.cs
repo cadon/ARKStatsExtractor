@@ -44,7 +44,7 @@ namespace ARKBreedingStats.uiControls
             _breedingValue = 0;
             groupBox1.Click += groupBox1_Click;
             InputType = _inputType;
-            
+
             _tt = new ToolTip { InitialDelay = 300 };
             _tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
         }
