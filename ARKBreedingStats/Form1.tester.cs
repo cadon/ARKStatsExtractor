@@ -281,7 +281,7 @@ namespace ARKBreedingStats
                 UpdateParentListInput(infoInput);
                 infoInput.MutationCounterMother = c.mutationsMaternal;
                 infoInput.MutationCounterFather = c.mutationsPaternal;
-                infoInput.Traits = c.Traits?.ToList();
+                infoInput.Traits = c.Traits?.ToArray();
             }
             else
             {

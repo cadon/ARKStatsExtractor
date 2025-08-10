@@ -47,7 +47,7 @@ namespace ARKBreedingStats.uiControls
 
         public void SetCreatureValues(Creature creature)
         {
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
 
             for (int s = 0; s < displayedStatsCount; s++)
             {
@@ -58,7 +58,7 @@ namespace ARKBreedingStats.uiControls
 
             labelSex.Text = Utils.SexSymbol(creature.sex);
 
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         public int BarMaxLevel

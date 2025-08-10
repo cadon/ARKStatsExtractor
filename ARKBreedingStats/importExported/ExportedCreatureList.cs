@@ -106,7 +106,7 @@ namespace ARKBreedingStats.importExported
                                 "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                 return;
 
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             ClearControls();
             _hiddenSpecies.Clear();
             foreach (var i in _speciesHideItems) i.Dispose();
@@ -165,7 +165,7 @@ namespace ARKBreedingStats.importExported
 
             Text = "Exported creatures in " + Utils.ShortPath(_selectedFolder, 100);
             UpdateStatusBarLabelAndControls();
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
 
             // check for unsupported species
             if (unknownSpeciesBlueprintPaths.Any()) CheckForUnknownMods?.Invoke(unknownSpeciesBlueprintPaths);
@@ -195,7 +195,7 @@ namespace ARKBreedingStats.importExported
         private void ClearControls()
         {
             _eccs.Clear();
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             try
             {
                 while (panel1.Controls.Count > 0)
@@ -203,7 +203,7 @@ namespace ARKBreedingStats.importExported
             }
             finally
             {
-                ResumeLayout();
+                this.ResumeDrawingAndLayout();
             }
         }
 
@@ -285,7 +285,7 @@ namespace ARKBreedingStats.importExported
 
         private void moveAllImportedFilesToimportedSubfolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             bool suppressMessages = (ModifierKeys & Keys.Shift) != 0;
             if (suppressMessages || MessageBox.Show("Move all exported files in the current folder that are already imported in this library to the subfolder \"imported\"?",
                     "Move imported files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -351,12 +351,12 @@ namespace ARKBreedingStats.importExported
                 }
             }
             UpdateStatusBarLabelAndControls();
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         private void DeleteAllImportedFiles(bool dontDisplayAnyWarnings)
         {
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             if (dontDisplayAnyWarnings || MessageBox.Show("Delete all exported files in the current folder that are already imported in this library?\nThis cannot be undone!",
                     "Delete imported files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
@@ -377,7 +377,7 @@ namespace ARKBreedingStats.importExported
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             UpdateStatusBarLabelAndControls();
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         private void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -387,7 +387,7 @@ namespace ARKBreedingStats.importExported
 
         private void DeleteAllFiles(bool dontDisplayAnyWarnings)
         {
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             if (dontDisplayAnyWarnings || MessageBox.Show("Delete all files in the current folder, regardless if they are imported or not imported?\nThis cannot be undone!",
                     "Delete ALL files?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
@@ -404,7 +404,7 @@ namespace ARKBreedingStats.importExported
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             UpdateStatusBarLabelAndControls();
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         private void ExportedCreatureList_DragEnter(object sender, DragEventArgs e)
@@ -444,7 +444,7 @@ namespace ARKBreedingStats.importExported
         {
             if (!_allowFiltering) return;
 
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             foreach (var ecc in _eccs)
             {
                 if ((!showImportedCreaturesToolStripMenuItem.Checked &&
@@ -459,7 +459,7 @@ namespace ARKBreedingStats.importExported
                 }
             }
             UpdateStatusBarLabelAndControls();
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         /// <summary>

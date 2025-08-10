@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using ARKBreedingStats.Traits;
+using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.Pedigree
@@ -107,8 +110,13 @@ namespace ARKBreedingStats.Pedigree
             Disposed += PedigreeCreature_Disposed;
             comboId = -1;
 
+            var stat = 0;
             foreach (var l in _labelsStats)
+            {
                 l.MouseClick += element_MouseClick;
+                l.Tag = DisplayedStats[stat++];
+                l.Paint += StatLabelPaint;
+            }
             foreach (var l in _labelsStatsMut)
                 l.MouseClick += element_MouseClick;
 
@@ -123,6 +131,51 @@ namespace ARKBreedingStats.Pedigree
                 libraryContextMenuItemsCopyToClipboard[i] = mi;
             }
             toolStripMenuItemCopyGeneratedNameToClipboard.DropDownItems.AddRange(libraryContextMenuItemsCopyToClipboard);
+        }
+
+        private void StatLabelPaint(object sender, PaintEventArgs e)
+        {
+            if (Creature?.Traits == null) return;
+            var g = e.Graphics;
+            var statIndex = (int)((Control)sender).Tag;
+            var i = 0;
+            using (var p = new Pen(Color.Black))
+            using (var b = new SolidBrush(Color.White))
+            {
+                foreach (var t in Creature.Traits)
+                {
+                    if (t.TraitDefinition.StatIndex != statIndex) continue;
+                    if (t.MutationProbability > 0)
+                    {
+                        p.Color = Color.DeepPink;
+                        b.Color = Color.Pink;
+                    }
+                    else if (t.MutationProbability < 0)
+                    {
+                        p.Color = Color.DarkGreen;
+                        b.Color = Color.GreenYellow;
+                    }
+                    else if (t.InheritHigherProbability > 0)
+                    {
+                        p.Color = Color.DarkBlue;
+                        b.Color = Color.DeepSkyBlue;
+                    }
+                    else if (t.InheritHigherProbability < 0)
+                    {
+                        p.Color = Color.DarkGoldenrod;
+                        b.Color = Color.Yellow;
+                    }
+                    else continue;
+
+                    const int circleWidth = 3;
+                    const int markersPerColumn = 3;
+                    var y = (i % markersPerColumn) * (circleWidth + 1);
+                    var x = (i / markersPerColumn) * (circleWidth + 1);
+                    g.FillEllipse(b, x, y, circleWidth, circleWidth);
+                    g.DrawEllipse(p, x, y, circleWidth, circleWidth);
+                    i++;
+                }
+            }
         }
 
         private void CopyGeneratedNamePatternToClipboard(object sender, EventArgs e)
@@ -223,14 +276,14 @@ namespace ARKBreedingStats.Pedigree
 
                 var levelColorOptions = Form1.StatsOptionsLevelColors.GetStatsOptions(Creature.Species);
 
-                for (int s = 0; s < DisplayedStatsCount; s++)
+                for (var s = 0; s < DisplayedStatsCount; s++)
                 {
-                    int si = DisplayedStats[s];
+                    var si = DisplayedStats[s];
                     string tooltipText = null;
                     _labelsStatsMut[s].Visible = false;
                     if (_creature.valuesBreeding != null && _creature.valuesBreeding[si] == 0)
                     {
-                        // stat not used // TODO hide label?
+                        // stat not used
                         _labelsStats[s].Text = "-";
                         _labelsStats[s].BackColor = Color.WhiteSmoke;
                         _labelsStats[s].ForeColor = Color.LightGray;
@@ -261,12 +314,15 @@ namespace ARKBreedingStats.Pedigree
                                 _creature.IsTopStat(si) ? 0.2 : 0.7);
 
                         _labelsStats[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
+                        var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition.StatIndex == si), Environment.NewLine);
+                        if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
                             + (Stats.IsPercentage(si) ? "%" : string.Empty)
                             + (_creature.levelsMutated == null ? string.Empty
                                 : Environment.NewLine + Loc.S("Mutation levels") + ": " + _creature.levelsMutated[si]
-                                );
+                                )
+                            + traitList;
                     }
 
                     if (_creature.levelsMutated != null && _creature.levelsMutated[si] > 0)
@@ -450,6 +506,16 @@ namespace ARKBreedingStats.Pedigree
         private void copyInfoGraphicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _creature?.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
+        }
+
+        private void editTraitsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!TraitSelection.ShowTraitSelectionWindow(Creature.Traits?.ToList(),
+                    $"Trait Selection for {Creature.name} ({Creature.Species})",
+                    out var appliedTraits))
+                return;
+            Creature.Traits = appliedTraits?.ToArray();
+            RecalculateBreedingPlan?.Invoke();
         }
     }
 }

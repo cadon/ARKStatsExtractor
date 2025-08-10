@@ -46,8 +46,8 @@ namespace ARKBreedingStats
         private bool _tribeLock, _ownerLock;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the info input
 
-        private List<CreatureTrait> _traits;
-        public List<CreatureTrait> Traits
+        private CreatureTrait[] _traits;
+        public CreatureTrait[] Traits
         {
             get => _traits;
             set
@@ -664,7 +664,7 @@ namespace ARKBreedingStats
             cr.domesticatedAt = DomesticatedAt;
             cr.ArkId = ArkId;
             cr.InitializeArkIdInGame();
-            cr.Traits = Traits?.ToList();
+            cr.Traits = Traits?.ToArray();
         }
 
         private void textBoxOwner_Leave(object sender, EventArgs e)
@@ -891,8 +891,8 @@ namespace ARKBreedingStats
 
         private void BtTraits_Click(object sender, EventArgs e)
         {
-            if (TraitSelection.ShowTraitSelectionWindow(Traits, "Trait Selection", out var traits))
-                Traits = traits;
+            if (TraitSelection.ShowTraitSelectionWindow(Traits.ToList(), "Trait Selection", out var traits))
+                Traits = traits?.ToArray();
         }
 
         public void SetLocalizations()

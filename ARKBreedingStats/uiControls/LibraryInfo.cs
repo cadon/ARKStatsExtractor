@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -47,7 +48,7 @@ namespace ARKBreedingStats.uiControls
             _libraryFilterConsidered = libraryFilterConsidered;
             if (tlp != null)
             {
-                tlp.SuspendLayout();
+                tlp.SuspendDrawingAndLayout();
                 tlp.Controls.Clear();
             }
 
@@ -247,7 +248,7 @@ namespace ARKBreedingStats.uiControls
             }
 
             _speciesInfo = sb.ToString();
-            tlp?.ResumeLayout();
+            tlp?.ResumeDrawingAndLayout();
             return true;
         }
 

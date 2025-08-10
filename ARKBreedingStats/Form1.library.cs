@@ -2534,7 +2534,7 @@ namespace ARKBreedingStats
 
             foreach (int i in listViewLibrary.SelectedIndices)
             {
-                _creaturesDisplayed[i].Traits = appliedTraits?.ToList();
+                _creaturesDisplayed[i].Traits = appliedTraits?.ToArray();
             }
             // update list display
             FilterLib();

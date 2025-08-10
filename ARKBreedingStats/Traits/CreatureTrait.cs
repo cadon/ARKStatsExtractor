@@ -68,7 +68,7 @@ namespace ARKBreedingStats.Traits
         /// <summary>
         /// Returns a humanly readable list of traits.
         /// </summary>
-        public static string StringList(IList<CreatureTrait> traits, string separator = ", ") => traits == null ? string.Empty : string.Join(separator, traits);
+        public static string StringList(IEnumerable<CreatureTrait> traits, string separator = ", ") => traits == null ? string.Empty : string.Join(separator, traits);
 
         /// <summary>
         /// Returns the definition string, e.g. used by the export gun.

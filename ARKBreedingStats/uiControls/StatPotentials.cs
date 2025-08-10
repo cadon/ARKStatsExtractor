@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.species;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -42,7 +43,7 @@ namespace ARKBreedingStats.uiControls
 
         public void SetLevels(int[] levelsWild, int[] levelsMutations, bool forceUpdate)
         {
-            SuspendLayout();
+            this.SuspendDrawingAndLayout();
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (forceUpdate || _currentLevelsWild[s] != levelsWild[s] || _currentLevelsMutations[s] != levelsMutations[s])
@@ -52,7 +53,7 @@ namespace ARKBreedingStats.uiControls
                     _stats[s].SetLevel(_selectedSpecies, levelsWild[s], levelsMutations[s]);
                 }
             }
-            ResumeLayout();
+            this.ResumeDrawingAndLayout();
         }
 
         public int LevelDomMax
@@ -60,7 +61,7 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    _stats[s].maxDomLevel = value;
+                    _stats[s].MaxDomLevel = value;
             }
         }
 
@@ -69,7 +70,7 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    _stats[s].levelGraphMax = value;
+                    _stats[s].LevelGraphMax = value;
             }
         }
 

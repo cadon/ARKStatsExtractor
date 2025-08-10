@@ -167,7 +167,7 @@ namespace ARKBreedingStats.importExportGun
                 generation = -1 // indication that it has to be recalculated
             };
 
-            c.Traits = ec.Traits?.Select(CreatureTrait.TryParse).ToList();
+            c.Traits = ec.Traits?.Select(CreatureTrait.TryParse).ToArray();
 
             c.RecalculateCreatureValues(CreatureCollection.CurrentCreatureCollection?.wildLevelStep);
             if (ec.NextAllowedMatingTimeDuration > 0)

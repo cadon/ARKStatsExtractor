@@ -57,8 +57,8 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the probability of at least one mutation considering a possible additive mutation probability offset, e.g. by using traits.
         /// </summary>
-        public static double ProbabilityOfOneMutationWithOffset(double mutationProbabilityOffset)
-            => 1 - Math.Pow(1 - (ProbabilityOfMutation + mutationProbabilityOffset), 3);
+        public static double ProbabilityOfOneMutationWithOffset(double baseMutationProbability, double mutationProbabilityOffset)
+            => 1 - Math.Pow(1 - (baseMutationProbability + mutationProbabilityOffset), 3);
 
         #endregion
 

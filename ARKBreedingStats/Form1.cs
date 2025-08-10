@@ -2773,7 +2773,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureStatus = creatureInfoInputExtractor.CreatureStatus;
             creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
             creatureInfoInputTester.ColorIdsAlsoPossible = creatureInfoInputExtractor.ColorIdsAlsoPossible;
-            creatureInfoInputTester.Traits = creatureInfoInputExtractor.Traits?.ToList();
+            creatureInfoInputTester.Traits = creatureInfoInputExtractor.Traits?.ToArray();
 
             tabControlMain.SelectedTab = tabPageStatTesting;
         }

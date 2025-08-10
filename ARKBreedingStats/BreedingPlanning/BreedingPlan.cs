@@ -128,6 +128,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
             nudBPMutationLimit.NeutralNumber = -1;
             _updateBreedingPlanAllowed = true;
+            _tt.SetToolTip(lbBPProbabilityBest, "Probability to get the desired top stats, ignoring the probability to get other non-top stats");
         }
 
         private void StatWeighting_WeightingsChanged()
@@ -903,24 +904,28 @@ namespace ARKBreedingStats.BreedingPlanning
             bool topStatBreedingMode = _breedingMode == BreedingScore.BreedingMode.TopStatsConservative || _breedingMode == BreedingScore.BreedingMode.TopStatsLucky;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == Stats.Torpidity) continue;
-                crB.levelsWild[s] = _statWeights[s] < 0 ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : BreedingScore.GetHigherBestLevel(mother.levelsWild[s], father.levelsWild[s], _statOddEvens[s]);
-                crB.levelsMutated[s] = (crB.levelsWild[s] == mother.levelsWild[s] ? mother : father).levelsMutated?[s] ?? 0;
+                if (s == Stats.Torpidity || !mother.Species.UsesStat(s)) continue;
+                var higherLevelPreferred = _statWeights[s] >= 0;
+                crB.levelsWild[s] = higherLevelPreferred ? BreedingScore.GetHigherBestLevel(mother.levelsWild[s], father.levelsWild[s], _statOddEvens[s]) : Math.Min(mother.levelsWild[s], father.levelsWild[s]);
+                crB.levelsMutated[s] = higherLevelPreferred ? Math.Max(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0) : Math.Min(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0);
                 crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crB.levelsWild[s], crB.levelsMutated[s], 0, true, 1, 0);
                 crB.SetTopStat(s, _currentSpecies.stats[s].IncPerTamedLevel != 0 && crB.levelsWild[s] == _bestLevelsWild[s]);
-                crW.levelsWild[s] = _statWeights[s] < 0 ? Math.Max(mother.levelsWild[s], father.levelsWild[s]) : Math.Min(mother.levelsWild[s], father.levelsWild[s]);
-                crW.levelsMutated[s] = (crW.levelsWild[s] == mother.levelsWild[s] ? mother : father).levelsMutated?[s] ?? 0;
+                crW.levelsWild[s] = higherLevelPreferred ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
+                crW.levelsMutated[s] = higherLevelPreferred ? Math.Min(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0) : Math.Max(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0);
                 crW.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crW.levelsWild[s], crW.levelsMutated[s], 0, true, 1, 0);
                 crW.SetTopStat(s, _currentSpecies.stats[s].IncPerTamedLevel != 0 && crW.levelsWild[s] == _bestLevelsWild[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
+
+                var probabilityInheritingHigherLevel = Ark.ProbabilityInheritHigherLevel + mother.ProbabilityOffsetInheritingHigherLevel(s) + father.ProbabilityOffsetInheritingHigherLevel(s);
+
                 // in top stats breeding mode consider only probability of top stats
                 if (crB.levelsWild[s] > crW.levelsWild[s]
                     && (!topStatBreedingMode || crB.IsTopStat(s)))
-                    probabilityBest *= Ark.ProbabilityInheritHigherLevel;
+                    probabilityBest *= probabilityInheritingHigherLevel;
                 else if (crB.levelsWild[s] < crW.levelsWild[s]
                          && (!topStatBreedingMode || crB.IsTopStat(s)))
-                    probabilityBest *= Ark.ProbabilityInheritLowerLevel;
+                    probabilityBest *= 1 - probabilityInheritingHigherLevel;
             }
             crB.levelsWild[Stats.Torpidity] = crB.levelsWild.Sum() + crB.levelsMutated.Sum();
             crW.levelsWild[Stats.Torpidity] = crW.levelsWild.Sum() + crW.levelsMutated.Sum();
@@ -938,11 +943,11 @@ namespace ARKBreedingStats.BreedingPlanning
             crW.mutationsPaternal = mutationCounterPaternal;
             pedigreeCreatureBest.Creature = crB;
             pedigreeCreatureWorst.Creature = crW;
-            lbBPProbabilityBest.Text = $"{Loc.S("ProbabilityForBest")}: {Math.Round(100 * probabilityBest, 1)} %";
-            lbMutationProbability.Text = $"{Loc.S("ProbabilityForOneMutation")}: {Math.Round(100 * _breedingPairs[comboIndex].MutationProbability, 1)} %";
+            lbBPProbabilityBest.Text = $"{Loc.S("ProbabilityForBest")}: {probabilityBest:P}";
+            lbMutationProbability.Text = $"{Loc.S("ProbabilityForOneMutation")}: {_breedingPairs[comboIndex].MutationProbability:P}";
 
             // set probability barChart
-            offspringPossibilities1.Calculate(_currentSpecies, mother.levelsWild, father.levelsWild);
+            offspringPossibilities1.Calculate(_currentSpecies, mother, father);
 
             // highlight parents
             int hiliId = comboIndex * 2;

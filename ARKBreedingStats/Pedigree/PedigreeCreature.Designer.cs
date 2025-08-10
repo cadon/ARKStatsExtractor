@@ -50,6 +50,7 @@
             this.LbWeMut = new System.Windows.Forms.Label();
             this.LbFoMut = new System.Windows.Forms.Label();
             this.panelHighlight = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +65,7 @@
             this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyInfoGraphicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openWikipageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.editTraitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelHighlight.SuspendLayout();
@@ -288,6 +289,15 @@
             this.panelHighlight.TabIndex = 8;
             this.panelHighlight.Visible = false;
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(319, 29);
+            this.panel1.TabIndex = 0;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -296,6 +306,7 @@
             this.setCooldownToolStripMenuItem,
             this.removeCooldownGrowingToolStripMenuItem,
             this.TsMiViewInPedigree,
+            this.editTraitsToolStripMenuItem,
             this.toolStripSeparator1,
             this.copyNameToClipboardToolStripMenuItem,
             this.toolStripMenuItemCopyGeneratedNameToClipboard,
@@ -303,7 +314,7 @@
             this.copyInfoGraphicToClipboardToolStripMenuItem,
             this.openWikipageInBrowserToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(259, 230);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(259, 274);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // editToolStripMenuItem
@@ -396,14 +407,12 @@
             this.openWikipageInBrowserToolStripMenuItem.Text = "Open Wiki-page in Browser";
             this.openWikipageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.OpenWikipageInBrowserToolStripMenuItem_Click);
             // 
-            // panel1
+            // editTraitsToolStripMenuItem
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(319, 29);
-            this.panel1.TabIndex = 0;
+            this.editTraitsToolStripMenuItem.Name = "editTraitsToolStripMenuItem";
+            this.editTraitsToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            this.editTraitsToolStripMenuItem.Text = "Edit Traits…";
+            this.editTraitsToolStripMenuItem.Click += new System.EventHandler(this.editTraitsToolStripMenuItem_Click);
             // 
             // PedigreeCreature
             // 
@@ -460,5 +469,6 @@
         private System.Windows.Forms.Label LbWeMut;
         private System.Windows.Forms.Label LbFoMut;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolStripMenuItem editTraitsToolStripMenuItem;
     }
 }

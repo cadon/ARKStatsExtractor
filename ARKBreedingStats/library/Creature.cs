@@ -235,8 +235,37 @@ namespace ARKBreedingStats.Library
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public List<string> tags = new List<string>();
 
+        private CreatureTrait[] _traits;
+
         [JsonProperty("traits", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public List<CreatureTrait> Traits;
+        public CreatureTrait[] Traits
+        {
+            get => _traits;
+            set
+            {
+                _traits = value;
+                if (_traits?.Any() != true)
+                {
+                    _probabilityOffsetInheritingHigherLevel = null;
+                    return;
+                }
+                var probabilityOffsetInheritingHigherLevel = new double[Stats.StatsCount];
+                var anyNonZero = false;
+                for (var s = 0; s < Stats.StatsCount; s++)
+                {
+                    var probabilityOffset = 0d;
+                    foreach (var t in _traits)
+                    {
+                        probabilityOffset += t.TraitDefinition.StatIndex == s ? t.InheritHigherProbability : 0;
+                        if (probabilityOffset == 0) continue;
+                        probabilityOffsetInheritingHigherLevel[s] = probabilityOffset;
+                        anyNonZero = true;
+                    }
+                }
+
+                _probabilityOffsetInheritingHigherLevel = anyNonZero ? probabilityOffsetInheritingHigherLevel : null;
+            }
+        }
 
         /// <summary>
         /// Used to display the creature's position in a list.
@@ -632,7 +661,18 @@ namespace ARKBreedingStats.Library
             flags = (flags & ~CreatureFlags.Mutated) | (Mutations > 0 ? CreatureFlags.Mutated : CreatureFlags.None);
         }
 
+        /// <summary>
+        /// Humanly readable list of traits of this creature.
+        /// </summary>
         public string TraitsString => CreatureTrait.StringList(Traits);
+
+
+        private double[] _probabilityOffsetInheritingHigherLevel;
+
+        /// <summary>
+        /// Additive bonus or malus for the offspring of this creature to inherit the higher level of its parents.
+        /// </summary>
+        public double ProbabilityOffsetInheritingHigherLevel(int stat) => _probabilityOffsetInheritingHigherLevel?[stat] ?? 0;
 
         /// <summary>
         /// Calculates the pretame wild level. This value can be off due to wrong inputs due to ingame rounding.
