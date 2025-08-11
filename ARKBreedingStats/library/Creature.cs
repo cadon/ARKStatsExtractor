@@ -256,6 +256,7 @@ namespace ARKBreedingStats.Library
                     var probabilityOffset = 0d;
                     foreach (var t in _traits)
                     {
+                        if (t.TraitDefinition == null) continue;
                         probabilityOffset += t.TraitDefinition.StatIndex == s ? t.InheritHigherProbability : 0;
                         if (probabilityOffset == 0) continue;
                         probabilityOffsetInheritingHigherLevel[s] = probabilityOffset;

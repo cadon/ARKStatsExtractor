@@ -343,7 +343,7 @@ namespace ARKBreedingStats.AsbServer
         /// Sends creature data to the server, this is done for testing, usually other tools like the export gun mod do this.
         /// <param name="waitForResponse">If &gt; 0 a response is awaited for that many seconds. Else no waiting for a response.</param>
         /// </summary>
-        public static async void SendCreatureData(Creature creature, string token, int waitForResponse = 5)
+        public static async Task SendCreatureData(Creature creature, string token, int waitForResponse = 5)
         {
             if (creature == null || string.IsNullOrEmpty(token)) return;
 
