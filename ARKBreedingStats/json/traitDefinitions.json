@@ -65,15 +65,15 @@
     "traitBase": "RobustBase",
     "statIndex": 4
   },
-  "InheritHPFrail": {
+  "InheritHealthFrail": {
     "traitBase": "FrailBase",
     "statIndex": 0
   },
-  "InheritHPMutable": {
+  "InheritHealthMutable": {
     "traitBase": "MutableBase",
     "statIndex": 0
   },
-  "InheritHPRobust": {
+  "InheritHealthRobust": {
     "traitBase": "RobustBase",
     "statIndex": 0
   },
@@ -125,42 +125,42 @@
     "traitBase": "RobustBase",
     "statIndex": 7
   },
-  "CarrierCave": {
+  "AberrantCarrier": {
     "name": "Cave-Bearing",
-    "description": "Reduces the weight of Aberration Items in its inventory",
+    "description": "Reduces the weight of Aberration items in its inventory",
     "maxCopies": 3
   },
-  "CarrierPlant": {
+  "PlantCarrier": {
     "name": "Plant-Bearing",
     "description": "Reduces the weight of plants in its inventory",
     "effect": "Reduces the weight of the following Resources by 15.0%/22.5%/30%, when in its in its inventory:\nThatch, Wood, Fibers, Berries (all types)",
     "maxCopies": 3
   },
-  "CarrierExotic": {
+  "ExoticCarrier": {
     "name": "Exotic-Bearing",
-    "description": "Reduces the weight of exotic Items in its inventory",
+    "description": "Reduces the weight of exotic items in its inventory",
     "maxCopies": 3
   },
-  "CarrierDesert": {
+  "ScorchedCarrier": {
     "name": "Desert-Bearing",
-    "description": "Reduces the weight of Scorched Earth Items in its inventory",
+    "description": "Reduces the weight of Scorched Earth items in its inventory",
     "maxCopies": 3
   },
-  "CarrierMeat": {
+  "MeatCarrier": {
     "name": "Meat-Bearing",
     "description": "Reduces the weight of meat in its inventory",
     "maxCopies": 3
   },
-  "CarrierCarcass": {
+  "CarcassCarrier": {
     "name": "Carcass-Bearing",
     "description": "Reduces the weight of carcasses in its inventory",
     "maxCopies": 3
   },
-  "CarrierWaste": {
-    "name": "Waste-Bearing",
+  "ExtinctionCarrier": {
+    "name": "Reduces the weight of some Extinction items in its inventory",
     "maxCopies": 3
   },
-  "CarrierMineral": {
+  "MineralCarrier": {
     "name": "Mineral-Bearing",
     "description": "Reduces the weight of minerals in its inventory",
     "maxCopies": 3
@@ -249,7 +249,7 @@
     "effect": "Creature and its rider gain 40/60/80 Hypothermic Insulation\nReduces incoming damage from Cold attacks (ice-breath type stuff) by 5.0%/7.5%/10.0%",
     "maxCopies": 3
   },
-  "HighEndurance": {
+  "Sprinter": {
     "name": "High Endurance",
     "description": "This Creature can run for longer than most",
     "effect": "Stamina-drain from sprinting is decreased by 4%/6%/8%",
@@ -273,13 +273,13 @@
     "effect": "Whenever this Creature deals damage to a non-allied target, it gains a 2.5%/3.75%/5.0% movespeed buff for 5 seconds, refreshing on subsequent hits",
     "maxCopies": 2
   },
-  "AggressiveCheatDuration": {
+  "AggressiveCheat1": {
     "name": "Aggressive (cheat 1)",
     "description": "This Creature gets faster when attacking",
     "effect": "Whenever this Creature deals damage to a non-allied target, it gains a X% movespeed buff for 5 seconds, refreshing on subsequent hits",
     "maxCopies": 3
   },
-  "AggressiveCheatDuration2": {
+  "AggressiveCheat2": {
     "name": "Aggressive (cheat 2)",
     "description": "This Creature gets faster when attacking",
     "effect": "Whenever this Creature deals damage to a non-allied target, it gains a X% movespeed buff for 5 seconds, refreshing on subsequent hits",
