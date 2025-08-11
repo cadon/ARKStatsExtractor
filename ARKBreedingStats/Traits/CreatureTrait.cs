@@ -29,7 +29,7 @@ namespace ARKBreedingStats.Traits
 
         public override string ToString()
         {
-            return $"{TraitDefinition?.Name ?? "<unknown>"} (T{Tier + 1})";
+            return $"{TraitDefinition?.Name ?? "unknown trait id: " + Id} (T{Tier + 1})";
         }
 
         [OnDeserialized]
@@ -51,6 +51,15 @@ namespace ARKBreedingStats.Traits
             MutationProbability = traitDefinition?.MutationProbability?[tier] ?? 0;
         }
 
+        public CreatureTrait(string traitId, int tier = 0)
+        {
+            TraitDefinition = TraitDefinition.GetTraitDefinition(traitId);
+            Id = traitId;
+            Tier = (byte)tier;
+            InheritHigherProbability = TraitDefinition?.InheritHigherProbability?[tier] ?? 0;
+            MutationProbability = TraitDefinition?.MutationProbability?[tier] ?? 0;
+        }
+
         public static CreatureTrait TryParse(string traitDefinitionString)
         {
             if (string.IsNullOrEmpty(traitDefinitionString)) return null;
@@ -62,7 +71,7 @@ namespace ARKBreedingStats.Traits
                ? 0
                : int.TryParse(traitDefinitionString.Substring(bracketIndex, 1), out var tierParsed) ? tierParsed : 0);
 
-            return new CreatureTrait(TraitDefinition.GetTraitDefinition(id), tier, id);
+            return new CreatureTrait(id, tier);
         }
 
         /// <summary>
