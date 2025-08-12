@@ -42,8 +42,8 @@ namespace ARKBreedingStats.importExported
                 "Crafting Skill"
             };
 
-            const NumberStyles numberStyle = System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
-            var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+            const NumberStyles numberStyle = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowExponent;
+            var dotSeparatorCulture = CultureInfo.GetCultureInfo("en-US");
 
             bool inStatSection = false;
             foreach (string line in iniLines)
