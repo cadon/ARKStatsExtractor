@@ -155,6 +155,10 @@ namespace ARKBreedingStats.values
         /// </summary>
         private void InitializeSpeciesAndColors(bool undefinedColorAsa = false)
         {
+            OrderSpeciesAndApplyCustomVariants();
+            LoadAndInitializeAliases();
+            UpdateSpeciesBlueprintDictionaries();
+
             //var speciesWoFoodData = new List<string>(); // to determine which species has no food data yet
             if (specialFoodData != null)
             {
@@ -166,14 +170,24 @@ namespace ARKBreedingStats.values
                         sp.taming.eatsAlsoPostTame = customFoodData.eatsAlsoPostTame;
                         sp.taming.specialFoodValues = customFoodData.specialFoodValues;
                     }
+
+                    if (sp.matesWith != null)
+                    {
+                        foreach (var matesWith in sp.matesWith)
+                        {
+                            var matesWithSpecies = _V.SpeciesByBlueprint(matesWith);
+                            if (matesWithSpecies == null
+                               || matesWithSpecies.matesWith?.Contains(sp.blueprintPath) == true) continue;
+                            matesWithSpecies.matesWith = matesWithSpecies.matesWith == null
+                                ? new[] { sp.blueprintPath }
+                                : matesWithSpecies.matesWith.Append(sp.blueprintPath).ToArray();
+                        }
+                    }
+
                     //if (sp.IsDomesticable && !specialFoodData.ContainsKey(sp.name)) speciesWoFoodData.Add(sp.name);
                 }
                 //utils.ClipboardHandler.SetText(speciesWoFoodData.Any() ? string.Join("\n", speciesWoFoodData) : string.Empty);
             }
-
-            OrderSpeciesAndApplyCustomVariants();
-            LoadAndInitializeAliases();
-            UpdateSpeciesBlueprintDictionaries();
 
             InitializeArkColors(undefinedColorAsa);
             _speciesAndColorsInitialized = true;
