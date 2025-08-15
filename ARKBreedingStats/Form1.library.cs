@@ -2212,52 +2212,62 @@ namespace ARKBreedingStats
                 CreateExactMutationLevelCommand(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
         }
 
-        private void commandMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                CreateExactMutationLevelCommand(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
-        }
-
         private void exactSpawnCommandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Creature cr = null;
-            if (tabControlMain.SelectedTab == tabPageExtractor)
-                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
-            else if (tabControlMain.SelectedTab == tabPageStatTesting)
-                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputTester);
-            if (cr == null) return;
-            CreateExactSpawnCommand(cr);
+            var cr = GetCreatureFromExtractorOrTester();
+            if (cr != null)
+                CreateExactSpawnCommand(cr);
         }
 
         private void exactSpawnCommandDS2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Creature cr = null;
+            var cr = GetCreatureFromExtractorOrTester();
+            if (cr != null)
+                CreateExactSpawnDS2Command(cr);
+        }
+
+        private void commandMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var cr = GetCreatureFromExtractorOrTester();
+            if (cr != null)
+                CreateExactMutationLevelCommand(cr);
+        }
+
+        /// <summary>
+        /// Returns the creature currently set in the extractor or testing tab, depending on which tab is active.
+        /// </summary>
+        private Creature GetCreatureFromExtractorOrTester()
+        {
             if (tabControlMain.SelectedTab == tabPageExtractor)
-                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
-            else if (tabControlMain.SelectedTab == tabPageStatTesting)
-                cr = CreateCreatureFromExtractorOrTester(creatureInfoInputTester);
-            if (cr == null) return;
-            CreateExactSpawnDS2Command(cr);
+                return CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
+            if (tabControlMain.SelectedTab == tabPageStatTesting)
+                return CreateCreatureFromExtractorOrTester(creatureInfoInputTester);
+            return null;
         }
 
         private void CreateExactSpawnCommand(Creature cr)
         {
             CreatureSpawnCommand.UnstableCommandToClipboard(cr);
-            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command doesn't include the XP and the imprinterName, thus the imprinting is probably not set."
-                                + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.", MessageBoxIcon.Warning);
+            var notIncluded = "The command doesn't include the XP, " + _creatureCollection.Game == Ark.Ase
+                ? "and the imprinterName, thus the imprinting is probably not set."
+                : ", the imprinterName (imprinting is probably not set) and the mutation levels (you can use the mutation level command for adding them).";
+            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. " + notIncluded
+                                + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.",
+                                MessageBoxIcon.Warning);
         }
 
         private void CreateExactSpawnDS2Command(Creature cr)
         {
             CreatureSpawnCommand.DinoStorageV2CommandToClipboard(cr);
-            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work."
-                                , MessageBoxIcon.Warning);
+            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work. It doesn't include the mutation levels",
+                                MessageBoxIcon.Warning);
         }
 
         private void CreateExactMutationLevelCommand(Creature cr)
         {
             CreatureSpawnCommand.MutationLevelCommandToClipboard(cr);
-            SetMessageLabelText($"The admin console command for adding the mutation levels to the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard.");
+            SetMessageLabelText($"The admin console command for adding the mutation levels to the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard.",
+                MessageBoxIcon.Information);
         }
 
         #endregion

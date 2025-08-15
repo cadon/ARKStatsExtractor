@@ -1254,8 +1254,8 @@ namespace ARKBreedingStats
             this.exactSpawnCommandToolStripMenuItem.Name = "exactSpawnCommandToolStripMenuItem";
             this.exactSpawnCommandToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.exactSpawnCommandToolStripMenuItem.Text = "ExactSpawnCommand";
-            this.exactSpawnCommandToolStripMenuItem.ToolTipText = "Creates a spawn command to spawn this creature in game. This command can crash yo" +
-    "ur game";
+            this.exactSpawnCommandToolStripMenuItem.ToolTipText = "Creates a console command to spawn this creature in game. This command can crash " +
+    "your game";
             this.exactSpawnCommandToolStripMenuItem.Click += new System.EventHandler(this.exactSpawnCommandToolStripMenuItem_Click);
             // 
             // exactSpawnCommandDS2ToolStripMenuItem
@@ -1263,8 +1263,8 @@ namespace ARKBreedingStats
             this.exactSpawnCommandDS2ToolStripMenuItem.Name = "exactSpawnCommandDS2ToolStripMenuItem";
             this.exactSpawnCommandDS2ToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.exactSpawnCommandDS2ToolStripMenuItem.Text = "ExactSpawnCommandDS2";
-            this.exactSpawnCommandDS2ToolStripMenuItem.ToolTipText = "Creates a spawn command to spawn this creature in game, used with the mod DinoSto" +
-    "rageV2. This command is stable.";
+            this.exactSpawnCommandDS2ToolStripMenuItem.ToolTipText = "Creates a console command to spawn this creature in game, used with the mod DinoS" +
+    "torageV2. This command is stable.";
             this.exactSpawnCommandDS2ToolStripMenuItem.Click += new System.EventHandler(this.exactSpawnCommandDS2ToolStripMenuItem_Click);
             // 
             // commandMutationLevelsToolStripMenuItem
@@ -1272,6 +1272,7 @@ namespace ARKBreedingStats
             this.commandMutationLevelsToolStripMenuItem.Name = "commandMutationLevelsToolStripMenuItem";
             this.commandMutationLevelsToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
             this.commandMutationLevelsToolStripMenuItem.Text = "Command mutation levels";
+            this.commandMutationLevelsToolStripMenuItem.ToolTipText = "Creates a console command to set the mutation levels of a creature";
             this.commandMutationLevelsToolStripMenuItem.Click += new System.EventHandler(this.commandMutationLevelsToolStripMenuItem_Click);
             // 
             // toolStripSeparator25
@@ -3445,10 +3446,17 @@ namespace ARKBreedingStats
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.libraryInfoControl1.Location = new System.Drawing.Point(3, 39);
             this.libraryInfoControl1.Name = "libraryInfoControl1";
             this.libraryInfoControl1.RowCount = 2;
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
