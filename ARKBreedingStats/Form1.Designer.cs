@@ -1920,7 +1920,7 @@ namespace ARKBreedingStats
             this.groupBox2.Controls.Add(this.flowLayoutPanelStatIOsTester);
             this.groupBox2.Location = new System.Drawing.Point(8, 37);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(359, 639);
+            this.groupBox2.Size = new System.Drawing.Size(359, 708);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stats";
@@ -1930,11 +1930,12 @@ namespace ARKBreedingStats
             this.flowLayoutPanelStatIOsTester.AutoScroll = true;
             this.flowLayoutPanelStatIOsTester.Controls.Add(this.panel2);
             this.flowLayoutPanelStatIOsTester.Controls.Add(this.panelStatTesterFootnote);
+            this.flowLayoutPanelStatIOsTester.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelStatIOsTester.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanelStatIOsTester.Location = new System.Drawing.Point(6, 19);
+            this.flowLayoutPanelStatIOsTester.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanelStatIOsTester.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanelStatIOsTester.Name = "flowLayoutPanelStatIOsTester";
-            this.flowLayoutPanelStatIOsTester.Size = new System.Drawing.Size(353, 617);
+            this.flowLayoutPanelStatIOsTester.Size = new System.Drawing.Size(353, 689);
             this.flowLayoutPanelStatIOsTester.TabIndex = 53;
             this.flowLayoutPanelStatIOsTester.WrapContents = false;
             // 
@@ -3451,10 +3452,17 @@ namespace ARKBreedingStats
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.libraryInfoControl1.Location = new System.Drawing.Point(3, 39);
             this.libraryInfoControl1.Name = "libraryInfoControl1";
             this.libraryInfoControl1.RowCount = 2;
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
