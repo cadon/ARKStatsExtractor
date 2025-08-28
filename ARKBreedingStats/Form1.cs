@@ -250,7 +250,7 @@ namespace ARKBreedingStats
             var libraryContextMenuMaturitySettings = new[] { 0, 0.05, 0.1, 0.25, 0.5, 0.75, 1 };
             foreach (var m in libraryContextMenuMaturitySettings)
             {
-                var suffix = m < 0.1 ? "baby" : m < 1 ? "juvenile" : "mature";
+                var suffix = m < 0.1 ? Loc.S("baby") : m < 0.5 ? Loc.S("juvenile") : m < 1 ? Loc.S("adolescent") : Loc.S("mature");
                 var tsmi = new ToolStripMenuItem($"Set maturity to {m:p0} ({suffix})", null, SetMaturityToolStripMenuItem_Click);
                 tsmi.Tag = m;
                 SetMaturityCooldownToolStripMenuItem.DropDownItems.Add(tsmi);
