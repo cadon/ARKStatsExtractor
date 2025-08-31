@@ -37,14 +37,14 @@
             this.ColorPickerControl1.Location = new System.Drawing.Point(0, 0);
             this.ColorPickerControl1.Name = "ColorPickerControl1";
             this.ColorPickerControl1.Padding = new System.Windows.Forms.Padding(1);
-            this.ColorPickerControl1.Size = new System.Drawing.Size(450, 414);
+            this.ColorPickerControl1.Size = new System.Drawing.Size(467, 414);
             this.ColorPickerControl1.TabIndex = 0;
             // 
             // ColorPickerWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 414);
+            this.ClientSize = new System.Drawing.Size(467, 414);
             this.Controls.Add(this.ColorPickerControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ColorPickerWindow";
