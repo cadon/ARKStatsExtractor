@@ -184,6 +184,18 @@ namespace ARKBreedingStats.species
         public bool IsDomesticable;
 
         /// <summary>
+        /// Value caps of stats. If a stat reaches a value, it cannot be levelled anymore.
+        /// </summary>
+        [JsonProperty("statCaps")]
+        private Dictionary<int, double> _statCaps;
+
+        /// <summary>
+        /// If a stat index is set to true here, the level ups are additive, i.e. independent on the base value for wild levels and independent on the post tame value for domestic levels.
+        /// </summary>
+        [JsonProperty("statLevelUpsAdditive")]
+        private Dictionary<int, bool> _statLevelUpsAdditive;
+
+        /// <summary>
         /// creates properties that are not created during deserialization. They are set later with the raw-values with the multipliers applied.
         /// </summary>
         [OnDeserialized]
@@ -223,30 +235,33 @@ namespace ARKBreedingStats.species
             double[][] completeRaws = new double[Stats.StatsCount][];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                stats[s] = new SpeciesStat();
-                if (altStatsExist)
-                {
-                    if (altBaseStatsRaw.ContainsKey(s))
-                        altStats[s] = new SpeciesStat();
-                    else altStats[s] = stats[s];
-                }
-
                 var usesStat = false;
-                completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
+
                 if (fullStatsRawLength > s && fullStatsRaw[s] != null)
                 {
+                    usesStat = true;
+                    stats[s] = new SpeciesStat();
+                    if (altStatsExist)
+                    {
+                        if (altBaseStatsRaw.ContainsKey(s))
+                            altStats[s] = new SpeciesStat();
+                        else altStats[s] = stats[s];
+                    }
+
+                    completeRaws[s] = new double[] { 0, 0, 0, 0, 0 };
+
                     for (int i = 0; i < 5; i++)
                     {
                         if (fullStatsRaw[s].Length > i)
                         {
                             completeRaws[s][i] = fullStatsRaw[s]?[i] ?? 0;
-                            if (i == StatsRawIndexBase && fullStatsRaw[s][StatsRawIndexBase] > 0)
-                            {
-                                usesStat = true;
-                            }
                         }
                     }
+
+                    stats[s].IncreaseStatAsPercentage = _statLevelUpsAdditive?.TryGetValue(s, out var useAdditive) != true || !useAdditive;
+                    stats[s].ValueCap = _statCaps?.TryGetValue(s, out var cap) == true ? cap : double.MaxValue;
                 }
+
                 var statBit = (1 << s);
                 if (usesStat)
                     usedStats |= statBit;
@@ -254,11 +269,11 @@ namespace ARKBreedingStats.species
                     _skipWildLevelStatsWithServerSettings |= statBit;
             }
 
-            if (DisplayedStats == -1 && usedStats != 0)
-                DisplayedStats = usedStats;
-
             if (fullStatsRawLength != 0)
                 fullStatsRaw = completeRaws;
+
+            if (DisplayedStats == -1 && usedStats != 0)
+                DisplayedStats = usedStats;
 
             if (colors?.Length == 0)
                 colors = null;
@@ -519,6 +534,8 @@ namespace ARKBreedingStats.species
             if (overrides.isFlyer != null) isFlyer = overrides.isFlyer;
             if (overrides.noGender != null) noGender = overrides.noGender;
             if (overrides.matesWith != null) matesWith = overrides.matesWith;
+            if (overrides._statLevelUpsAdditive != null) _statLevelUpsAdditive = overrides._statLevelUpsAdditive;
+            if (overrides._statCaps != null) _statCaps = overrides._statCaps;
 
             Initialize(new StreamingContext());
         }

@@ -1380,4 +1380,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="issueBondedTamingRank" xml:space="preserve">
     <value>Maybe the setting for the rank of the Bonded Taming talent is set incorrectly.</value>
   </data>
+  <data name="Success Rate_Abb" xml:space="preserve">
+    <value>SR</value>
+  </data>
 </root>

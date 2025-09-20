@@ -32,6 +32,10 @@ namespace ARKBreedingStats.uiControls
         private int _wildMutatedSum;
         private readonly Debouncer _levelChangedDebouncer = new Debouncer();
         private StatLevelColors _statLevelColors;
+        /// <summary>
+        /// True if wild level and mutated level have different effects on the stat value. False for most stats and species.
+        /// </summary>
+        public bool CustomMutationLevelMultiplier;
 
         public StatIO()
         {
@@ -372,6 +376,7 @@ namespace ARKBreedingStats.uiControls
         private void labelWildLevel_Click(object sender, EventArgs e)
         {
             OnClick(e);
+            if (CustomMutationLevelMultiplier) return;
 
             var levelDelta = LevelDeltaMutationShift(LevelMut);
             if (levelDelta <= 0) return;
@@ -383,6 +388,7 @@ namespace ARKBreedingStats.uiControls
         private void labelMutatedLevel_Click(object sender, EventArgs e)
         {
             OnClick(e);
+            if (CustomMutationLevelMultiplier) return;
 
             var levelDelta = LevelDeltaMutationShift(LevelWild);
             if (levelDelta <= 0) return;

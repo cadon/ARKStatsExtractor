@@ -98,6 +98,13 @@ namespace ARKBreedingStats.multiplierTesting
 
         private const int DecimalPlaces = 6;
 
+        /// <summary>
+        /// If true, the absolut increase per wild, mutated and domestic level is dependent on the stat base value or the post tame value respectively.
+        /// If false, the absolut increase per level is fixed.
+        /// Almost all stats use true here.
+        /// </summary>
+        public bool IncreaseStatAsPercentage = true;
+
         public StatMultiplierTestingControl()
         {
             InitializeComponent();
@@ -127,10 +134,11 @@ namespace ARKBreedingStats.multiplierTesting
             if (!updateValues) return;
 
             // ValueWild
-            double Vw = (double)nudB.Value * AtlasBaseMultiplier * (1 + ((double)nudLw.Value + (double)nudLm.Value * (double)nudMm.Value) * (double)nudIw.Value * _spIw * (double)nudIwM.Value);
+            var baseValue = (double)nudB.Value * AtlasBaseMultiplier;
+            double Vw = baseValue + (IncreaseStatAsPercentage ? baseValue : 1) * ((double)nudLw.Value + (double)nudLm.Value * (double)nudMm.Value) * (double)nudIw.Value * _spIw * (double)nudIwM.Value;
             string VwDisplay = Math.Round(Vw * (_percent ? 100 : 1), DecimalPlaces) + (_percent ? "%" : string.Empty);
             var wildAndMutationLevelsDisplay = nudLm.Value == 0 ? $"{nudLw.Value}" : $"({nudLw.Value} + {nudLm.Value} * {nudMm.Value})";
-            tbVw.Text = $"{nudB.Value + (AtlasBaseMultiplier != 1 ? $" * {AtlasBaseMultiplier}" : string.Empty)} * ( 1 + {wildAndMutationLevelsDisplay} * {nudIw.Value}{(_spIw != 1 ? " * " + _spIw : string.Empty)} * {nudIwM.Value} ) = {VwDisplay}";
+            tbVw.Text = $"{nudB.Value + (AtlasBaseMultiplier != 1 ? $" * {AtlasBaseMultiplier}" : string.Empty)} {(IncreaseStatAsPercentage ? "* ( 1 +" : "+")} {wildAndMutationLevelsDisplay} * {nudIw.Value}{(_spIw != 1 ? " * " + _spIw : string.Empty)} * {nudIwM.Value}{(IncreaseStatAsPercentage ? " )" : string.Empty)} = {VwDisplay}";
             if (_domesticated)
             {
                 // ValueDom
@@ -142,9 +150,9 @@ namespace ARKBreedingStats.multiplierTesting
                         + " * ( 1 + " + (nudTm.Value > 0 ? _TE + " * " + nudTm.Value + " * " + nudTmM.Value + (_spTm != 1 ? " * " + _spTm : string.Empty) : nudTm.Value.ToString()) + " )"
                         + " = " + VdDisplay;
                 // Value
-                V = Vd * (1 + (double)nudLd.Value * (double)nudId.Value * _spId * AtlasIdMultiplier * (double)nudIdM.Value);
+                V = Vd + (IncreaseStatAsPercentage ? Vd : 1) * (double)nudLd.Value * (double)nudId.Value * _spId * AtlasIdMultiplier * (double)nudIdM.Value;
                 string VDisplay = Math.Round(V * (_percent ? 100 : 1), DecimalPlaces) + (_percent ? "%" : string.Empty);
-                tbV.Text = $"{VdDisplay} * ( 1 + {nudLd.Value} * {nudId.Value + (_spId != 1 ? " * " + _spId : string.Empty) + (AtlasIdMultiplier != 1 ? " * " + AtlasIdMultiplier : string.Empty)} * {nudIdM.Value} ) = {VDisplay}";
+                tbV.Text = $"{VdDisplay} {(IncreaseStatAsPercentage ? "* ( 1 +" : "+")} {nudLd.Value} * {nudId.Value + (_spId != 1 ? " * " + _spId : string.Empty) + (AtlasIdMultiplier != 1 ? " * " + AtlasIdMultiplier : string.Empty)} * {nudIdM.Value}{(IncreaseStatAsPercentage ? " )" : string.Empty)} = {VDisplay}";
             }
             else
             {

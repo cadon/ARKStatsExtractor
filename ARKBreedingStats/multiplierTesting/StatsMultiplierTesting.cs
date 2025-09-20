@@ -242,13 +242,19 @@ namespace ARKBreedingStats.multiplierTesting
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
+                if (!species.UsesStat(s))
+                {
+                    _statControls[s].Visible = false;
+                    continue;
+                }
+                _statControls[s].Visible = true;
                 _statControls[s].SetStatValues(_selectedSpecies.fullStatsRaw[s], customStatsAvailable ? customStatOverrides?[s] : null,
                     _selectedSpecies.altBaseStatsRaw != null && _selectedSpecies.altBaseStatsRaw.TryGetValue(s, out var altV) ? altV / _selectedSpecies.fullStatsRaw[s][Species.StatsRawIndexBase] : 1,
                     s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.IsFlyer)),
                     _selectedSpecies.mutationMult[s]);
                 _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Stats.StatsCount]?[s] ?? statImprintMultipliers[s] : statImprintMultipliers[s];
-                _statControls[s].Visible = species.UsesStat(s);
                 _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
+                _statControls[s].IncreaseStatAsPercentage = species.stats[s]?.IncreaseStatAsPercentage == true;
             }
             _statControls[Stats.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier ?? 1;
         }

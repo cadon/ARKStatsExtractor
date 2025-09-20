@@ -565,12 +565,14 @@ namespace ARKBreedingStats.values
                     // stat-multiplier
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
+                        if (sp.stats[s] == null) continue;
+
                         double[] statMultipliers = cc.serverMultipliers?.statMultipliers?[s] ?? defaultMultipliers;
 
                         bool customOverrideForThisStatExists = customOverrideExists && customFullStatsRaw[s] != null;
 
                         sp.stats[s].BaseValue = GetRawStatValue(s, Species.StatsRawIndexBase, customOverrideForThisStatExists);
-
+                        
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         double addWhenTamed = GetRawStatValue(s, Species.StatsRawIndexAdditiveBonus, customOverrideForThisStatExists);
                         sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);

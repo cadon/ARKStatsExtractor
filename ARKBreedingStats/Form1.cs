@@ -774,6 +774,7 @@ namespace ARKBreedingStats
                 _testingIOs[s].Title = Utils.StatName(s, false, statNames);
                 _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
                 _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _statIOs[s].CustomMutationLevelMultiplier = species.stats[s] != null && species.stats[s].IncPerMutatedLevel != species.stats[s].IncPerWildLevel;
 
                 // don't lock special stats of glow species
                 if ((statNames != null &&
@@ -3458,12 +3459,12 @@ namespace ARKBreedingStats
                     bool statValid = false;
                     for (int r = 0; r < _extractor.Results[s].Count; r++)
                     {
-                        if (_extractor.Results[s][r].levelWild == -1 ||
-                            s == Stats.SpeedMultiplier && _extractor.Results[s][r].levelWild == 0 ||
-                            _extractor.Results[s][r].levelWild == tcc.TestCase.levelsWild[s]
-                            && _extractor.Results[s][r].levelDom == tcc.TestCase.levelsDom[s]
-                            && (_extractor.Results[s][r].TE.Max == -1 ||
-                                _extractor.Results[s][r].TE.Includes(tcc.TestCase.tamingEff))
+                        if (_extractor.Results[s][r].LevelWild == -1 ||
+                            s == Stats.SpeedMultiplier && _extractor.Results[s][r].LevelWild == 0 ||
+                            _extractor.Results[s][r].LevelWild == tcc.TestCase.levelsWild[s]
+                            && _extractor.Results[s][r].LevelDom == tcc.TestCase.levelsDom[s]
+                            && (_extractor.Results[s][r].Te.Max == -1 ||
+                                _extractor.Results[s][r].Te.Includes(tcc.TestCase.tamingEff))
                         )
                         {
                             statValid = true;
