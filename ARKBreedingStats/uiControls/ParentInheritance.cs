@@ -59,7 +59,7 @@ namespace ARKBreedingStats.uiControls
             }
 
             _lines[0].Clear();
-            PedigreeCreation.CreateGeneInheritanceLines(offspring, mother, father, _lines, 6, 60);
+            PedigreeCreation.CreateGeneInheritanceLines(offspring, mother, father, _lines, 6, 55);
 
             Invalidate();
         }

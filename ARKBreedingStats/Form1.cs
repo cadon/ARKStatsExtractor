@@ -2756,26 +2756,31 @@ namespace ARKBreedingStats
 
             // set the data in the creatureInfoInput
             SetInfoInputCreature(); // clear data
-            creatureInfoInputTester.CreatureName = creatureInfoInputExtractor.CreatureName;
-            creatureInfoInputTester.CreatureOwner = creatureInfoInputExtractor.CreatureOwner;
-            creatureInfoInputTester.CreatureTribe = creatureInfoInputExtractor.CreatureTribe;
-            creatureInfoInputTester.CreatureServer = creatureInfoInputExtractor.CreatureServer;
-            creatureInfoInputTester.Mother = creatureInfoInputExtractor.Mother;
-            creatureInfoInputTester.Father = creatureInfoInputExtractor.Father;
-            creatureInfoInputTester.CreatureNote = creatureInfoInputExtractor.CreatureNote;
-            creatureInfoInputTester.CooldownUntil = creatureInfoInputExtractor.CooldownUntil;
-            creatureInfoInputTester.GrowingUntil = creatureInfoInputExtractor.GrowingUntil;
-            creatureInfoInputTester.AddedToLibraryAt = creatureInfoInputExtractor.AddedToLibraryAt;
-            creatureInfoInputTester.MutationCounterMother = creatureInfoInputExtractor.MutationCounterMother;
-            creatureInfoInputTester.MutationCounterFather = creatureInfoInputExtractor.MutationCounterFather;
-            creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;
-            creatureInfoInputTester.CreatureFlags = creatureInfoInputExtractor.CreatureFlags;
-            creatureInfoInputTester.CreatureStatus = creatureInfoInputExtractor.CreatureStatus;
-            creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
-            creatureInfoInputTester.ColorIdsAlsoPossible = creatureInfoInputExtractor.ColorIdsAlsoPossible;
-            creatureInfoInputTester.Traits = creatureInfoInputExtractor.Traits?.ToArray();
+            CopyInfoInputData(creatureInfoInputExtractor, creatureInfoInputTester);
 
             tabControlMain.SelectedTab = tabPageStatTesting;
+        }
+
+        private void CopyInfoInputData(CreatureInfoInput from, CreatureInfoInput to)
+        {
+            to.CreatureName = from.CreatureName;
+            to.CreatureOwner = from.CreatureOwner;
+            to.CreatureTribe = from.CreatureTribe;
+            to.CreatureServer = from.CreatureServer;
+            to.Mother = from.Mother;
+            to.Father = from.Father;
+            to.CreatureNote = from.CreatureNote;
+            to.CooldownUntil = from.CooldownUntil;
+            to.GrowingUntil = from.GrowingUntil;
+            to.AddedToLibraryAt = from.AddedToLibraryAt;
+            to.MutationCounterMother = from.MutationCounterMother;
+            to.MutationCounterFather = from.MutationCounterFather;
+            to.CreatureSex = from.CreatureSex;
+            to.CreatureFlags = from.CreatureFlags;
+            to.CreatureStatus = from.CreatureStatus;
+            to.RegionColors = from.RegionColors;
+            to.ColorIdsAlsoPossible = from.ColorIdsAlsoPossible;
+            to.Traits = from.Traits?.ToArray();
         }
 
         private void toolStripButtonClear_Click(object sender, EventArgs e)
@@ -2825,9 +2830,7 @@ namespace ARKBreedingStats
             numericUpDownLevel.Value =
                 _testingIOs[Stats.Torpidity].LevelWild + GetCurrentDomLevels(false).Sum() + 1;
 
-            creatureInfoInputExtractor.CreatureSex = creatureInfoInputTester.CreatureSex;
-            creatureInfoInputExtractor.RegionColors = creatureInfoInputTester.RegionColors;
-            creatureInfoInputExtractor.ColorIdsAlsoPossible = creatureInfoInputTester.ColorIdsAlsoPossible;
+            CopyInfoInputData(creatureInfoInputTester, creatureInfoInputExtractor);
 
             tabControlMain.SelectedTab = tabPageExtractor;
         }
