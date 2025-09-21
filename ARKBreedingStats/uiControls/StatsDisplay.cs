@@ -1,62 +1,88 @@
 ﻿using ARKBreedingStats.Library;
-using System;
-using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using System.Windows.Forms;
+using ARKBreedingStats.species;
+using ARKBreedingStats.StatsOptions;
 
 namespace ARKBreedingStats.uiControls
 {
-    public partial class StatsDisplay : UserControl
+    internal class StatsDisplay : FlowLayoutPanel
     {
-        private readonly StatDisplay[] stats;
-        private readonly ToolTip tt = new ToolTip();
-        private readonly int[] displayedStats;
-        private readonly int displayedStatsCount;
+        private readonly StatDisplay[] _stats = new StatDisplay[Stats.StatsCount];
+        private readonly ToolTip _tt = new ToolTip();
+        private readonly Label _lbSex;
+        private Species _species;
+        private StatLevelColors[] _levelColors;
 
         public StatsDisplay()
         {
-            InitializeComponent();
-            displayedStats = new int[] {Stats.Health,
-                                        Stats.Stamina,
-                                        Stats.Oxygen,
-                                        Stats.Food,
-                                        Stats.Weight,
-                                        Stats.MeleeDamageMultiplier,
-                                        Stats.SpeedMultiplier,
-                                        Stats.CraftingSpeedMultiplier
-                                        };
+            var panelHeader = new Panel { AutoSize = true };
+            SetFlowBreak(panelHeader, true);
+            Controls.Add(panelHeader);
+            _lbSex = new Label { AutoSize = true };
+            panelHeader.Controls.Add(_lbSex);
+            var lbWildL = new Label { Text = "W", AutoSize = true, Left = 28 };
+            panelHeader.Controls.Add(lbWildL);
+            var lbMutL = new Label { Text = "M", AutoSize = true, Left = 49 };
+            panelHeader.Controls.Add(lbMutL);
+            var lbDomL = new Label { Text = "D", AutoSize = true, Left = 72 };
+            panelHeader.Controls.Add(lbDomL);
+            var lbValueBreed = new Label { Text = "Breed", AutoSize = true, Left = 103 };
+            panelHeader.Controls.Add(lbValueBreed);
+            var lbValueCurrent = new Label { Text = "Current", AutoSize = true, Left = 140 };
+            panelHeader.Controls.Add(lbValueCurrent);
 
-            displayedStatsCount = displayedStats.Length;
-            stats = new StatDisplay[displayedStatsCount];
+            // tooltips
+            _tt.SetToolTip(_lbSex, "Sex of the Creature");
+            _tt.SetToolTip(lbWildL, "Wild levels");
+            _tt.SetToolTip(lbMutL, "Mutated levels");
+            _tt.SetToolTip(lbDomL, "Domestic levels");
+            _tt.SetToolTip(lbValueBreed, "Value that is inherited");
+            _tt.SetToolTip(lbValueCurrent, "Current Value of the Creature");
 
-            for (int s = 0; s < displayedStatsCount; s++)
+            foreach (var si in Stats.DisplayOrder)
             {
-                int si = displayedStats[s];
-                StatDisplay sd = new StatDisplay(si, Stats.IsPercentage(si));
-                stats[s] = sd;
-
-                sd.Location = new System.Drawing.Point(3, 19 + s * 22);
+                var sd = new StatDisplay(si, Stats.IsPercentage(si), _tt);
+                _stats[si] = sd;
+                SetFlowBreak(sd, true);
+                sd.Visible = false;
                 Controls.Add(sd);
             }
 
-            // tooltips
-            tt.SetToolTip(labelSex, "Sex of the Creature");
-            tt.SetToolTip(labelStatHeader, "Wild-levels, Domesticated-levels, Value that is inherited, Current Value of the Creature");
-
-            Disposed += StatsDisplay_Disposed;
+            Disposed += (s, e) => _tt.RemoveAllAndDispose();
         }
 
         public void SetCreatureValues(Creature creature)
         {
-            this.SuspendDrawingAndLayout();
-
-            for (int s = 0; s < displayedStatsCount; s++)
+            if (creature == null)
             {
-                int si = displayedStats[s];
-                stats[s].SetCustomStatNames(creature.Species?.statNames);
-                stats[s].SetNumbers(creature.levelsWild[si], creature.levelsDom[si], creature.valuesBreeding[si], creature.valuesCurrent[si]);
+                Clear();
+                return;
             }
 
-            labelSex.Text = Utils.SexSymbol(creature.sex);
+            if (_species != creature.Species)
+            {
+                _species = creature.Species;
+                _levelColors = Form1.StatsOptionsLevelColors.GetStatsOptions(_species).StatOptions;
+            }
+
+            this.SuspendDrawingAndLayout();
+
+            for (var s = 0; s < Stats.StatsCount; s++)
+            {
+                if (_species.UsesStat(s) != true || s == Stats.Torpidity)
+                {
+                    _stats[s].Visible = false;
+                    continue;
+                }
+
+                _stats[s].LevelColors = _levelColors[s];
+                _stats[s].SetCustomStatNames(_species.statNames);
+                _stats[s].SetNumbers(creature.levelsWild[s], creature.levelsMutated?[s] ?? 0, creature.levelsDom[s], creature.valuesBreeding[s], creature.valuesCurrent[s]);
+                _stats[s].Visible = true;
+            }
+
+            _lbSex.Text = Utils.SexSymbol(creature.sex);
 
             this.ResumeDrawingAndLayout();
         }
@@ -65,22 +91,16 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                for (int s = 0; s < displayedStatsCount; s++)
-                {
-                    stats[s].barMaxLevel = value;
-                }
+                for (var s = 0; s < Stats.StatsCount; s++)
+                    _stats[s].BarMaxLevel = value;
             }
         }
 
         public void Clear()
         {
-            for (int s = 0; s < displayedStatsCount; s++)
-            {
-                stats[s].SetNumbers(0, 0, 0, 0);
-            }
-            labelSex.Text = "";
+            for (var s = 0; s < Stats.StatsCount; s++)
+                _stats[s].SetNumbers(0, 0, 0, 0, 0);
+            _lbSex.Text = string.Empty;
         }
-
-        private void StatsDisplay_Disposed(object sender, EventArgs e) => tt.RemoveAllAndDispose();
     }
 }

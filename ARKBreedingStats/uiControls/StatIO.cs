@@ -334,18 +334,8 @@ namespace ARKBreedingStats.uiControls
                 LevelChangedDebouncer();
         }
 
-        private void SetLevelBar(Panel panel, int level, bool useCustomOdd = true, bool mutationLevel = false)
-        {
-            var range = _statLevelColors.GetLevelRange(level, out var lowerBound, useCustomOdd, mutationLevel);
-            if (range < 1) range = 1;
-            var lengthPercentage = 100 * (level - lowerBound) / range; // in percentage of the max bar width
-
-            if (lengthPercentage > 100) lengthPercentage = 100;
-            else if (lengthPercentage < 0) lengthPercentage = 0;
-
-            panel.Width = lengthPercentage * MaxBarLength / 100;
-            panel.BackColor = _statLevelColors.GetLevelColor(level, useCustomOdd, mutationLevel);
-        }
+        private void SetLevelBar(Panel panel, int level, bool useCustomOdd = true, bool mutationLevel = false) =>
+            LevelColorBar.SetLevelBar(panel, _statLevelColors, MaxBarLength, level, useCustomOdd, mutationLevel);
 
         private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, () => LevelChanged?.Invoke(this), Dispatcher.CurrentDispatcher);
 

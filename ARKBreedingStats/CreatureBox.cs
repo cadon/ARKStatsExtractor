@@ -146,7 +146,6 @@ namespace ARKBreedingStats
                 statsDisplay1.SetCreatureValues(_creature);
                 labelNotes.Text = _creature.note;
                 _tt.SetToolTip(labelNotes, _creature.note);
-                labelSpecies.Text = _creature.SpeciesName;
                 pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex, game: _cc.Game));
                 _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
                     + "\n\nClick to copy creature infos as image to the clipboard");
@@ -208,7 +207,6 @@ namespace ARKBreedingStats
             LbFather.Text = string.Empty;
             statsDisplay1.Clear();
             pictureBox1.Visible = false;
-            labelSpecies.Text = string.Empty;
             labelNotes.Text = string.Empty;
             regionColorChooser1.Clear();
         }
