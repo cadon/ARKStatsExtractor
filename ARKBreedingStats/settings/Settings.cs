@@ -916,8 +916,8 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(NudWildDinoCharacterFoodDrainMultiplier, @"WildDinoCharacterFoodDrainMultiplier ?= ?(\d*\.?\d+)");
             // Game.ini
             ParseAndSetValue(NudWildDinoTorporDrainMultiplier, @"WildDinoTorporDrainMultiplier ?= ?(\d*\.?\d+)");
-            ParseAndSetCheckbox(CbAllowSpeedLeveling, @"bAllowSpeedLeveling ?= ?(true|false)");
             ParseAndSetCheckbox(CbAllowFlyerSpeedLeveling, @"bAllowFlyerSpeedLeveling ?= ?(true|false)");
+            ParseAndSetCheckbox(CbAllowSpeedLeveling, @"bAllowSpeedLeveling ?= ?(true|false)");
 
             //// the settings below don't appear in ARK server config files directly or not at all and are used only in ASB
             // max levels
@@ -1786,8 +1786,9 @@ namespace ARKBreedingStats.settings
             if (importIndex == -1) return;
 
             CbAtlasSettings.Checked = false;
-            ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "game.ini"), true);
+            // first import gameUserSettings.ini, then game.ini since gameUserSettings can contain wrong allowSpeedLeveling settings
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "gameUserSettings.ini"), true);
+            ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "game.ini"), true);
 
             if (localConfigPaths[importIndex].Item2 == Ark.Game.Asa) RbGameAsa.Checked = true;
             else RbGameAse.Checked = true;

@@ -250,7 +250,7 @@ namespace ARKBreedingStats
             var libraryContextMenuMaturitySettings = new[] { 0, 0.05, 0.1, 0.25, 0.5, 0.75, 1 };
             foreach (var m in libraryContextMenuMaturitySettings)
             {
-                var suffix = m < 0.1 ? "baby" : m < 1 ? "juvenile" : "mature";
+                var suffix = m < 0.1 ? Loc.S("baby") : m < 0.5 ? Loc.S("juvenile") : m < 1 ? Loc.S("adolescent") : Loc.S("mature");
                 var tsmi = new ToolStripMenuItem($"Set maturity to {m:p0} ({suffix})", null, SetMaturityToolStripMenuItem_Click);
                 tsmi.Tag = m;
                 SetMaturityCooldownToolStripMenuItem.DropDownItems.Add(tsmi);
@@ -774,6 +774,7 @@ namespace ARKBreedingStats
                 _testingIOs[s].Title = Utils.StatName(s, false, statNames);
                 _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
                 _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _statIOs[s].CustomMutationLevelMultiplier = species.stats[s] != null && species.stats[s].IncPerMutatedLevel != species.stats[s].IncPerWildLevel;
 
                 // don't lock special stats of glow species
                 if ((statNames != null &&
@@ -2755,26 +2756,31 @@ namespace ARKBreedingStats
 
             // set the data in the creatureInfoInput
             SetInfoInputCreature(); // clear data
-            creatureInfoInputTester.CreatureName = creatureInfoInputExtractor.CreatureName;
-            creatureInfoInputTester.CreatureOwner = creatureInfoInputExtractor.CreatureOwner;
-            creatureInfoInputTester.CreatureTribe = creatureInfoInputExtractor.CreatureTribe;
-            creatureInfoInputTester.CreatureServer = creatureInfoInputExtractor.CreatureServer;
-            creatureInfoInputTester.Mother = creatureInfoInputExtractor.Mother;
-            creatureInfoInputTester.Father = creatureInfoInputExtractor.Father;
-            creatureInfoInputTester.CreatureNote = creatureInfoInputExtractor.CreatureNote;
-            creatureInfoInputTester.CooldownUntil = creatureInfoInputExtractor.CooldownUntil;
-            creatureInfoInputTester.GrowingUntil = creatureInfoInputExtractor.GrowingUntil;
-            creatureInfoInputTester.AddedToLibraryAt = creatureInfoInputExtractor.AddedToLibraryAt;
-            creatureInfoInputTester.MutationCounterMother = creatureInfoInputExtractor.MutationCounterMother;
-            creatureInfoInputTester.MutationCounterFather = creatureInfoInputExtractor.MutationCounterFather;
-            creatureInfoInputTester.CreatureSex = creatureInfoInputExtractor.CreatureSex;
-            creatureInfoInputTester.CreatureFlags = creatureInfoInputExtractor.CreatureFlags;
-            creatureInfoInputTester.CreatureStatus = creatureInfoInputExtractor.CreatureStatus;
-            creatureInfoInputTester.RegionColors = creatureInfoInputExtractor.RegionColors;
-            creatureInfoInputTester.ColorIdsAlsoPossible = creatureInfoInputExtractor.ColorIdsAlsoPossible;
-            creatureInfoInputTester.Traits = creatureInfoInputExtractor.Traits?.ToArray();
+            CopyInfoInputData(creatureInfoInputExtractor, creatureInfoInputTester);
 
             tabControlMain.SelectedTab = tabPageStatTesting;
+        }
+
+        private void CopyInfoInputData(CreatureInfoInput from, CreatureInfoInput to)
+        {
+            to.CreatureName = from.CreatureName;
+            to.CreatureOwner = from.CreatureOwner;
+            to.CreatureTribe = from.CreatureTribe;
+            to.CreatureServer = from.CreatureServer;
+            to.Mother = from.Mother;
+            to.Father = from.Father;
+            to.CreatureNote = from.CreatureNote;
+            to.CooldownUntil = from.CooldownUntil;
+            to.GrowingUntil = from.GrowingUntil;
+            to.AddedToLibraryAt = from.AddedToLibraryAt;
+            to.MutationCounterMother = from.MutationCounterMother;
+            to.MutationCounterFather = from.MutationCounterFather;
+            to.CreatureSex = from.CreatureSex;
+            to.CreatureFlags = from.CreatureFlags;
+            to.CreatureStatus = from.CreatureStatus;
+            to.RegionColors = from.RegionColors;
+            to.ColorIdsAlsoPossible = from.ColorIdsAlsoPossible;
+            to.Traits = from.Traits?.ToArray();
         }
 
         private void toolStripButtonClear_Click(object sender, EventArgs e)
@@ -2824,9 +2830,7 @@ namespace ARKBreedingStats
             numericUpDownLevel.Value =
                 _testingIOs[Stats.Torpidity].LevelWild + GetCurrentDomLevels(false).Sum() + 1;
 
-            creatureInfoInputExtractor.CreatureSex = creatureInfoInputTester.CreatureSex;
-            creatureInfoInputExtractor.RegionColors = creatureInfoInputTester.RegionColors;
-            creatureInfoInputExtractor.ColorIdsAlsoPossible = creatureInfoInputTester.ColorIdsAlsoPossible;
+            CopyInfoInputData(creatureInfoInputTester, creatureInfoInputExtractor);
 
             tabControlMain.SelectedTab = tabPageExtractor;
         }
@@ -3458,12 +3462,12 @@ namespace ARKBreedingStats
                     bool statValid = false;
                     for (int r = 0; r < _extractor.Results[s].Count; r++)
                     {
-                        if (_extractor.Results[s][r].levelWild == -1 ||
-                            s == Stats.SpeedMultiplier && _extractor.Results[s][r].levelWild == 0 ||
-                            _extractor.Results[s][r].levelWild == tcc.TestCase.levelsWild[s]
-                            && _extractor.Results[s][r].levelDom == tcc.TestCase.levelsDom[s]
-                            && (_extractor.Results[s][r].TE.Max == -1 ||
-                                _extractor.Results[s][r].TE.Includes(tcc.TestCase.tamingEff))
+                        if (_extractor.Results[s][r].LevelWild == -1 ||
+                            s == Stats.SpeedMultiplier && _extractor.Results[s][r].LevelWild == 0 ||
+                            _extractor.Results[s][r].LevelWild == tcc.TestCase.levelsWild[s]
+                            && _extractor.Results[s][r].LevelDom == tcc.TestCase.levelsDom[s]
+                            && (_extractor.Results[s][r].Te.Max == -1 ||
+                                _extractor.Results[s][r].Te.Includes(tcc.TestCase.tamingEff))
                         )
                         {
                             statValid = true;

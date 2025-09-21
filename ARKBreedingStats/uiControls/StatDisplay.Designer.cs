@@ -34,7 +34,8 @@
             this.labelLevelDom = new System.Windows.Forms.Label();
             this.labelBreedingValue = new System.Windows.Forms.Label();
             this.labelDomValue = new System.Windows.Forms.Label();
-            this.panelBarDomLevels = new System.Windows.Forms.Panel();
+            this.panelBarMutLevels = new System.Windows.Forms.Panel();
+            this.labelMutLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // labelName
@@ -48,69 +49,81 @@
             // 
             // labelWildLevel
             // 
-            this.labelWildLevel.AutoSize = true;
-            this.labelWildLevel.Location = new System.Drawing.Point(26, 0);
+            this.labelWildLevel.Location = new System.Drawing.Point(20, 0);
             this.labelWildLevel.Name = "labelWildLevel";
             this.labelWildLevel.Size = new System.Drawing.Size(25, 13);
             this.labelWildLevel.TabIndex = 1;
             this.labelWildLevel.Text = "100";
+            this.labelWildLevel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panelBarWildLevels
             // 
             this.panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarWildLevels.Location = new System.Drawing.Point(0, 14);
+            this.panelBarWildLevels.Location = new System.Drawing.Point(0, 12);
             this.panelBarWildLevels.Name = "panelBarWildLevels";
             this.panelBarWildLevels.Size = new System.Drawing.Size(175, 5);
             this.panelBarWildLevels.TabIndex = 2;
             // 
             // labelLevelDom
             // 
-            this.labelLevelDom.AutoSize = true;
-            this.labelLevelDom.Location = new System.Drawing.Point(54, 0);
+            this.labelLevelDom.Location = new System.Drawing.Point(62, 0);
             this.labelLevelDom.Name = "labelLevelDom";
             this.labelLevelDom.Size = new System.Drawing.Size(25, 13);
             this.labelLevelDom.TabIndex = 3;
             this.labelLevelDom.Text = "100";
+            this.labelLevelDom.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBreedingValue
             // 
-            this.labelBreedingValue.AutoSize = true;
-            this.labelBreedingValue.Location = new System.Drawing.Point(82, 0);
+            this.labelBreedingValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelBreedingValue.Location = new System.Drawing.Point(88, 0);
             this.labelBreedingValue.Name = "labelBreedingValue";
-            this.labelBreedingValue.Size = new System.Drawing.Size(43, 13);
+            this.labelBreedingValue.Size = new System.Drawing.Size(50, 13);
             this.labelBreedingValue.TabIndex = 4;
             this.labelBreedingValue.Text = "100000";
+            this.labelBreedingValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDomValue
             // 
-            this.labelDomValue.AutoSize = true;
-            this.labelDomValue.Location = new System.Drawing.Point(132, 0);
+            this.labelDomValue.BackColor = System.Drawing.Color.Transparent;
+            this.labelDomValue.Location = new System.Drawing.Point(131, 0);
             this.labelDomValue.Name = "labelDomValue";
-            this.labelDomValue.Size = new System.Drawing.Size(43, 13);
+            this.labelDomValue.Size = new System.Drawing.Size(50, 13);
             this.labelDomValue.TabIndex = 5;
             this.labelDomValue.Text = "100000";
+            this.labelDomValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // panelBarDomLevels
+            // panelBarMutLevels
             // 
-            this.panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelBarDomLevels.Location = new System.Drawing.Point(0, 17);
-            this.panelBarDomLevels.Name = "panelBarDomLevels";
-            this.panelBarDomLevels.Size = new System.Drawing.Size(175, 3);
-            this.panelBarDomLevels.TabIndex = 3;
+            this.panelBarMutLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBarMutLevels.Location = new System.Drawing.Point(0, 14);
+            this.panelBarMutLevels.Name = "panelBarMutLevels";
+            this.panelBarMutLevels.Size = new System.Drawing.Size(175, 3);
+            this.panelBarMutLevels.TabIndex = 3;
+            // 
+            // labelMutLevel
+            // 
+            this.labelMutLevel.Location = new System.Drawing.Point(40, 0);
+            this.labelMutLevel.Name = "labelMutLevel";
+            this.labelMutLevel.Size = new System.Drawing.Size(25, 13);
+            this.labelMutLevel.TabIndex = 6;
+            this.labelMutLevel.Text = "100";
+            this.labelMutLevel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // StatDisplay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panelBarDomLevels);
-            this.Controls.Add(this.labelDomValue);
-            this.Controls.Add(this.labelBreedingValue);
-            this.Controls.Add(this.labelLevelDom);
+            this.Controls.Add(this.panelBarMutLevels);
             this.Controls.Add(this.panelBarWildLevels);
-            this.Controls.Add(this.labelWildLevel);
             this.Controls.Add(this.labelName);
+            this.Controls.Add(this.labelWildLevel);
+            this.Controls.Add(this.labelMutLevel);
+            this.Controls.Add(this.labelLevelDom);
+            this.Controls.Add(this.labelBreedingValue);
+            this.Controls.Add(this.labelDomValue);
             this.Name = "StatDisplay";
-            this.Size = new System.Drawing.Size(183, 20);
+            this.Size = new System.Drawing.Size(183, 17);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,6 +137,7 @@
         private System.Windows.Forms.Label labelLevelDom;
         private System.Windows.Forms.Label labelBreedingValue;
         private System.Windows.Forms.Label labelDomValue;
-        private System.Windows.Forms.Panel panelBarDomLevels;
+        private System.Windows.Forms.Panel panelBarMutLevels;
+        private System.Windows.Forms.Label labelMutLevel;
     }
 }

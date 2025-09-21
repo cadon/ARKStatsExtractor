@@ -299,6 +299,7 @@ namespace ARKBreedingStats.Library
                 creatureExisting.isBred = creatureNew.isBred;
                 if (!string.IsNullOrEmpty(creatureNew.note))
                     creatureExisting.note = creatureNew.note;
+                creatureExisting.Traits = creatureNew.Traits;
 
                 UpdateString(ref creatureExisting.name, ref creatureNew.name);
                 UpdateString(ref creatureExisting.owner, ref creatureNew.owner);

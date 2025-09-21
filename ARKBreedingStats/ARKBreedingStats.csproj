@@ -206,6 +206,9 @@
     <Compile Include="StatsOptions\LevelColorSettings\LevelGraphOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="uiControls\StatsDisplay.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\StatSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -522,12 +525,6 @@
     <Compile Include="uiControls\RegionColorChooser.Designer.cs">
       <DependentUpon>RegionColorChooser.cs</DependentUpon>
     </Compile>
-    <Compile Include="uiControls\StatsDisplay.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="uiControls\StatsDisplay.Designer.cs">
-      <DependentUpon>StatsDisplay.cs</DependentUpon>
-    </Compile>
     <Compile Include="uiControls\StatGraphs.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -726,6 +723,7 @@
     <Compile Include="utils\ExceptionMessages.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
+    <Compile Include="utils\LevelColorBar.cs" />
     <Compile Include="utils\Logging.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
     <Compile Include="NamePatterns\NamePatternFunctions.cs" />
@@ -965,9 +963,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\RegionColorChooser.resx">
       <DependentUpon>RegionColorChooser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="uiControls\StatsDisplay.resx">
-      <DependentUpon>StatsDisplay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatPotential.resx">
       <DependentUpon>StatPotential.cs</DependentUpon>

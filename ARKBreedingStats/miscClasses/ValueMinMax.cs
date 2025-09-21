@@ -45,6 +45,9 @@ namespace ARKBreedingStats.miscClasses
             return Max >= range.Min && Min <= range.Max;
         }
 
+        /// <summary>
+        /// Changes the range if there is an overlap with the passed range, else does nothing and returns false.
+        /// </summary>
         public bool SetToIntersectionWith(MinMaxDouble range)
         {
             if (Overlaps(range))
@@ -56,6 +59,9 @@ namespace ARKBreedingStats.miscClasses
             return false;
         }
 
+        /// <summary>
+        /// Changes the range if there is an overlap with the passed range, else does nothing and returns false.
+        /// </summary>
         public bool SetToIntersectionWith(double min, double max)
         {
             return SetToIntersectionWith(new MinMaxDouble(min, max));
@@ -66,6 +72,11 @@ namespace ARKBreedingStats.miscClasses
             return Max >= value && Min <= value;
         }
 
+        /// <summary>
+        /// Returns true if Min &lt;= Max.
+        /// </summary>
+        public bool ValidRange => Min <= Max;
+
         public MinMaxDouble Clone()
         {
             return new MinMaxDouble(Min, Max);
@@ -75,6 +86,11 @@ namespace ARKBreedingStats.miscClasses
         {
             return range1.Overlaps(range2);
         }
+
+        public static MinMaxDouble operator +(MinMaxDouble a, double b) => new MinMaxDouble(a.Min + b, a.Max + b);
+        public static MinMaxDouble operator -(MinMaxDouble a, double b) => new MinMaxDouble(a.Min - b, a.Max - b);
+        public static MinMaxDouble operator *(MinMaxDouble a, double b) => new MinMaxDouble(a.Min * b, a.Max * b);
+        public static MinMaxDouble operator /(MinMaxDouble a, double b) => new MinMaxDouble(a.Min / b, a.Max / b);
 
         public override string ToString() => $"{Min}, {Mean}, {Max}";
     }
@@ -89,6 +105,15 @@ namespace ARKBreedingStats.miscClasses
             Max = max;
         }
 
+        /// <summary>
+        /// Sets Min to Ceil(min) and Max to floor(max)
+        /// </summary>
+        public MinMaxInt(double min, double max)
+        {
+            Min = (int)Math.Ceiling(min);
+            Max = (int)Math.Floor(max);
+        }
+
         public int MinMax
         {
             set
@@ -97,6 +122,13 @@ namespace ARKBreedingStats.miscClasses
                 Max = value;
             }
         }
+
+        public double Mean => (Min + Max) / 2d;
+
+        /// <summary>
+        /// Returns true if Min &lt;= Max.
+        /// </summary>
+        public bool ValidRange => Min <= Max;
 
         public bool Includes(int value)
         {

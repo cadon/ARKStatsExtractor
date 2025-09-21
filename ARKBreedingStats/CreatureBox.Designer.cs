@@ -52,7 +52,6 @@ namespace ARKBreedingStats
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.statsDisplay1 = new ARKBreedingStats.uiControls.StatsDisplay();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.labelSpecies = new System.Windows.Forms.Label();
             this.LbFather = new System.Windows.Forms.Label();
             this.LbMotherAndWildInfo = new System.Windows.Forms.Label();
             this.labelNotes = new System.Windows.Forms.Label();
@@ -282,35 +281,27 @@ namespace ARKBreedingStats
             // statsDisplay1
             // 
             this.statsDisplay1.AutoSize = true;
+            this.statsDisplay1.Dock = System.Windows.Forms.DockStyle.Top;
             this.statsDisplay1.Location = new System.Drawing.Point(0, 0);
             this.statsDisplay1.Margin = new System.Windows.Forms.Padding(0);
             this.statsDisplay1.Name = "statsDisplay1";
-            this.statsDisplay1.Size = new System.Drawing.Size(189, 196);
+            this.statsDisplay1.Size = new System.Drawing.Size(189, 106);
             this.statsDisplay1.TabIndex = 28;
             // 
             // panel2
             // 
             this.panel2.AutoSize = true;
-            this.panel2.Controls.Add(this.labelSpecies);
             this.panel2.Controls.Add(this.LbFather);
             this.panel2.Controls.Add(this.LbMotherAndWildInfo);
             this.panel2.Controls.Add(this.labelNotes);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.regionColorChooser1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 196);
+            this.panel2.Location = new System.Drawing.Point(0, 106);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(189, 191);
+            this.panel2.Size = new System.Drawing.Size(189, 281);
             this.panel2.TabIndex = 29;
-            // 
-            // labelSpecies
-            // 
-            this.labelSpecies.AutoSize = true;
-            this.labelSpecies.Location = new System.Drawing.Point(3, 174);
-            this.labelSpecies.Name = "labelSpecies";
-            this.labelSpecies.Size = new System.Drawing.Size(0, 13);
-            this.labelSpecies.TabIndex = 26;
             // 
             // LbFather
             // 
@@ -409,7 +400,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.PictureBox pictureBox1;
         private ParentComboBox parentComboBoxFather;
         private ParentComboBox parentComboBoxMother;
-        private System.Windows.Forms.Label labelSpecies;
         private uiControls.RegionColorChooser regionColorChooser1;
         private uiControls.StatsDisplay statsDisplay1;
         private System.Windows.Forms.Label LbFather;

@@ -36,7 +36,7 @@ namespace ARKBreedingStats
                 // the multiplicative bonus is only multiplied with the TE if it is positive (i.e. negative boni won't get less bad if the TE is low)
                 if (domMultAffinity >= 0)
                     domMultAffinity *= tamingEff;
-                domMult = (tamingEff >= 0 ? (1 + domMultAffinity) : 1) * (1 + levelDom * speciesStat.IncPerTamedLevel);
+                domMult = tamingEff >= 0 ? 1 + domMultAffinity : 1;
                 if (imprintingBonus > 0
                     && species.StatImprintMultipliers[statIndex] != 0
                     )
@@ -44,18 +44,27 @@ namespace ARKBreedingStats
                 if (statIndex == Stats.Health)
                     tamedBaseHP = species.TamedBaseHealthMultiplier ?? 1;
             }
+            else
+            {
+                levelDom = 0;
+            }
             //double result = Math.Round((stats.BaseValue * tamedBaseHP * (1 + stats.IncPerWildLevel * levelWild) * imprintingM + add) * domMult, Utils.precision(stat), MidpointRounding.AwayFromZero);
             // double is too precise and results in wrong values due to rounding. float results in better values, probably ARK uses float as well.
             // or rounding first to a precision of 7, then use the rounding of the precision
             //double resultt = Math.Round((stats.BaseValue * tamedBaseHP * (1 + stats.IncPerWildLevel * levelWild) * imprintingM + add) * domMult, 7);
             //resultt = Math.Round(resultt, Utils.precision(stat), MidpointRounding.AwayFromZero);
 
-            // adding an epsilon to handle rounding-errors
-            double result = (speciesStat.BaseValue * tamedBaseHP *
-                    (1 + speciesStat.IncPerWildLevel * levelWild + speciesStat.IncPerMutatedLevel * levelMut) * imprintingM + add) *
-                    domMult;// + (Utils.precision(stat) == 3 ? ROUND_UP_DELTA * 0.01 : ROUND_UP_DELTA);
+            var wildLevelIncrease = levelWild * speciesStat.IncPerWildLevel +
+                                    levelMut * speciesStat.IncPerMutatedLevel;
+            var domLevelIncrease = levelDom * speciesStat.IncPerTamedLevel;
+
+            var result = speciesStat.IncreaseStatAsPercentage
+                ? (speciesStat.BaseValue * (1 + wildLevelIncrease) * tamedBaseHP * imprintingM + add) * domMult * (1 + domLevelIncrease)
+                : ((speciesStat.BaseValue + wildLevelIncrease) * tamedBaseHP * imprintingM + add) * domMult + domLevelIncrease
+                ;
 
             if (result <= 0) return 0;
+            result = speciesStat.ApplyCap(result);
 
             if (roundToIngamePrecision)
                 return Math.Round(result, Stats.Precision(statIndex), MidpointRounding.AwayFromZero);

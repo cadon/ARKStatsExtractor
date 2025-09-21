@@ -32,6 +32,10 @@ namespace ARKBreedingStats.uiControls
         private int _wildMutatedSum;
         private readonly Debouncer _levelChangedDebouncer = new Debouncer();
         private StatLevelColors _statLevelColors;
+        /// <summary>
+        /// True if wild level and mutated level have different effects on the stat value. False for most stats and species.
+        /// </summary>
+        public bool CustomMutationLevelMultiplier;
 
         public StatIO()
         {
@@ -330,18 +334,8 @@ namespace ARKBreedingStats.uiControls
                 LevelChangedDebouncer();
         }
 
-        private void SetLevelBar(Panel panel, int level, bool useCustomOdd = true, bool mutationLevel = false)
-        {
-            var range = _statLevelColors.GetLevelRange(level, out var lowerBound, useCustomOdd, mutationLevel);
-            if (range < 1) range = 1;
-            var lengthPercentage = 100 * (level - lowerBound) / range; // in percentage of the max bar width
-
-            if (lengthPercentage > 100) lengthPercentage = 100;
-            else if (lengthPercentage < 0) lengthPercentage = 0;
-
-            panel.Width = lengthPercentage * MaxBarLength / 100;
-            panel.BackColor = _statLevelColors.GetLevelColor(level, useCustomOdd, mutationLevel);
-        }
+        private void SetLevelBar(Panel panel, int level, bool useCustomOdd = true, bool mutationLevel = false) =>
+            LevelColorBar.SetLevelBar(panel, _statLevelColors, MaxBarLength, level, useCustomOdd, mutationLevel);
 
         private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, () => LevelChanged?.Invoke(this), Dispatcher.CurrentDispatcher);
 
@@ -372,6 +366,7 @@ namespace ARKBreedingStats.uiControls
         private void labelWildLevel_Click(object sender, EventArgs e)
         {
             OnClick(e);
+            if (CustomMutationLevelMultiplier) return;
 
             var levelDelta = LevelDeltaMutationShift(LevelMut);
             if (levelDelta <= 0) return;
@@ -383,6 +378,7 @@ namespace ARKBreedingStats.uiControls
         private void labelMutatedLevel_Click(object sender, EventArgs e)
         {
             OnClick(e);
+            if (CustomMutationLevelMultiplier) return;
 
             var levelDelta = LevelDeltaMutationShift(LevelWild);
             if (levelDelta <= 0) return;

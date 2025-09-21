@@ -33,9 +33,9 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.BtNoColor = new NoPaddingButton();
+            this.BtNoColor = new ARKBreedingStats.uiControls.ColorPickerControl.NoPaddingButton();
             this.LbAlternativeColor = new System.Windows.Forms.Label();
-            this.BtUndefinedColor = new NoPaddingButton();
+            this.BtUndefinedColor = new ARKBreedingStats.uiControls.ColorPickerControl.NoPaddingButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,7 +60,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(442, 30);
+            this.label1.Size = new System.Drawing.Size(459, 30);
             this.label1.TabIndex = 1;
             this.label1.Text = "title";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -69,7 +69,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(370, 386);
+            this.buttonCancel.Location = new System.Drawing.Point(387, 386);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 0;
@@ -79,13 +79,14 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.AutoScroll = true;
             this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 31);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 30);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(448, 339);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(465, 339);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -111,13 +112,13 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(448, 412);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 412);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // BtNoColor
             // 
             this.BtNoColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtNoColor.Location = new System.Drawing.Point(289, 386);
+            this.BtNoColor.Location = new System.Drawing.Point(306, 386);
             this.BtNoColor.Name = "BtNoColor";
             this.BtNoColor.Size = new System.Drawing.Size(75, 23);
             this.BtNoColor.TabIndex = 4;
@@ -138,7 +139,7 @@
             // 
             // BtUndefinedColor
             // 
-            this.BtUndefinedColor.Location = new System.Drawing.Point(208, 385);
+            this.BtUndefinedColor.Location = new System.Drawing.Point(225, 385);
             this.BtUndefinedColor.Name = "BtUndefinedColor";
             this.BtUndefinedColor.Size = new System.Drawing.Size(75, 23);
             this.BtUndefinedColor.TabIndex = 6;
@@ -154,7 +155,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "ColorPickerControl";
             this.Padding = new System.Windows.Forms.Padding(1);
-            this.Size = new System.Drawing.Size(450, 414);
+            this.Size = new System.Drawing.Size(467, 414);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);

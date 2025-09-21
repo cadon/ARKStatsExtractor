@@ -32,12 +32,12 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                if (value == null || value == _selectedSpecies) return;
+                if (value == null) return;
                 _selectedSpecies = value;
+                this.SuspendDrawingAndLayout();
                 for (int s = 0; s < Stats.StatsCount; s++)
-                {
                     _stats[s].Visible = _selectedSpecies.UsesStat(s);
-                }
+                this.ResumeDrawingAndLayout();
             }
         }
 
@@ -46,12 +46,16 @@ namespace ARKBreedingStats.uiControls
             this.SuspendDrawingAndLayout();
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (forceUpdate || _currentLevelsWild[s] != levelsWild[s] || _currentLevelsMutations[s] != levelsMutations[s])
-                {
-                    _currentLevelsWild[s] = levelsWild[s];
-                    _currentLevelsMutations[s] = levelsMutations[s];
-                    _stats[s].SetLevel(_selectedSpecies, levelsWild[s], levelsMutations[s]);
-                }
+                if (!_stats[s].Visible
+                    || (
+                        !forceUpdate
+                        && _currentLevelsWild[s] == levelsWild[s]
+                        && _currentLevelsMutations[s] == levelsMutations[s]
+                    ))
+                    continue;
+                _currentLevelsWild[s] = levelsWild[s];
+                _currentLevelsMutations[s] = levelsMutations[s];
+                _stats[s].SetLevel(_selectedSpecies, levelsWild[s], levelsMutations[s]);
             }
             this.ResumeDrawingAndLayout();
         }
