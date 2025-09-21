@@ -1,5 +1,5 @@
 {
-	"version": "69.13.1",
+	"version": "71.13.2",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -2499,6 +2499,183 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/Helicoprion/Helicoprion_Character_BP.Helicoprion_Character_BP",
+			"name": "Helicoprion",
+			"fullStatsRaw": [
+				[ 1300, 0.2, 0.30375, 0.3, 0 ],
+				[ 500, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				null,
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 500, 0.025, 0.055, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				[ 0, 0.01, 0.002, 0, 0 ]
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 17998.5601,
+				"eggTempMin": -75,
+				"eggTempMax": 75,
+				"maturationTime": 370370.37,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": true,
+				"violent": false,
+				"tamingIneffectiveness": 0.95,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 35,
+				"wakeAffinityMult": 1,
+				"wakeFoodDeplMult": 2,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 2967,
+			"statNames": { "11": "Success Rate" },
+			"statCaps": { "11": 0.9 },
+			"statLevelUpsAdditive": { "11": true },
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Main body",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"LightAutumn"
+					]
+				},
+				{
+					"name": "Feet",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"LightWarmGray",
+						"LightCement",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Beak",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				null,
+				{
+					"name": "Feather shadows",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Facial highlights",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/IceWyvern/Boss/Minions/Iceworm_Character_Minion_BP_RagWyvBoss_Easy.Iceworm_Character_Minion_BP_RagWyvBoss_Easy",
 			"name": "Iceworm Male",
 			"variants": [ "Gamma", "Minion" ],
@@ -3769,30 +3946,7 @@
 						"BurntSienna"
 					]
 				},
-				{
-					"name": "Membrane accents",
-					"colors": [
-						"Dino Light Brown",
-						"Dino Dark Orange",
-						"BigFoot0",
-						"DarkWolfFur",
-						"WolfFur",
-						"BigFoot5",
-						"NearWhite",
-						"Dino Medium Brown",
-						"Dino Albino",
-						"BigFoot4",
-						"NearWhite",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"Cream",
-						"BurntSienna",
-						"DragonBase0",
-						"DragonBase1",
-						"Peach",
-						"LightAutumn"
-					]
-				},
+				null,
 				{
 					"name": "Stripes",
 					"colors": [
@@ -6326,6 +6480,10 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_Character_BP.DesertKaiju_Character_BP",
+			"statLevelUpsAdditive": {
+				"0": true,
+				"8": true
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -6350,6 +6508,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/ForestKaiju/ForestKaiju_Character_BP.ForestKaiju_Character_BP",
+			"statLevelUpsAdditive": { "8": true },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -6391,6 +6550,7 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/KingKaiju/KingKaiju_Character_BP.KingKaiju_Character_BP",
+			"statLevelUpsAdditive": { "0": true },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -6411,6 +6571,7 @@
 				null,
 				null
 			],
+			"statLevelUpsAdditive": { "0": true },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -6429,6 +6590,7 @@
 				null,
 				null
 			],
+			"statLevelUpsAdditive": { "0": true },
 			"skipWildLevelStats": 512
 		},
 		{
@@ -6655,6 +6817,20 @@
 			"boneDamageAdjusters": {
 				"l_arm_Shoulder_JNT": 1.5,
 				"r_arm_Shoulder_JNT": 1.5
+			},
+			"statLevelUpsAdditive": {
+				"0": true,
+				"1": true,
+				"2": true,
+				"3": true,
+				"4": true,
+				"5": true,
+				"6": true,
+				"7": true,
+				"8": true,
+				"9": true,
+				"10": true,
+				"11": true
 			},
 			"skipWildLevelStats": 512
 		},
@@ -7697,6 +7873,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Deinonychus_Character_BP_STA.Deinonychus_Character_BP_STA",
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"boneDamageAdjusters": {
 				"head": 1.5,
 				"jaw": 1.5
@@ -11668,14 +11851,6 @@
 			"skipWildLevelStats": 512
 		},
 		{
-			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/RockGolem/ChalkGolem/ChalkGolem_Character_BP.ChalkGolem_Character_BP",
-			"skipWildLevelStats": 520
-		},
-		{
-			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/RockGolem/IceGolem/IceGolem_Character_BP.IceGolem_Character_BP",
-			"skipWildLevelStats": 520
-		},
-		{
 			"blueprintPath": "/Game/Packs/Frontier/Dinos/Oasisaur/Oasisaur_Character_BP.Oasisaur_Character_BP",
 			"name": "Oasisaur",
 			"variants": [ "Frontier", "ScorchedEarth" ],
@@ -15325,6 +15500,13 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Uberraptor/Deinonychus_Character_BP.Deinonychus_Character_BP",
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"boneDamageAdjusters": {
 				"head": 1.5,
 				"jaw": 1.5
