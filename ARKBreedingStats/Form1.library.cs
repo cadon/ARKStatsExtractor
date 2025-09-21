@@ -1224,7 +1224,7 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsWild[s], false, true),
+                    var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsMutated[s], false, true),
                         statOptionsTopStats[s].ConsiderStat ? cr.IsTopMutationStat(s) ? 0.2 : 0.75 : 0.93);
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].SetBackColorAndAccordingForeColor(backColor);
                 }
