@@ -37,7 +37,7 @@ namespace ARKBreedingStats.species
                 return null;
             var speciesName = species?.name;
             if (string.IsNullOrEmpty(speciesName)) return string.Empty;
-            speciesName = speciesName.Replace("Aberrant ", string.Empty).Replace("Brute ", string.Empty);
+            speciesName = speciesName.Replace("Brute ", string.Empty);
             if (replacePolar)
             {
                 speciesName = speciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty);
@@ -53,15 +53,21 @@ namespace ARKBreedingStats.species
             if (cachedSpeciesFileNames == null) cachedSpeciesFileNames = new Dictionary<string, string>();
 
             // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
-            var fileNames = new List<string>
-            {
-                speciesName + gameString + sexString + patternString,
-                speciesName + gameString + patternString,
-                speciesName + sexString + patternString,
-                speciesName + patternString
-            }.Distinct().ToArray();
+            var fileNames = getPossibleSpeciesNames(speciesName);
 
-            foreach (var fileNameBase in fileNames)
+            IEnumerable<string> getPossibleSpeciesNames(string spName) => new List<string>
+            {
+                spName + gameString + sexString + patternString,
+                spName + gameString + patternString,
+                spName + sexString + patternString,
+                spName + patternString
+            };
+
+            // fallback for aberrant species to use the vanilla one if no aberrant image is available (they're pretty similar)
+            if (speciesName.StartsWith("Aberrant"))
+                fileNames = fileNames.Concat(getPossibleSpeciesNames(speciesName.Replace("Aberrant ", string.Empty)));
+
+            foreach (var fileNameBase in fileNames.Distinct())
             {
                 if (File.Exists(Path.Combine(ImageFolder, fileNameBase + Extension)))
                 {

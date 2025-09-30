@@ -536,9 +536,11 @@
     <data name="importExportedCreaturesToolStripMenuItem" xml:space="preserve">
         <value>Zaimportuj wyeksportowane zwierzę</value>
     </data>
-    <data name="holdCtrlForRandomColors" xml:space="preserve">
-        <value>Przytrzymaj Ctrl, aby wylosować kolory</value>
-    </data>
+  <data name="holdCtrlForRandomColors" xml:space="preserve">
+    <value>Hold Shift to select color for all regions at once
+Przytrzymaj Ctrl, aby wylosować kolory
+Hold Ctrl + Shift for random colors</value>
+  </data>
     <data name="Generation_Abb" xml:space="preserve">
         <value>Gen</value>
     </data>

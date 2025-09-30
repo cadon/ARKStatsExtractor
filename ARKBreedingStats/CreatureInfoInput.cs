@@ -766,6 +766,8 @@ namespace ARKBreedingStats
                 regionColorChooser1.RandomColors();
             else if ((ModifierKeys & Keys.Control) != 0)
                 regionColorChooser1.RandomNaturalColors(_selectedSpecies);
+            else if ((ModifierKeys & Keys.Shift) != 0)
+                regionColorChooser1.ChooseAllColors();
             else
                 ClearColors();
         }

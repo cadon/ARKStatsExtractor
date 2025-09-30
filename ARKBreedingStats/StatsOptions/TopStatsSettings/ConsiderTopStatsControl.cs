@@ -46,7 +46,7 @@ namespace ARKBreedingStats.StatsOptions.TopStatsSettings
                 _controlsOverrideParent[si] = c;
                 StatsContainer.Controls.Add(c);
 
-                c = new CheckBox { Text = $"[{si}] {Utils.StatName(si)}" };
+                c = new CheckBox { Text = $"[{si}] {Utils.StatName(si)}", AutoSize = true };
                 c.Click += (s, e) =>
                 {
                     SelectedStatsOptions.StatOptions[locVar].ConsiderStat = ((CheckBox)s).Checked;
