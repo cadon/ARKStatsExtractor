@@ -59,7 +59,7 @@ namespace ARKBreedingStats.uiControls
                     Text = i.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Tag = i,
-                    Width = buttonsTotalWidth / 6 - buttonMargins,
+                    Width = buttonsTotalWidth / 7 - buttonMargins,
                     Height = 70
                 };
                 _colorRegionButtons[i] = bt;
@@ -68,44 +68,33 @@ namespace ARKBreedingStats.uiControls
             }
             flpButtons.SetFlowBreak(_colorRegionButtons.Last(), true);
 
-            var colorsButton = new Button
+            Button AllRegionButton(string text) => new Button
             {
-                Text = Loc.S("Clear"),
+                Text = text,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Width = buttonsTotalWidth / 4 - buttonMargins,
+                Width = buttonsTotalWidth / 5 - buttonMargins,
                 Height = 25
             };
+
+            var colorsButton = AllRegionButton(Loc.S("Clear"));
             colorsButton.Click += ButtonClearColorsClick;
             flpButtons.Controls.Add(colorsButton);
 
-            colorsButton = new Button
-            {
-                Text = Loc.S("Random natural"),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Width = buttonsTotalWidth / 4 - buttonMargins,
-                Height = 25
-            };
+            var btAll = AllRegionButton("choose for all regions");
+            btAll.Tag = -1;
+            btAll.Click += ButtonRegionClick;
+            flpButtons.Controls.Add(btAll);
+
+            colorsButton = AllRegionButton(Loc.S("Random natural"));
             colorsButton.Click += ButtonRandomNaturalColorsClick;
             flpButtons.Controls.Add(colorsButton);
 
-            colorsButton = new Button
-            {
-                Text = Loc.S("Random library"),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Width = buttonsTotalWidth / 4 - buttonMargins,
-                Height = 25
-            };
+            colorsButton = AllRegionButton(Loc.S("Random library"));
             _tt.SetToolTip(colorsButton, "Random colors available in the library");
             colorsButton.Click += ButtonRandomLibraryColorsClick;
             flpButtons.Controls.Add(colorsButton);
 
-            colorsButton = new Button
-            {
-                Text = Loc.S("Random"),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Width = buttonsTotalWidth / 4 - buttonMargins,
-                Height = 25
-            };
+            colorsButton = AllRegionButton(Loc.S("Random"));
             colorsButton.Click += ButtonRandomColorsClick;
             flpButtons.Controls.Add(colorsButton);
 
@@ -181,8 +170,16 @@ namespace ARKBreedingStats.uiControls
         {
             if (!colorSelected) return;
             var newColor = _colorPicker.SelectedColorId;
-            if (_selectedColors[_selectedColorRegion] == newColor) return;
-            _selectedColors[_selectedColorRegion] = newColor;
+            if (_selectedColorRegion >= 0)
+            {
+                if (_selectedColors[_selectedColorRegion] == newColor) return;
+                _selectedColors[_selectedColorRegion] = newColor;
+            }
+            else
+            {
+                if (_selectedColors.All(ci => ci == newColor)) return;
+                _selectedColors = Enumerable.Repeat(newColor, Ark.ColorRegionCount).ToArray();
+            }
             SetRegionColorButton(_selectedColorRegion);
             UpdateCreatureImage();
         }
@@ -190,10 +187,14 @@ namespace ARKBreedingStats.uiControls
         private void ButtonRegionClick(object sender, EventArgs e)
         {
             _selectedColorRegion = (int)((Button)sender).Tag;
-            _colorPicker.PickColor(_selectedColors[_selectedColorRegion],
-                $"[{_selectedColorRegion}] {_species.colors?[_selectedColorRegion]?.name}",
-                _species.colors?[_selectedColorRegion]?.naturalColors,
-               existingColors: LibraryInfo.ColorsExistPerRegion?[_selectedColorRegion]);
+            if (_selectedColorRegion >= 0)
+                _colorPicker.PickColor(_selectedColors[_selectedColorRegion],
+                    $"[{_selectedColorRegion}] {_species.colors?[_selectedColorRegion]?.name}",
+                    _species.colors?[_selectedColorRegion]?.naturalColors,
+                   existingColors: LibraryInfo.ColorsExistPerRegion?[_selectedColorRegion]);
+            else
+                _colorPicker.PickColor(_selectedColors[0],
+                    "all regions");
         }
 
         public void SetSpecies(Species species)
@@ -210,6 +211,12 @@ namespace ARKBreedingStats.uiControls
 
         public void SetRegionColorButton(int region)
         {
+            if (region < 0)
+            {
+                for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
+                    SetRegionColorButton(ci);
+                return;
+            }
             var bt = _colorRegionButtons[region];
             var color = Values.V.Colors.ById(_selectedColors[region]);
             var buttonText = $"[{region}] {_species.colors?[region]?.name}\n{color.Id}: {color.Name}";

@@ -618,7 +618,8 @@
     <value>隱藏數據</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>按 Ctrl + 點擊 隨機自然的顏色
+    <value>Hold Shift to select color for all regions at once
+按 Ctrl + 點擊 隨機自然的顏色
 按 Ctrl + Shift + 點擊 隨機顏色</value>
   </data>
   <data name="ImmobilizedBy" xml:space="preserve">

@@ -1029,7 +1029,9 @@
     <value>очистить цвета</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Удерживайте Ctrl для случайных цветов</value>
+    <value>Hold Shift to select color for all regions at once
+Удерживайте Ctrl для случайных цветов
+Hold Ctrl + Shift for random colors</value>
   </data>
   <data name="BtBeepFailure" xml:space="preserve">
     <value>импорт не удался</value>

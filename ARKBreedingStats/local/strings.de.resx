@@ -1121,7 +1121,8 @@ Die gespeicherten Werte werden auch als Standard ausgefüllt, wenn die App gesta
     <value>neues top Level</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Halte Strg für zufällige natürliche Farben
+    <value>Halte Shift um eine Farbe für alle Regionen zu wählen
+Halte Strg für zufällige natürliche Farben
 Halte Strg + Shift für zufällige Farben</value>
   </data>
   <data name="clearColors" xml:space="preserve">

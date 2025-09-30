@@ -1130,7 +1130,8 @@ Le préréglage peut être appliqué par le bouton Appliquer le préréglage</va
     <value>effacer les couleurs</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Maintenez Ctrl pour des couleurs naturelles aléatoires
+    <value>Maintenez Shift pour sélectionner une couleur pour toutes les régions
+Maintenez Ctrl pour des couleurs naturelles aléatoires
 Maintenez Ctrl + Shift pour des couleurs aléatoires</value>
   </data>
   <data name="BtBeepFailure" xml:space="preserve">

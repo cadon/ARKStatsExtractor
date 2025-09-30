@@ -1135,7 +1135,9 @@ BabyCuddleIntervallMultiplierとBabyMatureSpeedMultiplierが正しいか確認�
     <value>色をクリア</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Ctrl+クリックでランダム色を設定</value>
+    <value>Hold Shift to select color for all regions at once
+Ctrl+クリックでランダム色を設定
+Hold Ctrl + Shift for random colors</value>
   </data>
   <data name="BtBeepFailure" xml:space="preserve">
     <value>インポート失敗</value>

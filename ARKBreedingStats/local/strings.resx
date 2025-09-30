@@ -1133,7 +1133,8 @@ The values also will be prefilled when starting the app.</value>
     <value>clear colors</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Hold Ctrl for random natural colors
+    <value>Hold Shift to select color for all regions at once
+Hold Ctrl for random natural colors
 Hold Ctrl + Shift for random colors</value>
   </data>
   <data name="BtBeepFailure" xml:space="preserve">

@@ -571,7 +571,8 @@ Os níveis são então mostrados sem o processo de extração (e sem validação
     <value>Ocultar status</value>
   </data>
   <data name="holdCtrlForRandomColors" xml:space="preserve">
-    <value>Segure Ctrl para cores naturais aleatórias
+    <value>Hold Shift to select color for all regions at once
+Segure Ctrl para cores naturais aleatórias
 Segure Ctrl + Shift para cores aleatórias </value>
   </data>
   <data name="ImmobilizedBy" xml:space="preserve">
