@@ -565,7 +565,8 @@ namespace ARKBreedingStats
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
-                    int lvlWild = (int)Math.Round((_statIOs[s].Input - speciesSelector1.SelectedSpecies.stats[s].BaseValue) / (speciesSelector1.SelectedSpecies.stats[s].BaseValue * speciesSelector1.SelectedSpecies.stats[s].IncPerWildLevel));
+                    var stat = speciesSelector1.SelectedSpecies.stats[s];
+                    var lvlWild = stat == null ? 0 : (int)Math.Round((_statIOs[s].Input - stat.BaseValue) / (stat.BaseValue * stat.IncPerWildLevel));
                     _statIOs[s].LevelWild = lvlWild < 0 ? 0 : lvlWild;
                     _statIOs[s].LevelMut = 0;
                     _statIOs[s].LevelDom = 0;
