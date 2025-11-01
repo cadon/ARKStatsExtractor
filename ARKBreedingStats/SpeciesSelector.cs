@@ -84,7 +84,7 @@ namespace ARKBreedingStats
 
             // autocomplete for species-input
             var al = new AutoCompleteStringCollection();
-            al.AddRange(_entryList.Select(e => e.DisplayName).ToArray());
+            al.AddRange(_entryList.Select(e => e.DisplayName).Distinct().ToArray());
             _textBox.AutoCompleteCustomSource = al;
 
             VariantSelector.SetVariants(species);
@@ -286,8 +286,6 @@ namespace ARKBreedingStats
             if (_entryList == null) return;
 
             bool noVariantFiltering = VariantSelector.DisabledVariants == null || !VariantSelector.DisabledVariants.Any();
-            lvSpeciesList.BeginUpdate();
-            lvSpeciesList.Items.Clear();
             var newItems = new List<ListViewItem>();
             part = part?.ToLowerInvariant();
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
@@ -306,12 +304,14 @@ namespace ARKBreedingStats
                     {
                         Tag = s.Species,
                         BackColor = !s.Species.IsDomesticable ? Color.FromArgb(255, 245, 230)
-                        : !string.IsNullOrEmpty(s.ModName) ? Color.FromArgb(230, 245, 255)
+                        : !string.IsNullOrEmpty(s.ModName) && s.ModName != "Ark: Survival Ascended" ? Color.FromArgb(230, 245, 255)
                         : SystemColors.Window,
                         ToolTipText = s.Species.blueprintPath,
                     });
                 }
             }
+            lvSpeciesList.BeginUpdate();
+            lvSpeciesList.Items.Clear();
             lvSpeciesList.Items.AddRange(newItems.ToArray());
             lvSpeciesList.EndUpdate();
 
