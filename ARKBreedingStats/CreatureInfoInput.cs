@@ -138,13 +138,22 @@ namespace ARKBreedingStats
         /// <summary>
         /// Updates the displayed colors of the creature.
         /// </summary>
-        private void UpdateRegionColorImage()
+        public void UpdateRegionColorImage()
         {
             ParentInheritance?.UpdateColors(RegionColors);
             ColorsChanged?.Invoke(this);
-            PbColorRegion?.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(RegionColors, _selectedSpecies,
-                regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex
-                , game: CreatureCollection.CurrentCreatureCollection?.Game));
+            if (PbColorRegion == null) return;
+            PbColorRegion.Visible = false;
+            CreatureColored.GetColoredCreatureWithCallback(SetCreatureImage, this, RegionColors, _selectedSpecies,
+                regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex,
+                game: CreatureCollection.CurrentCreatureCollection?.Game);
+        }
+
+        private void SetCreatureImage(Bitmap bmp)
+        {
+            if (PbColorRegion == null) return;
+            PbColorRegion.SetImageAndDisposeOld(bmp);
+            PbColorRegion.Visible = true;
         }
 
         /// <summary>

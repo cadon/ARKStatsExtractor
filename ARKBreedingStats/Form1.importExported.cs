@@ -264,10 +264,7 @@ namespace ARKBreedingStats
                             _customReplacingNamingPattern, false, -1, false, namePattern, libraryCreatureCount: _creatureCollection.GetTotalCreatureCount())
                         : Path.GetFileName(filePath);
 
-                    // remove invalid characters
-                    var invalidCharacters = Path.GetInvalidFileNameChars();
-                    foreach (var invalidChar in invalidCharacters)
-                        newFileName = newFileName.Replace(invalidChar, '_');
+                    newFileName = FileService.ReplaceInvalidCharacters(newFileName);
 
                     string newFileNameWithoutExtension = Path.GetFileNameWithoutExtension(newFileName);
                     string newFileNameExtension = Path.GetExtension(newFileName);

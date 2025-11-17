@@ -14,10 +14,12 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Pedigree;
+using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.StatsOptions;
 using ARKBreedingStats.StatsOptions.TopStatsSettings;
 using ARKBreedingStats.Traits;
@@ -30,7 +32,7 @@ namespace ARKBreedingStats
 {
     public partial class Form1 : Form
     {
-        private CreatureCollection _creatureCollection = new CreatureCollection();
+        private CreatureCollection _creatureCollection;
         private string _currentFilePath;
         private bool _collectionDirty;
 
@@ -106,9 +108,9 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.Save();
             }
 
-            // #if DEBUG
-            // Properties.Settings.Default.Reset();
-            // #endif
+            //#if DEBUG
+            //            Properties.Settings.Default.Reset();
+            //#endif
 
             _tt = new ToolTip();
             InitLocalization();
@@ -297,9 +299,8 @@ namespace ARKBreedingStats
 
             TraitDefinition.LoadTraitDefinitions();
 
-            InitializeCollection();
-
-            CreatureColored.InitializeSpeciesImageLocation();
+            ImageCollections.LoadImagePackInfos();
+            CreatureImageFile.InitializeSpeciesImageLocation();
 
             if (!LoadStatAndKibbleValues(false).statValuesLoaded || !Values.V.species.Any())
             {
@@ -370,21 +371,8 @@ namespace ARKBreedingStats
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             // check for updates
-            if (DateTime.Now.AddHours(-20) > Properties.Settings.Default.lastUpdateCheck)
-            {
-                bool selectDefaultImagesIfNotYet = false;
-                bool initializeImages = false;
-                if (!Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles)
-                {
-                    Properties.Settings.Default.AlreadyAskedToDownloadSpeciesImageFiles = true;
-
-                    if (Updater.Updater.IsProgramInstalled)
-                        initializeImages = true;
-                    else
-                        selectDefaultImagesIfNotYet = true;
-                }
-                CheckForUpdates(true, selectDefaultImagesIfNotYet, initializeImages);
-            }
+            if (DateTime.Now.AddDays(-2) > Properties.Settings.Default.lastUpdateCheck)
+                CheckForUpdates(true);
 
             RemoveNonExistingFilesInRecentlyUsedFiles();
 
@@ -849,7 +837,8 @@ namespace ARKBreedingStats
                 }
             }
 
-            hatching1.SetSpecies(species, _creatureCollection.TopLevels.TryGetValue(species, out var tl) ? tl : null);
+            if (_creatureCollection != null)
+                hatching1.SetSpecies(species, _creatureCollection.TopLevels.TryGetValue(species, out var tl) ? tl : null);
 
             _hiddenLevelsCreatureTester = 0;
 
@@ -1119,16 +1108,10 @@ namespace ARKBreedingStats
 
             // clear speciesList
             listBoxSpeciesLib.Items.Clear();
-            List<Species> availableSpecies = new List<Species>();
+            var availableSpecies = new HashSet<Species>();
 
-            foreach (Creature cr in creatures)
-            {
-                // add new item for species if not existent
-                if (!availableSpecies.Contains(cr.Species))
-                {
-                    availableSpecies.Add(cr.Species);
-                }
-            }
+            foreach (var cr in creatures)
+                availableSpecies.Add(cr.Species);
 
             // sort species according to selected order (can be modified by json/sortNames.txt)
             _speciesInLibraryOrdered = Values.V.species.Where(sn => availableSpecies.Contains(sn)).ToArray();
@@ -1232,8 +1215,7 @@ namespace ARKBreedingStats
             CheckForUpdates();
         }
 
-        private async void CheckForUpdates(bool silentCheck = false, bool selectDefaultImagesIfNotYet = false,
-            bool initializeImages = false)
+        private async Task CheckForUpdates(bool silentCheck = false)
         {
             bool? updaterRunning = await Updater.Updater.CheckForPortableUpdate(silentCheck, UnsavedChanges());
             if (!updaterRunning.HasValue) return; // error
@@ -1264,9 +1246,12 @@ namespace ARKBreedingStats
                 var statsLoaded = LoadStatAndKibbleValues(false, true);
                 if (statsLoaded.statValuesLoaded)
                 {
-                    _creatureCollection.modListHash = 0;
-                    ReloadModValuesOfCollectionIfNeeded(true, false, false, false);
-                    ApplySettingsToValues();
+                    if (_creatureCollection != null)
+                    {
+                        _creatureCollection.modListHash = 0;
+                        ReloadModValuesOfCollectionIfNeeded(true, false, false, false);
+                        ApplySettingsToValues();
+                    }
 
                     MessageBox.Show(Loc.S("downloadingValuesSuccess"),
                         Loc.S("updateSuccessTitle"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1286,8 +1271,11 @@ namespace ARKBreedingStats
                     "No new Version available", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            if (!silentCheck || selectDefaultImagesIfNotYet || initializeImages)
-                DisplayUpdateModules(!silentCheck, selectDefaultImagesIfNotYet, initializeImages);
+            if (!silentCheck)
+            {
+                await DisplayUpdateModules(!silentCheck);
+                ImageCollections.LoadImagePackManifests();
+            }
         }
 
         /// <summary>
@@ -1447,7 +1435,7 @@ namespace ARKBreedingStats
             SaveAppSettings();
 
             // remove old cache-files
-            CreatureColored.CleanupCache();
+            CreatureImageFile.CleanupCache();
 
             AsbServerStopListening(false);
             _tt?.Dispose();
@@ -2259,7 +2247,7 @@ namespace ARKBreedingStats
             }
 
             ApplySettingsToValues();
-            CreatureColored.InitializeSpeciesImageLocation();
+            CreatureImageFile.InitializeSpeciesImageLocation();
             creatureBoxListView.CreatureCollection = _creatureCollection;
 
             _creatureListSorter.UseNaturalSort = Properties.Settings.Default.UseNaturalSort;
@@ -3089,13 +3077,13 @@ namespace ARKBreedingStats
 
         private void UpdateStatusBar()
         {
-            var creatureCount = _creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder))
+            var creatureCount = _creatureCollection?.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder))
                 .ToArray();
-            int total = creatureCount.Length;
-            int obelisk = creatureCount.Count(c => c.Status == CreatureStatus.Obelisk);
-            int cryopod = creatureCount.Count(c => c.Status == CreatureStatus.Cryopod);
+            int total = creatureCount?.Length ?? 0;
+            int obelisk = creatureCount?.Count(c => c.Status == CreatureStatus.Obelisk) ?? 0;
+            int cryopod = creatureCount?.Count(c => c.Status == CreatureStatus.Cryopod) ?? 0;
 
-            var loadedMods = _creatureCollection.ModList?.Where(m => !m.expansion).ToArray();
+            var loadedMods = _creatureCollection?.ModList?.Where(m => !m.expansion).ToArray();
 
             toolStripStatusLabel.Text = total + " creatures in Library"
                                               + (total > 0
@@ -3111,10 +3099,9 @@ namespace ARKBreedingStats
                                                     + ")"
                                                   : string.Empty)
                                               + ". v" + Application.ProductVersion
-                                              //+ "-BETA" // TODO BETA indicator
                                               + " / values: " + Values.V.Version +
                                               (loadedMods?.Any() == true
-                                                  ? ", additional values from " + _creatureCollection.ModList.Count +
+                                                  ? ", additional values from " + loadedMods.Length +
                                                     " mod" + (loadedMods.Length == 1 ? string.Empty : "s") + " (" + string.Join(", ",
                                                         loadedMods.Select(m => m.title)) +
                                                     ")"
@@ -3855,7 +3842,7 @@ namespace ARKBreedingStats
             DisplayUpdateModules();
         }
 
-        private async void DisplayUpdateModules(bool onlyShowDialogIfUpdatesAreAvailable = false, bool selectDefaultImagesIfNotYet = false, bool initializeImages = false)
+        private async Task DisplayUpdateModules(bool onlyShowDialogIfUpdatesAreAvailable = false)
         {
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
             if (!File.Exists(manifestFilePath)
@@ -3864,19 +3851,11 @@ namespace ARKBreedingStats
 
             using (var modules = new Updater.UpdateModules())
             {
-                if (!modules.UpdateAvailable && !selectDefaultImagesIfNotYet && onlyShowDialogIfUpdatesAreAvailable)
-                {
-                    InitializeImages(!initializeImages);
+                if (!modules.UpdateAvailable && onlyShowDialogIfUpdatesAreAvailable)
                     return;
-                }
-
-                if (selectDefaultImagesIfNotYet)
-                    modules.SelectDefaultImages();
 
                 modules.ShowDialog();
                 var dialogResult = modules.DialogResult;
-
-                InitializeImages(true);
 
                 if (dialogResult != DialogResult.OK) return;
 
@@ -3885,25 +3864,6 @@ namespace ARKBreedingStats
                 if (!string.IsNullOrEmpty(result))
                     MessageBox.Show(result, $"Data downloaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-
-                if (modules.ImagesWereChanged)
-                {
-                    // clear outdated image cache
-                    CreatureColored.CleanupCache(true);
-                    InitializeImages();
-                }
-
-                void InitializeImages(bool onlyIfNotYetSet = false)
-                {
-                    if (onlyIfNotYetSet && !string.IsNullOrEmpty(Properties.Settings.Default.SpeciesImagesFolder))
-                        return;
-
-                    Properties.Settings.Default.SpeciesImagesFolder = modules.GetSpeciesImagesFolder();
-                    CreatureColored.InitializeSpeciesImageLocation();
-
-                    if (!string.IsNullOrEmpty(Properties.Settings.Default.SpeciesImagesFolder))
-                        speciesSelector1.InitializeSpeciesImages(Values.V.species);
-                }
             }
         }
 
@@ -4187,6 +4147,20 @@ namespace ARKBreedingStats
             var usedStats = speciesSelector1.SelectedSpecies == null ? 6
                 : Enumerable.Range(0, Stats.StatsCount).Count(si => si != Stats.Torpidity && speciesSelector1.SelectedSpecies.CanLevelUpWildOrHaveMutations(si));
             Process.Start($"https://arkutils.netlify.app/tools/wildstats/150/{usedStats}");
+        }
+
+        private void speciesImagesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var w = new ImagePackSelection())
+            {
+                if (w.ShowDialog() != DialogResult.OK) return;
+                ImageCollections.LoadImagePackManifests();
+                CreatureImageFile.CleanupCache(true);
+                speciesSelector1.InitializeSpeciesImages();
+                pbSpecies.Image = speciesSelector1.SpeciesImage();
+                creatureInfoInputExtractor.UpdateRegionColorImage();
+                creatureInfoInputTester.UpdateRegionColorImage();
+            }
         }
     }
 }

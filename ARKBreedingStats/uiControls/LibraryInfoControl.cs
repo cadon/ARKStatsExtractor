@@ -228,8 +228,9 @@ namespace ARKBreedingStats.uiControls
         public void UpdateCreatureImage()
         {
             // todo button for gender
-            _speciesPictureBox.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
-                onlyImage: true, creatureSex: Sex.Male, game: CreatureCollection.CurrentCreatureCollection?.Game));
+            CreatureColored.GetColoredCreatureWithCallback(_speciesPictureBox.SetImageAndDisposeOld, this,
+                _selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
+                onlyImage: true, creatureSex: Sex.Male, game: CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
         private void _speciesPictureBoxClick(object sender, EventArgs e)

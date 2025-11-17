@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ARKBreedingStats.utils;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats.Updater
 {
@@ -125,7 +126,7 @@ namespace ARKBreedingStats.Updater
 
             var moduleFolderPath = FileService.GetPath(LocalPath);
             var tempFilePath = Path.GetTempFileName();
-            var (success, _) = await Updater.DownloadAsync(Url, tempFilePath);
+            var (success, _) = await WebService.DownloadAsync(Url, tempFilePath);
             if (!success)
                 return (false, $"File\n{Url}\ncouldn't be downloaded");
 

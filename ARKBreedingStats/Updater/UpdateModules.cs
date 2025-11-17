@@ -48,8 +48,6 @@ namespace ARKBreedingStats.Updater
                     FlpModules.Controls.Add(moduleDisplay);
                 }
             }
-
-            _initiallySelectedSpeciesImageCollectionIdAndVersion = GetCurrentImageModuleIdAndVersion();
         }
 
         private Control CreateModuleControl(AsbModule module, bool onlyOneEntry)
@@ -144,35 +142,10 @@ namespace ARKBreedingStats.Updater
 
         private void ClickCheckBox(CheckBox cb) => cb.Checked = !cb.Checked;
 
-        internal void SelectDefaultImages()
-        {
-            var cbImages = _checkboxesUpdateModule.FirstOrDefault(cb => cb.Tag is AsbModule mod && mod.Category == "Species Images");
-            if (cbImages == null) return;
-            if (!(cbImages.Tag is AsbModule moduleImages)) return;
-            if (!moduleImages.LocallyAvailable)
-                cbImages.Checked = true;
-        }
-
         /// <summary>
         /// Is only true if for an already downloaded module an update is available.
         /// </summary>
         internal bool UpdateAvailable { get; private set; }
-
-        private readonly string _initiallySelectedSpeciesImageCollectionIdAndVersion;
-
-        /// <summary>
-        /// The species images were changed and need to be initialized again.
-        /// </summary>
-        public bool ImagesWereChanged => _initiallySelectedSpeciesImageCollectionIdAndVersion != GetCurrentImageModuleIdAndVersion();
-
-        private string GetCurrentImageModuleIdAndVersion()
-        {
-            var moduleImages = _checkboxesSelectModule
-                .Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
-                .FirstOrDefault(m => m?.Category == "Species Images");
-
-            return moduleImages == null ? null : $"{moduleImages.Id}_{moduleImages.VersionLocal}";
-        }
 
         private readonly AsbManifest _asbManifest;
         private readonly List<CheckBox> _checkboxesUpdateModule;
@@ -203,9 +176,5 @@ namespace ARKBreedingStats.Updater
 
             return sb.ToString();
         }
-
-        public string GetSpeciesImagesFolder() =>
-            _checkboxesSelectModule?.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule)
-                .FirstOrDefault(m => m?.Category == "Species Images")?.LocalPath;
     }
 }

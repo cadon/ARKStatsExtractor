@@ -1259,18 +1259,6 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool AlreadyAskedToDownloadSpeciesImageFiles {
-            get {
-                return ((bool)(this["AlreadyAskedToDownloadSpeciesImageFiles"]));
-            }
-            set {
-                this["AlreadyAskedToDownloadSpeciesImageFiles"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool LibrarySelectSelectedSpeciesOnLoad {
             get {
                 return ((bool)(this["LibrarySelectSelectedSpeciesOnLoad"]));
@@ -1622,18 +1610,6 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["CreatureTableExportFields"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string SpeciesImagesFolder {
-            get {
-                return ((string)(this["SpeciesImagesFolder"]));
-            }
-            set {
-                this["SpeciesImagesFolder"] = value;
             }
         }
         
@@ -2443,6 +2419,21 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["WindowPositionTraitSelection"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsd=\"http://www.w3." +
+            "org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n  <s" +
+            "tring>https://raw.github.com/arkutils/species-images/main/images/</string>\r\n</Ar" +
+            "rayOfString>")]
+        public string[] SpeciesImagesUrls {
+            get {
+                return ((string[])(this["SpeciesImagesUrls"]));
+            }
+            set {
+                this["SpeciesImagesUrls"] = value;
             }
         }
     }

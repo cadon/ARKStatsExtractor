@@ -1597,7 +1597,7 @@ namespace ARKBreedingStats
 
         private void CreatureInfoInputColorsChanged(CreatureInfoInput input)
         {
-            if (_dontUpdateExtractorVisualData)
+            if (_dontUpdateExtractorVisualData || _creatureCollection == null)
             {
                 input.ColorAlreadyExistingInformation = null;
                 return;

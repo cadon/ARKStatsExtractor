@@ -59,20 +59,12 @@ DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .N
 de.DotNetFrameworkFailed5100=Ihr Computer erfüllt nicht die Voraussetzungen für das .NET Framework.
 DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
 de.DotNetFrameworkFailedOther=Die .NET Framework Installation endete mit dem nicht erwarteten Statuscode "%1". Überprüfen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
-DownloadImages=Download images for some of the species (~21 MB).
-de.DownloadImages=Bilder für einige der Dinos herunterladen (~21 MB).
-CreatureImages=Additional creature images
-de.CreatureImages=Zusätzliche Dino-Bilder
-InstallImages=Installing additionally creature images
-de.InstallImages=Installiere zusätzliche Dino-Bilder
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 
 [Tasks]
-; images download is configured in function NextButtonClick, unzipping is run as powershell command
-Name: "images"; Description: "{cm:DownloadImages}"; GroupDescription: "{cm:CreatureImages}"; Flags: checkedonce
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkedonce
 
 [Files]
@@ -103,7 +95,6 @@ Name: "{group}\{cm:UninstallProgram,{#AppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "powershell.exe"; Parameters: "-nologo -noprofile -command ""& {{ Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('{tmp}\speciesImages.zip', '{localappdata}\{#AppName}\images\speciesImages\'); }"""; Flags: runminimized; StatusMsg: "{cm:InstallImages}"; Tasks: images
 Filename: "{app}\{#AppExeName}"; Flags: nowait postinstall skipifsilent unchecked; Description: "{cm:LaunchProgram,{#StringChange(AppName, '&', '&&')}}"
 
 [UninstallRun]
@@ -166,13 +157,7 @@ begin
       downloadFiles := True;
     end;
   end;
-  if (CurPageID = wpSelectTasks) then begin
-    if WizardIsTaskSelected('images') then begin
-      DownloadPage.Add('{#AppURL}/raw/master/speciesImages/speciesImages.zip', 'speciesImages.zip', '');
-      downloadFiles := True;
-      end;
-  end;
-    if (CurPageID = wpReady) and downloadFiles then begin
+  if (CurPageID = wpReady) and downloadFiles then begin
     DownloadPage.Show;
     try
       try

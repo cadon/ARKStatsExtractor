@@ -377,11 +377,17 @@ namespace ARKBreedingStats.Pedigree
                 ipc.BestBreedingPartners += BestBreedingPartners;
             }
 
-            PbRegionColors.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedCreature.colors,
-                _selectedCreature.Species, _enabledColorRegions, 256, creatureSex: _selectedCreature.sex, game: CreatureCollection.CurrentCreatureCollection?.Game));
-            PbRegionColors.Visible = true;
-
             splitContainer1.Panel2.ResumeDrawingAndLayout();
+
+            CreatureColored.GetColoredCreatureWithCallback(DisplayCreatureImage, this, _selectedCreature.colors,
+                _selectedCreature.Species, _enabledColorRegions, 256, creatureSex: _selectedCreature.sex,
+                game: CreatureCollection.CurrentCreatureCollection?.Game);
+        }
+
+        private void DisplayCreatureImage(Bitmap bmp)
+        {
+            PbRegionColors.SetImageAndDisposeOld(bmp);
+            PbRegionColors.Visible = true;
         }
 
         private static void DrawKey(PictureBox pb, Species species)

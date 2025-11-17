@@ -314,9 +314,6 @@
     <Setting Name="applyNamePatternOnAutoImportForNewCreatures" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="AlreadyAskedToDownloadSpeciesImageFiles" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="LibrarySelectSelectedSpeciesOnLoad" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -405,9 +402,6 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="CreatureTableExportFields" Type="System.Int32[]" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="SpeciesImagesFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ConsiderWastedStatsForTopCreatures" Type="System.Boolean" Scope="User">
@@ -613,6 +607,12 @@
     </Setting>
     <Setting Name="WindowPositionTraitSelection" Type="System.Drawing.Rectangle" Scope="User">
       <Value Profile="(Default)">200, 200, 450, 600</Value>
+    </Setting>
+    <Setting Name="SpeciesImagesUrls" Type="System.String[]" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;string&gt;https://raw.github.com/arkutils/species-images/main/images/&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>
 </SettingsFile>

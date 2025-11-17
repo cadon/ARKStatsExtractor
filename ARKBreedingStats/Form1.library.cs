@@ -12,6 +12,7 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
@@ -293,6 +294,7 @@ namespace ARKBreedingStats
         /// <param name="cc"></param>
         private static void ApplySpeciesObjectsToCollection(CreatureCollection cc)
         {
+            if (cc == null) return;
             foreach (var cr in cc.creatures)
             {
                 cr.Species = Values.V.SpeciesByBlueprint(cr.speciesBlueprint);
@@ -1951,76 +1953,80 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void saveInfographicsToFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void saveInfographicsToFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
-
-            var initialFolder = Properties.Settings.Default.InfoGraphicExportFolder;
-            if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
-                initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-            string folderPath = null;
-            using (var fs = new FolderBrowserDialog
-            {
-                SelectedPath = initialFolder
-            })
-            {
-                if (fs.ShowDialog() == DialogResult.OK)
-                    folderPath = fs.SelectedPath;
-            }
-
-            if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
-
-            Properties.Settings.Default.InfoGraphicExportFolder = folderPath;
-
-            // test if files can be written to the folder
-            var testFileName = "testFile.txt";
             try
             {
-                var testFilePath = Path.Combine(folderPath, testFileName);
-                File.WriteAllText(testFilePath, string.Empty);
-                FileService.TryDeleteFile(testFilePath);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                MessageBoxes.ExceptionMessageBox(ex, $"The selected folder\n{folderPath}\nis protected, the files cannot be saved there. Select a different folder.");
-                return;
-            }
+                if (listViewLibrary.SelectedIndices.Count == 0) return;
 
-            int imagesCreated = 0;
-            string firstImageFilePath = null;
+                var initialFolder = Properties.Settings.Default.InfoGraphicExportFolder;
+                if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
+                    initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            var invalidCharacters = Path.GetInvalidFileNameChars();
-
-            foreach (int i in listViewLibrary.SelectedIndices)
-            {
-                var c = _creaturesDisplayed[i];
-
-                var fileName = $"{c.SpeciesName}_{(string.IsNullOrEmpty(c.name) ? c.guid.ToString() : c.name)}";
-                foreach (var invalidChar in invalidCharacters)
-                    fileName = fileName.Replace(invalidChar, '_');
-
-                var filePath = Path.Combine(folderPath, $"ARK_info_{fileName}.png");
-
-                if (File.Exists(filePath))
+                string folderPath = null;
+                using (var fs = new FolderBrowserDialog
                 {
-                    switch (MessageBox.Show($"The file\n{filePath}\nalready exists.\nOverwrite the file?", "File exists already", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
-                    {
-                        case DialogResult.No: continue;
-                        case DialogResult.Yes: break;
-                        default: return;
-                    }
+                    SelectedPath = initialFolder
+                })
+                {
+                    if (fs.ShowDialog() == DialogResult.OK)
+                        folderPath = fs.SelectedPath;
                 }
-                c.InfoGraphic(_creatureCollection).Save(filePath);
-                if (firstImageFilePath == null) firstImageFilePath = filePath;
 
-                imagesCreated++;
+                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
+
+                Properties.Settings.Default.InfoGraphicExportFolder = folderPath;
+
+                // test if files can be written to the folder
+                var testFileName = "testFile.txt";
+                try
+                {
+                    var testFilePath = Path.Combine(folderPath, testFileName);
+                    File.WriteAllText(testFilePath, string.Empty);
+                    FileService.TryDeleteFile(testFilePath);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    MessageBoxes.ExceptionMessageBox(ex, $"The selected folder\n{folderPath}\nis protected, the files cannot be saved there. Select a different folder.");
+                    return;
+                }
+
+                var imagesCreated = 0;
+                string firstImageFilePath = null;
+
+                foreach (int i in listViewLibrary.SelectedIndices)
+                {
+                    var c = _creaturesDisplayed[i];
+
+                    var fileName = $"{c.SpeciesName}_{(string.IsNullOrEmpty(c.name) ? c.guid.ToString() : c.name)}";
+                    fileName = FileService.ReplaceInvalidCharacters(fileName);
+
+                    var filePath = Path.Combine(folderPath, $"ARK_info_{fileName}.png");
+
+                    if (File.Exists(filePath))
+                    {
+                        switch (MessageBox.Show($"The file\n{filePath}\nalready exists.\nOverwrite the file?", "File exists already", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+                        {
+                            case DialogResult.No: continue;
+                            case DialogResult.Yes: break;
+                            default: return;
+                        }
+                    }
+                    (await c.InfoGraphicAsync(_creatureCollection)).Save(filePath);
+                    if (firstImageFilePath == null) firstImageFilePath = filePath;
+
+                    imagesCreated++;
+                }
+
+                if (imagesCreated == 0) return;
+
+                var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
+                SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
             }
-
-            if (imagesCreated == 0) return;
-
-            var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
-            SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
+            catch (Exception ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex);
+            }
         }
 
         #region Library ContextMenu

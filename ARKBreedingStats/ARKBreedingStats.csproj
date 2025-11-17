@@ -105,6 +105,18 @@
       <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
+    <Compile Include="SpeciesImages\CreatureImageFile.cs" />
+    <Compile Include="SpeciesImages\FileHashList.cs" />
+    <Compile Include="SpeciesImages\ImageCollection.cs" />
+    <Compile Include="SpeciesImages\ImageCollections.cs" />
+    <Compile Include="SpeciesImages\ImageComposition.cs" />
+    <Compile Include="SpeciesImages\ImagePackSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SpeciesImages\ImagePackSelection.Designer.cs">
+      <DependentUpon>ImagePackSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpeciesImages\ImagesManifest.cs" />
     <Compile Include="Traits\CreatureTrait.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
@@ -731,6 +743,7 @@
     <Compile Include="utils\RepositoryInfo.cs" />
     <Compile Include="utils\SoundFeedback.cs" />
     <Compile Include="utils\Themes.cs" />
+    <Compile Include="utils\WebService.cs" />
     <Compile Include="values\TamingFoodData.cs" />
     <Compile Include="values\ServerMultipliersPresets.cs" />
     <Compile Include="values\ServerMultipliers.cs" />
@@ -738,6 +751,9 @@
     <Compile Include="utils\Win32API.cs" />
     <Compile Include="values\ValuesFile.cs" />
     <None Include="json\canHaveWildLevelExceptions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="json\imagePacks.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="json\speciesSpecificExtractionFails.json">
@@ -789,6 +805,9 @@
     <EmbeddedResource Include="local\strings.zh-tw.resx" />
     <EmbeddedResource Include="ocr\PatternMatching\RecognitionTrainingForm.resx">
       <DependentUpon>RecognitionTrainingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpeciesImages\ImagePackSelection.resx">
+      <DependentUpon>ImagePackSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\ColorPickerWindow.resx">
       <DependentUpon>ColorPickerWindow.cs</DependentUpon>

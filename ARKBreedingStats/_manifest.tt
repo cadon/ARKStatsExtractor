@@ -17,18 +17,6 @@ string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/As
       "Category": "main",
       "version": "<#= appVersion #>"
     },
-    "SpeciesColorImages": {
-      "Id": "SpeciesColorImages",
-      "Category": "Species Images",
-      "Name": "Species Images",
-      "Author": "Shen, cadaei, Myrmecoleon, coldino",
-      "Description": "Download this package to have a visualization for the colors of creatures (~35 MB), uncheck if you don't want to download these files.",
-      "Url": "https://github.com/cadon/ARKStatsExtractor/raw/master/speciesImages/speciesImages.zip",
-      "LocalPath": "images/speciesImages",
-      "IsFolder": true,
-      "Selectable": true,
-      "version": "2025.09.30"
-    },
     "NamePatternTemplates": {
       "Id": "NamePatternTemplates",
       "Category": "Name Pattern Templates",

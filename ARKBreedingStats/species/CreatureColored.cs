@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.utils;
+using ARKBreedingStats.SpeciesImages;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
@@ -19,97 +20,37 @@ namespace ARKBreedingStats.species
     /// </summary>
     internal static class CreatureColored
     {
-        private const string Extension = ".png";
-        internal static string ImageFolder;
-        private static string _imgCacheFolderPath;
         /// <summary>
         /// Size of the cached images.
         /// </summary>
         private const int TemplateSize = 256;
 
         /// <summary>
-        /// Returns the name of the image file used for the species. E.g. parts like Aberrant or Brute are removed, they share the same graphics.
-        /// There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
+        /// Retrieves a bitmap image that represents the given colors. If a species color file is available, that is used, else a pie-chart like representation.
+        /// This method runs the retrieval in a separate thread and calls a callback once finished on the thread of the passed control.
         /// </summary>
-        internal static string SpeciesImageName(Species species, string game = null, Sex creatureSex = Sex.Unknown, int patternId = -1, bool replacePolar = true)
+        /// <param name="callBack">Method to call when the image is ready.</param>
+        /// <param name="uiElement">UI element whose thread is used to invoke the callback on the UI thread.</param>
+        /// <param name="colorIds"></param>
+        /// <param name="species"></param>
+        /// <param name="enabledColorRegions"></param>
+        /// <param name="size"></param>
+        /// <param name="pieSize"></param>
+        /// <param name="onlyColors">Only return a pie-chart like color representation.</param>
+        /// <param name="onlyImage">Only return an image of the colored creature. If that's not possible, return null.</param>
+        /// <param name="creatureSex">If given, it's tried for find a sex-specific image.</param>
+        /// <param name="game">Name of the game if there is a specific image for that, e.g. ASA or ASE</param>
+        /// <returns>Image representing the colors.</returns>
+        public static void GetColoredCreatureWithCallback(Action<Bitmap> callBack, Control uiElement, byte[] colorIds, Species species,
+            bool[] enabledColorRegions, int size, int pieSize = 64, bool onlyColors = false, bool onlyImage = false,
+            Sex creatureSex = Sex.Unknown, string game = null)
         {
-            if (string.IsNullOrEmpty(ImageFolder))
-                return null;
-            var speciesName = species?.name;
-            if (string.IsNullOrEmpty(speciesName)) return string.Empty;
-            speciesName = speciesName.Replace("Brute ", string.Empty);
-            if (replacePolar)
+            Task.Run(async () =>
             {
-                speciesName = speciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty);
-            }
-
-            var gameString = string.IsNullOrEmpty(game) ? string.Empty : "_" + game;
-            var sexString = creatureSex == Sex.Female ? "_sf" : creatureSex == Sex.Male ? "_sm" : string.Empty;
-            var patternString = patternId >= 0 ? "_" + patternId : string.Empty;
-            var keyString = speciesName + gameString + sexString + patternString;
-            if (cachedSpeciesFileNames?.TryGetValue(keyString, out var fileNameWithoutExtension) == true)
-                return fileNameWithoutExtension;
-
-            if (cachedSpeciesFileNames == null) cachedSpeciesFileNames = new Dictionary<string, string>();
-
-            // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
-            var fileNames = getPossibleSpeciesNames(speciesName);
-
-            IEnumerable<string> getPossibleSpeciesNames(string spName) => new List<string>
-            {
-                spName + gameString + sexString + patternString,
-                spName + gameString + patternString,
-                spName + sexString + patternString,
-                spName + patternString
-            };
-
-            // fallback for aberrant species to use the vanilla one if no aberrant image is available (they're pretty similar)
-            if (speciesName.StartsWith("Aberrant"))
-                fileNames = fileNames.Concat(getPossibleSpeciesNames(speciesName.Replace("Aberrant ", string.Empty)));
-
-            foreach (var fileNameBase in fileNames.Distinct())
-            {
-                if (File.Exists(Path.Combine(ImageFolder, fileNameBase + Extension)))
-                {
-                    cachedSpeciesFileNames.Add(keyString, fileNameBase);
-                    return fileNameBase;
-                }
-            }
-            cachedSpeciesFileNames.Add(keyString, null);
-            return null;
-        }
-
-        /// <summary>
-        /// Returns the image file path to the image with the according colorization.
-        /// </summary>
-        private static string ColoredCreatureCacheFilePath(string speciesName, byte[] colorIds, bool listView = false)
-            => Path.Combine(_imgCacheFolderPath, speciesName.Substring(0, Math.Min(speciesName.Length, 5)) + "_"
-                + Convert32.ToBase32String(colorIds.Select(ci => ci).Concat(Encoding.UTF8.GetBytes(speciesName)).ToArray()).Replace('/', '-')
-                + (listView ? "_lv" : string.Empty) + Extension);
-
-        internal static string SpeciesImageName(Species species, string game = null, bool replacePolar = true) =>
-            SpeciesImageName(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null), Sex.Unknown, (species?.patterns?.count ?? 0) > 0 ? 1 : -1, replacePolar);
-
-        /// <summary>
-        /// Checks if an according species image exists in the cache folder, if not it tries to create one. Returns false if there's no image.
-        /// </summary>
-        internal static (bool imageExists, string imagePath, string speciesListName) SpeciesImageExists(Species species, byte[] colorIds, string game = null)
-        {
-            var speciesNameForList = SpeciesImageName(species, game, false);
-            var speciesImageName = SpeciesImageName(species, game, true);
-            var cacheFileName = string.IsNullOrEmpty(speciesImageName) ? null : ColoredCreatureCacheFilePath(speciesImageName, colorIds, true);
-            if (!string.IsNullOrEmpty(cacheFileName) && File.Exists(cacheFileName))
-                return (true, cacheFileName, speciesNameForList);
-
-            string speciesBaseImageFilePath = Path.Combine(ImageFolder, speciesImageName + Extension);
-            string speciesColorMaskFilePath = Path.Combine(ImageFolder, speciesImageName + "_m" + Extension);
-
-            if (CreateAndSaveCacheSpeciesFile(colorIds,
-                    species?.EnabledColorRegions,
-                    speciesBaseImageFilePath, speciesColorMaskFilePath, cacheFileName, 64))
-                return (true, cacheFileName, speciesNameForList);
-
-            return (false, null, null);
+                var bmp = await GetColoredCreatureAsync(colorIds, species,
+                    enabledColorRegions, size, pieSize, creatureSex: creatureSex, game: game);
+                uiElement.Invoke(new Action(() => callBack(bmp)));
+            });
         }
 
         /// <summary>
@@ -125,11 +66,12 @@ namespace ARKBreedingStats.species
         /// <param name="creatureSex">If given, it's tried for find a sex-specific image.</param>
         /// <param name="game">Name of the game if there is a specific image for that, e.g. ASA or ASE</param>
         /// <returns>Image representing the colors.</returns>
-        public static Bitmap GetColoredCreature(byte[] colorIds, Species species, bool[] enabledColorRegions, int size = 128, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown, string game = null)
+        public static async Task<Bitmap> GetColoredCreatureAsync(byte[] colorIds, Species species, bool[] enabledColorRegions,
+            int size, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown, string game = null, ImageComposition composition = null)
         {
             if (colorIds == null) colorIds = new byte[Ark.ColorRegionCount];
 
-            if (string.IsNullOrEmpty(species?.name) || string.IsNullOrEmpty(ImageFolder))
+            if (string.IsNullOrEmpty(species?.name))
                 return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
 
             var patternId = -1;
@@ -140,14 +82,14 @@ namespace ARKBreedingStats.species
                 if (patternId <= 0) patternId += species.patterns.count;
             }
 
-            var baseSpeciesFileName = SpeciesImageName(species, game, creatureSex, patternId);
+            var (speciesBaseImageFilePath, baseSpeciesFileName) = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId).ConfigureAwait(false);
 
-            if (string.IsNullOrEmpty(baseSpeciesFileName))
+            if (string.IsNullOrEmpty(speciesBaseImageFilePath))
                 return onlyImage ? null : DrawPieChart(colorIds, enabledColorRegions, size, pieSize); // no available images
 
-            string speciesBaseImageFilePath = Path.Combine(ImageFolder, baseSpeciesFileName + Extension);
-            string speciesColorMaskFilePath = Path.Combine(ImageFolder, baseSpeciesFileName + "_m" + Extension);
-            string cacheFilePath = ColoredCreatureCacheFilePath(baseSpeciesFileName, colorIds);
+            var speciesColorMaskFilePath = CreatureImageFile.MaskFilePath(speciesBaseImageFilePath);
+
+            string cacheFilePath = CreatureImageFile.ColoredCreatureCacheFilePath(baseSpeciesFileName, colorIds);
             bool cacheFileExists = File.Exists(cacheFilePath);
             if (!cacheFileExists)
             {
@@ -160,7 +102,9 @@ namespace ARKBreedingStats.species
             {
                 try
                 {
-                    return new Bitmap(cacheFilePath);
+                    // use temp bitmap to avoid persistent file locking
+                    using (var bmpTemp = new Bitmap(cacheFilePath))
+                        return new Bitmap(bmpTemp);
                 }
                 catch
                 {
@@ -170,7 +114,9 @@ namespace ARKBreedingStats.species
                     {
                         try
                         {
-                            return new Bitmap(cacheFilePath);
+                            // use temp bitmap to avoid persistent file locking
+                            using (var bmpTemp = new Bitmap(cacheFilePath))
+                                return new Bitmap(bmpTemp);
                         }
                         catch
                         {
@@ -187,6 +133,7 @@ namespace ARKBreedingStats.species
                 return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
             }
 
+            // cache file exists, resize to requested size
             Bitmap bm = new Bitmap(size, size);
             using (Graphics graph = Graphics.FromImage(bm))
             {
@@ -225,12 +172,7 @@ namespace ARKBreedingStats.species
             return bm;
         }
 
-        /// <summary>
-        /// Cache of color images for species including optional parameters game, sex and pattern.
-        /// </summary>
-        private static Dictionary<string, string> cachedSpeciesFileNames;
-
-        private static Bitmap DrawPieChart(byte[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
+        internal static Bitmap DrawPieChart(byte[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
         {
             int pieAngle = enabledColorRegions?.Count(c => c) ?? Ark.ColorRegionCount;
             pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
@@ -268,7 +210,7 @@ namespace ARKBreedingStats.species
         /// Creates a colored species image and saves it as cache file.
         /// </summary>
         /// <returns>True if image was created successfully.</returns>
-        private static bool CreateAndSaveCacheSpeciesFile(byte[] colorIds, bool[] enabledColorRegions,
+        internal static bool CreateAndSaveCacheSpeciesFile(byte[] colorIds, bool[] enabledColorRegions,
             string speciesBaseImageFilePath, string speciesColorMaskFilePath, string cacheFilePath, int outputSize = 256)
         {
             if (string.IsNullOrEmpty(cacheFilePath)
@@ -552,43 +494,5 @@ namespace ARKBreedingStats.species
             }
             return creatureRegionColors.ToString();
         }
-
-        /// <summary>
-        /// Deletes all cached species color images with a specific pattern that weren't used for some time.
-        /// </summary>
-        internal static void CleanupCache(bool clearAllCacheFiles = false)
-        {
-            if (!Directory.Exists(_imgCacheFolderPath)) return;
-
-            DirectoryInfo directory = new DirectoryInfo(_imgCacheFolderPath);
-            var oldCacheFiles = clearAllCacheFiles ? directory.GetFiles() : directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-7)).ToArray();
-            foreach (FileInfo f in oldCacheFiles)
-            {
-                FileService.TryDeleteFile(f);
-            }
-            cachedSpeciesFileNames?.Clear();
-        }
-
-        /// <summary>
-        /// If the setting ImgCacheUseLocalAppData is true, the image cache files are saved in the %localAppData% folder instead of the app folder.
-        /// This is always true if the app is installed.
-        /// Call this method after that setting or the speciesImageFolder where the images are stored are changed.
-        /// The reason to use the appData folder is that this folder is used to save files, the portable version can be shared and be write protected.
-        /// </summary>
-        internal static void InitializeSpeciesImageLocation()
-        {
-            if (string.IsNullOrEmpty(Properties.Settings.Default.SpeciesImagesFolder))
-            {
-                ImageFolder = null;
-                _imgCacheFolderPath = null;
-                return;
-            }
-
-            ImageFolder = FileService.GetPath(Properties.Settings.Default.SpeciesImagesFolder);
-            _imgCacheFolderPath = GetImgCacheFolderPath();
-        }
-
-        private static string GetImgCacheFolderPath() => FileService.GetPath(Properties.Settings.Default.SpeciesImagesFolder, FileService.CacheFolderName,
-            useAppData: Updater.Updater.IsProgramInstalled || Properties.Settings.Default.ImgCacheUseLocalAppData);
     }
 }

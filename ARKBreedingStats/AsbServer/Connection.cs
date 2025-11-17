@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.utils;
 using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats.AsbServer
@@ -44,7 +45,7 @@ namespace ARKBreedingStats.AsbServer
 
                     try
                     {
-                        var client = FileService.GetHttpClient;
+                        var client = WebService.GetHttpClient;
                         using (var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead))
                         {
                             if (!response.IsSuccessStatusCode)
@@ -223,7 +224,7 @@ namespace ARKBreedingStats.AsbServer
                                     msg.Content = new StringContent(jsonString, Encoding.UTF8, "application/json");
                                     msg.Content.Headers.Add("Content-Length", jsonString.Length.ToString());
 
-                                    var sendResponse = await FileService.GetHttpClient.SendAsync(msg, cancellationToken);
+                                    var sendResponse = await WebService.GetHttpClient.SendAsync(msg, cancellationToken);
 #if DEBUG
                                     Console.WriteLine($"{DateTime.Now}: received send response: {await sendResponse.Content.ReadAsStringAsync()})");
 #endif
@@ -385,7 +386,7 @@ namespace ARKBreedingStats.AsbServer
                     )
                 ) return;
 
-            var client = FileService.GetHttpClient;
+            var client = WebService.GetHttpClient;
 
             var id1 = (int)(creatureId >> 32);
             var id2 = (int)creatureId;

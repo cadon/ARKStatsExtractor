@@ -1669,22 +1669,26 @@ namespace ARKBreedingStats.settings
             if (_infoGraphicPreviewCreature == null)
                 CreateInfoGraphicCreature();
 
-            var speciesImage = _infoGraphicPreviewCreature?.InfoGraphic(_cc,
-                (int)nudInfoGraphicHeight.Value,
-                CbbInfoGraphicFontName.Text,
-                BtInfoGraphicForeColor.BackColor,
-                BtInfoGraphicBackColor.BackColor,
-                BtInfoGraphicBorderColor.BackColor,
-                CbInfoGraphicCreatureName.Checked,
-                RbInfoGraphicDomValues.Checked,
-                CbInfoGraphicSumWildMut.Checked,
-                CbInfoGraphicMutationCounter.Checked,
-                CbInfoGraphicGenerations.Checked,
-                CbInfoGraphicStatValues.Checked,
-                CbInfoGraphicDisplayMaxWildLevel.Checked,
-                CbInfoGraphicAddRegionNames.Checked,
-                CbInfoGraphicColorRegionNamesIfNoImage.Checked
-            );
+            var height = (int)nudInfoGraphicHeight.Value;
+            var fontName = CbbInfoGraphicFontName.Text;
+            var foreColor = BtInfoGraphicForeColor.BackColor;
+            var backColor = BtInfoGraphicBackColor.BackColor;
+            var borderColor = BtInfoGraphicBorderColor.BackColor;
+            var displayCreatureName = CbInfoGraphicCreatureName.Checked;
+            var displayDomValues = RbInfoGraphicDomValues.Checked;
+            var sumWildMut = CbInfoGraphicSumWildMut.Checked;
+            var displayMutationCounter = CbInfoGraphicMutationCounter.Checked;
+            var displayGenerations = CbInfoGraphicGenerations.Checked;
+            var displayStatValues = CbInfoGraphicStatValues.Checked;
+            var displayMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
+            var addRegionNames = CbInfoGraphicAddRegionNames.Checked;
+            var colorRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
+
+            var speciesImage = Task.Run(() => _infoGraphicPreviewCreature?
+                .InfoGraphicAsync(_cc,
+                    height, fontName, foreColor, backColor, borderColor, displayCreatureName, displayDomValues,
+                    sumWildMut, displayMutationCounter, displayGenerations,
+                    displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage)).Result;
 
             if (speciesImage == null) return;
 
@@ -1811,7 +1815,7 @@ namespace ARKBreedingStats.settings
 
             try
             {
-                var httpClient = FileService.GetHttpClient;
+                var httpClient = WebService.GetHttpClient;
                 _cancellationTokenSource = new CancellationTokenSource();
                 BtRemoteServerSettingsUri.Text = "Cancel loading";
                 string settingsText = null;
@@ -1890,7 +1894,7 @@ namespace ARKBreedingStats.settings
                   : gameType == "ASA Official" ? "https://cdn2.arkdedicated.com/asa/dynamicconfig.ini"
                   : throw new Exception($"Unexpected official multipliers option {gameType}");
 
-                var httpClient = FileService.GetHttpClient;
+                var httpClient = WebService.GetHttpClient;
 
                 var settingsText = httpClient.GetStringAsync(url).Result;
                 ExtractEventSettingsFromText(settingsText);
