@@ -147,6 +147,8 @@ namespace ARKBreedingStats.species
         [JsonProperty]
         public ColorRegion[] colors;
         [JsonProperty]
+        public double[] regionIntensities;
+        [JsonProperty]
         public TamingData taming;
         [JsonProperty]
         public BreedingData breeding;
