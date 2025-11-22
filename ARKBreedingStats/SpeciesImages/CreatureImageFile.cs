@@ -22,100 +22,156 @@ namespace ARKBreedingStats.SpeciesImages
         /// <summary>
         /// Tasks to retrieve images. This avoids simultaneous retrieval of equal images on different threads.
         /// </summary>
-        private static readonly ConcurrentDictionary<string, Lazy<Task<(string, string)>>> RetrievalTasks =
-            new ConcurrentDictionary<string, Lazy<Task<(string, string)>>>();
+        private static readonly ConcurrentDictionary<string, Lazy<Task<string>>> RetrievalTasks =
+            new ConcurrentDictionary<string, Lazy<Task<string>>>();
 
         /// <summary>
-        /// Cache of color images (file paths, file name without extension) for species including optional parameters game, sex and pattern.
+        /// Tasks to generate composed images. This avoids simultaneous retrieval of equal images on different threads.
         /// </summary>
-        private static readonly Dictionary<string, (string, string)> CachedSpeciesFilePaths = new Dictionary<string, (string, string)>();
+        private static readonly ConcurrentDictionary<string, Lazy<Task<string>>> CompositionTasks =
+            new ConcurrentDictionary<string, Lazy<Task<string>>>();
 
         /// <summary>
-        /// Returns the (file path,imageBasePath) of the image used for the species. E.g. parts like Brute are removed, they share the same graphics.
+        /// Cache of color images file paths for species including optional parameters game, sex and pattern.
+        /// </summary>
+        private static readonly ConcurrentDictionary<string, string> CachedSpeciesFilePaths = new ConcurrentDictionary<string, string>();
+
+        /// <summary>
+        /// Returns the file path of the image used for the species. E.g. parts like Brute are removed, they share the same graphics.
         /// There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
         /// If the file is not available locally or outdated, it's downloaded.
         /// If the file is not available locally nor remotely, null is returned.
         /// </summary>
-        internal static async Task<(string filePath, string fileBaseName)> SpeciesImageFilePath(Species species, string game = null, bool replacePolar = true) => await
-            SpeciesImageFilePath(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null), Sex.Unknown, (species?.patterns?.count ?? 0) > 0 ? 1 : -1, replacePolar);
+        internal static async Task<string> SpeciesImageFilePath(Species species, string game = null, bool replacePolar = true) => await
+            SpeciesImageFilePath(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null),
+                Sex.Unknown, (species?.patterns?.count ?? 0) > 0 ? 1 : -1, replacePolar);
 
         /// <summary>
-        /// Returns the (file path,imageBasePath) of the image used for the species. Parts like Brute are removed, they share the same graphics.
+        /// Returns the file path of the image used for the species. Parts like Brute are removed, they share the same graphics.
         /// There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
         /// If the file is not available locally or outdated, it's downloaded.
         /// If the file is not available locally nor remotely, null is returned.
         /// </summary>
-        internal static async Task<(string filePath, string fileBaseName)> SpeciesImageFilePath(Species species,
+        internal static async Task<string> SpeciesImageFilePath(Species species,
             string game = null, Sex creatureSex = Sex.Unknown,
-            int patternId = -1, bool replacePolar = true)
+            int patternId = -1, bool replacePolar = true, string imagePackName = null, string imageName = null,
+            bool useComposition = false)
         {
             var speciesName = species?.name;
             if (string.IsNullOrEmpty(speciesName)
-                ||!ImageCollections.AnyManifests)
-                return (null, null);
+                || !ImageCollections.AnyManifests)
+                return null;
             speciesName = speciesName.Replace("Brute ", string.Empty);
             if (replacePolar)
                 speciesName = speciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty);
+            var creatureImageParameters = new CreatureImageParameters(species, speciesName, game, creatureSex, patternId);
 
-            // the file name has the following pattern <species>[_<game|modId>][_s(m|f)][_<pattern>]
+            return await SpeciesImageFilePath(creatureImageParameters, imagePackName, imageName, useComposition).ConfigureAwait(false);
+        }
 
-            var modString = string.IsNullOrEmpty(species.Mod?.id) ? string.Empty : "_" + species.Mod.id;
-            var gameString = !string.IsNullOrEmpty(modString) ? modString :
-                string.IsNullOrEmpty(game) ? string.Empty : "_" + game;
-            var sexString = creatureSex == Sex.Female ? "_sf" : creatureSex == Sex.Male ? "_sm" : string.Empty;
-            var patternString = patternId >= 0 ? "_" + patternId : string.Empty;
-            var keyString = speciesName + gameString + sexString + patternString;
+        private static async Task<string> SpeciesImageFilePath(CreatureImageParameters creatureImageParameters,
+            string imagePackName = null, string imageName = null, bool useComposition = false)
+        {
+
+            var composition = useComposition ? ImageCompositions.GetComposition(creatureImageParameters.Species) : null;
+            var compositionHash = "_" + composition?.Hash ?? string.Empty;
+            if (composition != null)
+            {
+                imagePackName = null;
+                imageName = null;
+            }
+            var preferredResources = "_" + imagePackName + "_" + imageName;
+
+            var keyString = creatureImageParameters.BaseParameters + preferredResources + compositionHash;
             if (CachedSpeciesFilePaths?.TryGetValue(keyString, out var filePathAndFileNameBase) == true)
                 return filePathAndFileNameBase;
 
+            // if request needs a specific image, only try to get that
+            if (!string.IsNullOrEmpty(imageName))
+                return await GetImagePathAsync(keyString, new List<string> { imageName }, imagePackName).ConfigureAwait(false);
+
+            if (composition != null)
+            {
+                var filePath = await CreateCompositionBaseFiles(keyString, composition, creatureImageParameters);
+                if (filePath != null)
+                    return filePath;
+            }
+
             // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
-            var possibleFileNames = GetPossibleSpeciesNames(speciesName);
+            var possibleFileNames = creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName);
 
             // fallback for aberrant species to use the vanilla one if no aberrant image is available (they're pretty similar)
-            if (speciesName.StartsWith("Aberrant "))
-                possibleFileNames.AddRange(GetPossibleSpeciesNames(speciesName.Replace("Aberrant ", string.Empty)));
+            if (creatureImageParameters.SpeciesName.StartsWith("Aberrant "))
+                possibleFileNames.AddRange(creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName.Replace("Aberrant ", string.Empty)));
             possibleFileNames = possibleFileNames.Distinct().ToList();
 
-            return await GetImagePathAsync(keyString, possibleFileNames);
-
-            List<string> GetPossibleSpeciesNames(string spName) => new List<string>
-            {
-                spName + gameString + sexString + patternString,
-                spName + gameString + patternString,
-                spName + sexString + patternString,
-                spName + patternString
-            };
+            return await GetImagePathAsync(keyString, possibleFileNames, imagePackName).ConfigureAwait(false);
         }
 
-        private static Task<(string filePath, string fileBaseName)> GetImagePathAsync(
-            string speciesPropertiesKeyString, List<string> possibleFileNames)
+        /// <summary>
+        /// Returns file path of composed base image.
+        /// </summary>
+        private static Task<string> CreateCompositionBaseFiles(string speciesPropertiesKeyString, ImageComposition composition,
+            CreatureImageParameters creatureImageParameters) =>
+            CompositionTasks.GetOrAdd(speciesPropertiesKeyString, new Lazy<Task<string>>(()
+                => CreateCompositionBaseFilesOnceAsync(speciesPropertiesKeyString, composition, creatureImageParameters))).Value;
+
+        private static async Task<string> CreateCompositionBaseFilesOnceAsync(string speciesPropertiesKeyString, ImageComposition composition,
+            CreatureImageParameters creatureImageParameters)
         {
-            var lazyTask = RetrievalTasks.GetOrAdd(speciesPropertiesKeyString, new Lazy<Task<(string, string)>>(() => GetImagePathSingle(speciesPropertiesKeyString, possibleFileNames)));
-            return lazyTask.Value;
+            if (composition == null || composition.Hash == 0 || composition.Parts?.Any() != true)
+                return null;
+
+            var filePathResult = FilePathCombinedSpeciesImage(FileService.ReplaceInvalidCharacters(speciesPropertiesKeyString));
+            if (File.Exists(filePathResult))
+            {
+                CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePathResult;
+                return filePathResult;
+            }
+
+            var tasks = composition.Parts.Select(async part =>
+                await SpeciesImageFilePath(creatureImageParameters, part.ImagePackName, part.ImageName)
+            ).ToArray();
+
+            var filePaths = await Task.WhenAll(tasks).ConfigureAwait(false);
+
+            if (filePaths.Any(f => f == null)) return null;
+            if (composition.CombineImages(filePaths, filePathResult))
+            {
+                CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePathResult;
+                return filePathResult;
+            }
+
+            CachedSpeciesFilePaths[speciesPropertiesKeyString] = null;
+            return null;
         }
 
-        private static async Task<(string filePath, string fileBaseName)> GetImagePathSingle(string speciesPropertiesKeyString, List<string> possibleFileNames)
+        private static Task<string> GetImagePathAsync(
+            string speciesPropertiesKeyString, List<string> possibleFileNames, string imagePackName = null) =>
+            RetrievalTasks.GetOrAdd(speciesPropertiesKeyString, new Lazy<Task<string>>(()
+                => GetImagePathOnceAsync(speciesPropertiesKeyString, possibleFileNames, imagePackName))).Value;
+
+        private static async Task<string> GetImagePathOnceAsync(string speciesPropertiesKeyString, List<string> possibleFileNames, string imagePackName = null)
         {
             try
             {
                 foreach (var fileNameBase in possibleFileNames)
                 {
-                    var filePath = await ImageCollections.GetFile(fileNameBase + Extension);
+                    var filePath = await ImageCollections.GetFile(fileNameBase + Extension, imagePackName).ConfigureAwait(false);
 
                     if (File.Exists(filePath))
                     {
-                        var filePathAndFileNameBase = (filePath, fileNameBase);
-                        CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePathAndFileNameBase;
+                        CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePath;
                         // file exists, check if according mask file exists and get it or update it
-                        await ImageCollections.GetFile(fileNameBase + "_m" + Extension);
+                        await ImageCollections.GetFile(fileNameBase + "_m" + Extension).ConfigureAwait(false);
 
-                        return filePathAndFileNameBase;
+                        return filePath;
                     }
                 }
 
                 // file for that species properties does not exist
-                CachedSpeciesFilePaths.Add(speciesPropertiesKeyString, (null, null));
-                return (null, null);
+                CachedSpeciesFilePaths[speciesPropertiesKeyString] = null;
+                return null;
             }
             finally
             {
@@ -134,25 +190,29 @@ namespace ARKBreedingStats.SpeciesImages
                 + (listView ? "_lv" : string.Empty) + Extension);
 
         /// <summary>
+        /// File path of combined image.
+        /// </summary>
+        private static string FilePathCombinedSpeciesImage(string speciesProperties) =>
+            Path.Combine(_imgCacheFolderPath, "comp_" + speciesProperties + Extension);
+
+        /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to create one. Returns false if there's no image.
         /// </summary>
-        internal static async Task<(bool imageExists, string imagePathFinal)> GetSpeciesImageForSpeciesList(Species species, byte[] colorIds, string game = null)
+        internal static async Task<string> GetSpeciesImageForSpeciesList(Species species, byte[] colorIds, string game = null)
         {
-            var (speciesImageFilePath, fileBaseName) = await SpeciesImageFilePath(species, game, true);
-            if (speciesImageFilePath == null) return (false, null);
+            var speciesImageFilePath = await SpeciesImageFilePath(species, game, true);
+            if (speciesImageFilePath == null) return null;
 
-            var cacheFilePath = string.IsNullOrEmpty(fileBaseName)
-                ? null
-                : ColoredCreatureCacheFilePath(fileBaseName, colorIds, true);
+            var cacheFilePath = ColoredCreatureCacheFilePath(Path.GetFileNameWithoutExtension(speciesImageFilePath), colorIds, true);
             if (!string.IsNullOrEmpty(cacheFilePath) && File.Exists(cacheFilePath))
-                return (true, cacheFilePath);
+                return cacheFilePath;
 
             if (CreatureColored.CreateAndSaveCacheSpeciesFile(colorIds,
                     species?.EnabledColorRegions,
                     speciesImageFilePath, MaskFilePath(speciesImageFilePath), cacheFilePath, 64))
-                return (true, cacheFilePath);
+                return cacheFilePath;
 
-            return (false, null);
+            return null;
         }
 
         /// <summary>

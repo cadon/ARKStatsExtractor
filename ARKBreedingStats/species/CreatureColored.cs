@@ -67,7 +67,7 @@ namespace ARKBreedingStats.species
         /// <param name="game">Name of the game if there is a specific image for that, e.g. ASA or ASE</param>
         /// <returns>Image representing the colors.</returns>
         public static async Task<Bitmap> GetColoredCreatureAsync(byte[] colorIds, Species species, bool[] enabledColorRegions,
-            int size, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown, string game = null, ImageComposition composition = null)
+            int size, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown, string game = null)
         {
             if (colorIds == null) colorIds = new byte[Ark.ColorRegionCount];
 
@@ -82,14 +82,14 @@ namespace ARKBreedingStats.species
                 if (patternId <= 0) patternId += species.patterns.count;
             }
 
-            var (speciesBaseImageFilePath, baseSpeciesFileName) = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId).ConfigureAwait(false);
+            var speciesBaseImageFilePath = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId, useComposition: true).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(speciesBaseImageFilePath))
                 return onlyImage ? null : DrawPieChart(colorIds, enabledColorRegions, size, pieSize); // no available images
 
             var speciesColorMaskFilePath = CreatureImageFile.MaskFilePath(speciesBaseImageFilePath);
 
-            string cacheFilePath = CreatureImageFile.ColoredCreatureCacheFilePath(baseSpeciesFileName, colorIds);
+            string cacheFilePath = CreatureImageFile.ColoredCreatureCacheFilePath(Path.GetFileNameWithoutExtension(speciesBaseImageFilePath), colorIds);
             bool cacheFileExists = File.Exists(cacheFilePath);
             if (!cacheFileExists)
             {

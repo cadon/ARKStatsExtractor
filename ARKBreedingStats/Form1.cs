@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -297,8 +298,12 @@ namespace ARKBreedingStats
 
             LbWarningLevel255.Visible = false;
 
+            // TODO remove
+            //FileService.SaveJsonFile(FileService.GetJsonPath("_poly.json"),new PointF[]{new PointF(1.1f,2.2f),new PointF(3.3f,4.4f)} , out _);
+
             TraitDefinition.LoadTraitDefinitions();
 
+            ImageCompositions.LoadCompositions();
             ImageCollections.LoadImagePackInfos();
             CreatureImageFile.InitializeSpeciesImageLocation();
 
@@ -320,18 +325,6 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
             creatureInfoInputExtractor.ParentInheritance = parentInheritanceExtractor;
             parentInheritanceExtractor.Visible = false;
-
-            // set last species
-            speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
-
-            if (Properties.Settings.Default.lastSpecies?.Any() == true)
-            {
-                speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(Properties.Settings.Default.lastSpecies[0]));
-            }
-
-            if (speciesSelector1.SelectedSpecies == null && Values.V.species.Any())
-                speciesSelector1.SetSpecies(Values.V.species[0]);
-            tamingControl1.SetSpecies(speciesSelector1.SelectedSpecies);
 
             // OCR
             ocrControl1.Initialize();
@@ -408,11 +401,19 @@ namespace ARKBreedingStats
                     createNewCollection = true;
             }
 
+            // set last species
+            speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
+
             if (createNewCollection)
             {
                 NewCollection();
                 UpdateRecentlyUsedFileMenu();
+
+                if (speciesSelector1.LastSpecies?.Any() == true)
+                    speciesSelector1.SetSpecies(Values.V.SpeciesByBlueprint(speciesSelector1.LastSpecies[0]));
             }
+
+            speciesSelector1.EnsureSelectedSpecies();
 
             UpdateAsaIndicator();
 

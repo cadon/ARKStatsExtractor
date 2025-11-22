@@ -237,7 +237,11 @@ namespace ARKBreedingStats.SpeciesImages
             foreach (var imageCollection in checkImagePacks)
             {
                 var collectionFileName = await imageCollection.GetFileAsync(fileName).ConfigureAwait(false);
-                if (string.IsNullOrEmpty(collectionFileName)) continue;
+                if (string.IsNullOrEmpty(collectionFileName))
+                {
+                    // file is not in manifest. If the file exists regardless, use it
+                    collectionFileName = fileName;
+                }
 
                 filePath = Path.Combine(_imageBasePath, imageCollection.FolderName, collectionFileName);
                 if (File.Exists(filePath))

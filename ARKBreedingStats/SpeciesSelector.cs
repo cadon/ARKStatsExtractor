@@ -412,8 +412,8 @@ namespace ARKBreedingStats
                 //: new byte[] { 44, 42, 57, 10, 26, 78 }
                 : species.RandomSpeciesColors()
                 ;
-            var (imgExists, imagePath) = await CreatureImageFile.GetSpeciesImageForSpeciesList(species, colorIds, game);
-            if (!imgExists) return null;
+            var imagePath = await CreatureImageFile.GetSpeciesImageForSpeciesList(species, colorIds, game);
+            if (imagePath == null) return null;
 
             try
             {
@@ -426,9 +426,9 @@ namespace ARKBreedingStats
                 // usually this exception occurs if the image file is corrupted
                 if (FileService.TryDeleteFile(imagePath))
                 {
-                    (imgExists, imagePath) =
+                    imagePath =
                         await CreatureImageFile.GetSpeciesImageForSpeciesList(species, colorIds, game);
-                    if (!imgExists) return null;
+                    if (imagePath == null) return null;
 
                     try
                     {
@@ -521,7 +521,18 @@ namespace ARKBreedingStats
         /// <summary>
         /// Selects the last user selected species.
         /// </summary>
-        internal void SetToLastSetSpecies() => SetSpecies(Values.V.SpeciesByBlueprint(LastSpecies?.FirstOrDefault()));
+        internal bool SetToLastSetSpecies() => SetSpecies(Values.V.SpeciesByBlueprint(LastSpecies?.FirstOrDefault()));
+
+        /// <summary>
+        /// If no species is selected, set to last selected species, or first available species.
+        /// </summary>
+        public void EnsureSelectedSpecies()
+        {
+            if (SelectedSpecies != null) return;
+            if (SetToLastSetSpecies()) return;
+            if (Values.V.species.Any())
+                SetSpecies(Values.V.species[0]);
+        }
     }
 
     class SpeciesListEntry

@@ -106,10 +106,13 @@
     </Compile>
     <Compile Include="library\CreatureSpawnCommand.cs" />
     <Compile Include="SpeciesImages\CreatureImageFile.cs" />
+    <Compile Include="SpeciesImages\CreatureImageParameters.cs" />
     <Compile Include="SpeciesImages\FileHashList.cs" />
     <Compile Include="SpeciesImages\ImageCollection.cs" />
     <Compile Include="SpeciesImages\ImageCollections.cs" />
     <Compile Include="SpeciesImages\ImageComposition.cs" />
+    <Compile Include="SpeciesImages\ImageCompositionPart.cs" />
+    <Compile Include="SpeciesImages\ImageCompositions.cs" />
     <Compile Include="SpeciesImages\ImagePackSelection.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -735,6 +738,7 @@
     <Compile Include="utils\ExceptionMessages.cs" />
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
+    <Compile Include="utils\Hashes.cs" />
     <Compile Include="utils\LevelColorBar.cs" />
     <Compile Include="utils\Logging.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
