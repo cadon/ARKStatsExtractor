@@ -3555,10 +3555,24 @@ namespace ARKBreedingStats
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.libraryInfoControl1.Location = new System.Drawing.Point(3, 39);
             this.libraryInfoControl1.Name = "libraryInfoControl1";
             this.libraryInfoControl1.RowCount = 2;
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -4125,7 +4139,6 @@ namespace ARKBreedingStats
             // 
             this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.ToolStripTextBoxLibraryFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
             this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
             this.ToolStripTextBoxLibraryFilter.Visible = false;

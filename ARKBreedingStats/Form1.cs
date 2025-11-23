@@ -298,9 +298,6 @@ namespace ARKBreedingStats
 
             LbWarningLevel255.Visible = false;
 
-            // TODO remove
-            //FileService.SaveJsonFile(FileService.GetJsonPath("_poly.json"),new PointF[]{new PointF(1.1f,2.2f),new PointF(3.3f,4.4f)} , out _);
-
             TraitDefinition.LoadTraitDefinitions();
 
             ImageCompositions.LoadCompositions();
@@ -313,6 +310,8 @@ namespace ARKBreedingStats
                     $"{Loc.S("error")}: Values-file not found");
                 Environment.Exit(1);
             }
+
+            speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
 
             statsMultiplierTesting1.SetGameDefaultMultiplier();
 
@@ -360,7 +359,7 @@ namespace ARKBreedingStats
                 extractionTestControl1.LoadExtractionTestCases(Properties.Settings.Default.LastSaveFileTestCases);
             }
 
-            // set TLS-protocol (github needs at least TLS 1.2) for update-check
+            // set TLS-protocol (GitHub needs at least TLS 1.2) for update-check
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
 
             // check for updates
@@ -400,9 +399,6 @@ namespace ARKBreedingStats
                 if (!LoadCollectionFile(Properties.Settings.Default.LastSaveFile))
                     createNewCollection = true;
             }
-
-            // set last species
-            speciesSelector1.LastSpecies = Properties.Settings.Default.lastSpecies;
 
             if (createNewCollection)
             {

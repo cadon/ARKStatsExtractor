@@ -9,6 +9,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;

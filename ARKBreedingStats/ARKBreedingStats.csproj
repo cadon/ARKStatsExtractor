@@ -441,7 +441,7 @@
       <DependentUpon>CreatureBox.cs</DependentUpon>
     </Compile>
     <Compile Include="library\CreatureCollection.cs" />
-    <Compile Include="species\CreatureColored.cs" />
+    <Compile Include="SpeciesImages\CreatureColored.cs" />
     <Compile Include="CreatureInfoInput.cs">
       <SubType>UserControl</SubType>
     </Compile>

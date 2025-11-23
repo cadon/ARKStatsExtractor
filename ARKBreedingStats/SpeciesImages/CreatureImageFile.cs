@@ -74,7 +74,7 @@ namespace ARKBreedingStats.SpeciesImages
         {
 
             var composition = useComposition ? ImageCompositions.GetComposition(creatureImageParameters.Species) : null;
-            var compositionHash = "_" + composition?.Hash ?? string.Empty;
+            var compositionHash = "_" + (composition?.Hash.ToString() ?? string.Empty);
             if (composition != null)
             {
                 imagePackName = null;
@@ -207,9 +207,8 @@ namespace ARKBreedingStats.SpeciesImages
             if (!string.IsNullOrEmpty(cacheFilePath) && File.Exists(cacheFilePath))
                 return cacheFilePath;
 
-            if (CreatureColored.CreateAndSaveCacheSpeciesFile(colorIds,
-                    species?.EnabledColorRegions,
-                    speciesImageFilePath, MaskFilePath(speciesImageFilePath), cacheFilePath, 64))
+            if (CreatureColored.CreateAndSaveCacheSpeciesFile(colorIds, species?.EnabledColorRegions,
+                    speciesImageFilePath, MaskFilePath(speciesImageFilePath), cacheFilePath, outputSize: 64))
                 return cacheFilePath;
 
             return null;

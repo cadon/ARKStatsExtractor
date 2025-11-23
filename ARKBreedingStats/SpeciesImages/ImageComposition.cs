@@ -82,18 +82,23 @@ namespace ARKBreedingStats.SpeciesImages
             {
                 if (isMask)
                     bmpPart.MakeTransparent(Color.Black);
-                var rSource = part.RectSource.IsEmpty
-                    ? new Rectangle(0, 0, bmpPart.Width, bmpPart.Height)
-                    : part.RectSource;
 
-                var rDest = part.PathDestination.GetBounds();
-                if (rDest.IsEmpty) rDest = g.VisibleClipBounds;
+                var partRectangle = bmpPart.GetBounds();
+                part.InitializeDestinationPath(g.VisibleClipBounds);
+                var rDest = part.DestinationPath.GetBounds();
 
-                g.SetClip(part.PathDestination);
+                var rectangleSource = ImageCompositionPart.ArrayToRectangleF(part.SourceRectangle, out var r)
+                    ? r
+                    : partRectangle;
+
+                g.SetClip(part.DestinationPath);
                 if (part.Clear || part.BackgroundColor.A != 0)
                     g.Clear(isMask ? Color.Transparent : part.BackgroundColor);
 
-                g.DrawImage(bmpPart, rDest, rSource, GraphicsUnit.Pixel);
+                if (!isMask && ImageCompositionPart.ArrayToRectangleF(part.ShadowRectangle, rDest, out var rectangleShadow))
+                    CreatureColored.DrawShadowEllipse(g, rectangleShadow, part.ShadowColor, part.ShadowAngle, part.ShadowIntensity);
+
+                g.DrawImage(bmpPart, rDest, rectangleSource, GraphicsUnit.Pixel);
                 g.ResetClip();
             }
             return true;
@@ -102,7 +107,7 @@ namespace ARKBreedingStats.SpeciesImages
         private static void DrawBorder(ImageCompositionPart part, Graphics g, bool useBlack = false)
         {
             using (var pen = new Pen(useBlack ? Color.Black : part.BorderColor, part.BorderWidth))
-                g.DrawPath(pen, part.PathDestination);
+                g.DrawPath(pen, part.DestinationPath);
         }
     }
 }

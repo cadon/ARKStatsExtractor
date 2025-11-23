@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;

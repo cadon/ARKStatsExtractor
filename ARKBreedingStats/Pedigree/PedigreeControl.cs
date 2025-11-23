@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 

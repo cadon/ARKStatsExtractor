@@ -69,8 +69,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="species"></param>
         /// <param name="aliases"></param>
-        /// <param name="game">Can be ASE or ASA (some species use different images depending on the game)</param>
-        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases, string game = null)
+        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases)
         {
             if (SelectedSpecies != null)
             {
@@ -535,7 +534,7 @@ namespace ARKBreedingStats
         }
     }
 
-    class SpeciesListEntry
+    internal class SpeciesListEntry
     {
         /// <summary>
         /// Used for search filter, expected lower case.
