@@ -157,5 +157,10 @@ namespace ARKBreedingStats.SpeciesImages
             if (File.Exists(filePath))
                 Process.Start(filePath);
         }
+
+        private void LlImagePackManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            RepositoryInfo.OpenWikiPage("Image-packs");
+        }
     }
 }

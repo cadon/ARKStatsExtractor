@@ -37,29 +37,30 @@
             this.label3 = new System.Windows.Forms.Label();
             this.LbEnabledPacks = new System.Windows.Forms.ListBox();
             this.LbAvailablePacks = new System.Windows.Forms.ListBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.LbPackName = new System.Windows.Forms.Label();
-            this.LbCreators = new System.Windows.Forms.Label();
-            this.LbDescription = new System.Windows.Forms.Label();
-            this.LLFolder = new System.Windows.Forms.LinkLabel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.LbCustomPackInfo = new System.Windows.Forms.Label();
-            this.BtOpenPackPreferenceFile = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.BtAdd = new System.Windows.Forms.Button();
             this.BtRemove = new System.Windows.Forms.Button();
             this.BtRemoveAll = new System.Windows.Forms.Button();
             this.BtMoveUp = new System.Windows.Forms.Button();
             this.BtMoveDown = new System.Windows.Forms.Button();
-            this.TbUrl = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LbPackName = new System.Windows.Forms.Label();
+            this.LbCreators = new System.Windows.Forms.Label();
+            this.LbDescription = new System.Windows.Forms.Label();
+            this.TbUrl = new System.Windows.Forms.TextBox();
+            this.LLFolder = new System.Windows.Forms.LinkLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LbCustomPackInfo = new System.Windows.Forms.Label();
+            this.BtOpenPackPreferenceFile = new System.Windows.Forms.Button();
+            this.LlImagePackManual = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -109,6 +110,7 @@
             this.tableLayoutPanel1.Controls.Add(this.LbAvailablePacks, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LlImagePackManual, 3, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -157,111 +159,6 @@
             this.LbAvailablePacks.TabIndex = 7;
             this.LbAvailablePacks.SelectedIndexChanged += new System.EventHandler(this.LbAvailablePacks_SelectedIndexChanged);
             this.LbAvailablePacks.DoubleClick += new System.EventHandler(this.LbAvailablePacks_DoubleClick);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.label1);
-            this.flowLayoutPanel1.Controls.Add(this.LbPackName);
-            this.flowLayoutPanel1.Controls.Add(this.LbCreators);
-            this.flowLayoutPanel1.Controls.Add(this.LbDescription);
-            this.flowLayoutPanel1.Controls.Add(this.TbUrl);
-            this.flowLayoutPanel1.Controls.Add(this.LLFolder);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(499, 202);
-            this.flowLayoutPanel1.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.label1, true);
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(422, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Images are taken from the first pack. If it\'s not available there, the next pack " +
-    "is checked.";
-            // 
-            // LbPackName
-            // 
-            this.LbPackName.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.LbPackName, true);
-            this.LbPackName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbPackName.Location = new System.Drawing.Point(3, 30);
-            this.LbPackName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
-            this.LbPackName.Name = "LbPackName";
-            this.LbPackName.Size = new System.Drawing.Size(53, 20);
-            this.LbPackName.TabIndex = 0;
-            this.LbPackName.Text = "name";
-            // 
-            // LbCreators
-            // 
-            this.LbCreators.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.LbCreators, true);
-            this.LbCreators.Location = new System.Drawing.Point(3, 60);
-            this.LbCreators.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
-            this.LbCreators.Name = "LbCreators";
-            this.LbCreators.Size = new System.Drawing.Size(45, 13);
-            this.LbCreators.TabIndex = 1;
-            this.LbCreators.Text = "creators";
-            // 
-            // LbDescription
-            // 
-            this.LbDescription.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.LbDescription, true);
-            this.LbDescription.Location = new System.Drawing.Point(3, 83);
-            this.LbDescription.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
-            this.LbDescription.Name = "LbDescription";
-            this.LbDescription.Size = new System.Drawing.Size(58, 13);
-            this.LbDescription.TabIndex = 3;
-            this.LbDescription.Text = "description";
-            // 
-            // LLFolder
-            // 
-            this.LLFolder.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.LLFolder, true);
-            this.LLFolder.Location = new System.Drawing.Point(3, 139);
-            this.LLFolder.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
-            this.LLFolder.Name = "LLFolder";
-            this.LLFolder.Size = new System.Drawing.Size(85, 13);
-            this.LLFolder.TabIndex = 5;
-            this.LLFolder.TabStop = true;
-            this.LLFolder.Text = "open local folder";
-            this.LLFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LLFolder_LinkClicked);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.LbCustomPackInfo);
-            this.groupBox1.Controls.Add(this.BtOpenPackPreferenceFile);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(0, 202);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(499, 166);
-            this.groupBox1.TabIndex = 7;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Custom pack preferences";
-            // 
-            // LbCustomPackInfo
-            // 
-            this.LbCustomPackInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.LbCustomPackInfo.Location = new System.Drawing.Point(3, 45);
-            this.LbCustomPackInfo.Name = "LbCustomPackInfo";
-            this.LbCustomPackInfo.Size = new System.Drawing.Size(493, 118);
-            this.LbCustomPackInfo.TabIndex = 7;
-            this.LbCustomPackInfo.Text = resources.GetString("LbCustomPackInfo.Text");
-            // 
-            // BtOpenPackPreferenceFile
-            // 
-            this.BtOpenPackPreferenceFile.Location = new System.Drawing.Point(6, 19);
-            this.BtOpenPackPreferenceFile.Name = "BtOpenPackPreferenceFile";
-            this.BtOpenPackPreferenceFile.Size = new System.Drawing.Size(143, 23);
-            this.BtOpenPackPreferenceFile.TabIndex = 6;
-            this.BtOpenPackPreferenceFile.Text = "Open pack preference file";
-            this.BtOpenPackPreferenceFile.UseVisualStyleBackColor = true;
-            this.BtOpenPackPreferenceFile.Click += new System.EventHandler(this.BtOpenPreferenceFile_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -341,6 +238,77 @@
             this.BtMoveDown.UseVisualStyleBackColor = true;
             this.BtMoveDown.Click += new System.EventHandler(this.BtMoveDown_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.flowLayoutPanel1);
+            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(298, 36);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(499, 368);
+            this.panel2.TabIndex = 10;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Controls.Add(this.label1);
+            this.flowLayoutPanel1.Controls.Add(this.LbPackName);
+            this.flowLayoutPanel1.Controls.Add(this.LbCreators);
+            this.flowLayoutPanel1.Controls.Add(this.LbDescription);
+            this.flowLayoutPanel1.Controls.Add(this.TbUrl);
+            this.flowLayoutPanel1.Controls.Add(this.LLFolder);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(499, 202);
+            this.flowLayoutPanel1.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.flowLayoutPanel1.SetFlowBreak(this.label1, true);
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(422, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Images are taken from the first pack. If it\'s not available there, the next pack " +
+    "is checked.";
+            // 
+            // LbPackName
+            // 
+            this.LbPackName.AutoSize = true;
+            this.flowLayoutPanel1.SetFlowBreak(this.LbPackName, true);
+            this.LbPackName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbPackName.Location = new System.Drawing.Point(3, 30);
+            this.LbPackName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.LbPackName.Name = "LbPackName";
+            this.LbPackName.Size = new System.Drawing.Size(53, 20);
+            this.LbPackName.TabIndex = 0;
+            this.LbPackName.Text = "name";
+            // 
+            // LbCreators
+            // 
+            this.LbCreators.AutoSize = true;
+            this.flowLayoutPanel1.SetFlowBreak(this.LbCreators, true);
+            this.LbCreators.Location = new System.Drawing.Point(3, 60);
+            this.LbCreators.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.LbCreators.Name = "LbCreators";
+            this.LbCreators.Size = new System.Drawing.Size(45, 13);
+            this.LbCreators.TabIndex = 1;
+            this.LbCreators.Text = "creators";
+            // 
+            // LbDescription
+            // 
+            this.LbDescription.AutoSize = true;
+            this.flowLayoutPanel1.SetFlowBreak(this.LbDescription, true);
+            this.LbDescription.Location = new System.Drawing.Point(3, 83);
+            this.LbDescription.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.LbDescription.Name = "LbDescription";
+            this.LbDescription.Size = new System.Drawing.Size(58, 13);
+            this.LbDescription.TabIndex = 3;
+            this.LbDescription.Text = "description";
+            // 
             // TbUrl
             // 
             this.TbUrl.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -352,15 +320,61 @@
             this.TbUrl.Size = new System.Drawing.Size(436, 13);
             this.TbUrl.TabIndex = 9;
             // 
-            // panel2
+            // LLFolder
             // 
-            this.panel2.Controls.Add(this.flowLayoutPanel1);
-            this.panel2.Controls.Add(this.groupBox1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(298, 36);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(499, 368);
-            this.panel2.TabIndex = 10;
+            this.LLFolder.AutoSize = true;
+            this.flowLayoutPanel1.SetFlowBreak(this.LLFolder, true);
+            this.LLFolder.Location = new System.Drawing.Point(3, 132);
+            this.LLFolder.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.LLFolder.Name = "LLFolder";
+            this.LLFolder.Size = new System.Drawing.Size(85, 13);
+            this.LLFolder.TabIndex = 5;
+            this.LLFolder.TabStop = true;
+            this.LLFolder.Text = "open local folder";
+            this.LLFolder.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LLFolder_LinkClicked);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.LbCustomPackInfo);
+            this.groupBox1.Controls.Add(this.BtOpenPackPreferenceFile);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.groupBox1.Location = new System.Drawing.Point(0, 202);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(499, 166);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Custom pack preferences";
+            // 
+            // LbCustomPackInfo
+            // 
+            this.LbCustomPackInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.LbCustomPackInfo.Location = new System.Drawing.Point(3, 45);
+            this.LbCustomPackInfo.Name = "LbCustomPackInfo";
+            this.LbCustomPackInfo.Size = new System.Drawing.Size(493, 118);
+            this.LbCustomPackInfo.TabIndex = 7;
+            this.LbCustomPackInfo.Text = resources.GetString("LbCustomPackInfo.Text");
+            // 
+            // BtOpenPackPreferenceFile
+            // 
+            this.BtOpenPackPreferenceFile.Location = new System.Drawing.Point(6, 19);
+            this.BtOpenPackPreferenceFile.Name = "BtOpenPackPreferenceFile";
+            this.BtOpenPackPreferenceFile.Size = new System.Drawing.Size(143, 23);
+            this.BtOpenPackPreferenceFile.TabIndex = 6;
+            this.BtOpenPackPreferenceFile.Text = "Open pack preference file";
+            this.BtOpenPackPreferenceFile.UseVisualStyleBackColor = true;
+            this.BtOpenPackPreferenceFile.Click += new System.EventHandler(this.BtOpenPreferenceFile_Click);
+            // 
+            // LlImagePackManual
+            // 
+            this.LlImagePackManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LlImagePackManual.AutoSize = true;
+            this.LlImagePackManual.Location = new System.Drawing.Point(687, 0);
+            this.LlImagePackManual.Name = "LlImagePackManual";
+            this.LlImagePackManual.Size = new System.Drawing.Size(110, 13);
+            this.LlImagePackManual.TabIndex = 11;
+            this.LlImagePackManual.TabStop = true;
+            this.LlImagePackManual.Text = "Online documentation";
+            this.LlImagePackManual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlImagePackManual_LinkClicked);
             // 
             // ImagePackSelection
             // 
@@ -378,11 +392,11 @@
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -414,5 +428,6 @@
         private System.Windows.Forms.Button BtOpenPackPreferenceFile;
         private System.Windows.Forms.TextBox TbUrl;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.LinkLabel LlImagePackManual;
     }
 }
