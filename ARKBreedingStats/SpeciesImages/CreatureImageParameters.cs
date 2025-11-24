@@ -38,6 +38,9 @@ namespace ARKBreedingStats.SpeciesImages
             BaseParameters = $"{SpeciesName}{ModName}{CreatureSex}{Pattern}";
         }
 
+        /// <summary>
+        /// Possible file names for this creature parameters without extension.
+        /// </summary>
         public List<string> GetPossibleSpeciesImageNames(string speciesName) => new List<string>
         {
             speciesName + ModName + CreatureSex + Pattern,

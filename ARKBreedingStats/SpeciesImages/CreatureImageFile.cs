@@ -16,7 +16,7 @@ namespace ARKBreedingStats.SpeciesImages
     /// </summary>
     internal static class CreatureImageFile
     {
-        private const string Extension = ".png";
+        internal const string FileExtension = ".png";
         private static string _imgCacheFolderPath;
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ARKBreedingStats.SpeciesImages
             new ConcurrentDictionary<string, Lazy<Task<string>>>();
 
         /// <summary>
-        /// Cache of color images file paths for species including optional parameters game, sex and pattern.
+        /// Cache of base image file paths for species including optional parameters game, sex and pattern.
         /// </summary>
         private static readonly ConcurrentDictionary<string, string> CachedSpeciesFilePaths = new ConcurrentDictionary<string, string>();
 
@@ -120,11 +120,12 @@ namespace ARKBreedingStats.SpeciesImages
             CreatureImageParameters creatureImageParameters)
         {
             if (composition == null || composition.Hash == 0 || composition.Parts?.Any() != true)
-                return null;
+                return null; // no composition
 
-            var filePathResult = FilePathCombinedSpeciesImage(FileService.ReplaceInvalidCharacters(speciesPropertiesKeyString));
+            var filePathResult = FilePathCombinedSpeciesImage(speciesPropertiesKeyString);
             if (File.Exists(filePathResult))
             {
+                // composition file already exists
                 CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePathResult;
                 return filePathResult;
             }
@@ -155,18 +156,15 @@ namespace ARKBreedingStats.SpeciesImages
         {
             try
             {
-                foreach (var fileNameBase in possibleFileNames)
+                var (filePath, usedImagePackName) = await ImageCollections.GetFile(possibleFileNames.Select(f => f + FileExtension).ToArray(), imagePackName).ConfigureAwait(false);
+
+                if (File.Exists(filePath))
                 {
-                    var filePath = await ImageCollections.GetFile(fileNameBase + Extension, imagePackName).ConfigureAwait(false);
+                    CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePath;
+                    // file exists, check if according mask file exists and get it or update it
+                    await ImageCollections.GetFile(possibleFileNames.Select(f => f + MaskFileSuffix + FileExtension).ToArray(), usedImagePackName).ConfigureAwait(false);
 
-                    if (File.Exists(filePath))
-                    {
-                        CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePath;
-                        // file exists, check if according mask file exists and get it or update it
-                        await ImageCollections.GetFile(fileNameBase + "_m" + Extension).ConfigureAwait(false);
-
-                        return filePath;
-                    }
+                    return filePath;
                 }
 
                 // file for that species properties does not exist
@@ -187,13 +185,13 @@ namespace ARKBreedingStats.SpeciesImages
         internal static string ColoredCreatureCacheFilePath(string speciesProperties, byte[] colorIds, bool listView = false)
             => Path.Combine(_imgCacheFolderPath, speciesProperties.Substring(0, Math.Min(speciesProperties.Length, 5)) + "_"
                 + Convert32.ToBase32String((listView ? new byte[] { 0 } : colorIds.Select(ci => ci)).Concat(Encoding.UTF8.GetBytes(speciesProperties)).ToArray()).Replace('/', '-')
-                + (listView ? "_lv" : string.Empty) + Extension);
+                + (listView ? "_lv" : string.Empty) + FileExtension);
 
         /// <summary>
-        /// File path of combined image.
+        /// File path of combined base image.
         /// </summary>
         private static string FilePathCombinedSpeciesImage(string speciesProperties) =>
-            Path.Combine(_imgCacheFolderPath, "comp_" + speciesProperties + Extension);
+            Path.Combine(_imgCacheFolderPath, FileService.ReplaceInvalidCharacters(speciesProperties) + "_comp" + FileExtension);
 
         /// <summary>
         /// Checks if an according species image exists in the cache folder, if not it tries to create one. Returns false if there's no image.
@@ -214,13 +212,15 @@ namespace ARKBreedingStats.SpeciesImages
             return null;
         }
 
+        private const string MaskFileSuffix = "_m";
+
         /// <summary>
         /// Returns the file path of the mask file of a given base image file path.
         /// The file might not exist.
         /// </summary>
         internal static string MaskFilePath(string baseImageFilePath) =>
             string.IsNullOrEmpty(baseImageFilePath) ? null : Path.Combine(Path.GetDirectoryName(baseImageFilePath),
-                Path.GetFileNameWithoutExtension(baseImageFilePath) + "_m" + Path.GetExtension(baseImageFilePath));
+                Path.GetFileNameWithoutExtension(baseImageFilePath) + MaskFileSuffix + Path.GetExtension(baseImageFilePath));
 
         /// <summary>
         /// Deletes all cached species color images with a specific pattern that weren't used for some time.
@@ -236,8 +236,13 @@ namespace ARKBreedingStats.SpeciesImages
             {
                 FileService.TryDeleteFile(f);
             }
-            CachedSpeciesFilePaths?.Clear();
+            ClearCachedSpeciesFiles();
         }
+
+        /// <summary>
+        /// Clear cached species base file paths, call after image pack change.
+        /// </summary>
+        internal static void ClearCachedSpeciesFiles() => CachedSpeciesFilePaths?.Clear();
 
         /// <summary>
         /// If the setting ImgCacheUseLocalAppData is true, the image cache files are saved in the %localAppData% folder instead of the app folder.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,11 +22,6 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         private static readonly List<ImageCollection> EnabledImageCollections = new List<ImageCollection>();
 
-        /// <summary>
-        /// Cache for image paths, key is fileName.
-        /// </summary>
-        private static readonly Dictionary<string, string> ImagePaths = new Dictionary<string, string>();
-
         private static string _imageBasePath;
 
         private const string ImagePacksFileNameBase = "imagePacks";
@@ -46,7 +42,6 @@ namespace ARKBreedingStats.SpeciesImages
         public static void LoadImagePackInfos()
         {
             _imageBasePath = FileService.GetPath(FileService.ImageFolderName);
-
             ImageManifests.Clear();
 
             var pathJsonFolder = FileService.GetJsonPath();
@@ -99,8 +94,8 @@ namespace ARKBreedingStats.SpeciesImages
         private static async Task LoadImagePackManifestsAsync(bool forceUpdate)
         {
             EnabledImageCollections.Clear();
+            CreatureImageFile.ClearCachedSpeciesFiles();
             AnyManifests = false;
-            ImagePaths.Clear();
             await FetchImageManifests(forceUpdate).ConfigureAwait(false);
             var enabledPacks = Properties.Settings.Default.SpeciesImagesUrls;
             var imagePacksOrdered = ImageManifests.Values
@@ -221,39 +216,40 @@ namespace ARKBreedingStats.SpeciesImages
         }
 
         /// <summary>
-        /// Get file from enabled image packs.
+        /// Get file from enabled image packs. Also returns name of used image pack in second element.
         /// </summary>
-        /// <param name="imagePackName">If specified, prefer this pack.</param>
-        public static async Task<string> GetFile(string fileName, string imagePackName = null)
+        /// <param name="possibleFileNames">List of possible file names.</param>
+        /// <param name="imagePackNamePreferred">If specified, prefer this pack.</param>
+        public static async Task<(string, string)> GetFile(IList<string> possibleFileNames, string imagePackNamePreferred = null)
         {
-            if (string.IsNullOrEmpty(fileName) || ImageManifests == null) return null;
+            if (possibleFileNames?.Any() != true || ImageManifests == null) return (null, null);
 
-            if (ImagePaths.TryGetValue(fileName, out var filePath)) return filePath;
-
-            var checkImagePacks = string.IsNullOrEmpty(imagePackName)
+            var checkImagePacks = string.IsNullOrEmpty(imagePackNamePreferred)
                 ? EnabledImageCollections
-                : EnabledImageCollections.OrderBy(c => c.FolderName != imagePackName).ToList();
+                : EnabledImageCollections.OrderBy(c => c.Name != imagePackNamePreferred).ToList();
 
             foreach (var imageCollection in checkImagePacks)
             {
-                var collectionFileName = await imageCollection.GetFileAsync(fileName).ConfigureAwait(false);
-                if (string.IsNullOrEmpty(collectionFileName))
+                foreach (var fileName in possibleFileNames)
                 {
-                    // file is not in manifest. If the file exists regardless, use it
-                    collectionFileName = fileName;
-                }
+                    var collectionFileName = await imageCollection.GetFileAsync(fileName).ConfigureAwait(false);
+                    if (string.IsNullOrEmpty(collectionFileName))
+                    {
+                        // file is not in manifest. If the file exists regardless, use it
+                        collectionFileName = fileName;
+                    }
 
-                filePath = Path.Combine(_imageBasePath, imageCollection.FolderName, collectionFileName);
-                if (File.Exists(filePath))
-                {
-                    ImagePaths[fileName] = filePath;
-                    return filePath;
+                    var filePath = Path.Combine(_imageBasePath, imageCollection.FolderName, collectionFileName);
+                    if (File.Exists(filePath))
+                    {
+                        var filePathAndPack = (filePath, imageCollection.Name);
+                        return filePathAndPack;
+                    }
                 }
             }
 
-            // file not available
-            ImagePaths[fileName] = null;
-            return null;
+            // file not available in any pack
+            return (null, null);
         }
     }
 }

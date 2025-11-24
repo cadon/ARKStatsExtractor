@@ -20,6 +20,8 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         public string FolderName { get; private set; }
 
+        public string Name => _manifestSource?.Name ?? FolderName;
+
         /// <summary>
         /// Manifest from the source, it's a downloaded file.
         /// </summary>
@@ -76,11 +78,11 @@ namespace ARKBreedingStats.SpeciesImages
                 if (downloadSuccessful)
                 {
                     Debug.WriteLine(
-                        $"downloading file {fileName} from image pack {this.FolderName} took {sw.ElapsedMilliseconds} ms");
+                        $"downloading file {fileName} from image pack {_manifestSource.Name} took {sw.ElapsedMilliseconds} ms");
                     return fileName;
                 }
 
-                Debug.WriteLine($"downloading file {fileName} from image pack {this.FolderName} failed");
+                Debug.WriteLine($"downloading file {fileName} from image pack {_manifestSource.Name} failed");
                 // error, file not retrievable
                 return null;
             }
