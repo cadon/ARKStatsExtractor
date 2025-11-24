@@ -1,5 +1,5 @@
 {
-	"version": "71.13.2",
+	"version": "75.16.2",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -105,7 +105,8 @@
 					]
 				},
 				null
-			]
+			],
+			"regionIntensities": [ 1.0, 1.5, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Bison/Bison_Character_BP.Bison_Character_BP",
@@ -415,6 +416,138 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/Cat/Ghost/Ghost_Cat_Character_BP.Ghost_Cat_Character_BP",
+			"name": "Cat Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 125, 0.2, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 75, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 60, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 9523.80952,
+				"incubationTime": 0,
+				"maturationTime": 111111.111,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.65,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 65,
+				"foodConsumptionBase": 0.0008,
+				"foodConsumptionMult": 1000,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_Head": 3 },
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"patterns": {
+				"selectRegion": 1,
+				"count": 4
+			},
+			"colors": [
+				{
+					"name": "Body fur",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray"
+					]
+				},
+				{
+					"name": "Pattern definition",
+					"colors": [ "Red", "Blue", "Green", "Yellow" ]
+				},
+				{
+					"name": "Calico",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"None",
+						"None",
+						"LightWarmGray"
+					]
+				},
+				{
+					"name": "Pattern",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Ceratosaurus/Dinos/Ceratosaurus_Character_BP_ASA.Ceratosaurus_Character_BP_ASA",
 			"name": "Ceratosaurus",
 			"fullStatsRaw": [
@@ -559,6 +692,275 @@
 						"NearWhite"
 					]
 				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Ceratosaurus/Dinos/Ghost/Ghost_Ceratosaurus_Character_BP_ASA.Ghost_Ceratosaurus_Character_BP_ASA",
+			"name": "Ceratosaurus Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 550, 0.2, 0.27, 0.5, 0 ],
+				[ 400, 0.1, 0.1, 0, 0 ],
+				[ 500, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 350, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 476190.476,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 4250,
+				"affinityIncreasePL": 175,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 208.0343,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Jaw_M": 1.5,
+				"Head_M": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Stripes+face",
+					"colors": [
+						"Dino Medium Green",
+						"Dino Medium Brown",
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"Light Grey",
+						"Dino Albino",
+						"DryMoss",
+						"Custard",
+						"Dino Light Red",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonGreen0",
+						"WolfFur",
+						"LightCement",
+						"ActualBlack",
+						"Cream",
+						"MidnightBlue",
+						"DarkBlue",
+						"Black",
+						"DragonFire",
+						"DarkViolet",
+						"DragonBase0",
+						"Dino Dark Red"
+					]
+				},
+				{
+					"name": "Dark markings",
+					"colors": [
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"Dino Albino",
+						"Dino Dark Purple",
+						"Dino Light Purple",
+						"Dino Dark Blue",
+						"Dino Light Blue",
+						"DragonFire",
+						"DragonGreen3",
+						"WyvernPurple1",
+						"DragonBase0",
+						"DragonBase1"
+					]
+				},
+				null,
+				{
+					"name": "Spines",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"Lavender",
+						"Peach",
+						"Coral",
+						"Vermillion",
+						"DarkMagenta",
+						"Turqoise",
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Albino",
+						"ActualBlack",
+						"DarkBlue",
+						"WyvernBlue1"
+					]
+				},
+				{
+					"name": "Spines",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"Lavender",
+						"Peach",
+						"Coral",
+						"Vermillion",
+						"DarkMagenta",
+						"Turqoise",
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Albino",
+						"ActualBlack",
+						"DarkBlue",
+						"WyvernBlue1"
+					]
+				},
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"Dino Dark Orange",
+						"Dino Dark Green",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"BigFoot0",
+						"DarkWolfFur",
+						"Sage",
+						"MediumAutumn",
+						"SpruceGreen",
+						"Cammo",
+						"DryMoss",
+						"Custard",
+						"Cream",
+						"Dino Albino",
+						"BigFoot4",
+						"NearWhite"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/ChalkGolem/ChalkGolem_Character_BP.ChalkGolem_Character_BP",
+			"name": "Chalk Elemental",
+			"fullStatsRaw": [
+				[ 25000, 0.0125, 0.135, -22000, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 5000, 0.02, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 6000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 660, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.125, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 6500,
+				"affinityIncreasePL": 325,
+				"torporDepletionPS0": 0.325,
+				"foodConsumptionBase": 0.002543,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				null,
+				{
+					"name": "Body",
+					"colors": [
+						"DragonGreen0",
+						"DragonGreen1",
+						"Dino Darker Grey",
+						"Dino Dark Green",
+						"Dino Medium Green",
+						"Dino Dark Yellow",
+						"Light Grey",
+						"DragonGreen2",
+						"Wolf Fur",
+						"Bigfoot4",
+						"Bigfoot5",
+						"DragonGreen3",
+						"GreenSlate",
+						"Sage",
+						"DarkCement",
+						"LightCement",
+						"Cammo",
+						"Custard",
+						"Dino Medium Brown",
+						"Dino Light Brown",
+						"DryMoss"
+					]
+				},
+				null,
+				null,
+				null,
+				null
 			]
 		},
 		{
@@ -738,7 +1140,8 @@
 						"DarkTurquoise"
 					]
 				}
-			]
+			],
+			"regionIntensities": [ 0.5, 0.5, 0.5, 0.5, 0.5, 0.5 ]
 		},
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Deinosuchus/DeinosuchusASA_Character_BP.DeinosuchusASA_Character_BP",
@@ -836,7 +1239,8 @@
 						"Dino Albino"
 					]
 				}
-			]
+			],
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.6, 0.8, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Deinotherium/Dinos/DeinotheriumASA_Character_BP.DeinotheriumASA_Character_BP",
@@ -1975,6 +2379,265 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/Gigantoraptor/Ghost/Ghost_Gigantoraptor_Character_BP.Ghost_Gigantoraptor_Character_BP",
+			"name": "Gigantoraptor Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 770, 0.2, 0.27, 0.5, 0 ],
+				[ 350, 0.1, 0.1, 0, 0 ],
+				[ 950, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 320, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1,
+				"affinityNeeded0": 2400,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Feathers main",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"MediumTurquoise",
+						"GreenSlate",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BurntSienna",
+						"MidnightBlue",
+						"BlackSands",
+						"Light Grey",
+						"DarkTeal",
+						"Cammo",
+						"DryMoss",
+						"Dino Albino",
+						"Dino Medium Blue",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Wattle",
+					"colors": [
+						"Dino Light Orange",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"BurntSienna",
+						"MediumAutumn",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"MediumTeal",
+						"Teal",
+						"Dino Dark Orange",
+						"DarkTurquoise",
+						"DarkCement",
+						"MidnightBlue",
+						"BlackSands",
+						"Dino Dark Blue"
+					]
+				},
+				{
+					"name": "Wattle pattern",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"Mint",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Accent",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"Mint",
+						"Jade",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Skin",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Dino Light Yellow",
+						"LightAutumn",
+						"Cream",
+						"NearBlack",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Main pattern",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"Jade",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream",
+						"Dino Dark Blue",
+						"Dino Dark Brown",
+						"NearBlack",
+						"BlackSands"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Gigantoraptor/Gigantoraptor_Character_BP.Gigantoraptor_Character_BP",
 			"name": "Gigantoraptor",
 			"fullStatsRaw": [
@@ -2673,6 +3336,64 @@
 						"Cream"
 					]
 				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/IceGolem/IceGolem_Character_BP.IceGolem_Character_BP",
+			"name": "Ice Elemental",
+			"fullStatsRaw": [
+				[ 25000, 0.0125, 0.135, -22000, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 5000, 0.02, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 6000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 660, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.125, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 6500,
+				"affinityIncreasePL": 325,
+				"torporDepletionPS0": 0.325,
+				"foodConsumptionBase": 0.002543,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				null,
+				{
+					"name": "Body",
+					"colors": [
+						"DragonBlue0",
+						"Dino Light Blue",
+						"Light Grey",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"Dino Light Purple",
+						"Dino Albino",
+						"WyvernPurple1",
+						"WyvernPurple0",
+						"Dino Dark Purple",
+						"Dino Darker Grey",
+						"PowderBlue",
+						"Glacial",
+						"LightWarmGray"
+					]
+				},
+				null,
+				null,
+				null,
+				null
 			]
 		},
 		{
@@ -3412,7 +4133,8 @@
 			"boneDamageAdjusters": { "Deathworm_Neck_01_02SHJnt": 1.5 },
 			"displayedStats": 919,
 			"noGender": true,
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 2.0, 2.0, 2.0, 2.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ASA/Dinos/LavaGolem/LavaGolem_Character_BP.LavaGolem_Character_BP",
@@ -3446,35 +4168,7 @@
 			"noGender": true,
 			"skipWildLevelStats": 520,
 			"colors": [
-				{
-					"name": "Main",
-					"colors": [
-						"Dino Dark Red",
-						"Dino Light Orange",
-						"Dino Dark Orange",
-						"Dino Light Blue",
-						"Dino Dark Blue",
-						"Dino Light Purple",
-						"Dino Dark Purple",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dark Grey",
-						"Dino Darker Grey",
-						"Black",
-						"BigFoot5",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonFire",
-						"DragonGreen3",
-						"WyvernPurple0",
-						"WyvernBlue0",
-						"Dino Medium Blue",
-						"Dino Deep Blue",
-						"NearBlack"
-					]
-				},
+				null,
 				{
 					"name": "Unknown",
 					"colors": [
@@ -3504,122 +4198,10 @@
 						"NearBlack"
 					]
 				},
-				{
-					"name": "Gradient",
-					"colors": [
-						"Dino Dark Red",
-						"Dino Light Orange",
-						"Dino Dark Orange",
-						"Dino Light Blue",
-						"Dino Dark Blue",
-						"Dino Light Purple",
-						"Dino Dark Purple",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dark Grey",
-						"Dino Darker Grey",
-						"Black",
-						"BigFoot5",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonFire",
-						"DragonGreen3",
-						"WyvernPurple0",
-						"WyvernBlue0",
-						"Dino Medium Blue",
-						"Dino Deep Blue",
-						"NearBlack"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Dino Dark Red",
-						"Dino Light Orange",
-						"Dino Dark Orange",
-						"Dino Light Blue",
-						"Dino Dark Blue",
-						"Dino Light Purple",
-						"Dino Dark Purple",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dark Grey",
-						"Dino Darker Grey",
-						"Black",
-						"BigFoot5",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonFire",
-						"DragonGreen3",
-						"WyvernPurple0",
-						"WyvernBlue0",
-						"Dino Medium Blue",
-						"Dino Deep Blue",
-						"NearBlack"
-					]
-				},
-				{
-					"name": "Unknown",
-					"colors": [
-						"Dino Dark Red",
-						"Dino Light Orange",
-						"Dino Dark Orange",
-						"Dino Light Blue",
-						"Dino Dark Blue",
-						"Dino Light Purple",
-						"Dino Dark Purple",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dark Grey",
-						"Dino Darker Grey",
-						"Black",
-						"BigFoot5",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonFire",
-						"DragonGreen3",
-						"WyvernPurple0",
-						"WyvernBlue0",
-						"Dino Medium Blue",
-						"Dino Deep Blue",
-						"NearBlack"
-					]
-				},
-				{
-					"name": "Tips",
-					"colors": [
-						"Dino Dark Red",
-						"Dino Light Orange",
-						"Dino Dark Orange",
-						"Dino Light Blue",
-						"Dino Dark Blue",
-						"Dino Light Purple",
-						"Dino Dark Purple",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dark Grey",
-						"Dino Darker Grey",
-						"Black",
-						"BigFoot5",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonFire",
-						"DragonGreen3",
-						"WyvernPurple0",
-						"WyvernBlue0",
-						"Dino Medium Blue",
-						"Dino Deep Blue",
-						"NearBlack"
-					]
-				}
+				null,
+				null,
+				null,
+				null
 			]
 		},
 		{
@@ -4064,6 +4646,521 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/Minions/Deinonychus_Character_BP_Minion_Easy.Deinonychus_Character_BP_Minion_Easy",
+			"name": "Deinonychus",
+			"variants": [ "Boss", "Gamma", "Minion" ],
+			"fullStatsRaw": [
+				[ 250, 0.035714, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.008929, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 666
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/Minions/Deinonychus_Character_BP_Minion_Hard.Deinonychus_Character_BP_Minion_Hard",
+			"name": "Deinonychus",
+			"variants": [ "Alpha", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 750, 0.035714, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.008929, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 666
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/Minions/Deinonychus_Character_BP_Minion_Medium.Deinonychus_Character_BP_Minion_Medium",
+			"name": "Deinonychus",
+			"variants": [ "Beta", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 500, 0.035714, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.008929, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 0.2, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 666
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/Minions/Vulture_Character_BP_Minion_Easy.Vulture_Character_BP_Minion_Easy",
+			"name": "Vulture",
+			"variants": [ "Boss", "Gamma", "Minion" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 125, 0.035714, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.008929, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 4.166666,
+				"affinityNeeded0": 655,
+				"affinityIncreasePL": 45,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_neck4": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 666
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/Minions/Vulture_Character_BP_Minion_Hard.Vulture_Character_BP_Minion_Hard",
+			"name": "Vulture",
+			"variants": [ "Alpha", "Boss", "Minion" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 375, 0.035714, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.008929, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 4.166666,
+				"affinityNeeded0": 655,
+				"affinityIncreasePL": 45,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_neck4": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 666
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/Minions/Vulture_Character_BP_Minion_Medium.Vulture_Character_BP_Minion_Medium",
+			"name": "Vulture",
+			"variants": [ "Beta", "Boss", "Minion" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 250, 0.035714, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 50, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.008929, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 4.166666,
+				"affinityNeeded0": 655,
+				"affinityIncreasePL": 45,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_neck4": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 666
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/ValMegaraptor_Character_BP_Boss_Easy.ValMegaraptor_Character_BP_Boss_Easy",
+			"name": "Grendel (Gamma)",
+			"variants": [ "Boss", "Gamma" ],
+			"fullStatsRaw": [
+				[ 300000, 0.2, 0.27, 0.5, 0 ],
+				[ 3500, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				[ 4500, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 1000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0125, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.544,
+				"affinityNeeded0": 2500,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/ValMegaraptor_Character_BP_Boss_Hard.ValMegaraptor_Character_BP_Boss_Hard",
+			"name": "Grendel (Alpha)",
+			"variants": [ "Alpha", "Boss" ],
+			"fullStatsRaw": [
+				[ 600000, 0.2, 0.27, 0.5, 0 ],
+				[ 3500, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				[ 4500, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 1000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0125, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.544,
+				"affinityNeeded0": 2500,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/Boss/ValMegaraptor_Character_BP_Boss_Medium.ValMegaraptor_Character_BP_Boss_Medium",
+			"name": "Grendel (Beta)",
+			"variants": [ "Beta", "Boss" ],
+			"fullStatsRaw": [
+				[ 450000, 0.2, 0.27, 0.5, 0 ],
+				[ 3500, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				[ 4500, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 1000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0125, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.544,
+				"affinityNeeded0": 2500,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/Megaraptor/ValMegaraptor_Character_BP.ValMegaraptor_Character_BP",
+			"name": "Megaraptor",
+			"fullStatsRaw": [
+				[ 350, 0.2, 0.27, 0.5, 0 ],
+				[ 350, 0.1, 0.1, 0, 0 ],
+				[ 400, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2250, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 325, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.0125, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 5999.52004,
+				"eggTempMin": 30,
+				"eggTempMax": 34,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 1.544,
+				"affinityNeeded0": 2500,
+				"affinityIncreasePL": 125,
+				"torporDepletionPS0": 0.6,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Cheeks & Underbelly",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				null,
+				{
+					"name": "Main 1",
+					"colors": [
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"ActualBlack",
+						"DarkTeal",
+						"BlackSands",
+						"MidnightBlue",
+						"DarkWarmGray"
+					]
+				},
+				{
+					"name": "Accents",
+					"colors": [
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"Dino Albino",
+						"ActualBlack",
+						"DarkTeal",
+						"BlackSands",
+						"MidnightBlue",
+						"DarkWarmGray",
+						"DarkLavender",
+						"LeafGreen",
+						"WyvernBlue1",
+						"WyvernBlue0",
+						"WyvernPurple1",
+						"WyvernPurple0",
+						"DragonGreen3",
+						"DragonBase0",
+						"Dino Dark Blue",
+						"Dino Dark Purple",
+						"Dino Deep Blue",
+						"DragonFire",
+						"DarkMagenta",
+						"DarkViolet",
+						"DragonGreen0",
+						"NearWhite",
+						"Glacial",
+						"DryMoss"
+					]
+				},
+				null,
+				{
+					"name": "Main 2",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"LightWarmGray",
+						"LightCement",
+						"ActualBlack",
+						"DarkTeal",
+						"LightAutumn",
+						"DryMoss",
+						"Custard",
+						"Cream",
+						"MidnightBlue",
+						"BlackSands",
+						"DinoDarkOrange",
+						"DinoLightYellow",
+						"Brown",
+						"BurntSienna"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Shastasaurus/Shastasaurus_Character_BP.Shastasaurus_Character_BP",
 			"name": "Shastasaurus",
 			"fullStatsRaw": [
@@ -4254,6 +5351,932 @@
 						"Orange",
 						"PowderBlue",
 						"Cream"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/ShoulderDragon/Ghost/Ghost_ShoulderDragon_Character_BP_Autumn.Ghost_ShoulderDragon_Character_BP_Autumn",
+			"name": "Autumn Drakeling Ghost",
+			"variants": [ "Ghost" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 65, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"matesWith": [
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Spring.ShoulderDragon_Character_BP_Spring_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Summer.ShoulderDragon_Character_BP_Summer_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Winter.ShoulderDragon_Character_BP_Winter_C"
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.65,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 65,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"BlackSands",
+						"Custard"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"BlackSands",
+						"Custard"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"BlackSands",
+						"Custard"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"BlackSands",
+						"Custard"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"BlackSands",
+						"Custard"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"BlackSands",
+						"Custard"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/ShoulderDragon/Ghost/Ghost_ShoulderDragon_Character_BP_Spring.Ghost_ShoulderDragon_Character_BP_Spring",
+			"name": "Spring Drakeling Ghost",
+			"variants": [ "Ghost" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 65, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"matesWith": [
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Autumn.ShoulderDragon_Character_BP_Autumn_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Summer.ShoulderDragon_Character_BP_Summer_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Winter.ShoulderDragon_Character_BP_Winter_C"
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.65,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 65,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"Coral",
+						"Peach",
+						"LemonLime",
+						"Mint",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"Peach",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream",
+						"DarkLavender",
+						"MediumLavender",
+						"Dino Dark Purple"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"Coral",
+						"Peach",
+						"LemonLime",
+						"Mint",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Purple",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"LightPink",
+						"Peach",
+						"Lavender",
+						"MediumTeal",
+						"Custard",
+						"Cream",
+						"Dino Light Blue",
+						"DragonGreen3",
+						"Coral",
+						"PowderBlue",
+						"DarkLavender",
+						"MediumLavender",
+						"Dino Dark Purple"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"Coral",
+						"Peach",
+						"LemonLime",
+						"Mint",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"Coral",
+						"Peach",
+						"LemonLime",
+						"Mint",
+						"LeafGreen",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/ShoulderDragon/Ghost/Ghost_ShoulderDragon_Character_BP_Summer.Ghost_ShoulderDragon_Character_BP_Summer",
+			"name": "Summer Drakeling Ghost",
+			"variants": [ "Ghost" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 65, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"matesWith": [
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Autumn.ShoulderDragon_Character_BP_Autumn_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Spring.ShoulderDragon_Character_BP_Spring_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Winter.ShoulderDragon_Character_BP_Winter_C"
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.65,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 65,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"Mustard",
+						"BlackSands",
+						"LemonLime",
+						"Mint",
+						"PineGreen",
+						"SpruceGreen",
+						"LeafGreen",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Albino",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"PowderBlue",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonFire",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"MediumTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"DarkTeal",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Albino",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"BurntSienna",
+						"MediumAutumn",
+						"LightPink",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"Glacial",
+						"Dino Dark Orange",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"Mustard",
+						"BlackSands",
+						"LemonLime",
+						"Mint",
+						"PineGreen",
+						"SpruceGreen",
+						"LeafGreen",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"LightCement",
+						"Mustard",
+						"BlackSands",
+						"Jade",
+						"PineGreen",
+						"SpruceGreen",
+						"LeafGreen",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/ShoulderDragon/Ghost/Ghost_ShoulderDragon_Character_BP_Winter.Ghost_ShoulderDragon_Character_BP_Winter",
+			"name": "Winter Drakeling Ghost",
+			"variants": [ "Ghost" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 150, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 65, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 90090.0901,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"matesWith": [
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Autumn.ShoulderDragon_Character_BP_Autumn_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Spring.ShoulderDragon_Character_BP_Spring_C",
+				"/Game/ASA/Dinos/ShoulderDragon/ShoulderDragon_Character_BP_Summer.ShoulderDragon_Character_BP_Summer_C"
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.65,
+				"affinityNeeded0": 1600,
+				"affinityIncreasePL": 65,
+				"foodConsumptionBase": 0.001302,
+				"foodConsumptionMult": 1152.074,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightWarmGray",
+						"LightCement",
+						"PowderBlue",
+						"Glacial",
+						"Cream"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"LightWarmGray",
+						"LightCement",
+						"Cream",
+						"Dino Light Blue",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
 					]
 				}
 			]
@@ -5173,6 +7196,218 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/ASA/Dinos/SpiritBear/SpiritBear_Character_BP.SpiritBear_Character_BP",
+			"name": "Elderclaw",
+			"fullStatsRaw": [
+				[ 800, 0.2, 0.27, 0.5, 0 ],
+				[ 350, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				[ 250, 0.1, 0.1, 0, 0 ],
+				[ 2800, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 650, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1.226, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 100,
+				"eggTempMin": 24,
+				"eggTempMax": 28,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 4000,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Wood Main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Flowers",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"LemonLime",
+						"Mint",
+						"Jade",
+						"LeafGreen",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Flowers & Butterflies",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Cream"
+					]
+				},
+				{
+					"name": "Mushrooms",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightWarmGray",
+						"LightCement",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"PowderBlue",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Wood Accent",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Wood Secondary",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Cream"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/ASA/Dinos/Xiphactinus/Dinos/Xiphactinus_Character_BP_ASA.Xiphactinus_Character_BP_ASA",
 			"name": "Xiphactinus",
 			"fullStatsRaw": [
@@ -5269,6 +7504,197 @@
 						"Dark Grey",
 						"Dino Darker Grey",
 						"Black"
+					]
+				}
+			],
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 2.0 ]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/YiLing/Ghost/Ghost_YiLing_Character_BP.Ghost_YiLing_Character_BP",
+			"name": "Yi Ling Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 325, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_jaw": 3
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Feathers main",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"MediumTurquoise",
+						"GreenSlate",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BurntSienna",
+						"MidnightBlue",
+						"BlackSands",
+						"Light Grey",
+						"DarkTeal",
+						"Cammo",
+						"DryMoss",
+						"Dino Albino",
+						"Dino Medium Blue",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Wings",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Cream"
+					]
+				},
+				null,
+				{
+					"name": "Wing accents",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Cream"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Dino Light Yellow",
+						"LightAutumn",
+						"Cream",
+						"NearBlack",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Main pattern",
+					"colors": [
+						"Dino Light Red",
+						"Dino Light Orange",
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"MediumTurquoise",
+						"Turquoise",
+						"LightPink",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"Jade",
+						"Lavender",
+						"MediumTeal",
+						"Teal",
+						"PowderBlue",
+						"Custard",
+						"Cream",
+						"Dino Dark Blue"
 					]
 				}
 			]
@@ -5466,15 +7892,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Easy.Rockwell_Character_BP_Easy",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Hard.Rockwell_Character_BP_Hard",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Boss/Rockwell/Rockwell_Character_BP_Medium.Rockwell_Character_BP_Medium",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Boss/RockwellTentacle/RockwellTentacle_Character_BP_Alpha.RockwellTentacle_Character_BP_Alpha",
@@ -5539,13 +7968,12 @@
 			],
 			"breeding": {
 				"gestationTime": 0,
-				"incubationTime": 22498.2001,
-				"eggTempMin": 32,
-				"eggTempMax": 38,
+				"incubationTime": 0,
 				"maturationTime": 666666.667,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
 			},
+			"noGender": true,
 			"skipWildLevelStats": 520
 		},
 		{
@@ -5608,16 +8036,19 @@
 				"matingCooldownMax": 172800
 			},
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Crab/MegaCrab_Character_BP.MegaCrab_Character_BP",
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Lamprey/Lamprey_Character.Lamprey_Character",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/LanternBird/LanternBird_Character_BP.LanternBird_Character_BP",
@@ -5649,6 +8080,7 @@
 				"Head": 3,
 				"Jaw": 3
 			},
+			"noGender": true,
 			"skipWildLevelStats": 512
 		},
 		{
@@ -5732,11 +8164,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Ghost_Xenomorph_Character_BP_Male_Surface.Ghost_Xenomorph_Character_BP_Male_Surface",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/MegaXenomorph_Character_BP_Male_Surface.MegaXenomorph_Character_BP_Male_Surface",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Female.Xenomorph_Character_BP_Female",
@@ -5744,19 +8178,23 @@
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Chupa.Xenomorph_Character_BP_Male_Chupa",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Lunar.Xenomorph_Character_BP_Male_Lunar",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Minion.Xenomorph_Character_BP_Male_Minion",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Surface.Xenomorph_Character_BP_Male_Surface",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Nameless/Xenomorph_Character_BP_Male_Tamed.Xenomorph_Character_BP_Male_Tamed",
@@ -5883,7 +8321,8 @@
 						"Cammo"
 					]
 				}
-			]
+			],
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/Pteroteuthis/Pteroteuthis_Char_BP.Pteroteuthis_Char_BP",
@@ -6296,27 +8735,33 @@
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Easy.EndBossDragon_Character_BP_Easy",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Hard.EndBossDragon_Character_BP_Hard",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossDragon/EndBossDragon_Character_BP_Medium.EndBossDragon_Character_BP_Medium",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossGorilla/EndBossGorilla_Character_BP_Easy.EndBossGorilla_Character_BP_Easy",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossGorilla/EndBossGorilla_Character_BP_Hard.EndBossGorilla_Character_BP_Hard",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossGorilla/EndBossGorilla_Character_BP_Medium.EndBossGorilla_Character_BP_Medium",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/EndGame/Dinos/Endboss/EndbossSpider/EndBossSpiderL_Character_BP_Easy.EndBossSpiderL_Character_BP_Easy",
@@ -6372,7 +8817,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Giganotosaurus/Gigant_Character_BP_Corrupt.Gigant_Character_BP_Corrupt",
@@ -6384,7 +8830,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Nameless/Xenomorph_Character_BP_Male_Tamed_Corrupt.Xenomorph_Character_BP_Male_Tamed_Corrupt",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Paraceratherium/Paracer_Character_BP_Corrupt.Paracer_Character_BP_Corrupt",
@@ -6400,7 +8847,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Raptor/Raptor_Character_BP_Corrupt.Raptor_Character_BP_Corrupt",
@@ -6458,7 +8906,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Stego/Stego_Character_BP_Corrupt.Stego_Character_BP_Corrupt",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Corrupt/Trike/MegaTrike_Character_BP_Corrupt.MegaTrike_Character_BP_Corrupt",
@@ -6488,7 +8937,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/DesertKaiju/DesertKaiju_FirstFlockChar_BP.DesertKaiju_FirstFlockChar_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Enforcer/Enforcer_Character_BP.Enforcer_Character_BP",
@@ -6699,10 +9149,18 @@
 		},
 		{
 			"blueprintPath": "/Game/Extinction/Dinos/Owl/Ghost_Owl_Character_BP.Ghost_Owl_Character_BP",
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 196078.431,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"boneDamageAdjusters": {
 				"Head_Jaw_Jnt": 2,
 				"Head_Top_Jnt": 2
 			},
+			"noGender": true,
 			"skipWildLevelStats": 512
 		},
 		{
@@ -6914,7 +9372,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.2, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Dunkleosteus/Ocean_Dunkle_Character_BP.Ocean_Dunkle_Character_BP",
@@ -6922,7 +9381,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.2, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Megalodon/Ocean_Megalodon_Character_BP.Ocean_Megalodon_Character_BP",
@@ -6930,7 +9390,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Ocean_Mosasaurus/Ocean_Mosa_Character_BP.Ocean_Mosa_Character_BP",
@@ -6946,7 +9407,8 @@
 				"c_Head": 3,
 				"c_Jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 0.4, 0.8 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Otter/Snow_Otter_Character_BP.Snow_Otter_Character_BP",
@@ -6958,7 +9420,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_Saber/Snow_Saber_Character_BP.Snow_Saber_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/Snow_WoollyRhino/Snow_Rhino_Character_BP.Snow_Rhino_Character_BP",
@@ -6983,7 +9446,8 @@
 				"c_jaw": 2,
 				"c_snout": 2
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/BiomeVariants/VR/VRRaptor_Character_BP.VRRaptor_Character_BP",
@@ -7066,7 +9530,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis/Dinos/Swarms/InsectSwarmChar_BP.InsectSwarmChar_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Allo_Character_BP_Rockwell.Allo_Character_BP_Rockwell",
@@ -7091,7 +9556,8 @@
 				"c_jaw": 2,
 				"c_snout": 2
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Dilo_Character_BP_Rockwell.Dilo_Character_BP_Rockwell",
@@ -7186,7 +9652,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 0.7 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Spindles_Character_BP_Rockwell.Spindles_Character_BP_Rockwell",
@@ -7200,7 +9667,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Thylacoleo_Character_BP_Eden.Thylacoleo_Character_BP_Eden",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Turtle_Character_BP_Rockwell.Turtle_Character_BP_Rockwell",
@@ -7213,7 +9681,8 @@
 				"c_tail2": 0.5,
 				"c_tail3": 0.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.5, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Xenomorph_Character_BP_Female_Gen2.Xenomorph_Character_BP_Female_Gen2",
@@ -7221,11 +9690,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Xenomorph_Character_BP_Male_Gen2.Xenomorph_Character_BP_Male_Gen2",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BiomeVariants/Xenomorph_Character_BP_Male_Tamed_Gen2.Xenomorph_Character_BP_Male_Tamed_Gen2",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/BrainSlug/BrainSlug_Character_BP.BrainSlug_Character_BP",
@@ -7245,7 +9716,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Macrophage/Macrophage_Swarm_Character.Macrophage_Swarm_Character",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/MilkGlider/MilkGlider_Character_BP.MilkGlider_Character_BP",
@@ -7273,7 +9745,8 @@
 				"c_Head": 3,
 				"c_Jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 0.4, 0.8 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Arthro_Character_BP_Aberrant_Summoned.Arthro_Character_BP_Aberrant_Summoned",
@@ -7360,7 +9833,8 @@
 				"matingCooldownMax": 172800
 			},
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Daeodon_Character_BP_Eden_Summoned.Daeodon_Character_BP_Eden_Summoned",
@@ -7369,7 +9843,8 @@
 				"c_jaw": 2,
 				"c_snout": 2
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Dilo_Character_BP_Rockwell_Summoned.Dilo_Character_BP_Rockwell_Summoned",
@@ -7401,7 +9876,8 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/LionfishLion_Character_BP_Summoned.LionfishLion_Character_BP_Summoned",
@@ -7457,7 +9933,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Purlovia_Character_BP_Summoned.Purlovia_Character_BP_Summoned",
@@ -7498,7 +9975,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Saber_Character_BP_Summoned.Saber_Character_BP_Summoned",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Sarco_Character_BP_Summoned.Sarco_Character_BP_Summoned",
@@ -7506,7 +9984,8 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Sauropod_Character_BP_Rockwell_Summoned.Sauropod_Character_BP_Rockwell_Summoned",
@@ -7528,7 +10007,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 0.7 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Shapeshifter_Large_Character_BP_Summoned.Shapeshifter_Large_Character_BP_Summoned",
@@ -7544,7 +10024,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Spindles_Character_BP_Rockwell_Summoned.Spindles_Character_BP_Rockwell_Summoned",
@@ -7584,7 +10065,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Stego_Character_BP_Summoned.Stego_Character_BP_Summoned",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/TerrorBird_Character_BP_Summoned.TerrorBird_Character_BP_Summoned",
@@ -7604,7 +10086,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Thylacoleo_Character_BP_Eden_Summoned.Thylacoleo_Character_BP_Eden_Summoned",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Trike_Character_BP_Summoned.Trike_Character_BP_Summoned",
@@ -7612,7 +10095,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Xenomorph_Character_BP_Male_Gen2_Summoned.Xenomorph_Character_BP_Male_Gen2_Summoned",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Dinos/Summoner/SummonedDinos/Yutyrannus_Character_BP_Summoned.Yutyrannus_Character_BP_Summoned",
@@ -7689,7 +10173,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Ant_Character_BP_STA.Ant_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Archa_Character_BP_STA.Archa_Character_BP_STA",
@@ -7706,7 +10191,8 @@
 				"c_Head": 3,
 				"c_Jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 0.4, 0.8 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Arthro_Character_BP_STA.Arthro_Character_BP_STA",
@@ -7751,11 +10237,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bee_Character_BP_STA.Bee_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 2.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bee_Queen_Character_BP_STA.Bee_Queen_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Bigfoot_Character_BP_STA.Bigfoot_Character_BP_STA",
@@ -7831,7 +10319,8 @@
 				"matingCooldownMax": 172800
 			},
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/CrystalWyvern_Character_BP_Blood_STA.CrystalWyvern_Character_BP_Blood_STA",
@@ -7864,7 +10353,8 @@
 				"c_jaw": 2,
 				"c_snout": 2
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Deathworm_Character_BP_STA.Deathworm_Character_BP_STA",
@@ -7875,7 +10365,9 @@
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Deinonychus_Character_BP_STA.Deinonychus_Character_BP_STA",
 			"breeding": {
 				"gestationTime": 0,
-				"incubationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 40,
+				"eggTempMax": 45,
 				"maturationTime": 133333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
@@ -7904,7 +10396,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Diplocaulus_Character_BP_STA.Diplocaulus_Character_BP_STA",
@@ -7949,11 +10442,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Dragonfly_Character_BP_STA.Dragonfly_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 2.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/DungBeetle_Character_BP_STA.DungBeetle_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 5.0, 2.0, 1.0, 2.0, 3.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/EndDrone_Character_BP_STA.EndDrone_Character_BP_STA",
@@ -7995,7 +10490,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/FlyingAnt_Character_BP_STA.FlyingAnt_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Gacha_Character_BP_STA.Gacha_Character_BP_STA",
@@ -8074,7 +10570,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/InsectSwarmChar_BP_STA.InsectSwarmChar_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jerboa_Character_BP_STA.Jerboa_Character_BP_STA",
@@ -8086,11 +10583,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jugbug_Oil_Character_BP_STA.Jugbug_Oil_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Jugbug_Water_Character_BP_STA.Jugbug_Water_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Kairuku_Character_BP_STA.Kairuku_Character_BP_STA",
@@ -8102,12 +10601,14 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Kentro_Character_BP_STA.Kentro_Character_BP_STA",
 			"boneDamageAdjusters": { "Head": 1.5 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 3.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LanternBird_Character_BP_STA.LanternBird_Character_BP_STA",
@@ -8143,12 +10644,14 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Leech_Character_STA.Leech_Character_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Lightbug_Character_STA.Lightbug_Character_STA",
 			"name": "Light Bug",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/LionfishLion_Character_BP_STA.LionfishLion_Character_BP_STA",
@@ -8160,11 +10663,13 @@
 				"c_neck3": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.25, 1.0, 1.0, 1.5, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Macrophage_Swarm_Character_STA.Macrophage_Swarm_Character_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Mammoth_Character_BP_STA.Mammoth_Character_BP_STA",
@@ -8278,7 +10783,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pachy_Character_BP_STA.Pachy_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.5, 1.0, 1.0, 1.0, 0.3, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pachyrhino_Character_BP_STA.Pachyrhino_Character_BP_STA",
@@ -8306,7 +10812,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Phiomia_Character_BP_STA.Phiomia_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Phoenix_Character_BP_STA.Phoenix_Character_BP_STA",
@@ -8340,7 +10847,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Pteroteuthis_Char_BP_STA.Pteroteuthis_Char_BP_STA",
@@ -8418,7 +10926,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Saber_Character_BP_STA.Saber_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sarco_Character_BP_STA.Sarco_Character_BP_STA",
@@ -8426,7 +10935,8 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Sauropod_Character_BP_STA.Sauropod_Character_BP_STA",
@@ -8434,12 +10944,14 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 0.7 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Scorpion_Character_BP_STA.Scorpion_Character_BP_STA",
 			"boneDamageAdjusters": { "rig_c_tail9": 2 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Scout_Character_BP_STA.Scout_Character_BP_STA",
@@ -8491,7 +11003,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Spindles_Character_BP_STA.Spindles_Character_BP_STA",
@@ -8525,7 +11038,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Stego_Character_BP_STA.Stego_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Summoner_Character_BP_STA.Summoner_Character_BP_STA",
@@ -8569,11 +11083,13 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Thylacoleo_Character_BP_STA.Thylacoleo_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Titanosaur_Character_BP_STA.Titanosaur_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 0.7 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Toad_Character_BP_STA.Toad_Character_BP_STA",
@@ -8593,7 +11109,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Trilobite_Character_STA.Trilobite_Character_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Troodon_Character_BP_STA.Troodon_Character_BP_STA",
@@ -8618,7 +11135,8 @@
 				"c_tail2": 0.5,
 				"c_tail3": 0.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.5, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/Vulture_Character_BP_STA.Vulture_Character_BP_STA",
@@ -8670,20 +11188,36 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA.ZombieDodo_Character_BP_STA",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_neck3": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Huge.ZombieDodo_Character_BP_STA_Huge",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_neck3": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Large.ZombieDodo_Character_BP_STA_Large",
 			"name": "Zomdodo",
 			"variants": [ "Gauntlet2", "Genesis2", "Large", "Mission" ],
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_neck3": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Dinos/ZombieDodo_Character_BP_STA_Medium.ZombieDodo_Character_BP_STA_Medium",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_neck3": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -8727,7 +11261,8 @@
 				"matingCooldownMax": 172800
 			},
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Dimorph_Character_BP_TameSTA.Dimorph_Character_BP_TameSTA",
@@ -8735,7 +11270,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Dragon_Character_BP_STA.Dragon_Character_BP_STA",
@@ -8753,7 +11289,8 @@
 				null,
 				null
 			],
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Enforcer_Character_BP_TameSTA.Enforcer_Character_BP_TameSTA",
@@ -8773,7 +11310,8 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Gorilla_Character_BP_STA.Gorilla_Character_BP_STA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Kaprosuchus_Character_BP_TameSTA.Kaprosuchus_Character_BP_TameSTA",
@@ -8781,7 +11319,8 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/LionfishLion_Character_BP_TameSTA.LionfishLion_Character_BP_TameSTA",
@@ -8843,16 +11382,542 @@
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Stego_Character_BP_TameSTA.Stego_Character_BP_TameSTA",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Genesis2/Missions/ModularMission/Gauntlet2/STA/Endless/Tames/Trike_Character_BP_TameSTA.Trike_Character_BP_TameSTA",
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/LostColony/Dinos/SnowMonster/SnowMonster_Character_BP.SnowMonster_Character_BP",
+			"name": "Ossidon",
+			"variants": [ "LostColony" ],
+			"fullStatsRaw": [
+				[ 1430, 0.2, 0.27, 0.5, 0 ],
+				[ 420, 0.1, 0.1, 0, 0 ],
+				[ 1550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 3450,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_head": 0.75 },
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"DarkCement",
+						"LightCement",
+						"None"
+					]
+				},
+				null,
+				{
+					"name": "Spike tips",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Glacial",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"DragonBase0",
+						"LightPink",
+						"Peach"
+					]
+				},
+				{
+					"name": "Bone",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Glacial"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/Ghost/Ghost_YoungIceFox_DinoCompanion_Character_BP.Ghost_YoungIceFox_DinoCompanion_Character_BP",
+			"name": "Veilwyn Ghost",
+			"variants": [ "Ghost", "LostColony" ],
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.27, 0.66, 0 ],
+				[ 260, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 200, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.4, 0.35 ],
+				[ 1, 0, 0.01, 0.3, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"LightWarmGray",
+						"LightCement",
+						"Glacial",
+						"Cream",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"MediumWarmGray",
+						"Dino Light Orange",
+						"Dino Medium Brown"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"LightWarmGray",
+						"LightCement",
+						"Cream",
+						"Dino Light Blue",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"LightWarmGray",
+						"LightCement",
+						"Glacial",
+						"Cream",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"MediumWarmGray",
+						"Dino Light Orange",
+						"Dino Medium Brown"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"LightWarmGray",
+						"LightCement",
+						"Glacial",
+						"Cream",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"MediumWarmGray",
+						"Dino Light Blue",
+						"Dino Light Green"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/Ghost/Ghost_YoungIceFox_DinoCompanion_Character_WildClone_BP.Ghost_YoungIceFox_DinoCompanion_Character_WildClone_BP",
+			"name": "Veilwyn Ghost",
+			"variants": [ "Ghost", "LostColony", "Minion" ],
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.27, 0.66, 0 ],
+				[ 260, 0.1, 0.1, 0, 0 ],
+				[ 450, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 200, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.4, 0.35 ],
+				[ 1, 0, 0.01, 0.3, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 166666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 288.0392,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"LightWarmGray",
+						"LightCement",
+						"Glacial",
+						"Cream",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"MediumWarmGray",
+						"Dino Light Orange",
+						"Dino Medium Brown"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightCement",
+						"Glacial",
+						"WyvernBlue1",
+						"MediumTurquoise",
+						"Turquoise",
+						"DarkBlue",
+						"BlackSands",
+						"MediumTeal",
+						"Teal"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"LightWarmGray",
+						"LightCement",
+						"Cream",
+						"Dino Light Blue",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"LightWarmGray",
+						"LightCement",
+						"Glacial",
+						"Cream",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"MediumWarmGray",
+						"Dino Light Orange",
+						"Dino Medium Brown"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dino Light Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"LightWarmGray",
+						"LightCement",
+						"Glacial",
+						"Cream",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"MediumWarmGray",
+						"Dino Light Blue",
+						"Dino Light Green"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/YoungIceFox_DinoCompanion_Character_BP.YoungIceFox_DinoCompanion_Character_BP",
 			"name": "Veilwyn",
-			"variants": [ "Companion" ],
+			"variants": [ "Companion", "LostColony" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -9003,7 +12068,7 @@
 		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/YoungIceFox_DinoCompanion_Character_Clone_BP.YoungIceFox_DinoCompanion_Character_Clone_BP",
 			"name": "Veilwyn",
-			"variants": [ "Companion", "Minion" ],
+			"variants": [ "Companion", "LostColony", "Minion" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -9171,7 +12236,7 @@
 		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/YoungIceFox_DinoCompanion_Character_WildClone_BP.YoungIceFox_DinoCompanion_Character_WildClone_BP",
 			"name": "Veilwyn",
-			"variants": [ "Companion", "Minion" ],
+			"variants": [ "Companion", "LostColony", "Minion" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -9419,7 +12484,8 @@
 					"name": "Dark muted-g",
 					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
 				}
-			]
+			],
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 0.4, 0.8 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Carno/AstralCarno_Character_BP.AstralCarno_Character_BP",
@@ -9532,7 +12598,8 @@
 					"name": "Dark muted-g",
 					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
 				}
-			]
+			],
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.6, 0.8, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Direwolf/AstralDirewolf_Character_BP.AstralDirewolf_Character_BP",
@@ -9701,7 +12768,8 @@
 					"name": "Light muted -g +w",
 					"colors": [ "Dark Red", "Red", "Black", "Dino Albino" ]
 				}
-			]
+			],
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Mosasaurus/Astral_Mosa_Character_BP.Astral_Mosa_Character_BP",
@@ -9762,7 +12830,8 @@
 					"name": "Dark muted-g",
 					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
 				}
-			]
+			],
+			"regionIntensities": [ 1.33, 1.33, 1.33, 1.33, 1.33, 1.33 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Raptor/AstralRaptor_Character_BP.AstralRaptor_Character_BP",
@@ -10211,7 +13280,8 @@
 						"Dino Albino"
 					]
 				}
-			]
+			],
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Daeodon_Miniboss/Daeodon_Character_BP_Poison.Daeodon_Character_BP_Poison",
@@ -10293,7 +13363,8 @@
 						"Dino Albino"
 					]
 				}
-			]
+			],
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Gorgon/Bat_Character_BP_Gamma.Bat_Character_BP_Gamma",
@@ -11032,7 +14103,8 @@
 				"c_jaw": 3
 			},
 			"displayedStats": 927,
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Giganotosaurus/Gigant_Character_BP_Lightning.Gigant_Character_BP_Lightning",
@@ -11106,7 +14178,8 @@
 			},
 			"displayedStats": 927,
 			"noGender": true,
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 3.0, 3.0, 3.0, 3.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/PTero/Ptero_Character_BP_Lightning.Ptero_Character_BP_Lightning",
@@ -11144,7 +14217,8 @@
 			},
 			"TamedBaseHealthMultiplier": 0.9,
 			"displayedStats": 927,
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Paraceratherium/Paracer_Character_BP_Lightning.Paracer_Character_BP_Lightning",
@@ -11399,7 +14473,8 @@
 				"Cnt_Tail_000_JNT_SKL": 0.7
 			},
 			"displayedStats": 927,
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Trike/MegaTrike_Character_BP_Lightning.MegaTrike_Character_BP_Lightning",
@@ -11848,6 +14923,10 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Valguero/Assets/Dinos/SpiderL/SpiderL_VAL_Character_BP.SpiderL_VAL_Character_BP",
 			"skipWildLevelStats": 512
 		},
 		{
@@ -12533,7 +15612,8 @@
 				"c_body": 0.2,
 				"c_head": 1
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Anglerfish/Angler_Character_BP.Angler_Character_BP",
@@ -12558,6 +15638,123 @@
 			"skipWildLevelStats": 520
 		},
 		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Anglerfish/Ghost/Ghost_Angler_Character_BP.Ghost_Angler_Character_BP",
+			"name": "Anglerfish Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 450, 0.2, 0.27, 0.3, 0 ],
+				[ 240, 0.1, 0.1, 0, 0 ],
+				[ 900, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 350, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 1800,
+				"affinityIncreasePL": 90,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 149.988,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_bait7": 2,
+				"r_eye": 1.5,
+				"l_eye": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Red",
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"Black",
+						"Dino Albino",
+						"Red",
+						"Orange",
+						"Yellow",
+						"Green",
+						"Blue",
+						"Purple"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Fin tips",
+					"colors": [
+						"Dino Light Red",
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"Black",
+						"Dino Albino"
+					]
+				},
+				{
+					"name": "Body spots",
+					"colors": [
+						"Dino Light Red",
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"Black",
+						"Dino Albino"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ankylo/Ankylo_Character_BP.Ankylo_Character_BP",
 			"skipWildLevelStats": 512
 		},
@@ -12566,12 +15763,284 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Ankylo/Ghost/Ghost_Ankylo_Character_BP.Ghost_Ankylo_Character_BP",
+			"name": "Ankylosaurus Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 700, 0.2, 0.27, 0.5, 0 ],
+				[ 175, 0.1, 0.1, 0, 0 ],
+				[ 420, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.02, 0.35, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 175438.596,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.2,
+				"affinityNeeded0": 3000,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 176.0315,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Shell",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"BurntSienna",
+						"MidnightBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Spikes",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Scales",
+					"colors": [
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"MediumTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				{
+					"name": "Spike tips",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"LightAutumn",
+						"Cream"
+					]
+				},
+				{
+					"name": "Shell stripes",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"BurntSienna",
+						"MidnightBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"BurntSienna",
+						"MidnightBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ant/Ant_Character_BP.Ant_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ant/FlyingAnt_Character_BP.FlyingAnt_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Archaeopteryx/Archa_Character_BP.Archa_Character_BP",
@@ -12588,7 +16057,182 @@
 				"c_Head": 3,
 				"c_Jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 0.4, 0.8 ]
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Argentavis/Ghost/Ghost_Argent_Character_BP.Ghost_Argent_Character_BP",
+			"name": "Argentavis Ghost",
+			"variants": [ "Ghost" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 365, 0.2, 0.30375, 0.5, 0 ],
+				[ 400, 0.05, 0.075, 0, 0 ],
+				[ 600, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 400, 0.02, 0.055, 0, 0 ],
+				[ 1, 0.05, 0.15, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 196078.431,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_Head": 3,
+				"c_Jaw": 3
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Glacial",
+						"Cream"
+					]
+				},
+				null,
+				{
+					"name": "Wing tips",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Glacial",
+						"Cream"
+					]
+				},
+				{
+					"name": "Legs",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Glacial",
+						"Cream"
+					]
+				},
+				{
+					"name": "Crest",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Glacial",
+						"Cream"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"BurntSienna",
+						"LightAutumn",
+						"Glacial",
+						"Cream"
+					]
+				}
+			],
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 0.4, 0.8 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Arthropluera/Arthro_Character_BP.Arthro_Character_BP",
@@ -12640,7 +16284,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bee/Bee_Character_BP.Bee_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 2.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bee/Bee_Queen_Character_BP.Bee_Queen_Character_BP",
@@ -12674,7 +16319,8 @@
 						"DragonBase1"
 					]
 				}
-			]
+			],
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Bigfoot/Bigfoot_Character_BP.Bigfoot_Character_BP",
@@ -12784,26 +16430,31 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Cnidaria/Cnidaria_Character_BP.Cnidaria_Character_BP",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Cnidaria/Cnidaria_Character_BP_Aberrant.Cnidaria_Character_BP_Aberrant",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP.Coel_Character_BP",
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Aberrant.Coel_Character_BP_Aberrant",
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Coelacanth/Coel_Character_BP_Ocean.Coel_Character_BP_Ocean",
 			"boneDamageAdjusters": { "c_head": 1.5 },
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Compy/Compy_Character_BP.Compy_Character_BP",
@@ -12844,7 +16495,8 @@
 				"c_jaw": 2,
 				"c_snout": 2
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dilo/Dilo_Character_BP.Dilo_Character_BP",
@@ -12872,7 +16524,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aberrant.Dimorph_Character_BP_Aberrant",
@@ -12880,7 +16533,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss.Dimorph_Character_BP_Aggressive_DragonBoss",
@@ -12888,7 +16542,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Hard.Dimorph_Character_BP_Aggressive_DragonBoss_Hard",
@@ -12896,7 +16551,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dimorphodon/Dimorph_Character_BP_Aggressive_DragonBoss_Med.Dimorph_Character_BP_Aggressive_DragonBoss_Med",
@@ -12904,7 +16560,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.5, 1.5 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Diplocaulus/Diplocaulus_Character_BP.Diplocaulus_Character_BP",
@@ -12964,6 +16621,7 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Direwolf/Ghost_Direwolf_Character_BP.Ghost_Direwolf_Character_BP",
+			"noGender": true,
 			"skipWildLevelStats": 512
 		},
 		{
@@ -12989,6 +16647,10 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dodo/ZombieDodo_Character_BP.ZombieDodo_Character_BP",
+			"boneDamageAdjusters": {
+				"c_head": 3,
+				"c_neck3": 3
+			},
 			"skipWildLevelStats": 512
 		},
 		{
@@ -13011,35 +16673,43 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.2, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Easy.Dragon_Character_BP_Boss_Easy",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Hard.Dragon_Character_BP_Boss_Hard",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragon/Dragon_Character_BP_Boss_Medium.Dragon_Character_BP_Boss_Medium",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragonfly/Dragonfly_Character_BP.Dragonfly_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 2.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dragonfly/Dragonfly_Character_BP_Aberrant.Dragonfly_Character_BP_Aberrant",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 2.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DungBeetle/DungBeetle_Character_BP.DungBeetle_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 5.0, 2.0, 1.0, 2.0, 3.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/DungBeetle/DungBeetle_Character_BP_Aberrant.DungBeetle_Character_BP_Aberrant",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 5.0, 2.0, 1.0, 2.0, 3.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Dunkleosteus/Dunkle_Character_BP.Dunkle_Character_BP",
@@ -13047,7 +16717,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.2, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Eel/Eel_Character_BP.Eel_Character_BP",
@@ -13152,7 +16823,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Eurypterid/Euryp_Character.Euryp_Character",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gallimimus/Galli_Character_BP.Galli_Character_BP",
@@ -13249,27 +16921,33 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Easy.Gorilla_Character_BP_Easy",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Hard.Gorilla_Character_BP_Hard",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_Medium.Gorilla_Character_BP_Medium",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter.Gorilla_Character_BP_TheCenter",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter_Hard.Gorilla_Character_BP_TheCenter_Hard",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Gorilla/Gorilla_Character_BP_TheCenter_Medium.Gorilla_Character_BP_TheCenter_Medium",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Griffin/Griffin_Character_BP.Griffin_Character_BP",
@@ -13662,20 +17340,24 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Kentrosaurus/Kentro_Character_BP.Kentro_Character_BP",
 			"boneDamageAdjusters": { "Head": 1.5 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 3.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Leech/Leech_Character.Leech_Character",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Leech/Leech_Character_Diseased.Leech_Character_Diseased",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Leedsichthys/Alpha_Leedsichthys_Character_BP.Alpha_Leedsichthys_Character_BP",
@@ -13699,7 +17381,8 @@
 				"c_neck8": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.2, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Lystrosaurus/Lystro_Character_BP.Lystro_Character_BP",
@@ -13707,7 +17390,8 @@
 				"c_neck3": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.25, 1.0, 1.0, 1.5, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Lystrosaurus/Lystro_Character_BP_Aberrant.Lystro_Character_BP_Aberrant",
@@ -13715,7 +17399,8 @@
 				"c_neck3": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.25, 1.0, 1.0, 1.5, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mammoth/Mammoth_Character_BP.Mammoth_Character_BP",
@@ -13840,12 +17525,157 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/Ghost/Ghost_Megalodon_Character_BP.Ghost_Megalodon_Character_BP",
+			"name": "Megalodon Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 600, 0.2, 0.27, 0.3, 0 ],
+				[ 320, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 21978.022,
+				"incubationTime": 0,
+				"maturationTime": 256410.256,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body top",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightWarmGray",
+						"LightCement",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"PowderBlue",
+						"Glacial",
+						"DryMoss"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Stripes",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonBase0",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"BlackSands",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				{
+					"name": "Underside",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"LightWarmGray",
+						"LightCement",
+						"Peach",
+						"LightAutumn",
+						"Glacial"
+					]
+				}
+			],
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
+		},
+		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/MEgaMegalodon_Character_BP.MegaMegalodon_Character_BP",
 			"boneDamageAdjusters": {
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalodon/Megalodon_Character_BP.Megalodon_Character_BP",
@@ -13853,7 +17683,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Megalosaurus/Megalosaurus_Character_BP.Megalosaurus_Character_BP",
@@ -14149,7 +17980,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.33, 1.33, 1.33, 1.33, 1.33, 1.33 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Mosasaurus/Mosa_Character_BP_Mega_Cave.Mosa_Character_BP_Mega_Cave",
@@ -14157,7 +17989,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.33, 1.33, 1.33, 1.33, 1.33, 1.33 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Moschops/Moschops_Character_BP.Moschops_Character_BP",
@@ -14224,6 +18057,98 @@
 				"c_jaw": 1.5
 			},
 			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Otter/Ghost/Ghost_Otter_Character_BP.Ghost_Otter_Character_BP",
+			"name": "Otter Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 40, 0.2, 0.27, 0.5, 0 ],
+				[ 180, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				[ 400, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 30, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.04, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.7, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 75757.5758,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 142800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 8.333333,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 25,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 160.0563,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_Head": 1.5,
+				"c_Jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Body main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body stripes and highlights",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Underbelly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Otter/Otter_Character_BP.Otter_Character_BP",
@@ -14527,7 +18452,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Pachy/Pachy_Character_BP.Pachy_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.5, 1.0, 1.0, 1.0, 0.3, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Pachyrhinosaurus/Pachyrhino_Character_BP.Pachyrhino_Character_BP",
@@ -14827,7 +18753,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Phiomia/Phiomia_Character_BP.Phiomia_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.8, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP.Piranha_Character_BP",
@@ -14835,7 +18762,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_Aberrant.Piranha_Character_BP_Aberrant",
@@ -14843,7 +18771,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Piranha/Piranha_Character_BP_BreakNet.Piranha_Character_BP_BreakNet",
@@ -14851,7 +18780,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Plesiosaur/Plesiosaur_Character_BP.Plesiosaur_Character_BP",
@@ -14975,7 +18905,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_BP.Ptero_Minion_Character_BP",
@@ -14983,7 +18914,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Hard.Ptero_Minion_Character_Hard",
@@ -14991,7 +18923,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Ptero/Ptero_Minion_Character_Med.Ptero_Minion_Character_Med",
@@ -14999,7 +18932,8 @@
 				"c_head": 3,
 				"c_jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 2.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Purlovia/Purlovia_Character_BP.Purlovia_Character_BP",
@@ -15502,7 +19436,9 @@
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Uberraptor/Deinonychus_Character_BP.Deinonychus_Character_BP",
 			"breeding": {
 				"gestationTime": 0,
-				"incubationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 40,
+				"eggTempMax": 45,
 				"maturationTime": 133333.333,
 				"matingCooldownMin": 64800,
 				"matingCooldownMax": 172800
@@ -15512,6 +19448,151 @@
 				"jaw": 1.5
 			},
 			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Raptor/Uberraptor/Ghost/Ghost_Deinonychus_Character_BP.Ghost_Deinonychus_Character_BP",
+			"name": "Deinonychus Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 200, 0.2, 0.27, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 180, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 140, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.015, 0.2, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 3.125,
+				"affinityNeeded0": 1200,
+				"affinityIncreasePL": 60,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 648.0881,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"head": 1.5,
+				"jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Base color",
+					"colors": [
+						"BigFoot0",
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"DragonGreen3",
+						"NearBlack",
+						"BigFoot5",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"WolfFur",
+						"BigFoot4",
+						"Dino Albino",
+						"DragonBase1"
+					]
+				},
+				{
+					"name": "Feathers accents",
+					"colors": [
+						"Dino Medium Brown",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DragonBase0",
+						"DragonFire",
+						"NearBlack",
+						"DragonGreen3",
+						"BigFoot5",
+						"DarkWolfFur"
+					]
+				},
+				null,
+				{
+					"name": "Feathers main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"Dino Light Blue",
+						"BigFoot0",
+						"BigFoot4",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1"
+					]
+				},
+				{
+					"name": "Stripes",
+					"colors": [
+						"BigFoot0",
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"DragonGreen3",
+						"NearBlack",
+						"BigFoot5",
+						"DarkWolfFur",
+						"DragonGreen0",
+						"DragonGreen2",
+						"WyvernBlue1",
+						"WyvernBlue0",
+						"WyvernPurple0"
+					]
+				},
+				{
+					"name": "Highlights",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"BigFoot5",
+						"WolfFur",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Black",
+						"Dino Albino"
+					]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/BionicRex_Character_BP.BionicRex_Character_BP",
@@ -15733,11 +19814,19 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Rex/Ghost_Rex_Character_BP.Ghost_Rex_Character_BP",
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"boneDamageAdjusters": {
 				"Cnt_Neck_003_JNT_SKL": 1.5,
 				"Cnt_Head_JNT_SKL": 1.5,
 				"Cnt_Jaw_JNT_SKL": 1.5
 			},
+			"noGender": true,
 			"skipWildLevelStats": 512
 		},
 		{
@@ -15780,7 +19869,8 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Saber/Saber_Character_BP.Saber_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Salmon/Salmon_Character_Aberrant.Salmon_Character_Aberrant",
@@ -15803,7 +19893,8 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sarco/Sarco_Character_BP_Aberrant.Sarco_Character_BP_Aberrant",
@@ -15811,7 +19902,8 @@
 				"c_neck3": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 0.6, 1.0, 1.0, 0.4, 0.6, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sauropod/Bone_Sauropod_Character_BP.Bone_Sauropod_Character_BP",
@@ -15819,7 +19911,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 0.7 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sauropod/Sauropod_Character_BP.Sauropod_Character_BP",
@@ -15841,17 +19934,20 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 0.7 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Scorpion/Scorpion_Character_BP.Scorpion_Character_BP",
 			"boneDamageAdjusters": { "rig_c_tail9": 2 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Scorpion/Scorpion_Character_BP_Aberrant.Scorpion_Character_BP_Aberrant",
 			"boneDamageAdjusters": { "rig_c_tail9": 2 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Sheep/Sheep_Character_BP.Sheep_Character_BP",
@@ -15899,7 +19995,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aberrant.SpiderS_Character_BP_Aberrant",
@@ -15907,7 +20004,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive.SpiderS_Character_BP_Aggressive",
@@ -15915,7 +20013,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Hard.SpiderS_Character_BP_Aggressive_Hard",
@@ -15923,7 +20022,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Aggressive_Med.SpiderS_Character_BP_Aggressive_Med",
@@ -15931,7 +20031,8 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Spider-Small/SpiderS_Character_BP_Juvenile.SpiderS_Character_BP_Juvenile",
@@ -16061,6 +20162,234 @@
 						"Dark Grey",
 						"Dino Darker Grey",
 						"Black"
+					]
+				}
+			],
+			"regionIntensities": [ 0.3, 1.0, 0.25, 1.0, 1.0, 0.3 ]
+		},
+		{
+			"blueprintPath": "/Game/PrimalEarth/Dinos/Spino/Ghost/Ghost_Spino_Character_BP.Ghost_Spino_Character_BP",
+			"name": "Spino Ghost",
+			"variants": [ "Ghost" ],
+			"fullStatsRaw": [
+				[ 805, 0.2, 0.27, 0.5, 0 ],
+				[ 350, 0.1, 0.1, 0, 0 ],
+				[ 850, 0.06, 0, 0.5, 0 ],
+				[ 650, 0.1, 0.1, 0, 0 ],
+				[ 2600, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 350, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 256410.256,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 3200,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002066,
+				"foodConsumptionMult": 150,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 927,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Sail tip",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightWarmGray",
+						"LightCement",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"PowderBlue",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Sail",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"LightWarmGray",
+						"LightCement",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"Dino Medium Blue",
+						"LightWarmGray",
+						"LightCement",
+						"Coral",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Mustard",
+						"PowderBlue",
+						"Glacial",
+						"DryMoss",
+						"Custard",
+						"Cream"
 					]
 				}
 			]
@@ -16303,19 +20632,23 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/BionicStego_Character_BP.BionicStego_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Bone_Stego_Character_BP.Bone_Stego_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Stego_Character_BP.Stego_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/Stego_Character_BP_Aberrant.Stego_Character_BP_Aberrant",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.0, 1.0, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tapejara/Tapejara_Character_BP.Tapejara_Character_BP",
@@ -16343,11 +20676,13 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Thylacoleo/Thylacoleo_Character_BP.Thylacoleo_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 1.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Titanosaur/Titanosaur_Character_BP.Titanosaur_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 0.3, 1.0, 1.0, 1.0, 1.0, 0.7 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Toad/Toad_Character_BP.Toad_Character_BP",
@@ -16486,11 +20821,13 @@
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Trilobite/Trilobite_Character.Trilobite_Character",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Trilobite/Trilobite_Character_Aberrant.Trilobite_Character_Aberrant",
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Troodon/Troodon_Character_BP.Troodon_Character_BP",
@@ -16515,7 +20852,8 @@
 				"c_tail2": 0.5,
 				"c_tail3": 0.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.5, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Turtle/Turtle_Character_BP_Aberrant.Turtle_Character_BP_Aberrant",
@@ -16528,7 +20866,8 @@
 				"c_tail2": 0.5,
 				"c_tail3": 0.5
 			},
-			"skipWildLevelStats": 520
+			"skipWildLevelStats": 520,
+			"regionIntensities": [ 1.0, 1.5, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Tusoteuthis/Mega_Tusoteuthis_Character_BP.Mega_Tusoteuthis_Character_BP",
@@ -16592,7 +20931,8 @@
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Deathworm/MegaDeathworm_Character_BP.MegaDeathworm_Character_BP",
 			"boneDamageAdjusters": { "Deathworm_Neck_01_02SHJnt": 1.5 },
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 2.0, 2.0, 2.0, 2.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/DodoWyvern/DodoWyvern_Character_BP.DodoWyvern_Character_BP",
@@ -16699,23 +21039,28 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Oil_Character_BP.Jugbug_Oil_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/JugBug/Jugbug_Water_Character_BP.Jugbug_Water_Character_BP",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 2.0, 1.0, 1.0, 2.0, 1.0, 2.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Easy.Manticore_Character_BP_Easy",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Hard.Manticore_Character_BP_Hard",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Manticore_Character_BP_Medium.Manticore_Character_BP_Medium",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 3.0, 1.0, 1.0, 1.0, 1.0, 3.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Manticore/Minions/Deathworm_Character_Minion_BP.Deathworm_Character_Minion_BP",
@@ -16728,6 +21073,13 @@
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Mantis/Ghost_Mantis_Character_BP.Ghost_Mantis_Character_BP",
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 196078.431,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
 			"boneDamageAdjusters": {
 				"d_head_jnt": 1.5,
 				"d_L_jaw_A_jnt": 1.5,
@@ -16735,6 +21087,7 @@
 				"d_L_jaw_B_jnt": 1.5,
 				"d_R_jaw_B_jnt": 1.5
 			},
+			"noGender": true,
 			"skipWildLevelStats": 512
 		},
 		{
@@ -16966,7 +21319,8 @@
 				"neck_4exp": 1.5,
 				"jaw_exp": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.9285, 1.9285, 1.9285, 1.9285, 1.9285, 1.9285 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/MegaWyvern_Character_BP_Fire.MegaWyvern_Character_BP_Fire",
@@ -16974,7 +21328,8 @@
 				"neck_4exp": 1.5,
 				"jaw_exp": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"regionIntensities": [ 1.9285, 1.9285, 1.9285, 1.9285, 1.9285, 1.9285 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Fire.Wyvern_Character_BP_Fire",

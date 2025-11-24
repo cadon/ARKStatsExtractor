@@ -699,18 +699,19 @@ namespace ARKBreedingStats.BreedingPlanning
 
         private void ClearControls()
         {
+            var maxBreedingSuggestions = CreatureCollection?.maxBreedingSuggestions ?? 10;
             // hide unused controls
-            for (int i = 0; i < CreatureCollection.maxBreedingSuggestions && 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
+            for (int i = 0; i < maxBreedingSuggestions && 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
             {
                 _pcs[2 * i].Hide();
                 _pcs[2 * i + 1].Hide();
                 _pbs[i].Hide();
             }
 
-            // remove controls outside of the limit
-            if (_pbs.Count > CreatureCollection.maxBreedingSuggestions)
+            // remove controls larger than the limit
+            if (_pbs.Count > maxBreedingSuggestions)
             {
-                for (int i = _pbs.Count - 1; i > CreatureCollection.maxBreedingSuggestions && i >= 0; i--)
+                for (int i = _pbs.Count - 1; i > maxBreedingSuggestions && i >= 0; i--)
                 {
                     _pcs[2 * i + 1].Dispose();
                     _pcs.RemoveAt(2 * i + 1);

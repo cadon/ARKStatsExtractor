@@ -169,6 +169,7 @@ namespace ARKBreedingStats
                 }
 
                 creature.domesticatedAt = DateTime.Now;
+                SetLockedCreatureProperties(creature);
 
                 var addCreature = Properties.Settings.Default.OnAutoImportAddToLibrary;
                 var gotoLibraryTab = addCreature && Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess;
@@ -210,6 +211,19 @@ namespace ARKBreedingStats
             // import server settings
             var success = ImportExportGun.ImportServerMultipliersFromJson(_creatureCollection, data.JsonText, data.ServerHash, out resultText);
             SetMessageLabelText(resultText, success ? MessageBoxIcon.Information : MessageBoxIcon.Error, resultText);
+        }
+
+        /// <summary>
+        /// Some properties can be locked in the infoInputExtractor, if locked they will be applied to all newly imported creatures.
+        /// </summary>
+        private void SetLockedCreatureProperties(Creature creature)
+        {
+            if (creatureInfoInputExtractor.LockOwner)
+                creature.owner = creatureInfoInputExtractor.CreatureOwner;
+            if (creatureInfoInputExtractor.LockTribe)
+                creature.tribe = creatureInfoInputExtractor.CreatureTribe;
+            if (creatureInfoInputExtractor.LockServer)
+                creature.server = creatureInfoInputExtractor.CreatureServer;
         }
 
         /// <summary>

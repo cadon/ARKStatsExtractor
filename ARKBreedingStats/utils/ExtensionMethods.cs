@@ -61,5 +61,11 @@ namespace ARKBreedingStats.utils
             tt.RemoveAll();
             tt.Dispose();
         }
+
+        /// <summary>
+        /// Returns the area of the Bitmap object in a RectangleF.
+        /// </summary>
+        public static RectangleF GetBounds(this Bitmap bmp)
+            => bmp == null ? RectangleF.Empty : new RectangleF(0, 0, bmp.Width, bmp.Height);
     }
 }

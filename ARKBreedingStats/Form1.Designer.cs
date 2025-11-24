@@ -33,6 +33,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,6 +132,7 @@ namespace ARKBreedingStats
             this.modValueManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customStatOverridesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.speciesImagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extraDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.openJsonDataFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -291,7 +293,7 @@ namespace ARKBreedingStats
             this.columnHeaderCurrentLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderMaxPossibleLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderTraits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStripLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.editAllSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
@@ -417,7 +419,7 @@ namespace ARKBreedingStats
             this.lbListening = new System.Windows.Forms.Label();
             this.lbSpecies = new System.Windows.Forms.Label();
             this.TbMessageLabel = new System.Windows.Forms.TextBox();
-            this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStripLibraryHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetLibraryColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.resetColumnWidthNoMutationLevelColumnsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreMutationLevelsASAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1331,6 +1333,7 @@ namespace ARKBreedingStats
             this.modValueManagerToolStripMenuItem,
             this.customStatOverridesToolStripMenuItem,
             this.toolStripSeparator1,
+            this.speciesImagesToolStripMenuItem,
             this.extraDataToolStripMenuItem,
             this.toolStripSeparator23,
             this.openJsonDataFolderToolStripMenuItem,
@@ -1379,6 +1382,13 @@ namespace ARKBreedingStats
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(223, 6);
+            // 
+            // speciesImagesToolStripMenuItem
+            // 
+            this.speciesImagesToolStripMenuItem.Name = "speciesImagesToolStripMenuItem";
+            this.speciesImagesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.speciesImagesToolStripMenuItem.Text = "Species Images…";
+            this.speciesImagesToolStripMenuItem.Click += new System.EventHandler(this.speciesImagesToolStripMenuItem_Click);
             // 
             // extraDataToolStripMenuItem
             // 
@@ -2096,7 +2106,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.MutationCounterFather = 0;
             this.creatureInfoInputTester.MutationCounterMother = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
-            this.creatureInfoInputTester.OwnerLock = false;
+            this.creatureInfoInputTester.LockOwner = false;
             this.creatureInfoInputTester.RegionColors = new byte[] {
         ((byte)(0)),
         ((byte)(0)),
@@ -2107,7 +2117,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.Traits = null;
-            this.creatureInfoInputTester.TribeLock = false;
+            this.creatureInfoInputTester.LockTribe = false;
             this.creatureInfoInputTester.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Save2Library_Clicked);
             this.creatureInfoInputTester.ParentListRequested += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
@@ -2482,7 +2492,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
             this.creatureInfoInputExtractor.MutationCounterMother = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
-            this.creatureInfoInputExtractor.OwnerLock = false;
+            this.creatureInfoInputExtractor.LockOwner = false;
             this.creatureInfoInputExtractor.RegionColors = new byte[] {
         ((byte)(0)),
         ((byte)(0)),
@@ -2493,7 +2503,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.Traits = null;
-            this.creatureInfoInputExtractor.TribeLock = false;
+            this.creatureInfoInputExtractor.LockTribe = false;
             this.creatureInfoInputExtractor.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputExtractor_Add2Library_Clicked);
             this.creatureInfoInputExtractor.ParentListRequested += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
             // 
@@ -3446,122 +3456,9 @@ namespace ARKBreedingStats
             // libraryInfoControl1
             // 
             this.libraryInfoControl1.AutoScroll = true;
-            this.libraryInfoControl1.ColumnCount = 4;
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.libraryInfoControl1.Location = new System.Drawing.Point(3, 39);
             this.libraryInfoControl1.Name = "libraryInfoControl1";
-            this.libraryInfoControl1.RowCount = 2;
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.libraryInfoControl1.Size = new System.Drawing.Size(1858, 736);
             this.libraryInfoControl1.TabIndex = 3;
             // 
@@ -4087,7 +3984,6 @@ namespace ARKBreedingStats
             // 
             this.ToolStripTextBoxLibraryFilter.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.ToolStripTextBoxLibraryFilter.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.ToolStripTextBoxLibraryFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ToolStripTextBoxLibraryFilter.Name = "ToolStripTextBoxLibraryFilter";
             this.ToolStripTextBoxLibraryFilter.Size = new System.Drawing.Size(200, 25);
             this.ToolStripTextBoxLibraryFilter.Visible = false;
@@ -4810,5 +4706,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem howGoodAreMyStatsToolStripMenuItem;
         private uiControls.CurrentBreeds currentBreeds1;
         private System.Windows.Forms.ColumnHeader columnHeaderMutated;
+        private System.Windows.Forms.ToolStripMenuItem speciesImagesToolStripMenuItem;
     }
 }

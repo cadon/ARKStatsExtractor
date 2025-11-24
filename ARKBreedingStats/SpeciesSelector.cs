@@ -1,15 +1,17 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
+using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.Library;
-using ARKBreedingStats.uiControls;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -46,7 +48,10 @@ namespace ARKBreedingStats
         /// List of species-blueprintPaths last used by the user
         /// </summary>
         private List<string> _lastSpeciesBPs;
-        private List<string> _iconIndices;
+        /// <summary>
+        /// Key is the blueprint path of the species. Value is the index of the according image in the ListView.Images.
+        /// </summary>
+        private readonly Dictionary<string, int> _iconIndices = new Dictionary<string, int>();
         private readonly Debouncer _speciesChangeDebouncer = new Debouncer();
 
         internal readonly VariantSelector VariantSelector;
@@ -64,8 +69,7 @@ namespace ARKBreedingStats
         /// </summary>
         /// <param name="species"></param>
         /// <param name="aliases"></param>
-        /// <param name="game">Can be ASE or ASA (some species use different images depending on the game)</param>
-        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases, string game = null)
+        public void SetSpeciesLists(List<Species> species, Dictionary<string, string> aliases)
         {
             if (SelectedSpecies != null)
             {
@@ -78,13 +82,13 @@ namespace ARKBreedingStats
                 SetSpecies(species.FirstOrDefault(), ignoreInRecent: true);
             }
 
-            InitializeSpeciesImages(species, game);
+            InitializeSpeciesImages();
 
             _entryList = CreateSpeciesList(species, aliases);
 
             // autocomplete for species-input
             var al = new AutoCompleteStringCollection();
-            al.AddRange(_entryList.Select(e => e.DisplayName).ToArray());
+            al.AddRange(_entryList.Select(e => e.DisplayName).Distinct().ToArray());
             _textBox.AutoCompleteCustomSource = al;
 
             VariantSelector.SetVariants(species);
@@ -151,65 +155,33 @@ namespace ARKBreedingStats
             return entryList;
         }
 
-        public void InitializeSpeciesImages(List<Species> species, string game = null)
+        /// <summary>
+        /// Resets the species images.
+        /// </summary>
+        public void InitializeSpeciesImages()
         {
-            var creatureColors = new byte[] { 44, 42, 57, 10, 26, 78 }; // uniform color pattern that is used for all species in the selector
-            var creatureColorsPolar = new byte[] { 18, 18, 18, 18, 18, 18 }; // uniform color pattern that is used for all polar species in the selector
-            var lImgList = new ImageList();
-            _iconIndices = new List<string>();
-            if (game == null)
-                game = CreatureCollection.CurrentCreatureCollection?.Game ?? Ark.Asa;
-            bool imageFolderExist = !string.IsNullOrEmpty(CreatureColored.ImageFolder) && Directory.Exists(CreatureColored.ImageFolder);
-            //var rand = new Random();
+            var lvLargeImageList = lvLastSpecies.LargeImageList ?? new ImageList();
+            ClearListImages();
 
-            //var speciesWOImage = new List<string>();// to determine which species have no image yet
-            if (imageFolderExist)
-            {
-                foreach (Species s in species)
-                {
-                    var (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
-                        s.name.Contains("Polar") ? creatureColorsPolar : creatureColors,
-                        game
-                        );
-                    //if (!imgExists && s.IsDomesticable && !speciesWOImage.Contains(s.name)) speciesWOImage.Add(s.name);
-                    if (!imgExists || _iconIndices.Contains(speciesListName)) continue;
+            lvLargeImageList.ImageSize = new Size(64, 64);
+            lvLargeImageList.ColorDepth = ColorDepth.Depth32Bit;
+            lvLastSpecies.LargeImageList = lvLargeImageList;
+            lvSpeciesInLibrary.LargeImageList = lvLargeImageList;
+            UpdateLastSpecies();
+            UpdateImagesLibraryList();
+        }
 
-                    try
-                    {
-                        lImgList.Images.Add(Image.FromFile(imagePath));
-                        _iconIndices.Add(speciesListName);
-                    }
-                    catch (OutOfMemoryException)
-                    {
-                        // usually this exception occurs if the image file is corrupted
-                        if (FileService.TryDeleteFile(imagePath))
-                        {
-                            (imgExists, imagePath, speciesListName) = CreatureColored.SpeciesImageExists(s,
-                                s.name.Contains("Polar") ? creatureColorsPolar : creatureColors,
-                                game);
-                            if (imgExists)
-                            {
-                                try
-                                {
-                                    lImgList.Images.Add(Image.FromFile(imagePath));
-                                    _iconIndices.Add(speciesListName);
-                                }
-                                catch
-                                {
-                                    // ignore image if it failed a second time
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            //utils.ClipboardHandler.SetText(speciesWOImage.Any() ? string.Join("\n", speciesWOImage) : string.Empty);
-
-            lImgList.ImageSize = new Size(64, 64);
-            lvLastSpecies.LargeImageList = lImgList;
-            lvSpeciesInLibrary.LargeImageList = lImgList;
-            UpdateLastSpecies(game);
-            UpdateImagesLibraryList(game);
+        /// <summary>
+        /// Clear list images. Call when image packs were changed.
+        /// </summary>
+        private void ClearListImages()
+        {
+            var lvLargeImageList = lvLastSpecies.LargeImageList;
+            if (lvLargeImageList == null) return;
+            foreach (Image i in lvLargeImageList.Images)
+                i.Dispose();
+            lvLargeImageList.Images.Clear();
+            _iconIndices.Clear();
         }
 
         /// <summary>
@@ -229,9 +201,7 @@ namespace ARKBreedingStats
                     Text = s.DescriptiveNameAndMod,
                     Tag = s
                 };
-                int ii = SpeciesImageIndex(s, game);
-                if (ii != -1)
-                    lvi.ImageIndex = ii;
+                SetListViewItemImageIndex(lvi, s);
                 newItems.Add(lvi);
             }
             lvSpeciesInLibrary.Items.AddRange(newItems.ToArray());
@@ -241,39 +211,31 @@ namespace ARKBreedingStats
         /// <summary>
         /// Updates the images of the list that displays species of the library.
         /// </summary>
-        private void UpdateImagesLibraryList(string game = null)
+        private void UpdateImagesLibraryList()
         {
             foreach (ListViewItem lvi in lvSpeciesInLibrary.Items)
-            {
-                int ii = SpeciesImageIndex(lvi.Tag as Species, game);
-                if (ii != -1)
-                    lvi.ImageIndex = ii;
-            }
+                SetListViewItemImageIndex(lvi, lvi.Tag as Species);
         }
 
         /// <summary>
         /// Updates the list displaying the last selected species. Also sets the images.
         /// </summary>
-        private void UpdateLastSpecies(string game = null)
+        private void UpdateLastSpecies()
         {
             lvLastSpecies.BeginUpdate();
             lvLastSpecies.Items.Clear();
             var newItems = new List<ListViewItem>();
-            foreach (string s in _lastSpeciesBPs)
+            foreach (var s in _lastSpeciesBPs)
             {
                 var species = Values.V.SpeciesByBlueprint(s);
-                if (species != null)
+                if (species == null) continue;
+                var lvi = new ListViewItem
                 {
-                    ListViewItem lvi = new ListViewItem
-                    {
-                        Text = species.DescriptiveNameAndMod,
-                        Tag = species
-                    };
-                    int ii = SpeciesImageIndex(species, game);
-                    if (ii != -1)
-                        lvi.ImageIndex = ii;
-                    newItems.Add(lvi);
-                }
+                    Text = species.DescriptiveNameAndMod,
+                    Tag = species
+                };
+                SetListViewItemImageIndex(lvi, species);
+                newItems.Add(lvi);
             }
             lvLastSpecies.Items.AddRange(newItems.ToArray());
             lvLastSpecies.EndUpdate();
@@ -286,8 +248,6 @@ namespace ARKBreedingStats
             if (_entryList == null) return;
 
             bool noVariantFiltering = VariantSelector.DisabledVariants == null || !VariantSelector.DisabledVariants.Any();
-            lvSpeciesList.BeginUpdate();
-            lvSpeciesList.Items.Clear();
             var newItems = new List<ListViewItem>();
             part = part?.ToLowerInvariant();
             bool inputIsEmpty = string.IsNullOrWhiteSpace(part);
@@ -306,12 +266,14 @@ namespace ARKBreedingStats
                     {
                         Tag = s.Species,
                         BackColor = !s.Species.IsDomesticable ? Color.FromArgb(255, 245, 230)
-                        : !string.IsNullOrEmpty(s.ModName) ? Color.FromArgb(230, 245, 255)
+                        : !string.IsNullOrEmpty(s.ModName) && s.ModName != "Ark: Survival Ascended" ? Color.FromArgb(230, 245, 255)
                         : SystemColors.Window,
                         ToolTipText = s.Species.blueprintPath,
                     });
                 }
             }
+            lvSpeciesList.BeginUpdate();
+            lvSpeciesList.Items.Clear();
             lvSpeciesList.Items.AddRange(newItems.ToArray());
             lvSpeciesList.EndUpdate();
 
@@ -385,7 +347,7 @@ namespace ARKBreedingStats
                 return true;
             }
 
-            if (!ignoreInRecent)
+            if (!ignoreInRecent && _lastSpeciesBPs.FirstOrDefault() != species.blueprintPath)
             {
                 _lastSpeciesBPs.Remove(species.blueprintPath);
                 _lastSpeciesBPs.Insert(0, species.blueprintPath);
@@ -429,25 +391,99 @@ namespace ARKBreedingStats
             }
         }
 
-        private int SpeciesImageIndex(Species species = null, string game = null)
+        /// <summary>
+        /// Asynchronously retrieves the index of the image associated with the specified species in the species selector.
+        /// </summary>
+        /// <param name="species">The species for which the image index is to be retrieved.</param>
+        /// <param name="game">The game context (e.g. ASA). If not provided, the current game in the creature collection is used.</param>
+        /// <returns>
+        /// A task that represents the asynchronous operation. The task result contains the index of the species image in the image list.
+        /// Returns -1 if the species is null, the image list is unavailable, or the image could not be loaded.
+        /// </returns>
+        private static async Task<Image> SpeciesListImage(Species species, string game = null)
         {
-            if (_iconIndices == null) return -1;
+            if (species == null) return null;
 
-            if (species == null)
-                species = SelectedSpecies;
-            if (game == null)
+            if (string.IsNullOrEmpty(game))
                 game = CreatureCollection.CurrentCreatureCollection?.Game ?? Ark.Asa;
+            var colorIds = species.name.Contains("Polar")
+                ? new byte[] { 18, 18, 18, 18, 18, 18 } // uniform color pattern that is used for all polar species in the selector
+                //: new byte[] { 44, 42, 57, 10, 26, 78 }
+                : species.RandomSpeciesColors()
+                ;
+            var imagePath = await CreatureImageFile.GetSpeciesImageForSpeciesList(species, colorIds, game);
+            if (imagePath == null) return null;
 
-            var speciesImageName = CreatureColored.SpeciesImageName(species, game, false);
-            return string.IsNullOrEmpty(speciesImageName) ? -1 : _iconIndices.IndexOf(speciesImageName);
+            try
+            {
+                // use temp bitmap to avoid persistent file locking
+                using (var bmpTemp = new Bitmap(imagePath))
+                    return new Bitmap(bmpTemp);
+            }
+            catch (OutOfMemoryException)
+            {
+                // usually this exception occurs if the image file is corrupted
+                if (FileService.TryDeleteFile(imagePath))
+                {
+                    imagePath =
+                        await CreatureImageFile.GetSpeciesImageForSpeciesList(species, colorIds, game);
+                    if (imagePath == null) return null;
+
+                    try
+                    {
+                        // use temp bitmap to avoid persistent file locking
+                        using (var bmpTemp = new Bitmap(imagePath))
+                            return new Bitmap(bmpTemp);
+                    }
+                    catch
+                    {
+                        // ignore image if it failed a second time
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
+
+            return null;
+        }
+
+        private void SetListViewItemImageIndex(ListViewItem lvi, Species species)
+        {
+            if (lvi == null) return;
+            if (species == null) species = SelectedSpecies;
+            if (species == null) return;
+
+            if (_iconIndices.TryGetValue(species.blueprintPath, out var index))
+            {
+                lvi.ImageIndex = index;
+                return;
+            }
+
+            Task.Run(async () =>
+            {
+                var img = await SpeciesListImage(species);
+                this.Invoke(new Action(() =>
+                {
+                    var imageList = lvLastSpecies.LargeImageList.Images;
+                    index = img == null ? -1 : imageList.Count;
+                    if (img != null)
+                        imageList.Add(img);
+                    lvi.ImageIndex = index;
+                    _iconIndices[species.blueprintPath] = index;
+                }));
+            });
         }
 
         public Image SpeciesImage(Species species = null)
         {
-            if (lvLastSpecies.LargeImageList == null) return null;
-            int ii = SpeciesImageIndex(species);
-            if (ii != -1 && ii < lvLastSpecies.LargeImageList.Images.Count)
-                return lvLastSpecies.LargeImageList.Images[ii];
+            species = species ?? SelectedSpecies;
+            if (lvLastSpecies.LargeImageList != null
+                && !string.IsNullOrEmpty(species?.blueprintPath)
+                && _iconIndices.TryGetValue(species.blueprintPath, out var i)
+                && i >= 0 && i < lvLastSpecies.LargeImageList.Images.Count)
+                return lvLastSpecies.LargeImageList.Images[i];
             return null;
         }
 
@@ -484,10 +520,21 @@ namespace ARKBreedingStats
         /// <summary>
         /// Selects the last user selected species.
         /// </summary>
-        internal void SetToLastSetSpecies() => SetSpecies(Values.V.SpeciesByBlueprint(LastSpecies?.FirstOrDefault()));
+        internal bool SetToLastSetSpecies() => SetSpecies(Values.V.SpeciesByBlueprint(LastSpecies?.FirstOrDefault()));
+
+        /// <summary>
+        /// If no species is selected, set to last selected species, or first available species.
+        /// </summary>
+        public void EnsureSelectedSpecies()
+        {
+            if (SelectedSpecies != null) return;
+            if (SetToLastSetSpecies()) return;
+            if (Values.V.species.Any())
+                SetSpecies(Values.V.species[0]);
+        }
     }
 
-    class SpeciesListEntry
+    internal class SpeciesListEntry
     {
         /// <summary>
         /// Used for search filter, expected lower case.

@@ -2,8 +2,9 @@
 using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
@@ -146,11 +147,18 @@ namespace ARKBreedingStats
                 statsDisplay1.SetCreatureValues(_creature);
                 labelNotes.Text = _creature.note;
                 _tt.SetToolTip(labelNotes, _creature.note);
-                pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex, game: _cc.Game));
-                _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
-                    + "\n\nClick to copy creature infos as image to the clipboard");
-                pictureBox1.Visible = true;
+                pictureBox1.Visible = false;
+                CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
+                    _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
             }
+        }
+
+        private void UpdateCreatureImage(Bitmap bmp)
+        {
+            pictureBox1.SetImageAndDisposeOld(bmp);
+            _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
+                                        + "\n\nClick to copy creature infos as image to the clipboard");
+            pictureBox1.Visible = true;
         }
 
         private void CloseSettings(bool save)
@@ -245,8 +253,9 @@ namespace ARKBreedingStats
             if (_creature == null) return;
 
             _creature.colors = regionColorChooser1.ColorIds;
-            pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_creature.colors, _creature.Species, _colorRegionUseds, creatureSex: _creature.sex, game: _cc.Game));
             Changed?.Invoke(_creature, false, false);
+            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
+                _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

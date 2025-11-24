@@ -7,7 +7,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Media;
+using ARKBreedingStats.SpeciesImages;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -145,8 +145,8 @@ namespace ARKBreedingStats.uiControls
             {
                 var colorsInRegion = LibraryInfo.ColorsExistPerRegion?[ri]?.ToArray();
                 var colorsCountInRegion = colorsInRegion?.Length ?? 0;
-                if (colorsCountInRegion == 0) continue;
-                colorIds[ri] = colorsInRegion[rand.Next(colorsCountInRegion)];
+                if (colorsInRegion != null && colorsCountInRegion > 0)
+                    colorIds[ri] = colorsInRegion[rand.Next(colorsCountInRegion)];
             }
             SetColors(colorIds);
         }
@@ -228,8 +228,9 @@ namespace ARKBreedingStats.uiControls
         public void UpdateCreatureImage()
         {
             // todo button for gender
-            _speciesPictureBox.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(_selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
-                onlyImage: true, creatureSex: Sex.Male, game: CreatureCollection.CurrentCreatureCollection?.Game));
+            CreatureColored.GetColoredCreatureWithCallback(_speciesPictureBox.SetImageAndDisposeOld, this,
+                _selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
+                onlyImage: true, creatureSex: Sex.Male, game: CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
         private void _speciesPictureBoxClick(object sender, EventArgs e)

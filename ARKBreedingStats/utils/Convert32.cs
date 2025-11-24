@@ -5,7 +5,7 @@ namespace ARKBreedingStats.utils
     internal static class Convert32
     {
         /// <summary>
-        /// Encodes a byte array to a string using the characters A-V and 0-9.
+        /// Encodes a byte array to a string using the characters [0-9a-v].
         /// This can be used instead of ToBase64String if the resulting string should be different also when ignoring the casing.
         /// </summary>
         public static string ToBase32String(byte[] bytes)
@@ -43,14 +43,11 @@ namespace ARKBreedingStats.utils
         }
 
         /// <summary>
-        /// Byte is expected to be in the range of 0 - 2^5.
+        /// Byte is expected to be in the range of [0, 2^5 - 1].
         /// </summary>
-        private static char ByteToChar(int b)
-        {
-            return OutputChars[b & 0x1f];
-        }
+        private static char ByteToChar(int b) => OutputChars[b & 0x1f];
 
-        private static readonly char[] OutputChars = "ABCDEFGHIJKLMNOPQRSTUV01234567890".ToCharArray();
+        private static readonly char[] OutputChars = "0123456789abcdefghijklmnopqrstuv".ToCharArray();
 
         /// <summary>
         /// Decodes a string created by ToBase32String.
@@ -87,39 +84,39 @@ namespace ARKBreedingStats.utils
         {
             switch (c)
             {
-                case 'A': return 0;
-                case 'B': return 1;
-                case 'C': return 2;
-                case 'D': return 3;
-                case 'E': return 4;
-                case 'F': return 5;
-                case 'G': return 6;
-                case 'H': return 7;
-                case 'I': return 8;
-                case 'J': return 9;
-                case 'K': return 10;
-                case 'L': return 11;
-                case 'M': return 12;
-                case 'N': return 13;
-                case 'O': return 14;
-                case 'P': return 15;
-                case 'Q': return 16;
-                case 'R': return 17;
-                case 'S': return 18;
-                case 'T': return 19;
-                case 'U': return 20;
-                case 'V': return 21;
-                case '0': return 22;
-                case '1': return 23;
-                case '2': return 24;
-                case '3': return 25;
-                case '4': return 26;
-                case '5': return 27;
-                case '6': return 28;
-                case '7': return 29;
-                case '8': return 30;
-                case '9': return 31;
-                default: throw new ArgumentOutOfRangeException(c + " is an invalid character for base32 encoded string");
+                case '0': return 0;
+                case '1': return 1;
+                case '2': return 2;
+                case '3': return 3;
+                case '4': return 4;
+                case '5': return 5;
+                case '6': return 6;
+                case '7': return 7;
+                case '8': return 8;
+                case '9': return 9;
+                case 'a': return 10;
+                case 'b': return 11;
+                case 'c': return 12;
+                case 'd': return 13;
+                case 'e': return 14;
+                case 'f': return 15;
+                case 'g': return 16;
+                case 'h': return 17;
+                case 'i': return 18;
+                case 'j': return 19;
+                case 'k': return 20;
+                case 'l': return 21;
+                case 'm': return 22;
+                case 'n': return 23;
+                case 'o': return 24;
+                case 'p': return 25;
+                case 'q': return 26;
+                case 'r': return 27;
+                case 's': return 28;
+                case 't': return 29;
+                case 'u': return 30;
+                case 'v': return 31;
+                default: throw new ArgumentOutOfRangeException(c + " is an invalid character for a base32 encoded string, only [0-9a-v] are expected.");
             }
         }
     }

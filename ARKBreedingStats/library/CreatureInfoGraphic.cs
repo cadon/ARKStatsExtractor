@@ -4,7 +4,9 @@ using System;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.SpeciesImages;
 
 namespace ARKBreedingStats.library
 {
@@ -14,9 +16,8 @@ namespace ARKBreedingStats.library
         /// Creates an image with infos about the creature, using the user settings.
         /// </summary>
         /// <param name="cc">CreatureCollection for server settings.</param>
-        public static Bitmap InfoGraphic(this Creature creature, CreatureCollection cc)
-        {
-            return InfoGraphic(creature, cc,
+        public static Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc) =>
+            InfoGraphicAsync(creature, cc,
                 Properties.Settings.Default.InfoGraphicHeight,
                 GetUserFont(),
                 Properties.Settings.Default.InfoGraphicForeColor,
@@ -31,7 +32,6 @@ namespace ARKBreedingStats.library
                 Properties.Settings.Default.InfoGraphicShowMaxWildLevel,
                 Properties.Settings.Default.InfoGraphicExtraRegionNames,
                 Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage);
-        }
 
         /// <summary>
         /// Gets user set font. If not font is set, Arial is set.
@@ -52,7 +52,7 @@ namespace ARKBreedingStats.library
         /// Creates an image with infos about the creature.
         /// </summary>
         /// <param name="cc">CreatureCollection for server settings.</param>
-        public static Bitmap InfoGraphic(this Creature creature, CreatureCollection cc,
+        public static async Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc,
             int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor,
             bool displayCreatureName, bool displayWithDomLevels, bool displaySumWildMutLevels, bool displayMutations, bool displayGenerations, bool displayStatValues, bool displayMaxWildLevel,
             bool displayExtraRegionNames, bool displayRegionNamesIfNoImage)
@@ -229,9 +229,9 @@ namespace ARKBreedingStats.library
                                               height - currentYPosition - frameThickness * 4 - extraMarginBottom);
                 if (imageSize > 5)
                 {
-                    using (var crBmp =
-                        CreatureColored.GetColoredCreature(creature.colors, creature.Species, creature.Species.EnabledColorRegions,
-                            imageSize, onlyImage: true, creatureSex: creature.sex, game: cc.Game))
+                    using (var crBmp = await
+                        CreatureColored.GetColoredCreatureAsync(creature.colors, creature.Species, creature.Species.EnabledColorRegions,
+                            imageSize, onlyImage: true, creatureSex: creature.sex, game: cc.Game).ConfigureAwait(false))
                     {
                         if (crBmp != null)
                         {
@@ -359,11 +359,11 @@ namespace ARKBreedingStats.library
         /// </summary>
         /// <param name="creature"></param>
         /// <param name="cc">CreatureCollection for server settings.</param>
-        public static void ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc)
+        public static async Task ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc)
         {
             if (creature == null) return;
 
-            using (var bmp = creature.InfoGraphic(cc))
+            using (var bmp = await creature.InfoGraphicAsync(cc).ConfigureAwait(false))
             {
                 if (bmp != null)
                     Clipboard.SetImage(bmp);

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
@@ -380,8 +380,8 @@ namespace ARKBreedingStats.Pedigree
         /// Update the colors displayed in the wheel.
         /// </summary>
         internal void UpdateColors(byte[] colorIds)
-            => pictureBox1.SetImageAndDisposeOld(CreatureColored.GetColoredCreature(colorIds, null, enabledColorRegions, 24, 22, true,
-                game: CreatureCollection.CurrentCreatureCollection?.Game));
+            => pictureBox1.SetImageAndDisposeOld(CreatureColored.DrawPieChart(colorIds, enabledColorRegions, 24, 22));
+
 
         /// <summary>
         /// Sets the displayed title of the control.

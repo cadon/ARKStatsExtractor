@@ -40,7 +40,7 @@ namespace ARKBreedingStats
                 return;
             }
 
-            if (_creatureCollection.modIDs?.Any() ?? false)
+            if (_creatureCollection?.modIDs?.Any() ?? false)
             {
                 // if old collection had additionalValues, load the original ones to reset all modded values
                 var (statValuesLoaded, _) = LoadStatAndKibbleValues(applySettings: false);
@@ -55,7 +55,7 @@ namespace ARKBreedingStats
             ServerMultipliers oldEventMultipliers = null;
             bool asaMode;
 
-            if (Properties.Settings.Default.KeepMultipliersForNewLibrary)
+            if (Properties.Settings.Default.KeepMultipliersForNewLibrary && _creatureCollection != null)
             {
                 // use previously used multipliers again in the new file
                 oldMultipliers = _creatureCollection.serverMultipliers;
@@ -72,7 +72,7 @@ namespace ARKBreedingStats
                     asaMode = true;
                     break;
                 case Ark.Game.SameAsBefore:
-                    asaMode = _creatureCollection.Game == Ark.Asa;
+                    asaMode = _creatureCollection?.Game != Ark.Ase;
                     break;
                 default:
                     var gameVersionDialog = new ArkVersionDialog(this);
@@ -118,7 +118,7 @@ namespace ARKBreedingStats
             SetCollectionChanged(false);
         }
 
-        delegate void collectionChangedCallback();
+        private delegate void CollectionChangedCallback();
 
         /// <summary>
         /// This method is called when the collection file was changed. This is used when the file is shared via a cloud service.
@@ -127,7 +127,7 @@ namespace ARKBreedingStats
         {
             if (creatureBoxListView.InvokeRequired)
             {
-                collectionChangedCallback d = CollectionChanged;
+                CollectionChangedCallback d = CollectionChanged;
                 Invoke(d);
             }
             else
@@ -899,6 +899,7 @@ namespace ARKBreedingStats
                 if (c != null)
                 {
                     newCreatures.Add(c);
+                    SetLockedCreatureProperties(c);
                     importedCounter++;
                     lastCreatureFilePath = filePath;
                 }
