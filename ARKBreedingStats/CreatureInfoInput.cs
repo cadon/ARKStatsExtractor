@@ -44,7 +44,7 @@ namespace ARKBreedingStats
         private string[] _ownersTribes;
         private byte[] _regionColorIDs;
         private byte[] _colorIdsAlsoPossible;
-        private bool _tribeLock, _ownerLock;
+        private bool _lockOwner, _lockTribe, _lockServer;
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the info input
 
         private CreatureTrait[] _traits;
@@ -63,11 +63,30 @@ namespace ARKBreedingStats
         /// Creature if it's already existing in the library.
         /// </summary>
         private Creature _alreadyExistingCreature;
+
         /// <summary>
         /// If true, it's the tester input. This affects the behaviour of the saveToLibrary button.
         /// In the extractor it will change colour and text if a creature is reimported, in the tester it will always display add to library.
         /// </summary>
-        public bool IsTester;
+        public bool IsTester
+        {
+            get => _isTester;
+            set
+            {
+                _isTester = value;
+                if (!_isTester) return;
+                // remove underline and tooltips
+                var font = new Font(lbOwner.Font, FontStyle.Regular);
+                lbOwner.Font = font;
+                lbTribe.Font = font;
+                lbServer.Font = font;
+                _tt.SetToolTip(lbOwner, null);
+                _tt.SetToolTip(lbTribe, null);
+                _tt.SetToolTip(lbServer, null);
+            }
+        }
+
+        private bool _isTester;
 
         private readonly Debouncer _parentsChangedDebouncer = new Debouncer();
         private readonly Debouncer _nameChangedDebouncer = new Debouncer();
@@ -693,17 +712,29 @@ namespace ARKBreedingStats
         /// <summary>
         /// If true the OCR and import exported methods will not change the owner field.
         /// </summary>
-        public bool OwnerLock
+        public bool LockOwner
         {
-            get => _ownerLock;
+            get => _lockOwner;
             set
             {
-                _ownerLock = value;
+                _lockOwner = value;
                 textBoxOwner.BackColor = value ? Color.LightGray : SystemColors.Window;
             }
         }
 
-        private bool _lockServer;
+        /// <summary>
+        /// If true the OCR and import exported methods will not change the tribe field.
+        /// </summary>
+        public bool LockTribe
+        {
+            get => _lockTribe;
+            set
+            {
+                _lockTribe = value;
+                textBoxTribe.BackColor = value ? Color.LightGray : SystemColors.Window;
+            }
+        }
+
         /// <summary>
         /// If true the importing will not change the server field.
         /// </summary>
@@ -714,19 +745,6 @@ namespace ARKBreedingStats
             {
                 _lockServer = value;
                 cbServer.BackColor = value ? Color.LightGray : SystemColors.Window;
-            }
-        }
-
-        /// <summary>
-        /// If true the OCR and import exported methods will not change the tribe field.
-        /// </summary>
-        public bool TribeLock
-        {
-            get => _tribeLock;
-            set
-            {
-                _tribeLock = value;
-                textBoxTribe.BackColor = value ? Color.LightGray : SystemColors.Window;
             }
         }
 
@@ -760,9 +778,11 @@ namespace ARKBreedingStats
                 : Color.LightSkyBlue;
         }
 
-        private void lblOwner_Click(object sender, EventArgs e) => OwnerLock = !OwnerLock;
+        private void lblOwner_Click(object sender, EventArgs e) => LockOwner = !IsTester && !LockOwner;
 
-        private void lbServer_Click(object sender, EventArgs e) => LockServer = !LockServer;
+        private void lblTribe_Click(object sender, EventArgs e) => LockTribe = !IsTester && !LockTribe;
+
+        private void lbServer_Click(object sender, EventArgs e) => LockServer = !IsTester && !LockServer;
 
         private void lblName_Click(object sender, EventArgs e)
         {
@@ -785,11 +805,6 @@ namespace ARKBreedingStats
         private void ClearColors()
         {
             regionColorChooser1.Clear();
-        }
-
-        private void lblTribe_Click(object sender, EventArgs e)
-        {
-            TribeLock = !TribeLock;
         }
 
         private void textBoxName_TextChanged(object sender, EventArgs e)

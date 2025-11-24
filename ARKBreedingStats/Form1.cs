@@ -523,8 +523,8 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
             creatureInfoInputExtractor.CreatureTribe = Properties.Settings.Default.DefaultTribeName;
             creatureInfoInputExtractor.CreatureServer = Properties.Settings.Default.DefaultServerName;
-            creatureInfoInputExtractor.OwnerLock = Properties.Settings.Default.OwnerNameLocked;
-            creatureInfoInputExtractor.TribeLock = Properties.Settings.Default.TribeNameLocked;
+            creatureInfoInputExtractor.LockOwner = Properties.Settings.Default.OwnerNameLocked;
+            creatureInfoInputExtractor.LockTribe = Properties.Settings.Default.TribeNameLocked;
             creatureInfoInputExtractor.LockServer = Properties.Settings.Default.ServerNameLocked;
 
             CbLinkWildMutatedLevelsTester.Checked = Properties.Settings.Default.TesterLinkWildMutatedLevels;
@@ -1500,8 +1500,8 @@ namespace ARKBreedingStats
             Properties.Settings.Default.MutationLimitBreedingPlanner = breedingPlan1.MutationLimit;
 
             // save locked state of owner, tribe and server
-            Properties.Settings.Default.OwnerNameLocked = creatureInfoInputExtractor.OwnerLock;
-            Properties.Settings.Default.TribeNameLocked = creatureInfoInputExtractor.TribeLock;
+            Properties.Settings.Default.OwnerNameLocked = creatureInfoInputExtractor.LockOwner;
+            Properties.Settings.Default.TribeNameLocked = creatureInfoInputExtractor.LockTribe;
             Properties.Settings.Default.ServerNameLocked = creatureInfoInputExtractor.LockServer;
 
             // save splitter distance of speciesSelector
@@ -2391,9 +2391,9 @@ namespace ARKBreedingStats
             numericUpDownLevel.ValueSave = (decimal)OcrValues[9];
 
             creatureInfoInputExtractor.CreatureName = dinoName;
-            if (!creatureInfoInputExtractor.OwnerLock)
+            if (!creatureInfoInputExtractor.LockOwner)
                 creatureInfoInputExtractor.CreatureOwner = ownerName;
-            if (!creatureInfoInputExtractor.TribeLock)
+            if (!creatureInfoInputExtractor.LockTribe)
                 creatureInfoInputExtractor.CreatureTribe = tribeName;
             creatureInfoInputExtractor.CreatureSex = sex;
             creatureInfoInputExtractor.RegionColors = new byte[Ark.ColorRegionCount];
@@ -3201,9 +3201,9 @@ namespace ARKBreedingStats
         private void SetCreatureValuesToInfoInput(CreatureValues cv, CreatureInfoInput input)
         {
             input.CreatureName = cv.name;
-            if (!creatureInfoInputExtractor.OwnerLock)
+            if (!creatureInfoInputExtractor.LockOwner)
                 input.CreatureOwner = cv.owner;
-            if (!creatureInfoInputExtractor.TribeLock)
+            if (!creatureInfoInputExtractor.LockTribe)
                 input.CreatureTribe = cv.tribe;
             if (!creatureInfoInputExtractor.LockServer)
                 input.CreatureServer = cv.server;

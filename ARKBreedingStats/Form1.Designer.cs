@@ -2106,7 +2106,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.MutationCounterFather = 0;
             this.creatureInfoInputTester.MutationCounterMother = 0;
             this.creatureInfoInputTester.Name = "creatureInfoInputTester";
-            this.creatureInfoInputTester.OwnerLock = false;
+            this.creatureInfoInputTester.LockOwner = false;
             this.creatureInfoInputTester.RegionColors = new byte[] {
         ((byte)(0)),
         ((byte)(0)),
@@ -2117,7 +2117,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputTester.TabIndex = 4;
             this.creatureInfoInputTester.Traits = null;
-            this.creatureInfoInputTester.TribeLock = false;
+            this.creatureInfoInputTester.LockTribe = false;
             this.creatureInfoInputTester.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Add2Library_Clicked);
             this.creatureInfoInputTester.Save2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputTester_Save2Library_Clicked);
             this.creatureInfoInputTester.ParentListRequested += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
@@ -2492,7 +2492,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.MutationCounterFather = 0;
             this.creatureInfoInputExtractor.MutationCounterMother = 0;
             this.creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
-            this.creatureInfoInputExtractor.OwnerLock = false;
+            this.creatureInfoInputExtractor.LockOwner = false;
             this.creatureInfoInputExtractor.RegionColors = new byte[] {
         ((byte)(0)),
         ((byte)(0)),
@@ -2503,7 +2503,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.Size = new System.Drawing.Size(262, 590);
             this.creatureInfoInputExtractor.TabIndex = 7;
             this.creatureInfoInputExtractor.Traits = null;
-            this.creatureInfoInputExtractor.TribeLock = false;
+            this.creatureInfoInputExtractor.LockTribe = false;
             this.creatureInfoInputExtractor.Add2LibraryClicked += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.creatureInfoInputExtractor_Add2Library_Clicked);
             this.creatureInfoInputExtractor.ParentListRequested += new System.Action<ARKBreedingStats.CreatureInfoInput>(this.CreatureInfoInput_ParentListRequested);
             // 

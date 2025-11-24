@@ -899,6 +899,7 @@ namespace ARKBreedingStats
                 if (c != null)
                 {
                     newCreatures.Add(c);
+                    SetLockedCreatureProperties(c);
                     importedCounter++;
                     lastCreatureFilePath = filePath;
                 }
