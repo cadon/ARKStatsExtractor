@@ -37,6 +37,11 @@ namespace ARKBreedingStats.SpeciesImages
         private static readonly ConcurrentDictionary<string, string> CachedSpeciesFilePaths = new ConcurrentDictionary<string, string>();
 
         /// <summary>
+        /// Preferred image packs per species. Key is blueprint path or species name.
+        /// </summary>
+        private static Dictionary<string, string> _preferImagePacks;
+
+        /// <summary>
         /// Returns the file path of the image used for the species. E.g. parts like Brute are removed, they share the same graphics.
         /// There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
         /// If the file is not available locally or outdated, it's downloaded.
@@ -83,12 +88,12 @@ namespace ARKBreedingStats.SpeciesImages
             var preferredResources = "_" + imagePackName + "_" + imageName;
 
             var keyString = creatureImageParameters.BaseParameters + preferredResources + compositionHash;
-            if (CachedSpeciesFilePaths?.TryGetValue(keyString, out var filePathAndFileNameBase) == true)
+            if (CachedSpeciesFilePaths.TryGetValue(keyString, out var filePathAndFileNameBase))
                 return filePathAndFileNameBase;
 
             // if request needs a specific image, only try to get that
             if (!string.IsNullOrEmpty(imageName))
-                return await GetImagePathAsync(keyString, new List<string> { imageName }, imagePackName).ConfigureAwait(false);
+                return await GetImagePathAsync(keyString, new[] { imageName }, imagePackName).ConfigureAwait(false);
 
             if (composition != null)
             {
@@ -96,6 +101,10 @@ namespace ARKBreedingStats.SpeciesImages
                 if (filePath != null)
                     return filePath;
             }
+
+            // user may prefer an image pack for a species
+            if (imagePackName == null)
+                imagePackName = UserPreferenceImagePack(creatureImageParameters.Species);
 
             // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
             var possibleFileNames = creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName);
@@ -107,6 +116,16 @@ namespace ARKBreedingStats.SpeciesImages
 
             return await GetImagePathAsync(keyString, possibleFileNames, imagePackName).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Check if user prefers an image pack for a species.
+        /// </summary>
+        private static string UserPreferenceImagePack(Species species) =>
+            _preferImagePacks != null
+            && (_preferImagePacks.TryGetValue(species.blueprintPath, out var ip)
+                || _preferImagePacks.TryGetValue(species.name, out ip))
+                ? ip
+                : null;
 
         /// <summary>
         /// Returns file path of composed base image.
@@ -148,11 +167,11 @@ namespace ARKBreedingStats.SpeciesImages
         }
 
         private static Task<string> GetImagePathAsync(
-            string speciesPropertiesKeyString, List<string> possibleFileNames, string imagePackName = null) =>
+            string speciesPropertiesKeyString, IList<string> possibleFileNames, string imagePackName = null) =>
             RetrievalTasks.GetOrAdd(speciesPropertiesKeyString, new Lazy<Task<string>>(()
                 => GetImagePathOnceAsync(speciesPropertiesKeyString, possibleFileNames, imagePackName))).Value;
 
-        private static async Task<string> GetImagePathOnceAsync(string speciesPropertiesKeyString, List<string> possibleFileNames, string imagePackName = null)
+        private static async Task<string> GetImagePathOnceAsync(string speciesPropertiesKeyString, IList<string> possibleFileNames, string imagePackName = null)
         {
             try
             {
@@ -183,9 +202,10 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         /// <param name="speciesProperties">String unique to a species and possible other properties like game, mod, sex.</param>
         internal static string ColoredCreatureCacheFilePath(string speciesProperties, byte[] colorIds, bool listView = false)
-            => Path.Combine(_imgCacheFolderPath, speciesProperties.Substring(0, Math.Min(speciesProperties.Length, 5)) + "_"
+            => Path.Combine(_imgCacheFolderPath, (listView ? "lv_" : string.Empty)
+                + speciesProperties.Substring(0, Math.Min(speciesProperties.Length, 5)) + "_"
                 + Convert32.ToBase32String((listView ? new byte[] { 0 } : colorIds.Select(ci => ci)).Concat(Encoding.UTF8.GetBytes(speciesProperties)).ToArray()).Replace('/', '-')
-                + (listView ? "_lv" : string.Empty) + FileExtension);
+                + FileExtension);
 
         /// <summary>
         /// File path of combined base image.
@@ -239,10 +259,16 @@ namespace ARKBreedingStats.SpeciesImages
             ClearCachedSpeciesFiles();
         }
 
+        public const string PreferImagePackFileName = "preferImagePacks.json";
+
         /// <summary>
         /// Clear cached species base file paths, call after image pack change.
         /// </summary>
-        internal static void ClearCachedSpeciesFiles() => CachedSpeciesFilePaths?.Clear();
+        internal static void ClearCachedSpeciesFiles()
+        {
+            CachedSpeciesFilePaths?.Clear();
+            _preferImagePacks = FileService.LoadJsonFileIfAvailable<Dictionary<string, string>>(FileService.GetJsonPath(PreferImagePackFileName));
+        }
 
         /// <summary>
         /// If the setting ImgCacheUseLocalAppData is true, the image cache files are saved in the %localAppData% folder instead of the app folder.

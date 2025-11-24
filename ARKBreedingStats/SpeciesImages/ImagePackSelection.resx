@@ -117,4 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LbCustomPackInfo.Text" xml:space="preserve">
+    <value>For species that should prefer a different image pack, add them to this file.
+The image pack still needs to be enabled to be used.
+It's a json file with the key value being the species name (or blueprint path), the value is the name of the image pack.
+E.g.
+{
+  "Argentavis": "My image pack",
+  "Doedicurus": "My other image pack"
+}</value>
+  </data>
 </root>

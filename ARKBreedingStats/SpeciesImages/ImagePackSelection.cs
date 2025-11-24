@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.SpeciesImages
 {
@@ -37,12 +39,11 @@ namespace ARKBreedingStats.SpeciesImages
         private void DisplayInfo(ImagesManifest m)
         {
             LbPackName.Text = m?.Name;
-            LbCreators.Text = m?.Creator;
+            LbCreators.Text = $"Creators: {m?.Creator}";
             LbDescription.Text = m?.Description;
-            LbSource.Text = m?.Url;
+            TbUrl.Text = m?.Url;
             LLFolder.Text = m == null ? string.Empty : $"Show local folder in explorer: {m.FolderName}";
-            if (m != null)
-                LLFolder.Tag = Path.GetDirectoryName(ImageCollections.ManifestFilePathOfPack(m.FolderName));
+            LLFolder.Tag = m == null ? null : Path.GetDirectoryName(ImageCollections.ManifestFilePathOfPack(m.FolderName));
         }
 
         private void LbAvailablePacks_DoubleClick(object sender, EventArgs e) => AddPack((sender as ListBox)?.SelectedItem as ImagesManifest);
@@ -136,6 +137,25 @@ namespace ARKBreedingStats.SpeciesImages
         {
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void BtOpenPreferenceFile_Click(object sender, EventArgs e)
+        {
+            var filePath = FileService.GetJsonPath(CreatureImageFile.PreferImagePackFileName);
+            if (!File.Exists(filePath))
+            {
+                try
+                {
+                    File.WriteAllText(filePath, "{\n  \"species name\": \"image pack name\"\n}");
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxes.ExceptionMessageBox(ex, $"Error when trying to create file\n{filePath}");
+                    return;
+                }
+            }
+            if (File.Exists(filePath))
+                Process.Start(filePath);
         }
     }
 }
