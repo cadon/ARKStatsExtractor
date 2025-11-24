@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using ARKBreedingStats.utils;
 
@@ -14,6 +15,11 @@ namespace ARKBreedingStats.SpeciesImages
     {
         private readonly ConcurrentDictionary<string, Lazy<Task<string>>> _currentDownloads =
             new ConcurrentDictionary<string, Lazy<Task<string>>>();
+
+        /// <summary>
+        /// Only allow 5 concurrent downloads.
+        /// </summary>
+        private static readonly SemaphoreSlim Semaphore = new SemaphoreSlim(5);
 
         /// <summary>
         /// Local folder name, should be unique.
@@ -70,21 +76,31 @@ namespace ARKBreedingStats.SpeciesImages
                 if (hashMatches == null)
                     return null; // error, hash invalid or fileName empty
 
-                var sw = Stopwatch.StartNew();
-                // file is in image pack but not up to date or not available locally
-                var (downloadSuccessful, _) =
-                    await WebService.DownloadAsync(_manifestSource.Url + fileName, filePathLocalImage);
-                sw.Stop();
-                if (downloadSuccessful)
+                // file needs to be downloaded. Limit concurrent downloads.
+                Debug.WriteLine($"Waiting to download file, currently {Semaphore.CurrentCount} more downloads are allowed.");
+                await Semaphore.WaitAsync();
+                try
                 {
-                    Debug.WriteLine(
-                        $"downloading file {fileName} from image pack {_manifestSource.Name} took {sw.ElapsedMilliseconds} ms");
-                    return fileName;
-                }
+                    var sw = Stopwatch.StartNew();
+                    // file is in image pack but not up to date or not available locally
+                    var (downloadSuccessful, _) =
+                        await WebService.DownloadAsync(_manifestSource.Url + fileName, filePathLocalImage);
+                    sw.Stop();
+                    if (downloadSuccessful)
+                    {
+                        Debug.WriteLine(
+                            $"Downloading file {fileName} from image pack {_manifestSource.Name} took {sw.ElapsedMilliseconds} ms. Currently {(Semaphore.CurrentCount + 1)} more concurrent downloads are allowed.");
+                        return fileName;
+                    }
 
-                Debug.WriteLine($"downloading file {fileName} from image pack {_manifestSource.Name} failed");
-                // error, file not retrievable
-                return null;
+                    Debug.WriteLine($"downloading file {fileName} from image pack {_manifestSource.Name} failed");
+                    // error, file not retrievable
+                    return null;
+                }
+                finally
+                {
+                    Semaphore.Release();
+                }
             }
             finally
             {
