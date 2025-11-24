@@ -1,5 +1,5 @@
 {
-	"version": "74.31.2",
+	"version": "75.16.2",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -11390,9 +11390,184 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/LostColony/Dinos/SnowMonster/SnowMonster_Character_BP.SnowMonster_Character_BP",
+			"name": "Ossidon",
+			"variants": [ "LostColony" ],
+			"fullStatsRaw": [
+				[ 1430, 0.2, 0.27, 0.5, 0 ],
+				[ 420, 0.1, 0.1, 0, 0 ],
+				[ 1550, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 3000, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 28571.4286,
+				"incubationTime": 0,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.25,
+				"affinityNeeded0": 3450,
+				"affinityIncreasePL": 150,
+				"foodConsumptionBase": 0.002314,
+				"foodConsumptionMult": 180.0634,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_head": 0.75 },
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"DarkCement",
+						"LightCement",
+						"None"
+					]
+				},
+				null,
+				{
+					"name": "Spike tips",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Glacial"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Glacial",
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Purple",
+						"Dino Light Red",
+						"DragonBase0",
+						"LightPink",
+						"Peach"
+					]
+				},
+				{
+					"name": "Bone",
+					"colors": [
+						"BigFoot0",
+						"Light Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"DarkWolfFur",
+						"Dark Grey",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Albino",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"NearWhite",
+						"NearBlack",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"Glacial"
+					]
+				}
+			]
+		},
+		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/Ghost/Ghost_YoungIceFox_DinoCompanion_Character_BP.Ghost_YoungIceFox_DinoCompanion_Character_BP",
 			"name": "Veilwyn Ghost",
-			"variants": [ "Ghost" ],
+			"variants": [ "Ghost", "LostColony" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -11567,7 +11742,7 @@
 		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/Ghost/Ghost_YoungIceFox_DinoCompanion_Character_WildClone_BP.Ghost_YoungIceFox_DinoCompanion_Character_WildClone_BP",
 			"name": "Veilwyn Ghost",
-			"variants": [ "Ghost", "Minion" ],
+			"variants": [ "Ghost", "LostColony", "Minion" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -11742,7 +11917,7 @@
 		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/YoungIceFox_DinoCompanion_Character_BP.YoungIceFox_DinoCompanion_Character_BP",
 			"name": "Veilwyn",
-			"variants": [ "Companion" ],
+			"variants": [ "Companion", "LostColony" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -11893,7 +12068,7 @@
 		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/YoungIceFox_DinoCompanion_Character_Clone_BP.YoungIceFox_DinoCompanion_Character_Clone_BP",
 			"name": "Veilwyn",
-			"variants": [ "Companion", "Minion" ],
+			"variants": [ "Companion", "LostColony", "Minion" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -12061,7 +12236,7 @@
 		{
 			"blueprintPath": "/Game/LostColony/Dinos/YoungIceFox/YoungIceFox_DinoCompanion_Character_WildClone_BP.YoungIceFox_DinoCompanion_Character_WildClone_BP",
 			"name": "Veilwyn",
-			"variants": [ "Companion", "Minion" ],
+			"variants": [ "Companion", "LostColony", "Minion" ],
 			"fullStatsRaw": [
 				[ 200, 0.2, 0.27, 0.66, 0 ],
 				[ 260, 0.1, 0.1, 0, 0 ],
@@ -21145,7 +21320,7 @@
 				"jaw_exp": 1.5
 			},
 			"skipWildLevelStats": 512,
-			"regionIntensities": [ 1.33, 1.33, 1.33, 1.33, 1.33, 1.33 ]
+			"regionIntensities": [ 1.9285, 1.9285, 1.9285, 1.9285, 1.9285, 1.9285 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/MegaWyvern_Character_BP_Fire.MegaWyvern_Character_BP_Fire",
@@ -21154,7 +21329,7 @@
 				"jaw_exp": 1.5
 			},
 			"skipWildLevelStats": 512,
-			"regionIntensities": [ 1.33, 1.33, 1.33, 1.33, 1.33, 1.33 ]
+			"regionIntensities": [ 1.9285, 1.9285, 1.9285, 1.9285, 1.9285, 1.9285 ]
 		},
 		{
 			"blueprintPath": "/Game/ScorchedEarth/Dinos/Wyvern/Wyvern_Character_BP_Fire.Wyvern_Character_BP_Fire",
