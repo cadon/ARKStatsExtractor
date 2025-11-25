@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
@@ -31,6 +32,13 @@ namespace ARKBreedingStats.SpeciesImages
         private const int TemplateSize = 256;
 
         /// <summary>
+        /// Stores current creature image callbacks to avoid race conditions where a previously requested image overwrites a later requested image.
+        /// Only the latest call will have its callback called.
+        /// </summary>
+        private static readonly ConcurrentDictionary<Action<Bitmap>, int> ColoredCreatureCallbacks =
+            new ConcurrentDictionary<Action<Bitmap>, int>();
+
+        /// <summary>
         /// Retrieves a bitmap image that represents the given colors. If a species color file is available, that is used, else a pie-chart like representation.
         /// This method runs the retrieval in a separate thread and calls a callback once finished on the thread of the passed control.
         /// </summary>
@@ -52,9 +60,21 @@ namespace ARKBreedingStats.SpeciesImages
         {
             Task.Run(async () =>
             {
+                var currentTaskId = Task.CurrentId ?? 0;
+                ColoredCreatureCallbacks[callBack] = currentTaskId;
                 var bmp = await GetColoredCreatureAsync(colorIds, species,
                     enabledColorRegions, size, pieSize, creatureSex: creatureSex, game: game);
-                uiElement.Invoke(new Action(() => callBack(bmp)));
+                uiElement.Invoke(
+                    new Action(() =>
+                    {
+                        if (ColoredCreatureCallbacks.TryGetValue(callBack, out var taskId)
+                            && taskId == currentTaskId)
+                        {
+                            callBack(bmp);
+                            ColoredCreatureCallbacks.TryRemove(callBack, out _);
+                        }
+                        else bmp.Dispose(); // callback is outdated, dispose bitmap
+                    }));
             });
         }
 

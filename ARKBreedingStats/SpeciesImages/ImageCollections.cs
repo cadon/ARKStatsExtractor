@@ -103,26 +103,17 @@ namespace ARKBreedingStats.SpeciesImages
             foreach (var im in imagePacksOrdered)
             {
                 var filePathLocalManifest = ManifestFilePathOfPack(im.FolderName);
-                if (string.IsNullOrEmpty(filePathLocalManifest)) continue;
-
-                if (!File.Exists(filePathLocalManifest))
+                if (string.IsNullOrEmpty(filePathLocalManifest))
                 {
-                    MessageBoxes.ShowMessageBox($"Manifest file not found at\n{filePathLocalManifest}\n\nThis image pack ({im.Name}) cannot be used without a valid manifest file.",
-                        "Error loading manifest file");
-                    continue;
-                }
-
-                if (!FileService.LoadJsonObjectFromJsonFile(
-                        filePathLocalManifest, out var manifestJson,
-                        out var errorText))
-                {
-                    MessageBoxes.ShowMessageBox($"Error when trying to load manifest file\n{filePathLocalManifest}\n\n{errorText}",
-                            "Error loading manifest file");
+                    MessageBoxes.ShowMessageBox($"No folder name given for the image pack {im.Name}, it cannot be used without one.",
+                        "Error loading image pack");
                     continue;
                 }
 
                 var isEnabledPack = Properties.Settings.Default.SpeciesImagesUrls?.Contains(im.Id) == true;
-                im.ParseJsonManifest(manifestJson, isEnabledPack);
+                if (!im.LoadLocalImagePackInfo(filePathLocalManifest, isEnabledPack))
+                    continue;
+
                 if (isEnabledPack)
                 {
                     EnabledImageCollections.Add(new ImageCollection(im));

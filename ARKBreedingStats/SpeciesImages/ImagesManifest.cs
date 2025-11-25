@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using ARKBreedingStats.miscClasses;
@@ -83,7 +84,38 @@ namespace ARKBreedingStats.SpeciesImages
                 FolderName = FolderName.Substring(0, maxFolderName);
         }
 
-        public void ParseJsonManifest(JObject json, bool addFileHashes)
+        /// <summary>
+        /// Loads local manifest file. For local packs without manifest file only the available files are checked.
+        /// </summary>
+        /// <returns>False on error.</returns>
+        public bool LoadLocalImagePackInfo(string filePathLocalManifest, bool isEnabledPack)
+        {
+            if (!File.Exists(filePathLocalManifest))
+            {
+                return !isEnabledPack || ParseFiles(Path.GetDirectoryName(filePathLocalManifest));
+
+                //MessageBoxes.ShowMessageBox($"Manifest file not found at\n{filePathLocalManifest}\n\nThis image pack ({Name}) cannot be used without a valid manifest file.",
+                //    "Error loading manifest file");
+                //return false;
+            }
+
+            if (!FileService.LoadJsonObjectFromJsonFile(
+                    filePathLocalManifest, out var manifestJson,
+                    out var errorText))
+            {
+                MessageBoxes.ShowMessageBox($"Error when trying to load manifest file\n{filePathLocalManifest}\n\n{errorText}",
+                    "Error loading manifest file");
+                return false;
+            }
+
+            return ParseJsonManifest(manifestJson, isEnabledPack);
+        }
+
+        /// <summary>
+        /// Parses manifest, adds file hashes if pack is enabled.
+        /// </summary>
+        /// <returns>False on error</returns>
+        private bool ParseJsonManifest(JObject json, bool addFileHashes)
         {
             try
             {
@@ -99,31 +131,42 @@ namespace ARKBreedingStats.SpeciesImages
                     if (!string.IsNullOrEmpty(creator)) Creator = creator;
                 }
 
-                if (!addFileHashes) return;
+                if (!addFileHashes) return true;
 
                 FileHashes = (json["files"] as JObject)?
                     .Properties().Where(f => f.Name != "!info.json")
                     .Select(p => (p.Name, p.Value["hash"]?.ToString()))
                     .Where(p => !string.IsNullOrEmpty(p.Name))
                     .ToDictionary(p => p.Name, p => p.Item2);
-                if (FileHashes?.Any() != true)
-                    MessageBoxes.ShowMessageBox(
-                        $"Error when parsing manifest file\n{ImageCollections.ManifestFilePathOfPack(FolderName)}\n\n"
-                        + "The file structure needs to be a json object with a property \"files\" which contains the file names as property names.\n"
-                        + "Each species image json object needs to have the structure:\n"
-                        + "\"[species].png\": { }\nor for remote updates:\n"
-                        + "\"[species].png\": { \"hash\": \"md5:[fileHash]:[fileLength]\" }"
-                    );
+                if (FileHashes != null) return true;
+
+                MessageBoxes.ShowMessageBox(
+                       $"Error when parsing manifest file\n{ImageCollections.ManifestFilePathOfPack(FolderName)}\n\n"
+                       + "The file structure needs to be a json object with a property \"files\" which contains the file names as property names.\n"
+                       + "Each species image json object needs to have the structure:\n"
+                       + "\"[species].png\": { \"hash\": \"md5:[fileHash]:[fileLength]\" }"
+                   );
             }
             catch (Exception ex)
             {
                 MessageBoxes.ExceptionMessageBox(ex,
                     $"Error when parsing manifest file\n{ImageCollections.ManifestFilePathOfPack(FolderName)}\n\n"
                     + "Each species image json object needs to have the structure:\n"
-                    + "\"species.png\": { }\nor for remote updates:"
-                    + "\"species.png\": { \"hash\": \"md5:[fileHash]:[fileLength]\" }"
+                    + "\"[species].png\": { \"hash\": \"md5:[fileHash]:[fileLength]\" }"
                     );
             }
+            return false;
+        }
+
+        /// <summary>
+        /// If no local manifest is available, just use the available files. No remote update check is available then.
+        /// This is the intended method for local image packs.
+        /// </summary>
+        private bool ParseFiles(string directoryPath)
+        {
+            var files = Directory.GetFiles(directoryPath, "*" + CreatureImageFile.FileExtension);
+            FileHashes = files.ToDictionary(Path.GetFileName, f => string.Empty);
+            return true;
         }
     }
 }
