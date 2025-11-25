@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -580,8 +579,9 @@ namespace ARKBreedingStats
             {
                 try
                 {
-                    _speechRecognition = new SpeechRecognition(_creatureCollection.maxWildLevel,
-                        _creatureCollection.considerWildLevelSteps ? _creatureCollection.wildLevelStep : 1,
+                    _speechRecognition = new SpeechRecognition(
+                        _creatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault,
+                        (_creatureCollection?.considerWildLevelSteps ?? false) ? _creatureCollection.wildLevelStep : 1,
                         Values.V.speciesWithAliasesList, lbListening);
                     if (_speechRecognition.Initialized)
                     {
@@ -4142,7 +4142,7 @@ namespace ARKBreedingStats
 
         private void howGoodAreMyStatsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
+            var maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault;
             var usedStats = speciesSelector1.SelectedSpecies == null ? 6
                 : Enumerable.Range(0, Stats.StatsCount).Count(si => si != Stats.Torpidity && speciesSelector1.SelectedSpecies.CanLevelUpWildOrHaveMutations(si));
             Process.Start($"https://arkutils.netlify.app/tools/wildstats/{maxWildLevel}/{usedStats}");

@@ -1016,7 +1016,7 @@ namespace ARKBreedingStats.BreedingPlanning
 
         public int MaxWildLevels
         {
-            set => offspringPossibilities1.maxWildLevel = value <= 0 ? 150 : value;
+            set => offspringPossibilities1.maxWildLevel = value <= 0 ? Ark.MaxWildLevelDefault : value;
         }
 
         public void SetSpecies(Species species)
