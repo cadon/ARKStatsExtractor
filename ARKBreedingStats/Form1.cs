@@ -1271,7 +1271,7 @@ namespace ARKBreedingStats
             if (!silentCheck)
             {
                 await DisplayUpdateModules(!silentCheck);
-                ImageCollections.LoadImagePackManifests();
+                ImageCollections.LoadImagePackManifests(true);
             }
         }
 
