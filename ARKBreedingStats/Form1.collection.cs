@@ -635,11 +635,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (selectedSpecies == null)
-            {
-                // set to last set species if no creatures in library
-                speciesSelector1.SetToLastSetSpecies();
-            }
+            speciesSelector1.EnsureSelectedSpecies();
 
             // set library species to what it was before loading
             selectedLibrarySpecies = Values.V.SpeciesByBlueprint(selectedLibrarySpecies?.blueprintPath);

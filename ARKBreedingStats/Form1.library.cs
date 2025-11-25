@@ -1045,16 +1045,7 @@ namespace ARKBreedingStats
             if (selectedCount == 0)
             {
                 listViewLibrary.SelectedIndices.Clear();
-                if (selectFirstIfNothingIsSelected && _creaturesDisplayed.Length != 0)
-                {
-                    _reactOnCreatureSelectionChange = true;
-                    listViewLibrary.SelectedIndices.Add(0);
-                    listViewLibrary.EnsureVisible(0);
-                }
-                else
-                {
-                    creatureBoxListView.Clear();
-                }
+                SelectFirstItemIfNothingIsSelected();
                 return;
             }
 
@@ -1082,19 +1073,31 @@ namespace ARKBreedingStats
 
             if (!creatureSelected)
             {
-                if (selectFirstIfNothingIsSelected && _creaturesDisplayed.Length != 0)
-                {
-                    _reactOnCreatureSelectionChange = true;
-                    listViewLibrary.SelectedIndices.Add(0);
-                    listViewLibrary.EnsureVisible(0);
-                }
-                else
-                {
-                    creatureBoxListView.Clear();
-                }
+                SelectFirstItemIfNothingIsSelected();
             }
 
             _reactOnCreatureSelectionChange = true; // make sure it reacts again even if the previous creature is not visible anymore
+
+            void SelectFirstItemIfNothingIsSelected()
+            {
+                if (!selectFirstIfNothingIsSelected)
+                {
+                    creatureBoxListView.Clear();
+                    return;
+                }
+
+                var firstCreatureIndex = Array.FindIndex(_creaturesDisplayed, c => !c.flags.HasFlag(CreatureFlags.Divider));
+
+                if (firstCreatureIndex == -1)
+                {
+                    creatureBoxListView.Clear();
+                    return;
+                }
+
+                _reactOnCreatureSelectionChange = true;
+                listViewLibrary.SelectedIndices.Add(firstCreatureIndex);
+                listViewLibrary.EnsureVisible(firstCreatureIndex);
+            }
         }
 
         /// <summary>
