@@ -46,7 +46,7 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         public Task<string> GetFileAsync(string fileName)
         {
-            var lazyTask = _currentDownloads.GetOrAdd(fileName, fn => new Lazy<Task<string>>(() => GetFileSingular(fn)));
+            var lazyTask = _currentDownloads.GetOrAdd(fileName, fn => new Lazy<Task<string>>(() => GetFileOnceAsync(fn)));
             return lazyTask.Value;
         }
 
@@ -55,7 +55,7 @@ namespace ARKBreedingStats.SpeciesImages
         /// If it's not available locally, or if there's a newer version remote, it's downloaded.
         /// If it's not in this image collection, null is returned.
         /// </summary>
-        private async Task<string> GetFileSingular(string fileName)
+        private async Task<string> GetFileOnceAsync(string fileName)
         {
             try
             {
