@@ -188,6 +188,10 @@ namespace ARKBreedingStats
         /// Returns the imprinting bonus applied when taming a creature with a given rank in the talend Bonded Taming.
         /// </summary>
         public static double ImprintingPerBondedTamingRank(int rank) => rank * 0.1;
+
+        public const int MaxWildLevelDefault = 150;
+
+        public const int WildLevelStepDefault = 150 / 30;
     }
 
     /// <summary>

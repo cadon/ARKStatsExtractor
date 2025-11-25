@@ -37,17 +37,17 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public int maxDomLevel = MaxDomLevelDefault;
         [JsonProperty]
-        public int maxWildLevel = 150;
+        public int maxWildLevel = Ark.MaxWildLevelDefault;
         [JsonProperty]
         public int minChartLevel;
         [JsonProperty]
-        public int maxChartLevel = 50;
+        public int maxChartLevel = Ark.MaxWildLevelDefault / 3;
         [JsonProperty]
         public int maxBreedingSuggestions = 10;
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool considerWildLevelSteps;
         [JsonProperty]
-        public int wildLevelStep = 5;
+        public int wildLevelStep = Ark.WildLevelStepDefault;
         /// <summary>
         /// On official servers a creature with more than 450 total levels will be deleted
         /// </summary>

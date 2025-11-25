@@ -390,7 +390,7 @@ namespace ARKBreedingStats
                 return false;
             }
 
-            CreatureCollection previouslyLoadedCreatureCollection = _creatureCollection;
+            var previouslyLoadedCreatureCollection = _creatureCollection ?? new CreatureCollection();
 
             // Wait until the file is readable
             const int numberOfRetries = 5;
@@ -467,15 +467,15 @@ namespace ARKBreedingStats
 
                             if (_creatureCollection == null) throw new Exception("Conversion failed");
 
-                            string fileNameWOExt = Path.Combine(Path.GetDirectoryName(filePath),
+                            string fileNameWoExt = Path.Combine(Path.GetDirectoryName(filePath),
                                 Path.GetFileNameWithoutExtension(filePath));
                             // check if new fileName is not yet existing
-                            filePath = fileNameWOExt + CollectionFileExtension;
+                            filePath = fileNameWoExt + CollectionFileExtension;
                             if (File.Exists(filePath))
                             {
                                 int fi = 2;
-                                while (File.Exists(fileNameWOExt + "_" + fi + CollectionFileExtension)) fi++;
-                                filePath = fileNameWOExt + "_" + fi + CollectionFileExtension;
+                                while (File.Exists(fileNameWoExt + "_" + fi + CollectionFileExtension)) fi++;
+                                filePath = fileNameWoExt + "_" + fi + CollectionFileExtension;
                             }
 
                             // save converted library

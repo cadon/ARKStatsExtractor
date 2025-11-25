@@ -26,7 +26,7 @@ namespace ARKBreedingStats
             {
                 InitialDelay = 50
             };
-            maxWildLevel = 150;
+            maxWildLevel = Ark.MaxWildLevelDefault;
             Paint += PaintLinesAndLabels;
         }
 

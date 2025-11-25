@@ -32,7 +32,7 @@ namespace ARKBreedingStats.library
         /// <returns></returns>
         public static List<Creature> CreateCreatures(int count, Species species = null, int numberSpecies = 1, bool tamed = true,
             int breedGenerations = 0, int usePairsPerGeneration = 2, bool useMutatedLevels = true, double probabilityHigherStat = 0.55, double randomMutationChance = 0.025,
-            int maxWildLevel = 150, int maxStatLevel = -1,
+            int maxWildLevel = Ark.MaxWildLevelDefault, int maxStatLevel = -1,
             bool setOwner = true, bool setTribe = true, bool setServer = true, bool saveSettings = false)
         {
             if (count < 1) return null;
@@ -87,7 +87,7 @@ namespace ARKBreedingStats.library
             }
 
             if (maxWildLevel < 1)
-                maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
+                maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault;
             var difficulty = maxWildLevel / 30d;
 
             var nameCounter = new Dictionary<string, int>();
@@ -513,7 +513,7 @@ namespace ARKBreedingStats.library
         public int PairsPerGeneration = 2;
         public double ProbabilityHigherStat = Ark.ProbabilityInheritHigherLevel;
         public double RandomMutationChance = Ark.ProbabilityOfMutation;
-        public int MaxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150;
+        public int MaxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault;
         public int MaxStatLevel = -1;
         public bool SetOwner = true;
         public bool SetTribe = true;

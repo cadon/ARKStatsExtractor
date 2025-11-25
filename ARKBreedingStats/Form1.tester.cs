@@ -316,7 +316,7 @@ namespace ARKBreedingStats
             var species = speciesSelector1.SelectedSpecies;
             if (species == null) return;
 
-            var difficulty = (CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? 150) / 30;
+            var difficulty = (CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault) / 30;
             var creature = DummyCreatures.CreateCreature(species, difficulty, !rbWildTester.Checked);
 
             for (int si = 0; si < Stats.StatsCount; si++)
