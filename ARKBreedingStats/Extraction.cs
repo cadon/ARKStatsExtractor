@@ -571,17 +571,22 @@ namespace ARKBreedingStats
                 ((((torpor / (1 + stats[Stats.Torpidity].MultAffinity)) - stats[Stats.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier) * stats[Stats.Torpidity].BaseValue)) - 1) / stats[Stats.Torpidity].IncPerWildLevel,
                 ((((torpor / (1 + stats[Stats.Torpidity].MultAffinity)) - stats[Stats.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier) * stats[Stats.Torpidity].BaseValue)) - 1) / stats[Stats.Torpidity].IncPerWildLevel);
 
+            wildLevelsFromImprintedTorpor.SetToIntersectionWith(0, int.MaxValue);
+
             // this assumes the food mutation levels have no custom increasePerLevelMultiplier
             // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependent IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
             var wildLevelsFromImprintedFood = new MinMaxInt(
                 ((((food / (1 + stats[Stats.Food].MultAffinity)) - stats[Stats.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier) * stats[Stats.Food].BaseValue)) - 1) / stats[Stats.Food].IncPerWildLevel,
                 ((((food / (1 + stats[Stats.Food].MultAffinity)) - stats[Stats.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier) * stats[Stats.Food].BaseValue)) - 1) / stats[Stats.Food].IncPerWildLevel);
 
+            wildLevelsFromImprintedFood.SetToIntersectionWith(0, int.MaxValue);
+
             var otherStatsSupportIB = new List<int>(); // the number of other stats that support this IB-range
                                                        // for high-level creatures the bonus from imprinting is so high, that a displayed and rounded value of the imprinting bonus can be possible with multiple torpor-levels, i.e. 1 %point IB results in a larger change than a level in torpor.
 
             var imprintingBonusTorpidityFinal = statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier;
             var imprintingBonusFoodFinal = statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier;
+            var useFoodForChecking = imprintingBonusFoodFinal > 0 && wildLevelsFromImprintedFood.ValidRange;
 
             for (var torporLevel = wildLevelsFromImprintedTorpor.Min; torporLevel <= wildLevelsFromImprintedTorpor.Max; torporLevel++)
             {
@@ -592,7 +597,7 @@ namespace ARKBreedingStats
 
                 // check for each possible food-level the IB-range and if it can narrow down the range derived from the torpor (deriving from food is more precise, due to the higher values)
 
-                if (imprintingBonusFoodFinal > 0)
+                if (useFoodForChecking)
                 {
                     for (var foodLevel = wildLevelsFromImprintedFood.Min;
                          foodLevel <= wildLevelsFromImprintedFood.Max;
