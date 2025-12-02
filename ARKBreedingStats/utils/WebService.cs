@@ -60,7 +60,7 @@ namespace ARKBreedingStats.utils
                 }
             }
 
-            var successfulDownloaded = true;
+            // download and save file
             try
             {
                 var directory = Path.GetDirectoryName(outFilePath);
@@ -72,8 +72,9 @@ namespace ARKBreedingStats.utils
                 }
                 if (!Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
-                // save file
 
+                // save file
+                //url = "https://mock.httpstatus.io/401"; // for debugging
                 using (var downloadStream = await httpClient.GetStreamAsync(url).ConfigureAwait(false))
                 using (var fileStream = new FileStream(outFilePath, FileMode.Create, FileAccess.Write))
                 {
@@ -83,15 +84,26 @@ namespace ARKBreedingStats.utils
             }
             catch (Exception ex)
             {
-                successfulDownloaded = false;
                 if (showExceptionMessageBox)
-                    MessageBoxes.ExceptionMessageBox(ex, $"Error while trying to download the file\n{url}", "Download error");
+                    MessageBoxes.ExceptionMessageBox(ex, $@"Error while trying to download the file
+{url}
+or while trying do write it to
+{outFilePath}", "Download error");
+                return (false, null);
             }
 
             if (!File.Exists(outFilePath))
-                throw new FileNotFoundException($"Downloading file from {url} failed", outFilePath);
+            {
+                MessageBoxes.ShowMessageBox($@"Error when downloading file from
+{url}
+and writing to
+{outFilePath}
 
-            return (successfulDownloaded, null);
+The downloaded file does not exist after downloading it without error. The specified folder might be write protected.", "Download error");
+                return (false, null);
+            }
+
+            return (true, null);
         }
     }
 }

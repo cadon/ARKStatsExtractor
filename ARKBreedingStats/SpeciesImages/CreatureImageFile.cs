@@ -77,7 +77,6 @@ namespace ARKBreedingStats.SpeciesImages
         private static async Task<string> SpeciesImageFilePath(CreatureImageParameters creatureImageParameters,
             string imagePackName = null, string imageName = null, bool useComposition = false)
         {
-
             var composition = useComposition ? ImageCompositions.GetComposition(creatureImageParameters.Species) : null;
             var compositionHash = "_" + (composition?.Hash.ToString() ?? string.Empty);
             if (composition != null)

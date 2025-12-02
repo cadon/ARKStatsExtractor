@@ -212,7 +212,7 @@ namespace ARKBreedingStats.SpeciesImages
         /// <param name="imagePackNamePreferred">If specified, prefer this pack.</param>
         public static async Task<(string, string)> GetFile(IList<string> possibleFileNames, string imagePackNamePreferred = null)
         {
-            if (possibleFileNames?.Any() != true || ImageManifests == null) return (null, null);
+            if (possibleFileNames?.Any() != true) return (null, null);
 
             var checkImagePacks = string.IsNullOrEmpty(imagePackNamePreferred)
                 ? EnabledImageCollections
