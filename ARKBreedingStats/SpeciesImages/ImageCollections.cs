@@ -111,14 +111,12 @@ namespace ARKBreedingStats.SpeciesImages
                 }
 
                 var isEnabledPack = Properties.Settings.Default.SpeciesImagesUrls?.Contains(im.Id) == true;
-                if (!im.LoadLocalImagePackInfo(filePathLocalManifest, isEnabledPack))
+                if (!im.LoadLocalImagePackInfo(filePathLocalManifest, isEnabledPack)
+                    || !isEnabledPack)
                     continue;
 
-                if (isEnabledPack)
-                {
-                    EnabledImageCollections.Add(new ImageCollection(im));
-                    AnyManifests = true;
-                }
+                EnabledImageCollections.Add(new ImageCollection(im));
+                AnyManifests = true;
             }
         }
 
