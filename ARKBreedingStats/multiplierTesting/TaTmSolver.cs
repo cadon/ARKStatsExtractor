@@ -51,7 +51,7 @@ namespace ARKBreedingStats.multiplierTesting
             SetValues(statValue, baseValue, lw, iw, iwm, lm, mm, tbhm, ib, ibs, ibm, te, ld, id, idm, out _fW, out _fX, out _fXWithoutTbhm, out _fTe);
         }
 
-        private void SetValues(double statValue, double baseValue, double lw, double iw, double iwm, double lm, double mm,
+        private static void SetValues(double statValue, double baseValue, double lw, double iw, double iwm, double lm, double mm,
             double tbhm, double ib, double ibs, double ibm, double te, double ld, double id, double idm, out double w,
             out double x, out double xWithoutTbhm, out double teOut)
         {
@@ -100,7 +100,7 @@ namespace ARKBreedingStats.multiplierTesting
                 * (_fX * sX * _fTe - _fX * sX * sTe - _fX * _fTe * sW + sX * sTe * _fW));
             var secondPart = -_fX * _fTe + _fX * sTe;
             var thirdPart = -sX * _fTe + sX * sTe;
-            var dividend = _fTe * (+squareRootPart + _fX * _fTe - _fX * sTe - sX * _fTe + sX * sTe + _fTe * sW - sTe * _fW);
+            var dividend = _fTe * (squareRootPart + _fX * _fTe - _fX * sTe - sX * _fTe + sX * sTe + _fTe * sW - sTe * _fW);
             var useSecondOption = dividend == 0;
 
             // there are multiple possible solutions.
@@ -112,7 +112,8 @@ namespace ARKBreedingStats.multiplierTesting
                 // first option
                 taTaM = (squareRootPart + secondPart + thirdPart + _fTe * sW - sTe * _fW) / (2 * (_fTe - sTe));
                 tmTmM = (-squareRootPart + secondPart - thirdPart + 2 * _fTe * _fW - _fTe * sW - sTe * _fW) / dividend;
-                if (tmTmM >= 0) return null; // no error
+                // if tmTmM is >0 or almost 0, result seems good 
+                if (Math.Round(tmTmM, 4) >= 0) return null; // no error
             }
 
             // second option

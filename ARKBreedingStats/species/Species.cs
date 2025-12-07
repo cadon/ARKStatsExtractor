@@ -138,11 +138,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// The raw species imprinting stat multipliers. This property should only be used for custom species.
         /// </summary>
-        public double[] StatImprintMultipliersRaw
-        {
-            get => statImprintMult;
-            set => statImprintMult = value;
-        }
+        public double[] StatImprintMultipliersRaw;
 
         [JsonProperty]
         public ColorRegion[] colors;

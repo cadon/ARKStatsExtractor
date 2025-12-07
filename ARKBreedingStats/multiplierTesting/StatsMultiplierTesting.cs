@@ -754,9 +754,11 @@ To determine all species values, the files with the following creature combinati
             CopySpeciesStatsToClipboard(_selectedSpecies.blueprintPath, _selectedSpecies.StatImprintMultipliersRaw);
         }
 
+        /// <summary>
+        /// Copy species stat values in the format of the values.json to clipboard
+        /// </summary>
         private void CopySpeciesStatsToClipboard(string speciesBlueprintPath = null, double[] speciesImprintingMultipliers = null)
         {
-            // copy stat values in the format of the values.json to clipboard
             var sb = new StringBuilder();
             if (!string.IsNullOrEmpty(speciesBlueprintPath))
                 sb.AppendLine($"\"blueprintPath\": \"{speciesBlueprintPath}\",");
@@ -786,6 +788,12 @@ To determine all species values, the files with the following creature combinati
             {
                 sb.AppendLine(",");
                 sb.Append($"\"mutationMult\": [{string.Join(", ", mutationMultipliers)}]");
+            }
+
+            if (_statControls[Stats.Health].TBHM != 1)
+            {
+                sb.AppendLine(",");
+                sb.Append($"\"TamedBaseHealthMultiplier\": {_statControls[Stats.Health].TBHM}");
             }
 
             if (speciesImprintingMultipliers != null)
