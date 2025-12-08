@@ -36,7 +36,7 @@ namespace ARKBreedingStats
 
             if (modFilesLoaded)
             {
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
+                speciesSelector1.SetSpeciesLists(Values.V.Species, Values.V.aliases);
                 if (applySettings)
                     ApplySettingsToValues();
             }
@@ -153,7 +153,7 @@ namespace ARKBreedingStats
                 {
                     modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
                     // assume all officially supported mods are online available
-                    foreach (var m in modsManifest.modsByFiles) m.Value.OnlineAvailable = true;
+                    foreach (var m in modsManifest.ModsByFiles) m.Value.OnlineAvailable = true;
                 }
                 catch (FileNotFoundException ex)
                 {
@@ -168,7 +168,8 @@ namespace ARKBreedingStats
                 }
 
                 // load custom manifest file for manually created mod value files
-                if (ModsManifest.TryLoadCustomModManifestFile(out var customModsManifest))
+                if (ModsManifest.LoadManualValueFiles(modsManifest, out var customModsManifest)
+                    && customModsManifest?.ModsByFiles.Any() == true)
                 {
                     modsManifest = ModsManifest.MergeModsManifest(modsManifest, customModsManifest);
                 }

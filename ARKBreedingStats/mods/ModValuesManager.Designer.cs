@@ -42,7 +42,7 @@
             this.LbModVersion = new System.Windows.Forms.Label();
             this.lbAvailableForDownload = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.llbSteamPage = new System.Windows.Forms.LinkLabel();
+            this.LlModWebPage = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.lbModId = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -60,6 +60,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
             this.BtRemoveAllMods = new System.Windows.Forms.Button();
+            this.LbAuthorLabel = new System.Windows.Forms.Label();
+            this.LbAuthor = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -174,11 +176,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.LbAuthorLabel);
+            this.groupBox1.Controls.Add(this.LbAuthor);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.LbModVersion);
             this.groupBox1.Controls.Add(this.lbAvailableForDownload);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.llbSteamPage);
+            this.groupBox1.Controls.Add(this.LlModWebPage);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.lbModId);
             this.groupBox1.Controls.Add(this.label4);
@@ -232,17 +236,17 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Mod-name";
             // 
-            // llbSteamPage
+            // LlModWebPage
             // 
-            this.llbSteamPage.AutoSize = true;
-            this.llbSteamPage.Location = new System.Drawing.Point(6, 101);
-            this.llbSteamPage.Margin = new System.Windows.Forms.Padding(3);
-            this.llbSteamPage.Name = "llbSteamPage";
-            this.llbSteamPage.Size = new System.Drawing.Size(88, 13);
-            this.llbSteamPage.TabIndex = 6;
-            this.llbSteamPage.TabStop = true;
-            this.llbSteamPage.Text = "Mod Steam page";
-            this.llbSteamPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlbSteamPage_LinkClicked);
+            this.LlModWebPage.AutoSize = true;
+            this.LlModWebPage.Location = new System.Drawing.Point(6, 123);
+            this.LlModWebPage.Margin = new System.Windows.Forms.Padding(3);
+            this.LlModWebPage.Name = "LlModWebPage";
+            this.LlModWebPage.Size = new System.Drawing.Size(78, 13);
+            this.LlModWebPage.TabIndex = 6;
+            this.LlModWebPage.TabStop = true;
+            this.LlModWebPage.Text = "Mod web page";
+            this.LlModWebPage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LlbSteamPage_LinkClicked);
             // 
             // label3
             // 
@@ -291,7 +295,7 @@
             this.lbModName.Location = new System.Drawing.Point(106, 25);
             this.lbModName.Margin = new System.Windows.Forms.Padding(3);
             this.lbModName.Name = "lbModName";
-            this.lbModName.Size = new System.Drawing.Size(46, 16);
+            this.lbModName.Size = new System.Drawing.Size(45, 16);
             this.lbModName.TabIndex = 3;
             this.lbModName.Text = "name";
             // 
@@ -425,6 +429,26 @@
             this.BtRemoveAllMods.UseVisualStyleBackColor = true;
             this.BtRemoveAllMods.Click += new System.EventHandler(this.BtRemoveAllMods_Click);
             // 
+            // LbAuthorLabel
+            // 
+            this.LbAuthorLabel.AutoSize = true;
+            this.LbAuthorLabel.Location = new System.Drawing.Point(7, 101);
+            this.LbAuthorLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.LbAuthorLabel.Name = "LbAuthorLabel";
+            this.LbAuthorLabel.Size = new System.Drawing.Size(61, 13);
+            this.LbAuthorLabel.TabIndex = 10;
+            this.LbAuthorLabel.Text = "Mod author";
+            // 
+            // LbAuthor
+            // 
+            this.LbAuthor.AutoSize = true;
+            this.LbAuthor.Location = new System.Drawing.Point(106, 101);
+            this.LbAuthor.Margin = new System.Windows.Forms.Padding(3);
+            this.LbAuthor.Name = "LbAuthor";
+            this.LbAuthor.Size = new System.Drawing.Size(37, 13);
+            this.LbAuthor.TabIndex = 11;
+            this.LbAuthor.Text = "author";
+            // 
             // ModValuesManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -458,7 +482,7 @@
         private System.Windows.Forms.Button btMoveDown;
         private System.Windows.Forms.Button btMoveUp;
         private System.Windows.Forms.Button btClose;
-        private System.Windows.Forms.LinkLabel llbSteamPage;
+        private System.Windows.Forms.LinkLabel LlModWebPage;
         private System.Windows.Forms.Label lbModId;
         private System.Windows.Forms.Label lbModTag;
         private System.Windows.Forms.Label lbModName;
@@ -482,5 +506,7 @@
         private System.Windows.Forms.TextBox TbModFilter;
         private System.Windows.Forms.Button BtClearFilter;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label LbAuthorLabel;
+        private System.Windows.Forms.Label LbAuthor;
     }
 }

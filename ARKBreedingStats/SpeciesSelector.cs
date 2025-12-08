@@ -112,7 +112,7 @@ namespace ARKBreedingStats
                 {
                     DisplayName = s.name,
                     SearchName = (s.name + " " + s.blueprintPath).ToLowerInvariant(),
-                    ModName = s.Mod?.title ?? string.Empty,
+                    ModName = s.Mod?.Title ?? string.Empty,
                     Species = s
                 });
                 if (!string.IsNullOrEmpty(s.nameFemale) && s.name != s.nameFemale)
@@ -120,7 +120,7 @@ namespace ARKBreedingStats
                     {
                         DisplayName = s.nameFemale + " (→" + s.name + ")",
                         SearchName = s.nameFemale.ToLowerInvariant(),
-                        ModName = s.Mod?.title ?? string.Empty,
+                        ModName = s.Mod?.Title ?? string.Empty,
                         Species = s
                     });
                 if (!string.IsNullOrEmpty(s.nameMale) && s.name != s.nameMale)
@@ -128,7 +128,7 @@ namespace ARKBreedingStats
                     {
                         DisplayName = s.nameMale + " (→" + s.name + ")",
                         SearchName = s.nameMale.ToLowerInvariant(),
-                        ModName = s.Mod?.title ?? string.Empty,
+                        ModName = s.Mod?.Title ?? string.Empty,
                         Species = s
                     });
             }
@@ -141,7 +141,7 @@ namespace ARKBreedingStats
                     {
                         DisplayName = a.Key + " (→" + aliasSpecies.name + ")",
                         SearchName = a.Key.ToLowerInvariant(),
-                        ModName = aliasSpecies.Mod?.title ?? string.Empty,
+                        ModName = aliasSpecies.Mod?.Title ?? string.Empty,
                         Species = aliasSpecies
                     });
                 }
@@ -529,8 +529,8 @@ namespace ARKBreedingStats
         {
             if (SelectedSpecies != null) return;
             if (SetToLastSetSpecies()) return;
-            if (Values.V.species.Any())
-                SetSpecies(Values.V.species[0]);
+            if (Values.V.Species.Any())
+                SetSpecies(Values.V.Species[0]);
         }
     }
 

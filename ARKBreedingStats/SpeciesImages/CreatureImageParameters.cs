@@ -26,7 +26,7 @@ namespace ARKBreedingStats.SpeciesImages
         {
             Species = species;
             SpeciesName = speciesName;
-            ModName = species.Mod?.id;
+            ModName = species.Mod?.Id;
             if (string.IsNullOrEmpty(ModName))
                 ModName = game;
             if (!string.IsNullOrEmpty(ModName))

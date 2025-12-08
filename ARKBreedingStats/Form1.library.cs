@@ -1911,7 +1911,7 @@ namespace ARKBreedingStats
             using (MultiSetter ms = new MultiSetter(selectedCreatures,
                 parents,
                 _creatureCollection.tags,
-                Values.V.species,
+                Values.V.Species,
                 _creatureCollection.ownerList,
                 _creatureCollection.tribes.Select(t => t.TribeName).ToArray(),
                 _creatureCollection.serverList))

@@ -428,7 +428,7 @@ namespace ARKBreedingStats
                                 bool modFound = false;
                                 string modTag = Path.GetFileNameWithoutExtension(creatureCollectionOld.additionalValues)
                                     .Replace(" ", "").ToLower().Replace("gaiamod", "gaia");
-                                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.modsByTag)
+                                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.ModsByTag)
                                 {
                                     if (tmi.Key.ToLower() == modTag)
                                     {
@@ -443,7 +443,7 @@ namespace ARKBreedingStats
 
                                         if (Values.V.loadedModsHash != Values.NoModsHash)
                                             LoadStatAndKibbleValues(false); // reset values to default
-                                        LoadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true,
+                                        LoadModValueFiles(new List<string> { tmi.Value.Mod.FileName }, true, true,
                                             out mods);
                                         break;
                                     }

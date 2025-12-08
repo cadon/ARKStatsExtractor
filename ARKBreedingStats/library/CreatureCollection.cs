@@ -172,7 +172,7 @@ namespace ARKBreedingStats.Library
         {
             if (modList == null) { return 0; }
 
-            return CalculateModListHash(modList.Select(m => m.id));
+            return CalculateModListHash(modList.Select(m => m.Id));
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace ARKBreedingStats.Library
         /// </summary>
         public void UpdateModList()
         {
-            modIDs = ModList?.Select(m => m.id).ToList() ?? new List<string>();
+            modIDs = ModList?.Select(m => m.Id).ToList() ?? new List<string>();
             modListHash = CalculateModListHash(ModList);
         }
 
@@ -667,7 +667,7 @@ namespace ARKBreedingStats.Library
                     default:
                         // non ASA
                         if (modIDs == null) return;
-                        ModList.RemoveAll(m => m.id == Ark.Asa);
+                        ModList.RemoveAll(m => m.Id == Ark.Asa);
                         if (modIDs.Remove(Ark.Asa))
                             modListHash = 0;
                         break;
