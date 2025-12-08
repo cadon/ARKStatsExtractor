@@ -6,7 +6,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
@@ -199,29 +198,31 @@ namespace ARKBreedingStats.SpeciesImages
 
         internal static Bitmap DrawPieChart(byte[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
         {
-            int pieAngle = enabledColorRegions?.Count(c => c) ?? Ark.ColorRegionCount;
+            if (colorIds == null)
+                colorIds = Enumerable.Repeat((byte)0, Ark.ColorRegionCount).ToArray();
+            if (enabledColorRegions == null)
+                enabledColorRegions = Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray();
+            var pieAngle = enabledColorRegions.Count(c => c);
             pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
-            int pieNr = 0;
+            var pieNr = 0;
 
-            Bitmap bm = new Bitmap(size, size);
-            using (Graphics graph = Graphics.FromImage(bm))
+            var bm = new Bitmap(size, size);
+            using (var graph = Graphics.FromImage(bm))
             {
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
-                for (int c = 0; c < Ark.ColorRegionCount; c++)
+                for (var c = 0; c < Ark.ColorRegionCount; c++)
                 {
-                    if (enabledColorRegions?[c] ?? true)
+                    if (!enabledColorRegions[c]) continue;
+                    if (colorIds[c] > 0)
                     {
-                        if (colorIds[c] > 0)
+                        using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
                         {
-                            using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
-                            {
-                                graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize,
-                                    pieNr * pieAngle + 270, pieAngle);
-                            }
+                            graph.FillPie(b, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize,
+                                pieNr * pieAngle + 270, pieAngle);
                         }
-
-                        pieNr++;
                     }
+
+                    pieNr++;
                 }
 
                 using (var pen = new Pen(Color.Gray))
