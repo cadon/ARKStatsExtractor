@@ -32,11 +32,19 @@ namespace ARKBreedingStats
         /// <param name="c">the creature to test</param>
         /// <param name="virtualCreature">set to true if the creature is not in the library</param>
         private void EditCreatureInTester(Creature c, bool virtualCreature = false)
+            => EditCreatureInTester(c, virtualCreature, Asb.TriggerSource.User);
+
+        /// <summary>
+        /// Call this function with a creature c to put all its stats in the levelup-tester (and go to the tester-tab) to see what it could become
+        /// </summary>
+        /// <param name="c">the creature to test</param>
+        /// <param name="virtualCreature">set to true if the creature is not in the library</param>
+        private void EditCreatureInTester(Creature c, bool virtualCreature, Asb.TriggerSource triggerSource)
         {
             if (c == null)
                 return;
 
-            speciesSelector1.SetSpecies(c.Species);
+            speciesSelector1.SetSpecies(c.Species, triggerSource: triggerSource);
             TamingEffectivenessTester = c.tamingEff;
             numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
             if (c.isBred)

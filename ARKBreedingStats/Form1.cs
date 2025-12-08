@@ -1,10 +1,18 @@
 ﻿using ARKBreedingStats.importExported;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.mods;
+using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.ocr;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
+using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -16,17 +24,10 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.mods;
-using ARKBreedingStats.NamePatterns;
-using ARKBreedingStats.Pedigree;
-using ARKBreedingStats.SpeciesImages;
-using ARKBreedingStats.StatsOptions;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
-using ARKBreedingStats.Traits;
-using ARKBreedingStats.utils;
+using static ARKBreedingStats.Asb;
 using static ARKBreedingStats.settings.Settings;
-using Color = System.Drawing.Color;
 using static ARKBreedingStats.uiControls.StatWeighting;
+using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats
 {
@@ -152,7 +153,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputExtractor.ColorsChanged += CreatureInfoInputColorsChanged;
             creatureInfoInputTester.ColorsChanged += CreatureInfoInputColorsChanged;
-            speciesSelector1.OnSpeciesSelected += SpeciesSelector1OnSpeciesSelected;
+            speciesSelector1.OnSpeciesSelected += SpeciesSelectorOnSpeciesSelected;
             speciesSelector1.ToggleVisibility += ToggleViewSpeciesSelector;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
             raisingControl1.AdjustTimersByOffset += timerList1.AdjustAllTimersByOffset;
@@ -717,7 +718,7 @@ namespace ARKBreedingStats
         }
 
         // global species changed / globalspecieschanged
-        private void SpeciesSelector1OnSpeciesSelected(bool speciesChanged)
+        private void SpeciesSelectorOnSpeciesSelected(bool speciesChanged, TriggerSource triggerSource)
         {
             Species species = speciesSelector1.SelectedSpecies;
             ToggleViewSpeciesSelector(false);
@@ -827,10 +828,10 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
                 if (breedingPlan1.CurrentSpecies == species)
-                    breedingPlan1.UpdateIfNeeded();
+                    breedingPlan1.UpdateIfNeeded(triggerSource);
                 else
                 {
-                    breedingPlan1.SetSpecies(species);
+                    breedingPlan1.SetSpecies(species, triggerSource);
                 }
             }
 
@@ -1809,9 +1810,7 @@ namespace ARKBreedingStats
                 if (breedingPlan1.CurrentSpecies == speciesSelector1.SelectedSpecies)
                     breedingPlan1.UpdateIfNeeded();
                 else
-                {
                     breedingPlan1.SetSpecies(speciesSelector1.SelectedSpecies);
-                }
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {

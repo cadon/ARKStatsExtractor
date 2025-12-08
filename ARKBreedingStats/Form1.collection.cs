@@ -873,7 +873,9 @@ namespace ARKBreedingStats
         /// Imports creature from file created by the export gun mod.
         /// Returns already existing Creature or null if it's a new creature.
         /// </summary>
-        private Creature ImportExportGunFiles(string[] filePaths, bool addCreatures, out bool creatureAdded, out Creature lastImportedCreature, out bool copiedNameToClipboard, bool playImportSound = false)
+        private Creature ImportExportGunFiles(string[] filePaths, bool addCreatures, out bool creatureAdded,
+            out Creature lastImportedCreature, out bool copiedNameToClipboard, bool playImportSound = false,
+            Asb.TriggerSource triggerSource = Asb.TriggerSource.User)
         {
             creatureAdded = false;
             copiedNameToClipboard = false;
@@ -984,7 +986,7 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        EditCreatureInTester(lastImportedCreature);
+                        EditCreatureInTester(lastImportedCreature, false, triggerSource);
                     }
                 }
                 else

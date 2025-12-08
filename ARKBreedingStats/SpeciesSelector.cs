@@ -7,7 +7,6 @@ using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +19,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Is invoked if a species was selected. The parameter is true if the species was changed.
         /// </summary>
-        public event Action<bool> OnSpeciesSelected;
+        public event Action<bool, Asb.TriggerSource> OnSpeciesSelected;
 
         /// <summary>
         /// Toggles the visibility of this control.
@@ -337,13 +336,13 @@ namespace ARKBreedingStats
         /// Set the current species.
         /// </summary>
         /// <returns>True if the species was recognized and was or is set.</returns>
-        public bool SetSpecies(Species species, bool alsoTriggerOnSameSpecies = false, bool ignoreInRecent = false)
+        public bool SetSpecies(Species species, bool alsoTriggerOnSameSpecies = false, bool ignoreInRecent = false, Asb.TriggerSource triggerSource = Asb.TriggerSource.User)
         {
             if (species == null) return false;
             if (SelectedSpecies == species)
             {
                 if (alsoTriggerOnSameSpecies)
-                    OnSpeciesSelected?.Invoke(false);
+                    OnSpeciesSelected?.Invoke(false, triggerSource);
                 return true;
             }
 
@@ -360,7 +359,7 @@ namespace ARKBreedingStats
 
             SelectedSpecies = species;
 
-            OnSpeciesSelected?.Invoke(true);
+            OnSpeciesSelected?.Invoke(true, triggerSource);
             return true;
         }
 
@@ -487,10 +486,7 @@ namespace ARKBreedingStats
             return null;
         }
 
-        private void btCancel_Click(object sender, EventArgs e)
-        {
-            OnSpeciesSelected?.Invoke(false);
-        }
+        private void btCancel_Click(object sender, EventArgs e) => OnSpeciesSelected?.Invoke(false, Asb.TriggerSource.User);
 
         private void cbDisplayUntameable_CheckedChanged(object sender, EventArgs e)
         {
