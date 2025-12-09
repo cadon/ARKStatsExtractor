@@ -566,6 +566,7 @@ namespace ARKBreedingStats
                     break;
             }
 
+            Poses.LoadPoses();
             SetupAutoLoadFileWatcher();
             SetupExportFileWatcher();
         }
@@ -1519,6 +1520,7 @@ namespace ARKBreedingStats
 
             StatsOptionsLevelColors.SaveSettings();
             StatsOptionsConsiderTopStats.SaveSettings();
+            Poses.SavePoses();
         }
 
         /// <summary>

@@ -169,6 +169,18 @@ namespace ARKBreedingStats
             && LoadJsonFile(filePath, out T data, out _) ? data : null;
 
         /// <summary>
+        /// Loads json file if available.
+        /// </summary>
+        public static bool LoadJsonFileIfAvailable<T>(string filePath, out T data, out string errorMessage) where T : class
+        {
+            data = null;
+            errorMessage = null;
+            return !string.IsNullOrEmpty(filePath)
+                   && File.Exists(filePath)
+                   && LoadJsonFile(filePath, out data, out errorMessage);
+        }
+
+        /// <summary>
         /// Tries to create a directory if not existing. Returns true if the path exists.
         /// </summary>
         public static bool TryCreateDirectory(string path, out string error)

@@ -24,6 +24,8 @@ namespace ARKBreedingStats.uiControls
             Height = ColoredCreatureSize,
             Margin = new Padding(10)
         };
+
+        private readonly Label _lbPose = new Label();
         private readonly ToolTip _tt = new ToolTip();
         private byte[] _selectedColors;
         private int _selectedColorRegion;
@@ -40,11 +42,10 @@ namespace ARKBreedingStats.uiControls
             this.RowCount = 2;
             this.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             this.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-            this.ColumnCount = 5;
+            this.ColumnCount = 4;
             this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-            this.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
             this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
 
             this.Controls.Add(TlpColorInfoText, 0, 0);
@@ -108,8 +109,7 @@ namespace ARKBreedingStats.uiControls
             this.Controls.Add(_colorPicker, 1, 1);
             _colorPicker.UserMadeSelection += ColorPickerColorChosen;
 
-            this.Controls.Add(_speciesPictureBox, 2, 1);
-            this.SetRowSpan(_speciesPictureBox, 2);
+            AddPictureBox();
 
             _speciesPictureBox.Click += _speciesPictureBoxClick;
             _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard\nLeft click: plain image\nRight click: image with color info");
@@ -140,6 +140,54 @@ namespace ARKBreedingStats.uiControls
         }
 
         private void LvColors_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e) => e.DrawDefault = true;
+
+        private void AddPictureBox()
+        {
+            var tlp = new TableLayoutPanel();
+            tlp.AutoSize = true;
+            tlp.RowCount = 2;
+            tlp.ColumnCount = 3;
+            tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
+            tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
+            tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+            tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+
+            tlp.Controls.Add(_speciesPictureBox);
+            tlp.SetColumnSpan(_speciesPictureBox, 3);
+
+            var bt = new Button { Text = "←" };
+            bt.Dock = DockStyle.Left;
+            tlp.Controls.Add(bt, 0, 1);
+            bt.Click += BtPosePreviousClick;
+            bt = new Button { Text = "→" };
+            bt.Dock = DockStyle.Right;
+            tlp.Controls.Add(bt, 2, 1);
+            bt.Click += BtPoseNextClick;
+
+            _lbPose.Dock = DockStyle.Fill;
+            _lbPose.TextAlign = ContentAlignment.MiddleCenter;
+            tlp.Controls.Add(_lbPose, 1, 1);
+
+            _tt.SetToolTip(_lbPose, "Some species may have more than one pose, this can be set here.");
+
+            this.Controls.Add(tlp, 2, 1);
+        }
+
+        private void BtPosePreviousClick(object sender, EventArgs e)
+        {
+            var previousPose = Poses.GetPose(_species) - 1;
+            if (previousPose < 0) return;
+
+            Poses.SetPose(_species, previousPose);
+            UpdateCreatureImage();
+        }
+
+        private void BtPoseNextClick(object sender, EventArgs e)
+        {
+            Poses.SetPose(_species, Poses.GetPose(_species) + 1);
+            UpdateCreatureImage();
+        }
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
         {
@@ -245,9 +293,15 @@ namespace ARKBreedingStats.uiControls
         public void UpdateCreatureImage()
         {
             // todo button for gender
-            CreatureColored.GetColoredCreatureWithCallback(_speciesPictureBox.SetImageAndDisposeOld, this,
+            CreatureColored.GetColoredCreatureWithCallback(SetImage, this,
                 _selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
                 onlyImage: true, creatureSex: Sex.Male, game: CreatureCollection.CurrentCreatureCollection?.Game);
+        }
+
+        private void SetImage(Bitmap bmp)
+        {
+            _speciesPictureBox.SetImageAndDisposeOld(bmp);
+            _lbPose.Text = $"Pose: {Poses.GetPose(_species)}";
         }
 
         private void _speciesPictureBoxClick(object sender, EventArgs e)

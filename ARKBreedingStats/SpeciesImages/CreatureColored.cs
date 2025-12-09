@@ -106,7 +106,9 @@ namespace ARKBreedingStats.SpeciesImages
                 if (patternId <= 0) patternId += species.patterns.count;
             }
 
-            var speciesBaseImageFilePath = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId, useComposition: true).ConfigureAwait(false);
+            var pose = Poses.GetPose(species);
+
+            var speciesBaseImageFilePath = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId, useComposition: true, pose: pose).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(speciesBaseImageFilePath))
                 return onlyImage ? null : DrawPieChart(colorIds, enabledColorRegions, size, pieSize); // no available images

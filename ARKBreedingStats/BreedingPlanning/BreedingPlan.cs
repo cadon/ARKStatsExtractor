@@ -76,7 +76,7 @@ namespace ARKBreedingStats.BreedingPlanning
         private bool _onlyShowingASubset;
 
         /// <summary>
-        /// Set to false if settings are changed and update should only performed after that.
+        /// Set to false if settings are changed and update should only be performed after that.
         /// </summary>
         private bool _updateBreedingPlanAllowed;
         public CreatureCollection CreatureCollection;

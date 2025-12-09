@@ -60,7 +60,7 @@ namespace ARKBreedingStats.SpeciesImages
         internal static async Task<string> SpeciesImageFilePath(Species species,
             string game = null, Sex creatureSex = Sex.Unknown,
             int patternId = -1, bool replacePolar = true, string imagePackName = null, string imageName = null,
-            bool useComposition = false)
+            bool useComposition = false, int pose = 0)
         {
             var speciesName = species?.name;
             if (string.IsNullOrEmpty(speciesName)
@@ -69,7 +69,7 @@ namespace ARKBreedingStats.SpeciesImages
             speciesName = speciesName.Replace("Brute ", string.Empty);
             if (replacePolar)
                 speciesName = speciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty);
-            var creatureImageParameters = new CreatureImageParameters(species, speciesName, game, creatureSex, patternId);
+            var creatureImageParameters = new CreatureImageParameters(species, speciesName, game, creatureSex, patternId, pose);
 
             return await SpeciesImageFilePath(creatureImageParameters, imagePackName, imageName, useComposition).ConfigureAwait(false);
         }

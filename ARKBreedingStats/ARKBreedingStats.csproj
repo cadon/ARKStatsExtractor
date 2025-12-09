@@ -121,6 +121,7 @@
       <DependentUpon>ImagePackSelection.cs</DependentUpon>
     </Compile>
     <Compile Include="SpeciesImages\ImagesManifest.cs" />
+    <Compile Include="SpeciesImages\Poses.cs" />
     <Compile Include="Traits\CreatureTrait.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
