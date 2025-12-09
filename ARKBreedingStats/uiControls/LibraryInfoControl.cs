@@ -26,6 +26,7 @@ namespace ARKBreedingStats.uiControls
         };
 
         private readonly Label _lbPose = new Label();
+        private Sex _sex = Sex.Male;
         private readonly ToolTip _tt = new ToolTip();
         private byte[] _selectedColors;
         private int _selectedColorRegion;
@@ -146,7 +147,8 @@ namespace ARKBreedingStats.uiControls
             var tlp = new TableLayoutPanel();
             tlp.AutoSize = true;
             tlp.RowCount = 2;
-            tlp.ColumnCount = 3;
+            tlp.ColumnCount = 4;
+            tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50));
             tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
             tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
@@ -154,24 +156,35 @@ namespace ARKBreedingStats.uiControls
             tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
             tlp.Controls.Add(_speciesPictureBox);
-            tlp.SetColumnSpan(_speciesPictureBox, 3);
+            tlp.SetColumnSpan(_speciesPictureBox, 4);
 
-            var bt = new Button { Text = "←" };
+            var bt = new Button { Text = Utils.SexSymbol(_sex) };
             bt.Dock = DockStyle.Left;
             tlp.Controls.Add(bt, 0, 1);
+            bt.Click += ChangeSex;
+            bt = new Button { Text = "←" };
+            bt.Dock = DockStyle.Left;
+            tlp.Controls.Add(bt, 1, 1);
             bt.Click += BtPosePreviousClick;
             bt = new Button { Text = "→" };
             bt.Dock = DockStyle.Right;
-            tlp.Controls.Add(bt, 2, 1);
+            tlp.Controls.Add(bt, 3, 1);
             bt.Click += BtPoseNextClick;
 
             _lbPose.Dock = DockStyle.Fill;
             _lbPose.TextAlign = ContentAlignment.MiddleCenter;
-            tlp.Controls.Add(_lbPose, 1, 1);
+            tlp.Controls.Add(_lbPose, 2, 1);
 
             _tt.SetToolTip(_lbPose, "Some species may have more than one pose, this can be set here.");
 
             this.Controls.Add(tlp, 2, 1);
+        }
+
+        private void ChangeSex(object sender, EventArgs e)
+        {
+            _sex = Utils.NextSex(_sex, false);
+            ((Button)sender).Text = Utils.SexSymbol(_sex);
+            UpdateCreatureImage();
         }
 
         private void BtPosePreviousClick(object sender, EventArgs e)
@@ -292,10 +305,9 @@ namespace ARKBreedingStats.uiControls
 
         public void UpdateCreatureImage()
         {
-            // todo button for gender
             CreatureColored.GetColoredCreatureWithCallback(SetImage, this,
                 _selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
-                onlyImage: true, creatureSex: Sex.Male, game: CreatureCollection.CurrentCreatureCollection?.Game);
+                onlyImage: true, creatureSex: _sex, game: CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
         private void SetImage(Bitmap bmp)

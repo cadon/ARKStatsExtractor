@@ -278,16 +278,14 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the next possible sex.
         /// </summary>
-        /// <param name="sex"></param>
-        /// <returns></returns>
-        public static Sex NextSex(Sex sex)
+        public static Sex NextSex(Sex sex, bool includingUnknown = true)
         {
             switch (sex)
             {
                 case Sex.Female:
                     return Sex.Male;
                 case Sex.Male:
-                    return Sex.Unknown;
+                    return includingUnknown ? Sex.Unknown : Sex.Female;
                 default:
                     return Sex.Female;
             }
