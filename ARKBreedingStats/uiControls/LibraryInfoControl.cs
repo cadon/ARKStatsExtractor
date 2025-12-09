@@ -41,8 +41,11 @@ namespace ARKBreedingStats.uiControls
             this.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             this.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
             this.ColumnCount = 5;
-            for (int i = 0; i < this.ColumnCount; i++)
-                this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            this.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+            this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
 
             this.Controls.Add(TlpColorInfoText, 0, 0);
             this.SetRowSpan(TlpColorInfoText, 2);
@@ -115,7 +118,10 @@ namespace ARKBreedingStats.uiControls
             LvColors.FullRowSelect = true;
             LvColors.ShowItemToolTips = true;
             LvColors.Columns.Add("Id", 28);
-            LvColors.Columns[0].TextAlign = HorizontalAlignment.Right; // doesn't work
+            // right align in first column only possible with custom drawing
+            LvColors.OwnerDraw = true;
+            LvColors.DrawSubItem += LvColors_DrawSubItem;
+            LvColors.DrawColumnHeader += LvColors_DrawColumnHeader;
             for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
                 LvColors.Columns.Add($"{ci}", 20);
             Controls.Add(LvColors, 3, 0);
@@ -123,6 +129,17 @@ namespace ARKBreedingStats.uiControls
             LvColors.MinimumSize = new Size(152 + SystemInformation.VerticalScrollBarWidth, 0);
             LvColors.Dock = DockStyle.Right;
         }
+
+        private void LvColors_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            // custom drawing is needed because the first column cannot be right aligned else
+            e.DrawBackground();
+            var flags = e.ColumnIndex == 0 ? TextFormatFlags.Right : TextFormatFlags.HorizontalCenter;
+            // e.DrawText() uses different bounds (too large), so use custom
+            TextRenderer.DrawText(e.Graphics, e.SubItem.Text, e.SubItem.Font, e.Bounds, e.SubItem.ForeColor, flags);
+        }
+
+        private void LvColors_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e) => e.DrawDefault = true;
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
         {
