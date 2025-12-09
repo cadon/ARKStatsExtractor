@@ -707,7 +707,6 @@ namespace ARKBreedingStats
             }
 
             toolStripButtonSaveCreatureValuesTemp.Visible = true;
-            PbCreatureColorsExtractor.Visible = false;
             parentInheritanceExtractor.Visible = false;
 
             // check for updates
