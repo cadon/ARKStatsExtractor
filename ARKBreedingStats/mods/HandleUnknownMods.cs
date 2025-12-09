@@ -12,15 +12,27 @@ namespace ARKBreedingStats.mods
     public static class HandleUnknownMods
     {
         /// <summary>
+        /// Matches blueprint path of an ASE species, group 1 contains the mod tag.
+        /// </summary>
+        private static readonly Regex regexBpAse = new Regex(@"^\/Game\/Mods\/([^\/]+)\/.*");
+
+        /// <summary>
+        /// Matches blueprint path of an ASA species, group 1 contains the mod tag.
+        /// </summary>
+        private static readonly Regex regexBpAsa = new Regex(@"^\/(?!Game)([^\/]+)\/.*");
+
+        /// <summary>
         /// Check if mod files for the missing species are available.
         /// </summary>
         public static (List<string> locallyAvailableModFiles, List<string> onlineAvailableModFiles, List<string> unavailableModFiles, List<string> alreadyLoadedModFilesWithoutNeededClass)
             CheckForMissingModFiles(List<string> unknownSpeciesBlueprints, List<Mod> loadedMods)
         {
-            List<string> unknownModTags = unknownSpeciesBlueprints.Select(bp => Regex.Replace(bp, @"^\/Game\/Mods\/([^\/]+)\/.*", "$1"))
-                                                     .Where(bp => !string.IsNullOrEmpty(bp))
-                                                     .Distinct()
-                                                     .ToList();
+            var unknownModTags = unknownSpeciesBlueprints.Select(bp => regexBpAse.Match(bp).Groups[1].Value)
+                .Concat(unknownSpeciesBlueprints.Select(bp => regexBpAsa.Match(bp).Groups[1].Value))
+                .Where(modTag => !string.IsNullOrEmpty(modTag))
+                .Distinct()
+                .ToArray();
+
             if (!unknownModTags.Any())
                 return (null, null, null, null);
 
