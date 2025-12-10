@@ -133,7 +133,10 @@ namespace ARKBreedingStats.mods
                 LbAuthorLabel.Visible = true;
             }
 
-            var modUrlAvailable = modInfo.OnlineAvailable || !string.IsNullOrEmpty(modInfo.Mod.CfPage);
+            // ASA mods need property CfPage set. ASE mods use id for steam link.
+            var modUrlAvailable = modInfo.OnlineAvailable
+                                 && (!modInfo.Mod.IsAsa || !string.IsNullOrEmpty(modInfo.Mod.CfPage));
+
             if (modUrlAvailable && !int.TryParse(modInfo.Mod.Id, out _))
                 modUrlAvailable = false;
 
