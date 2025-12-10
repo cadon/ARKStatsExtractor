@@ -868,6 +868,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     totalLevelUnknown = true;
                 crB.SetTopStat(s, crB.levelsWild[s] > 0 && crB.levelsWild[s] == _bestLevelsWild[s]);
                 crB.levelsMutated[s] = bestLevelsMutated[s];
+                crB.SetTopMutationStat(s, crB.levelsMutated[s] > 0 && crB.levelsMutated[s] == _bestLevelsMutated[s]);
             }
             crB.levelsWild[Stats.Torpidity] = crB.levelsWild.Sum() + crB.levelsMutated.Sum();
             crB.RecalculateCreatureValues(levelStep);
@@ -924,10 +925,12 @@ namespace ARKBreedingStats.BreedingPlanning
                 crB.levelsMutated[s] = higherLevelPreferred ? Math.Max(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0) : Math.Min(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0);
                 crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crB.levelsWild[s], crB.levelsMutated[s], 0, true, 1, 0);
                 crB.SetTopStat(s, _currentSpecies.stats[s].IncPerTamedLevel != 0 && crB.levelsWild[s] == _bestLevelsWild[s]);
+                crB.SetTopMutationStat(s, crB.levelsMutated[s] == _bestLevelsMutated[s]);
                 crW.levelsWild[s] = higherLevelPreferred ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
                 crW.levelsMutated[s] = higherLevelPreferred ? Math.Min(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0) : Math.Max(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0);
                 crW.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crW.levelsWild[s], crW.levelsMutated[s], 0, true, 1, 0);
                 crW.SetTopStat(s, _currentSpecies.stats[s].IncPerTamedLevel != 0 && crW.levelsWild[s] == _bestLevelsWild[s]);
+                crB.SetTopMutationStat(s, crW.levelsMutated[s] == _bestLevelsMutated[s]);
                 if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
                     totalLevelUnknown = true;
 
@@ -935,10 +938,10 @@ namespace ARKBreedingStats.BreedingPlanning
 
                 // in top stats breeding mode consider only probability of top stats
                 if (crB.levelsWild[s] > crW.levelsWild[s]
-                    && (!topStatBreedingMode || crB.IsTopStat(s)))
+                    && (!topStatBreedingMode || crB.IsTopStat(s) || crB.IsTopMutationStat(s)))
                     probabilityBest *= probabilityInheritingHigherLevel;
                 else if (crB.levelsWild[s] < crW.levelsWild[s]
-                         && (!topStatBreedingMode || crB.IsTopStat(s)))
+                         && (!topStatBreedingMode || crB.IsTopStat(s) || crB.IsTopMutationStat(s)))
                     probabilityBest *= 1 - probabilityInheritingHigherLevel;
             }
             crB.levelsWild[Stats.Torpidity] = crB.levelsWild.Sum() + crB.levelsMutated.Sum();

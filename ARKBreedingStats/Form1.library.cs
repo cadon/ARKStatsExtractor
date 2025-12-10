@@ -1164,7 +1164,7 @@ namespace ARKBreedingStats
                         Utils.SexSymbol(cr.sex),
                         cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? string.Empty,
                         (cr.topness / 10).ToString(),
-                        cr.topStatsConsideredCount.ToString(),
+                        cr.TopStatsConsideredCount.ToString(),
                         cr.generation.ToString(),
                         cr.levelFound.ToString(),
                         cr.Mutations.ToString(),
@@ -1264,7 +1264,7 @@ namespace ARKBreedingStats
             lvi.UseItemStyleForSubItems = false;
 
             // color for top-stats-nr
-            if (cr.topStatsConsideredCount > 0)
+            if (cr.TopStatsConsideredCount > 0)
             {
                 if (Properties.Settings.Default.LibraryHighlightTopCreatures && cr.topBreedingCreature)
                 {
@@ -1273,7 +1273,7 @@ namespace ARKBreedingStats
                     else
                         lvi.BackColor = Color.LightGreen;
                 }
-                lvi.SubItems[ColumnIndexTopStats].BackColor = Utils.GetColorFromPercent(cr.topStatsConsideredCount * 8 + 44, 0.7);
+                lvi.SubItems[ColumnIndexTopStats].BackColor = Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, 0.7);
             }
             else
             {
