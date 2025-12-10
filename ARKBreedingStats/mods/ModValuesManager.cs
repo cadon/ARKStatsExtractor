@@ -117,40 +117,38 @@ namespace ARKBreedingStats.mods
         {
             if (modInfo?.Mod == null) return;
             lbModName.Text = modInfo.Mod.Title;
-            LbModVersion.Text = modInfo.Version.ToString();
+            SetLabelInfo(LbGameLabel, LbGame, modInfo.Mod.IsAsa ? Ark.Asa : Ark.Ase);
+            LbModVersion.Text = modInfo.Version?.ToString();
             lbModTag.Text = modInfo.Mod.Tag;
             lbModId.Text = modInfo.Mod.Id;
-
-            if (string.IsNullOrEmpty(modInfo.Mod.Author))
-            {
-                LbAuthor.Visible = false;
-                LbAuthorLabel.Visible = false;
-            }
-            else
-            {
-                LbAuthor.Text = modInfo.Mod.Author;
-                LbAuthor.Visible = true;
-                LbAuthorLabel.Visible = true;
-            }
+            SetLabelInfo(LbAuthorLabel, LbAuthor, modInfo.Mod.Author);
 
             // ASA mods need property CfPage set. ASE mods use id for steam link.
-            var modUrlAvailable = modInfo.OnlineAvailable
-                                 && (!modInfo.Mod.IsAsa || !string.IsNullOrEmpty(modInfo.Mod.CfPage));
+            var modUrl = !modInfo.OnlineAvailable || !int.TryParse(modInfo.Mod.Id, out _)
+                ? null
+                : modInfo.Mod.IsAsa
+                    ? GetCurseForgeUrl(modInfo.Mod.CfPage)
+                    : GetSteamModPageUrlById(modInfo.Mod.Id);
 
-            if (modUrlAvailable && !int.TryParse(modInfo.Mod.Id, out _))
-                modUrlAvailable = false;
+            var modUrlAvailable = !string.IsNullOrEmpty(modUrl);
 
             LlModWebPage.Visible = modUrlAvailable;
             if (modUrlAvailable)
             {
-                var modUrl = modInfo.Mod.IsAsa
-                    ? GetCurseForgeUrl(modInfo.Mod.CfPage)
-                    : GetSteamModPageUrlById(modInfo.Mod.Id);
                 LlModWebPage.Tag = modUrl;
-
-                if (!string.IsNullOrEmpty(modInfo.Mod.Id))
-                    _tt.SetToolTip(LlModWebPage, $"Open this page in a web browser:\n{modUrl}");
+                _tt.SetToolTip(LlModWebPage, $"Open this page in a web browser:\n{modUrl}");
             }
+        }
+
+        /// <summary>
+        /// Sets value on label. If value is empty, both labels are hidden.
+        /// </summary>
+        private void SetLabelInfo(Label lbLabel, Label lbValue, string value)
+        {
+            var show = !string.IsNullOrEmpty(value);
+            lbLabel.Visible = show;
+            lbValue.Visible = show;
+            lbValue.Text = value;
         }
 
         private void BtClose_Click(object sender, EventArgs e) => Close();

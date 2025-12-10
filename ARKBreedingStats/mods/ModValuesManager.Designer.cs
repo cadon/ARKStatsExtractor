@@ -38,6 +38,8 @@
             this.TbModFilter = new System.Windows.Forms.TextBox();
             this.BtClearFilter = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LbAuthorLabel = new System.Windows.Forms.Label();
+            this.LbAuthor = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.LbModVersion = new System.Windows.Forms.Label();
             this.lbAvailableForDownload = new System.Windows.Forms.Label();
@@ -60,8 +62,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
             this.BtRemoveAllMods = new System.Windows.Forms.Button();
-            this.LbAuthorLabel = new System.Windows.Forms.Label();
-            this.LbAuthor = new System.Windows.Forms.Label();
+            this.LbGameLabel = new System.Windows.Forms.Label();
+            this.LbGame = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -176,6 +178,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.LbGameLabel);
+            this.groupBox1.Controls.Add(this.LbGame);
             this.groupBox1.Controls.Add(this.LbAuthorLabel);
             this.groupBox1.Controls.Add(this.LbAuthor);
             this.groupBox1.Controls.Add(this.label5);
@@ -196,10 +200,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mod info";
             // 
+            // LbAuthorLabel
+            // 
+            this.LbAuthorLabel.AutoSize = true;
+            this.LbAuthorLabel.Location = new System.Drawing.Point(6, 120);
+            this.LbAuthorLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.LbAuthorLabel.Name = "LbAuthorLabel";
+            this.LbAuthorLabel.Size = new System.Drawing.Size(61, 13);
+            this.LbAuthorLabel.TabIndex = 10;
+            this.LbAuthorLabel.Text = "Mod author";
+            // 
+            // LbAuthor
+            // 
+            this.LbAuthor.AutoSize = true;
+            this.LbAuthor.Location = new System.Drawing.Point(106, 120);
+            this.LbAuthor.Margin = new System.Windows.Forms.Padding(3);
+            this.LbAuthor.Name = "LbAuthor";
+            this.LbAuthor.Size = new System.Drawing.Size(37, 13);
+            this.LbAuthor.TabIndex = 11;
+            this.LbAuthor.Text = "author";
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 44);
+            this.label5.Location = new System.Drawing.Point(6, 63);
             this.label5.Margin = new System.Windows.Forms.Padding(3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 13);
@@ -209,7 +233,7 @@
             // LbModVersion
             // 
             this.LbModVersion.AutoSize = true;
-            this.LbModVersion.Location = new System.Drawing.Point(106, 44);
+            this.LbModVersion.Location = new System.Drawing.Point(106, 63);
             this.LbModVersion.Margin = new System.Windows.Forms.Padding(3);
             this.LbModVersion.Name = "LbModVersion";
             this.LbModVersion.Size = new System.Drawing.Size(41, 13);
@@ -239,7 +263,7 @@
             // LlModWebPage
             // 
             this.LlModWebPage.AutoSize = true;
-            this.LlModWebPage.Location = new System.Drawing.Point(6, 123);
+            this.LlModWebPage.Location = new System.Drawing.Point(5, 142);
             this.LlModWebPage.Margin = new System.Windows.Forms.Padding(3);
             this.LlModWebPage.Name = "LlModWebPage";
             this.LlModWebPage.Size = new System.Drawing.Size(78, 13);
@@ -251,7 +275,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 82);
+            this.label3.Location = new System.Drawing.Point(6, 101);
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 13);
@@ -261,7 +285,7 @@
             // lbModId
             // 
             this.lbModId.AutoSize = true;
-            this.lbModId.Location = new System.Drawing.Point(106, 82);
+            this.lbModId.Location = new System.Drawing.Point(106, 101);
             this.lbModId.Margin = new System.Windows.Forms.Padding(3);
             this.lbModId.Name = "lbModId";
             this.lbModId.Size = new System.Drawing.Size(15, 13);
@@ -271,7 +295,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 63);
+            this.label4.Location = new System.Drawing.Point(6, 82);
             this.label4.Margin = new System.Windows.Forms.Padding(3);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
@@ -281,7 +305,7 @@
             // lbModTag
             // 
             this.lbModTag.AutoSize = true;
-            this.lbModTag.Location = new System.Drawing.Point(106, 63);
+            this.lbModTag.Location = new System.Drawing.Point(106, 82);
             this.lbModTag.Margin = new System.Windows.Forms.Padding(3);
             this.lbModTag.Name = "lbModTag";
             this.lbModTag.Size = new System.Drawing.Size(22, 13);
@@ -292,7 +316,7 @@
             // 
             this.lbModName.AutoSize = true;
             this.lbModName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbModName.Location = new System.Drawing.Point(106, 25);
+            this.lbModName.Location = new System.Drawing.Point(106, 23);
             this.lbModName.Margin = new System.Windows.Forms.Padding(3);
             this.lbModName.Name = "lbModName";
             this.lbModName.Size = new System.Drawing.Size(45, 16);
@@ -429,25 +453,25 @@
             this.BtRemoveAllMods.UseVisualStyleBackColor = true;
             this.BtRemoveAllMods.Click += new System.EventHandler(this.BtRemoveAllMods_Click);
             // 
-            // LbAuthorLabel
+            // LbGameLabel
             // 
-            this.LbAuthorLabel.AutoSize = true;
-            this.LbAuthorLabel.Location = new System.Drawing.Point(7, 101);
-            this.LbAuthorLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.LbAuthorLabel.Name = "LbAuthorLabel";
-            this.LbAuthorLabel.Size = new System.Drawing.Size(61, 13);
-            this.LbAuthorLabel.TabIndex = 10;
-            this.LbAuthorLabel.Text = "Mod author";
+            this.LbGameLabel.AutoSize = true;
+            this.LbGameLabel.Location = new System.Drawing.Point(6, 44);
+            this.LbGameLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.LbGameLabel.Name = "LbGameLabel";
+            this.LbGameLabel.Size = new System.Drawing.Size(35, 13);
+            this.LbGameLabel.TabIndex = 12;
+            this.LbGameLabel.Text = "Game";
             // 
-            // LbAuthor
+            // LbGame
             // 
-            this.LbAuthor.AutoSize = true;
-            this.LbAuthor.Location = new System.Drawing.Point(106, 101);
-            this.LbAuthor.Margin = new System.Windows.Forms.Padding(3);
-            this.LbAuthor.Name = "LbAuthor";
-            this.LbAuthor.Size = new System.Drawing.Size(37, 13);
-            this.LbAuthor.TabIndex = 11;
-            this.LbAuthor.Text = "author";
+            this.LbGame.AutoSize = true;
+            this.LbGame.Location = new System.Drawing.Point(106, 44);
+            this.LbGame.Margin = new System.Windows.Forms.Padding(3);
+            this.LbGame.Name = "LbGame";
+            this.LbGame.Size = new System.Drawing.Size(33, 13);
+            this.LbGame.TabIndex = 13;
+            this.LbGame.Text = "game";
             // 
             // ModValuesManager
             // 
@@ -508,5 +532,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label LbAuthorLabel;
         private System.Windows.Forms.Label LbAuthor;
+        private System.Windows.Forms.Label LbGameLabel;
+        private System.Windows.Forms.Label LbGame;
     }
 }
