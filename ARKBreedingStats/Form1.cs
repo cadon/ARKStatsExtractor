@@ -3038,7 +3038,7 @@ namespace ARKBreedingStats
             }
 
             // if Asa values are added or removed manually, adjust Asa setting
-            _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : null;
+            _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : Ark.Ase;
             ReloadModValuesOfCollectionIfNeeded();
         }
 

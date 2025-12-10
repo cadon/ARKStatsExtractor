@@ -21,6 +21,11 @@ namespace ARKBreedingStats.mods
         public string Tag;
 
         /// <summary>
+        /// Mod tag prefixed with game identifier (ASA or ASE).
+        /// </summary>
+        public string TagWithGamePrefix => (IsAsa ? Ark.Asa : Ark.Ase) + Tag;
+
+        /// <summary>
         /// Commonly used name to describe the mod
         /// </summary>
         [JsonProperty("title")]

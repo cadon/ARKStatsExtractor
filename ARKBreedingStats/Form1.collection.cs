@@ -426,7 +426,7 @@ namespace ARKBreedingStats
                             {
                                 // usually the old filename is equal to the mod-tag
                                 bool modFound = false;
-                                string modTag = Path.GetFileNameWithoutExtension(creatureCollectionOld.additionalValues)
+                                string modTag = Ark.Ase + Path.GetFileNameWithoutExtension(creatureCollectionOld.additionalValues)
                                     .Replace(" ", "").ToLower().Replace("gaiamod", "gaia");
                                 foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.ModsByTag)
                                 {

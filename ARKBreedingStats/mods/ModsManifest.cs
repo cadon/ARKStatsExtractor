@@ -29,7 +29,7 @@ namespace ARKBreedingStats.mods
         public Dictionary<string, ModInfo> ModsByFiles = new Dictionary<string, ModInfo>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
-        /// Dictionary of ModInfos. The key is the modTag.
+        /// Dictionary of ModInfos. The key is the modTag prepended by either ASE or ASA.
         /// </summary>
         public Dictionary<string, ModInfo> ModsByTag = new Dictionary<string, ModInfo>();
 
@@ -150,21 +150,22 @@ namespace ARKBreedingStats.mods
 
             foreach (var fmi in ModsByFiles)
             {
-                if (fmi.Value.Mod == null) continue;
+                var modInfo = fmi.Value;
+                if (modInfo.Mod == null) continue;
 
-                fmi.Value.Mod.FileName = fmi.Key;
-                fmi.Value.LocallyAvailable = !string.IsNullOrEmpty(fmi.Value.Mod.FileName) && File.Exists(Path.Combine(valuesPath, fmi.Value.Mod.FileName));
+                modInfo.Mod.FileName = fmi.Key;
+                modInfo.LocallyAvailable = !string.IsNullOrEmpty(modInfo.Mod.FileName) && File.Exists(Path.Combine(valuesPath, modInfo.Mod.FileName));
 
-                if (!string.IsNullOrEmpty(fmi.Value.Mod.Tag)
-                    && !ModsByTag.ContainsKey(fmi.Value.Mod.Tag))
+                if (!string.IsNullOrEmpty(modInfo.Mod.Tag)
+                    && !ModsByTag.ContainsKey(modInfo.Mod.TagWithGamePrefix))
                 {
-                    ModsByTag.Add(fmi.Value.Mod.Tag, fmi.Value);
+                    ModsByTag.Add(modInfo.Mod.TagWithGamePrefix, fmi.Value);
                 }
 
-                if (!string.IsNullOrEmpty(fmi.Value.Mod.Id)
-                    && !ModsById.ContainsKey(fmi.Value.Mod.Id))
+                if (!string.IsNullOrEmpty(modInfo.Mod.Id)
+                    && !ModsById.ContainsKey(modInfo.Mod.Id))
                 {
-                    ModsById.Add(fmi.Value.Mod.Id, fmi.Value);
+                    ModsById.Add(modInfo.Mod.Id, modInfo);
                 }
             }
         }
