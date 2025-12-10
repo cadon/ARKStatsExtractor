@@ -89,12 +89,13 @@ namespace ARKBreedingStats.BreedingPlanning
             this.pedigreeCreatureWorst = new ARKBreedingStats.Pedigree.PedigreeCreature();
             this.lbMutationProbability = new System.Windows.Forms.Label();
             this.btBPJustMated = new System.Windows.Forms.Button();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
+            this.LbMinTotalLevelTopStats = new System.Windows.Forms.Label();
             this.panelCombinations = new System.Windows.Forms.Panel();
             this.lbBreedingPlanInfo = new System.Windows.Forms.Label();
             this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.LbMinTotalLevelTopStats = new System.Windows.Forms.Label();
+            this.BtRecalculatePlan = new System.Windows.Forms.Button();
             this.tableLayoutMain.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.gbBPBreedingMode.SuspendLayout();
@@ -109,8 +110,8 @@ namespace ARKBreedingStats.BreedingPlanning
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
-            this.panelCombinations.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.panelCombinations.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutMain
@@ -529,6 +530,7 @@ namespace ARKBreedingStats.BreedingPlanning
             this.flowLayoutPanel1.Controls.Add(this.lbBreedingPlanHeader);
             this.flowLayoutPanel1.Controls.Add(this.pedigreeCreatureBestPossibleInSpecies);
             this.flowLayoutPanel1.Controls.Add(this.btShowAllCreatures);
+            this.flowLayoutPanel1.Controls.Add(this.BtRecalculatePlan);
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.pedigreeCreatureBestPossibleInSpeciesFiltered);
             this.flowLayoutPanel1.Controls.Add(this.pedigreeCreature1);
@@ -578,7 +580,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // panel1
             // 
             this.flowLayoutPanel1.SetFlowBreak(this.panel1, true);
-            this.panel1.Location = new System.Drawing.Point(735, 50);
+            this.panel1.Location = new System.Drawing.Point(919, 50);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(10, 32);
             this.panel1.TabIndex = 7;
@@ -796,6 +798,22 @@ namespace ARKBreedingStats.BreedingPlanning
             this.btBPJustMated.UseVisualStyleBackColor = true;
             this.btBPJustMated.Click += new System.EventHandler(this.buttonJustMated_Click);
             // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.AutoSize = true;
+            this.tableLayoutPanel6.ColumnCount = 1;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel6.Controls.Add(this.offspringPossibilities1, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.LbMinTotalLevelTopStats, 0, 1);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(361, 3);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(259, 177);
+            this.tableLayoutPanel6.TabIndex = 8;
+            // 
             // offspringPossibilities1
             // 
             this.offspringPossibilities1.Location = new System.Drawing.Point(6, 6);
@@ -803,6 +821,14 @@ namespace ARKBreedingStats.BreedingPlanning
             this.offspringPossibilities1.Name = "offspringPossibilities1";
             this.offspringPossibilities1.Size = new System.Drawing.Size(247, 134);
             this.offspringPossibilities1.TabIndex = 1;
+            // 
+            // LbMinTotalLevelTopStats
+            // 
+            this.LbMinTotalLevelTopStats.AutoSize = true;
+            this.LbMinTotalLevelTopStats.Location = new System.Drawing.Point(3, 146);
+            this.LbMinTotalLevelTopStats.Name = "LbMinTotalLevelTopStats";
+            this.LbMinTotalLevelTopStats.Size = new System.Drawing.Size(0, 13);
+            this.LbMinTotalLevelTopStats.TabIndex = 2;
             // 
             // panelCombinations
             // 
@@ -834,29 +860,15 @@ namespace ARKBreedingStats.BreedingPlanning
             this.flowLayoutPanelPairs.Size = new System.Drawing.Size(1470, 618);
             this.flowLayoutPanelPairs.TabIndex = 1;
             // 
-            // tableLayoutPanel6
+            // BtRecalculatePlan
             // 
-            this.tableLayoutPanel6.AutoSize = true;
-            this.tableLayoutPanel6.ColumnCount = 1;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.Controls.Add(this.offspringPossibilities1, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.LbMinTotalLevelTopStats, 0, 1);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(361, 3);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(259, 177);
-            this.tableLayoutPanel6.TabIndex = 8;
-            // 
-            // LbMinTotalLevelTopStats
-            // 
-            this.LbMinTotalLevelTopStats.AutoSize = true;
-            this.LbMinTotalLevelTopStats.Location = new System.Drawing.Point(3, 146);
-            this.LbMinTotalLevelTopStats.Name = "LbMinTotalLevelTopStats";
-            this.LbMinTotalLevelTopStats.Size = new System.Drawing.Size(0, 13);
-            this.LbMinTotalLevelTopStats.TabIndex = 2;
+            this.BtRecalculatePlan.Location = new System.Drawing.Point(735, 50);
+            this.BtRecalculatePlan.Name = "BtRecalculatePlan";
+            this.BtRecalculatePlan.Size = new System.Drawing.Size(178, 35);
+            this.BtRecalculatePlan.TabIndex = 9;
+            this.BtRecalculatePlan.Text = "Library changed, recalculate plan";
+            this.BtRecalculatePlan.UseVisualStyleBackColor = true;
+            this.BtRecalculatePlan.Click += new System.EventHandler(this.BtRecalculatePlan_Click);
             // 
             // BreedingPlan
             // 
@@ -887,9 +899,9 @@ namespace ARKBreedingStats.BreedingPlanning
             this.tableLayoutPanel4.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
-            this.panelCombinations.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
+            this.panelCombinations.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -956,5 +968,6 @@ namespace ARKBreedingStats.BreedingPlanning
         private System.Windows.Forms.CheckBox CbOnlySameSpecies;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Label LbMinTotalLevelTopStats;
+        private System.Windows.Forms.Button BtRecalculatePlan;
     }
 }

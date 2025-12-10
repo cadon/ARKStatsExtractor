@@ -1,10 +1,18 @@
 ﻿using ARKBreedingStats.importExported;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.mods;
+using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.ocr;
+using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesImages;
+using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -16,17 +24,10 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.mods;
-using ARKBreedingStats.NamePatterns;
-using ARKBreedingStats.Pedigree;
-using ARKBreedingStats.SpeciesImages;
-using ARKBreedingStats.StatsOptions;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
-using ARKBreedingStats.Traits;
-using ARKBreedingStats.utils;
+using static ARKBreedingStats.Asb;
 using static ARKBreedingStats.settings.Settings;
-using Color = System.Drawing.Color;
 using static ARKBreedingStats.uiControls.StatWeighting;
+using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats
 {
@@ -152,7 +153,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputExtractor.ColorsChanged += CreatureInfoInputColorsChanged;
             creatureInfoInputTester.ColorsChanged += CreatureInfoInputColorsChanged;
-            speciesSelector1.OnSpeciesSelected += SpeciesSelector1OnSpeciesSelected;
+            speciesSelector1.OnSpeciesSelected += SpeciesSelectorOnSpeciesSelected;
             speciesSelector1.ToggleVisibility += ToggleViewSpeciesSelector;
             statsMultiplierTesting1.OnApplyMultipliers += StatsMultiplierTesting1_OnApplyMultipliers;
             raisingControl1.AdjustTimersByOffset += timerList1.AdjustAllTimersByOffset;
@@ -303,7 +304,7 @@ namespace ARKBreedingStats
             ImageCollections.LoadImagePackInfos();
             CreatureImageFile.InitializeSpeciesImageLocation();
 
-            if (!LoadStatAndKibbleValues(false).statValuesLoaded || !Values.V.species.Any())
+            if (!LoadStatAndKibbleValues(false).statValuesLoaded || !Values.V.Species.Any())
             {
                 MessageBoxes.ShowMessageBox(Loc.S("valuesFileLoadingError"),
                     $"{Loc.S("error")}: Values-file not found");
@@ -565,6 +566,7 @@ namespace ARKBreedingStats
                     break;
             }
 
+            Poses.LoadPoses();
             SetupAutoLoadFileWatcher();
             SetupExportFileWatcher();
         }
@@ -717,7 +719,7 @@ namespace ARKBreedingStats
         }
 
         // global species changed / globalspecieschanged
-        private void SpeciesSelector1OnSpeciesSelected(bool speciesChanged)
+        private void SpeciesSelectorOnSpeciesSelected(bool speciesChanged, TriggerSource triggerSource)
         {
             Species species = speciesSelector1.SelectedSpecies;
             ToggleViewSpeciesSelector(false);
@@ -780,13 +782,13 @@ namespace ARKBreedingStats
             {
                 ClearAll();
                 // warn if a species selected that has a possible mod variant
-                if ((species.Mod == null || species.Mod.expansion)
+                if ((species.Mod == null || species.Mod.IsExpansion)
                     && Values.V.TryGetSpeciesByName(species.name, out var modSpecies)
-                    && modSpecies.Mod?.expansion == false
+                    && modSpecies.Mod?.IsExpansion == false
                 )
                 {
                     SetMessageLabelText(
-                        $"The selected species \"{species}\" is not from a mod, but there is a variant of that species that appears in the loaded mod \"{modSpecies.Mod.title}\". Probably you want to select the mod variant",
+                        $"The selected species \"{species}\" is not from a mod, but there is a variant of that species that appears in the loaded mod \"{modSpecies.Mod.Title}\". Probably you want to select the mod variant",
                         MessageBoxIcon.Warning);
                 }
             }
@@ -827,10 +829,10 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
                 if (breedingPlan1.CurrentSpecies == species)
-                    breedingPlan1.UpdateIfNeeded();
+                    breedingPlan1.UpdateIfNeeded(triggerSource);
                 else
                 {
-                    breedingPlan1.SetSpecies(species);
+                    breedingPlan1.SetSpecies(species, triggerSource);
                 }
             }
 
@@ -1111,7 +1113,7 @@ namespace ARKBreedingStats
                 availableSpecies.Add(cr.Species);
 
             // sort species according to selected order (can be modified by json/sortNames.txt)
-            _speciesInLibraryOrdered = Values.V.species.Where(sn => availableSpecies.Contains(sn)).ToArray();
+            _speciesInLibraryOrdered = Values.V.Species.Where(sn => availableSpecies.Contains(sn)).ToArray();
 
             // add node to show all
             listBoxSpeciesLib.BeginUpdate();
@@ -1228,8 +1230,8 @@ namespace ARKBreedingStats
                 return;
 
             // check if values-files can be updated
-            var downloadedModFiles = Values.V.modsManifest.modsByFiles.Select(mikv => mikv.Value)
-                .Where(mi => mi.LocallyAvailable).Select(mi => mi.mod.FileName)
+            var downloadedModFiles = Values.V.modsManifest.ModsByFiles.Select(mikv => mikv.Value)
+                .Where(mi => mi.LocallyAvailable).Select(mi => mi.Mod.FileName)
                 .Append(FileService.ValuesJson) // check also base values file
                 .ToList();
 
@@ -1283,7 +1285,7 @@ namespace ARKBreedingStats
             (bool statValuesLoaded, bool kibbleValuesLoaded) success = (false, false);
             if (LoadStatValues(Values.V, forceReload))
             {
-                speciesSelector1.SetSpeciesLists(Values.V.species, Values.V.aliases);
+                speciesSelector1.SetSpeciesLists(Values.V.Species, Values.V.aliases);
                 if (applySettings)
                     ApplySettingsToValues();
                 UpdateStatusBar();
@@ -1518,6 +1520,7 @@ namespace ARKBreedingStats
 
             StatsOptionsLevelColors.SaveSettings();
             StatsOptionsConsiderTopStats.SaveSettings();
+            Poses.SavePoses();
         }
 
         /// <summary>
@@ -1809,9 +1812,7 @@ namespace ARKBreedingStats
                 if (breedingPlan1.CurrentSpecies == speciesSelector1.SelectedSpecies)
                     breedingPlan1.UpdateIfNeeded();
                 else
-                {
                     breedingPlan1.SetSpecies(speciesSelector1.SelectedSpecies);
-                }
             }
             else if (tabControlMain.SelectedTab == tabPageRaising)
             {
@@ -2228,7 +2229,7 @@ namespace ARKBreedingStats
                 if (settingsForm.LanguageChanged) SetLocalizations();
                 if (settingsForm.ColorRegionDisplayChanged)
                 {
-                    foreach (var sp in Values.V.species)
+                    foreach (var sp in Values.V.Species)
                         sp.InitializeColorRegions();
                     // update visible color region buttons
                     creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
@@ -2531,7 +2532,7 @@ namespace ARKBreedingStats
 
             // only consider species that can be domesticated and
             // that only have an oxygen value if they display it
-            var speciesToCheck = Values.V.species
+            var speciesToCheck = Values.V.Species
                 .Where(sp => sp.IsDomesticable && !(stats[Stats.Oxygen] != 0 ^ sp.DisplaysStat(Stats.Oxygen)))
                 .ToArray();
             // if dice-coefficient is promising, just take that
@@ -2992,9 +2993,9 @@ namespace ARKBreedingStats
             // determine file-names of mod-value files
             foreach (var modId in cc.modIDs)
             {
-                if (Values.V.modsManifest.modsByID.TryGetValue(modId, out var modInfo)
-                    && modInfo.mod?.FileName != null)
-                    filePaths.Add(modInfo.mod.FileName);
+                if (Values.V.modsManifest.ModsById.TryGetValue(modId, out var modInfo)
+                    && modInfo.Mod?.FileName != null)
+                    filePaths.Add(modInfo.Mod.FileName);
                 else
                     unknownModIDs.Add(modId);
             }
@@ -3037,7 +3038,7 @@ namespace ARKBreedingStats
             }
 
             // if Asa values are added or removed manually, adjust Asa setting
-            _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : null;
+            _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : Ark.Ase;
             ReloadModValuesOfCollectionIfNeeded();
         }
 
@@ -3080,7 +3081,7 @@ namespace ARKBreedingStats
             int obelisk = creatureCount?.Count(c => c.Status == CreatureStatus.Obelisk) ?? 0;
             int cryopod = creatureCount?.Count(c => c.Status == CreatureStatus.Cryopod) ?? 0;
 
-            var loadedMods = _creatureCollection?.ModList?.Where(m => !m.expansion).ToArray();
+            var loadedMods = _creatureCollection?.ModList?.Where(m => !m.IsExpansion).ToArray();
 
             toolStripStatusLabel.Text = total + " creatures in Library"
                                               + (total > 0
@@ -3100,7 +3101,7 @@ namespace ARKBreedingStats
                                               (loadedMods?.Any() == true
                                                   ? ", additional values from " + loadedMods.Length +
                                                     " mod" + (loadedMods.Length == 1 ? string.Empty : "s") + " (" + string.Join(", ",
-                                                        loadedMods.Select(m => m.title)) +
+                                                        loadedMods.Select(m => m.Title)) +
                                                     ")"
                                                   : string.Empty);
         }
@@ -3485,8 +3486,8 @@ namespace ARKBreedingStats
 
             if (etc.ModIDs.Any())
                 LoadModValueFiles(
-                    Values.V.modsManifest.modsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.mod.id))
-                        .Select(mi => mi.Value.mod.FileName).ToList(),
+                    Values.V.modsManifest.ModsByFiles.Where(mi => etc.ModIDs.Contains(mi.Value.Mod.Id))
+                        .Select(mi => mi.Value.Mod.FileName).ToList(),
                     false, false, out _);
 
             Values.V.ApplyMultipliers(_creatureCollection);
@@ -3569,7 +3570,7 @@ namespace ARKBreedingStats
 
         private void customStatOverridesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var frm = new mods.CustomStatOverridesEditor(Values.V.species, _creatureCollection))
+            using (var frm = new mods.CustomStatOverridesEditor(Values.V.Species, _creatureCollection))
             {
                 Utils.SetWindowRectangle(frm, Properties.Settings.Default.CustomStatOverrideFormRectangle);
                 frm.ShowDialog();

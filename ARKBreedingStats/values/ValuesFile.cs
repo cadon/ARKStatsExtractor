@@ -22,22 +22,24 @@ namespace ARKBreedingStats.values
             || formatVersion == "1.16-mod-remap" // support for blueprint remap for mod files
             ;
 
-        [JsonProperty]
-        private string version;
+        [JsonProperty("version")]
+        private string _version;
+        public Version Version;
+
         /// <summary>
         /// Must be present and a supported value. Defaults to an invalid value
         /// </summary>
-        [JsonProperty]
-        protected string format;
-        public Version Version;
-        [JsonProperty]
-        public List<Species> species;
+        [JsonProperty("format")]
+        public string Format { get; private set; }
+
+        [JsonProperty("species")]
+        public List<Species> Species;
 
         /// <summary>
         /// If not zero it indicates the values file contains new dye definitions that should overwrite the existing base definitions.
         /// </summary>
-        [JsonProperty]
-        public int dyeStartIndex;
+        [JsonProperty("dyeStartIndex")]
+        public int DyeStartIndex;
 
         [JsonProperty("colorDefinitions")]
         private object[][] _colorDefinitions;
@@ -57,14 +59,13 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// If this represents values for a mod, the mod-infos are found here.
         /// </summary>
-        [JsonProperty]
-        public Mod mod;
+        [JsonProperty("mod")]
+        public Mod Mod;
 
         [OnDeserialized]
-        private void ParseVersionAndColors(StreamingContext ct)
+        private void ParseVersionAndColors(StreamingContext _)
         {
-            if (!Version.TryParse(version, out Version))
-                Version = new Version(0, 0);
+            Version = Utils.TryParseVersionAlsoWithOnlyMajor(_version);
 
             ArkColorsDyesParsed = ArkColors.ParseColorDefinitions(_colorDefinitions, ArkColorsDyesParsed);
             ArkColorsDyesParsed = ArkColors.ParseColorDefinitions(_dyeDefinitions, ArkColorsDyesParsed, true);
@@ -84,7 +85,7 @@ namespace ARKBreedingStats.values
         {
             if (FileService.LoadJsonFile(filePath, out Values readData, out string errorMessage))
             {
-                if (!IsValidFormatVersion(readData.format)) throw new FormatException($"Unsupported values format version: {(readData.format ?? "null")}");
+                if (!IsValidFormatVersion(readData.Format)) throw new FormatException($"Unsupported values format version: {(readData.Format ?? "null")}");
                 return readData;
             }
             throw new FileLoadException(errorMessage);
@@ -94,7 +95,7 @@ namespace ARKBreedingStats.values
         {
             if (FileService.LoadJsonFile(filePath, out ValuesFile readData, out string errorMessage))
             {
-                if (!IsValidFormatVersion(readData.format)) throw new FormatException($"Unsupported values format version: {(readData.format ?? "null")}");
+                if (!IsValidFormatVersion(readData.Format)) throw new FormatException($"Unsupported values format version: {(readData.Format ?? "null")}");
                 return readData;
             }
             throw new FileLoadException(errorMessage);
@@ -105,20 +106,20 @@ namespace ARKBreedingStats.values
         /// If the mod-values will be used, setModFileName should be true.
         /// If the file cannot be found or the format is wrong, the file is ignored and no exception is thrown if throwExceptionOnFail is false.
         /// </summary>
-        protected static bool TryLoadValuesFile(string filePath, bool setModFileName, bool throwExceptionOnFail, out ValuesFile values, out string errorMessage, bool checkIfModPropertyIsExisting = false)
+        internal static bool TryLoadValuesFile(string filePath, bool setModFileName, bool throwExceptionOnFail, out ValuesFile values, out string errorMessage, bool checkIfModPropertyIsExisting = false)
         {
             values = null;
             errorMessage = null;
             try
             {
                 values = LoadValuesFile(filePath);
-                if (checkIfModPropertyIsExisting && string.IsNullOrEmpty(values.mod?.id))
+                if (checkIfModPropertyIsExisting && string.IsNullOrEmpty(values.Mod?.Id))
                 {
                     errorMessage =
                         $"The mod file\n{filePath}\ndoesn't contains an object \"mod\" or that object doesn't contain a valid entry \"id\". The mod file cannot be loaded until this information is added";
                     return false;
                 }
-                if (setModFileName) values.mod.FileName = Path.GetFileName(filePath);
+                if (setModFileName) values.Mod.FileName = Path.GetFileName(filePath);
 
                 return true;
             }

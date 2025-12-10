@@ -333,6 +333,7 @@ namespace ARKBreedingStats.multiplierTesting
         public float TBHM
         {
             set => nudTBHM.Value = (decimal)value;
+            get => (float)nudTBHM.Value;
         }
 
         /// <summary>

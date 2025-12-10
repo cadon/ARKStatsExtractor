@@ -66,7 +66,7 @@ namespace ARKBreedingStats.library
             if (randomSpecies)
             {
                 if (numberSpecies < 1) numberSpecies = 1;
-                speciesSelection = Values.V.species.Where(s => s.IsDomesticable && !s.name.Contains("Tek") && !s.name.Contains("Alpha") && (s.variants?.Length ?? 0) < 2).ToArray();
+                speciesSelection = Values.V.Species.Where(s => s.IsDomesticable && !s.name.Contains("Tek") && !s.name.Contains("Alpha") && (s.variants?.Length ?? 0) < 2).ToArray();
                 speciesCount = speciesSelection.Length;
                 if (speciesCount > numberSpecies)
                 {

@@ -119,19 +119,19 @@ namespace ARKBreedingStats
             _bred = bred;
             PostTamed = bred || tamed;
 
-            List<MinMaxDouble> imprintingBonusList;
+            MinMaxDouble[] imprintingBonusList;
             if (fixedImprinting >= 0)
-                imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(fixedImprinting) };
+                imprintingBonusList = new[] { new MinMaxDouble(fixedImprinting) };
             else if (bred)
                 imprintingBonusList = adjustImprinting
                     ? CalculateImprintingBonus(species, stats, imprintingBonusRounded, imprintingBonusMultiplier, statValues[Stats.Torpidity], statValues[Stats.Food], troodonismStats)
-                    : new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded) };
+                    : new[] { new MinMaxDouble(imprintingBonusRounded) };
             else
-                imprintingBonusList = new List<MinMaxDouble> { new MinMaxDouble(0) };
+                imprintingBonusList = new[] { new MinMaxDouble(0) };
 
             double[] statImprintMultipliers = species.StatImprintMultipliers;
 
-            for (int IBi = 0; IBi < imprintingBonusList.Count; IBi++)
+            for (int IBi = 0; IBi < imprintingBonusList.Length; IBi++)
             {
                 _imprintingBonusRange = imprintingBonusList[IBi];
                 // don't cut off too much possible values, consider a margin of 0.01 to not sort out possible correct values
@@ -503,7 +503,7 @@ namespace ARKBreedingStats
                         MutationLevelPossibilities = Results.Any(sr => sr.Count > 1 && sr.Any(r => r.LevelMut > 0));
                         break;
                     }
-                    if (IBi < imprintingBonusList.Count - 1)
+                    if (IBi < imprintingBonusList.Length - 1)
                     {
                         // not all stats got a result, clear results for the next round
                         Clear();
@@ -518,17 +518,17 @@ namespace ARKBreedingStats
         /// and using the bonus on the Torpidity stat (this cannot be leveled, so the exact bonus is known).
         /// Due to the high values of the food stat, which is often not leveled, this stat can be used to further improve the precision of the imprinting bonus.
         /// </summary>
-        private static List<MinMaxDouble> CalculateImprintingBonus(Species species, SpeciesStat[] stats, double imprintingBonusRounded, double imprintingBonusMultiplier, double torpor, double food, Troodonism.AffectedStats useTroodonismStats)
+        private static MinMaxDouble[] CalculateImprintingBonus(Species species, SpeciesStat[] stats, double imprintingBonusRounded, double imprintingBonusMultiplier, double torpor, double food, Troodonism.AffectedStats useTroodonismStats)
         {
             if (imprintingBonusMultiplier == 0)
             {
-                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded) };
+                return new[] { new MinMaxDouble(imprintingBonusRounded) };
             }
 
             if (stats[Stats.Torpidity].BaseValue == 0 || stats[Stats.Torpidity].IncPerWildLevel == 0)
             {
                 // invalid species-data
-                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded - 0.005, imprintingBonusRounded + 0.005) };
+                return new[] { new MinMaxDouble(imprintingBonusRounded - 0.005, imprintingBonusRounded + 0.005) };
             }
 
             var statImprintMultipliers = species.StatImprintMultipliers;
@@ -545,17 +545,15 @@ namespace ARKBreedingStats
 
             if (!anyStatAffectedByImprinting)
             {
-                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded) };
+                return new[] { new MinMaxDouble(imprintingBonusRounded) };
             }
 
 
             if (statImprintMultipliers[Stats.Torpidity] == 0)
             {
                 // torpidity is not affected by imprinting, the exact value cannot be calculated
-                return new List<MinMaxDouble> { new MinMaxDouble(imprintingBonusRounded - 0.005, imprintingBonusRounded + 0.005) };
+                return new[] { new MinMaxDouble(imprintingBonusRounded - 0.005, imprintingBonusRounded + 0.005) };
             }
-
-            var imprintingBonusList = new List<MinMaxDouble>();
 
             // if the imprinting bonus was only achieved by cuddles etc. without event bonus, it will increase by fixed steps
             // this is the most exact value, but will not work if the imprinting-gain was different (e.g. events, mods (S+Nanny))
@@ -571,17 +569,24 @@ namespace ARKBreedingStats
                 ((((torpor / (1 + stats[Stats.Torpidity].MultAffinity)) - stats[Stats.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier) * stats[Stats.Torpidity].BaseValue)) - 1) / stats[Stats.Torpidity].IncPerWildLevel,
                 ((((torpor / (1 + stats[Stats.Torpidity].MultAffinity)) - stats[Stats.Torpidity].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier) * stats[Stats.Torpidity].BaseValue)) - 1) / stats[Stats.Torpidity].IncPerWildLevel);
 
+            wildLevelsFromImprintedTorpor.SetToIntersectionWith(0, int.MaxValue);
+
             // this assumes the food mutation levels have no custom increasePerLevelMultiplier
             // assuming food has no dom-levels, extract the exact imprinting from this stat. If the range is in the range of the torpor-dependent IB, take this more precise value for the imprinting. (food has higher values and yields more precise results)
             var wildLevelsFromImprintedFood = new MinMaxInt(
                 ((((food / (1 + stats[Stats.Food].MultAffinity)) - stats[Stats.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded + 0.005) * statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier) * stats[Stats.Food].BaseValue)) - 1) / stats[Stats.Food].IncPerWildLevel,
                 ((((food / (1 + stats[Stats.Food].MultAffinity)) - stats[Stats.Food].AddWhenTamed) / ((1 + (imprintingBonusRounded - 0.005) * statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier) * stats[Stats.Food].BaseValue)) - 1) / stats[Stats.Food].IncPerWildLevel);
 
-            var otherStatsSupportIB = new List<int>(); // the number of other stats that support this IB-range
-                                                       // for high-level creatures the bonus from imprinting is so high, that a displayed and rounded value of the imprinting bonus can be possible with multiple torpor-levels, i.e. 1 %point IB results in a larger change than a level in torpor.
+            wildLevelsFromImprintedFood.SetToIntersectionWith(0, int.MaxValue);
+
+            // support is the number of other stats that support this IB-range
+            // for high-level creatures the bonus from imprinting is so high, that a displayed and rounded value of the imprinting bonus can be possible with multiple torpor-levels,
+            // i.e. 1 %point IB results in a larger change than a level in torpor.
+            var imprintingBonusList = new List<(MinMaxDouble imprintingBonusRange, int support)>();
 
             var imprintingBonusTorpidityFinal = statImprintMultipliers[Stats.Torpidity] * imprintingBonusMultiplier;
             var imprintingBonusFoodFinal = statImprintMultipliers[Stats.Food] * imprintingBonusMultiplier;
+            var useFoodForChecking = imprintingBonusFoodFinal > 0 && wildLevelsFromImprintedFood.ValidRange;
 
             for (var torporLevel = wildLevelsFromImprintedTorpor.Min; torporLevel <= wildLevelsFromImprintedTorpor.Max; torporLevel++)
             {
@@ -592,7 +597,7 @@ namespace ARKBreedingStats
 
                 // check for each possible food-level the IB-range and if it can narrow down the range derived from the torpor (deriving from food is more precise, due to the higher values)
 
-                if (imprintingBonusFoodFinal > 0)
+                if (useFoodForChecking)
                 {
                     for (var foodLevel = wildLevelsFromImprintedFood.Min;
                          foodLevel <= wildLevelsFromImprintedFood.Max;
@@ -642,12 +647,11 @@ namespace ARKBreedingStats
                 }
 
                 // TODO check if this range has already been added to avoid double loops in the extraction. if existent, update support
-                imprintingBonusList.Add(imprintingBonusRange);
-                otherStatsSupportIB.Add(support);
+                imprintingBonusList.Add((imprintingBonusRange, support));
             }
 
             // sort IB according to the support they got by other stats, then return the distinct means of the possible ranges.
-            return imprintingBonusList.OrderByDescending(i => otherStatsSupportIB[imprintingBonusList.IndexOf(i)]).ToList();
+            return imprintingBonusList.OrderByDescending(i => i.support).Select(i => i.imprintingBonusRange).ToArray();
         }
 
         public void RemoveImpossibleTEsAccordingToMaxWildLevel(int maxWildLevel)

@@ -61,7 +61,7 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// Number of top stats that are considered in the library.
         /// </summary>
-        public byte topStatsConsideredCount;
+        public byte TopStatsConsideredCount;
 
         /// <summary>
         /// Set a stat index to a top mutation stat or not for that species in the creatureCollection.
@@ -506,7 +506,7 @@ namespace ARKBreedingStats.Library
             onlyTopConsideredStats = true;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (IsTopStat(s))
+                if (IsTopStat(s) || IsTopMutationStat(s))
                 {
                     if (s != Stats.Torpidity)
                         cBP++;
@@ -518,7 +518,7 @@ namespace ARKBreedingStats.Library
                     onlyTopConsideredStats = false;
                 }
             }
-            topStatsConsideredCount = c;
+            TopStatsConsideredCount = c;
             topStatsCountBP = cBP;
         }
 

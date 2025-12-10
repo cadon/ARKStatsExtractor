@@ -682,6 +682,7 @@ namespace ARKBreedingStats
             groupBoxRadarChartExtractor.Visible = false;
             creatureAnalysis1.Visible = false;
             lbInfoYellowStats.Visible = false;
+            PbCreatureColorsExtractor.Visible = false;
             BtCopyIssueDumpToClipboard.Visible = true;
             string redInfoText = null;
             if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
@@ -706,7 +707,6 @@ namespace ARKBreedingStats
             }
 
             toolStripButtonSaveCreatureValuesTemp.Visible = true;
-            PbCreatureColorsExtractor.Visible = false;
             parentInheritanceExtractor.Visible = false;
 
             // check for updates

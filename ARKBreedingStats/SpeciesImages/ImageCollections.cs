@@ -111,14 +111,12 @@ namespace ARKBreedingStats.SpeciesImages
                 }
 
                 var isEnabledPack = Properties.Settings.Default.SpeciesImagesUrls?.Contains(im.Id) == true;
-                if (!im.LoadLocalImagePackInfo(filePathLocalManifest, isEnabledPack))
+                if (!im.LoadLocalImagePackInfo(filePathLocalManifest, isEnabledPack)
+                    || !isEnabledPack)
                     continue;
 
-                if (isEnabledPack)
-                {
-                    EnabledImageCollections.Add(new ImageCollection(im));
-                    AnyManifests = true;
-                }
+                EnabledImageCollections.Add(new ImageCollection(im));
+                AnyManifests = true;
             }
         }
 
@@ -212,7 +210,7 @@ namespace ARKBreedingStats.SpeciesImages
         /// <param name="imagePackNamePreferred">If specified, prefer this pack.</param>
         public static async Task<(string, string)> GetFile(IList<string> possibleFileNames, string imagePackNamePreferred = null)
         {
-            if (possibleFileNames?.Any() != true || ImageManifests == null) return (null, null);
+            if (possibleFileNames?.Any() != true) return (null, null);
 
             var checkImagePacks = string.IsNullOrEmpty(imagePackNamePreferred)
                 ? EnabledImageCollections

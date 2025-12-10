@@ -1,6 +1,67 @@
 {
 	"format": "1.14-flyerspeed",
 	"files": {
+		"1005639-BobsMissions.json": {
+			"version": "1761758154",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1005639",
+				"ASA": true,
+				"tag": "BobsMissions",
+				"title": "Club ARK",
+				"author": "StudioWildcardMods",
+				"cfPage": "club-ark",
+				"official": true
+			}
+		},
+		"1007609-CyrusJumpingSpider.json": {
+			"version": "1753743988",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1007609",
+				"ASA": true,
+				"tag": "CyrusJumpingSpider",
+				"title": "Cyrus' Critters: [Cuter TLC] Jumping Spider",
+				"author": "cyrusCreates",
+				"cfPage": "cyrus-critters-jumping-spider"
+			}
+		},
+		"1038262-Moros_Nothosaurus.json": {
+			"version": "1763664344",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1038262",
+				"ASA": true,
+				"tag": "Moros_Nothosaurus",
+				"title": "Moro's Nothosaurus",
+				"author": "MoroNada",
+				"cfPage": "moros-nothosaurus"
+			}
+		},
+		"1063373-DragonKingdom.json": {
+			"version": "1761675070",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1063373",
+				"ASA": true,
+				"tag": "DragonKingdom",
+				"title": "Dragon's Kingdom",
+				"author": "scorchingkami",
+				"cfPage": "dragons-kingdom"
+			}
+		},
+		"1079535-MarniiModsOwlgriffins.json": {
+			"version": "1750192715",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1079535",
+				"ASA": true,
+				"tag": "MarniiModsOwlgriffins",
+				"title": "MarniiMods Griffins",
+				"author": "MarniiMods",
+				"cfPage": "marniimods-griffins"
+			}
+		},
 		"1083349027-SpeedyFlyers.json": { "version": "340.3.1636376737", "mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" } },
 		"1090809604-Pyria.json": { "version": "358.17.1703902790", "mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" } },
 		"1092784125-Gryphons.json": { "version": "340.3.1623157051", "mod": { "id": "1092784125", "tag": "Gryphons", "title": "Gryphons" } },
@@ -8,7 +69,43 @@
 			"version": "345.39.8870324",
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus", "official": true }
 		},
+		"1122696-AstraeosCreatures.json": {
+			"version": "1760210212",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1122696",
+				"ASA": true,
+				"tag": "AstraeosCreatures",
+				"title": "Astraeos - Mythological Creatures",
+				"author": "Nekatus_Modding",
+				"cfPage": "astraeos-mythological-creatures"
+			}
+		},
+		"1123428-Moros_Gigantophis.json": {
+			"version": "1764782890",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1123428",
+				"ASA": true,
+				"tag": "Moros_Gigantophis",
+				"title": "Moro's Gigantophis (Freemium)",
+				"author": "MoroNada",
+				"cfPage": "moros-gigantophis"
+			}
+		},
 		"1125442531-Gaia.json": { "version": "356.5.1630493486", "mod": { "id": "1125442531", "tag": "Gaia", "title": "Gaia" } },
+		"1133222-ARKOLOGYOE-DESOLATITAN.json": {
+			"version": "1764890107",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1133222",
+				"ASA": true,
+				"tag": "ARKOLOGYOE-DESOLATITAN",
+				"title": "ARKOLOGY: OE - Desolatitan",
+				"author": "DragonHeart7998",
+				"cfPage": "arkology-oe-desolatitan"
+			}
+		},
 		"1136390783-PhoenixBreeding.json": {
 			"version": "340.3.1505566966",
 			"mod": { "id": "1136390783", "tag": "PhoenixBreeding", "title": "Phoenix Breeding" }
@@ -23,6 +120,18 @@
 			"mod": { "id": "1178308359", "tag": "ShadDragon", "title": "Shad's Tameable Bosses" }
 		},
 		"1188224480-OgAlphas.json": { "version": "358.11.1623206057", "mod": { "id": "1188224480", "tag": "OgAlphas", "title": "OgAlphas" } },
+		"1201667-skyshroud_drakara.json": {
+			"version": "1759998289",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1201667",
+				"ASA": true,
+				"tag": "skyshroud_drakara",
+				"title": "Isle of Myths: Skyshroud Drakara ",
+				"author": "BlueSucho",
+				"cfPage": "isle-of-myths-drakara"
+			}
+		},
 		"1206835819-AncientEarthModCollection.json": {
 			"version": "340.3.1513532145",
 			"mod": { "id": "1206835819", "tag": "AncientEarthModCollection", "title": "Ancient Dragons and Wyverns" }
@@ -38,6 +147,18 @@
 			"mod": { "id": "1270181453", "tag": "AdditionalAberrantDinos", "title": "Additional Aberrant Dinos" }
 		},
 		"1300713111-RareSightings.json": { "version": "356.5.1555557079", "mod": { "id": "1300713111", "tag": "RareSightings", "title": "Rare Sightings" } },
+		"1315440-WAK_Spinosaurus.json": {
+			"version": "1764683909",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1315440",
+				"ASA": true,
+				"tag": "WAK_Spinosaurus",
+				"title": "BigALs: WAK Spinosaurus",
+				"author": "BigAl_Swagbob",
+				"cfPage": "bigals-wak-spinosaurus"
+			}
+		},
 		"1356703358-Primal_Fear_Noxious_Creatures.json": {
 			"version": "340.3.1598470602",
 			"mod": { "id": "1356703358", "tag": "Primal_Fear_Noxious_Creatures", "title": "Primal Fear Noxious Creatures" }
@@ -266,6 +387,19 @@
 		"729352919-IndomRex.json": { "version": "356.5.1488771984", "mod": { "id": "729352919", "tag": "IndomRex", "title": "Indom Rex Nemesis" } },
 		"814833973-Wyvern_Mating.json": { "version": "340.3.1482240799", "mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" } },
 		"839162288-Primal_Fear.json": { "version": "358.24.1749157362", "mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" } },
+		"877752-FearEvolved.json": {
+			"version": "1762552702",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "877752",
+				"ASA": true,
+				"tag": "FearEvolved",
+				"title": "Fear Ascended",
+				"author": "StudioWildcardMods",
+				"cfPage": "fear-ascended",
+				"official": true
+			}
+		},
 		"883957187-WyvernWorld.json": { "version": "358.11.1638248815", "mod": { "id": "883957187", "tag": "WyvernWorld", "title": "Wyvern World" } },
 		"893735676-AE.json": { "version": "358.24.1722401686", "mod": { "id": "893735676", "tag": "AE", "title": "Ark Eternal" } },
 		"895711211-ClassicFlyers.json": { "version": "340.3.1582853323", "mod": { "id": "895711211", "tag": "ClassicFlyers", "title": "Classic Flyers" } },
@@ -273,13 +407,303 @@
 			"version": "358.24.1718932606",
 			"mod": { "id": "899987403", "tag": "Primal_Fear_Bosses", "title": "Primal Fear Bosses" }
 		},
+		"900062-AACeratosaurus.json": {
+			"version": "1749135339",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "900062",
+				"ASA": true,
+				"tag": "AACeratosaurus",
+				"title": "Additions Ascended: Ceratosaurus",
+				"author": "Garuga123",
+				"cfPage": "aaceratosaurus_test"
+			}
+		},
+		"908148-AAXipachtinus.json": {
+			"version": "1749135339",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "908148",
+				"ASA": true,
+				"tag": "AAXipachtinus",
+				"title": "Additions Ascended: Xiphactinus",
+				"author": "Garuga123",
+				"cfPage": "aaxiphactinus_test"
+			}
+		},
 		"909297874-NorwegianVikings.json": {
 			"version": "356.5.1582885862",
 			"mod": { "id": "909297874", "tag": "NorwegianVikings", "title": "Norwegian Vikings" }
 		},
+		"910682-SurviveTheNight.json": {
+			"version": "1749135340",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "910682",
+				"ASA": true,
+				"tag": "SurviveTheNight",
+				"title": "Survive The Night",
+				"author": "soundsnc",
+				"cfPage": "survive-the-night"
+			}
+		},
+		"912815-SDinoVariants.json": {
+			"version": "1764362609",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "912815",
+				"ASA": true,
+				"tag": "SDinoVariants",
+				"title": "S-Dino Variants",
+				"author": "Nekatus_Modding",
+				"cfPage": "s-dino-variants"
+			}
+		},
+		"914844-AADeinotherium.json": {
+			"version": "1749135340",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "914844",
+				"ASA": true,
+				"tag": "AADeinotherium",
+				"title": "Additions Ascended: Deinotherium",
+				"author": "Garuga123",
+				"cfPage": "additions-ascended-deinotherium"
+			}
+		},
+		"916922-AAHelicoprion.json": {
+			"version": "1749135340",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "916922",
+				"ASA": true,
+				"tag": "AAHelicoprion",
+				"title": "Additions Ascended: Helicoprion",
+				"author": "Garuga123",
+				"cfPage": "additions-ascended-helicoprion"
+			}
+		},
 		"919470289-SSFlyer.json": { "version": "340.3.1532328552", "mod": { "id": "919470289", "tag": "SSFlyer", "title": "SSFlyer" } },
+		"926259-AAAcro.json": {
+			"version": "1762075954",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "926259",
+				"ASA": true,
+				"tag": "AAAcro",
+				"title": "Additions Ascended: Acrocanthosaurus",
+				"author": "Garuga123",
+				"cfPage": "additions-ascended-acro"
+			}
+		},
+		"926956-AAArchelon.json": {
+			"version": "1749135341",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "926956",
+				"ASA": true,
+				"tag": "AAArchelon",
+				"title": "Additions Ascended: Archelon",
+				"author": "Garuga123",
+				"cfPage": "additions-ascended-archelon"
+			}
+		},
+		"927083-TurkeyTrial.json": {
+			"version": "1764054218",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "927083",
+				"ASA": true,
+				"tag": "TurkeyTrial",
+				"title": "Turkey Trial",
+				"author": "StudioWildcardMods",
+				"cfPage": "turkey-trial",
+				"official": true
+			}
+		},
+		"927091-SummerBash.json": {
+			"version": "1751997030",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "927091",
+				"ASA": true,
+				"tag": "SummerBash",
+				"title": "Summer Bash",
+				"author": "StudioWildcardMods",
+				"cfPage": "summer-bash",
+				"official": true
+			}
+		},
+		"927131-AABrachiosaurus.json": {
+			"version": "1762073834",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "927131",
+				"ASA": true,
+				"tag": "AABrachiosaurus",
+				"title": "Additions Ascended: Brachiosaurus",
+				"author": "Garuga123",
+				"cfPage": "additions-ascended-brachiosaurus"
+			}
+		},
+		"928824-Moros_Indomitable_Duo.json": {
+			"version": "1764782874",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "928824",
+				"ASA": true,
+				"tag": "Moros_Indomitable_Duo",
+				"title": "Moro's Indomitable Duo",
+				"author": "MoroNada",
+				"cfPage": "moros-indomitable-duo"
+			}
+		},
+		"929094-ShadsCritterReworks.json": {
+			"version": "1762293041",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "929094",
+				"ASA": true,
+				"tag": "ShadsCritterReworks",
+				"title": "Shad's Critter Reworks",
+				"author": "TheRealShadlos",
+				"cfPage": "shads-critter-reworks"
+			}
+		},
+		"929489-DraconicChronicles.json": {
+			"version": "1764691828",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "929489",
+				"ASA": true,
+				"tag": "DraconicChronicles",
+				"title": "Draconic Chronicles (Crossplay) (Dragons, Wyverns and other Draconic Creatures)",
+				"author": "Ave",
+				"cfPage": "draconic-chronicles"
+			}
+		},
+		"930115-Gryphons.json": {
+			"version": "1761069681",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "930115",
+				"ASA": true,
+				"tag": "Gryphons",
+				"title": "Gryphons",
+				"author": "GryphePadar",
+				"cfPage": "gryphons"
+			}
+		},
+		"932714-PrimalChaos.json": {
+			"version": "1764552976",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "932714",
+				"ASA": true,
+				"tag": "PrimalChaos",
+				"title": "Ark Primal Chaos",
+				"author": "MrChaos",
+				"cfPage": "ark-primal-chaos"
+			}
+		},
+		"935946-Beasts.json": {
+			"version": "1764519576",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "935946",
+				"ASA": true,
+				"tag": "Beasts",
+				"title": "Prehistoric Beasts",
+				"author": "Queen_Crysta",
+				"cfPage": "prehistoric-beasts"
+			}
+		},
+		"938805-DinosaurDiscovery.json": {
+			"version": "1763179425",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "938805",
+				"ASA": true,
+				"tag": "DinosaurDiscovery",
+				"title": "(No Longer Updated) Discovery World",
+				"author": "TheRealHypernatrema",
+				"cfPage": "discovery-world"
+			}
+		},
+		"952367-ArkDescended.json": {
+			"version": "1760158541",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "952367",
+				"ASA": true,
+				"tag": "ArkDescended",
+				"title": "Ark Descended",
+				"author": "EmptyDream233",
+				"cfPage": "ark-descended"
+			}
+		},
+		"955932-Glaucus.json": {
+			"version": "1752526192",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "955932",
+				"ASA": true,
+				"tag": "Glaucus",
+				"title": "Myrm's Custom Creations: Draconis Glaucus",
+				"author": "myrmecoleontidae",
+				"cfPage": "draconis-glaucus"
+			}
+		},
+		"961162-MeraxesTLC.json": {
+			"version": "1764667368",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "961162",
+				"ASA": true,
+				"tag": "MeraxesTLC",
+				"title": "BigAL's Meraxes",
+				"author": "BigAl_Swagbob",
+				"cfPage": "bigals-meraxes-tlc"
+			}
+		},
+		"965961-CyrusGecko.json": {
+			"version": "1752860627",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "965961",
+				"ASA": true,
+				"tag": "CyrusGecko",
+				"title": "Cyrus' Critters: Magna Gecko",
+				"author": "cyrusCreates",
+				"cfPage": "cyrus-critters"
+			}
+		},
+		"970540-PA_EVO_Pack_01.json": {
+			"version": "1758425280",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "970540",
+				"ASA": true,
+				"tag": "PA_EVO_Pack_01",
+				"title": "Paleo ARK - Evolution | Apex Predators (Crossplay)",
+				"author": "UpFromTheDepths",
+				"cfPage": "paleo-ark-evolution-apex-predators"
+			}
+		},
+		"974204-JurassicAwakening.json": {
+			"version": "1763937517",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "974204",
+				"ASA": true,
+				"tag": "JurassicAwakening",
+				"title": "Jurassic Awakening",
+				"author": "Haliotro",
+				"cfPage": "jurassic-awakening"
+			}
+		},
 		"ASA-values.json": {
-			"version": "75.16.2",
+			"version": "76.1.1",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},

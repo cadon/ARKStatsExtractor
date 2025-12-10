@@ -177,7 +177,7 @@ namespace ARKBreedingStats
 
             // moving a file to the archived folder can trigger another fileWatcherEvent, first check if the file is still there
             if (File.Exists(filePath))
-                ImportExportedAddIfPossible(filePath);
+                ImportExportedAddIfPossible(filePath, Asb.TriggerSource.FileWatcher);
 
             fwe.Watching = true;
         }
@@ -185,7 +185,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Import exported file. Used by a fileWatcher. Returns creature if added successfully.
         /// </summary>
-        private Creature ImportExportedAddIfPossible(string filePath)
+        private Creature ImportExportedAddIfPossible(string filePath, Asb.TriggerSource triggerSource = Asb.TriggerSource.User)
         {
             bool alreadyExists;
             bool addedToLibrary = false;
@@ -217,7 +217,7 @@ namespace ARKBreedingStats
                 case ".sav":
                 case ".json":
                     alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, Properties.Settings.Default.OnAutoImportAddToLibrary, out addedToLibrary,
-                        out creature, out copiedNameToClipboard);
+                        out creature, out copiedNameToClipboard, triggerSource: triggerSource);
                     alreadyExists = alreadyExistingCreature != null;
                     if (creature == null) return null;
                     uniqueExtraction = true;

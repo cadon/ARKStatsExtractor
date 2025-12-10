@@ -10,13 +10,13 @@ namespace ARKBreedingStats.mods
     [JsonObject(MemberSerialization.OptIn)]
     public class ModInfo
     {
-        [JsonProperty]
-        public string version;
+        [JsonProperty("version")]
+        private string _version;
         public Version Version;
-        [JsonProperty]
-        public string format;
-        [JsonProperty]
-        public Mod mod;
+        [JsonProperty("format")]
+        public string Format;
+        [JsonProperty("mod")]
+        public Mod Mod;
         /// <summary>
         /// Indicates if the according json-file is downloaded.
         /// </summary>
@@ -31,17 +31,12 @@ namespace ARKBreedingStats.mods
         public bool CurrentlyInLibrary;
 
         [OnDeserialized]
-        private void SetVersion(StreamingContext context)
-        {
-            Version.TryParse(version, out Version);
-        }
+        private void SetVersion(StreamingContext _) => Version = Utils.TryParseVersionAlsoWithOnlyMajor(_version);
 
-        public override string ToString()
-        {
-            return (mod?.title ?? "unknown mod")
-                + (OnlineAvailable
-                    ? (!LocallyAvailable ? " (DL)" : string.Empty)
-                    : string.IsNullOrEmpty(mod?.FileName) ? string.Empty : " (Custom)");
-        }
+        public override string ToString() =>
+            (Mod?.Title ?? "unknown mod")
+            + (OnlineAvailable
+                ? (!LocallyAvailable ? " (DL)" : string.Empty)
+                : string.IsNullOrEmpty(Mod?.FileName) ? string.Empty : " (Custom)");
     }
 }

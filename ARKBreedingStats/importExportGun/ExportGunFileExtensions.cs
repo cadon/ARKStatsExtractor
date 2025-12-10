@@ -21,9 +21,9 @@
                 : ec.TamerString;
 
         /// <summary>
-        /// Returns the stat value of this creature considering the offset for percentage based stats.
-        /// If a stat is percentage based, Ark and this object internally store it as offset from 100 %.
-        /// ASB expects the absolute value.
+        /// Returns the stat value of this creature considering the offset for percentage based stats (i.e. 0 levels will return in most cases 1 == 100 %).
+        /// If a stat is percentage based, Ark and this object internally store it as offset from 100 % (i.e. 0 levels equals in most cases 0 %).
+        /// ASB expects the absolute value (i.e. 0 levels have an expected value in most cases of 100 %).
         /// </summary>
         public static float GetStatValue(this ExportGunCreatureFile ec, int statIndex)
             => ec == null ? 0 : ec.Stats[statIndex].Value + (Stats.IsPercentage(statIndex) ? 1 : 0);

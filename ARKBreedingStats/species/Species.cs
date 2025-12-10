@@ -138,11 +138,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// The raw species imprinting stat multipliers. This property should only be used for custom species.
         /// </summary>
-        public double[] StatImprintMultipliersRaw
-        {
-            get => statImprintMult;
-            set => statImprintMult = value;
-        }
+        public double[] StatImprintMultipliersRaw;
 
         [JsonProperty]
         public ColorRegion[] colors;
@@ -336,7 +332,7 @@ namespace ARKBreedingStats.species
             }
 
             DescriptiveName = name + (string.IsNullOrEmpty(variantInfoForName) ? string.Empty : " (" + variantInfoForName + ")");
-            string modSuffix = _mod?.shortTitle ?? _mod?.title;
+            string modSuffix = _mod?.ShortTitle ?? _mod?.Title;
             DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? string.Empty : " (" + modSuffix + ")");
             SortName = DescriptiveNameAndMod;
         }

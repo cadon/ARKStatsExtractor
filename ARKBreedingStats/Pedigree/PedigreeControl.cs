@@ -16,9 +16,7 @@ namespace ARKBreedingStats.Pedigree
 {
     public partial class PedigreeControl : UserControl
     {
-        public delegate void EditCreatureEventHandler(Creature creature, bool virtualCreature);
-
-        public event EditCreatureEventHandler EditCreature;
+        public event Action<Creature, bool> EditCreature;
         public event Action<Creature> BestBreedingPartners;
 
         /// <summary>

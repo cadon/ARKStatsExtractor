@@ -2,11 +2,9 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace ARKBreedingStats
 {
@@ -19,7 +17,6 @@ namespace ARKBreedingStats
         public const string ValuesServerMultipliers = "serverMultipliers.json";
         public const string TamingFoodData = "tamingFoodData.json";
         public const string ManifestFileName = "_manifest.json";
-        public const string ModsManifestCustom = "_manifestCustom.json";
         public const string KibblesJson = "kibbles.json";
         public const string AliasesJson = "aliases.json";
         public const string IgnoreSpeciesClasses = "ignoreSpeciesClasses.json";
@@ -170,6 +167,18 @@ namespace ARKBreedingStats
             !string.IsNullOrEmpty(filePath)
             && File.Exists(filePath)
             && LoadJsonFile(filePath, out T data, out _) ? data : null;
+
+        /// <summary>
+        /// Loads json file if available.
+        /// </summary>
+        public static bool LoadJsonFileIfAvailable<T>(string filePath, out T data, out string errorMessage) where T : class
+        {
+            data = null;
+            errorMessage = null;
+            return !string.IsNullOrEmpty(filePath)
+                   && File.Exists(filePath)
+                   && LoadJsonFile(filePath, out data, out errorMessage);
+        }
 
         /// <summary>
         /// Tries to create a directory if not existing. Returns true if the path exists.

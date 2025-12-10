@@ -426,9 +426,9 @@ namespace ARKBreedingStats
                             {
                                 // usually the old filename is equal to the mod-tag
                                 bool modFound = false;
-                                string modTag = Path.GetFileNameWithoutExtension(creatureCollectionOld.additionalValues)
+                                string modTag = Ark.Ase + Path.GetFileNameWithoutExtension(creatureCollectionOld.additionalValues)
                                     .Replace(" ", "").ToLower().Replace("gaiamod", "gaia");
-                                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.modsByTag)
+                                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.ModsByTag)
                                 {
                                     if (tmi.Key.ToLower() == modTag)
                                     {
@@ -443,7 +443,7 @@ namespace ARKBreedingStats
 
                                         if (Values.V.loadedModsHash != Values.NoModsHash)
                                             LoadStatAndKibbleValues(false); // reset values to default
-                                        LoadModValueFiles(new List<string> { tmi.Value.mod.FileName }, true, true,
+                                        LoadModValueFiles(new List<string> { tmi.Value.Mod.FileName }, true, true,
                                             out mods);
                                         break;
                                     }
@@ -873,7 +873,9 @@ namespace ARKBreedingStats
         /// Imports creature from file created by the export gun mod.
         /// Returns already existing Creature or null if it's a new creature.
         /// </summary>
-        private Creature ImportExportGunFiles(string[] filePaths, bool addCreatures, out bool creatureAdded, out Creature lastImportedCreature, out bool copiedNameToClipboard, bool playImportSound = false)
+        private Creature ImportExportGunFiles(string[] filePaths, bool addCreatures, out bool creatureAdded,
+            out Creature lastImportedCreature, out bool copiedNameToClipboard, bool playImportSound = false,
+            Asb.TriggerSource triggerSource = Asb.TriggerSource.User)
         {
             creatureAdded = false;
             copiedNameToClipboard = false;
@@ -984,7 +986,7 @@ namespace ARKBreedingStats
                     }
                     else
                     {
-                        EditCreatureInTester(lastImportedCreature);
+                        EditCreatureInTester(lastImportedCreature, false, triggerSource);
                     }
                 }
                 else

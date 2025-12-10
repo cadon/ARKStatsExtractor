@@ -1,5 +1,5 @@
 {
-	"version": "75.16.2",
+	"version": "76.1.1",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -3206,7 +3206,7 @@
 			"skipWildLevelStats": 520,
 			"colors": [
 				{
-					"name": "Main body",
+					"name": "Main",
 					"colors": [
 						"Dino Light Orange",
 						"Dino Light Brown",
@@ -3227,69 +3227,11 @@
 						"LightAutumn"
 					]
 				},
-				{
-					"name": "Feet",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Yellow",
-						"Dino Dark Yellow",
-						"Dino Light Green",
-						"Dino Light Blue",
-						"Dino Light Purple",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Light Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"DragonBase0",
-						"DragonBase1",
-						"DragonGreen0",
-						"DragonGreen1",
-						"DragonGreen2",
-						"DragonGreen3",
-						"WyvernBlue0",
-						"LightWarmGray",
-						"LightCement",
-						"Orange",
-						"Peach",
-						"LightAutumn",
-						"Glacial",
-						"DryMoss",
-						"Custard",
-						"Cream"
-					]
-				},
-				{
-					"name": "Beak",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dino Darker Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"NearBlack",
-						"DarkWarmGray",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"BurntSienna",
-						"LightAutumn",
-						"Cream"
-					]
-				},
+				null,
+				null,
 				null,
 				{
-					"name": "Feather shadows",
+					"name": "Belly",
 					"colors": [
 						"Dino Light Orange",
 						"Dino Light Brown",
@@ -3313,7 +3255,7 @@
 					]
 				},
 				{
-					"name": "Facial highlights",
+					"name": "Spots",
 					"colors": [
 						"Dino Light Orange",
 						"Dino Light Brown",
@@ -8089,7 +8031,189 @@
 				"Head": 3,
 				"Jaw": 3
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main body",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				null,
+				{
+					"name": "Spots",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				null,
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Yellow",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Light Green",
+						"Light Grey",
+						"Dino Light Blue",
+						"Dino Light Purple",
+						"BigFoot0",
+						"WolfFur",
+						"DragonGreen2",
+						"BigFoot5",
+						"DragonBase1",
+						"Black"
+					]
+				},
+				{
+					"name": "Back stripes",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/Aberration/Dinos/MoleRat/MoleRat_Character_BP.MoleRat_Character_BP",
@@ -11429,7 +11553,7 @@
 			"skipWildLevelStats": 512,
 			"colors": [
 				{
-					"name": "Main",
+					"name": "Body",
 					"colors": [
 						"BigFoot0",
 						"Light Grey",
@@ -11461,7 +11585,7 @@
 				},
 				null,
 				{
-					"name": "Spike tips",
+					"name": "Bone Tips",
 					"colors": [
 						"BigFoot0",
 						"Light Grey",
@@ -11484,7 +11608,7 @@
 					]
 				},
 				{
-					"name": "Unknown",
+					"name": "Claws",
 					"colors": [
 						"BigFoot0",
 						"Light Grey",
@@ -11508,7 +11632,7 @@
 					]
 				},
 				{
-					"name": "Belly",
+					"name": "Belly & Highlights",
 					"colors": [
 						"BigFoot0",
 						"Light Grey",
@@ -11539,7 +11663,7 @@
 					]
 				},
 				{
-					"name": "Bone",
+					"name": "Bones & Fur",
 					"colors": [
 						"BigFoot0",
 						"Light Grey",
@@ -20628,7 +20752,95 @@
 				"c_neck3": 2.5,
 				"c_jaw": 2.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Body & Fur",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				null,
+				{
+					"name": "Antlers",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				null,
+				{
+					"name": "Patterning",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Fur Tint",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5"
+					]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Stego/BionicStego_Character_BP.BionicStego_Character_BP",
