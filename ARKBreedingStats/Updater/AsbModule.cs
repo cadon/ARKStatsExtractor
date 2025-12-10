@@ -72,9 +72,9 @@ namespace ARKBreedingStats.Updater
         public bool LocallyAvailable;
 
         [OnDeserialized]
-        internal void SetVersion(StreamingContext context)
+        internal void SetVersion(StreamingContext _)
         {
-            Version.TryParse(version, out VersionOnline);
+            VersionOnline = Utils.TryParseVersionAlsoWithOnlyMajor(version);
 
             // local version
             if (string.IsNullOrEmpty(LocalPath)) return;
@@ -82,9 +82,9 @@ namespace ARKBreedingStats.Updater
             if (IsFolder)
             {
                 var filePath = FileService.GetPath(LocalPath, "_ver.txt");
-                if (File.Exists(filePath) &&
-                    Version.TryParse(File.ReadAllText(filePath), out VersionLocal))
+                if (File.Exists(filePath))
                 {
+                    VersionLocal = Utils.TryParseVersionAlsoWithOnlyMajor(File.ReadAllText(filePath));
                     LocallyAvailable = true;
                     UpdateAvailable = VersionOnline > VersionLocal;
                 }
@@ -98,8 +98,9 @@ namespace ARKBreedingStats.Updater
                     {
                         var json = JObject.Parse(File.ReadAllText(filePath));
                         var ver = json.Value<string>("Version");
-                        if (!string.IsNullOrEmpty(ver) && Version.TryParse(ver, out VersionLocal))
+                        if (!string.IsNullOrEmpty(ver))
                         {
+                            VersionLocal = Utils.TryParseVersionAlsoWithOnlyMajor(ver);
                             LocallyAvailable = true;
                             UpdateAvailable = VersionOnline > VersionLocal;
                         }

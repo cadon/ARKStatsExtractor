@@ -65,12 +65,7 @@ namespace ARKBreedingStats.values
         [OnDeserialized]
         private void ParseVersionAndColors(StreamingContext _)
         {
-            if (!Version.TryParse(_version, out Version))
-            {
-                Version = int.TryParse(_version, out var major)
-                    ? new Version(major, 0)
-                    : new Version(0, 0);
-            }
+            Version = Utils.TryParseVersionAlsoWithOnlyMajor(_version);
 
             ArkColorsDyesParsed = ArkColors.ParseColorDefinitions(_colorDefinitions, ArkColorsDyesParsed);
             ArkColorsDyesParsed = ArkColors.ParseColorDefinitions(_dyeDefinitions, ArkColorsDyesParsed, true);

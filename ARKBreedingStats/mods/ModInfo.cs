@@ -31,7 +31,7 @@ namespace ARKBreedingStats.mods
         public bool CurrentlyInLibrary;
 
         [OnDeserialized]
-        private void SetVersion(StreamingContext _) => Version.TryParse(_version, out Version);
+        private void SetVersion(StreamingContext _) => Version = Utils.TryParseVersionAlsoWithOnlyMajor(_version);
 
         public override string ToString() =>
             (Mod?.Title ?? "unknown mod")

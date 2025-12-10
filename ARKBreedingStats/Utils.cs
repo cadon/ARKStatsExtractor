@@ -759,5 +759,20 @@ namespace ARKBreedingStats
                 .Select(x => x.ToArray())
                 .ToArray();
         }
+
+        /// <summary>
+        /// Tries to parse a Version from a string.
+        /// The Version.TryParse cannot parse a string with only a major version, this method will do.
+        /// If there is no valid int, this method will return Version 0.0.
+        /// </summary>
+        public static Version TryParseVersionAlsoWithOnlyMajor(string versionString)
+        {
+            if (Version.TryParse(versionString, out var version))
+                return version;
+
+            return int.TryParse(versionString, out var major)
+                    ? new Version(major, 0)
+                    : new Version(0, 0);
+        }
     }
 }
