@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ARKBreedingStats.SpeciesImages
@@ -180,7 +181,8 @@ namespace ARKBreedingStats.SpeciesImages
                 {
                     CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePath;
                     // file exists, check if according mask file exists and get it or update it
-                    await ImageCollections.GetFile(possibleFileNames.Select(f => f + MaskFileSuffix + FileExtension).ToArray(), usedImagePackName).ConfigureAwait(false);
+                    var maskFileName = Path.GetFileNameWithoutExtension(filePath) + MaskFileSuffix + FileExtension;
+                    await ImageCollections.GetFile(new[] { maskFileName }, usedImagePackName).ConfigureAwait(false);
 
                     return filePath;
                 }
