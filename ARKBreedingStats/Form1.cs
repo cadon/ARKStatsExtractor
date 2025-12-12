@@ -1768,6 +1768,7 @@ namespace ARKBreedingStats
             exactSpawnCommandToolStripMenuItem.Visible = extractorOrTesterTab;
             exactSpawnCommandDS2ToolStripMenuItem.Visible = extractorOrTesterTab;
             toolStripSeparator25.Visible = extractorOrTesterTab;
+            UpdateDisplayedPosesIfNeeded();
 
             if (tabControlMain.SelectedTab == tabPageStatTesting)
             {
@@ -4161,6 +4162,25 @@ namespace ARKBreedingStats
                 creatureInfoInputExtractor.UpdateRegionColorImage();
                 creatureInfoInputTester.UpdateRegionColorImage();
             }
+        }
+
+        private void UpdateDisplayedPosesIfNeeded()
+        {
+            if (!libraryInfoControl1.SpeciesChangedPoses.Any()) return;
+
+            if (creatureBoxListView.CurrentSpecies != null &&
+                libraryInfoControl1.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
+            {
+                creatureBoxListView.UpdateCreatureImage(false);
+            }
+
+            if (libraryInfoControl1.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
+            {
+                creatureInfoInputExtractor.UpdateRegionColorImage(false);
+                creatureInfoInputTester.UpdateRegionColorImage(false);
+            }
+
+            libraryInfoControl1.SpeciesChangedPoses.Clear();
         }
     }
 }

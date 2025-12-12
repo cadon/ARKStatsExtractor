@@ -4,10 +4,13 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Input;
 using ARKBreedingStats.SpeciesImages;
+using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -31,6 +34,7 @@ namespace ARKBreedingStats.uiControls
         private byte[] _selectedColors;
         private int _selectedColorRegion;
         private const int ColoredCreatureSize = 384;
+        public readonly HashSet<Species> SpeciesChangedPoses = new HashSet<Species>();
 
         public LibraryInfoControl()
         {
@@ -189,17 +193,22 @@ namespace ARKBreedingStats.uiControls
 
         private void BtPosePreviousClick(object sender, EventArgs e)
         {
-            var previousPose = Poses.GetPose(_species) - 1;
-            if (previousPose < 0) return;
+            var delta = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 5 : 1;
+            var previouslySelectedPose = Poses.GetPose(_species);
+            var previousPose = Math.Max(0, previouslySelectedPose - delta);
+            if (previousPose == previouslySelectedPose) return;
 
             Poses.SetPose(_species, previousPose);
             UpdateCreatureImage();
+            SpeciesChangedPoses.Add(_species);
         }
 
         private void BtPoseNextClick(object sender, EventArgs e)
         {
-            Poses.SetPose(_species, Poses.GetPose(_species) + 1);
+            var delta = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 5 : 1;
+            Poses.SetPose(_species, Poses.GetPose(_species) + delta);
             UpdateCreatureImage();
+            SpeciesChangedPoses.Add(_species);
         }
 
         private void ButtonClearColorsClick(object sender, EventArgs e)
