@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ARKBreedingStats.SpeciesImages
@@ -43,34 +42,19 @@ namespace ARKBreedingStats.SpeciesImages
         private static Dictionary<string, string> _preferImagePacks;
 
         /// <summary>
-        /// Returns the file path of the image used for the species. E.g. parts like Brute are removed, they share the same graphics.
-        /// There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
-        /// If the file is not available locally or outdated, it's downloaded.
-        /// If the file is not available locally nor remotely, null is returned.
-        /// </summary>
-        internal static async Task<string> SpeciesImageFilePath(Species species, string game = null, bool replacePolar = true) => await
-            SpeciesImageFilePath(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null),
-                Sex.Unknown, (species?.patterns?.count ?? 0) > 0 ? 1 : -1, replacePolar);
-
-        /// <summary>
-        /// Returns the file path of the image used for the species. Parts like Brute are removed, they share the same graphics.
-        /// There are optional properties (fixed order): game (ASE/ASA), sex (f/m), pattern (id) for the file name.
+        /// Returns the file path of the image used for the species.
         /// If the file is not available locally or outdated, it's downloaded.
         /// If the file is not available locally nor remotely, null is returned.
         /// </summary>
         internal static async Task<string> SpeciesImageFilePath(Species species,
             string game = null, Sex creatureSex = Sex.Unknown,
-            int patternId = -1, bool replacePolar = true, string imagePackName = null, string imageName = null,
+            int patternId = -1, string imagePackName = null, string imageName = null,
             bool useComposition = false, int pose = 0)
         {
-            var speciesName = species?.name;
-            if (string.IsNullOrEmpty(speciesName)
+            if (string.IsNullOrEmpty(species?.name)
                 || !ImageCollections.AnyManifests)
                 return null;
-            speciesName = speciesName.Replace("Brute ", string.Empty);
-            if (replacePolar)
-                speciesName = speciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty);
-            var creatureImageParameters = new CreatureImageParameters(species, speciesName, game, creatureSex, patternId, pose);
+            var creatureImageParameters = new CreatureImageParameters(species, game, creatureSex, patternId, pose);
 
             return await SpeciesImageFilePath(creatureImageParameters, imagePackName, imageName, useComposition).ConfigureAwait(false);
         }
@@ -109,9 +93,14 @@ namespace ARKBreedingStats.SpeciesImages
             // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
             var possibleFileNames = creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName);
 
-            // fallback for aberrant species to use the vanilla one if no aberrant image is available (they're pretty similar)
+            // fallback for some variant species to use the vanilla one if no aberrant image is available (they're pretty similar)
             if (creatureImageParameters.SpeciesName.StartsWith("Aberrant "))
                 possibleFileNames.AddRange(creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName.Replace("Aberrant ", string.Empty)));
+            if (creatureImageParameters.SpeciesName.Contains("Brute "))
+                possibleFileNames.AddRange(creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName.Replace("Brute ", string.Empty)));
+            if (creatureImageParameters.SpeciesName.Contains("Polar "))
+                possibleFileNames.AddRange(creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty)));
+
             possibleFileNames = possibleFileNames.Distinct().ToList();
 
             return await GetImagePathAsync(keyString, possibleFileNames, imagePackName).ConfigureAwait(false);
@@ -219,7 +208,8 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         internal static async Task<string> GetSpeciesImageForSpeciesList(Species species, byte[] colorIds, string game = null)
         {
-            var speciesImageFilePath = await SpeciesImageFilePath(species, game, true);
+            var speciesImageFilePath = await SpeciesImageFilePath(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null),
+                patternId: (species?.patterns?.count ?? 0) > 0 ? 1 : -1);
             if (speciesImageFilePath == null) return null;
 
             var cacheFilePath = ColoredCreatureCacheFilePath(Path.GetFileNameWithoutExtension(speciesImageFilePath), colorIds, true);

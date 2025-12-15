@@ -23,10 +23,10 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         public string BaseParameters;
 
-        public CreatureImageParameters(Species species, string speciesName, string game, Sex sex, int patternId, int pose)
+        public CreatureImageParameters(Species species, string game, Sex sex, int patternId, int pose)
         {
             Species = species;
-            SpeciesName = speciesName;
+            SpeciesName = species.name;
             ModName = species.Mod?.Id;
             if (string.IsNullOrEmpty(ModName))
                 ModName = game;
