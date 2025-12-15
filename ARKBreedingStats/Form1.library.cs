@@ -2159,30 +2159,8 @@ namespace ARKBreedingStats
 
         private void adminCommandToSetColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AdminCommandToSetColors();
-        }
-
-        private void AdminCommandToSetColors()
-        {
-            if (!TryGetSelectedLibraryCreature(out var cr)) return;
-
-            byte[] cl = cr.colors;
-            if (cl == null) return;
-            var colorCommands = new List<string>(Ark.ColorRegionCount);
-            for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
-            {
-                if (cr.Species.EnabledColorRegions[ci])
-                    colorCommands.Add($"setTargetDinoColor {ci} {cl[ci]}");
-            }
-
-            if (colorCommands.Any())
-            {
-                var cheatPrefix = Properties.Settings.Default.AdminConsoleCommandWithCheat
-                    ? "cheat "
-                    : string.Empty;
-                if (!utils.ClipboardHandler.SetText(cheatPrefix + string.Join(" | " + cheatPrefix, colorCommands), out var error))
-                    SetMessageLabelText($"Error while trying to copy command to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
-            }
+            if (TryGetSelectedLibraryCreature(out var cr))
+                ArkConsoleCommands.AdminCommandToSetColors(cr.colors, cr.Species);
         }
 
         private void adminCommandToSpawnExactDinoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2238,27 +2216,17 @@ namespace ARKBreedingStats
 
         private void CreateExactSpawnCommand(Creature cr)
         {
-            CreatureSpawnCommand.UnstableCommandToClipboard(cr);
-            var notIncluded = "The command doesn't include the XP, " + _creatureCollection.Game == Ark.Ase
-                ? "and the imprinterName, thus the imprinting is probably not set."
-                : ", the imprinterName (imprinting is probably not set) and the mutation levels (you can use the mutation level command for adding them).";
-            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. " + notIncluded
-                                + "WARNING: this console command is unstable and can crash your game. Use with caution! The colors and stats will only be correct after putting the creature in a cryopod.",
-                                MessageBoxIcon.Warning);
+            ArkConsoleCommands.UnstableSpawnCommandToClipboard(cr, _creatureCollection.Game);
         }
 
         private void CreateExactSpawnDS2Command(Creature cr)
         {
-            CreatureSpawnCommand.DinoStorageV2CommandToClipboard(cr);
-            SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work. It doesn't include the mutation levels",
-                                MessageBoxIcon.Warning);
+            ArkConsoleCommands.DinoStorageV2CommandToClipboard(cr);
         }
 
         private void CreateExactMutationLevelCommand(Creature cr)
         {
-            CreatureSpawnCommand.MutationLevelCommandToClipboard(cr);
-            SetMessageLabelText($"The admin console command for adding the mutation levels to the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard.",
-                MessageBoxIcon.Information);
+            ArkConsoleCommands.MutationLevelCommandToClipboard(cr);
         }
 
         #endregion

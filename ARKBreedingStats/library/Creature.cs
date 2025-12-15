@@ -160,6 +160,9 @@ namespace ARKBreedingStats.Library
         /// Only the parent-guid is saved in the file, not the parent-object.
         /// </summary>
         private Creature mother;
+        /// <summary>
+        /// Level when creature was found, i.e. for tamed it is the wild level before taming, for bred it is the hatching level.
+        /// </summary>
         public int levelFound;
         /// <summary>
         /// Number of generations from the oldest wild creature.

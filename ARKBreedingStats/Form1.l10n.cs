@@ -163,7 +163,7 @@
             columnHeaderColor5.Text = Loc.S("C5");
             Loc.ControlText(ToolStripLabelFilter);
 
-            _tt.SetToolTip(LbBlueprintPath, "Click to copy blueprint path to clipboard.");
+            _tt.SetToolTip(LbBlueprintPath, "Click to copy blueprint path to clipboard.\nRight click to copy wild spawn command to clipboard.");
             _tt.SetToolTip(listBoxSpeciesLib, "Ctrl + Click on a species to select / unselect as favorite.\nFavorites are sorted at the top.");
 
             // other tabs

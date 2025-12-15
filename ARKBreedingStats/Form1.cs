@@ -159,6 +159,7 @@ namespace ARKBreedingStats
             raisingControl1.AdjustTimersByOffset += timerList1.AdjustAllTimersByOffset;
             currentBreeds1.Changed += SetCollectionChanged;
             PedigreeCreature.CollectionChanged += SetCollectionChanged;
+            ArkConsoleCommands.SetMessageLabelText += SetMessageLabelText;
 
             listViewLibrary.VirtualMode = true;
             listViewLibrary.RetrieveVirtualItem += ListViewLibrary_RetrieveVirtualItem;
@@ -4181,6 +4182,49 @@ namespace ARKBreedingStats
             }
 
             libraryInfoControl1.SpeciesChangedPoses.Clear();
+        }
+
+        private void copyConsoleColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            byte[] colors = null;
+            if (tabControlMain.SelectedTab == tabPageStatTesting)
+            {
+                colors = creatureInfoInputTester.RegionColors;
+            }
+            else if (tabControlMain.SelectedTab == tabPageExtractor)
+            {
+                colors = creatureInfoInputExtractor.RegionColors;
+            }
+            else if (tabControlMain.SelectedTab == tabPageLibrary)
+            {
+                colors = TryGetSelectedLibraryCreature(out var c) ? c?.colors : null;
+            }
+            else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
+            {
+                colors = libraryInfoControl1.SelectedColors;
+            }
+
+            if (colors == null) return;
+            ArkConsoleCommands.AdminCommandToSetColors(colors, speciesSelector1.SelectedSpecies);
+        }
+
+        private void spawnWildToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int level = 35;
+            if (tabControlMain.SelectedTab == tabPageStatTesting)
+            {
+                level = _testingIOs[Stats.Torpidity].LevelWild + 1;
+            }
+            else if (tabControlMain.SelectedTab == tabPageExtractor)
+            {
+                level = _statIOs[Stats.Torpidity].LevelWild + 1;
+            }
+            else if (tabControlMain.SelectedTab == tabPageLibrary)
+            {
+                if (TryGetSelectedLibraryCreature(out var c))
+                    level = c.levelFound;
+            }
+            ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, level);
         }
     }
 }

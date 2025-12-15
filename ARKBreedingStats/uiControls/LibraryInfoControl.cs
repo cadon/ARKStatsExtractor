@@ -32,7 +32,7 @@ namespace ARKBreedingStats.uiControls
         private readonly Label _lbPose = new Label();
         private Sex _sex = Sex.Male;
         private readonly ToolTip _tt = new ToolTip();
-        private byte[] _selectedColors;
+        public byte[] SelectedColors { get; private set; }
         private int _selectedColorRegion;
         private const int ColoredCreatureSize = 384;
         public readonly HashSet<Species> SpeciesChangedPoses = new HashSet<Species>();
@@ -153,7 +153,7 @@ namespace ARKBreedingStats.uiControls
             if (string.IsNullOrEmpty(clipboardText)) return;
             var matches = reConsoleColorCommand.Matches(clipboardText);
             if (matches.Count == 0) return;
-            var colorIds = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control) ? _selectedColors.ToArray() : new byte[Ark.ColorRegionCount];
+            var colorIds = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control) ? SelectedColors.ToArray() : new byte[Ark.ColorRegionCount];
             foreach (Match m in matches)
             {
                 var region = int.Parse(m.Groups[1].Value);
@@ -260,7 +260,7 @@ namespace ARKBreedingStats.uiControls
         public void SetColors(byte[] colors)
         {
             if (_species == null) return;
-            _selectedColors = colors ?? new byte[Ark.ColorRegionCount];
+            SelectedColors = colors ?? new byte[Ark.ColorRegionCount];
             for (int i = 0; i < Ark.ColorRegionCount; i++)
                 SetRegionColorButton(i);
             _colorRegionButtons[0].PerformClick();
@@ -273,13 +273,13 @@ namespace ARKBreedingStats.uiControls
             var newColor = _colorPicker.SelectedColorId;
             if (_selectedColorRegion >= 0)
             {
-                if (_selectedColors[_selectedColorRegion] == newColor) return;
-                _selectedColors[_selectedColorRegion] = newColor;
+                if (SelectedColors[_selectedColorRegion] == newColor) return;
+                SelectedColors[_selectedColorRegion] = newColor;
             }
             else
             {
-                if (_selectedColors.All(ci => ci == newColor)) return;
-                _selectedColors = Enumerable.Repeat(newColor, Ark.ColorRegionCount).ToArray();
+                if (SelectedColors.All(ci => ci == newColor)) return;
+                SelectedColors = Enumerable.Repeat(newColor, Ark.ColorRegionCount).ToArray();
             }
             SetRegionColorButton(_selectedColorRegion);
             UpdateCreatureImage();
@@ -289,12 +289,12 @@ namespace ARKBreedingStats.uiControls
         {
             _selectedColorRegion = (int)((Button)sender).Tag;
             if (_selectedColorRegion >= 0)
-                _colorPicker.PickColor(_selectedColors[_selectedColorRegion],
+                _colorPicker.PickColor(SelectedColors[_selectedColorRegion],
                     $"[{_selectedColorRegion}] {_species.colors?[_selectedColorRegion]?.name}",
                     _species.colors?[_selectedColorRegion]?.naturalColors,
                    existingColors: LibraryInfo.ColorsExistPerRegion?[_selectedColorRegion]);
             else
-                _colorPicker.PickColor(_selectedColors[0],
+                _colorPicker.PickColor(SelectedColors[0],
                     "all regions");
         }
 
@@ -315,7 +315,7 @@ namespace ARKBreedingStats.uiControls
                 return;
             }
             var bt = _colorRegionButtons[region];
-            var color = Values.V.Colors.ById(_selectedColors[region]);
+            var color = Values.V.Colors.ById(SelectedColors[region]);
             var buttonText = $"[{region}] {_species.colors?[region]?.name}\n{color.Id}: {color.Name}";
             bt.Text = buttonText;
             _tt.SetToolTip(_colorRegionButtons[region], buttonText);
@@ -325,7 +325,7 @@ namespace ARKBreedingStats.uiControls
         public void UpdateCreatureImage()
         {
             CreatureColored.GetColoredCreatureWithCallback(SetImage, this,
-                _selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
+                SelectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
                 onlyImage: true, creatureSex: _sex, game: CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
@@ -339,7 +339,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (_speciesPictureBox.Image == null) return;
             if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
-                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, _selectedColors, _species));
+                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, SelectedColors, _species));
             else
                 Clipboard.SetImage(_speciesPictureBox.Image);
         }
