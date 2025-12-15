@@ -1806,21 +1806,6 @@ namespace ARKBreedingStats
                 case Keys.Delete:
                     DeleteSelectedCreatures();
                     break;
-                case Keys.F2:
-                    if (listViewLibrary.SelectedIndices.Count > 0)
-                        EditCreatureInTester(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
-                    break;
-                case Keys.F3:
-                    if (listViewLibrary.SelectedIndices.Count > 0)
-                        ShowMultiSetter();
-                    break;
-                case Keys.F4:
-                    EditTraitsOfSelectedCreaturesInLibrary();
-                    break;
-                case Keys.F5:
-                    if (listViewLibrary.SelectedIndices.Count > 0)
-                        AdminCommandToSetColors();
-                    break;
                 case Keys.A when e.Control:
                     // select all list-entries
                     _reactOnCreatureSelectionChange = false;
@@ -1957,10 +1942,10 @@ namespace ARKBreedingStats
         /// <param name="e"></param>
         private async void saveInfographicsToFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
+
             try
             {
-                if (listViewLibrary.SelectedIndices.Count == 0) return;
-
                 var initialFolder = Properties.Settings.Default.InfoGraphicExportFolder;
                 if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
                     initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -2035,8 +2020,8 @@ namespace ARKBreedingStats
 
         private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                EditCreatureInTester(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
+            if (TryGetSelectedLibraryCreature(out var c))
+                EditCreatureInTester(c);
         }
 
         private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
@@ -2071,15 +2056,14 @@ namespace ARKBreedingStats
 
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                SetCreatureValuesToExtractor(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
+            if (TryGetSelectedLibraryCreature(out var c))
+                SetCreatureValuesToExtractor(c);
         }
 
         private void wildValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                SetCreatureValuesToExtractor(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]],
-                    true);
+            if (TryGetSelectedLibraryCreature(out var c))
+                SetCreatureValuesToExtractor(c, true);
         }
 
         private void SetMatureBreedingStateOfSelectedCreatures(bool setMaturity = false, double maturity = 1, bool clearMatingCooldown = false,
@@ -2180,9 +2164,8 @@ namespace ARKBreedingStats
 
         private void AdminCommandToSetColors()
         {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            if (!TryGetSelectedLibraryCreature(out var cr)) return;
 
-            var cr = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
             byte[] cl = cr.colors;
             if (cl == null) return;
             var colorCommands = new List<string>(Ark.ColorRegionCount);
@@ -2204,20 +2187,20 @@ namespace ARKBreedingStats
 
         private void adminCommandToSpawnExactDinoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                CreateExactSpawnCommand(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
+            if (TryGetSelectedLibraryCreature(out var c))
+                CreateExactSpawnCommand(c);
         }
 
         private void adminCommandToSpawnExactDinoDS2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                CreateExactSpawnDS2Command(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
+            if (TryGetSelectedLibraryCreature(out var c))
+                CreateExactSpawnDS2Command(c);
         }
 
         private void adminCommandSetMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                CreateExactMutationLevelCommand(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]);
+            if (TryGetSelectedLibraryCreature(out var c))
+                CreateExactMutationLevelCommand(c);
         }
 
         private void exactSpawnCommandToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2417,9 +2400,8 @@ namespace ARKBreedingStats
 
         private void CopyCreatureNamePatternToClipboard(int namePatternIndex)
         {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
-            var creature = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
-            CopyCreatureNamePatternToClipboard(creature, namePatternIndex);
+            if (TryGetSelectedLibraryCreature(out var creature))
+                CopyCreatureNamePatternToClipboard(creature, namePatternIndex);
         }
 
         internal void CopyCreatureNamePatternToClipboard(Creature creature, int namePatternIndex)
@@ -2574,6 +2556,28 @@ namespace ARKBreedingStats
             }
             // update list display
             FilterLib();
+        }
+
+        private void viewColorsInLibraryInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!TryGetSelectedLibraryCreature(out var c)) return;
+            libraryInfoControl1.SetSpecies(c.Species, false);
+            libraryInfoControl1.SetColors(c.colors);
+            tabControlMain.SelectedTab = tabPageLibraryInfo;
+        }
+
+        /// <summary>
+        /// Returns if there is a selected creature, out creature is set to the first selected creature in the library.
+        /// </summary>
+        private bool TryGetSelectedLibraryCreature(out Creature creature)
+        {
+            if (listViewLibrary.SelectedIndices.Count == 0)
+            {
+                creature = null;
+                return false;
+            }
+            creature = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
+            return true;
         }
     }
 }

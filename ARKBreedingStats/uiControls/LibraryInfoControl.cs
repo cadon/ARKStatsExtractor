@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
 using ARKBreedingStats.SpeciesImages;
@@ -68,7 +69,7 @@ namespace ARKBreedingStats.uiControls
                     Text = i.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Tag = i,
-                    Width = buttonsTotalWidth / 7 - buttonMargins,
+                    Width = buttonsTotalWidth / 6 - buttonMargins,
                     Height = 70
                 };
                 _colorRegionButtons[i] = bt;
@@ -81,12 +82,12 @@ namespace ARKBreedingStats.uiControls
             {
                 Text = text,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Width = buttonsTotalWidth / 5 - buttonMargins,
+                Width = buttonsTotalWidth / 7 - buttonMargins,
                 Height = 25
             };
 
             var colorsButton = AllRegionButton(Loc.S("Clear"));
-            colorsButton.Click += ButtonClearColorsClick;
+            colorsButton.Click += (s, e) => SetColors(new byte[Ark.ColorRegionCount]);
             flpButtons.Controls.Add(colorsButton);
 
             var btAll = AllRegionButton("choose for all regions");
@@ -95,7 +96,7 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(btAll);
 
             colorsButton = AllRegionButton(Loc.S("Random natural"));
-            colorsButton.Click += ButtonRandomNaturalColorsClick;
+            colorsButton.Click += (s, e) => SetColors(_species?.RandomSpeciesColors());
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton(Loc.S("Random library"));
@@ -104,7 +105,16 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton(Loc.S("Random"));
-            colorsButton.Click += ButtonRandomColorsClick;
+            colorsButton.Click += (s, e) => SetColors(Values.V.Colors.GetRandomColors());
+            flpButtons.Controls.Add(colorsButton);
+
+            colorsButton = AllRegionButton("1–6");
+            colorsButton.Click += (s, e) => SetColors(Enumerable.Range(1, Ark.ColorRegionCount).Select(i => (byte)i).ToArray());
+            flpButtons.Controls.Add(colorsButton);
+
+            colorsButton = AllRegionButton("Parse Clipboard");
+            _tt.SetToolTip(colorsButton, "Uses the color ids of a console command in the clipboard, e.g. setTargetDinoColor 4 54.\nHold Ctrl to only set recognized regions, else unspecified regions will be set to 0");
+            colorsButton.Click += (s, e) => ParseClipboardColors();
             flpButtons.Controls.Add(colorsButton);
 
             this.Controls.Add(flpButtons, 1, 0);
@@ -133,6 +143,25 @@ namespace ARKBreedingStats.uiControls
             SetRowSpan(LvColors, 2);
             LvColors.MinimumSize = new Size(152 + SystemInformation.VerticalScrollBarWidth, 0);
             LvColors.Dock = DockStyle.Right;
+        }
+
+        private static readonly Regex reConsoleColorCommand = new Regex(@"setTargetDinoColor (\d+) (\d+)");
+
+        private void ParseClipboardColors()
+        {
+            var clipboardText = Clipboard.GetText();
+            if (string.IsNullOrEmpty(clipboardText)) return;
+            var matches = reConsoleColorCommand.Matches(clipboardText);
+            if (matches.Count == 0) return;
+            var colorIds = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control) ? _selectedColors.ToArray() : new byte[Ark.ColorRegionCount];
+            foreach (Match m in matches)
+            {
+                var region = int.Parse(m.Groups[1].Value);
+                var colorId = (byte)int.Parse(m.Groups[2].Value);
+                if (region >= 0 && region < Ark.ColorRegionCount)
+                    colorIds[region] = colorId;
+            }
+            SetColors(colorIds);
         }
 
         private void LvColors_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
@@ -211,16 +240,6 @@ namespace ARKBreedingStats.uiControls
             SpeciesChangedPoses.Add(_species);
         }
 
-        private void ButtonClearColorsClick(object sender, EventArgs e)
-        {
-            SetColors(new byte[Ark.ColorRegionCount]);
-        }
-
-        private void ButtonRandomNaturalColorsClick(object sender, EventArgs e)
-        {
-            SetColors(_species?.RandomSpeciesColors());
-        }
-
         /// <summary>
         /// Set to random colors available in the library
         /// </summary>
@@ -238,15 +257,10 @@ namespace ARKBreedingStats.uiControls
             SetColors(colorIds);
         }
 
-        private void ButtonRandomColorsClick(object sender, EventArgs e)
-        {
-            SetColors(Values.V.Colors.GetRandomColors());
-        }
-
-        private void SetColors(byte[] colors)
+        public void SetColors(byte[] colors)
         {
             if (_species == null) return;
-            _selectedColors = colors;
+            _selectedColors = colors ?? new byte[Ark.ColorRegionCount];
             for (int i = 0; i < Ark.ColorRegionCount; i++)
                 SetRegionColorButton(i);
             _colorRegionButtons[0].PerformClick();
@@ -284,16 +298,12 @@ namespace ARKBreedingStats.uiControls
                     "all regions");
         }
 
-        public void SetSpecies(Species species)
+        public void SetSpecies(Species species, bool clearColors = true)
         {
             if (_species == species) return;
             _species = species;
-            _selectedColors = new byte[Ark.ColorRegionCount];
-            for (int i = 0; i < Ark.ColorRegionCount; i++)
-                SetRegionColorButton(i);
-            _colorRegionButtons[0].PerformClick();
-            UpdateCreatureImage();
-            this.PerformLayout();
+            if (clearColors)
+                SetColors(new byte[Ark.ColorRegionCount]);
         }
 
         public void SetRegionColorButton(int region)
