@@ -98,7 +98,7 @@ namespace ARKBreedingStats
 
         private static List<SpeciesListEntry> CreateSpeciesList(List<Species> species, Dictionary<string, string> aliases)
         {
-            Dictionary<string, Species> speciesNameToSpecies = new Dictionary<string, Species>();
+            var speciesNameToSpecies = new Dictionary<string, Species>();
 
             var entryList = new List<SpeciesListEntry>();
 
@@ -134,13 +134,14 @@ namespace ARKBreedingStats
 
             foreach (var a in aliases)
             {
-                if (speciesNameToSpecies.TryGetValue(a.Value, out var aliasSpecies))
+                if (speciesNameToSpecies.TryGetValue(a.Value, out var aliasSpecies)
+                    || speciesNameToSpecies.TryGetValue(a.Value + " (ASA)", out aliasSpecies))
                 {
                     entryList.Add(new SpeciesListEntry
                     {
                         DisplayName = a.Key + " (→" + aliasSpecies.name + ")",
                         SearchName = a.Key.ToLowerInvariant(),
-                        ModName = aliasSpecies.Mod?.Title ?? string.Empty,
+                        ModName = aliasSpecies.Mod?.Title,
                         Species = aliasSpecies
                     });
                 }
@@ -192,10 +193,9 @@ namespace ARKBreedingStats
             lvSpeciesInLibrary.BeginUpdate();
             lvSpeciesInLibrary.Items.Clear();
             var newItems = new List<ListViewItem>();
-            var game = CreatureCollection.CurrentCreatureCollection?.Game ?? Ark.Asa;
-            foreach (Species s in librarySpeciesList)
+            foreach (var s in librarySpeciesList)
             {
-                ListViewItem lvi = new ListViewItem
+                var lvi = new ListViewItem
                 {
                     Text = s.DescriptiveNameAndMod,
                     Tag = s
@@ -265,8 +265,8 @@ namespace ARKBreedingStats
                     {
                         Tag = s.Species,
                         BackColor = !s.Species.IsDomesticable ? Color.FromArgb(255, 245, 230)
-                        : !string.IsNullOrEmpty(s.ModName) && s.ModName != "Ark: Survival Ascended" ? Color.FromArgb(230, 245, 255)
-                        : SystemColors.Window,
+                            : !string.IsNullOrEmpty(s.ModName) && s.ModName != "Ark: Survival Ascended" ? Color.FromArgb(230, 245, 255)
+                            : SystemColors.Window,
                         ToolTipText = s.Species.blueprintPath,
                     });
                 }
@@ -440,7 +440,7 @@ namespace ARKBreedingStats
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // ignored
             }
