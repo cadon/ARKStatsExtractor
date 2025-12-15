@@ -482,14 +482,14 @@ namespace ARKBreedingStats
         {
             if (!updateData)
             {
-                creatureInfoInputExtractor.DontUpdateVisuals = true;
+                creatureInfoInputExtractor.DoNotUpdateVisuals = true;
                 _dontUpdateExtractorVisualData = true;
             }
             else
             {
-                creatureInfoInputExtractor.DontUpdateVisuals = true;
+                creatureInfoInputExtractor.DoNotUpdateVisuals = true;
                 var colors = creatureInfoInputExtractor.RegionColors;
-                creatureInfoInputExtractor.DontUpdateVisuals = false;
+                creatureInfoInputExtractor.DoNotUpdateVisuals = false;
                 _dontUpdateExtractorVisualData = false;
                 creatureInfoInputExtractor.RegionColors = colors;
             }

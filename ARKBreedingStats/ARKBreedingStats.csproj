@@ -105,7 +105,7 @@
     <Compile Include="library\AddDummyCreaturesSettings.Designer.cs">
       <DependentUpon>AddDummyCreaturesSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="library\CreatureSpawnCommand.cs" />
+    <Compile Include="library\ArkConsoleCommands.cs" />
     <Compile Include="SpeciesImages\CreatureImageFile.cs" />
     <Compile Include="SpeciesImages\CreatureImageParameters.cs" />
     <Compile Include="SpeciesImages\FileHashList.cs" />

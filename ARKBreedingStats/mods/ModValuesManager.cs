@@ -14,14 +14,24 @@ namespace ARKBreedingStats.mods
     {
         private CreatureCollection _cc;
         private ModInfo[] _modInfos;
+        private (ListViewItem lvi, ModInfo mi)[] _lviAvailableMods;
         private readonly ToolTip _tt = new ToolTip();
 
         public ModValuesManager()
         {
             InitializeComponent();
-            lbAvailableModFiles.Sorted = true;
             LlModWebPage.Visible = false;
-            Disposed += (s, a) => _tt?.Dispose();
+            Disposed += (s, a) =>
+            {
+                _tt?.RemoveAll();
+                _tt?.Dispose();
+            };
+            LvAvailableModFiles.Groups.AddRange(new[]
+            {
+                new ListViewGroup("Official"),
+                new ListViewGroup("Unofficial")
+            });
+            LvAvailableModFiles.DoubleBuffered(true);
         }
 
         public CreatureCollection CreatureCollection
@@ -33,20 +43,33 @@ namespace ARKBreedingStats.mods
                 if (Values.V.modsManifest?.ModsByFiles != null)
                 {
                     _modInfos = Values.V.modsManifest.ModsByFiles.Select(smi => smi.Value).Where(mi => mi.Mod != null && !mi.Mod.IsExpansion).ToArray();
+                    _lviAvailableMods = _modInfos.Select(mi => (CreateLvi(mi), mi)).OrderBy(m => m.mi.Mod?.Title).ToArray();
                 }
                 UpdateModListBoxes();
             }
         }
 
-        private void BtMoveUp_Click(object sender, EventArgs e)
+        private ListViewItem CreateLvi(ModInfo mi)
         {
-            MoveSelectedMod(-1);
+            var lvi = new ListViewItem(new[]
+                {
+                    mi.Mod.Title,
+                    mi.OnlineAvailable?"⤓":string.Empty
+                })
+            { Tag = mi };
+            if (mi.OnlineAvailable && mi.LocallyAvailable)
+            {
+                lvi.UseItemStyleForSubItems = false;
+                lvi.SubItems[1].SetBackColorAndAccordingForeColor(Color.LightGreen);
+            }
+            lvi.Group = mi.Mod.IsOfficial ? LvAvailableModFiles.Groups[0] : LvAvailableModFiles.Groups[1];
+            lvi.ToolTipText = mi.Mod?.Title + (!mi.OnlineAvailable ? string.Empty : mi.LocallyAvailable ? " (downloaded)" : " (will be downloaded if needed)");
+            return lvi;
         }
 
-        private void BtMoveDown_Click(object sender, EventArgs e)
-        {
-            MoveSelectedMod(1);
-        }
+        private void BtMoveUp_Click(object sender, EventArgs e) => MoveSelectedMod(-1);
+
+        private void BtMoveDown_Click(object sender, EventArgs e) => MoveSelectedMod(1);
 
         private void MoveSelectedMod(int moveBy)
         {
@@ -72,11 +95,16 @@ namespace ARKBreedingStats.mods
         private void UpdateModListBoxes()
         {
             var selectedMiLib = lbModList.SelectedItem as ModInfo;
-            var selectedMiAvMod = lbAvailableModFiles.SelectedItem as ModInfo;
+            var selectedMiAvMod = GetSelectedModInfoAvailable();
 
+            lbModList.BeginUpdate();
             lbModList.Items.Clear();
 
-            if (_cc?.ModList == null) return;
+            if (_cc?.ModList == null)
+            {
+                lbModList.EndUpdate();
+                return;
+            }
 
             var modToModInfo = _modInfos.ToDictionary(mi => mi.Mod, mi => mi);
 
@@ -90,28 +118,43 @@ namespace ARKBreedingStats.mods
                     modToModInfo[m].CurrentlyInLibrary = true;
                 }
             }
+            lbModList.EndUpdate();
 
             FilterMods();
 
             lbModList.SelectedItem = selectedMiLib;
-            lbAvailableModFiles.SelectedItem = selectedMiAvMod;
+            SetSelectedModInfoAvailable(selectedMiAvMod);
 
             _cc.UpdateModList();
         }
 
-        private void LbAvailableModFiles_SelectedIndexChanged(object sender, EventArgs e)
+        private void LvAvailableModFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lbAvailableModFiles.SelectedItem == null) return;
-
-            DisplayModInfo((ModInfo)lbAvailableModFiles.SelectedItem);
+            var mi = GetSelectedModInfoAvailable();
+            if (mi != null)
+                DisplayModInfo(mi);
         }
 
-        private void LbModList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lbModList.SelectedItem == null) return;
+        private ModInfo GetSelectedModInfoAvailable()
+            => LvAvailableModFiles.SelectedItems.Count > 0
+               && LvAvailableModFiles.SelectedItems[0].Tag is ModInfo mi ? mi : null;
 
-            DisplayModInfo((ModInfo)lbModList.SelectedItem);
+        private void SetSelectedModInfoAvailable(ModInfo modInfo)
+        {
+            LvAvailableModFiles.SelectedIndices.Clear();
+            if (modInfo == null) return;
+            for (var i = 0; i < LvAvailableModFiles.Items.Count; i++)
+            {
+                var lvi = LvAvailableModFiles.Items[i];
+                if (lvi.Tag is ModInfo mi && mi == modInfo)
+                {
+                    LvAvailableModFiles.SelectedIndices.Add(i);
+                    break;
+                }
+            }
         }
+
+        private void LbModList_SelectedIndexChanged(object sender, EventArgs e) => DisplayModInfo((ModInfo)lbModList.SelectedItem);
 
         private void DisplayModInfo(ModInfo modInfo)
         {
@@ -154,6 +197,7 @@ namespace ARKBreedingStats.mods
         private void BtClose_Click(object sender, EventArgs e) => Close();
 
         private static string GetSteamModPageUrlById(string modId) => string.IsNullOrEmpty(modId) ? null : "https://steamcommunity.com/sharedfiles/filedetails/?id=" + modId;
+
         private static string GetCurseForgeUrl(string modPageName) => string.IsNullOrEmpty(modPageName) ? null : "https://www.curseforge.com/ark-survival-ascended/mods/" + modPageName;
 
         private void LlbSteamPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -168,25 +212,25 @@ namespace ARKBreedingStats.mods
 
         private void AddSelectedMod()
         {
-            ModInfo mi = (ModInfo)lbAvailableModFiles.SelectedItem;
+            var mi = GetSelectedModInfoAvailable();
             if (mi?.Mod == null || _cc?.ModList == null) return;
 
             _cc.ModList.Add(mi.Mod);
             UpdateModListBoxes();
-            lbAvailableModFiles.SelectedIndex = -1;
+            LvAvailableModFiles.SelectedIndices.Clear();
             lbModList.SelectedItem = mi;
         }
 
         private void RemoveSelectedMod()
         {
-            ModInfo mi = (ModInfo)lbModList.SelectedItem;
+            var mi = (ModInfo)lbModList.SelectedItem;
             if (mi?.Mod == null || _cc?.ModList == null) return;
 
             if (_cc.ModList.Remove(mi.Mod))
             {
                 UpdateModListBoxes();
                 lbModList.SelectedIndex = -1;
-                lbAvailableModFiles.SelectedItem = mi;
+                SetSelectedModInfoAvailable(mi);
             }
         }
 
@@ -197,7 +241,7 @@ namespace ARKBreedingStats.mods
                 System.Diagnostics.Process.Start(valuesFolderPath);
         }
 
-        private void LbAvailableModFiles_MouseDoubleClick(object sender, MouseEventArgs e) => AddSelectedMod();
+        private void LvAvailableModFiles_DoubleClick(object sender, EventArgs e) => AddSelectedMod();
 
         private void LbModList_MouseDoubleClick(object sender, MouseEventArgs e) => RemoveSelectedMod();
 
@@ -207,7 +251,7 @@ namespace ARKBreedingStats.mods
 
             UpdateModListBoxes();
             lbModList.SelectedIndex = -1;
-            lbAvailableModFiles.SelectedItem = null;
+            LvAvailableModFiles.SelectedIndices.Clear();
         }
 
         private void linkLabelCustomModManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -226,20 +270,31 @@ namespace ARKBreedingStats.mods
         {
             var filter = string.IsNullOrWhiteSpace(TbModFilter.Text) ? null : TbModFilter.Text.Trim();
 
-            lbAvailableModFiles.BeginUpdate();
-            lbAvailableModFiles.Items.Clear();
+            var filterIsAsa = RbAsa.Checked;
 
-            lbAvailableModFiles.Items.AddRange(
-                _modInfos.Where(mi => !mi.CurrentlyInLibrary
-                                      && (filter == null
-                                          || mi.Mod.Title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1
-                                          || mi.Mod.Tag.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1
-                                          )
-                ).ToArray());
+            LvAvailableModFiles.BeginUpdate();
+            LvAvailableModFiles.Items.Clear();
 
-            lbAvailableModFiles.EndUpdate();
+            LvAvailableModFiles.Items.AddRange(
+                _lviAvailableMods.Where(m => !m.mi.CurrentlyInLibrary
+                                             && m.mi.Mod.IsAsa == filterIsAsa
+                                             && (filter == null
+                                                 || m.mi.Mod.Title.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1
+                                                 || m.mi.Mod.Tag.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1
+                                                 )
+                                             )
+                    .Select(m => m.lvi)
+                    .ToArray());
+
+            // for some reason the groups are removed each time items are added, so add them here
+            foreach (ListViewItem lvi in LvAvailableModFiles.Items)
+                lvi.Group = ((ModInfo)lvi.Tag).Mod.IsOfficial ? LvAvailableModFiles.Groups[0] : LvAvailableModFiles.Groups[1];
+
+            LvAvailableModFiles.EndUpdate();
 
             TbModFilter.BackColor = filter == null ? SystemColors.Window : Color.LightYellow;
         }
+
+        private void RbGameCheckedChanged(object sender, EventArgs e) => FilterMods();
     }
 }

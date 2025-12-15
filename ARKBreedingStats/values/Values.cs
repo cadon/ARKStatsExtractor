@@ -572,7 +572,7 @@ namespace ARKBreedingStats.values
                         bool customOverrideForThisStatExists = customOverrideExists && customFullStatsRaw[s] != null;
 
                         sp.stats[s].BaseValue = GetRawStatValue(s, species.Species.StatsRawIndexBase, customOverrideForThisStatExists);
-                        
+
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         double addWhenTamed = GetRawStatValue(s, species.Species.StatsRawIndexAdditiveBonus, customOverrideForThisStatExists);
                         sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
@@ -845,21 +845,16 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// Returns the according species to the passed blueprintPath or null if unknown. Removes trailing _C if there.
         /// </summary>
-        public Species SpeciesByBlueprint(string blueprintPath, bool removeTrailingC)
-        {
-            if (removeTrailingC && blueprintPath?.EndsWith("_C") == true)
-                return SpeciesByBlueprint(blueprintPath.Substring(0, blueprintPath.Length - 2));
-            return SpeciesByBlueprint(blueprintPath);
-        }
+        public Species SpeciesByBlueprint(string blueprintPath, bool removeTrailingC) =>
+            SpeciesByBlueprint(removeTrailingC && blueprintPath?.EndsWith("_C") == true
+                ? blueprintPath.Substring(0, blueprintPath.Length - 2)
+                : blueprintPath);
 
         /// <summary>
         /// Sets the ModsManifest. If the value is null, a new default object will be created.
         /// </summary>
         /// <param name="mm"></param>
-        internal void SetModsManifest(ModsManifest mm)
-        {
-            modsManifest = mm ?? new ModsManifest();
-        }
+        internal void SetModsManifest(ModsManifest mm) => modsManifest = mm ?? new ModsManifest();
 
         private void LoadIgnoreSpeciesClassesFile()
         {

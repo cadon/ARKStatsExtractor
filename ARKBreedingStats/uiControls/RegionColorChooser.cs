@@ -10,7 +10,10 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class RegionColorChooser : UserControl
     {
-        public event Action RegionColorChosen;
+        /// <summary>
+        /// Parameter indicates if colors were changed.
+        /// </summary>
+        public event Action<bool> RegionColorChosen;
         private readonly NoPaddingButton[] _buttonColors;
         private byte[] _selectedRegionColorIds;
         private byte[] _selectedColorIdsAlternative;
@@ -142,7 +145,7 @@ namespace ARKBreedingStats.uiControls
                 _buttonColors[r].AlternativeColorPossible = false;
                 SetColorButton(_buttonColors[r], r);
             }
-            RegionColorChosen?.Invoke();
+            RegionColorChosen?.Invoke(true);
         }
 
         private void ChooseColor(int region, Button sender)
@@ -168,7 +171,7 @@ namespace ARKBreedingStats.uiControls
                     _selectedColorIdsAlternative[region] = 0;
             }
             SetColorButton(sender, region);
-            RegionColorChosen?.Invoke();
+            RegionColorChosen?.Invoke(true);
         }
 
         /// <summary>

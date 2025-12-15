@@ -1,5 +1,5 @@
 {
-	"version": "76.1.1",
+	"version": "76.1.2",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -16733,11 +16733,73 @@
 				"c_head": 1.5,
 				"c_jaw": 1.5
 			},
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				null,
+				null,
+				null,
+				null,
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5",
+						"BigFoot5"
+					]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Direbear/Direbear_Character_Polar.Direbear_Character_Polar",
-			"skipWildLevelStats": 512
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Back",
+					"colors": [ "White" ]
+				},
+				null,
+				null,
+				null,
+				null,
+				{
+					"name": "Body",
+					"colors": [ "White" ]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/PrimalEarth/Dinos/Direwolf/Direwolf_Character_BP.Direwolf_Character_BP",

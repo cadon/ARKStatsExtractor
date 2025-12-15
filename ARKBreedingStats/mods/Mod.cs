@@ -48,6 +48,9 @@ namespace ARKBreedingStats.mods
         [JsonProperty("author")]
         public string Author;
 
+        [JsonProperty("official")]
+        public bool IsOfficial;
+
         [JsonProperty("ASA")]
         public bool IsAsa;
 

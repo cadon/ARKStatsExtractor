@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
 
@@ -25,6 +26,7 @@ namespace ARKBreedingStats
         private bool[] _colorRegionUseds;
         private CreatureCollection _cc;
         private readonly ToolTip _tt;
+        public Species CurrentSpecies => _creature?.Species;
 
         public CreatureBox()
         {
@@ -37,7 +39,7 @@ namespace ARKBreedingStats
             Disposed += (s, e) => _tt.RemoveAllAndDispose();
 
             _creature = null;
-            regionColorChooser1.RegionColorChosen += RegionColorChooser1_RegionColorChosen;
+            regionColorChooser1.RegionColorChosen += UpdateCreatureImage;
         }
 
         public void SetCreature(Creature creature)
@@ -248,12 +250,15 @@ namespace ARKBreedingStats
                 PopulateParentsList();
         }
 
-        private void RegionColorChooser1_RegionColorChosen()
+        public void UpdateCreatureImage(bool colorsChanged = true)
         {
             if (_creature == null) return;
+            if (colorsChanged)
+            {
+                _creature.colors = regionColorChooser1.ColorIds;
+                Changed?.Invoke(_creature, false, false);
+            }
 
-            _creature.colors = regionColorChooser1.ColorIds;
-            Changed?.Invoke(_creature, false, false);
             CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
                 _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
         }

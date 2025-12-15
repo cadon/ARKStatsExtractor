@@ -1622,10 +1622,17 @@ namespace ARKBreedingStats
 
         private void LbBlueprintPath_Click(object sender, EventArgs e)
         {
+            if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
+            {
+                // copy spawn command to clipboard
+                ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, _statIOs[Stats.Torpidity].LevelWild + 1);
+                return;
+            }
+
             // copy blueprint path to clipboard
             if (speciesSelector1.SelectedSpecies?.blueprintPath is string bp
                 && !string.IsNullOrEmpty(bp)
-                && !utils.ClipboardHandler.SetText(bp, out var error))
+                && !ClipboardHandler.SetText(bp, out var error))
                 SetMessageLabelText($"Error while trying to copy blueprint path to the clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 

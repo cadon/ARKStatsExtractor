@@ -99,7 +99,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// If false, the visualization of the colors and the image are not updated.
         /// </summary>
-        public bool DontUpdateVisuals;
+        public bool DoNotUpdateVisuals;
 
         /// <summary>
         /// Displays the parents and inherited stats.
@@ -158,10 +158,13 @@ namespace ARKBreedingStats
         /// <summary>
         /// Updates the displayed colors of the creature.
         /// </summary>
-        public void UpdateRegionColorImage()
+        public void UpdateRegionColorImage(bool colorsChanged = true)
         {
-            ParentInheritance?.UpdateColors(RegionColors);
-            ColorsChanged?.Invoke(this);
+            if (colorsChanged)
+            {
+                ParentInheritance?.UpdateColors(RegionColors);
+                ColorsChanged?.Invoke(this);
+            }
             if (PbColorRegion == null) return;
             CreatureColored.GetColoredCreatureWithCallback(SetCreatureImage, this, RegionColors, _selectedSpecies,
                 regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex,
@@ -543,12 +546,12 @@ namespace ARKBreedingStats
 
         public byte[] RegionColors
         {
-            get => DontUpdateVisuals ? _regionColorIDs : regionColorChooser1.ColorIds;
+            get => DoNotUpdateVisuals ? _regionColorIDs : regionColorChooser1.ColorIds;
             set
             {
                 if (_selectedSpecies == null) return;
                 _regionColorIDs = (byte[])value?.Clone() ?? new byte[Ark.ColorRegionCount];
-                if (DontUpdateVisuals) return;
+                if (DoNotUpdateVisuals) return;
                 regionColorChooser1.SetSpecies(_selectedSpecies, _regionColorIDs);
                 UpdateRegionColorImage();
             }
@@ -558,7 +561,7 @@ namespace ARKBreedingStats
         {
             get
             {
-                var arr = DontUpdateVisuals ? _colorIdsAlsoPossible : regionColorChooser1.ColorIdsAlsoPossible;
+                var arr = DoNotUpdateVisuals ? _colorIdsAlsoPossible : regionColorChooser1.ColorIdsAlsoPossible;
                 var isEmpty = arr?.All(c => c == 0) ?? true;
 
                 return isEmpty ? null : arr;
@@ -567,7 +570,7 @@ namespace ARKBreedingStats
             {
                 if (_selectedSpecies == null) return;
                 _colorIdsAlsoPossible = (byte[])value?.Clone() ?? new byte[Ark.ColorRegionCount];
-                if (DontUpdateVisuals) return;
+                if (DoNotUpdateVisuals) return;
                 regionColorChooser1.ColorIdsAlsoPossible = _colorIdsAlsoPossible;
             }
         }
@@ -577,7 +580,7 @@ namespace ARKBreedingStats
             set
             {
                 _selectedSpecies = value;
-                if (DontUpdateVisuals) return;
+                if (DoNotUpdateVisuals) return;
                 bool breedingPossible = _selectedSpecies.breeding != null;
 
                 dhmsInputCooldown.Visible = breedingPossible;

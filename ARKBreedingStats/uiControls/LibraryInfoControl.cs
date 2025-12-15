@@ -4,10 +4,14 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Input;
 using ARKBreedingStats.SpeciesImages;
+using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -28,9 +32,10 @@ namespace ARKBreedingStats.uiControls
         private readonly Label _lbPose = new Label();
         private Sex _sex = Sex.Male;
         private readonly ToolTip _tt = new ToolTip();
-        private byte[] _selectedColors;
+        public byte[] SelectedColors { get; private set; }
         private int _selectedColorRegion;
         private const int ColoredCreatureSize = 384;
+        public readonly HashSet<Species> SpeciesChangedPoses = new HashSet<Species>();
 
         public LibraryInfoControl()
         {
@@ -64,7 +69,7 @@ namespace ARKBreedingStats.uiControls
                     Text = i.ToString(),
                     TextAlign = ContentAlignment.MiddleCenter,
                     Tag = i,
-                    Width = buttonsTotalWidth / 7 - buttonMargins,
+                    Width = buttonsTotalWidth / 6 - buttonMargins,
                     Height = 70
                 };
                 _colorRegionButtons[i] = bt;
@@ -77,12 +82,12 @@ namespace ARKBreedingStats.uiControls
             {
                 Text = text,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Width = buttonsTotalWidth / 5 - buttonMargins,
+                Width = buttonsTotalWidth / 7 - buttonMargins,
                 Height = 25
             };
 
             var colorsButton = AllRegionButton(Loc.S("Clear"));
-            colorsButton.Click += ButtonClearColorsClick;
+            colorsButton.Click += (s, e) => SetColors(new byte[Ark.ColorRegionCount]);
             flpButtons.Controls.Add(colorsButton);
 
             var btAll = AllRegionButton("choose for all regions");
@@ -91,7 +96,7 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(btAll);
 
             colorsButton = AllRegionButton(Loc.S("Random natural"));
-            colorsButton.Click += ButtonRandomNaturalColorsClick;
+            colorsButton.Click += (s, e) => SetColors(_species?.RandomSpeciesColors());
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton(Loc.S("Random library"));
@@ -100,7 +105,16 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton(Loc.S("Random"));
-            colorsButton.Click += ButtonRandomColorsClick;
+            colorsButton.Click += (s, e) => SetColors(Values.V.Colors.GetRandomColors());
+            flpButtons.Controls.Add(colorsButton);
+
+            colorsButton = AllRegionButton("1–6");
+            colorsButton.Click += (s, e) => SetColors(Enumerable.Range(1, Ark.ColorRegionCount).Select(i => (byte)i).ToArray());
+            flpButtons.Controls.Add(colorsButton);
+
+            colorsButton = AllRegionButton("Parse Clipboard");
+            _tt.SetToolTip(colorsButton, "Uses the color ids of a console command in the clipboard, e.g. setTargetDinoColor 4 54.\nHold Ctrl to only set recognized regions, else unspecified regions will be set to 0");
+            colorsButton.Click += (s, e) => ParseClipboardColors();
             flpButtons.Controls.Add(colorsButton);
 
             this.Controls.Add(flpButtons, 1, 0);
@@ -129,6 +143,25 @@ namespace ARKBreedingStats.uiControls
             SetRowSpan(LvColors, 2);
             LvColors.MinimumSize = new Size(152 + SystemInformation.VerticalScrollBarWidth, 0);
             LvColors.Dock = DockStyle.Right;
+        }
+
+        private static readonly Regex reConsoleColorCommand = new Regex(@"setTargetDinoColor (\d+) (\d+)");
+
+        private void ParseClipboardColors()
+        {
+            var clipboardText = Clipboard.GetText();
+            if (string.IsNullOrEmpty(clipboardText)) return;
+            var matches = reConsoleColorCommand.Matches(clipboardText);
+            if (matches.Count == 0) return;
+            var colorIds = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control) ? SelectedColors.ToArray() : new byte[Ark.ColorRegionCount];
+            foreach (Match m in matches)
+            {
+                var region = int.Parse(m.Groups[1].Value);
+                var colorId = (byte)int.Parse(m.Groups[2].Value);
+                if (region >= 0 && region < Ark.ColorRegionCount)
+                    colorIds[region] = colorId;
+            }
+            SetColors(colorIds);
         }
 
         private void LvColors_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
@@ -189,27 +222,22 @@ namespace ARKBreedingStats.uiControls
 
         private void BtPosePreviousClick(object sender, EventArgs e)
         {
-            var previousPose = Poses.GetPose(_species) - 1;
-            if (previousPose < 0) return;
+            var delta = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 5 : 1;
+            var previouslySelectedPose = Poses.GetPose(_species);
+            var previousPose = Math.Max(0, previouslySelectedPose - delta);
+            if (previousPose == previouslySelectedPose) return;
 
             Poses.SetPose(_species, previousPose);
             UpdateCreatureImage();
+            SpeciesChangedPoses.Add(_species);
         }
 
         private void BtPoseNextClick(object sender, EventArgs e)
         {
-            Poses.SetPose(_species, Poses.GetPose(_species) + 1);
+            var delta = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 5 : 1;
+            Poses.SetPose(_species, Poses.GetPose(_species) + delta);
             UpdateCreatureImage();
-        }
-
-        private void ButtonClearColorsClick(object sender, EventArgs e)
-        {
-            SetColors(new byte[Ark.ColorRegionCount]);
-        }
-
-        private void ButtonRandomNaturalColorsClick(object sender, EventArgs e)
-        {
-            SetColors(_species?.RandomSpeciesColors());
+            SpeciesChangedPoses.Add(_species);
         }
 
         /// <summary>
@@ -229,15 +257,10 @@ namespace ARKBreedingStats.uiControls
             SetColors(colorIds);
         }
 
-        private void ButtonRandomColorsClick(object sender, EventArgs e)
-        {
-            SetColors(Values.V.Colors.GetRandomColors());
-        }
-
-        private void SetColors(byte[] colors)
+        public void SetColors(byte[] colors)
         {
             if (_species == null) return;
-            _selectedColors = colors;
+            SelectedColors = colors ?? new byte[Ark.ColorRegionCount];
             for (int i = 0; i < Ark.ColorRegionCount; i++)
                 SetRegionColorButton(i);
             _colorRegionButtons[0].PerformClick();
@@ -250,13 +273,13 @@ namespace ARKBreedingStats.uiControls
             var newColor = _colorPicker.SelectedColorId;
             if (_selectedColorRegion >= 0)
             {
-                if (_selectedColors[_selectedColorRegion] == newColor) return;
-                _selectedColors[_selectedColorRegion] = newColor;
+                if (SelectedColors[_selectedColorRegion] == newColor) return;
+                SelectedColors[_selectedColorRegion] = newColor;
             }
             else
             {
-                if (_selectedColors.All(ci => ci == newColor)) return;
-                _selectedColors = Enumerable.Repeat(newColor, Ark.ColorRegionCount).ToArray();
+                if (SelectedColors.All(ci => ci == newColor)) return;
+                SelectedColors = Enumerable.Repeat(newColor, Ark.ColorRegionCount).ToArray();
             }
             SetRegionColorButton(_selectedColorRegion);
             UpdateCreatureImage();
@@ -266,25 +289,21 @@ namespace ARKBreedingStats.uiControls
         {
             _selectedColorRegion = (int)((Button)sender).Tag;
             if (_selectedColorRegion >= 0)
-                _colorPicker.PickColor(_selectedColors[_selectedColorRegion],
+                _colorPicker.PickColor(SelectedColors[_selectedColorRegion],
                     $"[{_selectedColorRegion}] {_species.colors?[_selectedColorRegion]?.name}",
                     _species.colors?[_selectedColorRegion]?.naturalColors,
                    existingColors: LibraryInfo.ColorsExistPerRegion?[_selectedColorRegion]);
             else
-                _colorPicker.PickColor(_selectedColors[0],
+                _colorPicker.PickColor(SelectedColors[0],
                     "all regions");
         }
 
-        public void SetSpecies(Species species)
+        public void SetSpecies(Species species, bool clearColors = true)
         {
             if (_species == species) return;
             _species = species;
-            _selectedColors = new byte[Ark.ColorRegionCount];
-            for (int i = 0; i < Ark.ColorRegionCount; i++)
-                SetRegionColorButton(i);
-            _colorRegionButtons[0].PerformClick();
-            UpdateCreatureImage();
-            this.PerformLayout();
+            if (clearColors)
+                SetColors(new byte[Ark.ColorRegionCount]);
         }
 
         public void SetRegionColorButton(int region)
@@ -296,7 +315,7 @@ namespace ARKBreedingStats.uiControls
                 return;
             }
             var bt = _colorRegionButtons[region];
-            var color = Values.V.Colors.ById(_selectedColors[region]);
+            var color = Values.V.Colors.ById(SelectedColors[region]);
             var buttonText = $"[{region}] {_species.colors?[region]?.name}\n{color.Id}: {color.Name}";
             bt.Text = buttonText;
             _tt.SetToolTip(_colorRegionButtons[region], buttonText);
@@ -306,7 +325,7 @@ namespace ARKBreedingStats.uiControls
         public void UpdateCreatureImage()
         {
             CreatureColored.GetColoredCreatureWithCallback(SetImage, this,
-                _selectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
+                SelectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
                 onlyImage: true, creatureSex: _sex, game: CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
@@ -320,7 +339,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (_speciesPictureBox.Image == null) return;
             if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
-                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, _selectedColors, _species));
+                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, SelectedColors, _species));
             else
                 Clipboard.SetImage(_speciesPictureBox.Image);
         }

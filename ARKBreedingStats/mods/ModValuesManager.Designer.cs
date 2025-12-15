@@ -33,11 +33,18 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btRemoveMod = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lbAvailableModFiles = new System.Windows.Forms.ListBox();
+            this.LvAvailableModFiles = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.TbModFilter = new System.Windows.Forms.TextBox();
             this.BtClearFilter = new System.Windows.Forms.Button();
+            this.TbModFilter = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.RbAse = new System.Windows.Forms.RadioButton();
+            this.RbAsa = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.LbGameLabel = new System.Windows.Forms.Label();
+            this.LbGame = new System.Windows.Forms.Label();
             this.LbAuthorLabel = new System.Windows.Forms.Label();
             this.LbAuthor = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -62,11 +69,10 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btAddMod = new System.Windows.Forms.Button();
             this.BtRemoveAllMods = new System.Windows.Forms.Button();
-            this.LbGameLabel = new System.Windows.Forms.Label();
-            this.LbGame = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -79,7 +85,7 @@
             this.lbModList.Location = new System.Drawing.Point(3, 16);
             this.lbModList.Margin = new System.Windows.Forms.Padding(6);
             this.lbModList.Name = "lbModList";
-            this.lbModList.Size = new System.Drawing.Size(221, 485);
+            this.lbModList.Size = new System.Drawing.Size(174, 485);
             this.lbModList.TabIndex = 0;
             this.lbModList.SelectedIndexChanged += new System.EventHandler(this.LbModList_SelectedIndexChanged);
             this.lbModList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbModList_MouseDoubleClick);
@@ -87,9 +93,9 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.btRemoveMod, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 0, 0);
@@ -112,7 +118,7 @@
             // btRemoveMod
             // 
             this.btRemoveMod.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btRemoveMod.Location = new System.Drawing.Point(236, 240);
+            this.btRemoveMod.Location = new System.Drawing.Point(282, 240);
             this.btRemoveMod.Name = "btRemoveMod";
             this.btRemoveMod.Size = new System.Drawing.Size(34, 23);
             this.btRemoveMod.TabIndex = 3;
@@ -122,59 +128,111 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.lbAvailableModFiles);
+            this.groupBox3.Controls.Add(this.LvAvailableModFiles);
             this.groupBox3.Controls.Add(this.panel2);
+            this.groupBox3.Controls.Add(this.panel3);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
             this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 3);
-            this.groupBox3.Size = new System.Drawing.Size(227, 504);
+            this.groupBox3.Size = new System.Drawing.Size(273, 504);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Available mod files";
             // 
-            // lbAvailableModFiles
+            // LvAvailableModFiles
             // 
-            this.lbAvailableModFiles.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbAvailableModFiles.FormattingEnabled = true;
-            this.lbAvailableModFiles.Location = new System.Drawing.Point(3, 43);
-            this.lbAvailableModFiles.Margin = new System.Windows.Forms.Padding(6);
-            this.lbAvailableModFiles.Name = "lbAvailableModFiles";
-            this.lbAvailableModFiles.Size = new System.Drawing.Size(221, 458);
-            this.lbAvailableModFiles.TabIndex = 0;
-            this.lbAvailableModFiles.SelectedIndexChanged += new System.EventHandler(this.LbAvailableModFiles_SelectedIndexChanged);
-            this.lbAvailableModFiles.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbAvailableModFiles_MouseDoubleClick);
+            this.LvAvailableModFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.LvAvailableModFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LvAvailableModFiles.FullRowSelect = true;
+            this.LvAvailableModFiles.HideSelection = false;
+            this.LvAvailableModFiles.Location = new System.Drawing.Point(3, 67);
+            this.LvAvailableModFiles.MultiSelect = false;
+            this.LvAvailableModFiles.Name = "LvAvailableModFiles";
+            this.LvAvailableModFiles.ShowItemToolTips = true;
+            this.LvAvailableModFiles.Size = new System.Drawing.Size(267, 434);
+            this.LvAvailableModFiles.TabIndex = 11;
+            this.LvAvailableModFiles.UseCompatibleStateImageBehavior = false;
+            this.LvAvailableModFiles.View = System.Windows.Forms.View.Details;
+            this.LvAvailableModFiles.SelectedIndexChanged += new System.EventHandler(this.LvAvailableModFiles_SelectedIndexChanged);
+            this.LvAvailableModFiles.DoubleClick += new System.EventHandler(this.LvAvailableModFiles_DoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 190;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "downloadable";
+            this.columnHeader2.Width = 35;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.TbModFilter);
             this.panel2.Controls.Add(this.BtClearFilter);
+            this.panel2.Controls.Add(this.TbModFilter);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(3, 16);
+            this.panel2.Location = new System.Drawing.Point(3, 40);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(3);
-            this.panel2.Size = new System.Drawing.Size(221, 27);
+            this.panel2.Size = new System.Drawing.Size(267, 27);
             this.panel2.TabIndex = 10;
-            // 
-            // TbModFilter
-            // 
-            this.TbModFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TbModFilter.Location = new System.Drawing.Point(3, 3);
-            this.TbModFilter.Name = "TbModFilter";
-            this.TbModFilter.Size = new System.Drawing.Size(193, 20);
-            this.TbModFilter.TabIndex = 10;
-            this.TbModFilter.TextChanged += new System.EventHandler(this.TbModFilter_TextChanged);
             // 
             // BtClearFilter
             // 
             this.BtClearFilter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.BtClearFilter.Location = new System.Drawing.Point(196, 3);
+            this.BtClearFilter.Location = new System.Drawing.Point(242, 3);
             this.BtClearFilter.Name = "BtClearFilter";
             this.BtClearFilter.Size = new System.Drawing.Size(22, 21);
             this.BtClearFilter.TabIndex = 11;
             this.BtClearFilter.Text = "×";
             this.BtClearFilter.UseVisualStyleBackColor = true;
             this.BtClearFilter.Click += new System.EventHandler(this.BtClearFilter_Click);
+            // 
+            // TbModFilter
+            // 
+            this.TbModFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TbModFilter.Location = new System.Drawing.Point(3, 3);
+            this.TbModFilter.Name = "TbModFilter";
+            this.TbModFilter.Size = new System.Drawing.Size(261, 20);
+            this.TbModFilter.TabIndex = 10;
+            this.TbModFilter.TextChanged += new System.EventHandler(this.TbModFilter_TextChanged);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.RbAse);
+            this.panel3.Controls.Add(this.RbAsa);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 16);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(267, 24);
+            this.panel3.TabIndex = 12;
+            // 
+            // RbAse
+            // 
+            this.RbAse.AutoSize = true;
+            this.RbAse.Location = new System.Drawing.Point(94, 3);
+            this.RbAse.Name = "RbAse";
+            this.RbAse.Size = new System.Drawing.Size(46, 17);
+            this.RbAse.TabIndex = 1;
+            this.RbAse.Text = "ASE";
+            this.RbAse.UseVisualStyleBackColor = true;
+            this.RbAse.CheckedChanged += new System.EventHandler(this.RbGameCheckedChanged);
+            // 
+            // RbAsa
+            // 
+            this.RbAsa.AutoSize = true;
+            this.RbAsa.Checked = true;
+            this.RbAsa.Location = new System.Drawing.Point(3, 3);
+            this.RbAsa.Name = "RbAsa";
+            this.RbAsa.Size = new System.Drawing.Size(46, 17);
+            this.RbAsa.TabIndex = 0;
+            this.RbAsa.TabStop = true;
+            this.RbAsa.Text = "ASA";
+            this.RbAsa.UseVisualStyleBackColor = true;
+            this.RbAsa.CheckedChanged += new System.EventHandler(this.RbGameCheckedChanged);
             // 
             // groupBox1
             // 
@@ -193,12 +251,32 @@
             this.groupBox1.Controls.Add(this.lbModTag);
             this.groupBox1.Controls.Add(this.lbModName);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(509, 240);
+            this.groupBox1.Location = new System.Drawing.Point(508, 240);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(396, 231);
+            this.groupBox1.Size = new System.Drawing.Size(397, 231);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mod info";
+            // 
+            // LbGameLabel
+            // 
+            this.LbGameLabel.AutoSize = true;
+            this.LbGameLabel.Location = new System.Drawing.Point(6, 44);
+            this.LbGameLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.LbGameLabel.Name = "LbGameLabel";
+            this.LbGameLabel.Size = new System.Drawing.Size(35, 13);
+            this.LbGameLabel.TabIndex = 12;
+            this.LbGameLabel.Text = "Game";
+            // 
+            // LbGame
+            // 
+            this.LbGame.AutoSize = true;
+            this.LbGame.Location = new System.Drawing.Point(106, 44);
+            this.LbGame.Margin = new System.Windows.Forms.Padding(3);
+            this.LbGame.Name = "LbGame";
+            this.LbGame.Size = new System.Drawing.Size(33, 13);
+            this.LbGame.TabIndex = 13;
+            this.LbGame.Text = "game";
             // 
             // LbAuthorLabel
             // 
@@ -333,9 +411,9 @@
             this.panel1.Controls.Add(this.btMoveDown);
             this.panel1.Controls.Add(this.btMoveUp);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(509, 3);
+            this.panel1.Location = new System.Drawing.Point(508, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(396, 231);
+            this.panel1.Size = new System.Drawing.Size(397, 231);
             this.panel1.TabIndex = 4;
             // 
             // label6
@@ -350,7 +428,7 @@
             // 
             this.LlUnofficialModFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.LlUnofficialModFiles.AutoSize = true;
-            this.LlUnofficialModFiles.Location = new System.Drawing.Point(188, 187);
+            this.LlUnofficialModFiles.Location = new System.Drawing.Point(189, 187);
             this.LlUnofficialModFiles.Name = "LlUnofficialModFiles";
             this.LlUnofficialModFiles.Size = new System.Drawing.Size(104, 13);
             this.LlUnofficialModFiles.TabIndex = 6;
@@ -362,7 +440,7 @@
             // 
             this.linkLabelCustomModManual.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelCustomModManual.AutoSize = true;
-            this.linkLabelCustomModManual.Location = new System.Drawing.Point(188, 213);
+            this.linkLabelCustomModManual.Location = new System.Drawing.Point(189, 213);
             this.linkLabelCustomModManual.Name = "linkLabelCustomModManual";
             this.linkLabelCustomModManual.Size = new System.Drawing.Size(166, 13);
             this.linkLabelCustomModManual.TabIndex = 5;
@@ -424,10 +502,10 @@
             // 
             this.groupBox2.Controls.Add(this.lbModList);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(276, 3);
+            this.groupBox2.Location = new System.Drawing.Point(322, 3);
             this.groupBox2.Name = "groupBox2";
             this.tableLayoutPanel1.SetRowSpan(this.groupBox2, 3);
-            this.groupBox2.Size = new System.Drawing.Size(227, 504);
+            this.groupBox2.Size = new System.Drawing.Size(180, 504);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Mods loaded in library";
@@ -435,7 +513,7 @@
             // btAddMod
             // 
             this.btAddMod.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.btAddMod.Location = new System.Drawing.Point(236, 211);
+            this.btAddMod.Location = new System.Drawing.Point(282, 211);
             this.btAddMod.Name = "btAddMod";
             this.btAddMod.Size = new System.Drawing.Size(34, 23);
             this.btAddMod.TabIndex = 2;
@@ -445,33 +523,13 @@
             // 
             // BtRemoveAllMods
             // 
-            this.BtRemoveAllMods.Location = new System.Drawing.Point(236, 477);
+            this.BtRemoveAllMods.Location = new System.Drawing.Point(282, 477);
             this.BtRemoveAllMods.Name = "BtRemoveAllMods";
             this.BtRemoveAllMods.Size = new System.Drawing.Size(34, 23);
             this.BtRemoveAllMods.TabIndex = 7;
             this.BtRemoveAllMods.Text = "≪";
             this.BtRemoveAllMods.UseVisualStyleBackColor = true;
             this.BtRemoveAllMods.Click += new System.EventHandler(this.BtRemoveAllMods_Click);
-            // 
-            // LbGameLabel
-            // 
-            this.LbGameLabel.AutoSize = true;
-            this.LbGameLabel.Location = new System.Drawing.Point(6, 44);
-            this.LbGameLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.LbGameLabel.Name = "LbGameLabel";
-            this.LbGameLabel.Size = new System.Drawing.Size(35, 13);
-            this.LbGameLabel.TabIndex = 12;
-            this.LbGameLabel.Text = "Game";
-            // 
-            // LbGame
-            // 
-            this.LbGame.AutoSize = true;
-            this.LbGame.Location = new System.Drawing.Point(106, 44);
-            this.LbGame.Margin = new System.Windows.Forms.Padding(3);
-            this.LbGame.Name = "LbGame";
-            this.LbGame.Size = new System.Drawing.Size(33, 13);
-            this.LbGame.TabIndex = 13;
-            this.LbGame.Text = "game";
             // 
             // ModValuesManager
             // 
@@ -488,6 +546,8 @@
             this.groupBox3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -516,7 +576,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btRemoveMod;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ListBox lbAvailableModFiles;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btAddMod;
         private System.Windows.Forms.Label lbAvailableForDownload;
@@ -534,5 +593,11 @@
         private System.Windows.Forms.Label LbAuthor;
         private System.Windows.Forms.Label LbGameLabel;
         private System.Windows.Forms.Label LbGame;
+        private System.Windows.Forms.ListView LvAvailableModFiles;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton RbAse;
+        private System.Windows.Forms.RadioButton RbAsa;
     }
 }
