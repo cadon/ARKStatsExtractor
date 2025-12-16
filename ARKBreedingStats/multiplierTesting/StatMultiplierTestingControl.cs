@@ -27,6 +27,7 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         public event Action<MinMaxDouble> OnIBMCalculated;
 
+        private ToolTip _tt;
         public bool updateValues;
         private bool _domesticated;
         private double _IB;
@@ -123,9 +124,10 @@ namespace ARKBreedingStats.multiplierTesting
         public void SetTooltips(ToolTip tt)
         {
             if (tt == null) return;
-            tt.SetToolTip(BtSolveTaTm, "Solves Ta and Tm (species stat multipliers) with two equations");
-            tt.SetToolTip(BtSolveTaMTmM, "Solves TaM and TmM (server stat multipliers) with two equations");
-            tt.SetToolTip(BtSolveTaTbhm, "Solves Ta and TBHM (species stat multipliers, TBHM used only for HP) with two equations.");
+            _tt = tt;
+            _tt.SetToolTip(BtSolveTaTm, "Solves Ta and Tm (species stat multipliers) with two equations");
+            _tt.SetToolTip(BtSolveTaMTmM, "Solves TaM and TmM (server stat multipliers) with two equations");
+            _tt.SetToolTip(BtSolveTaTbhm, "Solves Ta and TBHM (species stat multipliers, TBHM used only for HP) with two equations.");
         }
 
         private void UpdateCalculations(bool forceUpdate = false)
@@ -165,9 +167,10 @@ namespace ARKBreedingStats.multiplierTesting
             UpdateMatchingColor();
         }
 
-        public string StatName
+        public void SetStatName(string indexAndAbb, string name)
         {
-            set => lStatName.Text = value;
+            lStatName.Text = indexAndAbb;
+            _tt?.SetToolTip(lStatName, name);
         }
 
         /// <summary>
