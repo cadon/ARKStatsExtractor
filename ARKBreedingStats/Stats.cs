@@ -40,7 +40,7 @@ namespace ARKBreedingStats
                 if (imprintingBonus > 0
                     && species.StatImprintMultipliers[statIndex] != 0
                     )
-                    imprintingM = 1 + species.StatImprintMultipliers[statIndex] * imprintingBonus * Values.V.currentServerMultipliers.BabyImprintingStatScaleMultiplier;
+                    imprintingM = 1 + species.StatImprintMultipliers[statIndex] * imprintingBonus * (Values.V.currentServerMultipliers?.BabyImprintingStatScaleMultiplier ?? 1);
                 if (statIndex == Stats.Health)
                     tamedBaseHP = species.TamedBaseHealthMultiplier ?? 1;
             }
