@@ -164,8 +164,9 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         private bool ParseFiles(string directoryPath)
         {
+            if (!Directory.Exists(directoryPath)) return false;
             var files = Directory.GetFiles(directoryPath, "*" + CreatureImageFile.FileExtension);
-            FileHashes = files.ToDictionary(Path.GetFileName, f => string.Empty);
+            FileHashes = files.ToDictionary(Path.GetFileName, f => default(string));
             return true;
         }
     }
