@@ -298,10 +298,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (levelsMut != null)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                {
                     _statControls[s].LevelMutations = levelsMut[s];
-                    level += levelsMut[s];
-                }
             }
             if (levelsDom != null)
             {
