@@ -2183,21 +2183,21 @@ namespace ARKBreedingStats
 
         private void exactSpawnCommandToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var cr = GetCreatureFromExtractorOrTester();
+            var cr = GetCreatureFromExtractorOrTesterOrLibrary();
             if (cr != null)
                 CreateExactSpawnCommand(cr);
         }
 
         private void exactSpawnCommandDS2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var cr = GetCreatureFromExtractorOrTester();
+            var cr = GetCreatureFromExtractorOrTesterOrLibrary();
             if (cr != null)
                 CreateExactSpawnDS2Command(cr);
         }
 
         private void commandMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var cr = GetCreatureFromExtractorOrTester();
+            var cr = GetCreatureFromExtractorOrTesterOrLibrary();
             if (cr != null)
                 CreateExactMutationLevelCommand(cr);
         }
@@ -2205,12 +2205,14 @@ namespace ARKBreedingStats
         /// <summary>
         /// Returns the creature currently set in the extractor or testing tab, depending on which tab is active.
         /// </summary>
-        private Creature GetCreatureFromExtractorOrTester()
+        private Creature GetCreatureFromExtractorOrTesterOrLibrary()
         {
             if (tabControlMain.SelectedTab == tabPageExtractor)
                 return CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
             if (tabControlMain.SelectedTab == tabPageStatTesting)
                 return CreateCreatureFromExtractorOrTester(creatureInfoInputTester);
+            if (tabControlMain.SelectedTab == tabPageLibrary)
+                return TryGetSelectedLibraryCreature(out var c) ? c : null;
             return null;
         }
 

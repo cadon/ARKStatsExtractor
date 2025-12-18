@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace ARKBreedingStats.utils
@@ -22,6 +23,26 @@ namespace ARKBreedingStats.utils
         internal static bool SetText(string text, out string error)
         {
             error = null;
+            // if on non STA thread
+            if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
+            {
+                var staThread = new Thread(() =>
+                {
+                    try
+                    {
+                        SetText(text, out _); // error cannot be passed back
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Exception when trying to set ClipboardText on STA thread: {ex.Message}");
+                    }
+                });
+                staThread.TrySetApartmentState(ApartmentState.STA);
+                staThread.Start();
+                staThread.Join();
+                return true;
+            }
 
             // clipboard operation can throw exception, try again on exception
             const int tries = 3;

@@ -2808,8 +2808,9 @@ namespace ARKBreedingStats
             else if (rbTamedTester.Checked)
             {
                 rbTamedExtractor.Checked = true;
-                if (numericUpDownLowerTEffBound.Value > NumericUpDownTestingTE.Value)
-                    numericUpDownLowerTEffBound.Value = Math.Floor(NumericUpDownTestingTE.Value);
+                var lowerTeBound = Math.Max(0, Math.Floor(NumericUpDownTestingTE.Value));
+                if (numericUpDownLowerTEffBound.Value > lowerTeBound)
+                    numericUpDownLowerTEffBound.Value = lowerTeBound;
             }
             else
                 rbWildExtractor.Checked = true;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -406,8 +407,11 @@ namespace ARKBreedingStats.SpeciesImages
                     new Rectangle(0, 0, bmpMask.Width, bmpMask.Height), ImageLockMode.ReadOnly,
                     bmpMask.PixelFormat);
 
-                int bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
-                int msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                var bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                var msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                var bgHasTransparency = bgBytes > 3;
+
+                var usedRegions = Enumerable.Range(0, Ark.ColorRegionCount).Where(r => enabledColorRegions[r]).ToArray();
 
                 try
                 {
@@ -427,7 +431,7 @@ namespace ARKBreedingStats.SpeciesImages
                             {
                                 byte* dBg = scan0Bg + j * strideBaseImage + i * bgBytes;
                                 // continue if the pixel is transparent
-                                if (dBg[3] == 0)
+                                if (bgHasTransparency && dBg[3] == 0)
                                     continue;
 
                                 byte* dMs = scan0Ms + j * strideMask + i * msBytes;
@@ -439,11 +443,8 @@ namespace ARKBreedingStats.SpeciesImages
                                 byte finalG = dBg[1];
                                 byte finalB = dBg[0];
 
-                                for (int m = 0; m < Ark.ColorRegionCount; m++)
+                                foreach (var m in usedRegions)
                                 {
-                                    if (!enabledColorRegions[m])
-                                        continue;
-
                                     float o;
                                     switch (m)
                                     {
@@ -492,6 +493,7 @@ namespace ARKBreedingStats.SpeciesImages
                                 dBg[2] = finalR;
                             }
                         }
+
                         imageFine = true;
                     }
                 }

@@ -253,7 +253,7 @@ namespace ARKBreedingStats.multiplierTesting
                     s == Stats.SpeedMultiplier && !(CbAllowSpeedLeveling.Checked && (CbAllowFlyerSpeedLeveling.Checked || !species.IsFlyer)),
                     _selectedSpecies.mutationMult[s]);
                 _statControls[s].StatImprintingBonusMultiplier = customStatsAvailable ? customStatOverrides?[Stats.StatsCount]?[s] ?? statImprintMultipliers[s] : statImprintMultipliers[s];
-                _statControls[s].StatName = $"[{s}]{Utils.StatName(s, true, species.statNames)}";
+                _statControls[s].SetStatName($"[{s}]{Utils.StatName(s, true, species.statNames)}", Utils.StatName(s, false, species.statNames));
                 _statControls[s].IncreaseStatAsPercentage = species.stats[s]?.IncreaseStatAsPercentage == true;
             }
             _statControls[Stats.Health].TBHM = _selectedSpecies.TamedBaseHealthMultiplier ?? 1;
@@ -298,10 +298,7 @@ namespace ARKBreedingStats.multiplierTesting
             if (levelsMut != null)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                {
                     _statControls[s].LevelMutations = levelsMut[s];
-                    level += levelsMut[s];
-                }
             }
             if (levelsDom != null)
             {
