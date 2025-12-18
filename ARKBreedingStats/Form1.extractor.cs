@@ -135,8 +135,10 @@ namespace ARKBreedingStats
                 && _statIOs.All(s => s.Status != StatIOStatus.NonUnique))
             {
                 ExtractionFailed(IssueNotes.Issue.SpeedLevelingSetting
-                                 | IssueNotes.Issue.TamingEffectivenessRange
-                                 | IssueNotes.Issue.ImpossibleTe);
+                                 | (rbTamedExtractor.Checked
+                                     ? IssueNotes.Issue.TamingEffectivenessRange | IssueNotes.Issue.ImpossibleTe
+                                     : IssueNotes.Issue.None
+                                     ));
             }
 
             bool allValid = valid && inbound && torporLevelValid && _extractor.ValidResults;
