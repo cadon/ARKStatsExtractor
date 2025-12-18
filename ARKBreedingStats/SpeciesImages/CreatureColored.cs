@@ -406,8 +406,9 @@ namespace ARKBreedingStats.SpeciesImages
                     new Rectangle(0, 0, bmpMask.Width, bmpMask.Height), ImageLockMode.ReadOnly,
                     bmpMask.PixelFormat);
 
-                int bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
-                int msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                var bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                var msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+                var bgHasTransparency = bgBytes > 3;
 
                 try
                 {
@@ -427,7 +428,7 @@ namespace ARKBreedingStats.SpeciesImages
                             {
                                 byte* dBg = scan0Bg + j * strideBaseImage + i * bgBytes;
                                 // continue if the pixel is transparent
-                                if (dBg[3] == 0)
+                                if (bgHasTransparency && dBg[3] == 0)
                                     continue;
 
                                 byte* dMs = scan0Ms + j * strideMask + i * msBytes;
