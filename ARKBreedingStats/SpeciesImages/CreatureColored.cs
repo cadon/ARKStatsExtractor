@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -410,6 +411,8 @@ namespace ARKBreedingStats.SpeciesImages
                 var msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
                 var bgHasTransparency = bgBytes > 3;
 
+                var usedRegions = Enumerable.Range(0, Ark.ColorRegionCount).Where(r => enabledColorRegions[r]).ToArray();
+
                 try
                 {
                     unsafe
@@ -440,11 +443,8 @@ namespace ARKBreedingStats.SpeciesImages
                                 byte finalG = dBg[1];
                                 byte finalB = dBg[0];
 
-                                for (int m = 0; m < Ark.ColorRegionCount; m++)
+                                foreach (var m in usedRegions)
                                 {
-                                    if (!enabledColorRegions[m])
-                                        continue;
-
                                     float o;
                                     switch (m)
                                     {
@@ -493,6 +493,7 @@ namespace ARKBreedingStats.SpeciesImages
                                 dBg[2] = finalR;
                             }
                         }
+
                         imageFine = true;
                     }
                 }
