@@ -2532,7 +2532,7 @@ namespace ARKBreedingStats
         {
             if (!TryGetSelectedLibraryCreature(out var c)) return;
             libraryInfoControl1.SetSpecies(c.Species, false);
-            libraryInfoControl1.SetColors(c.colors);
+            libraryInfoControl1.SetColors(c.colors.ToArray());
             tabControlMain.SelectedTab = tabPageLibraryInfo;
         }
 
