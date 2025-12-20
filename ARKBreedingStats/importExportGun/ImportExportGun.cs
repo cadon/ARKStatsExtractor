@@ -388,6 +388,8 @@ namespace ARKBreedingStats.importExportGun
                 sm.statMultipliers[s][ServerMultipliers.IndexLevelWild] = Math.Round(esm.WildLevel[s], roundToDigits);
                 sm.statMultipliers[s][ServerMultipliers.IndexLevelDom] = Math.Round(esm.TameLevel[s], roundToDigits);
             }
+            // On some servers the multiplier for the increase per wild level for torpidity is set to something different from 1.0, the game ignores this value as only uses 1. Reset it to that.
+            sm.statMultipliers[Stats.Torpidity][ServerMultipliers.IndexLevelWild] = 1;
             sm.TamingSpeedMultiplier = Math.Round(esm.TamingSpeedMultiplier, roundToDigits);
             sm.DinoCharacterFoodDrainMultiplier = Math.Round(esm.DinoCharacterFoodDrainMultiplier, roundToDigits);
             sm.WildDinoCharacterFoodDrainMultiplier = Math.Round(esm.WildDinoCharacterFoodDrainMultiplier, roundToDigits);
