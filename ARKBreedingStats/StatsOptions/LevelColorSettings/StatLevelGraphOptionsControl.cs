@@ -48,7 +48,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             if (overrideStat && _statLevelColors.LevelGraphRepresentation == null)
             {
                 _statLevelColors.LevelGraphRepresentation = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentation?.Copy()
-                                                            ?? LevelGraphRepresentation.GetDefaultValue;
+                                                            ?? LevelGraphRepresentation.GetDefault;
                 hueControl.SetValues(_statLevelColors.LevelGraphRepresentation);
             }
         }
@@ -60,7 +60,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             if (_statLevelColors.UseDifferentColorsForOddLevels && _statLevelColors.LevelGraphRepresentationOdd == null)
             {
                 _statLevelColors.LevelGraphRepresentationOdd = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentationOdd?.Copy()
-                                                           ?? LevelGraphRepresentation.GetDefaultValue;
+                                                           ?? LevelGraphRepresentation.GetDefault;
                 hueControlOdd.SetValues(_statLevelColors.LevelGraphRepresentationOdd);
             }
         }
@@ -72,7 +72,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             if (_statLevelColors.UseDifferentColorsForMutationLevels && _statLevelColors.LevelGraphRepresentationMutation == null)
             {
                 _statLevelColors.LevelGraphRepresentationMutation = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentationMutation?.Copy()
-                                                               ?? LevelGraphRepresentation.GetDefaultValue;
+                                                               ?? LevelGraphRepresentation.GetDefault;
                 HueControlMutations.SetValues(_statLevelColors.LevelGraphRepresentationMutation);
             }
         }

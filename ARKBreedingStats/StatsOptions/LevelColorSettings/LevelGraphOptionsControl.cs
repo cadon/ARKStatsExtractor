@@ -21,7 +21,8 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 
             AddWithFlowBreak(new Label
             {
-                Text = @"Drag color gradient with mouse for fast editing.
+                Text = @"The numbers on the left and right of the colors represent the level range the colors are mapped to, levels lower or higher use the color of the lowest or highest level, respectively.
+Drag color gradient with mouse for fast editing.
 On color gradients use shift + right click to copy and shift + left click to paste color settings.
 Ctrl + left click to cycle through presets.",
                 AutoSize = true
@@ -57,8 +58,8 @@ Ctrl + left click to cycle through presets.",
             {
                 SelectedStatsOptions.StatOptions[si] = new StatLevelColors
                 {
-                    LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue,
-                    LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevelValue,
+                    LevelGraphRepresentation = LevelGraphRepresentation.GetDefault,
+                    LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevel,
                     UseDifferentColorsForMutationLevels = true
                 };
                 _statOptionsControls[si].SetStatOptions(SelectedStatsOptions.StatOptions[si], isNotRoot, SelectedStatsOptions.ParentOptions);

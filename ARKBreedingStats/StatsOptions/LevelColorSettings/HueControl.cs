@@ -214,12 +214,18 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 
         private void ResetColors()
         {
-            var newSettings = LevelGraphRepresentation.GetDefaultValue;
-            if (newSettings == LevelGraphRepresentation)
-                newSettings = LevelGraphRepresentation.GetDefaultMutationLevelValue;
+            LevelGraphRepresentation newSettings;
+            if (LevelGraphRepresentation.ColorEquals(LevelGraphRepresentation.GetDefault))
+                newSettings = LevelGraphRepresentation.GetDefaultMutationLevel;
+            else if (LevelGraphRepresentation.ColorEquals(LevelGraphRepresentation.GetDefaultMutationLevel))
+                newSettings = LevelGraphRepresentation.GetDefaultInverted;
+            else if (LevelGraphRepresentation.ColorEquals(LevelGraphRepresentation.GetDefaultInverted))
+                newSettings = LevelGraphRepresentation.GetDefaultMutationLevelInverted;
+            else newSettings = LevelGraphRepresentation.GetDefault;
 
             SetColor(newSettings.LowerColor, false, BtColorLow);
             SetColor(newSettings.UpperColor, true, BtColorHigh);
+            CbReverseGradient.Checked = newSettings.ColorGradientReversed;
         }
     }
 }

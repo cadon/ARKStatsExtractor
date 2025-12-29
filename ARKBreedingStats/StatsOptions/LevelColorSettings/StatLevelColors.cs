@@ -56,7 +56,7 @@ namespace ARKBreedingStats.StatsOptions
                 && level % 2 == 1)
                 return LevelGraphRepresentationOdd;
 
-            return LevelGraphRepresentation ?? LevelGraphRepresentation.GetDefaultValue;
+            return LevelGraphRepresentation ?? LevelGraphRepresentation.GetDefault;
         }
 
         public Color GetLevelColor(int level, bool useCustomOdd = true, bool mutationLevel = false)
@@ -104,8 +104,8 @@ namespace ARKBreedingStats.StatsOptions
 
         public static StatLevelColors GetDefault() => new StatLevelColors
         {
-            LevelGraphRepresentation = LevelGraphRepresentation.GetDefaultValue,
-            LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevelValue
+            LevelGraphRepresentation = LevelGraphRepresentation.GetDefault,
+            LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevel
         };
     }
 }
