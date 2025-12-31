@@ -2,7 +2,9 @@
 using ARKBreedingStats.species;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -406,8 +408,20 @@ namespace ARKBreedingStats.library
 
             using (var bmp = await creature.InfoGraphicAsync(cc).ConfigureAwait(false))
             {
-                if (bmp != null)
-                    Clipboard.SetImage(bmp);
+                //if (bmp != null)
+                //    Clipboard.SetImage(bmp);
+                if (bmp == null) return;
+
+                using (var pngStream = new MemoryStream())
+                {
+                    var data = new DataObject();
+                    data.SetImage(bmp); // fallback, some applications do not accept the PNG version below
+
+                    bmp.Save(pngStream, ImageFormat.Png);
+                    data.SetData("PNG", false, pngStream);
+
+                    Clipboard.SetDataObject(data, true);
+                }
             }
         }
 
