@@ -377,9 +377,12 @@ namespace ARKBreedingStats.settings
             CbInfoGraphicMutationCounter.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
             CbInfoGraphicGenerations.Checked = Properties.Settings.Default.InfoGraphicDisplayGeneration;
             CbInfoGraphicCreatureName.Checked = Properties.Settings.Default.InfoGraphicDisplayName;
-            BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBackColor);
-            BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicForeColor);
-            BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Properties.Settings.Default.InfoGraphicBorderColor);
+            BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBackColor));
+            BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicForeColor));
+            BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBorderColor));
+            NudInfoGraphicBgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBackColor.A;
+            NudInfoGraphicFgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicForeColor.A;
+            NudInfoGraphicBorderAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBorderColor.A;
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
@@ -650,9 +653,9 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicDisplayMutations = CbInfoGraphicMutationCounter.Checked;
             Properties.Settings.Default.InfoGraphicDisplayGeneration = CbInfoGraphicGenerations.Checked;
             Properties.Settings.Default.InfoGraphicDisplayName = CbInfoGraphicCreatureName.Checked;
-            Properties.Settings.Default.InfoGraphicBackColor = BtInfoGraphicBackColor.BackColor;
-            Properties.Settings.Default.InfoGraphicForeColor = BtInfoGraphicForeColor.BackColor;
-            Properties.Settings.Default.InfoGraphicBorderColor = BtInfoGraphicBorderColor.BackColor;
+            Properties.Settings.Default.InfoGraphicBackColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
+            Properties.Settings.Default.InfoGraphicForeColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
+            Properties.Settings.Default.InfoGraphicBorderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
             Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
@@ -1659,11 +1662,10 @@ namespace ARKBreedingStats.settings
         private Creature _infoGraphicPreviewCreature;
         private readonly Debouncer _infoGraphicPreviewDebouncer = new Debouncer();
 
-        private void CbInfoGraphicCheckBoxRadioButtonChanged(object sender, EventArgs e)
-        {
-            _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
-        }
+        private void CbInfoGraphicCheckBoxRadioButtonChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
+        private void ShowInfoGraphicPreviewDebounced() =>
+            _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
         private void ShowInfoGraphicPreview()
         {
             if (_infoGraphicPreviewCreature == null)
@@ -1671,9 +1673,9 @@ namespace ARKBreedingStats.settings
 
             var height = (int)nudInfoGraphicHeight.Value;
             var fontName = CbbInfoGraphicFontName.Text;
-            var foreColor = BtInfoGraphicForeColor.BackColor;
-            var backColor = BtInfoGraphicBackColor.BackColor;
-            var borderColor = BtInfoGraphicBorderColor.BackColor;
+            var foreColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
+            var backColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
+            var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
             var displayCreatureName = CbInfoGraphicCreatureName.Checked;
             var displayDomValues = RbInfoGraphicDomValues.Checked;
             var sumWildMut = CbInfoGraphicSumWildMut.Checked;
@@ -1723,15 +1725,11 @@ namespace ARKBreedingStats.settings
             _infoGraphicPreviewCreature.RecalculateCreatureValues(_cc.wildLevelStep);
         }
 
-        private void nudInfoGraphicHeight_ValueChanged(object sender, EventArgs e)
-        {
-            _infoGraphicPreviewDebouncer.Debounce(500, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
-        }
+        private void nudInfoGraphicHeight_ValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
-        private void CbbInfoGraphicFontName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
-        }
+        private void CbbInfoGraphicFontName_SelectedIndexChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
+
+        private void NudInfoGraphicAlpha_ValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
         #endregion
 
@@ -1927,6 +1925,21 @@ namespace ARKBreedingStats.settings
                 (Properties.Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);
                 Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
             }
+        }
+
+        private void NudInfoGraphicBorderAlpha_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NudInfoGraphicBgAlpha_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NudInfoGraphicFgAlpha_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
