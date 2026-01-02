@@ -924,7 +924,6 @@ namespace ARKBreedingStats.settings
 
             //// the settings below don't appear in ARK server config files directly or not at all and are used only in ASB
             // max levels
-            ParseAndSetValue(nudMaxWildLevels, @"ASBMaxWildLevels_Dinos ?= ?(\d+)");
             ParseAndSetValue(nudMaxDomLevels, @"ASBMaxDomLevels_Dinos ?= ?(\d+)");
             ParseAndSetValue(nudMaxGraphLevel, @"ASBMaxGraphLevels ?= ?(\d+)");
             // extractor
@@ -973,30 +972,33 @@ namespace ARKBreedingStats.settings
                 nudMaxDomLevels.ValueSave = Regex.Matches(m.Groups[1].Value, "ExperiencePointsForLevel").Count + 1;
 
             // parse max wild dino levels
-            if (text.Contains("DifficultyOffset") || text.Contains("OverrideOfficialDifficulty"))
+            var difficultyValue = -1d;
+            if (Regex.IsMatch(text, @"MaxDifficulty ?= ?True", RegexOptions.IgnoreCase))
             {
-                // default values
-                var difficultyOffset = 0.2;
-                var officialDifficulty = 5d;
-
-                m = Regex.Match(text, @"DifficultyOffset ?= ?(\d*\.?\d+)");
-                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
-                    cultureForStrings, out d))
-                    difficultyOffset = d;
-
+                difficultyValue = 5;
+            }
+            else
+            {
                 m = Regex.Match(text, @"OverrideOfficialDifficulty ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
-                    cultureForStrings, out d))
-                    officialDifficulty = d;
-
-                var difficultyValue = 1d;
-                if (difficultyOffset > 0)
-                {
-                    difficultyValue = difficultyOffset * (officialDifficulty - 0.5) + 0.5;
-                }
-
-                nudMaxWildLevels.ValueSave = (int)(difficultyValue * 30);
+                    cultureForStrings, out d) && d > 0)
+                    difficultyValue = d;
             }
+
+            if (difficultyValue < 0)
+            {
+                const int officialDifficulty = 5; // base map difficulty value. probably default value for most maps. Some maps (only ASE?) may have 4.
+                m = Regex.Match(text, @"DifficultyOffset ?= ?(\d*\.?\d+)");
+                if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
+                        cultureForStrings, out var difficultyOffset)
+                    && difficultyOffset > 0)
+                    difficultyValue = difficultyOffset * (officialDifficulty - 0.5) + 0.5;
+            }
+
+            if (difficultyValue > 0)
+                nudMaxWildLevels.ValueSave = (int)(difficultyValue * 30);
+            else
+                ParseAndSetValue(nudMaxWildLevels, @"ASBMaxWildLevels_Dinos ?= ?(\d+)");
         }
 
         /// <summary>
