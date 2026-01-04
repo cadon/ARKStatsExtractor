@@ -9,12 +9,12 @@ namespace ARKBreedingStats
 {
     public partial class TribesControl : UserControl
     {
-        private List<Player> players;
-        private List<Tribe> tribes;
-        private Player selectedPlayer;
-        private ListViewItem selectedRow;
-        private Tribe selectedTribe;
-        private ListViewItem selectedTribeRow;
+        private List<Player> _players;
+        private List<Tribe> _tribes;
+        private Player _selectedPlayer;
+        private ListViewItem _selectedRow;
+        private Tribe _selectedTribe;
+        private ListViewItem _selectedTribeRow;
 
         public TribesControl()
         {
@@ -34,7 +34,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                players = value;
+                _players = value;
                 UpdatePlayerList();
             }
         }
@@ -43,7 +43,7 @@ namespace ARKBreedingStats
         {
             set
             {
-                tribes = value;
+                _tribes = value;
                 UpdateTribeList();
             }
         }
@@ -56,7 +56,7 @@ namespace ARKBreedingStats
         /// <param name="name"></param>
         /// <returns></returns>
         public bool PlayerExists(string name) =>
-            !string.IsNullOrEmpty(name) && players.Any(p => p.PlayerName == name);
+            !string.IsNullOrEmpty(name) && _players.Any(p => p.PlayerName == name);
 
         /// <summary>
         /// Checks if a tribe with the given name exists.
@@ -64,13 +64,13 @@ namespace ARKBreedingStats
         /// <param name="name"></param>
         /// <returns></returns>
         public bool TribeExists(string name) =>
-            !string.IsNullOrEmpty(name) && tribes.Any(t => t.TribeName == name);
+            !string.IsNullOrEmpty(name) && _tribes.Any(t => t.TribeName == name);
 
-        public string[] PlayerNames => players.Select(p => p.PlayerName).ToArray();
+        public string[] PlayerNames => _players.Select(p => p.PlayerName).ToArray();
 
-        public string[] OwnersTribes => players.Select(p => p.Tribe).ToArray();
+        public string[] OwnersTribes => _players.Select(p => p.Tribe).ToArray();
 
-        public string[] TribeNames => tribes.Select(t => t.TribeName).ToArray();
+        public string[] TribeNames => _tribes.Select(t => t.TribeName).ToArray();
 
         /// <summary>
         /// Updates the displayed list of players from the internal list.
@@ -83,7 +83,7 @@ namespace ARKBreedingStats
             var tribeGroups = new Dictionary<string, ListViewGroup>();
             var lviPlayers = new List<ListViewItem>();
 
-            foreach (Player p in players)
+            foreach (Player p in _players)
             {
                 // check if group of tribe exists
                 var tribeName = p.Tribe ?? string.Empty;
@@ -96,7 +96,7 @@ namespace ARKBreedingStats
                 if (p.Tribe != null && !tribeRelColors.ContainsKey(p.Tribe))
                 {
                     Color c = Color.White;
-                    foreach (Tribe t in tribes)
+                    foreach (Tribe t in _tribes)
                     {
                         if (t.TribeName == p.Tribe)
                         {
@@ -109,7 +109,7 @@ namespace ARKBreedingStats
                 int notesL = p.Note?.Length ?? 0;
                 if (notesL > 40) notesL = 40;
                 string rel = "n/a";
-                foreach (Tribe t in tribes)
+                foreach (Tribe t in _tribes)
                 {
                     if (t.TribeName == p.Tribe)
                     {
@@ -138,7 +138,7 @@ namespace ARKBreedingStats
         {
             listViewTribes.Items.Clear();
             var tribeList = new List<ListViewItem>();
-            foreach (Tribe t in tribes)
+            foreach (Tribe t in _tribes)
             {
                 ListViewItem lvi = new ListViewItem(new[] { t.TribeName, t.TribeRelation.ToString() })
                 {
@@ -159,13 +159,13 @@ namespace ARKBreedingStats
             {
                 panelPlayerSettings.Visible = true;
                 panelTribeSettings.Visible = false;
-                selectedPlayer = (Player)listViewPlayer.SelectedItems[0].Tag;
-                selectedRow = listViewPlayer.SelectedItems[0];
-                nudPlayerRank.Value = selectedPlayer.Rank;
-                textBoxPlayerName.Text = selectedPlayer.PlayerName;
-                textBoxPlayerNotes.Text = selectedPlayer.Note;
-                nudPlayerLevel.Value = selectedPlayer.Level;
-                textBoxPlayerTribe.Text = selectedPlayer.Tribe;
+                _selectedPlayer = (Player)listViewPlayer.SelectedItems[0].Tag;
+                _selectedRow = listViewPlayer.SelectedItems[0];
+                nudPlayerRank.Value = _selectedPlayer.Rank;
+                textBoxPlayerName.Text = _selectedPlayer.PlayerName;
+                textBoxPlayerNotes.Text = _selectedPlayer.Note;
+                nudPlayerLevel.Value = _selectedPlayer.Level;
+                textBoxPlayerTribe.Text = _selectedPlayer.Tribe;
             }
             panelPlayerSettings.Enabled = playerSelected;
         }
@@ -177,10 +177,10 @@ namespace ARKBreedingStats
             {
                 panelPlayerSettings.Visible = false;
                 panelTribeSettings.Visible = true;
-                selectedTribe = (Tribe)listViewTribes.SelectedItems[0].Tag;
-                selectedTribeRow = listViewTribes.SelectedItems[0];
-                textBoxTribeName.Text = selectedTribe.TribeName;
-                switch (selectedTribe.TribeRelation)
+                _selectedTribe = (Tribe)listViewTribes.SelectedItems[0].Tag;
+                _selectedTribeRow = listViewTribes.SelectedItems[0];
+                textBoxTribeName.Text = _selectedTribe.TribeName;
+                switch (_selectedTribe.TribeRelation)
                 {
                     case Tribe.Relation.Allied:
                         radioButtonAllied.Checked = true;
@@ -195,7 +195,7 @@ namespace ARKBreedingStats
                         radioButtonHostile.Checked = true;
                         break;
                 }
-                textBoxTribeNotes.Text = selectedTribe.Note;
+                textBoxTribeNotes.Text = _selectedTribe.Note;
             }
             panelTribeSettings.Enabled = tribeSelected;
         }
@@ -203,52 +203,52 @@ namespace ARKBreedingStats
         private void UpdateTribeSuggestions()
         {
             var l = new AutoCompleteStringCollection();
-            l.AddRange(tribes.Select(t => t.TribeName).ToArray());
+            l.AddRange(_tribes.Select(t => t.TribeName).ToArray());
             textBoxPlayerTribe.AutoCompleteCustomSource = l;
         }
 
         private void nudPlayerRank_ValueChanged(object sender, EventArgs e)
         {
-            if (selectedPlayer != null)
+            if (_selectedPlayer != null)
             {
-                selectedPlayer.Rank = (int)nudPlayerRank.Value;
-                selectedRow.SubItems[0].Text = nudPlayerRank.Value.ToString();
+                _selectedPlayer.Rank = (int)nudPlayerRank.Value;
+                _selectedRow.SubItems[0].Text = nudPlayerRank.Value.ToString();
             }
         }
 
         private void textBoxPlayerName_TextChanged(object sender, EventArgs e)
         {
-            if (selectedPlayer != null)
+            if (_selectedPlayer != null)
             {
-                selectedPlayer.PlayerName = textBoxPlayerName.Text;
-                selectedRow.SubItems[1].Text = textBoxPlayerName.Text;
+                _selectedPlayer.PlayerName = textBoxPlayerName.Text;
+                _selectedRow.SubItems[1].Text = textBoxPlayerName.Text;
             }
         }
 
         private void nudPlayerLevel_ValueChanged(object sender, EventArgs e)
         {
-            if (selectedPlayer != null)
+            if (_selectedPlayer != null)
             {
-                selectedPlayer.Level = (int)nudPlayerLevel.Value;
-                selectedRow.SubItems[2].Text = nudPlayerLevel.Value.ToString();
+                _selectedPlayer.Level = (int)nudPlayerLevel.Value;
+                _selectedRow.SubItems[2].Text = nudPlayerLevel.Value.ToString();
             }
         }
 
         private void textBoxPlayerTribe_TextChanged(object sender, EventArgs e)
         {
-            if (selectedPlayer != null)
+            if (_selectedPlayer != null)
             {
-                selectedPlayer.Tribe = textBoxPlayerTribe.Text;
-                selectedRow.SubItems[3].Text = textBoxPlayerTribe.Text;
+                _selectedPlayer.Tribe = textBoxPlayerTribe.Text;
+                _selectedRow.SubItems[3].Text = textBoxPlayerTribe.Text;
             }
         }
 
         private void textBoxPlayerNotes_TextChanged(object sender, EventArgs e)
         {
-            if (selectedPlayer != null)
+            if (_selectedPlayer != null)
             {
-                selectedPlayer.Note = textBoxPlayerNotes.Text;
-                selectedRow.SubItems[4].Text = textBoxPlayerNotes.Text;
+                _selectedPlayer.Note = textBoxPlayerNotes.Text;
+                _selectedRow.SubItems[4].Text = textBoxPlayerNotes.Text;
             }
         }
 
@@ -258,11 +258,12 @@ namespace ARKBreedingStats
         /// <param name="name"></param>
         public void AddPlayer(string name = null)
         {
-            Player p = new Player
+            var p = new Player
             {
                 PlayerName = string.IsNullOrEmpty(name) ? "<new Player>" : name
             };
-            players.Add(p);
+            if (_players == null) _players = new List<Player>();
+            _players.Add(p);
             UpdatePlayerList();
             int i = listViewPlayer.Items.Count - 1;
             listViewPlayer.Items[i].Selected = true;
@@ -278,12 +279,14 @@ namespace ARKBreedingStats
         public void AddPlayers(HashSet<string> playerNames)
         {
             if (playerNames == null || !playerNames.Any()) return;
-            var existingPlayers = players.Select(p => p.PlayerName).ToHashSet();
-            playerNames.ExceptWith(existingPlayers);
+            var existingPlayers = _players?.Select(p => p.PlayerName).ToHashSet();
+            if (existingPlayers != null)
+                playerNames.ExceptWith(existingPlayers);
             var newPlayersArray = playerNames.Where(newPlayer => !string.IsNullOrEmpty(newPlayer))
                 .Select(p => new Player { PlayerName = p }).ToArray();
             if (!newPlayersArray.Any()) return;
-            players.AddRange(newPlayersArray);
+            if (_players == null) _players = new List<Player>();
+            _players.AddRange(newPlayersArray);
             UpdatePlayerList();
         }
 
@@ -293,11 +296,12 @@ namespace ARKBreedingStats
         /// <param name="name"></param>
         public void AddTribe(string name = null)
         {
-            Tribe t = new Tribe
+            var t = new Tribe
             {
                 TribeName = string.IsNullOrEmpty(name) ? "<new Tribe>" : name
             };
-            tribes.Add(t);
+            if (_tribes == null) _tribes = new List<Tribe>();
+            _tribes.Add(t);
             UpdateTribeList();
             int i = listViewTribes.Items.Count - 1;
             listViewTribes.Items[i].Selected = true;
@@ -313,12 +317,14 @@ namespace ARKBreedingStats
         public void AddTribes(HashSet<string> tribeNames)
         {
             if (tribeNames == null || !tribeNames.Any()) return;
-            var existingTribes = tribes.Select(t => t.TribeName).ToHashSet();
-            tribeNames.ExceptWith(existingTribes);
+            var existingTribes = _tribes?.Select(t => t.TribeName).ToHashSet();
+            if (existingTribes != null)
+                tribeNames.ExceptWith(existingTribes);
             var newTribesArray = tribeNames.Distinct().Where(newTribe => !string.IsNullOrEmpty(newTribe))
                 .Select(t => new Tribe { TribeName = t }).ToArray();
             if (!newTribesArray.Any()) return;
-            tribes.AddRange(newTribesArray);
+            if (_tribes == null) _tribes = new List<Tribe>();
+            _tribes.AddRange(newTribesArray);
             UpdateTribeList();
         }
 
@@ -328,7 +334,7 @@ namespace ARKBreedingStats
             {
                 foreach (ListViewItem lvi in listViewPlayer.SelectedItems)
                 {
-                    players.Remove((Player)lvi.Tag);
+                    _players.Remove((Player)lvi.Tag);
                 }
                 UpdatePlayerList();
             }
@@ -340,7 +346,7 @@ namespace ARKBreedingStats
             {
                 foreach (ListViewItem lvi in listViewTribes.SelectedItems)
                 {
-                    tribes.Remove((Tribe)lvi.Tag);
+                    _tribes.Remove((Tribe)lvi.Tag);
                 }
                 UpdateTribeList();
             }
@@ -348,53 +354,53 @@ namespace ARKBreedingStats
 
         private void textBoxTribeName_TextChanged(object sender, EventArgs e)
         {
-            if (selectedTribe != null)
+            if (_selectedTribe != null)
             {
-                selectedTribe.TribeName = textBoxTribeName.Text;
-                selectedTribeRow.SubItems[0].Text = textBoxTribeName.Text;
+                _selectedTribe.TribeName = textBoxTribeName.Text;
+                _selectedTribeRow.SubItems[0].Text = textBoxTribeName.Text;
             }
         }
 
         private void radioButtonAllied_CheckedChanged(object sender, EventArgs e)
         {
-            if (selectedTribe != null)
+            if (_selectedTribe != null)
             {
-                selectedTribe.TribeRelation = Tribe.Relation.Allied;
-                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Allied);
+                _selectedTribe.TribeRelation = Tribe.Relation.Allied;
+                UpdateTribeRowRelation(_selectedTribeRow, Tribe.Relation.Allied);
             }
         }
 
         private void radioButtonNeutral_CheckedChanged(object sender, EventArgs e)
         {
-            if (selectedTribe != null)
+            if (_selectedTribe != null)
             {
-                selectedTribe.TribeRelation = Tribe.Relation.Neutral;
-                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Neutral);
+                _selectedTribe.TribeRelation = Tribe.Relation.Neutral;
+                UpdateTribeRowRelation(_selectedTribeRow, Tribe.Relation.Neutral);
             }
         }
 
         private void radioButtonFriendly_CheckedChanged(object sender, EventArgs e)
         {
-            if (selectedTribe != null)
+            if (_selectedTribe != null)
             {
-                selectedTribe.TribeRelation = Tribe.Relation.Friendly;
-                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Friendly);
+                _selectedTribe.TribeRelation = Tribe.Relation.Friendly;
+                UpdateTribeRowRelation(_selectedTribeRow, Tribe.Relation.Friendly);
             }
         }
 
         private void radioButtonHostile_CheckedChanged(object sender, EventArgs e)
         {
-            if (selectedTribe != null)
+            if (_selectedTribe != null)
             {
-                selectedTribe.TribeRelation = Tribe.Relation.Hostile;
-                UpdateTribeRowRelation(selectedTribeRow, Tribe.Relation.Hostile);
+                _selectedTribe.TribeRelation = Tribe.Relation.Hostile;
+                UpdateTribeRowRelation(_selectedTribeRow, Tribe.Relation.Hostile);
             }
         }
 
         private void textBoxTribeNotes_TextChanged(object sender, EventArgs e)
         {
-            if (selectedTribe != null)
-                selectedTribe.Note = textBoxTribeNotes.Text;
+            if (_selectedTribe != null)
+                _selectedTribe.Note = textBoxTribeNotes.Text;
         }
 
         private void UpdateTribeRowRelation(ListViewItem tribeRow, Tribe.Relation rel)

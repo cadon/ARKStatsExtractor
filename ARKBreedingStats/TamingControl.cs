@@ -281,6 +281,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void EstimateFoodValue()
         {
+            if (_selectedSpecies?.stats?[Stats.Food] == null) return;
             nudTotalFood.Value = (decimal)(_selectedSpecies.stats[Stats.Food].BaseValue * (1 + _selectedSpecies.stats[Stats.Food].IncPerWildLevel * ((int)nudLevel.Value / 7))); // approximating the food level
             nudCurrentFood.Value = nudTotalFood.Value;
         }

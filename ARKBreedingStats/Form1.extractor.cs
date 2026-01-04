@@ -864,10 +864,10 @@ namespace ARKBreedingStats
             int notDeterminedLevels = _statIOs[Stats.Torpidity].LevelWild;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == Stats.Torpidity || !species.CanLevelUpWildOrHaveMutations(s))
-                {
+                if (s == Stats.Torpidity
+                    || species.stats[s] == null
+                    || !species.CanLevelUpWildOrHaveMutations(s))
                     continue;
-                }
 
                 if (_statIOs[s].LevelWild < 0 || species.stats[s].IncPerWildLevel == 0)
                 {
