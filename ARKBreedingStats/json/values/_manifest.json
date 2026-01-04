@@ -521,6 +521,19 @@
 				"official": true
 			}
 		},
+		"927090-WinterWonderland.json": {
+			"version": "21309318.1766466142",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "927090",
+				"ASA": true,
+				"tag": "WinterWonderland",
+				"title": "Winter Wonderland",
+				"author": "StudioWildcardMods",
+				"cfPage": "winter-wonderland",
+				"official": true
+			}
+		},
 		"927091-SummerBash.json": {
 			"version": "1751997030",
 			"format": "1.16-mod-remap",
@@ -559,7 +572,7 @@
 			}
 		},
 		"929094-ShadsCritterReworks.json": {
-			"version": "1762293041",
+			"version": "21309318.1762231755",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "929094",
@@ -595,7 +608,7 @@
 			}
 		},
 		"932714-PrimalChaos.json": {
-			"version": "1764552976",
+			"version": "21309318.1764540620",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "932714",
@@ -631,7 +644,7 @@
 			}
 		},
 		"952367-ArkDescended.json": {
-			"version": "1760158541",
+			"version": "21309318.1760106086",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "952367",
@@ -691,7 +704,7 @@
 			}
 		},
 		"974204-JurassicAwakening.json": {
-			"version": "1763937517",
+			"version": "21309318.1763928905",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "974204",
@@ -703,7 +716,7 @@
 			}
 		},
 		"ASA-values.json": {
-			"version": "76.1.2",
+			"version": "77.46.1",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},

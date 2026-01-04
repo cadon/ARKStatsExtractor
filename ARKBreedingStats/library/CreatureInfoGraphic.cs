@@ -2,7 +2,9 @@
 using ARKBreedingStats.species;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -82,7 +84,8 @@ namespace ARKBreedingStats.library
             using (var fontBrush = new SolidBrush(foreColor))
             using (var borderAroundColors = new Pen(Utils.ForeColor(backColor), 1))
             using (var stringFormatRight = new StringFormat { Alignment = StringAlignment.Far })
-            using (var stringFormatRightUp = new StringFormat { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far })
+            using (var stringFormatRightUp = new StringFormat
+            { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far })
             {
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 g.TextRenderingHint = TextRenderingHint.AntiAlias;
@@ -91,7 +94,8 @@ namespace ARKBreedingStats.library
                 using (var backgroundBrush = new SolidBrush(backColor))
                     g.FillRectangle(backgroundBrush, 0, 0, width, height);
 
-                var headerText = creature.Species.DescriptiveNameAndMod + (displayCreatureName ? $" - {creature.name}" : string.Empty);
+                var headerText = creature.Species.DescriptiveNameAndMod +
+                                 (displayCreatureName ? $" - {creature.name}" : string.Empty);
 
                 var fontSizeHeaderCalculated = CalculateFontSize(g, headerText, fontHeader, width);
                 if (fontSizeHeaderCalculated < fontSizeHeader)
@@ -110,11 +114,14 @@ namespace ARKBreedingStats.library
                 else
                     creatureLevel = creature.LevelHatched.ToString();
 
-                var creatureInfos = $"{Loc.S("Level", secondaryCulture: secondaryCulture)} {creatureLevel} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered", secondaryCulture: secondaryCulture)})" : string.Empty)}";
+                var creatureInfos =
+                    $"{Loc.S("Level", secondaryCulture: secondaryCulture)} {creatureLevel} | {Utils.SexSymbol(creature.sex) + (creature.flags.HasFlag(CreatureFlags.Neutered) ? $" ({Loc.S(creature.sex == Sex.Female ? "Spayed" : "Neutered", secondaryCulture: secondaryCulture)})" : string.Empty)}";
                 if (displayMutations)
-                    creatureInfos += $" | {Loc.S("mutation counter", secondaryCulture: secondaryCulture)} {creature.Mutations}";
+                    creatureInfos +=
+                        $" | {Loc.S("mutation counter", secondaryCulture: secondaryCulture)} {creature.Mutations}";
                 if (displayGenerations)
-                    creatureInfos += $" | {Loc.S("generation", secondaryCulture: secondaryCulture)} {creature.generation}";
+                    creatureInfos +=
+                        $" | {Loc.S("generation", secondaryCulture: secondaryCulture)} {creature.generation}";
 
                 var availableWidth = width - 9 * frameThickness;
                 var textWidth = g.MeasureString(creatureInfos, font).Width;
@@ -136,22 +143,38 @@ namespace ARKBreedingStats.library
                 // levels
                 var meanLetterWidth = fontSize * 7d / 10;
                 var xStatName = (int)meanLetterWidth;
-                var displayMutatedLevels = !displaySumWildMutLevels && creature.levelsMutated != null && cc?.Game == Ark.Asa;
+                var displayMutatedLevels =
+                    !displaySumWildMutLevels && creature.levelsMutated != null && cc?.Game == Ark.Asa;
                 // x position of level number. torpor is the largest level number.
-                var xRightLevelValue = (int)(xStatName + (6 + creature.levelsWild[Stats.Torpidity].ToString().Length) * meanLetterWidth);
-                var xRightLevelMutValue = xRightLevelValue + (!displayMutatedLevels ? 0 : (int)((creature.levelsMutated.Max().ToString().Length + 2) * meanLetterWidth));
-                var xRightLevelDomValue = xRightLevelMutValue + (!displayWithDomLevels ? 0 : (int)((creature.levelsDom.Max().ToString().Length + 1) * meanLetterWidth));
-                var xRightBrValue = (int)(xRightLevelDomValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
+                var xRightLevelValue = (int)(xStatName +
+                                             (6 + creature.levelsWild[Stats.Torpidity].ToString().Length) *
+                                             meanLetterWidth);
+                var xRightLevelMutValue = xRightLevelValue + (!displayMutatedLevels
+                    ? 0
+                    : (int)((creature.levelsMutated.Max().ToString().Length + 2) * meanLetterWidth));
+                var xRightLevelDomValue = xRightLevelMutValue + (!displayWithDomLevels
+                    ? 0
+                    : (int)((creature.levelsDom.Max().ToString().Length + 1) * meanLetterWidth));
+                var xRightBrValue =
+                    (int)(xRightLevelDomValue + (2 + MaxCharLength(creature.valuesBreeding)) * meanLetterWidth);
                 var maxBoxLength = xRightBrValue - xStatName;
                 var statBoxHeight = Math.Max(2, height / 90);
-                g.DrawString(Loc.S("W", secondaryCulture: secondaryCulture) + (displaySumWildMutLevels ? "+" + Loc.S("M", secondaryCulture: secondaryCulture) : string.Empty)
-                    , font, fontBrush, xRightLevelValue - (displayMutatedLevels || displayWithDomLevels ? (int)meanLetterWidth : 0), currentYPosition, stringFormatRight);
+                g.DrawString(Loc.S("W", secondaryCulture: secondaryCulture) + (displaySumWildMutLevels
+                        ? "+" + Loc.S("M", secondaryCulture: secondaryCulture)
+                        : string.Empty)
+                    , font, fontBrush,
+                    xRightLevelValue - (displayMutatedLevels || displayWithDomLevels ? (int)meanLetterWidth : 0),
+                    currentYPosition, stringFormatRight);
                 if (displayMutatedLevels)
-                    g.DrawString(Loc.S("M", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelMutValue - (displayWithDomLevels ? (int)meanLetterWidth : 0), currentYPosition, stringFormatRight);
+                    g.DrawString(Loc.S("M", secondaryCulture: secondaryCulture), font, fontBrush,
+                        xRightLevelMutValue - (displayWithDomLevels ? (int)meanLetterWidth : 0), currentYPosition,
+                        stringFormatRight);
                 if (displayWithDomLevels)
-                    g.DrawString(Loc.S("D", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue, currentYPosition, stringFormatRight);
+                    g.DrawString(Loc.S("D", secondaryCulture: secondaryCulture), font, fontBrush, xRightLevelDomValue,
+                        currentYPosition, stringFormatRight);
                 if (displayStatValues)
-                    g.DrawString(Loc.S("Values", secondaryCulture: secondaryCulture), font, fontBrush, xRightBrValue, currentYPosition, stringFormatRight);
+                    g.DrawString(Loc.S("Values", secondaryCulture: secondaryCulture), font, fontBrush, xRightBrValue,
+                        currentYPosition, stringFormatRight);
                 var statDisplayIndex = 0;
                 foreach (var si in Stats.DisplayOrder)
                 {
@@ -174,8 +197,10 @@ namespace ARKBreedingStats.library
                     using (var b = new SolidBrush(Color.FromArgb(10, statColor)))
                     {
                         for (var r = 4; r > 0; r--)
-                            g.FillRectangle(b, xStatName - r, y + statLineHeight - 2 - r, statBoxLength + 2 * r, statBoxHeight + 2 * r);
+                            g.FillRectangle(b, xStatName - r, y + statLineHeight - 2 - r, statBoxLength + 2 * r,
+                                statBoxHeight + 2 * r);
                     }
+
                     using (var p = new Pen(Utils.GetColorFromPercent(levelPercentageOfMax, -0.5), 1))
                         g.DrawRectangle(p, xStatName, y + statLineHeight - 1, statBoxLength, statBoxHeight);
 
@@ -183,11 +208,17 @@ namespace ARKBreedingStats.library
                     g.DrawString($"{Utils.StatName(si, true, creature.Species.statNames, secondaryCulture)}",
                         font, fontBrush, xStatName, y);
                     // stat level number
-                    var displayedLevel = creature.levelsWild[si] + (displaySumWildMutLevels && creature.levelsMutated != null && creature.levelsMutated[si] > 0 ? creature.levelsMutated[si] : 0);
-                    g.DrawString($"{(creature.levelsWild[si] < 0 ? "?" : displayedLevel.ToString())}{(displayMutatedLevels || displayWithDomLevels ? " |" : string.Empty)}",
+                    var displayedLevel = creature.levelsWild[si] +
+                                         (displaySumWildMutLevels && creature.levelsMutated != null &&
+                                          creature.levelsMutated[si] > 0
+                                             ? creature.levelsMutated[si]
+                                             : 0);
+                    g.DrawString(
+                        $"{(creature.levelsWild[si] < 0 ? "?" : displayedLevel.ToString())}{(displayMutatedLevels || displayWithDomLevels ? " |" : string.Empty)}",
                         font, fontBrush, xRightLevelValue, y, stringFormatRight);
                     if (displayMutatedLevels)
-                        g.DrawString($"{(creature.levelsMutated[si] < 0 ? string.Empty : creature.levelsMutated[si].ToString())}{(displayWithDomLevels ? " |" : string.Empty)}",
+                        g.DrawString(
+                            $"{(creature.levelsMutated[si] < 0 ? string.Empty : creature.levelsMutated[si].ToString())}{(displayWithDomLevels ? " |" : string.Empty)}",
                             font, fontBrush, xRightLevelMutValue, y, stringFormatRight);
                     // dom level number
                     if (displayWithDomLevels)
@@ -225,13 +256,16 @@ namespace ARKBreedingStats.library
 
                 var creatureImageShown = false;
                 var extraMarginBottom = displayMaxWildLevel ? fontSizeSmall : 0;
-                var imageSize = (int)Math.Min(width - xColor - circleDiameter - 8 * meanLetterWidth - frameThickness * 4,
-                                              height - currentYPosition - frameThickness * 4 - extraMarginBottom);
+                var imageSize = (int)Math.Min(
+                    width - xColor - circleDiameter - 8 * meanLetterWidth - frameThickness * 4,
+                    height - currentYPosition - frameThickness * 4 - extraMarginBottom);
                 if (imageSize > 5)
                 {
                     using (var crBmp = await
-                        CreatureColored.GetColoredCreatureAsync(creature.colors, creature.Species, creature.Species.EnabledColorRegions,
-                            imageSize, onlyImage: true, creatureSex: creature.sex, game: cc.Game).ConfigureAwait(false))
+                               CreatureColored.GetColoredCreatureAsync(creature.colors, creature.Species,
+                                       creature.Species.EnabledColorRegions,
+                                       imageSize, onlyImage: true, creatureSex: creature.sex, game: cc.Game)
+                                   .ConfigureAwait(false))
                     {
                         if (crBmp != null)
                         {
@@ -242,14 +276,19 @@ namespace ARKBreedingStats.library
                     }
                 }
 
-                var maxColorNameLength = (int)((width - xColor - circleDiameter - (creatureImageShown ? imageSize : 0)) * 1.5 / meanLetterWidth); // max char length for the color region name
+                var maxColorNameLength =
+                    (int)((width - xColor - circleDiameter - (creatureImageShown ? imageSize : 0)) * 1.5 /
+                          meanLetterWidth); // max char length for the color region name
                 if (maxColorNameLength < 0) maxColorNameLength = 0;
 
                 if (creature.colors != null)
                 {
-                    g.DrawString(Loc.S("Colors", secondaryCulture: secondaryCulture), font, fontBrush, xColor, currentYPosition);
-                    DrawColors(creature.Species, creature.colors, displayExtraRegionNames, displayRegionNamesIfNoImage, currentYPosition, height, colorRowHeight,
-                        g, xColor, circleDiameter, borderAroundColors, creatureImageShown, maxColorNameLength, fontSmall, fontBrush);
+                    g.DrawString(Loc.S("Colors", secondaryCulture: secondaryCulture), font, fontBrush, xColor,
+                        currentYPosition);
+                    DrawColors(creature.Species, creature.colors, displayExtraRegionNames, displayRegionNamesIfNoImage,
+                        currentYPosition, height, colorRowHeight,
+                        g, xColor, circleDiameter, borderAroundColors, creatureImageShown, maxColorNameLength,
+                        fontSmall, fontBrush);
                 }
 
                 // mutagen
@@ -261,9 +300,13 @@ namespace ARKBreedingStats.library
                 if (displayWithDomLevels)
                 {
                     if (creature.isBred || creature.imprintingBonus > 0)
-                        g.DrawString($"Imp: {creature.imprintingBonus * 100:0.0} %", font, fontBrush, xColor + (int)((Loc.S("Colors", secondaryCulture: secondaryCulture).Length + 3) * meanLetterWidth), currentYPosition);
+                        g.DrawString($"Imp: {creature.imprintingBonus * 100:0.0} %", font, fontBrush,
+                            xColor + (int)((Loc.S("Colors", secondaryCulture: secondaryCulture).Length + 3) *
+                                           meanLetterWidth), currentYPosition);
                     else if (creature.tamingEff >= 0)
-                        g.DrawString($"TE: {creature.tamingEff * 100:0.0} %", font, fontBrush, xColor + (int)((Loc.S("Colors", secondaryCulture: secondaryCulture).Length + 3) * meanLetterWidth), currentYPosition);
+                        g.DrawString($"TE: {creature.tamingEff * 100:0.0} %", font, fontBrush,
+                            xColor + (int)((Loc.S("Colors", secondaryCulture: secondaryCulture).Length + 3) *
+                                           meanLetterWidth), currentYPosition);
                 }
 
                 // max wild level on server
@@ -365,8 +408,20 @@ namespace ARKBreedingStats.library
 
             using (var bmp = await creature.InfoGraphicAsync(cc).ConfigureAwait(false))
             {
-                if (bmp != null)
-                    Clipboard.SetImage(bmp);
+                //if (bmp != null)
+                //    Clipboard.SetImage(bmp);
+                if (bmp == null) return;
+
+                using (var pngStream = new MemoryStream())
+                {
+                    var data = new DataObject();
+                    data.SetImage(bmp); // fallback, some applications do not accept the PNG version below
+
+                    bmp.Save(pngStream, ImageFormat.Png);
+                    data.SetData("PNG", false, pngStream);
+
+                    Clipboard.SetDataObject(data, true);
+                }
             }
         }
 

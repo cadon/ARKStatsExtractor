@@ -177,7 +177,7 @@ namespace ARKBreedingStats.SpeciesImages
             }
         }
 
-        private static readonly Regex RegexGithubManifest = new Regex(@"github\.com\/([^\/]+)\/([^\/]+)\/");
+        private static readonly Regex RegexGithubManifest = new Regex(@"github\.com\/([^\/]+)\/([^\/]+)\/([^\/]+)\/(.+)");
 
         private static async Task<DateTime?> LastCommit(string url)
         {
@@ -188,7 +188,7 @@ namespace ARKBreedingStats.SpeciesImages
                 if (!m.Success) return null;
 
                 var urlLastCommit =
-                    $"https://api.github.com/repos/{m.Groups[1].Value}/{m.Groups[2].Value}/commits?path=_manifest.json&page=1&per_page=1";
+                    $"https://api.github.com/repos/{m.Groups[1].Value}/{m.Groups[2].Value}/commits?path={m.Groups[4].Value}_manifest.json&sha={m.Groups[3].Value}&page=1&per_page=1";
 
                 var (success, jsonStringLastCommit) = await WebService.DownloadAsync(urlLastCommit).ConfigureAwait(false);
                 if (!success || string.IsNullOrEmpty(jsonStringLastCommit)) return null;

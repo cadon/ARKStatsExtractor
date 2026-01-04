@@ -133,7 +133,7 @@ namespace ARKBreedingStats.NamePatterns
         {
             // tries to calculate the result of the expression
             // possible operators are +, -, *, /
-            var match = Regex.Match(m.Groups[2].Value, @"\A\s*(\d+(?:\.\d*)?)\s*(\+|\-|\*|\/)\s*(\d+(?:\.\d*)?)\s*\Z");
+            var match = Regex.Match(m.Groups[2].Value, @"\A\s*(-?\d+(?:\.\d*)?)\s*(\+|\-|\*|\/)\s*(-?\d+(?:\.\d*)?)\s*\Z");
             if (match.Success
                 && double.TryParse(match.Groups[1].Value, out var d1)
                 && double.TryParse(match.Groups[3].Value, out var d2)

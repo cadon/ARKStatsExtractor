@@ -136,22 +136,44 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 
         public static LevelGraphRepresentation[] LevelRepresentations;
 
-        public static LevelGraphRepresentation GetDefaultValue => new LevelGraphRepresentation
+        /// <summary>
+        /// Default color range from red to green.
+        /// </summary>
+        public static LevelGraphRepresentation GetDefault => new LevelGraphRepresentation
         {
-            //ColorGradientReversed = true,
             LowerBound = 0,
             UpperBound = 50,
             LowerColor = Color.Red,
             UpperColor = Color.FromArgb(0, 255, 0)
         };
 
-        public static LevelGraphRepresentation GetDefaultMutationLevelValue => new LevelGraphRepresentation
+        /// <summary>
+        /// Inverted color range from green over yellow to red.
+        /// </summary>
+        public static LevelGraphRepresentation GetDefaultInverted => new LevelGraphRepresentation
         {
-            //ColorGradientReversed = true,
+            ColorGradientReversed = true,
+            LowerBound = 0,
+            UpperBound = 50,
+            LowerColor = Color.FromArgb(0, 255, 0),
+            UpperColor = Color.Red
+        };
+
+        public static LevelGraphRepresentation GetDefaultMutationLevel => new LevelGraphRepresentation
+        {
             LowerBound = 0,
             UpperBound = 255,
             LowerColor = Color.Cyan,
             UpperColor = Color.DeepPink
+        };
+
+        public static LevelGraphRepresentation GetDefaultMutationLevelInverted => new LevelGraphRepresentation
+        {
+            ColorGradientReversed = true,
+            LowerBound = 0,
+            UpperBound = 255,
+            LowerColor = Color.DeepPink,
+            UpperColor = Color.Cyan
         };
 
         public LevelGraphRepresentation Copy() =>
@@ -174,17 +196,30 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
 
         public static bool operator !=(LevelGraphRepresentation a, LevelGraphRepresentation b) => !(a == b);
 
-        public bool Equals(LevelGraphRepresentation oth)
+        public bool Equals(LevelGraphRepresentation other)
         {
-            if (ReferenceEquals(oth, null)) return false;
-            if (ReferenceEquals(this, oth)) return true;
-            return oth.LowerBound == LowerBound
-                   && oth.UpperBound == UpperBound
-                   && oth.ColorGradientReversed == ColorGradientReversed
-                   && oth.LowerColor == LowerColor
-                   && oth.UpperColor == UpperColor;
+            if (ReferenceEquals(other, null)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return other.LowerBound == LowerBound
+                   && other.UpperBound == UpperBound
+                   && other.ColorGradientReversed == ColorGradientReversed
+                   && Utils.ColorsEqual(other.LowerColor, LowerColor)
+                   && Utils.ColorsEqual(other.UpperColor, UpperColor);
         }
 
         public override int GetHashCode() => $"{LowerBound}-{UpperBound}_{LowerColor}-{UpperColor}_{ColorGradientReversed}".GetHashCode();
+
+        /// <summary>
+        /// Returns true if the colors and gradient direction are equal (ignoring the level range).
+        /// </summary>
+        public bool ColorEquals(LevelGraphRepresentation other)
+        {
+            if (ReferenceEquals(other, null)) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return ColorGradientReversed == other.ColorGradientReversed
+                   && Utils.ColorsEqual(other.LowerColor, LowerColor)
+                   && Utils.ColorsEqual(other.UpperColor, UpperColor);
+        }
     }
 }

@@ -6,9 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.mods;
 using ARKBreedingStats.utils;
-using ARKBreedingStats.values;
 
 namespace ARKBreedingStats
 {
@@ -774,5 +772,10 @@ namespace ARKBreedingStats
                     ? new Version(major, 0)
                     : new Version(0, 0);
         }
+
+        /// <summary>
+        /// Compares two colors, only considering their ARGB values (ignoring the color name which is considered by the default Color.Equals()).
+        /// </summary>
+        public static bool ColorsEqual(Color c1, Color c2) => c1.A == c2.A && c1.R == c2.R && c1.G == c2.G && c1.B == c2.B;
     }
 }

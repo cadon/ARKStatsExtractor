@@ -62,7 +62,7 @@ namespace ARKBreedingStats.uiControls
             // color region buttons
             var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, Height = 103 };
             _colorRegionButtons = new Button[Ark.ColorRegionCount];
-            for (int i = 0; i < Ark.ColorRegionCount; i++)
+            for (var i = 0; i < Ark.ColorRegionCount; i++)
             {
                 var bt = new Button
                 {
@@ -109,7 +109,13 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton("1–6");
-            colorsButton.Click += (s, e) => SetColors(Enumerable.Range(1, Ark.ColorRegionCount).Select(i => (byte)i).ToArray());
+            _tt.SetToolTip(colorsButton, "Sets region 0 to color id 1, region 1 to color id 2, etc. i.e. resulting in color ids [1,2,3,4,5,6], which is RGBYCM\nHold Ctrl to set it to [1,2,3,5,4,6] which is RGBCYM (this is used for the color masks)");
+            colorsButton.Click += (s, e) =>
+            {
+                SetColors(Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control)
+                    ? new byte[] { 1, 2, 3, 5, 4, 6 }
+                    : Enumerable.Range(1, Ark.ColorRegionCount).Select(i => (byte)i).ToArray());
+            };
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton("Parse Clipboard");
@@ -247,7 +253,7 @@ namespace ARKBreedingStats.uiControls
         {
             var colorIds = new byte[Ark.ColorRegionCount];
             var rand = new Random();
-            for (int ri = 0; ri < Ark.ColorRegionCount; ri++)
+            for (var ri = 0; ri < Ark.ColorRegionCount; ri++)
             {
                 var colorsInRegion = LibraryInfo.ColorsExistPerRegion?[ri]?.ToArray();
                 var colorsCountInRegion = colorsInRegion?.Length ?? 0;
@@ -257,11 +263,11 @@ namespace ARKBreedingStats.uiControls
             SetColors(colorIds);
         }
 
-        public void SetColors(byte[] colors)
+        public void SetColors(byte[] colors = null)
         {
             if (_species == null) return;
             SelectedColors = colors ?? new byte[Ark.ColorRegionCount];
-            for (int i = 0; i < Ark.ColorRegionCount; i++)
+            for (var i = 0; i < Ark.ColorRegionCount; i++)
                 SetRegionColorButton(i);
             _colorRegionButtons[0].PerformClick();
             UpdateCreatureImage();
@@ -303,14 +309,14 @@ namespace ARKBreedingStats.uiControls
             if (_species == species) return;
             _species = species;
             if (clearColors)
-                SetColors(new byte[Ark.ColorRegionCount]);
+                SetColors();
         }
 
         public void SetRegionColorButton(int region)
         {
             if (region < 0)
             {
-                for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
+                for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
                     SetRegionColorButton(ci);
                 return;
             }
