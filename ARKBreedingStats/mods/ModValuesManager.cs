@@ -46,6 +46,9 @@ namespace ARKBreedingStats.mods
                     _lviAvailableMods = _modInfos.Select(mi => (CreateLvi(mi), mi)).OrderBy(m => m.mi.Mod?.Title).ToArray();
                 }
                 UpdateModListBoxes();
+                if (_cc.Game == Ark.Asa)
+                    RbAsa.Checked = true;
+                else RbAse.Checked = true;
             }
         }
 
@@ -261,10 +264,12 @@ namespace ARKBreedingStats.mods
             => RepositoryInfo.OpenWikiPage("Unsupported-Mod-Values");
 
         private readonly Debouncer _modFilterDebouncer = new Debouncer();
-        private void TbModFilter_TextChanged(object sender, EventArgs e)
-            => _modFilterDebouncer.Debounce(300, FilterMods, Dispatcher.CurrentDispatcher);
+        private void TbModFilter_TextChanged(object sender, EventArgs e) => FilterModsDebounced();
 
         private void BtClearFilter_Click(object sender, EventArgs e) => TbModFilter.Text = string.Empty;
+
+        private void FilterModsDebounced()
+            => _modFilterDebouncer.Debounce(300, FilterMods, Dispatcher.CurrentDispatcher);
 
         private void FilterMods()
         {
@@ -295,6 +300,6 @@ namespace ARKBreedingStats.mods
             TbModFilter.BackColor = filter == null ? SystemColors.Window : Color.LightYellow;
         }
 
-        private void RbGameCheckedChanged(object sender, EventArgs e) => FilterMods();
+        private void RbGameCheckedChanged(object sender, EventArgs e) => FilterModsDebounced();
     }
 }
