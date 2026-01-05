@@ -109,11 +109,11 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton("1–6");
-            _tt.SetToolTip(colorsButton, "Sets region 0 to color id 1, region 1 to color id 2, etc. i.e. resulting in color ids [1,2,3,4,5,6], which is RGBYCM\nHold Ctrl to set it to [1,2,3,5,4,6] which is RGBCYM (this is used for the color masks)");
+            _tt.SetToolTip(colorsButton, "Sets region 0 to color id 1, region 1 to color id 2, etc. i.e. resulting in color ids [1,2,3,4,5,6], which is RBGYCM\nHold Ctrl to set it to [1,3,2,5,4,6] which is RGBCYM (this is used for the color masks)");
             colorsButton.Click += (s, e) =>
             {
                 SetColors(Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control)
-                    ? new byte[] { 1, 2, 3, 5, 4, 6 }
+                    ? new byte[] { 1, 3, 2, 5, 4, 6 }
                     : Enumerable.Range(1, Ark.ColorRegionCount).Select(i => (byte)i).ToArray());
             };
             flpButtons.Controls.Add(colorsButton);
