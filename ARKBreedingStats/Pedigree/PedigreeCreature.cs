@@ -149,7 +149,7 @@ namespace ARKBreedingStats.Pedigree
             {
                 foreach (var t in Creature.Traits)
                 {
-                    if (t.TraitDefinition.StatIndex != statIndex) continue;
+                    if (t.TraitDefinition?.StatIndex != statIndex) continue;
                     if (t.MutationProbability > 0)
                     {
                         p.Color = Color.DeepPink;
@@ -319,7 +319,7 @@ namespace ARKBreedingStats.Pedigree
                                 _creature.IsTopStat(si) ? 0.2 : 0.7);
 
                         _labelsStats[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
-                        var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition.StatIndex == si), Environment.NewLine);
+                        var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition?.StatIndex == si), Environment.NewLine);
                         if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
