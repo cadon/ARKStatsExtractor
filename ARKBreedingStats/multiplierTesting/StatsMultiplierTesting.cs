@@ -871,7 +871,7 @@ To determine all species values, the files with the following creature combinati
             ImportExportGun.SetServerMultipliers(sm, serverMultipliersFile ?? GetServerMultipliers());
 
             SpeciesStatsExtractor.ExtractStatValues(creatureFiles, sm, out var species, out var resultText, out var isError);
-            SetSpecies(species);
+            SetSpecies(species, true);
             CopySpeciesStatsToClipboard(species.blueprintPath, species.StatImprintMultipliersRaw);
 
             if (isError)
