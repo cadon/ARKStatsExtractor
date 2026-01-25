@@ -42,7 +42,8 @@ namespace ARKBreedingStats
         /// <summary>
         /// This displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
         /// </summary>
-        private void ShowSumOfChosenLevels(int levelsImpossibleToDistribute)
+        /// <returns>True if the level combination appears to be valid.</returns>
+        private bool ShowSumOfChosenLevels(int levelsImpossibleToDistribute)
         {
             // The wild levels of stats that don't change the stat value (e.g. speed) are not chosen, but calculated from the other chosen levels,
             // and must not be included in the sum, except if it's only one of these stats and all the other levels are determined uniquely!
@@ -148,6 +149,7 @@ namespace ARKBreedingStats
             }
 
             UpdateAddToLibraryButtonAccordingToExtractorValidity(allValid);
+            return allValid;
         }
 
         /// <summary>
@@ -540,13 +542,13 @@ namespace ARKBreedingStats
             var levelsImpossibleToDistribute = SetWildUnknownLevelsAccordingToOthers();
 
             lbSumDomSB.Text = _extractor.LevelDomSum.ToString();
-            ShowSumOfChosenLevels(levelsImpossibleToDistribute);
+            var validLevelDistribution = ShowSumOfChosenLevels(levelsImpossibleToDistribute);
             if (showLevelsInOverlay)
                 ShowLevelsInOverlay();
 
             SetActiveStat(activeStatKeeper);
 
-            if (!_extractor.PostTamed)
+            if (validLevelDistribution && !_extractor.PostTamed)
             {
                 labelFootnote.Text = Loc.S("lbNotYetTamed");
                 button2TamingCalc.Visible = true;
