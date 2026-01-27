@@ -2549,5 +2549,11 @@ namespace ARKBreedingStats
             creature = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
             return true;
         }
+
+        private void ViewLibraryWithFilter(string libraryFilter)
+        {
+            tabControlMain.SelectedTab = tabPageLibrary;
+            ToolStripTextBoxLibraryFilter.Text = libraryFilter;
+        }
     }
 }

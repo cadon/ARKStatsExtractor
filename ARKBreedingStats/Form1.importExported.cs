@@ -410,7 +410,7 @@ namespace ARKBreedingStats
                         _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
                         _creatureCollection.TopLevels.TryGetValue(creature.Species, out var tl) ? tl : null,
                         _customReplacingNamingPattern, false, -1, false, overlayPattern,
-                        false, colorsExisting: _creatureCollection.ColorAlreadyAvailable(creature.Species, creature.colors, out _),
+                        false, colorsExisting: _creatureCollection.ColorAlreadyAvailable(creature.Species, creature.colors, out _, out _),
                         libraryCreatureCount: _creatureCollection.GetTotalCreatureCount());
 
                     if (!string.IsNullOrEmpty(overlayPatternResult))

@@ -160,6 +160,7 @@ namespace ARKBreedingStats
             currentBreeds1.Changed += SetCollectionChanged;
             PedigreeCreature.CollectionChanged += SetCollectionChanged;
             ArkConsoleCommands.SetMessageLabelText += SetMessageLabelText;
+            creatureAnalysis1.ViewLibraryWithFilter += ViewLibraryWithFilter;
 
             listViewLibrary.VirtualMode = true;
             listViewLibrary.RetrieveVirtualItem += ListViewLibrary_RetrieveVirtualItem;
@@ -3330,7 +3331,7 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.NamingPatterns != null
                     && !string.IsNullOrEmpty(Properties.Settings.Default.NamingPatterns[namingPatternIndex])
                     && Properties.Settings.Default.NamingPatterns[namingPatternIndex].IndexOf("#colorNew:", StringComparison.InvariantCultureIgnoreCase) != -1)
-                    colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _);
+                    colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _, out _);
                 input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
 
                 input.GenerateCreatureName(cr, alreadyExistingCreature, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,

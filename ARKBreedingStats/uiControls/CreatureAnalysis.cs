@@ -1,19 +1,52 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
+using ARKBreedingStats.utils;
+using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.uiControls
 {
     public partial class CreatureAnalysis : UserControl
     {
-        public CreatureAnalysis()
-        {
-            InitializeComponent();
-        }
-
         private LevelStatusFlags.LevelStatus _statsStatus;
         private LevelStatusFlags.LevelStatus _colorStatus;
         public string ColorStatus;
+        private readonly Label[] _labelsRegionColors = new Label[Ark.ColorRegionCount * 2];
+        private readonly LinkLabel[] _linklabelsRegionColors = new LinkLabel[Ark.ColorRegionCount];
+        private byte[] _colorIdsCurrent;
+        public event Action<string> ViewLibraryWithFilter;
+        private readonly ToolTip _tt = new ToolTip { InitialDelay = 100 };
+
+        public CreatureAnalysis()
+        {
+            InitializeComponent();
+            TlpRegionInfo.RowCount = Ark.ColorRegionCount + 1;
+            for (var ri = 0; ri < Ark.ColorRegionCount; ri++)
+            {
+                TlpRegionInfo.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                var lbRegionId = new Label { AutoSize = true, Text = ri.ToString(), Anchor = AnchorStyles.None };
+                var lbColorId = new Label { AutoSize = true, TextAlign = ContentAlignment.MiddleRight, Dock = DockStyle.Fill, Padding = new Padding(3) };
+                var lbCreatureCount = new Label { AutoSize = true, TextAlign = ContentAlignment.MiddleRight, Anchor = AnchorStyles.Right };
+                var llbLibraryLink = new LinkLabel { AutoSize = true, Text = "view", Tag = ri };
+                llbLibraryLink.Click += (s, e) => ViewInLibrary((int)((LinkLabel)s).Tag);
+
+                _labelsRegionColors[2 * ri] = lbColorId;
+                _labelsRegionColors[2 * ri + 1] = lbCreatureCount;
+                _linklabelsRegionColors[ri] = llbLibraryLink;
+
+                TlpRegionInfo.Controls.Add(lbRegionId, 0, ri + 1);
+                TlpRegionInfo.Controls.Add(lbColorId, 1, ri + 1);
+                TlpRegionInfo.Controls.Add(lbCreatureCount, 2, ri + 1);
+                TlpRegionInfo.Controls.Add(llbLibraryLink, 3, ri + 1);
+            }
+        }
+
+        private void ViewInLibrary(int regionId)
+        {
+            if (_colorIdsCurrent == null) return;
+            ViewLibraryWithFilter?.Invoke($"c{regionId}: {_colorIdsCurrent[regionId]}");
+        }
 
         public void SetStatsAnalysis(LevelStatusFlags.LevelStatus statsStatus, string statsAnalysis)
         {
@@ -34,13 +67,15 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Set the color status and uses the earlier set statsStatus.
         /// </summary>
-        public void SetColorAnalysis(LevelStatusFlags.LevelStatus colorStatus, string colorAnalysis)
+        public void SetColorAnalysis(LevelStatusFlags.LevelStatus colorStatus, string colorAnalysis, byte[] colorIds, int[][] creaturesWithColorsInRegion)
         {
             _colorStatus = colorStatus;
+            _colorIdsCurrent = colorIds;
             SetStatus(LbColorStatus, colorStatus);
 
             ColorStatus = colorAnalysis;
             LbColorAnalysis.Text = colorAnalysis;
+            SetColorTable(colorIds, creaturesWithColorsInRegion);
 
             var generalStatus = _statsStatus;
             if (generalStatus != LevelStatusFlags.LevelStatus.NewTopLevel && colorStatus != LevelStatusFlags.LevelStatus.Neutral)
@@ -49,6 +84,43 @@ namespace ARKBreedingStats.uiControls
             }
 
             SetStatus(LbIcon, generalStatus, LbConclusion);
+        }
+
+        private void SetColorTable(byte[] colorIds = null, int[][] creaturesWithColorsInRegion = null)
+        {
+            if (creaturesWithColorsInRegion == null || colorIds == null)
+            {
+                TlpRegionInfo.Visible = false;
+                return;
+            }
+
+            for (var ri = 0; ri < Ark.ColorRegionCount; ri++)
+            {
+                if (creaturesWithColorsInRegion[ri] == null)
+                {
+                    _labelsRegionColors[2 * ri].Visible = false;
+                    _labelsRegionColors[2 * ri + 1].Visible = false;
+                    _linklabelsRegionColors[ri].Visible = false;
+                    TlpRegionInfo.RowStyles[ri + 1].SizeType = SizeType.Absolute;
+                    TlpRegionInfo.RowStyles[ri + 1].Height = 0;
+                }
+                else
+                {
+                    _labelsRegionColors[2 * ri].Visible = true;
+                    _labelsRegionColors[2 * ri + 1].Visible = true;
+                    _labelsRegionColors[2 * ri].Text = colorIds[ri].ToString();
+                    var arkColor = Values.V.Colors.ById(colorIds[ri]);
+                    _labelsRegionColors[2 * ri].SetBackColorAndAccordingForeColor(arkColor.Color);
+                    _tt.SetToolTip(_labelsRegionColors[2 * ri], $"[{ri}]: {colorIds[ri]} - {arkColor.Name}");
+                    var creatureCountWithThisRegionColor = creaturesWithColorsInRegion[ri][colorIds[ri]];
+                    _labelsRegionColors[2 * ri + 1].Text = creatureCountWithThisRegionColor.ToString();
+                    _labelsRegionColors[2 * ri + 1].BackColor = creatureCountWithThisRegionColor == 0 ? Color.LightYellow : Color.Transparent;
+                    TlpRegionInfo.RowStyles[ri + 1].SizeType = SizeType.AutoSize;
+                    _linklabelsRegionColors[ri].Visible = creatureCountWithThisRegionColor > 0;
+                }
+            }
+
+            TlpRegionInfo.Visible = true;
         }
 
         private void SetStatus(Label labelIcon, LevelStatusFlags.LevelStatus status, Label labelText = null)
@@ -91,7 +163,7 @@ namespace ARKBreedingStats.uiControls
             ClearLabel(LbStatsStatus);
             //ClearLabel(LbColorAnalysis);
             //ClearLabel(LbColorStatus);
-
+            SetColorTable();
             void ClearLabel(Label l)
             {
                 l.BackColor = Color.Transparent;

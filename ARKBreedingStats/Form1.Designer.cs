@@ -2453,14 +2453,14 @@ namespace ARKBreedingStats
             // 
             // creatureAnalysis1
             // 
-            this.creatureAnalysis1.Location = new System.Drawing.Point(903, 265);
+            this.creatureAnalysis1.Location = new System.Drawing.Point(903, 175);
             this.creatureAnalysis1.Name = "creatureAnalysis1";
-            this.creatureAnalysis1.Size = new System.Drawing.Size(337, 199);
+            this.creatureAnalysis1.Size = new System.Drawing.Size(337, 352);
             this.creatureAnalysis1.TabIndex = 55;
             // 
             // parentInheritanceExtractor
             // 
-            this.parentInheritanceExtractor.Location = new System.Drawing.Point(903, 470);
+            this.parentInheritanceExtractor.Location = new System.Drawing.Point(903, 533);
             this.parentInheritanceExtractor.Name = "parentInheritanceExtractor";
             this.parentInheritanceExtractor.Size = new System.Drawing.Size(337, 212);
             this.parentInheritanceExtractor.TabIndex = 52;

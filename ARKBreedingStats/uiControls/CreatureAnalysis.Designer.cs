@@ -30,125 +30,183 @@ namespace ARKBreedingStats.uiControls
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pColors = new System.Windows.Forms.Panel();
             this.LbColorAnalysis = new System.Windows.Forms.Label();
             this.LbColorStatus = new System.Windows.Forms.Label();
-            this.pStats = new System.Windows.Forms.Panel();
             this.LbStatAnalysis = new System.Windows.Forms.Label();
             this.LbStatsStatus = new System.Windows.Forms.Label();
-            this.pResult = new System.Windows.Forms.Panel();
             this.LbConclusion = new System.Windows.Forms.Label();
             this.LbIcon = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.TlpRegionInfo = new System.Windows.Forms.TableLayoutPanel();
+            this.LbRegionHeader = new System.Windows.Forms.Label();
+            this.LbColorIdHeader = new System.Windows.Forms.Label();
+            this.LbCreatureCountHeader = new System.Windows.Forms.Label();
+            this.LbViewInLibraryHeader = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.pColors.SuspendLayout();
-            this.pStats.SuspendLayout();
-            this.pResult.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.TlpRegionInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.pColors);
-            this.groupBox1.Controls.Add(this.pStats);
-            this.groupBox1.Controls.Add(this.pResult);
+            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(5);
-            this.groupBox1.Size = new System.Drawing.Size(346, 199);
+            this.groupBox1.Size = new System.Drawing.Size(261, 271);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Analysis";
             // 
-            // pColors
-            // 
-            this.pColors.Controls.Add(this.LbColorAnalysis);
-            this.pColors.Controls.Add(this.LbColorStatus);
-            this.pColors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pColors.Location = new System.Drawing.Point(5, 123);
-            this.pColors.Name = "pColors";
-            this.pColors.Size = new System.Drawing.Size(336, 71);
-            this.pColors.TabIndex = 5;
-            // 
             // LbColorAnalysis
             // 
+            this.LbColorAnalysis.AutoSize = true;
             this.LbColorAnalysis.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LbColorAnalysis.Location = new System.Drawing.Point(0, 0);
+            this.LbColorAnalysis.Location = new System.Drawing.Point(3, 71);
+            this.LbColorAnalysis.Margin = new System.Windows.Forms.Padding(3, 0, 3, 5);
             this.LbColorAnalysis.Name = "LbColorAnalysis";
-            this.LbColorAnalysis.Size = new System.Drawing.Size(319, 71);
+            this.LbColorAnalysis.Size = new System.Drawing.Size(196, 16);
             this.LbColorAnalysis.TabIndex = 2;
             this.LbColorAnalysis.Text = "This creature has new colors";
             // 
             // LbColorStatus
             // 
+            this.LbColorStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LbColorStatus.AutoSize = true;
-            this.LbColorStatus.Dock = System.Windows.Forms.DockStyle.Right;
             this.LbColorStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbColorStatus.Location = new System.Drawing.Point(319, 0);
+            this.LbColorStatus.Location = new System.Drawing.Point(232, 73);
+            this.LbColorStatus.Margin = new System.Windows.Forms.Padding(2);
             this.LbColorStatus.Name = "LbColorStatus";
             this.LbColorStatus.Size = new System.Drawing.Size(17, 17);
             this.LbColorStatus.TabIndex = 4;
             this.LbColorStatus.Text = "✓";
             // 
-            // pStats
-            // 
-            this.pStats.Controls.Add(this.LbStatAnalysis);
-            this.pStats.Controls.Add(this.LbStatsStatus);
-            this.pStats.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pStats.Location = new System.Drawing.Point(5, 68);
-            this.pStats.Margin = new System.Windows.Forms.Padding(3, 3, 3, 30);
-            this.pStats.Name = "pStats";
-            this.pStats.Size = new System.Drawing.Size(336, 55);
-            this.pStats.TabIndex = 6;
-            // 
             // LbStatAnalysis
             // 
+            this.LbStatAnalysis.AutoSize = true;
             this.LbStatAnalysis.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LbStatAnalysis.Location = new System.Drawing.Point(0, 0);
+            this.LbStatAnalysis.Location = new System.Drawing.Point(3, 50);
+            this.LbStatAnalysis.Margin = new System.Windows.Forms.Padding(3, 0, 3, 5);
             this.LbStatAnalysis.Name = "LbStatAnalysis";
-            this.LbStatAnalysis.Size = new System.Drawing.Size(319, 55);
+            this.LbStatAnalysis.Size = new System.Drawing.Size(196, 16);
             this.LbStatAnalysis.TabIndex = 1;
             this.LbStatAnalysis.Text = "HP is good";
             // 
             // LbStatsStatus
             // 
+            this.LbStatsStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LbStatsStatus.AutoSize = true;
-            this.LbStatsStatus.Dock = System.Windows.Forms.DockStyle.Right;
             this.LbStatsStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbStatsStatus.Location = new System.Drawing.Point(319, 0);
+            this.LbStatsStatus.Location = new System.Drawing.Point(232, 52);
+            this.LbStatsStatus.Margin = new System.Windows.Forms.Padding(2);
             this.LbStatsStatus.Name = "LbStatsStatus";
             this.LbStatsStatus.Size = new System.Drawing.Size(17, 17);
             this.LbStatsStatus.TabIndex = 4;
             this.LbStatsStatus.Text = "✓";
             // 
-            // pResult
-            // 
-            this.pResult.Controls.Add(this.LbConclusion);
-            this.pResult.Controls.Add(this.LbIcon);
-            this.pResult.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pResult.Location = new System.Drawing.Point(5, 18);
-            this.pResult.Name = "pResult";
-            this.pResult.Size = new System.Drawing.Size(336, 50);
-            this.pResult.TabIndex = 4;
-            // 
             // LbConclusion
             // 
+            this.LbConclusion.AutoSize = true;
             this.LbConclusion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LbConclusion.Location = new System.Drawing.Point(0, 0);
+            this.LbConclusion.Location = new System.Drawing.Point(3, 0);
+            this.LbConclusion.Margin = new System.Windows.Forms.Padding(3, 0, 3, 5);
             this.LbConclusion.Name = "LbConclusion";
-            this.LbConclusion.Size = new System.Drawing.Size(291, 50);
+            this.LbConclusion.Size = new System.Drawing.Size(196, 45);
             this.LbConclusion.TabIndex = 0;
             this.LbConclusion.Text = "Keep creature";
             // 
             // LbIcon
             // 
+            this.LbIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LbIcon.AutoSize = true;
-            this.LbIcon.Dock = System.Windows.Forms.DockStyle.Right;
             this.LbIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbIcon.Location = new System.Drawing.Point(291, 0);
+            this.LbIcon.Location = new System.Drawing.Point(204, 2);
+            this.LbIcon.Margin = new System.Windows.Forms.Padding(2);
             this.LbIcon.Name = "LbIcon";
             this.LbIcon.Size = new System.Drawing.Size(45, 46);
             this.LbIcon.TabIndex = 3;
             this.LbIcon.Text = "✓";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.TlpRegionInfo, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.LbColorStatus, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.LbColorAnalysis, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.LbStatsStatus, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LbStatAnalysis, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.LbIcon, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.LbConclusion, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 18);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(251, 248);
+            this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // TlpRegionInfo
+            // 
+            this.TlpRegionInfo.AutoSize = true;
+            this.TlpRegionInfo.ColumnCount = 4;
+            this.tableLayoutPanel1.SetColumnSpan(this.TlpRegionInfo, 2);
+            this.TlpRegionInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TlpRegionInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TlpRegionInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TlpRegionInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.TlpRegionInfo.Controls.Add(this.LbCreatureCountHeader, 2, 0);
+            this.TlpRegionInfo.Controls.Add(this.LbColorIdHeader, 1, 0);
+            this.TlpRegionInfo.Controls.Add(this.LbRegionHeader, 0, 0);
+            this.TlpRegionInfo.Controls.Add(this.LbViewInLibraryHeader, 3, 0);
+            this.TlpRegionInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TlpRegionInfo.Location = new System.Drawing.Point(3, 95);
+            this.TlpRegionInfo.Name = "TlpRegionInfo";
+            this.TlpRegionInfo.RowCount = 1;
+            this.TlpRegionInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.TlpRegionInfo.Size = new System.Drawing.Size(245, 13);
+            this.TlpRegionInfo.TabIndex = 8;
+            // 
+            // LbRegionHeader
+            // 
+            this.LbRegionHeader.AutoSize = true;
+            this.LbRegionHeader.Location = new System.Drawing.Point(3, 0);
+            this.LbRegionHeader.Name = "LbRegionHeader";
+            this.LbRegionHeader.Size = new System.Drawing.Size(41, 13);
+            this.LbRegionHeader.TabIndex = 3;
+            this.LbRegionHeader.Text = "Region";
+            // 
+            // LbColorIdHeader
+            // 
+            this.LbColorIdHeader.AutoSize = true;
+            this.LbColorIdHeader.Location = new System.Drawing.Point(50, 0);
+            this.LbColorIdHeader.Name = "LbColorIdHeader";
+            this.LbColorIdHeader.Size = new System.Drawing.Size(42, 13);
+            this.LbColorIdHeader.TabIndex = 2;
+            this.LbColorIdHeader.Text = "Color id";
+            // 
+            // LbCreatureCountHeader
+            // 
+            this.LbCreatureCountHeader.AutoSize = true;
+            this.LbCreatureCountHeader.Location = new System.Drawing.Point(98, 0);
+            this.LbCreatureCountHeader.Name = "LbCreatureCountHeader";
+            this.LbCreatureCountHeader.Size = new System.Drawing.Size(52, 13);
+            this.LbCreatureCountHeader.TabIndex = 1;
+            this.LbCreatureCountHeader.Text = "Creatures";
+            // 
+            // LbViewInLibraryHeader
+            // 
+            this.LbViewInLibraryHeader.AutoSize = true;
+            this.LbViewInLibraryHeader.Location = new System.Drawing.Point(156, 0);
+            this.LbViewInLibraryHeader.Name = "LbViewInLibraryHeader";
+            this.LbViewInLibraryHeader.Size = new System.Drawing.Size(71, 13);
+            this.LbViewInLibraryHeader.TabIndex = 4;
+            this.LbViewInLibraryHeader.Text = "View in library";
             // 
             // CreatureAnalysis
             // 
@@ -156,14 +214,12 @@ namespace ARKBreedingStats.uiControls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureAnalysis";
-            this.Size = new System.Drawing.Size(346, 199);
+            this.Size = new System.Drawing.Size(261, 271);
             this.groupBox1.ResumeLayout(false);
-            this.pColors.ResumeLayout(false);
-            this.pColors.PerformLayout();
-            this.pStats.ResumeLayout(false);
-            this.pStats.PerformLayout();
-            this.pResult.ResumeLayout(false);
-            this.pResult.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.TlpRegionInfo.ResumeLayout(false);
+            this.TlpRegionInfo.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -175,10 +231,13 @@ namespace ARKBreedingStats.uiControls
         private System.Windows.Forms.Label LbStatAnalysis;
         private System.Windows.Forms.Label LbConclusion;
         private System.Windows.Forms.Label LbIcon;
-        private System.Windows.Forms.Panel pResult;
-        private System.Windows.Forms.Panel pStats;
         private System.Windows.Forms.Label LbStatsStatus;
-        private System.Windows.Forms.Panel pColors;
         private System.Windows.Forms.Label LbColorStatus;
+        private System.Windows.Forms.TableLayoutPanel TlpRegionInfo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label LbRegionHeader;
+        private System.Windows.Forms.Label LbCreatureCountHeader;
+        private System.Windows.Forms.Label LbColorIdHeader;
+        private System.Windows.Forms.Label LbViewInLibraryHeader;
     }
 }
