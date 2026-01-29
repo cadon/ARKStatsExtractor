@@ -157,7 +157,8 @@
     "maxCopies": 3
   },
   "ExtinctionCarrier": {
-    "name": "Reduces the weight of some Extinction items in its inventory",
+    "name": "Waste-Bearing",
+    "description": "Reduces the weight of some Extinction items in its inventory",
     "maxCopies": 3
   },
   "MineralCarrier": {
