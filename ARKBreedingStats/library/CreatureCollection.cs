@@ -599,7 +599,7 @@ namespace ARKBreedingStats.Library
             {
                 var colorId = colorIds[ri];
                 var creaturesWithColorIdInRegion = creaturesWithColorsInRegion[ri][colorId];
-                var creaturesWithColorIdInAnyRegion = creaturesWithColorsInRegion[usedColorRegionsCount][colorId];
+                var creaturesWithColorIdInAnyRegion = creaturesWithColorsInRegion[Ark.ColorRegionCount][colorId];
                 var colorStatus = creaturesWithColorIdInRegion > 0 ? ColorExisting.ColorExistingInRegion
                                : creaturesWithColorIdInAnyRegion > 0 ? ColorExisting.ColorExistingInOtherRegion
                                : ColorExisting.ColorIsNew;
