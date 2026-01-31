@@ -1630,7 +1630,7 @@ namespace ARKBreedingStats
             if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
             {
                 // copy spawn command to clipboard
-                ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, _statIOs[Stats.Torpidity].LevelWild + 1);
+                ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, _statIOs[Stats.Torpidity].Status == StatIOStatus.Unique ? _statIOs[Stats.Torpidity].LevelWild + 1 : (int)numericUpDownLevel.Value);
                 return;
             }
 
