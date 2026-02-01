@@ -380,12 +380,14 @@ namespace ARKBreedingStats.settings
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBackColor));
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicForeColor));
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBorderColor));
+            NudInfoGraphicBorderWidth.ValueSave = Properties.Settings.Default.InfoGraphicBorderWidth;
             NudInfoGraphicBgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBackColor.A;
             NudInfoGraphicFgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicForeColor.A;
             NudInfoGraphicBorderAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBorderColor.A;
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
+            InfoGraphicBackgroundImagePath = Properties.Settings.Default.InfoGraphicBackgroundImagePath;
 
             #endregion
 
@@ -656,9 +658,11 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicBackColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
             Properties.Settings.Default.InfoGraphicForeColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
             Properties.Settings.Default.InfoGraphicBorderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
+            Properties.Settings.Default.InfoGraphicBorderWidth = (int)NudInfoGraphicBorderWidth.Value;
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
             Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
+            Properties.Settings.Default.InfoGraphicBackgroundImagePath = InfoGraphicBackgroundImagePath;
 
             #endregion
 
@@ -1666,8 +1670,8 @@ namespace ARKBreedingStats.settings
 
         private void CbInfoGraphicCheckBoxRadioButtonChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
-        private void ShowInfoGraphicPreviewDebounced() =>
-            _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
+        private void ShowInfoGraphicPreviewDebounced(int debounceMs = 300) =>
+            _infoGraphicPreviewDebouncer.Debounce(debounceMs, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
         private void ShowInfoGraphicPreview()
         {
             if (_infoGraphicPreviewCreature == null)
@@ -1678,6 +1682,7 @@ namespace ARKBreedingStats.settings
             var foreColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
             var backColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
             var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
+            var borderWidth = (int)NudInfoGraphicBorderWidth.Value;
             var displayCreatureName = CbInfoGraphicCreatureName.Checked;
             var displayDomValues = RbInfoGraphicDomValues.Checked;
             var sumWildMut = CbInfoGraphicSumWildMut.Checked;
@@ -1687,12 +1692,13 @@ namespace ARKBreedingStats.settings
             var displayMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             var addRegionNames = CbInfoGraphicAddRegionNames.Checked;
             var colorRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
+            var backgroundImagePath = InfoGraphicBackgroundImagePath;
 
             var speciesImage = Task.Run(() => _infoGraphicPreviewCreature?
                 .InfoGraphicAsync(_cc,
-                    height, fontName, foreColor, backColor, borderColor, displayCreatureName, displayDomValues,
+                    height, fontName, foreColor, backColor, borderColor, borderWidth, displayCreatureName, displayDomValues,
                     sumWildMut, displayMutationCounter, displayGenerations,
-                    displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage)).Result;
+                    displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage, backgroundImagePath)).Result;
 
             if (speciesImage == null) return;
 
@@ -1732,6 +1738,35 @@ namespace ARKBreedingStats.settings
         private void CbbInfoGraphicFontName_SelectedIndexChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
         private void NudInfoGraphicAlpha_ValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
+
+        private void BtInfoGraphicBackgroundImagePath_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png|All Files|*.*";
+                openFileDialog.Title = "Select Background Image for InfoGraphic";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    InfoGraphicBackgroundImagePath = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void BtInfoGraphicClearBgImg_Click(object sender, EventArgs e) => InfoGraphicBackgroundImagePath = null;
+
+        private string _infoGraphicBackgroundImagePath;
+
+        private string InfoGraphicBackgroundImagePath
+        {
+            get => _infoGraphicBackgroundImagePath;
+            set
+            {
+                _infoGraphicBackgroundImagePath = value;
+                BtInfoGraphicBackgroundImagePath.Text = $"Background image{Environment.NewLine}{(string.IsNullOrEmpty(value) ? "<none>" : Path.GetFileName(value))}";
+                ShowInfoGraphicPreviewDebounced(50);
+            }
+        }
 
         #endregion
 
@@ -1927,21 +1962,6 @@ namespace ARKBreedingStats.settings
                 (Properties.Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);
                 Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
             }
-        }
-
-        private void NudInfoGraphicBorderAlpha_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NudInfoGraphicBgAlpha_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NudInfoGraphicFgAlpha_ValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

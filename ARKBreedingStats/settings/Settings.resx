@@ -123,6 +123,10 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>647, 17</value>
   </metadata>
+  <data name="label57.Text" xml:space="preserve">
+    <value>To use a background image, the alpha of the back color has to be set to a value &lt; 255.
+for some applications transparency does not work with the clipboard, saving the infographic as file may be a workaround then.</value>
+  </data>
   <data name="label24.Text" xml:space="preserve">
     <value>The creature data can be directly imported from the save-game, if you have access to that. This is also possible via an ftp-adress. 
 If you set the according files below, you can start the process automatically from the file-menu.</value>

@@ -2436,5 +2436,29 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesImagesUrls"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InfoGraphicBackgroundImagePath {
+            get {
+                return ((string)(this["InfoGraphicBackgroundImagePath"]));
+            }
+            set {
+                this["InfoGraphicBackgroundImagePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int InfoGraphicBorderWidth {
+            get {
+                return ((int)(this["InfoGraphicBorderWidth"]));
+            }
+            set {
+                this["InfoGraphicBorderWidth"] = value;
+            }
+        }
     }
 }
