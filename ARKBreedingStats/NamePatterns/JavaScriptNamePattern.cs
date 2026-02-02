@@ -17,7 +17,7 @@ namespace ARKBreedingStats.NamePatterns
         public static readonly Regex JavaScriptShebang = new Regex(@"^\#!javascript\s*?\n", RegexOptions.IgnoreCase);
         private static readonly string FlattenScript = BuildModelFlattenScript();
 
-        public static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError, Action<string> consoleLog)
+        public static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, Creature[] creaturesOfSpecies, string[] creatureNames, bool displayError, Action<string> consoleLog)
         {
             var stopwatch = Stopwatch.StartNew();
             var log = consoleLog ?? (s => { });
@@ -44,6 +44,7 @@ namespace ARKBreedingStats.NamePatterns
                         engine.SetValue("log", log);
                         engine.SetValue<Func<string, string, string>>("customReplace", (key, defaultValue) => NamePatternFunctions.CustomReplace(key, defaultValue, customReplacings));
                         engine.SetValue<Func<int, string, string>>("listName", NameList.GetName);
+                        engine.SetValue<Func<string, string, string>>("creatureProperty", (creatureName, propertyName) => NamePatternFunctions.CreatureProperty(creatureName, propertyName, creaturesOfSpecies));
 
                         numberedUniqueName = engine.Evaluate(pattern).ToString();
 

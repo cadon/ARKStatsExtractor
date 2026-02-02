@@ -1364,7 +1364,7 @@ It's also possible to filter for creatures with a color in one of multiple possi
     <value>/*
   JavaScript patterns are enabled by using the text "#!javascript" as the first line of the pattern.
   The script must return the creature name as a string.
-  Creature values are available as global properties.  e.g. this.hp, globalThis.hp or just `${hp}` 
+  Creature values are available as global properties.  e.g. hp or using string interpolation like `HP_${hp}`
 
   In addition to the standard JavaScript functions, additional functions include:
     log(text):
@@ -1376,6 +1376,9 @@ It's also possible to filter for creatures with a color in one of multiple possi
 
     listName(index, suffix):
       Takes a name from a list in the file creatureNames[suffix].txt
+
+    creatureProperty(creatureName, propertyName):
+      Returns a property of an existing creature with a given name, e.g. creatureProperty('Marble', 'hp')
 */</value>
   </data>
   <data name="issueBondedTamingRank" xml:space="preserve">
