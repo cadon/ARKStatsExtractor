@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.mods
@@ -78,9 +77,8 @@ namespace ARKBreedingStats.mods
 
         /// <summary>
         /// User can create custom manual values files, e.g. for mods. If there are any available, load them.
-        /// The files listed in officialModsManifest are ignored.
+        /// The values files of supported mods in the manifest file are ignored.
         /// </summary>
-        /// <returns></returns>
         public static bool LoadManualValueFiles(ModsManifest officialModsManifest, out ModsManifest customModsManifest)
         {
             customModsManifest = null;
@@ -90,37 +88,26 @@ namespace ARKBreedingStats.mods
             var possibleModValueFiles = Directory.GetFiles(valuesFolderPath, "*.json");
 
             customModsManifest = new ModsManifest();
-            var alreadyLoadedModIds = officialModsManifest.ModsByFiles
+            var alreadyLoadedOfficialModIds = officialModsManifest.ModsByFiles
+                .Where(mf => !string.IsNullOrEmpty(mf.Value.Mod?.Id) && !mf.Value.ManuallyLoaded)
                 .Select(mf => mf.Value.Mod?.Id)
-                .Where(id => !string.IsNullOrEmpty(id))
                 .ToHashSet();
 
             foreach (var modValuesFilePath in possibleModValueFiles)
             {
                 var fileName = Path.GetFileName(modValuesFilePath);
-                if (fileName.StartsWith("_") || officialModsManifest.ModsByFiles.ContainsKey(fileName))
+                if (fileName.StartsWith("_") || (officialModsManifest.ModsByFiles.TryGetValue(fileName, out var modInfoAlreadyLoaded) && !modInfoAlreadyLoaded.ManuallyLoaded))
                     continue;
 
-                if (!ValuesFile.TryLoadValuesFile(modValuesFilePath, false, false, out var modValueFile,
-                        out var errorMessage, true))
-                {
-                    if (!string.IsNullOrEmpty(errorMessage))
-                    {
-                        MessageBoxes.ShowMessageBox("Error when loading the following custom values file.\nTo ignore a values file, prefix file name with underscore (_).\n\n" + errorMessage, "Value file loading error");
-                    }
-                    continue;
-                }
-
-                // if mod id is already loaded, ignore file
-                if (!alreadyLoadedModIds.Add(modValueFile.Mod.Id))
+                if (!ValuesFile.TryLoadingModInfoHeader(modValuesFilePath, out var modInfo))
                     continue;
 
-                customModsManifest.ModsByFiles.Add(fileName, new ModInfo
-                {
-                    Version = modValueFile.Version,
-                    Format = modValueFile.Format,
-                    Mod = modValueFile.Mod
-                });
+                // if mod is official and already loaded, or already loaded in this loop, ignore file
+                if (!alreadyLoadedOfficialModIds.Add(modInfo.Mod.Id))
+                    continue;
+
+                modInfo.ManuallyLoaded = true;
+                customModsManifest.ModsByFiles.Add(fileName, modInfo);
             }
 
             return customModsManifest.ModsByFiles.Any();

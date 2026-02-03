@@ -53,7 +53,7 @@ namespace ARKBreedingStats
         /// </summary>
         private static void CheckForMissingModFiles(CreatureCollection creatureCollection, List<string> unknownSpeciesBlueprints, string exportFilePath = null, string creatureName = null)
         {
-            var (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles, alreadyLoadedModFilesWithoutNeededClass) 
+            var (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles, alreadyLoadedModFilesWithoutNeededClass)
                 = HandleUnknownMods.CheckForMissingModFiles(unknownSpeciesBlueprints, creatureCollection.ModList, creatureCollection.Game);
 
             bool locallyAvailableModsExist = locallyAvailableModFiles != null && locallyAvailableModFiles.Any();
@@ -168,7 +168,7 @@ namespace ARKBreedingStats
                     return false;
                 }
 
-                // load custom manifest file for manually created mod value files
+                // load manually created mod value files
                 if (ModsManifest.LoadManualValueFiles(modsManifest, out var customModsManifest)
                     && customModsManifest?.ModsByFiles.Any() == true)
                 {
