@@ -107,7 +107,7 @@ namespace ARKBreedingStats.AsbServer
                     }
                     catch (Exception ex)
                     {
-                        var tryToReconnect = reconnectTries++ < 3;
+                        var tryToReconnect = reconnectTries++ < 4;
                         if (tryToReconnect)
                             WriteErrorMessage(
                                 $"ASB Server listening error, attempting to reconnect (try {reconnectTries})",
@@ -119,8 +119,8 @@ namespace ARKBreedingStats.AsbServer
 
                         if (!tryToReconnect)
                             break;
-                        // try to reconnect after some time
-                        Thread.Sleep(10_000);
+                        // try to reconnect after with increasing delays (10, 20, 40, 80 s)
+                        Thread.Sleep(5_000 * (1 << reconnectTries));
                     }
                     finally
                     {
