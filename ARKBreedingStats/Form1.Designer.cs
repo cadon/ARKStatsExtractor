@@ -3166,6 +3166,7 @@ namespace ARKBreedingStats
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem2.Text = "Available";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
@@ -3173,6 +3174,7 @@ namespace ARKBreedingStats
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
             this.toolStripMenuItem3.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem3.Text = "Unavailable";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
@@ -3180,6 +3182,7 @@ namespace ARKBreedingStats
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
             this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 22);
             this.toolStripMenuItem4.Text = "Dead";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
@@ -3194,6 +3197,7 @@ namespace ARKBreedingStats
             // cryopodToolStripMenuItem
             // 
             this.cryopodToolStripMenuItem.Name = "cryopodToolStripMenuItem";
+            this.cryopodToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.cryopodToolStripMenuItem.Text = "Cryopod";
             this.cryopodToolStripMenuItem.Click += new System.EventHandler(this.cryopodToolStripMenuItem_Click);
