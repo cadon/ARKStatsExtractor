@@ -569,8 +569,8 @@ namespace ARKBreedingStats.Library
                 // count of each color id in each region. The last index contains the count of color ids of all regions
                 creaturesWithColorsInRegion = new int[Ark.ColorRegionCount + 1][];
                 foreach (var ri in usedColorRegionIndices)
-                    creaturesWithColorsInRegion[ri] = new int[byte.MaxValue];
-                creaturesWithColorsInRegion[Ark.ColorRegionCount] = new int[byte.MaxValue];
+                    creaturesWithColorsInRegion[ri] = new int[byte.MaxValue+1];
+                creaturesWithColorsInRegion[Ark.ColorRegionCount] = new int[byte.MaxValue+1];
 
                 foreach (var c in creatures)
                 {
