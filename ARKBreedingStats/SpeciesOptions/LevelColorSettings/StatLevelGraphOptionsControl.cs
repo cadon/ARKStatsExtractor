@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats.StatsOptions.LevelColorSettings
+namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 {
     public partial class StatLevelGraphOptionsControl : UserControl
     {
         private StatLevelColors _statLevelColors;
         private readonly int _statIndex;
-        private StatsOptions<StatLevelColors> _parent;
+        private SpeciesOptionsBase<StatLevelColors> _parent;
 
         public StatLevelGraphOptionsControl()
         {
@@ -24,7 +24,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             tt.SetToolTip(CbUseDifferentColorsForMutationLevels, "Use different colors for mutation levels");
         }
 
-        public void SetStatOptions(StatLevelColors so, bool isNotRoot, StatsOptions<StatLevelColors> parent)
+        public void SetStatOptions(StatLevelColors so, bool isNotRoot, SpeciesOptionsBase<StatLevelColors> parent)
         {
             _statLevelColors = so;
             _parent = parent;
@@ -47,7 +47,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             _statLevelColors.OverrideParent = overrideStat;
             if (overrideStat && _statLevelColors.LevelGraphRepresentation == null)
             {
-                _statLevelColors.LevelGraphRepresentation = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentation?.Copy()
+                _statLevelColors.LevelGraphRepresentation = _parent?.Options?[_statIndex]?.LevelGraphRepresentation?.Copy()
                                                             ?? LevelGraphRepresentation.GetDefault;
                 hueControl.SetValues(_statLevelColors.LevelGraphRepresentation);
             }
@@ -59,7 +59,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             hueControlOdd.Visible = _statLevelColors.UseDifferentColorsForOddLevels;
             if (_statLevelColors.UseDifferentColorsForOddLevels && _statLevelColors.LevelGraphRepresentationOdd == null)
             {
-                _statLevelColors.LevelGraphRepresentationOdd = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentationOdd?.Copy()
+                _statLevelColors.LevelGraphRepresentationOdd = _parent?.Options?[_statIndex]?.LevelGraphRepresentationOdd?.Copy()
                                                            ?? LevelGraphRepresentation.GetDefault;
                 hueControlOdd.SetValues(_statLevelColors.LevelGraphRepresentationOdd);
             }
@@ -71,7 +71,7 @@ namespace ARKBreedingStats.StatsOptions.LevelColorSettings
             HueControlMutations.Visible = _statLevelColors.UseDifferentColorsForMutationLevels;
             if (_statLevelColors.UseDifferentColorsForMutationLevels && _statLevelColors.LevelGraphRepresentationMutation == null)
             {
-                _statLevelColors.LevelGraphRepresentationMutation = _parent?.StatOptions?[_statIndex]?.LevelGraphRepresentationMutation?.Copy()
+                _statLevelColors.LevelGraphRepresentationMutation = _parent?.Options?[_statIndex]?.LevelGraphRepresentationMutation?.Copy()
                                                                ?? LevelGraphRepresentation.GetDefault;
                 HueControlMutations.SetValues(_statLevelColors.LevelGraphRepresentationMutation);
             }

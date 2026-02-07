@@ -6,12 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.SpeciesOptions
 {
     /// <summary>
     /// Base control for stats options. Displays selector for species settings.
     /// </summary>
-    internal class StatsOptionsControl<T> : TableLayoutPanel where T : StatOptionsBase
+    internal class StatsOptionsControl<T, U> : TableLayoutPanel where T : SpeciesOptionBase where U : SpeciesOptionsBase<T>, new()
     {
         protected ComboBox CbbOptions;
         protected ComboBox CbbParent;
@@ -21,8 +21,8 @@ namespace ARKBreedingStats.StatsOptions
         protected Label LbParent;
         protected Label LbParentParent;
         protected Label LbAffectedSpecies;
-        protected StatsOptions<T> SelectedStatsOptions;
-        protected StatsOptionsSettings<T> StatsOptionsSettings;
+        protected SpeciesOptionsBase<T> SelectedStatsOptions;
+        protected SpeciesOptionsSettings<T, U> StatsOptionsSettings;
         protected TextBox TbAffectedSpecies;
         protected FlowLayoutPanel StatsContainer;
         protected ToolTip Tt;
@@ -30,12 +30,12 @@ namespace ARKBreedingStats.StatsOptions
 
         public StatsOptionsControl() { }
 
-        public StatsOptionsControl(StatsOptionsSettings<T> settings, ToolTip tt)
+        public StatsOptionsControl(SpeciesOptionsSettings<T, U> settings, ToolTip tt)
         {
             InitializeControls(settings, tt);
         }
 
-        protected void InitializeControls(StatsOptionsSettings<T> settings, ToolTip tt)
+        protected void InitializeControls(SpeciesOptionsSettings<T, U> settings, ToolTip tt)
         {
             if (settings == null) return;
             StatsOptionsSettings = settings;
@@ -106,7 +106,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             CbbOptions.Items.Clear();
             CbbParent.Items.Clear();
 
-            var statsOptions = TreeOrder(StatsOptionsSettings.StatsOptionsDict);
+            var statsOptions = TreeOrder(StatsOptionsSettings.SpeciesOptionsDict);
             CbbOptions.Items.AddRange(statsOptions);
             CbbParent.Items.AddRange(statsOptions);
 
@@ -125,10 +125,10 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             var newNameBase = Species?.name ?? "new entry";
             var newName = newNameBase;
             var suffix = 1;
-            while (StatsOptionsSettings.StatsOptionsDict.ContainsKey(newName))
+            while (StatsOptionsSettings.SpeciesOptionsDict.ContainsKey(newName))
                 newName = newNameBase + "_" + ++suffix;
-            var newSettings = StatsOptionsSettings.GetDefaultStatOptions(newName);
-            StatsOptionsSettings.StatsOptionsDict.Add(newName, newSettings);
+            var newSettings = StatsOptionsSettings.GetDefaultSpeciesOptions(newName);
+            StatsOptionsSettings.SpeciesOptionsDict.Add(newName, newSettings);
             InitializeOptions();
             CbbOptions.SelectedItem = newSettings;
             TbOptionsName.Focus();
@@ -143,13 +143,13 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
 
             var index = CbbOptions.SelectedIndex;
             // set parent of dependant options to parent of this setting
-            foreach (var so in StatsOptionsSettings.StatsOptionsDict.Values)
+            foreach (var so in StatsOptionsSettings.SpeciesOptionsDict.Values)
             {
                 if (so.ParentOptions == SelectedStatsOptions)
                     so.ParentOptions = SelectedStatsOptions.ParentOptions;
             }
 
-            StatsOptionsSettings.StatsOptionsDict.Remove(SelectedStatsOptions.Name);
+            StatsOptionsSettings.SpeciesOptionsDict.Remove(SelectedStatsOptions.Name);
 
             InitializeOptions();
             if (CbbOptions.Items.Count > 0)
@@ -160,7 +160,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         private void CbbOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_ignoreIndexChange) return;
-            SelectedStatsOptions = CbbOptions.SelectedItem as StatsOptions<T>;
+            SelectedStatsOptions = CbbOptions.SelectedItem as SpeciesOptionsBase<T>;
             if (SelectedStatsOptions == null) return;
 
             this.SuspendDrawingAndLayout();
@@ -192,7 +192,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             SelectedStatsOptions.AffectedSpecies = sp.Any() ? sp : null;
         }
 
-        private string ParentsParentText(StatsOptions<T> selectedStatsOptions)
+        private string ParentsParentText(SpeciesOptionsBase<T> selectedStatsOptions)
         {
             var maxGenerationsShown = 5;
             var currentParent = selectedStatsOptions?.ParentOptions;
@@ -219,9 +219,9 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         private void CbbParent_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_ignoreIndexChange) return;
-            SelectedStatsOptions = CbbOptions.SelectedItem as StatsOptions<T>;
+            SelectedStatsOptions = CbbOptions.SelectedItem as SpeciesOptionsBase<T>;
             if (SelectedStatsOptions == null) return;
-            var selectedParent = CbbParent.SelectedItem as StatsOptions<T>;
+            var selectedParent = CbbParent.SelectedItem as SpeciesOptionsBase<T>;
             if (SelectedStatsOptions == selectedParent) return; // ignore if node itself is selected as parent
             SelectedStatsOptions.ParentOptions = selectedParent;
             InitializeOptions(true);
@@ -234,7 +234,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             if (SelectedStatsOptions.Name == newNameBase) return; // nothing to change
             var newName = newNameBase;
             var suffix = 1;
-            while (StatsOptionsSettings.StatsOptionsDict.ContainsKey(newName))
+            while (StatsOptionsSettings.SpeciesOptionsDict.ContainsKey(newName))
                 newName = newNameBase + "_" + ++suffix;
 
             TbOptionsName.Text = newName;
@@ -243,9 +243,9 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
                 SelectedStatsOptions.AffectedSpecies = new[] { newNameBase };
                 TbAffectedSpecies.Text = newNameBase;
             }
-            StatsOptionsSettings.StatsOptionsDict.Remove(SelectedStatsOptions.Name);
+            StatsOptionsSettings.SpeciesOptionsDict.Remove(SelectedStatsOptions.Name);
             SelectedStatsOptions.Name = newName;
-            StatsOptionsSettings.StatsOptionsDict.Add(newName, SelectedStatsOptions);
+            StatsOptionsSettings.SpeciesOptionsDict.Add(newName, (U)SelectedStatsOptions);
             // update text in combobox
             CbbOptions.Items[CbbOptions.SelectedIndex] = SelectedStatsOptions;
             var cbbParentIndex = CbbParent.Items.IndexOf(SelectedStatsOptions);
@@ -297,23 +297,23 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         /// <summary>
         /// Returns array ordered like the tree.
         /// </summary>
-        private StatsOptions<T>[] TreeOrder(Dictionary<string, StatsOptions<T>> dict)
+        private SpeciesOptionsBase<T>[] TreeOrder(Dictionary<string, U> dict)
         {
-            var nodeChildren = dict.ToDictionary(kv => kv.Value, kv => new List<StatsOptions<T>>());
+            var nodeChildren = dict.ToDictionary(kv => kv.Value, kv => new List<U>());
             foreach (var item in dict)
             {
-                if (item.Value.ParentOptions != null && nodeChildren.TryGetValue(item.Value.ParentOptions, out var parent))
+                if (item.Value.ParentOptions != null && nodeChildren.TryGetValue((U)item.Value.ParentOptions, out var parent))
                     parent.Add(item.Value);
             }
 
             if (!dict.TryGetValue(string.Empty, out var rootNode))
-                return Array.Empty<StatsOptions<T>>();
+                return Array.Empty<SpeciesOptionsBase<T>>();
 
-            var sortedList = new List<StatsOptions<T>> { rootNode };
+            var sortedList = new List<SpeciesOptionsBase<T>> { rootNode };
             var level = 0;
             AddChildren(rootNode);
 
-            void AddChildren(StatsOptions<T> n)
+            void AddChildren(U n)
             {
                 if (!nodeChildren.TryGetValue(n, out var children)) return;
 

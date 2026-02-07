@@ -1055,7 +1055,7 @@ namespace ARKBreedingStats
             var species = c.Species;
             _creatureCollection.TopLevels.TryGetValue(species, out var topLevels);
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-            var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
+            var considerAsTopStat = StatsOptionsConsiderTopStats.GetOptions(species).Options;
             LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat,
                 c.levelsWild, c.levelsMutated, c.valuesBreeding, out _, out _);
 

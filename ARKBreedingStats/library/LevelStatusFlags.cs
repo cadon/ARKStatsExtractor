@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ARKBreedingStats.species;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.uiControls;
 using static ARKBreedingStats.uiControls.StatWeighting;
 

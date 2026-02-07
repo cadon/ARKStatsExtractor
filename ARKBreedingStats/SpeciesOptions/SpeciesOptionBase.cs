@@ -1,6 +1,9 @@
-﻿namespace ARKBreedingStats.StatsOptions
+﻿namespace ARKBreedingStats.SpeciesOptions
 {
-    public abstract class StatOptionsBase
+    /// <summary>
+    /// Base of species options, base of stat and color options.
+    /// </summary>
+    public abstract class SpeciesOptionBase
     {
         public abstract void Initialize();
 

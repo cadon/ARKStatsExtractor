@@ -8,8 +8,8 @@ using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
-using ARKBreedingStats.StatsOptions;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.SpeciesOptions;
+using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
@@ -24,6 +24,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using static ARKBreedingStats.Asb;
 using static ARKBreedingStats.settings.Settings;
 using static ARKBreedingStats.uiControls.StatWeighting;
@@ -94,8 +95,8 @@ namespace ARKBreedingStats
         private static double[] _lastOcrValues;
         private Species _lastOcrSpecies;
 
-        internal static readonly StatsOptionsSettings<StatLevelColors> StatsOptionsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json", "Level colors");
-        internal static readonly StatsOptionsSettings<ConsiderTopStats> StatsOptionsConsiderTopStats = new StatsOptionsSettings<ConsiderTopStats>("statsTopStats.json", "Consider for top stats");
+        internal static readonly SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>> StatsOptionsLevelColors = new SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>>("statsLevelColors.json", "Level colors");
+        internal static readonly SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>> StatsOptionsConsiderTopStats = new SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>>("statsTopStats.json", "Consider for top stats");
 
         public Form1()
         {
@@ -737,7 +738,7 @@ namespace ARKBreedingStats
             radarChart1.SetLevels(species: species);
             currentBreeds1.DisplaySpeciesCurrentBreedingPairs(species);
             var statNames = species.statNames;
-            var levelGraphRepresentations = StatsOptionsLevelColors.GetStatsOptions(species);
+            var levelGraphRepresentations = StatsOptionsLevelColors.GetOptions(species);
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -761,8 +762,8 @@ namespace ARKBreedingStats
                 if (!_activeStats[s]) _statIOs[s].Input = 0;
                 _statIOs[s].Title = Utils.StatName(s, false, statNames);
                 _testingIOs[s].Title = Utils.StatName(s, false, statNames);
-                _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
-                _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _statIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
+                _testingIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
                 _statIOs[s].CustomMutationLevelMultiplier = species.stats[s] != null && species.stats[s].IncPerMutatedLevel != species.stats[s].IncPerWildLevel;
 
                 // don't lock special stats of glow species
@@ -851,13 +852,13 @@ namespace ARKBreedingStats
         /// </summary>
         private void StatsOptionsLevelColorsSettingsChanged()
         {
-            var levelGraphRepresentations = StatsOptionsLevelColors.GetStatsOptions(speciesSelector1.SelectedSpecies);
+            var levelGraphRepresentations = StatsOptionsLevelColors.GetOptions(speciesSelector1.SelectedSpecies);
             if (levelGraphRepresentations == null) return;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
-                _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _statIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
+                _testingIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
             }
 
         }
