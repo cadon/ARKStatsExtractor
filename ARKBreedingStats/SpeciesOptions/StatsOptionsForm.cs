@@ -1,11 +1,11 @@
-﻿using ARKBreedingStats.StatsOptions.LevelColorSettings;
+﻿using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.SpeciesOptions
 {
     internal class StatsOptionsForm : Form
     {
@@ -13,8 +13,8 @@ namespace ARKBreedingStats.StatsOptions
         protected readonly ToolTip Tt = new ToolTip();
 
         public static void ShowWindow(Form parent,
-            StatsOptionsSettings<StatLevelColors> levelColorSettings,
-            StatsOptionsSettings<ConsiderTopStats> topStatsSettings,
+            SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>> levelColorSettings,
+            SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>> topStatsSettings,
             int selectTabPageIndex = 0
             )
         {

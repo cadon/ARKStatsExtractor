@@ -349,7 +349,7 @@ namespace ARKBreedingStats
                 var lowestLevels = new int[Stats.StatsCount];
                 var highestMutationLevels = new int[Stats.StatsCount];
                 var lowestMutationLevels = new int[Stats.StatsCount];
-                var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
+                var considerAsTopStat = StatsOptionsConsiderTopStats.GetOptions(species).Options;
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
                 for (var s = 0; s < Stats.StatsCount; s++)
                 {
@@ -638,7 +638,7 @@ namespace ARKBreedingStats
                     continue;
                 if (!considerTopStats.TryGetValue(c.Species, out var consideredTopStats))
                 {
-                    consideredTopStats = StatsOptionsConsiderTopStats.GetStatsOptions(c.Species).StatOptions.Select(si => si.ConsiderStat).ToArray();
+                    consideredTopStats = StatsOptionsConsiderTopStats.GetOptions(c.Species).Options.Select(si => si.ConsiderStat).ToArray();
                     considerTopStats[c.Species] = consideredTopStats;
                 }
                 c.SetTopStatCount(consideredTopStats, considerWastedStatsForTopCreatures);
@@ -1196,8 +1196,8 @@ namespace ARKBreedingStats
             // apply colors to the subItems
             var displayZeroMutationLevels = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
 
-            var statOptionsColors = StatsOptionsLevelColors.GetStatsOptions(cr.Species).StatOptions;
-            var statOptionsTopStats = StatsOptionsConsiderTopStats.GetStatsOptions(cr.Species).StatOptions;
+            var statOptionsColors = StatsOptionsLevelColors.GetOptions(cr.Species).Options;
+            var statOptionsTopStats = StatsOptionsConsiderTopStats.GetOptions(cr.Species).Options;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {

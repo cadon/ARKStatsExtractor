@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats.StatsOptions.LevelColorSettings
+namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 {
-    internal class LevelGraphOptionsControl : StatsOptionsControl<StatLevelColors>
+    internal class LevelGraphOptionsControl : StatsOptionsControl<StatLevelColors, StatsOptions<StatLevelColors>>
     {
         private StatLevelGraphOptionsControl[] _statOptionsControls;
 
-        public LevelGraphOptionsControl(StatsOptionsSettings<StatLevelColors> settings, ToolTip tt) : base(settings, tt) { }
+        public LevelGraphOptionsControl(SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>> settings, ToolTip tt) : base(settings, tt) { }
 
         protected override void InitializeStatControls()
         {
@@ -44,25 +44,25 @@ Ctrl + left click to cycle through presets.",
         protected override void UpdateStatsControls(bool isNotRoot)
         {
             for (var si = 0; si < Stats.StatsCount; si++)
-                _statOptionsControls[si].SetStatOptions(SelectedStatsOptions.StatOptions?[si], isNotRoot, SelectedStatsOptions.ParentOptions);
+                _statOptionsControls[si].SetStatOptions(SelectedStatsOptions.Options?[si], isNotRoot, SelectedStatsOptions.ParentOptions);
         }
 
         private void ResetCurrentSettingsToDefault(object sender, EventArgs e)
         {
             if (SelectedStatsOptions == null) return;
-            if (SelectedStatsOptions.StatOptions == null)
-                SelectedStatsOptions.StatOptions = new StatLevelColors[Stats.StatsCount];
+            if (SelectedStatsOptions.Options == null)
+                SelectedStatsOptions.Options = new StatLevelColors[Stats.StatsCount];
 
             var isNotRoot = !string.IsNullOrEmpty(SelectedStatsOptions.Name);
             for (var si = 0; si < Stats.StatsCount; si++)
             {
-                SelectedStatsOptions.StatOptions[si] = new StatLevelColors
+                SelectedStatsOptions.Options[si] = new StatLevelColors
                 {
                     LevelGraphRepresentation = LevelGraphRepresentation.GetDefault,
                     LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevel,
                     UseDifferentColorsForMutationLevels = true
                 };
-                _statOptionsControls[si].SetStatOptions(SelectedStatsOptions.StatOptions[si], isNotRoot, SelectedStatsOptions.ParentOptions);
+                _statOptionsControls[si].SetStatOptions(SelectedStatsOptions.Options[si], isNotRoot, SelectedStatsOptions.ParentOptions);
             }
         }
     }

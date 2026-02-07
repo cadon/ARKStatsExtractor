@@ -13,7 +13,7 @@ using System.Windows.Threading;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using ARKBreedingStats.NamePatterns;
-using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.SpeciesOptions;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
