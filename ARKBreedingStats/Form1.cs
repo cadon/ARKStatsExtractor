@@ -24,6 +24,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.SpeciesOptions.ColorSettings;
 using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using static ARKBreedingStats.Asb;
 using static ARKBreedingStats.settings.Settings;
@@ -97,6 +98,7 @@ namespace ARKBreedingStats
 
         internal static readonly SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>> StatsOptionsLevelColors = new SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>>("statsLevelColors.json", "Level colors");
         internal static readonly SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>> StatsOptionsConsiderTopStats = new SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>>("statsTopStats.json", "Consider for top stats");
+        internal static readonly SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>> ColorOptionsWantedRegions = new SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>>("wantedRegionColors.json", "Wanted region colors");
 
         public Form1()
         {
@@ -1523,6 +1525,7 @@ namespace ARKBreedingStats
 
             StatsOptionsLevelColors.SaveSettings();
             StatsOptionsConsiderTopStats.SaveSettings();
+            ColorOptionsWantedRegions.SaveSettings();
             Poses.SavePoses();
         }
 
@@ -3328,11 +3331,11 @@ namespace ARKBreedingStats
             }
             else
             {
-                CreatureCollection.ColorExisting[] colorAlreadyExistingInformation = null;
+                LevelColorStatusFlags.ColorStatus[] colorAlreadyExistingInformation = null;
                 if (Properties.Settings.Default.NamingPatterns != null
                     && !string.IsNullOrEmpty(Properties.Settings.Default.NamingPatterns[namingPatternIndex])
                     && Properties.Settings.Default.NamingPatterns[namingPatternIndex].IndexOf("#colorNew:", StringComparison.InvariantCultureIgnoreCase) != -1)
-                    colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _, out _);
+                    colorAlreadyExistingInformation = _creatureCollection.DetermineColorStatus(cr.Species, input.RegionColors, out _, out _, out _);
                 input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
 
                 input.GenerateCreatureName(cr, alreadyExistingCreature, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
@@ -3363,7 +3366,7 @@ namespace ARKBreedingStats
                 cr.tamingEff = rbWildExtractor.Checked ? -3 : _extractor.UniqueTamingEffectiveness();
                 cr.isBred = rbBredExtractor.Checked;
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    cr.SetTopStat(s, _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.TopLevel) || _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel));
+                    cr.SetTopStat(s, _statIOs[s].TopLevel.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel) || _statIOs[s].TopLevel.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel));
             }
             else
             {
@@ -3641,7 +3644,8 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    ImportExportGunFiles(files, true, out _, out _, out _, Properties.Settings.Default.PlaySoundOnAutoImport);
+                    ImportExportGunFiles(files, true, out _, out _, out _,
+                        Properties.Settings.Default.PlaySoundOnAutoImport, Properties.Settings.Default.PlayColorSoundOnAutoImport);
                     break;
                 case ".asb":
                 case ".xml":
@@ -4038,12 +4042,12 @@ namespace ARKBreedingStats
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats);
+            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats, ColorOptionsWantedRegions);
         }
 
         private void ButtonOpenTopStatsSettingsClick(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats, 1);
+            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats, ColorOptionsWantedRegions, 1);
         }
 
         private void ExportAppSettings()

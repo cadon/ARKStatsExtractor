@@ -23,7 +23,7 @@ namespace ARKBreedingStats.NamePatterns
         private readonly TokenModel _tokenModel;
         private readonly TopLevels _topLevels;
         private readonly int _libraryCreatureCount;
-        private readonly CreatureCollection.ColorExisting[] _colorExistings;
+        private readonly LevelColorStatusFlags.ColorStatus[] _colorExistings;
         private Dictionary<string, string> _customReplacings;
         private readonly Debouncer _updateNameDebouncer = new Debouncer();
         private readonly Action<PatternEditor> _reloadCallback;
@@ -130,7 +130,7 @@ namespace ARKBreedingStats.NamePatterns
             textBox.Select(start, end - start);
         }
 
-        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, CreatureCollection.ColorExisting[] colorExistings,
+        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, LevelColorStatusFlags.ColorStatus[] colorExistings,
             Dictionary<string, string> customReplacings, string namingPatternName, string patternString, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
         {
             Utils.SetWindowRectangle(this, Properties.Settings.Default.PatternEditorFormRectangle);

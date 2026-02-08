@@ -428,6 +428,7 @@ namespace ARKBreedingStats.settings
             cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
             CbAutoExtractAddToLibrary.Checked = Properties.Settings.Default.OnAutoImportAddToLibrary;
             cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
+            CbImportPlaySoundColorFeedback.Checked = Properties.Settings.Default.PlayColorSoundOnAutoImport;
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
             SetFolderSelectionButton(BtImportArchiveFolder, Properties.Settings.Default.ImportExportedArchiveFolder);
             cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
@@ -696,6 +697,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.AutoImportExportedCreatures = cbAutoImportExported.Checked;
             Properties.Settings.Default.OnAutoImportAddToLibrary = CbAutoExtractAddToLibrary.Checked;
             Properties.Settings.Default.PlaySoundOnAutoImport = cbPlaySoundOnAutomaticImport.Checked;
+            Properties.Settings.Default.PlayColorSoundOnAutoImport = CbImportPlaySoundColorFeedback.Checked;
             Properties.Settings.Default.MoveAutoImportedFileToSubFolder = cbMoveImportedFileToSubFolder.Checked;
             Properties.Settings.Default.ImportExportedArchiveFolder = BtImportArchiveFolder.Tag as string;
             Properties.Settings.Default.DeleteAutoImportedFile = cbDeleteAutoImportedFile.Checked;
@@ -1413,6 +1415,9 @@ namespace ARKBreedingStats.settings
             Loc.ControlText(BtBeepTop, _tt);
             Loc.ControlText(BtBeepNewTop, _tt);
             Loc.ControlText(BtBeepUpdated, _tt);
+            Loc.ControlText(BtBeepNewColor, _tt);
+            Loc.ControlText(BtBeepNewRegionColor, _tt);
+            Loc.ControlText(BtBeepDesiredColor, _tt);
             Loc.ControlText(BtGetExportFolderAutomatically);
         }
 
@@ -1432,30 +1437,21 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private void BtBeepFailure_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
-        }
+        private void BtBeepFailure_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
 
-        private void BtBeepSuccess_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
-        }
+        private void BtBeepSuccess_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
 
-        private void BtBeepTop_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
-        }
+        private void BtBeepTop_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
 
-        private void BtBeepNewTop_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
-        }
+        private void BtBeepNewTop_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
 
-        private void BtBeepUpdated_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
-        }
+        private void BtBeepUpdated_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
+
+        private void BtBeepNewColor_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewColor);
+
+        private void BtBeepNewRegionColor_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewRegionColor);
+
+        private void BtBeepDesiredColor_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewDesiredColor);
 
         private void BtImportArchiveFolder_Click(object sender, EventArgs e)
         {
@@ -1942,7 +1938,7 @@ namespace ARKBreedingStats.settings
 
         private void BtOpenLevelColorOptions_Click(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, Form1.StatsOptionsLevelColors, Form1.StatsOptionsConsiderTopStats);
+            StatsOptionsForm.ShowWindow(this, Form1.StatsOptionsLevelColors, Form1.StatsOptionsConsiderTopStats, Form1.ColorOptionsWantedRegions);
         }
 
         private void BtOverlayPatternEdit_Click(object sender, EventArgs e)

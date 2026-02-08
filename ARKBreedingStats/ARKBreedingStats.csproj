@@ -123,6 +123,9 @@
     <Compile Include="SpeciesImages\ImagesManifest.cs" />
     <Compile Include="SpeciesImages\Poses.cs" />
     <Compile Include="SpeciesOptions\ColorOptions.cs" />
+    <Compile Include="SpeciesOptions\ColorSettings\WantedRegionColorsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SpeciesOptions\ColorSettings\WantedRegionColors.cs" />
     <Compile Include="SpeciesOptions\StatsOptions.cs" />
     <Compile Include="Traits\CreatureTrait.cs" />
@@ -131,7 +134,7 @@
     <Compile Include="NamePatterns\TokenModel.cs" />
     <Compile Include="species\CanHaveWildLevelExceptions.cs" />
     <Compile Include="species\ColorPattern.cs" />
-    <Compile Include="SpeciesOptions\StatsOptionsControl.cs">
+    <Compile Include="SpeciesOptions\SpeciesOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SpeciesOptions\StatsOptionsForm.cs">
@@ -140,7 +143,7 @@
     <Compile Include="SpeciesOptions\TopStatsSettings\ConsiderTopStats.cs" />
     <Compile Include="SpeciesOptions\SpeciesOptionBase.cs" />
     <Compile Include="SpeciesOptions\LevelColorSettings\LevelGraphRepresentation.cs" />
-    <Compile Include="library\LevelStatusFlags.cs" />
+    <Compile Include="library\LevelColorStatusFlags.cs" />
     <Compile Include="SpeciesOptions\LevelColorSettings\StatLevelColors.cs" />
     <Compile Include="SpeciesOptions\SpeciesOptionsBase.cs" />
     <Compile Include="SpeciesOptions\SpeciesOptionsSettings.cs" />
@@ -751,6 +754,7 @@
     <Compile Include="utils\NaturalComparer.cs" />
     <Compile Include="utils\RepositoryInfo.cs" />
     <Compile Include="utils\SoundFeedback.cs" />
+    <Compile Include="utils\PlayAudioStreams.cs" />
     <Compile Include="utils\Themes.cs" />
     <Compile Include="utils\WebService.cs" />
     <Compile Include="values\TamingFoodData.cs" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ARKBreedingStats.species;
+using ARKBreedingStats.SpeciesOptions.ColorSettings;
 using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
@@ -103,6 +104,10 @@ namespace ARKBreedingStats.SpeciesOptions
             else if (typeof(T) == typeof(ConsiderTopStats))
             {
                 speciesOptionElements = ConsiderTopStats.GetDefaultOptions() as T[];
+            }
+            else if (typeof(T) == typeof(WantedRegionColors))
+            {
+                speciesOptionElements = WantedRegionColors.GetDefaultOptions() as T[];
             }
             else
             {

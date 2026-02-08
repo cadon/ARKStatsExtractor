@@ -62,7 +62,5 @@ namespace ARKBreedingStats.SpeciesOptions
         /// Used for UI layout.
         /// </summary>
         public int HierarchyLevel;
-
-        public static T[] GetDefaultOptions() => null;
     }
 }

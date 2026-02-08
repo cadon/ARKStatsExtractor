@@ -1387,4 +1387,22 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="Success Rate_Abb" xml:space="preserve">
     <value>SR</value>
   </data>
+  <data name="BtBeepNewColorTT" xml:space="preserve">
+    <value>This sound is played if an imported creature has a new color that is not present in any other creature in any region of this species in the library.</value>
+  </data>
+  <data name="BtBeepNewRegionColorTT" xml:space="preserve">
+    <value>This sound is played if an imported creature has a new color that is not present in any other creature in this region of this species in the library.</value>
+  </data>
+  <data name="BtBeepDesiredColorTT" xml:space="preserve">
+    <value>This sound is played if an imported creature has a color that is set as desired color in the species settings.</value>
+  </data>
+  <data name="BtBeepDesiredColor" xml:space="preserve">
+    <value>desired color</value>
+  </data>
+  <data name="BtBeepNewColor" xml:space="preserve">
+    <value>new color</value>
+  </data>
+  <data name="BtBeepNewRegionColor" xml:space="preserve">
+    <value>new region color</value>
+  </data>
 </root>

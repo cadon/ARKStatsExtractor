@@ -9,8 +9,6 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
-using static ARKBreedingStats.Library.CreatureCollection;
-
 namespace ARKBreedingStats.NamePatterns
 {
     public static class NamePattern
@@ -42,7 +40,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
         public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] creaturesOfSpecies, TopLevels topLevels, Dictionary<string, string> customReplacings,
             bool showDuplicateNameWarning = false, int namingPatternIndex = -1, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
-            ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
+            LevelColorStatusFlags.ColorStatus[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
         {
             if (pattern == null)
             {
@@ -129,7 +127,7 @@ namespace ARKBreedingStats.NamePatterns
             return name;
         }
 
-        private static string ResolveTemplate(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, Creature[] creaturesOfSpecies, string[] creatureNames, bool displayError)
+        private static string ResolveTemplate(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, LevelColorStatusFlags.ColorStatus[] colorsExisting, Creature[] creaturesOfSpecies, string[] creatureNames, bool displayError)
         {
             var tokenDictionary = CreateTokenDictionary(tokenModel);
             // first resolve keys, then functions
@@ -172,7 +170,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="displayError">If true, a MessageBox with the error will be displayed.</param>
         /// <param name="processNumberField">If true, the {n} will be processed</param>
         /// <returns></returns>
-        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, Creature[] creaturesOfSpecies, bool displayError, bool processNumberField, ColorExisting[] colorsExisting = null)
+        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, Creature[] creaturesOfSpecies, bool displayError, bool processNumberField, LevelColorStatusFlags.ColorStatus[] colorsExisting = null)
         {
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
@@ -247,7 +245,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="speciesCreatures">A list of all currently stored creatures of the species</param>
         /// <param name="topLevels">top levels of that species</param>
         /// <returns>A strongly typed model containing all tokens and their values</returns>
-        public static TokenModel CreateTokenModel(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, ColorExisting[] colorExistings, TopLevels topLevels, int libraryCreatureCount)
+        public static TokenModel CreateTokenModel(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, LevelColorStatusFlags.ColorStatus[] colorExistings, TopLevels topLevels, int libraryCreatureCount)
         {
             string dom = creature.isBred ? "B" : creature.isDomesticated ? "T" : "W";
             double imp = creature.imprintingBonus * 100;
@@ -439,15 +437,15 @@ namespace ARKBreedingStats.NamePatterns
                 for (int i = 0; i < 6; i++)
                 {
                     var colorId = creature.colors[i];
-                    ColorExisting colorExisting = colorExistings != null ? colorExistings[i] : ColorExisting.Unknown;
+                    LevelColorStatusFlags.ColorStatus colorExisting = colorExistings != null ? colorExistings[i] : LevelColorStatusFlags.ColorStatus.None;
 
                     model.colors[i] = new ColorModel
                     {
                         id = colorId,
                         name = CreatureColors.CreatureColorName(colorId),
                         used = creature.Species.EnabledColorRegions[i],
-                        @new = colorExisting == ColorExisting.ColorExistingInOtherRegion ? "newInRegion"
-                            : colorExisting == ColorExisting.ColorIsNew ? "newInSpecies"
+                        @new = colorExisting == LevelColorStatusFlags.ColorStatus.NewRegionColor ? "newInRegion"
+                            : colorExisting == LevelColorStatusFlags.ColorStatus.NewColor ? "newInSpecies"
                             : string.Empty
                     };
                 }

@@ -2460,5 +2460,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBorderWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PlayColorSoundOnAutoImport {
+            get {
+                return ((bool)(this["PlayColorSoundOnAutoImport"]));
+            }
+            set {
+                this["PlayColorSoundOnAutoImport"] = value;
+            }
+        }
     }
 }

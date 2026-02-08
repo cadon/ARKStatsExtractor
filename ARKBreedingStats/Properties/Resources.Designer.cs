@@ -101,6 +101,24 @@ namespace ARKBreedingStats.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
         /// </summary>
+        internal static System.IO.UnmanagedMemoryStream newColor {
+            get {
+                return ResourceManager.GetStream("newColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream newDesiredColor {
+            get {
+                return ResourceManager.GetStream("newDesiredColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
         internal static System.IO.UnmanagedMemoryStream newMutation {
             get {
                 return ResourceManager.GetStream("newMutation", resourceCulture);
@@ -114,6 +132,15 @@ namespace ARKBreedingStats.Properties {
             get {
                 object obj = ResourceManager.GetObject("newPlayer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream newRegionColor {
+            get {
+                return ResourceManager.GetStream("newRegionColor", resourceCulture);
             }
         }
         

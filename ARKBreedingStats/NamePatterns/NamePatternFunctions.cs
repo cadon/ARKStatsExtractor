@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -353,9 +354,9 @@ namespace ARKBreedingStats.NamePatterns
 
             switch (p.ColorsExisting[regionId])
             {
-                case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
+                case LevelColorStatusFlags.ColorStatus.NewRegionColor:
                     return "newInRegion";
-                case CreatureCollection.ColorExisting.ColorIsNew:
+                case LevelColorStatusFlags.ColorStatus.NewColor:
                     return "newInSpecies";
                 default:
                     return string.Empty;
@@ -489,7 +490,7 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         internal bool ProcessNumberField;
 
-        internal CreatureCollection.ColorExisting[] ColorsExisting;
+        internal LevelColorStatusFlags.ColorStatus[] ColorsExisting;
         internal Creature[] CreaturesOfSpecies;
     }
 }

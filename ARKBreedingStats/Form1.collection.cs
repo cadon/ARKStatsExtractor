@@ -874,7 +874,7 @@ namespace ARKBreedingStats
         /// Returns already existing Creature or null if it's a new creature.
         /// </summary>
         private Creature ImportExportGunFiles(string[] filePaths, bool addCreatures, out bool creatureAdded,
-            out Creature lastImportedCreature, out bool copiedNameToClipboard, bool playImportSound = false,
+            out Creature lastImportedCreature, out bool copiedNameToClipboard, bool playImportSound = false, bool playColorSound = false,
             Asb.TriggerSource triggerSource = Asb.TriggerSource.User)
         {
             creatureAdded = false;
@@ -956,7 +956,8 @@ namespace ARKBreedingStats
                 {
                     creatureAdded = true;
                     // calculate level status of last added creature
-                    DetermineLevelStatusAndSoundFeedback(lastImportedCreature, playImportSound);
+                    _creatureCollection.DetermineColorStatus(speciesSelector1.SelectedSpecies, lastImportedCreature.colors, out _, out _, out _);
+                    DetermineLevelStatusAndSoundFeedback(lastImportedCreature, playImportSound, playColorSound);
 
                     _creatureCollection.MergeCreatureList(newCreatures, true);
                     UpdateCreatureParentLinkingSort(false);
@@ -1050,18 +1051,18 @@ namespace ARKBreedingStats
             UpdateTempCreatureDropDown();
         }
 
-        private void DetermineLevelStatusAndSoundFeedback(Creature c, bool playImportSound)
+        private void DetermineLevelStatusAndSoundFeedback(Creature c, bool playImportSound, bool playColorSound)
         {
             var species = c.Species;
             _creatureCollection.TopLevels.TryGetValue(species, out var topLevels);
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
             var considerAsTopStat = StatsOptionsConsiderTopStats.GetOptions(species).Options;
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat,
+            LevelColorStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat,
                 c.levelsWild, c.levelsMutated, c.valuesBreeding, out _, out _);
 
             if (playImportSound)
             {
-                SoundFeedback.BeepSignalCurrentLevelFlags(IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out _));
+                SoundFeedback.BeepSignalCurrentLevelFlags(IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out _), playColorSound: playColorSound);
             }
         }
 

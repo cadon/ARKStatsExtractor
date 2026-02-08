@@ -106,7 +106,7 @@ namespace ARKBreedingStats
         /// </summary>
         public ParentInheritance ParentInheritance;
 
-        internal CreatureCollection.ColorExisting[] ColorAlreadyExistingInformation;
+        internal LevelColorStatusFlags.ColorStatus[] ColorAlreadyExistingInformation;
 
         private Button[] ButtonsNamingPattern => new[] { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
 
@@ -954,7 +954,7 @@ namespace ARKBreedingStats
                 _tt.SetToolTip(bt, Loc.S("btnGenerateUniqueNameTT", false));
         }
 
-        internal (bool newInRegion, bool newInSpecies) SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable = null)
+        internal (bool newInRegion, bool newInSpecies) SetRegionColorsExisting(LevelColorStatusFlags.ColorStatus[] colorAlreadyAvailable = null)
         {
             regionColorChooser1.SetRegionColorsExisting(colorAlreadyAvailable);
             LbColorNewInRegion.Visible = regionColorChooser1.ColorNewInRegion;

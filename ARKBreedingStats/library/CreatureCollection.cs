@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using static ARKBreedingStats.library.LevelColorStatusFlags;
 
 namespace ARKBreedingStats.Library
 {
@@ -553,10 +554,11 @@ namespace ARKBreedingStats.Library
         /// (inTheRegion, inAnyRegion).
         /// </summary>
         /// <param name="creaturesWithColorsInRegion">For each region an array with creature count with this color, i.e. int[regionId][colorId]</param>
-        internal ColorExisting[] ColorAlreadyAvailable(Species species, byte[] colorIds, out string infoText, out int[][] creaturesWithColorsInRegion)
+        internal ColorStatus[] DetermineColorStatus(Species species, byte[] colorIds, out string infoText, out int[][] creaturesWithColorsInRegion, out bool[] desiredColors)
         {
             infoText = null;
             creaturesWithColorsInRegion = null;
+            desiredColors = null;
             if (string.IsNullOrEmpty(species?.blueprintPath) || colorIds == null) return null;
 
             var usedColorRegionIndices = Enumerable.Range(0, Ark.ColorRegionCount).Where(i => species.EnabledColorRegions[i]).ToArray();
@@ -590,28 +592,32 @@ namespace ARKBreedingStats.Library
                 _existingColors[species.blueprintPath] = creaturesWithColorsInRegion;
             }
 
-            var newSpeciesColors = new List<string>(usedColorRegionsCount);
-            var newRegionColors = new List<string>(usedColorRegionsCount);
+            var newSpeciesColorsString = new List<string>(usedColorRegionsCount);
+            var newRegionColorsStrings = new List<string>(usedColorRegionsCount);
 
-            var results = new ColorExisting[Ark.ColorRegionCount];
+            var regionsColorStatus = new ColorStatus[Ark.ColorRegionCount];
+            var anyColorNewInRegion = false;
+            var anyColorNew = false;
             foreach (var ri in usedColorRegionIndices)
             {
                 var colorId = colorIds[ri];
                 var creaturesWithColorIdInRegion = creaturesWithColorsInRegion[ri][colorId];
                 var creaturesWithColorIdInAnyRegion = creaturesWithColorsInRegion[Ark.ColorRegionCount][colorId];
-                var colorStatus = creaturesWithColorIdInRegion > 0 ? ColorExisting.ColorExistingInRegion
-                               : creaturesWithColorIdInAnyRegion > 0 ? ColorExisting.ColorExistingInOtherRegion
-                               : ColorExisting.ColorIsNew;
-                results[ri] = colorStatus;
+                var colorStatus = creaturesWithColorIdInRegion > 0 ? ColorStatus.ExistsInRegion
+                               : creaturesWithColorIdInAnyRegion > 0 ? ColorStatus.NewRegionColor
+                               : ColorStatus.NewColor;
+                regionsColorStatus[ri] = colorStatus;
                 switch (colorStatus)
                 {
-                    case ColorExisting.ColorIsNew:
+                    case ColorStatus.NewColor:
                         var description = ColorDescription();
-                        if (!newSpeciesColors.Contains(description))
-                            newSpeciesColors.Add(description);
+                        if (!newSpeciesColorsString.Contains(description))
+                            newSpeciesColorsString.Add(description);
+                        anyColorNew = true;
                         break;
-                    case ColorExisting.ColorExistingInOtherRegion:
-                        newRegionColors.Add($"{ColorDescription()} in region {ri}");
+                    case ColorStatus.NewRegionColor:
+                        newRegionColorsStrings.Add($"{ColorDescription()} in region {ri}");
+                        anyColorNewInRegion = true;
                         break;
                 }
 
@@ -622,37 +628,34 @@ namespace ARKBreedingStats.Library
                 }
             }
 
+            //LevelColorStatusFlags.ColorFlags
+
+            // desired colors
+            desiredColors = new bool[Ark.ColorRegionCount];
+            var colorSpeciesOptions = Form1.ColorOptionsWantedRegions.GetOptions(species);
+            for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
+                desiredColors[ci] = colorSpeciesOptions.Options[ci].IsColorWanted(colorIds[ci]);
+
+            LevelColorStatusFlags.ColorFlagsCombined = LevelColorStatusFlags.ColorStatus.None;
+            if (anyColorNew) LevelColorStatusFlags.ColorFlagsCombined |= LevelColorStatusFlags.ColorStatus.NewColor;
+            if (anyColorNewInRegion) LevelColorStatusFlags.ColorFlagsCombined |= LevelColorStatusFlags.ColorStatus.NewRegionColor;
+            if (desiredColors.Any(ci => ci)) LevelColorStatusFlags.ColorFlagsCombined |= LevelColorStatusFlags.ColorStatus.DesiredColor;
+
+            // text output
             var infoTextSb = new StringBuilder();
-            if (newSpeciesColors.Any())
+            if (newSpeciesColorsString.Any())
             {
-                infoTextSb.AppendLine($"These colors are new for the {species.name}: {string.Join(", ", newSpeciesColors)}.");
+                infoTextSb.AppendLine($"These colors are new for the {species.name}: {string.Join(", ", newSpeciesColorsString)}.");
             }
-            if (newRegionColors.Any())
+            if (newRegionColorsStrings.Any())
             {
-                infoTextSb.AppendLine($"These colors are new in their region: {string.Join(", ", newRegionColors)}.");
+                infoTextSb.AppendLine($"These colors are new in their region: {string.Join(", ", newRegionColorsStrings)}.");
             }
 
             infoTextSb.AppendLine();
             infoTextSb.AppendLine("Library analysis");
             infoText = infoTextSb.ToString();
-            return results;
-        }
-
-        public enum ColorExisting
-        {
-            Unknown,
-            /// <summary>
-            /// The color is already available in that region on a creature of that species.
-            /// </summary>
-            ColorExistingInRegion,
-            /// <summary>
-            /// The color is already available in a different region on a creature of that species.
-            /// </summary>
-            ColorExistingInOtherRegion,
-            /// <summary>
-            /// The color does not exist on any region on any creature of that species.
-            /// </summary>
-            ColorIsNew
+            return regionsColorStatus;
         }
 
         public string Game

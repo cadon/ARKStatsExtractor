@@ -1,13 +1,13 @@
-﻿using System;
+﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.utils;
+using Jint;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using ARKBreedingStats.Library;
-using ARKBreedingStats.utils;
-using Jint;
-using static ARKBreedingStats.Library.CreatureCollection;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -17,7 +17,7 @@ namespace ARKBreedingStats.NamePatterns
         public static readonly Regex JavaScriptShebang = new Regex(@"^\#!javascript\s*?\n", RegexOptions.IgnoreCase);
         private static readonly string FlattenScript = BuildModelFlattenScript();
 
-        public static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, Creature[] creaturesOfSpecies, string[] creatureNames, bool displayError, Action<string> consoleLog)
+        public static string ResolveJavaScript(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, LevelColorStatusFlags.ColorStatus[] colorsExisting, Creature[] creaturesOfSpecies, string[] creatureNames, bool displayError, Action<string> consoleLog)
         {
             var stopwatch = Stopwatch.StartNew();
             var log = consoleLog ?? (s => { });

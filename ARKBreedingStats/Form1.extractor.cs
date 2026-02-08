@@ -74,7 +74,7 @@ namespace ARKBreedingStats
                     valid = false;
                     break;
                 }
-                _statIOs[s].TopLevel = LevelStatusFlags.LevelStatus.Neutral;
+                _statIOs[s].TopLevel = LevelColorStatusFlags.LevelStatus.Neutral;
             }
             if (valid)
             {
@@ -165,22 +165,22 @@ namespace ARKBreedingStats
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
             var considerAsTopStat = StatsOptionsConsiderTopStats.GetOptions(species).Options;
 
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
+            LevelColorStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
                 GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
             {
-                var levelStatusForStatIo = LevelStatusFlags.LevelStatusFlagsCurrentNewCreature[s];
+                var levelStatusForStatIo = LevelColorStatusFlags.LevelStatusFlagsCurrentNewCreature[s];
 
                 // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
                 if (_creatureCollection.Game != Ark.Asa && s != Stats.Torpidity)
                 {
                     if (_statIOs[s].LevelWild > 255)
-                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.UltraMaxLevel;
+                        levelStatusForStatIo |= LevelColorStatusFlags.LevelStatus.UltraMaxLevel;
                     else if (_statIOs[s].LevelWild == 255)
-                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevel;
+                        levelStatusForStatIo |= LevelColorStatusFlags.LevelStatus.MaxLevel;
                     else if (_statIOs[s].LevelWild == 254)
-                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevelForLevelUp;
+                        levelStatusForStatIo |= LevelColorStatusFlags.LevelStatus.MaxLevelForLevelUp;
                 }
 
                 _statIOs[s].TopLevel = levelStatusForStatIo;
@@ -198,7 +198,7 @@ namespace ARKBreedingStats
 
             if (infoText == null) infoText = "No top stats";
 
-            creatureAnalysis1.SetStatsAnalysis(LevelStatusFlags.CombinedLevelStatusFlags, infoText);
+            creatureAnalysis1.SetStatsAnalysis(LevelColorStatusFlags.StatLevelStatusFlagsCombined, infoText);
         }
 
         private void UpdateAddToLibraryButtonAccordingToExtractorValidity(bool valid)
@@ -1606,13 +1606,17 @@ namespace ARKBreedingStats
                 input.ColorAlreadyExistingInformation = null;
                 return;
             }
-            var colorAlreadyExisting = _creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors, out var infoText, out var creaturesWithColorsInRegion);
+
+            var colorIds = input.RegionColors;
+            var colorAlreadyExisting = _creatureCollection.DetermineColorStatus(speciesSelector1.SelectedSpecies, colorIds, out var infoText, out var creaturesWithColorsInRegion, out var desiredColors);
             var newColorStatus = input.SetRegionColorsExisting(colorAlreadyExisting);
             input.ColorAlreadyExistingInformation = colorAlreadyExisting;
 
             if (input == creatureInfoInputExtractor)
-                creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelStatusFlags.LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelStatusFlags.LevelStatus.TopLevel : LevelStatusFlags.LevelStatus.Neutral,
-                    infoText, input.RegionColors, creaturesWithColorsInRegion);
+            {
+                creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelColorStatusFlags.LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelColorStatusFlags.LevelStatus.TopLevel : LevelColorStatusFlags.LevelStatus.Neutral,
+                    infoText, colorIds, creaturesWithColorsInRegion, desiredColors);
+            }
         }
 
         private void copyLibrarydumpToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

@@ -9,10 +9,10 @@ namespace ARKBreedingStats.uiControls
 {
     public partial class CreatureAnalysis : UserControl
     {
-        private LevelStatusFlags.LevelStatus _statsStatus;
-        private LevelStatusFlags.LevelStatus _colorStatus;
+        private LevelColorStatusFlags.LevelStatus _statsStatus;
+        private LevelColorStatusFlags.LevelStatus _colorStatus;
         public string ColorStatus;
-        private readonly Label[] _labelsRegionColors = new Label[Ark.ColorRegionCount * 2];
+        private readonly Label[] _labelsRegionColors = new Label[Ark.ColorRegionCount * 3]; // for each color region 3 labels: 0: color id; 1: creature count with the color; 2: indicator if color is wanted
         private readonly LinkLabel[] _linklabelsRegionColors = new LinkLabel[Ark.ColorRegionCount];
         private byte[] _colorIdsCurrent;
         public event Action<string> ViewLibraryWithFilter;
@@ -27,18 +27,21 @@ namespace ARKBreedingStats.uiControls
                 TlpRegionInfo.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 var lbRegionId = new Label { AutoSize = true, Text = ri.ToString(), Anchor = AnchorStyles.None };
                 var lbColorId = new Label { AutoSize = true, TextAlign = ContentAlignment.MiddleRight, Dock = DockStyle.Fill, Padding = new Padding(3) };
-                var lbCreatureCount = new Label { AutoSize = true, TextAlign = ContentAlignment.MiddleRight, Anchor = AnchorStyles.Right };
+                var lbCreatureCount = new Label { AutoSize = true, TextAlign = ContentAlignment.MiddleRight, Anchor = AnchorStyles.Right, Padding = new Padding(3) };
+                var lbWantedColor = new Label { AutoSize = true, ForeColor = Color.White, BackColor = Color.DarkGreen, Padding = new Padding(3) };
                 var llbLibraryLink = new LinkLabel { AutoSize = true, Text = "view", Tag = ri };
                 llbLibraryLink.Click += (s, e) => ViewInLibrary((int)((LinkLabel)s).Tag);
 
-                _labelsRegionColors[2 * ri] = lbColorId;
-                _labelsRegionColors[2 * ri + 1] = lbCreatureCount;
+                _labelsRegionColors[3 * ri] = lbColorId;
+                _labelsRegionColors[3 * ri + 1] = lbCreatureCount;
+                _labelsRegionColors[3 * ri + 2] = lbWantedColor;
                 _linklabelsRegionColors[ri] = llbLibraryLink;
 
                 TlpRegionInfo.Controls.Add(lbRegionId, 0, ri + 1);
                 TlpRegionInfo.Controls.Add(lbColorId, 1, ri + 1);
                 TlpRegionInfo.Controls.Add(lbCreatureCount, 2, ri + 1);
                 TlpRegionInfo.Controls.Add(llbLibraryLink, 3, ri + 1);
+                TlpRegionInfo.Controls.Add(lbWantedColor, 4, ri + 1);
             }
         }
 
@@ -48,7 +51,7 @@ namespace ARKBreedingStats.uiControls
             ViewLibraryWithFilter?.Invoke($"c{regionId}: {_colorIdsCurrent[regionId]}");
         }
 
-        public void SetStatsAnalysis(LevelStatusFlags.LevelStatus statsStatus, string statsAnalysis)
+        public void SetStatsAnalysis(LevelColorStatusFlags.LevelStatus statsStatus, string statsAnalysis)
         {
             _statsStatus = statsStatus;
             SetStatus(LbStatsStatus, statsStatus);
@@ -56,7 +59,7 @@ namespace ARKBreedingStats.uiControls
             LbStatAnalysis.Text = statsAnalysis;
 
             var generalStatus = statsStatus;
-            if (!generalStatus.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel) && _colorStatus != LevelStatusFlags.LevelStatus.Neutral)
+            if (!generalStatus.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel) && _colorStatus != LevelColorStatusFlags.LevelStatus.Neutral)
             {
                 generalStatus = _colorStatus;
             }
@@ -67,7 +70,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Set the color status and uses the earlier set statsStatus.
         /// </summary>
-        public void SetColorAnalysis(LevelStatusFlags.LevelStatus colorStatus, string colorAnalysis, byte[] colorIds, int[][] creaturesWithColorsInRegion)
+        public void SetColorAnalysis(LevelColorStatusFlags.LevelStatus colorStatus, string colorAnalysis, byte[] colorIds, int[][] creaturesWithColorsInRegion, bool[] regionsWithWantedColor)
         {
             _colorStatus = colorStatus;
             _colorIdsCurrent = colorIds;
@@ -75,10 +78,10 @@ namespace ARKBreedingStats.uiControls
 
             ColorStatus = colorAnalysis;
             LbColorAnalysis.Text = colorAnalysis;
-            SetColorTable(colorIds, creaturesWithColorsInRegion);
+            SetColorTable(colorIds, creaturesWithColorsInRegion, regionsWithWantedColor);
 
             var generalStatus = _statsStatus;
-            if (generalStatus != LevelStatusFlags.LevelStatus.NewTopLevel && colorStatus != LevelStatusFlags.LevelStatus.Neutral)
+            if (generalStatus != LevelColorStatusFlags.LevelStatus.NewTopLevel && colorStatus != LevelColorStatusFlags.LevelStatus.Neutral)
             {
                 generalStatus = colorStatus;
             }
@@ -86,7 +89,7 @@ namespace ARKBreedingStats.uiControls
             SetStatus(LbIcon, generalStatus, LbConclusion);
         }
 
-        private void SetColorTable(byte[] colorIds = null, int[][] creaturesWithColorsInRegion = null)
+        private void SetColorTable(byte[] colorIds = null, int[][] creaturesWithColorsInRegion = null, bool[] regionsWithWantedColor = null)
         {
             if (creaturesWithColorsInRegion == null || colorIds == null)
             {
@@ -98,23 +101,29 @@ namespace ARKBreedingStats.uiControls
             {
                 if (creaturesWithColorsInRegion[ri] == null)
                 {
-                    _labelsRegionColors[2 * ri].Visible = false;
-                    _labelsRegionColors[2 * ri + 1].Visible = false;
+                    _labelsRegionColors[3 * ri].Visible = false;
+                    _labelsRegionColors[3 * ri + 1].Visible = false;
+                    _labelsRegionColors[3 * ri + 2].Visible = false;
                     _linklabelsRegionColors[ri].Visible = false;
                     TlpRegionInfo.RowStyles[ri + 1].SizeType = SizeType.Absolute;
                     TlpRegionInfo.RowStyles[ri + 1].Height = 0;
                 }
                 else
                 {
-                    _labelsRegionColors[2 * ri].Visible = true;
-                    _labelsRegionColors[2 * ri + 1].Visible = true;
-                    _labelsRegionColors[2 * ri].Text = colorIds[ri].ToString();
+                    _labelsRegionColors[3 * ri].Visible = true;
+                    _labelsRegionColors[3 * ri + 1].Visible = true;
+                    _labelsRegionColors[3 * ri].Text = colorIds[ri].ToString();
                     var arkColor = Values.V.Colors.ById(colorIds[ri]);
-                    _labelsRegionColors[2 * ri].SetBackColorAndAccordingForeColor(arkColor.Color);
-                    _tt.SetToolTip(_labelsRegionColors[2 * ri], $"[{ri}]: {colorIds[ri]} - {arkColor.Name}");
+                    _labelsRegionColors[3 * ri].SetBackColorAndAccordingForeColor(arkColor.Color);
+                    _tt.SetToolTip(_labelsRegionColors[3 * ri], $"[{ri}]: {colorIds[ri]} - {arkColor.Name}");
                     var creatureCountWithThisRegionColor = creaturesWithColorsInRegion[ri][colorIds[ri]];
-                    _labelsRegionColors[2 * ri + 1].Text = creatureCountWithThisRegionColor.ToString();
-                    _labelsRegionColors[2 * ri + 1].BackColor = creatureCountWithThisRegionColor == 0 ? Color.LightYellow : Color.Transparent;
+                    _labelsRegionColors[3 * ri + 1].Text = creatureCountWithThisRegionColor.ToString();
+                    _labelsRegionColors[3 * ri + 1].BackColor = creatureCountWithThisRegionColor == 0 ? Color.LightYellow : Color.Transparent;
+
+                    var wantedColor = regionsWithWantedColor?[ri] == true;
+                    _labelsRegionColors[3 * ri + 2].Text = wantedColor ? "★" : string.Empty;
+                    _tt.SetToolTip(_labelsRegionColors[3 * ri + 2], wantedColor ? "Wanted color" : null);
+                    _labelsRegionColors[3 * ri + 2].Visible = wantedColor;
                     TlpRegionInfo.RowStyles[ri + 1].SizeType = SizeType.AutoSize;
                     _linklabelsRegionColors[ri].Visible = creatureCountWithThisRegionColor > 0;
                 }
@@ -123,9 +132,9 @@ namespace ARKBreedingStats.uiControls
             TlpRegionInfo.Visible = true;
         }
 
-        private void SetStatus(Label labelIcon, LevelStatusFlags.LevelStatus status, Label labelText = null)
+        private void SetStatus(Label labelIcon, LevelColorStatusFlags.LevelStatus status, Label labelText = null)
         {
-            if (status.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel))
+            if (status.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel))
             {
                 labelIcon.BackColor = Color.LightYellow;
                 labelIcon.ForeColor = Color.Gold;
@@ -133,7 +142,7 @@ namespace ARKBreedingStats.uiControls
                 if (labelText != null)
                     labelText.Text = "Keep this creature, it adds new traits to your library!";
             }
-            else if (status.HasFlag(LevelStatusFlags.LevelStatus.TopLevel))
+            else if (status.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel))
             {
                 labelIcon.BackColor = Color.LightGreen;
                 labelIcon.ForeColor = Color.DarkGreen;

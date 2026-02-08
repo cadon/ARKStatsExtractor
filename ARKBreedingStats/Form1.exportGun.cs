@@ -174,7 +174,8 @@ namespace ARKBreedingStats
                 var addCreature = Properties.Settings.Default.OnAutoImportAddToLibrary;
                 var gotoLibraryTab = addCreature && Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess;
 
-                DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport);
+                _creatureCollection.DetermineColorStatus(speciesSelector1.SelectedSpecies, creature.colors, out _, out _, out _);
+                DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport, Properties.Settings.Default.PlayColorSoundOnAutoImport);
                 SetNameOfImportedCreature(creature, null, out _,
                         _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid));
 

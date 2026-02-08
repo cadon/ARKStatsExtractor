@@ -14,6 +14,7 @@ namespace ARKBreedingStats.SpeciesOptions.TopStatsSettings
 
         /// <summary>
         /// Override parent setting.
+        /// This property is saved explicitly for top stats, for other options it might be implicit without the need to save it.
         /// </summary>
         [JsonProperty("ovr", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool OverrideParentBool;

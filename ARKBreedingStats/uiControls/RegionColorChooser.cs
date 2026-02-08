@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.Library;
+using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
@@ -209,28 +209,28 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         internal bool ColorNewInRegion;
 
-        internal void SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable)
+        internal void SetRegionColorsExisting(LevelColorStatusFlags.ColorStatus[] colorAlreadyAvailable)
         {
             ColorNewInRegion = false;
             ColorNewInSpecies = false;
 
-            var parameter = CreatureCollection.ColorExisting.Unknown;
+            var parameter = LevelColorStatusFlags.ColorStatus.None;
             for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
             {
                 if (colorAlreadyAvailable != null)
                     parameter = colorAlreadyAvailable[ci];
                 switch (parameter)
                 {
-                    case CreatureCollection.ColorExisting.ColorIsNew:
-                        _buttonColors[ci].ColorStatus = CreatureCollection.ColorExisting.ColorIsNew;
+                    case LevelColorStatusFlags.ColorStatus.NewColor:
+                        _buttonColors[ci].ColorStatus = LevelColorStatusFlags.ColorStatus.NewColor;
                         ColorNewInSpecies = true;
                         break;
-                    case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
-                        _buttonColors[ci].ColorStatus = CreatureCollection.ColorExisting.ColorExistingInOtherRegion;
+                    case LevelColorStatusFlags.ColorStatus.NewRegionColor:
+                        _buttonColors[ci].ColorStatus = LevelColorStatusFlags.ColorStatus.NewRegionColor;
                         ColorNewInRegion = true;
                         break;
                     default:
-                        _buttonColors[ci].ColorStatus = CreatureCollection.ColorExisting.ColorExistingInRegion;
+                        _buttonColors[ci].ColorStatus = LevelColorStatusFlags.ColorStatus.ExistsInRegion;
                         break;
                 }
                 _buttonColors[ci].Invalidate();
@@ -239,7 +239,7 @@ namespace ARKBreedingStats.uiControls
 
         private class NoPaddingButton : Button
         {
-            public CreatureCollection.ColorExisting ColorStatus { get; set; }
+            public LevelColorStatusFlags.ColorStatus ColorStatus { get; set; }
             public bool AlternativeColorPossible { get; set; }
 
             protected override void OnPaint(PaintEventArgs pe)
@@ -247,10 +247,10 @@ namespace ARKBreedingStats.uiControls
                 Color statusColor;
                 switch (ColorStatus)
                 {
-                    case CreatureCollection.ColorExisting.ColorIsNew:
+                    case LevelColorStatusFlags.ColorStatus.NewColor:
                         statusColor = Color.Gold;
                         break;
-                    case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
+                    case LevelColorStatusFlags.ColorStatus.NewRegionColor:
                         statusColor = Color.DarkGreen;
                         break;
                     default:

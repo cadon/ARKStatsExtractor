@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.SpeciesOptions.ColorSettings;
 using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
 
@@ -15,6 +16,7 @@ namespace ARKBreedingStats.SpeciesOptions
         public static void ShowWindow(Form parent,
             SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>> levelColorSettings,
             SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>> topStatsSettings,
+            SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>> wantedRegionColorsSettings,
             int selectTabPageIndex = 0
             )
         {
@@ -42,6 +44,8 @@ namespace ARKBreedingStats.SpeciesOptions
                 AddAndDock(new LevelGraphOptionsControl(levelColorSettings, f.Tt), levelColorSettings.SettingsName);
             if (topStatsSettings != null)
                 AddAndDock(new ConsiderTopStatsControl(topStatsSettings, f.Tt), topStatsSettings.SettingsName);
+            if (wantedRegionColorsSettings != null)
+                AddAndDock(new WantedRegionColorsControl(wantedRegionColorsSettings, f.Tt), wantedRegionColorsSettings.SettingsName);
 
             void AddAndDock(Control c, string tabName)
             {

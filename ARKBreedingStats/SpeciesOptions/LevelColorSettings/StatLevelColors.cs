@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Drawing;
 using System.Linq;
 
