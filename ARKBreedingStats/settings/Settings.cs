@@ -380,10 +380,13 @@ namespace ARKBreedingStats.settings
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBackColor));
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicForeColor));
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBorderColor));
+            BtInfoGraphicTextOutlineColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicTextOutlineColor));
             NudInfoGraphicBorderWidth.ValueSave = Properties.Settings.Default.InfoGraphicBorderWidth;
+            NudInfoGraphicTextOutlineWidth.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicTextOutlineWidth;
             NudInfoGraphicBgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBackColor.A;
             NudInfoGraphicFgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicForeColor.A;
             NudInfoGraphicBorderAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBorderColor.A;
+            NudInfoGraphicTextOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicTextOutlineColor.A;
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
@@ -659,7 +662,9 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicBackColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
             Properties.Settings.Default.InfoGraphicForeColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
             Properties.Settings.Default.InfoGraphicBorderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
+            Properties.Settings.Default.InfoGraphicTextOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
             Properties.Settings.Default.InfoGraphicBorderWidth = (int)NudInfoGraphicBorderWidth.Value;
+            Properties.Settings.Default.InfoGraphicTextOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
             Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
@@ -1679,6 +1684,8 @@ namespace ARKBreedingStats.settings
             var backColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
             var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
             var borderWidth = (int)NudInfoGraphicBorderWidth.Value;
+            var textOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
+            var textOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
             var displayCreatureName = CbInfoGraphicCreatureName.Checked;
             var displayDomValues = RbInfoGraphicDomValues.Checked;
             var sumWildMut = CbInfoGraphicSumWildMut.Checked;
@@ -1692,7 +1699,7 @@ namespace ARKBreedingStats.settings
 
             var speciesImage = Task.Run(() => _infoGraphicPreviewCreature?
                 .InfoGraphicAsync(_cc,
-                    height, fontName, foreColor, backColor, borderColor, borderWidth, displayCreatureName, displayDomValues,
+                    height, fontName, foreColor, backColor, borderColor, borderWidth, textOutlineColor, textOutlineWidth, displayCreatureName, displayDomValues,
                     sumWildMut, displayMutationCounter, displayGenerations,
                     displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage, backgroundImagePath)).Result;
 

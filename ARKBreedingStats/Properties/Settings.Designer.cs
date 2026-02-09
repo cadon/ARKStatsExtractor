@@ -2472,5 +2472,29 @@ namespace ARKBreedingStats.Properties {
                 this["PlayColorSoundOnAutoImport"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color InfoGraphicTextOutlineColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicTextOutlineColor"]));
+            }
+            set {
+                this["InfoGraphicTextOutlineColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float InfoGraphicTextOutlineWidth {
+            get {
+                return ((float)(this["InfoGraphicTextOutlineWidth"]));
+            }
+            set {
+                this["InfoGraphicTextOutlineWidth"] = value;
+            }
+        }
     }
 }
