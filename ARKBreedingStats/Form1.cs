@@ -1805,8 +1805,9 @@ namespace ARKBreedingStats
                 if (pedigree1.PedigreeNeedsUpdate)
                 {
                     Creature c = null;
-                    if (listViewLibrary.SelectedIndices.Count > 0)
-                        c = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
+                    var focusedCreatureIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+                    if (focusedCreatureIndex >= 0)
+                        c = _creaturesDisplayed[focusedCreatureIndex];
                     pedigree1.SetCreature(c, true);
                 }
             }
@@ -2147,11 +2148,10 @@ namespace ARKBreedingStats
 
         private void bestBreedingPartnersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-            {
-                Creature sc = (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag;
-                ShowBestBreedingPartner(sc);
-            }
+            var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedIndex < 0) return;
+            Creature sc = (Creature)listViewLibrary.Items[focusedIndex].Tag;
+            ShowBestBreedingPartner(sc);
         }
 
         /// <summary>
@@ -3728,22 +3728,21 @@ namespace ARKBreedingStats
 
         private void toolStripMenuItemCopyCreatureName_Click(object sender, EventArgs e)
         {
-            CopySelectedCreatureName();
+            CopyFocusedCreatureName();
         }
 
         /// <summary>
         /// Copies the name of the currently selected creature to the clipboard.
         /// </summary>
-        private void CopySelectedCreatureName()
+        private void CopyFocusedCreatureName()
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-            {
-                string name = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name;
-                if (string.IsNullOrEmpty(name))
-                    utils.ClipboardHandler.Clear();
-                else
-                    utils.ClipboardHandler.SetText(name);
-            }
+            var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedIndex < 0) return;
+            string name = _creaturesDisplayed[focusedIndex].name;
+            if (string.IsNullOrEmpty(name))
+                ClipboardHandler.Clear();
+            else
+                ClipboardHandler.SetText(name);
         }
 
         private void fixColorsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3802,14 +3801,16 @@ namespace ARKBreedingStats
 
         private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count != 0)
-                _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].ExportInfoGraphicToClipboard(_creatureCollection);
+            var focusedCreatureIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedCreatureIndex >= 0)
+                _creaturesDisplayed[focusedCreatureIndex].ExportInfoGraphicToClipboard(_creatureCollection);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count != 0)
-                ArkWiki.OpenPage(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]?.Species?.name);
+            var focusedCreatureIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedCreatureIndex >= 0)
+                ArkWiki.OpenPage(_creaturesDisplayed[focusedCreatureIndex]?.Species?.name);
         }
 
         private void libraryFilterToolStripMenuItem_Click(object sender, EventArgs e)

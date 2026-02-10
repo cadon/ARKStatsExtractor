@@ -83,9 +83,9 @@ namespace ARKBreedingStats
         private void SendServerCreatureStatusForSelectedCreature(string status)
         {
             // debug function, sends a status change of the selected creature to the server
-            Creature cr = null;
-            if (listViewLibrary.SelectedIndices.Count > 0)
-                cr = (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag;
+            var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedIndex < 0) return;
+            var cr = (Creature)listViewLibrary.Items[focusedIndex].Tag;
             if (cr == null) return;
 
             // debug function, sends a status change of the selected creature to the server

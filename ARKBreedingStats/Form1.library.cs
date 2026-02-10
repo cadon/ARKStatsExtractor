@@ -12,6 +12,7 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
@@ -1816,7 +1817,7 @@ namespace ARKBreedingStats
                     listViewLibrary_SelectedIndexChanged(null, null);
                     break;
                 case Keys.B when e.Control:
-                    CopySelectedCreatureName();
+                    CopyFocusedCreatureName();
                     break;
                 case Keys.C when e.Control:
                     CopySelectedCreatureFromLibraryToClipboard(false);
@@ -2537,7 +2538,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns if there is a selected creature, out creature is set to the first selected creature in the library.
+        /// Returns the currently focused creature in the library if it is also selected, else it will return the first selected creature.
         /// </summary>
         private bool TryGetSelectedLibraryCreature(out Creature creature)
         {
@@ -2546,7 +2547,12 @@ namespace ARKBreedingStats
                 creature = null;
                 return false;
             }
-            creature = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
+
+            var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            var useIndex = focusedIndex >= 0 && listViewLibrary.SelectedIndices.Contains(focusedIndex)
+                ? focusedIndex
+                : listViewLibrary.SelectedIndices[0];
+            creature = _creaturesDisplayed[useIndex];
             return true;
         }
 
