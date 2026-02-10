@@ -430,6 +430,7 @@ namespace ARKBreedingStats
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.speciesSelector1 = new ARKBreedingStats.SpeciesSelector();
+            this.uIScalingIssueFixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImprintingBonusTester)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownTestingTE)).BeginInit();
@@ -1663,6 +1664,7 @@ namespace ARKBreedingStats
             this.onlinehelpToolStripMenuItem,
             this.BreedingPlanHelpToolStripMenuItem,
             this.extractionIssuesToolStripMenuItem,
+            this.uIScalingIssueFixToolStripMenuItem,
             this.toolStripSeparator12,
             this.checkForUpdatedStatsToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -3167,7 +3169,7 @@ namespace ARKBreedingStats
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuItem2.Text = "Available";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -3175,7 +3177,7 @@ namespace ARKBreedingStats
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuItem3.Text = "Unavailable";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
@@ -3183,14 +3185,14 @@ namespace ARKBreedingStats
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
             this.toolStripMenuItem4.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(135, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 22);
             this.toolStripMenuItem4.Text = "Dead";
             this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
             // 
             // obeliskToolStripMenuItem
             // 
             this.obeliskToolStripMenuItem.Name = "obeliskToolStripMenuItem";
-            this.obeliskToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.obeliskToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.obeliskToolStripMenuItem.Text = "Obelisk";
             this.obeliskToolStripMenuItem.Click += new System.EventHandler(this.obeliskToolStripMenuItem_Click);
             // 
@@ -3198,7 +3200,7 @@ namespace ARKBreedingStats
             // 
             this.cryopodToolStripMenuItem.Name = "cryopodToolStripMenuItem";
             this.cryopodToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.cryopodToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.cryopodToolStripMenuItem.Text = "Cryopod";
             this.cryopodToolStripMenuItem.Click += new System.EventHandler(this.cryopodToolStripMenuItem_Click);
             // 
@@ -4236,6 +4238,13 @@ namespace ARKBreedingStats
             this.speciesSelector1.SplitterDistance = 500;
             this.speciesSelector1.TabIndex = 0;
             // 
+            // uIScalingIssueFixToolStripMenuItem
+            // 
+            this.uIScalingIssueFixToolStripMenuItem.Name = "uIScalingIssueFixToolStripMenuItem";
+            this.uIScalingIssueFixToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.uIScalingIssueFixToolStripMenuItem.Text = "UI scaling issue fix…";
+            this.uIScalingIssueFixToolStripMenuItem.Click += new System.EventHandler(this.uIScalingIssueFixToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btExtractLevels;
@@ -4744,5 +4753,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem viewColorsInLibraryInfoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyCoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spawnWildToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uIScalingIssueFixToolStripMenuItem;
     }
 }

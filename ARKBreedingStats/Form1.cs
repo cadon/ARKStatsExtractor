@@ -4234,5 +4234,10 @@ namespace ARKBreedingStats
             }
             ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, level);
         }
+
+        private void uIScalingIssueFixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/cadon/ARKStatsExtractor/issues/1350#issuecomment-2099309722");
+        }
     }
 }
