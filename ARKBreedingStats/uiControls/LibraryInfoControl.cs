@@ -345,9 +345,9 @@ namespace ARKBreedingStats.uiControls
         {
             if (_speciesPictureBox.Image == null) return;
             if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
-                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, SelectedColors, _species));
+                ClipboardHandler.SetImageWithAlphaToClipboard(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, SelectedColors, _species));
             else
-                Clipboard.SetImage(_speciesPictureBox.Image);
+                ClipboardHandler.SetImageWithAlphaToClipboard(_speciesPictureBox.Image, false);
         }
     }
 }

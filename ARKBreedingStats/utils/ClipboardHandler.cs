@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.utils
 {
@@ -90,6 +94,26 @@ namespace ARKBreedingStats.utils
             {
                 System.Diagnostics.Debug.WriteLine($"Failed to clear clipboard, error: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Sets an image to the clipboard, trying to use PNG format to preserver the alpha channel.
+        /// </summary>
+        internal static void SetImageWithAlphaToClipboard(Image img, bool disposeBmp = true)
+        {
+            if (img == null) return;
+
+            using (var pngStream = new MemoryStream())
+            {
+                var data = new DataObject();
+                data.SetImage(img); // fallback, some applications do not accept the PNG version below
+
+                img.Save(pngStream, ImageFormat.Png);
+                data.SetData("PNG", false, pngStream);
+
+                Clipboard.SetDataObject(data, true);
+            }
+            if (disposeBmp) img.Dispose();
         }
     }
 }

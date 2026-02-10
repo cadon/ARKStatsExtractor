@@ -8,7 +8,6 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
 
@@ -16,6 +15,15 @@ namespace ARKBreedingStats.library
 {
     public static class CreatureInfoGraphic
     {
+        private static Bitmap _lastOutlineBitmap;
+        /// <summary>
+        /// Csv string of species blueprint path, outline color, outline width and outline blur
+        /// </summary>
+        private static string _lastOutlineBmpId;
+
+        private static string LastOutlineBmpIdString(string speciesBlueprintpath, Color outlineColor, int outlineWidth,
+            float outlineBlur) => $"{speciesBlueprintpath},{outlineColor},{outlineWidth},{outlineBlur}";
+
         /// <summary>
         /// Creates an image with infos about the creature, using the user settings.
         /// </summary>
@@ -39,7 +47,10 @@ namespace ARKBreedingStats.library
                 Properties.Settings.Default.InfoGraphicShowMaxWildLevel,
                 Properties.Settings.Default.InfoGraphicExtraRegionNames,
                 Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage,
-                Properties.Settings.Default.InfoGraphicBackgroundImagePath
+                Properties.Settings.Default.InfoGraphicCreatureOutlineColor,
+                Properties.Settings.Default.InfoGraphicBackgroundImagePath,
+                Properties.Settings.Default.InfoGraphicCreatureOutlineWidth,
+                Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring
                 );
 
         /// <summary>
@@ -64,7 +75,7 @@ namespace ARKBreedingStats.library
         public static async Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc,
             int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor, int borderWidth, Color outlineColor, float outlineWidth,
             bool displayCreatureName, bool displayWithDomLevels, bool displaySumWildMutLevels, bool displayMutations, bool displayGenerations, bool displayStatValues, bool displayMaxWildLevel,
-            bool displayExtraRegionNames, bool displayRegionNamesIfNoImage, string backgroundImagePath = null)
+            bool displayExtraRegionNames, bool displayRegionNamesIfNoImage, Color creatureOutlineColor, string backgroundImagePath = null, int creatureOutlineWidth = 0, float creatureOutlineBlurring = 1)
         {
             if (creature?.Species == null) return null;
             var secondaryCulture = Loc.UseSecondaryCulture;
@@ -282,6 +293,28 @@ namespace ARKBreedingStats.library
                     {
                         if (crBmp != null)
                         {
+                            const int blurRadius = 1; // seems to result in good enough smoothing of the outline brush
+
+                            if (creatureOutlineWidth > 0 && creatureOutlineColor.A != 0)
+                            {
+                                var outlineId = LastOutlineBmpIdString(creature.speciesBlueprint, creatureOutlineColor,
+                                    creatureOutlineWidth, creatureOutlineBlurring);
+                                Bitmap outline;
+                                if (outlineId == _lastOutlineBmpId)
+                                    outline = _lastOutlineBitmap;
+                                else
+                                {
+                                    outline = ImageTools.BlurImageAlpha(
+                                        ImageTools.OutlineOpacities(crBmp, creatureOutlineColor, creatureOutlineWidth, creatureOutlineBlurring), blurRadius);
+                                    _lastOutlineBitmap = outline;
+                                    _lastOutlineBmpId = outlineId;
+                                }
+
+                                var outlinePadding = creatureOutlineWidth + blurRadius;
+                                g.DrawImage(outline, width - imageSize - borderAndPadding - outlinePadding,
+                                    height - imageSize - borderAndPadding - extraMarginBottom - outlinePadding, imageSize + 2 * outlinePadding, imageSize + 2 * outlinePadding);
+                            }
+
                             g.DrawImage(crBmp, width - imageSize - borderAndPadding,
                                 height - imageSize - borderAndPadding - extraMarginBottom, imageSize, imageSize);
                             creatureImageShown = true;
@@ -459,24 +492,7 @@ namespace ARKBreedingStats.library
         public static async Task ExportInfoGraphicToClipboard(this Creature creature, CreatureCollection cc)
         {
             if (creature == null) return;
-
-            using (var bmp = await creature.InfoGraphicAsync(cc).ConfigureAwait(false))
-            {
-                //if (bmp != null)
-                //    Clipboard.SetImage(bmp);
-                if (bmp == null) return;
-
-                using (var pngStream = new MemoryStream())
-                {
-                    var data = new DataObject();
-                    data.SetImage(bmp); // fallback, some applications do not accept the PNG version below
-
-                    bmp.Save(pngStream, ImageFormat.Png);
-                    data.SetData("PNG", false, pngStream);
-
-                    Clipboard.SetDataObject(data, true);
-                }
-            }
+            ClipboardHandler.SetImageWithAlphaToClipboard(await creature.InfoGraphicAsync(cc).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -513,7 +529,7 @@ namespace ARKBreedingStats.library
             var maxColorNameLength = (int)((widthForColors - circleDiameter) * 1.5 / meanLetterWidth); // max char length for the color region name
             if (maxColorNameLength < 0) maxColorNameLength = 0;
 
-            var bmp = new Bitmap(width, height);
+            var bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
             using (var g = Graphics.FromImage(bmp))
             using (var font = new Font(fontName, fontSize))
             using (var fontBrush = new SolidBrush(foreColor))
@@ -528,6 +544,25 @@ namespace ARKBreedingStats.library
                 DrawColors(species, creatureColors, displayExtraRegionNames, displayRegionNamesIfNoImage, fontSize,
                     heightWithoutHeader, (heightWithoutHeader - 4 * margin) / Ark.ColorRegionCount, g, coloredCreature.Width + margin,
                     circleDiameter, borderAroundColors, true, maxColorNameLength, font, fontBrush, Pens.Black);
+                if (infoGraphicHeight != height)
+                {
+                    var scaleFactor = (float)infoGraphicHeight / height;
+                    var scaledHeight = (int)(scaleFactor * height);
+                    var scaledWidth = (int)(scaleFactor * width);
+
+                    var bmpScaled = new Bitmap(scaledWidth, scaledHeight);
+                    using (var gs = Graphics.FromImage(bmpScaled))
+                    {
+                        gs.CompositingMode = CompositingMode.SourceCopy;
+                        gs.CompositingQuality = CompositingQuality.HighQuality;
+                        gs.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        gs.SmoothingMode = SmoothingMode.HighQuality;
+                        gs.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        gs.DrawImage(bmp, 0, 0, scaledWidth, scaledHeight);
+                    }
+                    bmp.Dispose();
+                    bmp = bmpScaled;
+                }
             }
 
             return bmp;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Threading;
 using Timer = System.Timers.Timer;
 
@@ -19,6 +20,36 @@ namespace ARKBreedingStats.utils
         /// <param name="action">Action to perform after interval elapsed without another debounce call</param>
         /// <param name="dispatcher">Dispatcher to use, usually the one of the UI thread</param>
         public void Debounce(int interval, Action action, Dispatcher dispatcher)
+        {
+            _timer?.Stop();
+            if (interval <= 0)
+            {
+                _timer = null;
+                dispatcher.BeginInvoke(action, null);
+                return;
+            }
+
+            _timer = new Timer(interval) { AutoReset = false };
+            _timer.Elapsed += (s, o) =>
+            {
+                if (_timer == null)
+                    return;
+
+                _timer.Stop();
+                _timer = null;
+
+                dispatcher.BeginInvoke(action, null);
+            };
+            _timer.Start();
+        }
+
+        /// <summary>
+        /// Call to debounce the async action with the given interval.
+        /// </summary>
+        /// <param name="interval">Interval in ms</param>
+        /// <param name="action">Action to perform after interval elapsed without another debounce call</param>
+        /// <param name="dispatcher">Dispatcher to use, usually the one of the UI thread</param>
+        public void Debounce(int interval, Func<Task> action, Dispatcher dispatcher)
         {
             _timer?.Stop();
             if (interval <= 0)

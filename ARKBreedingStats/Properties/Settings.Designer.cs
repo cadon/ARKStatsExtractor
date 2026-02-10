@@ -2496,5 +2496,41 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicTextOutlineWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InfoGraphicCreatureOutlineWidth {
+            get {
+                return ((int)(this["InfoGraphicCreatureOutlineWidth"]));
+            }
+            set {
+                this["InfoGraphicCreatureOutlineWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color InfoGraphicCreatureOutlineColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicCreatureOutlineColor"]));
+            }
+            set {
+                this["InfoGraphicCreatureOutlineColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.8")]
+        public float InfoGraphicCreatureOutlineBlurring {
+            get {
+                return ((float)(this["InfoGraphicCreatureOutlineBlurring"]));
+            }
+            set {
+                this["InfoGraphicCreatureOutlineBlurring"] = value;
+            }
+        }
     }
 }

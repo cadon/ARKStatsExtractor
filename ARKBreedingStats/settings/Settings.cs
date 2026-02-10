@@ -381,12 +381,16 @@ namespace ARKBreedingStats.settings
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicForeColor));
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBorderColor));
             BtInfoGraphicTextOutlineColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicTextOutlineColor));
+            BtInfoGraphicCreatureOutlineColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicCreatureOutlineColor));
             NudInfoGraphicBorderWidth.ValueSave = Properties.Settings.Default.InfoGraphicBorderWidth;
             NudInfoGraphicTextOutlineWidth.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicTextOutlineWidth;
             NudInfoGraphicBgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBackColor.A;
             NudInfoGraphicFgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicForeColor.A;
             NudInfoGraphicBorderAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBorderColor.A;
             NudInfoGraphicTextOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicTextOutlineColor.A;
+            NudInfoGraphicCreatureOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineColor.A;
+            NudInfoGraphicCreatureOutlineWidth.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineWidth;
+            NudInfoGraphicCreatureOutlineBlurring.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring;
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
@@ -663,8 +667,12 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicForeColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
             Properties.Settings.Default.InfoGraphicBorderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
             Properties.Settings.Default.InfoGraphicTextOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
+            Properties.Settings.Default.InfoGraphicCreatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
             Properties.Settings.Default.InfoGraphicBorderWidth = (int)NudInfoGraphicBorderWidth.Value;
             Properties.Settings.Default.InfoGraphicTextOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
+            NudInfoGraphicCreatureOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineColor.A;
+            Properties.Settings.Default.InfoGraphicCreatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
+            Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
             Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
@@ -1673,10 +1681,11 @@ namespace ARKBreedingStats.settings
 
         private void ShowInfoGraphicPreviewDebounced(int debounceMs = 300) =>
             _infoGraphicPreviewDebouncer.Debounce(debounceMs, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
-        private void ShowInfoGraphicPreview()
+        private async Task ShowInfoGraphicPreview()
         {
             if (_infoGraphicPreviewCreature == null)
                 CreateInfoGraphicCreature();
+            if (_infoGraphicPreviewCreature == null) return;
 
             var height = (int)nudInfoGraphicHeight.Value;
             var fontName = CbbInfoGraphicFontName.Text;
@@ -1685,6 +1694,9 @@ namespace ARKBreedingStats.settings
             var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
             var borderWidth = (int)NudInfoGraphicBorderWidth.Value;
             var textOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
+            var creatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
+            var creatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
+            var creatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
             var textOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
             var displayCreatureName = CbInfoGraphicCreatureName.Checked;
             var displayDomValues = RbInfoGraphicDomValues.Checked;
@@ -1697,17 +1709,19 @@ namespace ARKBreedingStats.settings
             var colorRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             var backgroundImagePath = InfoGraphicBackgroundImagePath;
 
-            var speciesImage = Task.Run(() => _infoGraphicPreviewCreature?
-                .InfoGraphicAsync(_cc,
-                    height, fontName, foreColor, backColor, borderColor, borderWidth, textOutlineColor, textOutlineWidth, displayCreatureName, displayDomValues,
-                    sumWildMut, displayMutationCounter, displayGenerations,
-                    displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage, backgroundImagePath)).Result;
+            var bmp = await _infoGraphicPreviewCreature
+                    .InfoGraphicAsync(_cc,
+                        height, fontName, foreColor, backColor, borderColor, borderWidth, textOutlineColor,
+                        textOutlineWidth, displayCreatureName, displayDomValues,
+                        sumWildMut, displayMutationCounter, displayGenerations,
+                        displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage,
+                        creatureOutlineColor, backgroundImagePath, creatureOutlineWidth, creatureOutlineBlurring);
 
-            if (speciesImage == null) return;
-
-            PbInfoGraphicPreview.Size = speciesImage.Size;
-            PbInfoGraphicPreview.SetImageAndDisposeOld(speciesImage);
+            if (bmp == null) return;
+            PbInfoGraphicPreview.Size = bmp.Size;
+            PbInfoGraphicPreview.SetImageAndDisposeOld(bmp);
         }
+
         private void BtNewRandomInfoGraphicCreature_Click(object sender, EventArgs e)
         {
             _infoGraphicPreviewCreature = null;
