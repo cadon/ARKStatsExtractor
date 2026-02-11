@@ -266,7 +266,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
                 g.FillRectangle(Brushes.LightGreen, size / 3 + 1, 1, size / 3 - 2, size - 2);
                 g.FillRectangle(Brushes.LightGreen, 1, size / 3 + 1, size - 2, size / 3 - 2);
             }
-            btNew.Image = bmp;
+            btNew.SetImageAndDisposeOld(bmp);
 
             bmp = new Bitmap(size, size);
             using (var g = Graphics.FromImage(bmp))
@@ -275,7 +275,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
                 g.DrawRectangle(p, 0, size / 3, size - 1, size / 3 - 1);
                 g.FillRectangle(Brushes.LightPink, 1, size / 3 + 1, size - 2, size / 3 - 2);
             }
-            btRemove.Image = bmp;
+            btRemove.SetImageAndDisposeOld(bmp);
         }
 
         public void SetSpecies(Species s)

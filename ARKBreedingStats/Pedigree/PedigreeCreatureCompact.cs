@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.uiControls
@@ -263,9 +264,7 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            var oldImage = Image;
-            Image = bmp;
-            oldImage?.Dispose();
+            this.SetImageAndDisposeOld(bmp);
 
             var statNames = creature.Species?.statNames;
 

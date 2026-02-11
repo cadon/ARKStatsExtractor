@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 
@@ -330,8 +331,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            Image?.Dispose();
-            Image = bmp;
+            this.SetImageAndDisposeOld(bmp);
         }
     }
 }

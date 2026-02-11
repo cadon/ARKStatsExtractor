@@ -306,6 +306,7 @@ namespace ARKBreedingStats.library
                                 {
                                     outline = ImageTools.BlurImageAlpha(
                                         ImageTools.OutlineOpacities(crBmp, creatureOutlineColor, creatureOutlineWidth, creatureOutlineBlurring), blurRadius);
+                                    _lastOutlineBitmap?.Dispose();
                                     _lastOutlineBitmap = outline;
                                     _lastOutlineBmpId = outlineId;
                                 }

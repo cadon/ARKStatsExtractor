@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.ocr.PatternMatching
 {
@@ -82,7 +83,7 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 }
             }
 
-            pictureBox1.Image = b;
+            pictureBox1.SetImageAndDisposeOld(b);
         }
 
         public string Prompt()

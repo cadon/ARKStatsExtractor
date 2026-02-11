@@ -104,6 +104,7 @@ namespace ARKBreedingStats.utils
             {
                 expandedBitmap.UnlockBits(sourceData);
                 blurredBitmap.UnlockBits(destData);
+                expandedBitmap.Dispose();
             }
 
             return blurredBitmap;

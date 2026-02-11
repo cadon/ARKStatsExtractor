@@ -166,12 +166,10 @@ namespace ARKBreedingStats
                 ColorsChanged?.Invoke(this);
             }
             if (PbColorRegion == null) return;
-            CreatureColored.GetColoredCreatureWithCallback(SetCreatureImage, this, RegionColors, _selectedSpecies,
+            CreatureColored.GetColoredCreatureWithCallback(PbColorRegion.SetImageAndDisposeOld, this, RegionColors, _selectedSpecies,
                 regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex,
                 game: CreatureCollection.CurrentCreatureCollection?.Game);
         }
-
-        private void SetCreatureImage(Bitmap bmp) => PbColorRegion?.SetImageAndDisposeOld(bmp);
 
         /// <summary>
         /// Update the creatures displayed on the inheritance control with possible stat inheritances and mutations.
