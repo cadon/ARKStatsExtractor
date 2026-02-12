@@ -111,7 +111,7 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.Save();
             }
-
+            
             //#if DEBUG
             //            Properties.Settings.Default.Reset();
             //#endif
