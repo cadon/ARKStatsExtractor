@@ -180,6 +180,7 @@ namespace ARKBreedingStats.AsbServer
                         continue;
                     case "event: replaced":
                         if (cancellationToken.IsCancellationRequested) return null;
+                        StopListening();
                         return new ProgressReportAsbServer
                         {
                             Message = "ASB Server listening stopped. Connection used by a different user",
