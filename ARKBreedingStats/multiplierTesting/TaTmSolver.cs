@@ -10,6 +10,7 @@ namespace ARKBreedingStats.multiplierTesting
         // The general stat equation is
         // V = (B * ( 1 + Lw * Iw * IwM) * TBHM * (1 + IB * IBs * IBM) + Ta * TaM) * (1 + TE * Tm * TmM) * (1 + Ld * Id * IdM)
         // Assuming all values are known except the products Ta * TaM and Tm * TmM
+        // If the singleplayer option is used, the additional multipliers are expected to be factored in already in the Ta or Tm value respectively. When the results are returned, the factor has to be divided accordingly.
         // this is the case for server multiplier determination or species multiplier determination
         // Using variables
         // x = B * ( 1 + Lw * Iw * IwM) * (1 + IB * IBs * IBM),
