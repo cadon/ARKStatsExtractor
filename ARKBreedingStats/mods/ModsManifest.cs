@@ -131,7 +131,8 @@ namespace ARKBreedingStats.mods
             ModsById = new Dictionary<string, ModInfo>();
 
             // generic entry for "other mod", this is needed to correctly determine the available color set.
-            ModsByFiles.Add(Mod.OtherMod.FileName, new ModInfo { Mod = Mod.OtherMod });
+            if (!ModsByFiles.ContainsKey(Mod.OtherMod.FileName))
+                ModsByFiles.Add(Mod.OtherMod.FileName, new ModInfo { Mod = Mod.OtherMod });
 
             string valuesPath = FileService.GetJsonPath(FileService.ValuesFolder);
 
