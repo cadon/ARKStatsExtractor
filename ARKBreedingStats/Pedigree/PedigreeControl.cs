@@ -383,7 +383,7 @@ namespace ARKBreedingStats.Pedigree
                 game: CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
-        private void DisplayCreatureImage(Bitmap bmp)
+        private void DisplayCreatureImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist _)
         {
             PbRegionColors.SetImageAndDisposeOld(bmp);
             PbRegionColors.Visible = true;

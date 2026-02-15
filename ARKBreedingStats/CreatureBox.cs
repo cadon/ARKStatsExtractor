@@ -155,7 +155,7 @@ namespace ARKBreedingStats
             }
         }
 
-        private void UpdateCreatureImage(Bitmap bmp)
+        private void UpdateCreatureImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist _)
         {
             pictureBox1.SetImageAndDisposeOld(bmp);
             _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)

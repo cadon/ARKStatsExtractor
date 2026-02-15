@@ -285,11 +285,11 @@ namespace ARKBreedingStats.library
                     contentHeight - currentYPosition + borderWidth - extraMarginBottom);
                 if (imageSize > 5)
                 {
-                    using (var crBmp = await
+                    using (var crBmp = (await
                                CreatureColored.GetColoredCreatureAsync(creature.colors, creature.Species,
                                        creature.Species.EnabledColorRegions,
                                        imageSize, onlyImage: true, creatureSex: creature.sex, game: cc.Game)
-                                   .ConfigureAwait(false))
+                                   .ConfigureAwait(false)).Bmp)
                     {
                         if (crBmp != null)
                         {

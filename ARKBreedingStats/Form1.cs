@@ -111,7 +111,7 @@ namespace ARKBreedingStats
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.Save();
             }
-            
+
             //#if DEBUG
             //            Properties.Settings.Default.Reset();
             //#endif
@@ -325,8 +325,8 @@ namespace ARKBreedingStats
                 _statIOs[s].Input = 0;
             }
 
-            creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
-            creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
+            creatureInfoInputTester.ColoredCreatureDisplay = ColoredCreatureImageDisplayTester;
+            creatureInfoInputExtractor.ColoredCreatureDisplay = ColoredCreatureImageDisplayExtractor;
             creatureInfoInputExtractor.ParentInheritance = parentInheritanceExtractor;
             parentInheritanceExtractor.Visible = false;
 
@@ -4175,21 +4175,22 @@ namespace ARKBreedingStats
 
         private void UpdateDisplayedPosesIfNeeded()
         {
-            if (!libraryInfoControl1.SpeciesChangedPoses.Any()) return;
+            if (!ColoredCreatureImageWithPose.SpeciesChangedPoses.Any()) return;
 
             if (creatureBoxListView.CurrentSpecies != null &&
-                libraryInfoControl1.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
+                ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
             {
                 creatureBoxListView.UpdateCreatureImage(false);
             }
 
-            if (libraryInfoControl1.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
+            if (ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
             {
                 creatureInfoInputExtractor.UpdateRegionColorImage(false);
                 creatureInfoInputTester.UpdateRegionColorImage(false);
+                libraryInfoControl1.UpdateCreatureImage();
             }
 
-            libraryInfoControl1.SpeciesChangedPoses.Clear();
+            ColoredCreatureImageWithPose.SpeciesChangedPoses.Clear();
         }
 
         private void copyConsoleColorToolStripMenuItem_Click(object sender, EventArgs e)

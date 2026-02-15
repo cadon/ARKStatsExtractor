@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
+using System;
 using System.Collections.Concurrent;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,9 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
-using ARKBreedingStats.utils;
+using static ARKBreedingStats.SpeciesImages.CreatureImageFile;
 using Color = System.Drawing.Color;
 using Pen = System.Drawing.Pen;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
@@ -34,8 +35,8 @@ namespace ARKBreedingStats.SpeciesImages
         /// Stores current creature image callbacks to avoid race conditions where a previously requested image overwrites a later requested image.
         /// Only the latest call will have its callback called.
         /// </summary>
-        private static readonly ConcurrentDictionary<Action<Bitmap>, int> ColoredCreatureCallbacks =
-            new ConcurrentDictionary<Action<Bitmap>, int>();
+        private static readonly ConcurrentDictionary<Action<Bitmap, CreatureImageFile.NeighbourPoseExist>, int> ColoredCreatureCallbacks =
+            new ConcurrentDictionary<Action<Bitmap, CreatureImageFile.NeighbourPoseExist>, int>();
 
         /// <summary>
         /// Retrieves a bitmap image that represents the given colors. If a species color file is available, that is used, else a pie-chart like representation.
@@ -53,7 +54,7 @@ namespace ARKBreedingStats.SpeciesImages
         /// <param name="creatureSex">If given, it's tried for find a sex-specific image.</param>
         /// <param name="game">Name of the game if there is a specific image for that, e.g. ASA or ASE</param>
         /// <returns>Image representing the colors.</returns>
-        public static void GetColoredCreatureWithCallback(Action<Bitmap> callBack, Control uiElement, byte[] colorIds, Species species,
+        public static void GetColoredCreatureWithCallback(Action<Bitmap, CreatureImageFile.NeighbourPoseExist> callBack, Control uiElement, byte[] colorIds, Species species,
             bool[] enabledColorRegions, int size, int pieSize = 64, bool onlyColors = false, bool onlyImage = false,
             Sex creatureSex = Sex.Unknown, string game = null)
         {
@@ -61,7 +62,7 @@ namespace ARKBreedingStats.SpeciesImages
             {
                 var currentTaskId = Task.CurrentId ?? 0;
                 ColoredCreatureCallbacks[callBack] = currentTaskId;
-                var bmp = await GetColoredCreatureAsync(colorIds, species,
+                var (bmp, neighbourPoseExist) = await GetColoredCreatureAsync(colorIds, species,
                     enabledColorRegions, size, pieSize, creatureSex: creatureSex, game: game);
                 uiElement.Invoke(
                     new Action(() =>
@@ -69,7 +70,7 @@ namespace ARKBreedingStats.SpeciesImages
                         if (ColoredCreatureCallbacks.TryGetValue(callBack, out var taskId)
                             && taskId == currentTaskId)
                         {
-                            callBack(bmp);
+                            callBack(bmp, neighbourPoseExist);
                             ColoredCreatureCallbacks.TryRemove(callBack, out _);
                         }
                         else bmp.Dispose(); // callback is outdated, dispose bitmap
@@ -90,13 +91,13 @@ namespace ARKBreedingStats.SpeciesImages
         /// <param name="creatureSex">If given, it's tried for find a sex-specific image.</param>
         /// <param name="game">Name of the game if there is a specific image for that, e.g. ASA or ASE</param>
         /// <returns>Image representing the colors.</returns>
-        public static async Task<Bitmap> GetColoredCreatureAsync(byte[] colorIds, Species species, bool[] enabledColorRegions,
+        public static async Task<(Bitmap Bmp, NeighbourPoseExist NeighbourPose)> GetColoredCreatureAsync(byte[] colorIds, Species species, bool[] enabledColorRegions,
             int size, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown, string game = null)
         {
             if (colorIds == null) colorIds = new byte[Ark.ColorRegionCount];
 
             if (string.IsNullOrEmpty(species?.name))
-                return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
+                return (DrawPieChart(colorIds, enabledColorRegions, size, pieSize), CreatureImageFile.NeighbourPoseExist.None);
 
             var patternId = -1;
             if (species.patterns != null)
@@ -108,10 +109,10 @@ namespace ARKBreedingStats.SpeciesImages
 
             var pose = Poses.GetPose(species);
 
-            var speciesBaseImageFilePath = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId, useComposition: true, pose: pose).ConfigureAwait(false);
+            var (speciesBaseImageFilePath, neighbourPoseExist) = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId, useComposition: true, pose: pose).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(speciesBaseImageFilePath))
-                return onlyImage ? null : DrawPieChart(colorIds, enabledColorRegions, size, pieSize); // no available images
+                return (onlyImage ? null : DrawPieChart(colorIds, enabledColorRegions, size, pieSize), CreatureImageFile.NeighbourPoseExist.None); // no available images
 
             var speciesColorMaskFilePath = CreatureImageFile.MaskFilePath(speciesBaseImageFilePath);
 
@@ -123,7 +124,7 @@ namespace ARKBreedingStats.SpeciesImages
                 cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBaseImageFilePath, speciesColorMaskFilePath, cacheFilePath, compositionParts);
             }
 
-            if (onlyImage && !cacheFileExists) return null; // creating the species file failed
+            if (onlyImage && !cacheFileExists) return (null, CreatureImageFile.NeighbourPoseExist.None); // creating the species file failed
 
             if (cacheFileExists && size == TemplateSize)
             {
@@ -131,7 +132,7 @@ namespace ARKBreedingStats.SpeciesImages
                 {
                     // use temp bitmap to avoid persistent file locking
                     using (var bmpTemp = new Bitmap(cacheFilePath))
-                        return new Bitmap(bmpTemp);
+                        return (new Bitmap(bmpTemp), neighbourPoseExist);
                 }
                 catch
                 {
@@ -143,7 +144,7 @@ namespace ARKBreedingStats.SpeciesImages
                         {
                             // use temp bitmap to avoid persistent file locking
                             using (var bmpTemp = new Bitmap(cacheFilePath))
-                                return new Bitmap(bmpTemp);
+                                return (new Bitmap(bmpTemp), neighbourPoseExist);
                         }
                         catch
                         {
@@ -151,13 +152,13 @@ namespace ARKBreedingStats.SpeciesImages
                         }
                     }
                 }
-                return null;
+                return (null, CreatureImageFile.NeighbourPoseExist.None);
             }
 
             if (!cacheFileExists)
             {
                 // cache file doesn't exist and couldn't be created. Return pie chart
-                return DrawPieChart(colorIds, enabledColorRegions, size, pieSize);
+                return (DrawPieChart(colorIds, enabledColorRegions, size, pieSize), neighbourPoseExist);
             }
 
             // cache file exists, resize to requested size
@@ -189,13 +190,13 @@ namespace ARKBreedingStats.SpeciesImages
                         {
                             // file is still invalid after recreation, ignore file
                             bm.Dispose();
-                            return null;
+                            return (null, CreatureImageFile.NeighbourPoseExist.None);
                         }
                     }
                 }
             }
 
-            return bm;
+            return (bm, neighbourPoseExist);
         }
 
         internal static Bitmap DrawPieChart(byte[] colorIds, bool[] enabledColorRegions, int size, int pieSize)

@@ -94,7 +94,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// The pictureBox that displays the colored species dependent on the selected region colors.
         /// </summary>
-        public PictureBox PbColorRegion;
+        public ColoredCreatureImageWithPose ColoredCreatureDisplay;
 
         /// <summary>
         /// If false, the visualization of the colors and the image are not updated.
@@ -165,10 +165,8 @@ namespace ARKBreedingStats
                 ParentInheritance?.UpdateColors(RegionColors);
                 ColorsChanged?.Invoke(this);
             }
-            if (PbColorRegion == null) return;
-            CreatureColored.GetColoredCreatureWithCallback(PbColorRegion.SetImageAndDisposeOld, this, RegionColors, _selectedSpecies,
-                regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex,
-                game: CreatureCollection.CurrentCreatureCollection?.Game);
+            if (ColoredCreatureDisplay == null) return;
+            ColoredCreatureDisplay.SetCreatureImage(_selectedSpecies, RegionColors, CreatureSex, CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
         /// <summary>

@@ -205,10 +205,12 @@ namespace ARKBreedingStats.SpeciesImages
 
         /// <summary>
         /// Get file from enabled image packs. Also returns name of used image pack in second element.
+        /// If onlyCheckIfFileListed is true, the first parameter is only the fileName, not the filePath.
         /// </summary>
         /// <param name="possibleFileNames">List of possible file names.</param>
         /// <param name="imagePackNamePreferred">If specified, prefer this pack.</param>
-        public static async Task<(string, string)> GetFile(IList<string> possibleFileNames, string imagePackNamePreferred = null)
+        /// <param name="onlyCheckIfFileListed">If true it is only checked if the file is listed in the manifest file list and no file is downloaded.</param>
+        public static async Task<(string FilePath, string ImagePackName)> GetFile(IList<string> possibleFileNames, string imagePackNamePreferred = null, bool onlyCheckIfFileListed = false)
         {
             if (possibleFileNames?.Any() != true) return (null, null);
 
@@ -220,6 +222,13 @@ namespace ARKBreedingStats.SpeciesImages
             {
                 foreach (var fileName in possibleFileNames)
                 {
+                    if (onlyCheckIfFileListed)
+                    {
+                        if (await imageCollection.IsFileInCollection(fileName))
+                            return (fileName, imageCollection.Name);
+                        continue;
+                    }
+
                     var collectionFileName = await imageCollection.GetFileAsync(fileName).ConfigureAwait(false);
                     if (string.IsNullOrEmpty(collectionFileName))
                     {
@@ -229,10 +238,7 @@ namespace ARKBreedingStats.SpeciesImages
 
                     var filePath = Path.Combine(_imageBasePath, imageCollection.FolderName, collectionFileName);
                     if (File.Exists(filePath))
-                    {
-                        var filePathAndPack = (filePath, imageCollection.Name);
-                        return filePathAndPack;
-                    }
+                        return (filePath, imageCollection.Name);
                 }
             }
 

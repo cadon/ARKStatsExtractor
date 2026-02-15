@@ -55,11 +55,13 @@ namespace ARKBreedingStats.SpeciesImages
 
         internal static void SetPose(Species species, int pose)
         {
+            if (species == null) return;
             if (SelectedPoses == null) SelectedPoses = new Dictionary<string, int>();
             SelectedPoses[species.blueprintPath] = pose;
         }
 
         internal static int GetPose(Species species) =>
+            species == null ? 0 :
             SelectedPoses?.TryGetValue(species.blueprintPath, out var p) == true ? p : 0;
     }
 }

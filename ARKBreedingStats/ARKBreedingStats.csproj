@@ -168,6 +168,9 @@
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="uiControls\ColoredCreatureImageWithPose.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="uiControls\ColorPickerWindow.cs">
       <SubType>Form</SubType>
     </Compile>

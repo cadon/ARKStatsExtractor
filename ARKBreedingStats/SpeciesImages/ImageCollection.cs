@@ -124,5 +124,17 @@ namespace ARKBreedingStats.SpeciesImages
             if (string.IsNullOrEmpty(_manifestSource.Url)) return;
             await WebService.DownloadAsync(_manifestSource.Url + ImagesManifest.FileName, manifestFilePath);
         }
+
+        /// <summary>
+        /// Returns true if file is listed in file hash list.
+        /// </summary>
+        public async Task<bool> IsFileInCollection(string fileName)
+        {
+            if (_manifestSource == null)
+                await LoadManifestAsync();
+            // return true if file is listed in fileHashes or if it exists locally
+            return _manifestSource?.FileHashes?.ContainsKey(fileName) == true
+                || File.Exists(FileService.GetPath(FileService.ImageFolderName, FolderName, fileName));
+        }
     }
 }

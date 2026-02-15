@@ -614,7 +614,7 @@ namespace ARKBreedingStats
                 labelErrorHelp.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
                 BtCopyIssueDumpToClipboard.Visible = false;
-                PbCreatureColorsExtractor.Visible = true;
+                ColoredCreatureImageDisplayExtractor.Visible = true;
                 return;
             }
 
@@ -686,7 +686,7 @@ namespace ARKBreedingStats
             groupBoxRadarChartExtractor.Visible = false;
             creatureAnalysis1.Visible = false;
             lbInfoYellowStats.Visible = false;
-            PbCreatureColorsExtractor.Visible = false;
+            ColoredCreatureImageDisplayExtractor.Visible = false;
             BtCopyIssueDumpToClipboard.Visible = true;
             string redInfoText = null;
             if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
