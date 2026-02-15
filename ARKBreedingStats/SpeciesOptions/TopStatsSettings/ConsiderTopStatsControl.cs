@@ -66,7 +66,7 @@ namespace ARKBreedingStats.SpeciesOptions.TopStatsSettings
             {
                 _controlsOverrideParent[si].Checked = !isNotRoot || SelectedOptions.Options[si].OverrideParent;
                 _controlsOverrideParent[si].Visible = isNotRoot;
-                _controlsConsiderAsTopStats[si].Checked = SelectedOptions.Options[si].ConsiderStat;
+                _controlsConsiderAsTopStats[si].Checked = SelectedOptions.Options[si]?.ConsiderStat ?? true;
             }
         }
     }

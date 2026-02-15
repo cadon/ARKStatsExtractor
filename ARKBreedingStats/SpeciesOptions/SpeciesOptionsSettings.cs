@@ -69,6 +69,13 @@ namespace ARKBreedingStats.SpeciesOptions
                 SpeciesOptionsDict[string.Empty] = GetDefaultSpeciesOptions(string.Empty);
             var rootSettings = SpeciesOptionsDict[string.Empty];
 
+            // ensure root setting has all values
+            for (var i = 0; i < rootSettings.Options.Length; i++)
+            {
+                if (rootSettings.Options[i] == null)
+                    rootSettings.Options[i] = GetDefaultOption();
+            }
+
             foreach (var o in SpeciesOptionsDict.Values)
             {
                 // set parent except for root (root has name string.Empty)
@@ -83,9 +90,7 @@ namespace ARKBreedingStats.SpeciesOptions
                 if (o.Options != null)
                 {
                     foreach (var so in o.Options)
-                    {
-                        so.Initialize();
-                    }
+                        so?.Initialize();
                 }
             }
         }
@@ -122,6 +127,20 @@ namespace ARKBreedingStats.SpeciesOptions
             };
         }
 
+        public T GetDefaultOption()
+        {
+            if (typeof(T) == typeof(StatLevelColors))
+                return StatLevelColors.GetDefault() as T;
+
+            if (typeof(T) == typeof(ConsiderTopStats))
+                return ConsiderTopStats.GetDefault() as T;
+
+            if (typeof(T) == typeof(WantedRegionColors))
+                return WantedRegionColors.GetDefault() as T;
+
+            throw new ArgumentOutOfRangeException($"Unknown type {typeof(T)}, no default value defined");
+        }
+
         /// <summary>
         /// Save species options to the settings file.
         /// </summary>
@@ -139,9 +158,7 @@ namespace ARKBreedingStats.SpeciesOptions
                 else
                     o.ParentName = null; // don't save direct loop
                 foreach (var so in o.Options)
-                {
-                    so.PrepareForSaving(string.IsNullOrEmpty(o.Name));
-                }
+                    so?.PrepareForSaving(string.IsNullOrEmpty(o.Name));
             }
 
             FileService.SaveJsonFile(filePath, SpeciesOptionsDict, out var errorMessage);
