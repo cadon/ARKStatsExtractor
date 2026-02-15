@@ -23,6 +23,11 @@ namespace ARKBreedingStats.uiControls
         private byte[] _colorIds;
         private Sex _sex;
         private string _game;
+        private ToolTip _tt;
+        /// <summary>
+        /// Copy infographic of currently displayed creature to clipboard.
+        /// </summary>
+        public event Action CopyInfoGraphicToClipboard;
 
         /// <summary>
         /// Contains species where the pose just changed and images to be updated.
@@ -44,10 +49,10 @@ namespace ARKBreedingStats.uiControls
             Controls.Add(_pb);
             _btPreviousPose.Click += (s, e) => ChangePose(-1);
             _btNextPose.Click += (s, e) => ChangePose(1);
-            tt = tt ?? new ToolTip();
-            _pb.Click += _speciesPictureBoxClick;
-            tt.SetToolTip(_pb, "Click to copy image to the clipboard\nLeft click: plain image\nRight click: image with color info");
-            tt.SetToolTip(_lbPose, "Some species may have more than one pose, this can be set here.");
+            _tt = tt ?? new ToolTip();
+            _pb.Click += SpeciesPictureBoxClick;
+            _tt.SetToolTip(_pb, "Click to copy image to the clipboard\nLeft click: plain image\nRight click: image with color info");
+            _tt.SetToolTip(_lbPose, "Some species may have more than one pose, this can be set here.");
         }
 
         public void SetImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist neighbourPoseExist)
@@ -70,7 +75,24 @@ namespace ARKBreedingStats.uiControls
                 onlyImage: true, creatureSex: _sex, game: _game);
         }
 
-        private void _speciesPictureBoxClick(object sender, EventArgs e)
+        public void SetClickEventInfographic(Action a)
+        {
+            if (a == null) return;
+            _tt.SetToolTip(_pb, @"Click to copy infographic of this creature to the clipboard.
+With hold Ctrl key and left click: plain image
+With hold Ctrl key and right click: image with color info");
+            _pb.Click -= SpeciesPictureBoxClick;
+            CopyInfoGraphicToClipboard += a;
+            _pb.Click += (s, e) =>
+            {
+                if (Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))
+                    SpeciesPictureBoxClick(s, e);
+                else
+                    CopyInfoGraphicToClipboard?.Invoke();
+            };
+        }
+
+        private void SpeciesPictureBoxClick(object sender, EventArgs e)
         {
             if (_pb.Image == null) return;
             if (e is System.Windows.Forms.MouseEventArgs me && me.Button == MouseButtons.Right)

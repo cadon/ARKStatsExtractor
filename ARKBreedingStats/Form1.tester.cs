@@ -336,7 +336,7 @@ namespace ARKBreedingStats
                 NumericUpDownTestingTE.ValueSaveDouble = creature.tamingEff * 100;
         }
 
-        private void pictureBoxColorRegionsTester_Click(object sender, EventArgs e)
+        private void InfographicFromTesterToClipboard()
         {
             var creature = new Creature
             {
@@ -357,7 +357,7 @@ namespace ARKBreedingStats
             creature.ExportInfoGraphicToClipboard(CreatureCollection.CurrentCreatureCollection);
         }
 
-        private void PbCreatureColorsExtractor_Click(object sender, EventArgs e)
+        private void InfographicFromExtractorToClipboard()
         {
             var creature = new Creature
             {

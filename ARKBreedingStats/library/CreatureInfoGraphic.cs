@@ -73,9 +73,9 @@ namespace ARKBreedingStats.library
         /// </summary>
         /// <param name="cc">CreatureCollection for server settings.</param>
         public static async Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc,
-            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor, int borderWidth, Color outlineColor, float outlineWidth,
+            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor, int borderWidth, Color colorOutlineText, float widthOutlineText,
             bool displayCreatureName, bool displayWithDomLevels, bool displaySumWildMutLevels, bool displayMutations, bool displayGenerations, bool displayStatValues, bool displayMaxWildLevel,
-            bool displayExtraRegionNames, bool displayRegionNamesIfNoImage, Color creatureOutlineColor, string backgroundImagePath = null, int creatureOutlineWidth = 0, float creatureOutlineBlurring = 1)
+            bool displayExtraRegionNames, bool displayRegionNamesIfNoImage, Color colorOutlineCreature, string backgroundImagePath = null, int widthOutlineCreature = 0, float creatureOutlineBlurring = 1)
         {
             if (creature?.Species == null) return null;
             var secondaryCulture = Loc.UseSecondaryCulture;
@@ -103,7 +103,7 @@ namespace ARKBreedingStats.library
             using (var fontSmall = new Font(fontName, fontSizeSmall))
             using (var fontHeader = new Font(fontName, fontSizeHeader, FontStyle.Bold))
             using (var fontBrush = new SolidBrush(foreColor))
-            using (var penOutline = new Pen(outlineColor, outlineWidth * 2 + 1))
+            using (var penOutline = new Pen(colorOutlineText, widthOutlineText * 2 + 1))
             using (var borderAroundColors = new Pen(Utils.ForeColor(backColor), 1))
             using (var stringFormatRight = new StringFormat { Alignment = StringAlignment.Far })
             using (var stringFormatRightUp = new StringFormat
@@ -295,23 +295,23 @@ namespace ARKBreedingStats.library
                         {
                             const int blurRadius = 1; // seems to result in good enough smoothing of the outline brush
 
-                            if (creatureOutlineWidth > 0 && creatureOutlineColor.A != 0)
+                            if (widthOutlineCreature > 0 && colorOutlineCreature.A != 0)
                             {
-                                var outlineId = LastOutlineBmpIdString(creature.speciesBlueprint, creatureOutlineColor,
-                                    creatureOutlineWidth, creatureOutlineBlurring);
+                                var outlineId = LastOutlineBmpIdString(creature.speciesBlueprint, colorOutlineCreature,
+                                    widthOutlineCreature, creatureOutlineBlurring);
                                 Bitmap outline;
                                 if (outlineId == _lastOutlineBmpId)
                                     outline = _lastOutlineBitmap;
                                 else
                                 {
                                     outline = ImageTools.BlurImageAlpha(
-                                        ImageTools.OutlineOpacities(crBmp, creatureOutlineColor, creatureOutlineWidth, creatureOutlineBlurring), blurRadius);
+                                        ImageTools.OutlineOpacities(crBmp, colorOutlineCreature, widthOutlineCreature, creatureOutlineBlurring), blurRadius);
                                     _lastOutlineBitmap?.Dispose();
                                     _lastOutlineBitmap = outline;
                                     _lastOutlineBmpId = outlineId;
                                 }
 
-                                var outlinePadding = creatureOutlineWidth + blurRadius;
+                                var outlinePadding = widthOutlineCreature + blurRadius;
                                 g.DrawImage(outline, width - imageSize - borderAndPadding - outlinePadding,
                                     height - imageSize - borderAndPadding - extraMarginBottom - outlinePadding, imageSize + 2 * outlinePadding, imageSize + 2 * outlinePadding);
                             }
@@ -506,6 +506,8 @@ namespace ARKBreedingStats.library
                 GetUserFont(),
                 Properties.Settings.Default.InfoGraphicForeColor,
                 Properties.Settings.Default.InfoGraphicBackColor,
+                Properties.Settings.Default.InfoGraphicTextOutlineColor,
+                Properties.Settings.Default.InfoGraphicTextOutlineWidth,
                 Properties.Settings.Default.InfoGraphicExtraRegionNames,
                 Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage);
         }
@@ -514,7 +516,7 @@ namespace ARKBreedingStats.library
         /// Returns the coloredCreature Image with additional info about the colors.
         /// </summary>
         private static Image CreateImageWithColors(Image coloredCreature, byte[] creatureColors, Species species,
-            int infoGraphicHeight, string fontName, Color foreColor, Color backColor,
+            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color outlineColor, float outlineWidth,
             bool displayExtraRegionNames, bool displayRegionNamesIfNoImage)
         {
             const int margin = 10;
@@ -535,16 +537,17 @@ namespace ARKBreedingStats.library
             using (var font = new Font(fontName, fontSize))
             using (var fontBrush = new SolidBrush(foreColor))
             using (var borderAroundColors = new Pen(Utils.ForeColor(backColor), 1))
+            using (var penOutline = new Pen(outlineColor, outlineWidth * 2 + 1))
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-                g.DrawString(species.DescriptiveNameAndMod, font, fontBrush, margin, margin);
+                DrawTextWithOutline(g, species.DescriptiveNameAndMod, font, fontBrush, penOutline, margin, margin);
 
                 g.DrawImage(coloredCreature, margin, margin + fontSize);
                 DrawColors(species, creatureColors, displayExtraRegionNames, displayRegionNamesIfNoImage, fontSize,
                     heightWithoutHeader, (heightWithoutHeader - 4 * margin) / Ark.ColorRegionCount, g, coloredCreature.Width + margin,
-                    circleDiameter, borderAroundColors, true, maxColorNameLength, font, fontBrush, Pens.Black);
+                    circleDiameter, borderAroundColors, true, maxColorNameLength, font, fontBrush, penOutline);
                 if (infoGraphicHeight != height)
                 {
                     var scaleFactor = (float)infoGraphicHeight / height;

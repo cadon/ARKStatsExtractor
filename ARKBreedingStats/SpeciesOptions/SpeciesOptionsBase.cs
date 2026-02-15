@@ -46,8 +46,7 @@ namespace ARKBreedingStats.SpeciesOptions
         private void BackwardCompatibility(StreamingContext _)
         {
             if (_speciesOptionElementsBackwardCompatibility == null) return;
-            if (Options == null)
-                Options = _speciesOptionElementsBackwardCompatibility;
+            Options = _speciesOptionElementsBackwardCompatibility;
             _speciesOptionElementsBackwardCompatibility = null;
         }
 

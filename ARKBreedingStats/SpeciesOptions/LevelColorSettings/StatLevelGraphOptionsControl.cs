@@ -26,7 +26,7 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 
         public void SetStatOptions(StatLevelColors so, bool isNotRoot, SpeciesOptionsBase<StatLevelColors> parent)
         {
-            _statLevelColors = so;
+            _statLevelColors = so ?? StatLevelColors.GetDefault();
             _parent = parent;
             CbUseDifferentColorsForOddLevels.Checked = so?.UseDifferentColorsForOddLevels == true;
             CbUseDifferentColorsForMutationLevels.Checked = so?.UseDifferentColorsForMutationLevels == true;
