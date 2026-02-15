@@ -163,4 +163,13 @@
   <data name="newMutation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\newMutation.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="newColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newColor.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="newRegionColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newRegionColor.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="newDesiredColor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newDesiredColor.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

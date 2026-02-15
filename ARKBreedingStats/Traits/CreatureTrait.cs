@@ -64,12 +64,20 @@ namespace ARKBreedingStats.Traits
         {
             if (string.IsNullOrEmpty(traitDefinitionString)) return null;
             var bracketIndex = traitDefinitionString.IndexOf("[");
-            var id = bracketIndex == -1
-               ? traitDefinitionString
-               : traitDefinitionString.Substring(0, traitDefinitionString.IndexOf("["));
-            var tier = (byte)(bracketIndex == -1
-               ? 0
-               : int.TryParse(traitDefinitionString.Substring(bracketIndex, 1), out var tierParsed) ? tierParsed : 0);
+            string id;
+            byte tier;
+            if (bracketIndex == -1)
+            {
+                id = traitDefinitionString;
+                tier = 0;
+            }
+            else
+            {
+                id = traitDefinitionString.Substring(0, bracketIndex);
+                tier = (byte)(int.TryParse(traitDefinitionString.Substring(bracketIndex + 1, 1), out var tierParsed)
+                    ? tierParsed
+                    : 0);
+            }
 
             return new CreatureTrait(id, tier);
         }

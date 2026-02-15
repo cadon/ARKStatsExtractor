@@ -77,6 +77,7 @@ namespace ARKBreedingStats.SpeciesImages
             Id = string.IsNullOrEmpty(Url) ? Name : Url;
 
             FolderName = string.IsNullOrEmpty(Url) ? Name : Encryption.Md5(Url);
+            if (string.IsNullOrEmpty(FolderName)) return;
             FolderName = FileService.ReplaceInvalidCharacters(FolderName)
                 .Replace(' ', '_');
             const int maxFolderName = 32;

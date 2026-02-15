@@ -58,7 +58,8 @@ namespace ARKBreedingStats
             _initialFontSizes[labelInfo] = labelInfo.Font.Size;
 
 
-            Size = ArkOcr.Ocr.GetScreenshotOfProcess()?.Size ?? default;
+            using (var bmpScreenshot = ArkOcr.Ocr.GetScreenshotOfProcess())
+                Size = bmpScreenshot?.Size ?? default;
             if (Size == default)
                 Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 

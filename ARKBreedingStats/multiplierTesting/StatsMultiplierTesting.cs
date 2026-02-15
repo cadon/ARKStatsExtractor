@@ -601,7 +601,7 @@ If one of the files is an export gun server multiplier file, its values are used
 To determine all species values, the files with the following creature combinations are needed
 * wild level 1 creature for base values
 * wild creature with at least one level in all possible stats
-* two tamed creature with no applied levels and different TE (TE difference should be large to avoid rounding errors, at least 10 %points difference should be good) and different wild levels in HP (for TBHM)
+* two tamed creature without using the Bonded Taming skill and with no applied domestic levels and different TE (TE difference should be large to avoid rounding errors, at least 10 %points difference should be good) and different wild levels in HP (for TBHM)
 * a tamed creature with at least one level in all possible stats
 * a creature with imprinting (probably an imprinting value of at least 10 % should result in good results) to determine which stats are effected by imprinting in what extend
 ");
@@ -871,7 +871,7 @@ To determine all species values, the files with the following creature combinati
             ImportExportGun.SetServerMultipliers(sm, serverMultipliersFile ?? GetServerMultipliers());
 
             SpeciesStatsExtractor.ExtractStatValues(creatureFiles, sm, out var species, out var resultText, out var isError);
-            SetSpecies(species);
+            SetSpecies(species, true);
             CopySpeciesStatsToClipboard(species.blueprintPath, species.StatImprintMultipliersRaw);
 
             if (isError)

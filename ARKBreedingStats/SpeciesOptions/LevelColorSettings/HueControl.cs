@@ -5,7 +5,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using Newtonsoft.Json;
 
-namespace ARKBreedingStats.StatsOptions.LevelColorSettings
+namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 {
     public partial class HueControl : UserControl
     {

@@ -94,7 +94,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// The pictureBox that displays the colored species dependent on the selected region colors.
         /// </summary>
-        public PictureBox PbColorRegion;
+        public ColoredCreatureImageWithPose ColoredCreatureDisplay;
 
         /// <summary>
         /// If false, the visualization of the colors and the image are not updated.
@@ -106,7 +106,7 @@ namespace ARKBreedingStats
         /// </summary>
         public ParentInheritance ParentInheritance;
 
-        internal CreatureCollection.ColorExisting[] ColorAlreadyExistingInformation;
+        internal LevelColorStatusFlags.ColorStatus[] ColorAlreadyExistingInformation;
 
         private Button[] ButtonsNamingPattern => new[] { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
 
@@ -165,13 +165,9 @@ namespace ARKBreedingStats
                 ParentInheritance?.UpdateColors(RegionColors);
                 ColorsChanged?.Invoke(this);
             }
-            if (PbColorRegion == null) return;
-            CreatureColored.GetColoredCreatureWithCallback(SetCreatureImage, this, RegionColors, _selectedSpecies,
-                regionColorChooser1.ColorRegionsUseds, 256, onlyImage: true, creatureSex: CreatureSex,
-                game: CreatureCollection.CurrentCreatureCollection?.Game);
+            if (ColoredCreatureDisplay == null) return;
+            ColoredCreatureDisplay.SetCreatureImage(_selectedSpecies, RegionColors, CreatureSex, CreatureCollection.CurrentCreatureCollection?.Game);
         }
-
-        private void SetCreatureImage(Bitmap bmp) => PbColorRegion?.SetImageAndDisposeOld(bmp);
 
         /// <summary>
         /// Update the creatures displayed on the inheritance control with possible stat inheritances and mutations.
@@ -954,7 +950,7 @@ namespace ARKBreedingStats
                 _tt.SetToolTip(bt, Loc.S("btnGenerateUniqueNameTT", false));
         }
 
-        internal (bool newInRegion, bool newInSpecies) SetRegionColorsExisting(CreatureCollection.ColorExisting[] colorAlreadyAvailable = null)
+        internal (bool newInRegion, bool newInSpecies) SetRegionColorsExisting(LevelColorStatusFlags.ColorStatus[] colorAlreadyAvailable = null)
         {
             regionColorChooser1.SetRegionColorsExisting(colorAlreadyAvailable);
             LbColorNewInRegion.Visible = regionColorChooser1.ColorNewInRegion;

@@ -232,6 +232,10 @@ namespace ARKBreedingStats
                 var species = speciesSelector1.SelectedSpecies;
                 creature = GetCreatureFromInput(true, species, levelStep);
             }
+            else
+            {
+                _creatureCollection.DetermineColorStatus(speciesSelector1.SelectedSpecies, creature.colors, out _, out _, out _);
+            }
 
             OverlayFeedbackForImport(creature, uniqueExtraction, alreadyExistingCreature, addedToLibrary, copiedNameToClipboard);
 
@@ -290,7 +294,7 @@ namespace ARKBreedingStats
 
             if (Properties.Settings.Default.PlaySoundOnAutoImport)
             {
-                SoundFeedback.BeepSignalCurrentLevelFlags(alreadyExists, uniqueExtraction);
+                SoundFeedback.BeepSignalCurrentLevelFlags(alreadyExists, uniqueExtraction, Properties.Settings.Default.PlayColorSoundOnAutoImport);
             }
 
             if (!uniqueExtraction && Properties.Settings.Default.ImportExportedBringToFrontOnIssue)
@@ -383,7 +387,7 @@ namespace ARKBreedingStats
                 if (addedToLibrary && copiedNameToClipboard)
                     sb.AppendLine("Name copied to clipboard.");
 
-                sb.Append(LevelStatusFlags.LevelInfoText);
+                sb.Append(LevelColorStatusFlags.LevelInfoText);
 
                 if (!string.IsNullOrEmpty(creatureAnalysis1.ColorStatus))
                 {
@@ -398,7 +402,7 @@ namespace ARKBreedingStats
             {
                 infoText = $"Creature \"{creature.name}\" couldn't be extracted uniquely, manual level selection is necessary.";
                 textColor = Color.FromArgb(255, colorSaturation, colorSaturation);
-                LevelStatusFlags.Clear();
+                LevelColorStatusFlags.Clear();
             }
 
             if (_overlay != null)
@@ -410,7 +414,7 @@ namespace ARKBreedingStats
                         _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray(),
                         _creatureCollection.TopLevels.TryGetValue(creature.Species, out var tl) ? tl : null,
                         _customReplacingNamingPattern, false, -1, false, overlayPattern,
-                        false, colorsExisting: _creatureCollection.ColorAlreadyAvailable(creature.Species, creature.colors, out _),
+                        false, colorsExisting: _creatureCollection.DetermineColorStatus(creature.Species, creature.colors, out _, out _, out _),
                         libraryCreatureCount: _creatureCollection.GetTotalCreatureCount());
 
                     if (!string.IsNullOrEmpty(overlayPatternResult))

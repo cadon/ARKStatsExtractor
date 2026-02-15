@@ -30,6 +30,12 @@ namespace ARKBreedingStats.mods
         /// </summary>
         public bool CurrentlyInLibrary;
 
+        /// <summary>
+        /// True if the file is not in the official mods manifest, i.e. a file only available locally, usually custom created.
+        /// If this is true, the mod info can be reloaded. This allows the user to edit the file and have the updated version available in the mod manager.
+        /// </summary>
+        public bool ManuallyLoaded;
+
         [OnDeserialized]
         private void SetVersion(StreamingContext _) => Version = Utils.TryParseVersionAlsoWithOnlyMajor(_version);
 

@@ -940,7 +940,7 @@ namespace ARKBreedingStats.multiplierTesting
         {
             if (_taTmSolver == null) _taTmSolver = new TaTmSolver();
             _taTmSolver.SetFirstEquation(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
-                nudIwM.ValueDouble, nudLm.ValueDouble, nudMm.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble, nudIdM.ValueDouble);
+                nudIwM.ValueDouble * _spIw, nudLm.ValueDouble, nudMm.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble, nudIdM.ValueDouble * _spId);
             LbTaTmTeStored.Text = $"TE: {_TE:p0}";
             LbTaTmTeStored.BackColor = Color.LightGreen;
         }
@@ -975,8 +975,8 @@ namespace ARKBreedingStats.multiplierTesting
             }
 
             var errorText = _taTmSolver.CalculateTaTm(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
-                nudIwM.ValueDouble, nudLm.ValueDouble, nudMm.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
-                nudIdM.ValueDouble, out var taTaM, out var tmTmM);
+                nudIwM.ValueDouble * _spIw, nudLm.ValueDouble, nudMm.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
+                nudIdM.ValueDouble * _spId, out var taTaM, out var tmTmM);
             if (!string.IsNullOrEmpty(errorText))
             {
                 MessageBoxes.ShowMessageBox(errorText);
@@ -985,17 +985,21 @@ namespace ARKBreedingStats.multiplierTesting
 
             if (serverValues)
             {
-                if (nudTa.ValueDouble != 0)
-                    nudTaM.ValueSaveDouble = Math.Round(taTaM / nudTa.ValueDouble, DecimalPlaces);
-                if (nudTm.ValueDouble != 0)
-                    nudTmM.ValueSaveDouble = Math.Round(tmTmM / nudTm.ValueDouble, DecimalPlaces);
+                var ta = nudTa.ValueDouble * _spTa;
+                if (ta != 0)
+                    nudTaM.ValueSaveDouble = Math.Round(taTaM / ta, DecimalPlaces);
+                var tm = nudTm.ValueDouble * _spTm;
+                if (tm != 0)
+                    nudTmM.ValueSaveDouble = Math.Round(tmTmM / tm, DecimalPlaces);
             }
             else
             {
-                if (nudTaM.ValueDouble != 0)
-                    nudTa.ValueSaveDouble = Math.Round(taTaM / nudTaM.ValueDouble, DecimalPlaces);
-                if (nudTmM.ValueDouble != 0)
-                    nudTm.ValueSaveDouble = Math.Round(tmTmM / nudTmM.ValueDouble, DecimalPlaces);
+                var taM = nudTaM.ValueDouble * _spTa;
+                if (taM != 0)
+                    nudTa.ValueSaveDouble = Math.Round(taTaM / taM, DecimalPlaces);
+                var tmM = nudTmM.ValueDouble * _spTm;
+                if (tmM != 0)
+                    nudTm.ValueSaveDouble = Math.Round(tmTmM / tmM, DecimalPlaces);
             }
         }
 
@@ -1011,16 +1015,17 @@ namespace ARKBreedingStats.multiplierTesting
             }
 
             var errorText = _taTmSolver.CalculateTaTbhm(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
-                nudIwM.ValueDouble, nudLm.ValueDouble, nudMm.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
-                nudIdM.ValueDouble, out var taTaM, out var tbhm);
+                nudIwM.ValueDouble * _spIw, nudLm.ValueDouble, nudMm.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble,
+                nudIdM.ValueDouble * _spId, out var taTaM, out var tbhm);
             if (!string.IsNullOrEmpty(errorText))
             {
                 MessageBoxes.ShowMessageBox(errorText);
                 return;
             }
 
-            if (nudTaM.ValueDouble != 0)
-                nudTa.ValueSaveDouble = Math.Round(taTaM / nudTaM.ValueDouble, DecimalPlaces);
+            var taM = nudTaM.ValueDouble * _spTa;
+            if (taM != 0)
+                nudTa.ValueSaveDouble = Math.Round(taTaM / taM, DecimalPlaces);
             nudTBHM.ValueSaveDouble = Math.Round(tbhm, DecimalPlaces);
         }
     }

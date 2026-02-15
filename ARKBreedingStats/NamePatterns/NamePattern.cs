@@ -9,8 +9,6 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
-using static ARKBreedingStats.Library.CreatureCollection;
-
 namespace ARKBreedingStats.NamePatterns
 {
     public static class NamePattern
@@ -40,9 +38,9 @@ namespace ARKBreedingStats.NamePatterns
         /// Generate a creature name with the naming pattern.
         /// </summary>
         /// <param name="alreadyExistingCreature">If the creature already exists in the library, null if the creature is new.</param>
-        public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] sameSpecies, TopLevels topLevels, Dictionary<string, string> customReplacings,
+        public static string GenerateCreatureName(Creature creature, Creature alreadyExistingCreature, Creature[] creaturesOfSpecies, TopLevels topLevels, Dictionary<string, string> customReplacings,
             bool showDuplicateNameWarning = false, int namingPatternIndex = -1, bool showTooLongWarning = true, string pattern = null, bool displayError = true, TokenModel tokenModel = null,
-            ColorExisting[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
+            LevelColorStatusFlags.ColorStatus[] colorsExisting = null, int libraryCreatureCount = 0, Action<string> consoleLog = null)
         {
             if (pattern == null)
             {
@@ -86,7 +84,7 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             if (tokenModel == null)
-                tokenModel = CreateTokenModel(creature, alreadyExistingCreature, sameSpecies, colorsExisting, topLevels, libraryCreatureCount);
+                tokenModel = CreateTokenModel(creature, alreadyExistingCreature, creaturesOfSpecies, colorsExisting, topLevels, libraryCreatureCount);
 
             string name;
 
@@ -95,25 +93,26 @@ namespace ARKBreedingStats.NamePatterns
             var shebangMatch = JavaScriptNamePattern.JavaScriptShebang.Match(pattern);
 
             if (showDuplicateNameWarning || pattern.Contains("{n}") || shebangMatch.Success)
-                creatureNames = sameSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
+                creatureNames = creaturesOfSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
 
             if (shebangMatch.Success)
             {
                 try
                 {
                     name = JavaScriptNamePattern.ResolveJavaScript(pattern.Substring(shebangMatch.Length), creature,
-                        tokenModel, customReplacings, colorsExisting, creatureNames, displayError, consoleLog);
+                        tokenModel, customReplacings, colorsExisting, creaturesOfSpecies, creatureNames, displayError, consoleLog);
                 }
                 catch (FileNotFoundException ex)
                 {
                     // Jint.dll not installed
                     MessageBoxes.ExceptionMessageBox(ex, "Probably a needed module is not installed for using the javascript pattern. You can install it via the menu Settings - Extra data.");
+                    NamePatternFunctions.ClearCreatureProperties();
                     return null;
                 }
             }
             else
             {
-                name = ResolveTemplate(pattern, creature, tokenModel, customReplacings, colorsExisting, creatureNames, displayError);
+                name = ResolveTemplate(pattern, creature, tokenModel, customReplacings, colorsExisting, creaturesOfSpecies, creatureNames, displayError);
             }
             if (showDuplicateNameWarning && creatureNames.Contains(name, StringComparer.OrdinalIgnoreCase))
             {
@@ -123,17 +122,18 @@ namespace ARKBreedingStats.NamePatterns
             {
                 MessageBox.Show($"The generated name is longer than {Ark.MaxCreatureNameLength} characters, the name will look like this in game:\n" + name.Substring(0, Ark.MaxCreatureNameLength), "Name too long for game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            NamePatternFunctions.ClearCreatureProperties();
 
             return name;
         }
 
-        private static string ResolveTemplate(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, ColorExisting[] colorsExisting, string[] creatureNames, bool displayError)
+        private static string ResolveTemplate(string pattern, Creature creature, TokenModel tokenModel, Dictionary<string, string> customReplacings, LevelColorStatusFlags.ColorStatus[] colorsExisting, Creature[] creaturesOfSpecies, string[] creatureNames, bool displayError)
         {
             var tokenDictionary = CreateTokenDictionary(tokenModel);
             // first resolve keys, then functions
             string name = ResolveFunctions(
                 ResolveKeysToValues(tokenDictionary, pattern.Replace("\r", string.Empty).Replace("\n", string.Empty)),
-                creature, customReplacings, displayError, false, colorsExisting);
+                creature, customReplacings, creaturesOfSpecies, displayError, false, colorsExisting);
             if (name.Contains("{n}"))
             {
                 // replace the unique number key with the lowest possible positive number >= 1 to get a unique name.
@@ -145,7 +145,7 @@ namespace ARKBreedingStats.NamePatterns
                 {
                     numberedUniqueName = ResolveFunctions(
                         ResolveKeysToValues(tokenDictionary, name, n++),
-                        creature, customReplacings, displayError, true, colorsExisting);
+                        creature, customReplacings, creaturesOfSpecies, displayError, true, colorsExisting);
 
                     // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
                     if (numberedUniqueName == lastNumberedUniqueName) break;
@@ -170,7 +170,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="displayError">If true, a MessageBox with the error will be displayed.</param>
         /// <param name="processNumberField">If true, the {n} will be processed</param>
         /// <returns></returns>
-        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, bool displayError, bool processNumberField, ColorExisting[] colorsExisting = null)
+        private static string ResolveFunctions(string pattern, Creature creature, Dictionary<string, string> customReplacings, Creature[] creaturesOfSpecies, bool displayError, bool processNumberField, LevelColorStatusFlags.ColorStatus[] colorsExisting = null)
         {
             int nrFunctions = 0;
             int nrFunctionsAfterResolving = NrFunctions(pattern);
@@ -182,7 +182,8 @@ namespace ARKBreedingStats.NamePatterns
                 CustomReplacings = customReplacings,
                 DisplayError = displayError,
                 ProcessNumberField = processNumberField,
-                ColorsExisting = colorsExisting
+                ColorsExisting = colorsExisting,
+                CreaturesOfSpecies = creaturesOfSpecies
             };
             // resolve nested functions
             while (nrFunctions != nrFunctionsAfterResolving)
@@ -244,7 +245,7 @@ namespace ARKBreedingStats.NamePatterns
         /// <param name="speciesCreatures">A list of all currently stored creatures of the species</param>
         /// <param name="topLevels">top levels of that species</param>
         /// <returns>A strongly typed model containing all tokens and their values</returns>
-        public static TokenModel CreateTokenModel(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, ColorExisting[] colorExistings, TopLevels topLevels, int libraryCreatureCount)
+        public static TokenModel CreateTokenModel(Creature creature, Creature alreadyExistingCreature, Creature[] speciesCreatures, LevelColorStatusFlags.ColorStatus[] colorExistings, TopLevels topLevels, int libraryCreatureCount)
         {
             string dom = creature.isBred ? "B" : creature.isDomesticated ? "T" : "W";
             double imp = creature.imprintingBonus * 100;
@@ -436,15 +437,15 @@ namespace ARKBreedingStats.NamePatterns
                 for (int i = 0; i < 6; i++)
                 {
                     var colorId = creature.colors[i];
-                    ColorExisting colorExisting = colorExistings != null ? colorExistings[i] : ColorExisting.Unknown;
+                    LevelColorStatusFlags.ColorStatus colorExisting = colorExistings != null ? colorExistings[i] : LevelColorStatusFlags.ColorStatus.None;
 
                     model.colors[i] = new ColorModel
                     {
                         id = colorId,
                         name = CreatureColors.CreatureColorName(colorId),
                         used = creature.Species.EnabledColorRegions[i],
-                        @new = colorExisting == ColorExisting.ColorExistingInOtherRegion ? "newInRegion"
-                            : colorExisting == ColorExisting.ColorIsNew ? "newInSpecies"
+                        @new = colorExisting == LevelColorStatusFlags.ColorStatus.NewRegionColor ? "newInRegion"
+                            : colorExisting == LevelColorStatusFlags.ColorStatus.NewColor ? "newInSpecies"
                             : string.Empty
                     };
                 }

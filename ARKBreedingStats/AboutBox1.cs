@@ -120,6 +120,7 @@ namespace ARKBreedingStats
 * ThatGamerBlue: species dividers in virtual listView
 * Jaymei: ATLAS species data
 * Shen: many ASA color region images
+* emma: fixes, hotkey addition
 
 Translations:
 * French by Vykan and Yanuut

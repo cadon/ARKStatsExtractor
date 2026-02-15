@@ -14,7 +14,7 @@ namespace ARKBreedingStats.SpeciesImages
     /// <summary>
     /// Handles species image files, e.g. file names.
     /// </summary>
-    internal static class CreatureImageFile
+    public static class CreatureImageFile
     {
         internal const string FileExtension = ".png";
         private static string _imgCacheFolderPath;
@@ -32,9 +32,14 @@ namespace ARKBreedingStats.SpeciesImages
             new ConcurrentDictionary<string, Lazy<Task<string>>>();
 
         /// <summary>
-        /// Cache of base image file paths for species including optional parameters game, sex and pattern.
+        /// Cache of base image file paths for species including optional parameters like game, sex, pattern and pose.
         /// </summary>
         private static readonly ConcurrentDictionary<string, string> CachedSpeciesFilePaths = new ConcurrentDictionary<string, string>();
+
+        /// <summary>
+        /// Cache of possibly existing neighboring pose images for species including optional parameters like game, sex, pattern and pose.
+        /// </summary>
+        private static readonly ConcurrentDictionary<string, NeighbourPoseExist> CachedSpeciesNeighborPoseExists = new ConcurrentDictionary<string, NeighbourPoseExist>();
 
         /// <summary>
         /// Preferred image packs per species. Key is blueprint path or species name.
@@ -46,20 +51,20 @@ namespace ARKBreedingStats.SpeciesImages
         /// If the file is not available locally or outdated, it's downloaded.
         /// If the file is not available locally nor remotely, null is returned.
         /// </summary>
-        internal static async Task<string> SpeciesImageFilePath(Species species,
+        internal static async Task<(string FilePath, NeighbourPoseExist NeighbourPoseExist)> SpeciesImageFilePath(Species species,
             string game = null, Sex creatureSex = Sex.Unknown,
             int patternId = -1, string imagePackName = null, string imageName = null,
             bool useComposition = false, int pose = 0)
         {
             if (string.IsNullOrEmpty(species?.name)
                 || !ImageCollections.AnyManifests)
-                return null;
+                return (null, NeighbourPoseExist.None);
             var creatureImageParameters = new CreatureImageParameters(species, game, creatureSex, patternId, pose);
 
             return await SpeciesImageFilePath(creatureImageParameters, imagePackName, imageName, useComposition).ConfigureAwait(false);
         }
 
-        private static async Task<string> SpeciesImageFilePath(CreatureImageParameters creatureImageParameters,
+        private static async Task<(string FilePath, NeighbourPoseExist NeighbourPoseExist)> SpeciesImageFilePath(CreatureImageParameters creatureImageParameters,
             string imagePackName = null, string imageName = null, bool useComposition = false)
         {
             var composition = useComposition ? ImageCompositions.GetComposition(creatureImageParameters.Species) : null;
@@ -72,18 +77,20 @@ namespace ARKBreedingStats.SpeciesImages
             var preferredResources = "_" + imagePackName + "_" + imageName;
 
             var keyString = creatureImageParameters.BaseParameters + preferredResources + compositionHash;
+            NeighbourPoseExist neighbourPoseExist;
             if (CachedSpeciesFilePaths.TryGetValue(keyString, out var filePathAndFileNameBase))
-                return filePathAndFileNameBase;
+                return (filePathAndFileNameBase,
+                    CachedSpeciesNeighborPoseExists.TryGetValue(keyString, out neighbourPoseExist) ? neighbourPoseExist : NeighbourPoseExist.None);
 
             // if request needs a specific image, only try to get that
             if (!string.IsNullOrEmpty(imageName))
-                return await GetImagePathAsync(keyString, new[] { imageName }, imagePackName).ConfigureAwait(false);
+                return (await GetImagePathAsync(keyString, new[] { imageName }, imagePackName).ConfigureAwait(false), NeighbourPoseExist.None);
 
             if (composition != null)
             {
                 var filePath = await CreateCompositionBaseFiles(keyString, composition, creatureImageParameters);
                 if (filePath != null)
-                    return filePath;
+                    return (filePath, NeighbourPoseExist.None);
             }
 
             // user may prefer an image pack for a species
@@ -91,19 +98,18 @@ namespace ARKBreedingStats.SpeciesImages
                 imagePackName = UserPreferenceImagePack(creatureImageParameters.Species);
 
             // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
-            var possibleFileNames = creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName);
+            var possibleFileNames = creatureImageParameters.GetPossibleSpeciesImageNamesWithFallbacks();
 
-            // fallback for some variant species to use the vanilla one if no aberrant image is available (they're pretty similar)
-            if (creatureImageParameters.SpeciesName.StartsWith("Aberrant "))
-                possibleFileNames.AddRange(creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName.Replace("Aberrant ", string.Empty)));
-            if (creatureImageParameters.SpeciesName.Contains("Brute "))
-                possibleFileNames.AddRange(creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName.Replace("Brute ", string.Empty)));
-            if (creatureImageParameters.SpeciesName.Contains("Polar "))
-                possibleFileNames.AddRange(creatureImageParameters.GetPossibleSpeciesImageNames(creatureImageParameters.SpeciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty)));
+            // file names for possible pose neighbours
+            var possibleFileNamesPreviousPose = creatureImageParameters.PoseId < 1
+                ? null
+                : new CreatureImageParameters(creatureImageParameters, creatureImageParameters.PoseId - 1).GetPossibleSpeciesImageNamesWithFallbacks(true);
+            var possibleFileNamesNextPose = creatureImageParameters.PoseId < 0
+                ? null
+                : new CreatureImageParameters(creatureImageParameters, creatureImageParameters.PoseId + 1).GetPossibleSpeciesImageNamesWithFallbacks(true);
 
-            possibleFileNames = possibleFileNames.Distinct().ToList();
-
-            return await GetImagePathAsync(keyString, possibleFileNames, imagePackName).ConfigureAwait(false);
+            return (await GetImagePathAsync(keyString, possibleFileNames, imagePackName, possibleFileNamesPreviousPose, possibleFileNamesNextPose).ConfigureAwait(false),
+                CachedSpeciesNeighborPoseExists.TryGetValue(keyString, out neighbourPoseExist) ? neighbourPoseExist : NeighbourPoseExist.None);
         }
 
         /// <summary>
@@ -142,7 +148,7 @@ namespace ARKBreedingStats.SpeciesImages
                 await SpeciesImageFilePath(creatureImageParameters, part.ImagePackName, part.ImageName)
             ).ToArray();
 
-            var filePaths = await Task.WhenAll(tasks).ConfigureAwait(false);
+            var filePaths = (await Task.WhenAll(tasks).ConfigureAwait(false)).Select(f => f.FilePath).ToArray();
 
             if (filePaths.Any(f => f == null)) return null;
             if (composition.CombineImages(filePaths, filePathResult))
@@ -155,12 +161,13 @@ namespace ARKBreedingStats.SpeciesImages
             return null;
         }
 
-        private static Task<string> GetImagePathAsync(
-            string speciesPropertiesKeyString, IList<string> possibleFileNames, string imagePackName = null) =>
+        private static Task<string> GetImagePathAsync(string speciesPropertiesKeyString, string[] possibleFileNames, string imagePackName = null,
+            string[] possibleFileNamesPreviousPose = null, string[] possibleFileNamesNextPose = null) =>
             RetrievalTasks.GetOrAdd(speciesPropertiesKeyString, new Lazy<Task<string>>(()
-                => GetImagePathOnceAsync(speciesPropertiesKeyString, possibleFileNames, imagePackName))).Value;
+                => GetImagePathOnceAsync(speciesPropertiesKeyString, possibleFileNames, imagePackName, possibleFileNamesPreviousPose, possibleFileNamesNextPose))).Value;
 
-        private static async Task<string> GetImagePathOnceAsync(string speciesPropertiesKeyString, IList<string> possibleFileNames, string imagePackName = null)
+        private static async Task<string> GetImagePathOnceAsync(string speciesPropertiesKeyString, IList<string> possibleFileNames, string imagePackName = null,
+            string[] possibleFileNamesPreviousPose = null, string[] possibleFileNamesNextPose = null)
         {
             try
             {
@@ -172,6 +179,20 @@ namespace ARKBreedingStats.SpeciesImages
                     // file exists, check if according mask file exists and get it or update it
                     var maskFileName = Path.GetFileNameWithoutExtension(filePath) + MaskFileSuffix + FileExtension;
                     await ImageCollections.GetFile(new[] { maskFileName }, usedImagePackName).ConfigureAwait(false);
+
+                    // check if possible neighbour poses exist
+                    var neighbourPosesExist = NeighbourPoseExist.None;
+                    if (possibleFileNamesPreviousPose != null
+                        && !string.IsNullOrEmpty(
+                            (await ImageCollections.GetFile(possibleFileNamesPreviousPose.Select(f => f + FileExtension).ToArray(), imagePackName, true))
+                            .FilePath))
+                        neighbourPosesExist |= NeighbourPoseExist.Previous;
+                    if (possibleFileNamesNextPose != null
+                        && !string.IsNullOrEmpty(
+                            (await ImageCollections.GetFile(possibleFileNamesNextPose.Select(f => f + FileExtension).ToArray(), imagePackName, true))
+                            .FilePath))
+                        neighbourPosesExist |= NeighbourPoseExist.Next;
+                    CachedSpeciesNeighborPoseExists[speciesPropertiesKeyString] = neighbourPosesExist;
 
                     return filePath;
                 }
@@ -208,8 +229,8 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         internal static async Task<string> GetSpeciesImageForSpeciesList(Species species, byte[] colorIds, string game = null)
         {
-            var speciesImageFilePath = await SpeciesImageFilePath(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null),
-                patternId: (species?.patterns?.count ?? 0) > 0 ? 1 : -1);
+            var speciesImageFilePath = (await SpeciesImageFilePath(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null),
+                patternId: (species?.patterns?.count ?? 0) > 0 ? 1 : -1)).FilePath;
             if (speciesImageFilePath == null) return null;
 
             var cacheFilePath = ColoredCreatureCacheFilePath(Path.GetFileNameWithoutExtension(speciesImageFilePath), colorIds, true);
@@ -274,5 +295,17 @@ namespace ARKBreedingStats.SpeciesImages
 
         private static string GetImgCacheFolderPath() => FileService.GetPath(FileService.ImageFolderName, FileService.CacheFolderName,
             useAppData: Updater.Updater.IsProgramInstalled || Properties.Settings.Default.ImgCacheUseLocalAppData);
+
+        /// <summary>
+        /// Indicator if a neighbor pose exists. E.g. if pose 1-4 exist, pose 3 has both neighbours, pose 4 has only previous neighbour.
+        /// </summary>
+        [Flags]
+        public enum NeighbourPoseExist : byte
+        {
+            None = 0,
+            Previous = 1,
+            Next = 2,
+            Both = Previous | Next
+        }
     }
 }

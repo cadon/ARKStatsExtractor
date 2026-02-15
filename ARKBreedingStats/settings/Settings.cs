@@ -13,7 +13,7 @@ using System.Windows.Threading;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using ARKBreedingStats.NamePatterns;
-using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.SpeciesOptions;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 
@@ -380,12 +380,21 @@ namespace ARKBreedingStats.settings
             BtInfoGraphicBackColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBackColor));
             BtInfoGraphicForeColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicForeColor));
             BtInfoGraphicBorderColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicBorderColor));
+            BtInfoGraphicTextOutlineColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicTextOutlineColor));
+            BtInfoGraphicCreatureOutlineColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicCreatureOutlineColor));
+            NudInfoGraphicBorderWidth.ValueSave = Properties.Settings.Default.InfoGraphicBorderWidth;
+            NudInfoGraphicTextOutlineWidth.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicTextOutlineWidth;
             NudInfoGraphicBgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBackColor.A;
             NudInfoGraphicFgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicForeColor.A;
             NudInfoGraphicBorderAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBorderColor.A;
+            NudInfoGraphicTextOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicTextOutlineColor.A;
+            NudInfoGraphicCreatureOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineColor.A;
+            NudInfoGraphicCreatureOutlineWidth.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineWidth;
+            NudInfoGraphicCreatureOutlineBlurring.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring;
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
+            InfoGraphicBackgroundImagePath = Properties.Settings.Default.InfoGraphicBackgroundImagePath;
 
             #endregion
 
@@ -426,6 +435,7 @@ namespace ARKBreedingStats.settings
             cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
             CbAutoExtractAddToLibrary.Checked = Properties.Settings.Default.OnAutoImportAddToLibrary;
             cbPlaySoundOnAutomaticImport.Checked = Properties.Settings.Default.PlaySoundOnAutoImport;
+            CbImportPlaySoundColorFeedback.Checked = Properties.Settings.Default.PlayColorSoundOnAutoImport;
             cbMoveImportedFileToSubFolder.Checked = Properties.Settings.Default.MoveAutoImportedFileToSubFolder;
             SetFolderSelectionButton(BtImportArchiveFolder, Properties.Settings.Default.ImportExportedArchiveFolder);
             cbDeleteAutoImportedFile.Checked = Properties.Settings.Default.DeleteAutoImportedFile;
@@ -656,9 +666,17 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicBackColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
             Properties.Settings.Default.InfoGraphicForeColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
             Properties.Settings.Default.InfoGraphicBorderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
+            Properties.Settings.Default.InfoGraphicTextOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
+            Properties.Settings.Default.InfoGraphicCreatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
+            Properties.Settings.Default.InfoGraphicBorderWidth = (int)NudInfoGraphicBorderWidth.Value;
+            Properties.Settings.Default.InfoGraphicTextOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
+            NudInfoGraphicCreatureOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineColor.A;
+            Properties.Settings.Default.InfoGraphicCreatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
+            Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
             Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
+            Properties.Settings.Default.InfoGraphicBackgroundImagePath = InfoGraphicBackgroundImagePath;
 
             #endregion
 
@@ -692,6 +710,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.AutoImportExportedCreatures = cbAutoImportExported.Checked;
             Properties.Settings.Default.OnAutoImportAddToLibrary = CbAutoExtractAddToLibrary.Checked;
             Properties.Settings.Default.PlaySoundOnAutoImport = cbPlaySoundOnAutomaticImport.Checked;
+            Properties.Settings.Default.PlayColorSoundOnAutoImport = CbImportPlaySoundColorFeedback.Checked;
             Properties.Settings.Default.MoveAutoImportedFileToSubFolder = cbMoveImportedFileToSubFolder.Checked;
             Properties.Settings.Default.ImportExportedArchiveFolder = BtImportArchiveFolder.Tag as string;
             Properties.Settings.Default.DeleteAutoImportedFile = cbDeleteAutoImportedFile.Checked;
@@ -1409,6 +1428,9 @@ namespace ARKBreedingStats.settings
             Loc.ControlText(BtBeepTop, _tt);
             Loc.ControlText(BtBeepNewTop, _tt);
             Loc.ControlText(BtBeepUpdated, _tt);
+            Loc.ControlText(BtBeepNewColor, _tt);
+            Loc.ControlText(BtBeepNewRegionColor, _tt);
+            Loc.ControlText(BtBeepDesiredColor, _tt);
             Loc.ControlText(BtGetExportFolderAutomatically);
         }
 
@@ -1428,30 +1450,21 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private void BtBeepFailure_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
-        }
+        private void BtBeepFailure_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Failure);
 
-        private void BtBeepSuccess_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
-        }
+        private void BtBeepSuccess_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Success);
 
-        private void BtBeepTop_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
-        }
+        private void BtBeepTop_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Good);
 
-        private void BtBeepNewTop_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
-        }
+        private void BtBeepNewTop_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Great);
 
-        private void BtBeepUpdated_Click(object sender, EventArgs e)
-        {
-            SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
-        }
+        private void BtBeepUpdated_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.Updated);
+
+        private void BtBeepNewColor_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewColor);
+
+        private void BtBeepNewRegionColor_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewRegionColor);
+
+        private void BtBeepDesiredColor_Click(object sender, EventArgs e) => SoundFeedback.BeepSignal(SoundFeedback.FeedbackSounds.NewDesiredColor);
 
         private void BtImportArchiveFolder_Click(object sender, EventArgs e)
         {
@@ -1666,18 +1679,25 @@ namespace ARKBreedingStats.settings
 
         private void CbInfoGraphicCheckBoxRadioButtonChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
-        private void ShowInfoGraphicPreviewDebounced() =>
-            _infoGraphicPreviewDebouncer.Debounce(300, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
-        private void ShowInfoGraphicPreview()
+        private void ShowInfoGraphicPreviewDebounced(int debounceMs = 300) =>
+            _infoGraphicPreviewDebouncer.Debounce(debounceMs, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
+        private async Task ShowInfoGraphicPreview()
         {
             if (_infoGraphicPreviewCreature == null)
                 CreateInfoGraphicCreature();
+            if (_infoGraphicPreviewCreature == null) return;
 
             var height = (int)nudInfoGraphicHeight.Value;
             var fontName = CbbInfoGraphicFontName.Text;
             var foreColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
             var backColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
             var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
+            var borderWidth = (int)NudInfoGraphicBorderWidth.Value;
+            var textOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
+            var creatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
+            var creatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
+            var creatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
+            var textOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
             var displayCreatureName = CbInfoGraphicCreatureName.Checked;
             var displayDomValues = RbInfoGraphicDomValues.Checked;
             var sumWildMut = CbInfoGraphicSumWildMut.Checked;
@@ -1687,18 +1707,21 @@ namespace ARKBreedingStats.settings
             var displayMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
             var addRegionNames = CbInfoGraphicAddRegionNames.Checked;
             var colorRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
+            var backgroundImagePath = InfoGraphicBackgroundImagePath;
 
-            var speciesImage = Task.Run(() => _infoGraphicPreviewCreature?
-                .InfoGraphicAsync(_cc,
-                    height, fontName, foreColor, backColor, borderColor, displayCreatureName, displayDomValues,
-                    sumWildMut, displayMutationCounter, displayGenerations,
-                    displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage)).Result;
+            var bmp = await _infoGraphicPreviewCreature
+                    .InfoGraphicAsync(_cc,
+                        height, fontName, foreColor, backColor, borderColor, borderWidth, textOutlineColor,
+                        textOutlineWidth, displayCreatureName, displayDomValues,
+                        sumWildMut, displayMutationCounter, displayGenerations,
+                        displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage,
+                        creatureOutlineColor, backgroundImagePath, creatureOutlineWidth, creatureOutlineBlurring);
 
-            if (speciesImage == null) return;
-
-            PbInfoGraphicPreview.Size = speciesImage.Size;
-            PbInfoGraphicPreview.SetImageAndDisposeOld(speciesImage);
+            if (bmp == null) return;
+            PbInfoGraphicPreview.Size = bmp.Size;
+            PbInfoGraphicPreview.SetImageAndDisposeOld(bmp);
         }
+
         private void BtNewRandomInfoGraphicCreature_Click(object sender, EventArgs e)
         {
             _infoGraphicPreviewCreature = null;
@@ -1732,6 +1755,35 @@ namespace ARKBreedingStats.settings
         private void CbbInfoGraphicFontName_SelectedIndexChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
         private void NudInfoGraphicAlpha_ValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
+
+        private void BtInfoGraphicBackgroundImagePath_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png|All Files|*.*";
+                openFileDialog.Title = "Select Background Image for InfoGraphic";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    InfoGraphicBackgroundImagePath = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void BtInfoGraphicClearBgImg_Click(object sender, EventArgs e) => InfoGraphicBackgroundImagePath = null;
+
+        private string _infoGraphicBackgroundImagePath;
+
+        private string InfoGraphicBackgroundImagePath
+        {
+            get => _infoGraphicBackgroundImagePath;
+            set
+            {
+                _infoGraphicBackgroundImagePath = value;
+                BtInfoGraphicBackgroundImagePath.Text = $"Background image{Environment.NewLine}{(string.IsNullOrEmpty(value) ? "<none>" : Path.GetFileName(value))}";
+                ShowInfoGraphicPreviewDebounced(50);
+            }
+        }
 
         #endregion
 
@@ -1907,7 +1959,7 @@ namespace ARKBreedingStats.settings
 
         private void BtOpenLevelColorOptions_Click(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, Form1.StatsOptionsLevelColors, Form1.StatsOptionsConsiderTopStats);
+            StatsOptionsForm.ShowWindow(this, Form1.StatsOptionsLevelColors, Form1.StatsOptionsConsiderTopStats, Form1.ColorOptionsWantedRegions);
         }
 
         private void BtOverlayPatternEdit_Click(object sender, EventArgs e)
@@ -1927,21 +1979,6 @@ namespace ARKBreedingStats.settings
                 (Properties.Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);
                 Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
             }
-        }
-
-        private void NudInfoGraphicBorderAlpha_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NudInfoGraphicBgAlpha_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NudInfoGraphicFgAlpha_ValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

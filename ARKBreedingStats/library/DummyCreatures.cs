@@ -128,15 +128,15 @@ namespace ARKBreedingStats.library
             if (rand == null) rand = new Random();
 
             // rather "tame" higher creatures. Base levels are 1-30, scaled by difficulty
-            var creatureLevel = (rand.Next(5) == 0 ? rand.Next(21) + 1 : 21 + rand.Next(10)) * difficulty;
+            var creatureLevel = (int)((rand.Next(5) == 0 ? rand.Next(21) + 1 : 21 + rand.Next(10)) * difficulty);
             var tamingEffectiveness = -3d; // indicating wild
             if (doTame)
             {
                 tamingEffectiveness = 0.5 + rand.NextDouble() / 2; // assume at least 50 % te
-                creatureLevel *= 1 + 0.5 * tamingEffectiveness;
+                creatureLevel = (int)(creatureLevel * (1 + 0.5 * tamingEffectiveness));
             }
 
-            var levelFactor = creatureLevel / _totalLevels;
+            var levelFactor = (double)creatureLevel / _totalLevels;
             var levelsWild = new int[Stats.StatsCount];
             var levelsMut = useMutatedLevels ? new int[Stats.StatsCount] : null;
             var levelsDom = new int[Stats.StatsCount];
@@ -153,13 +153,10 @@ namespace ARKBreedingStats.library
                 levelsWild[si] = level;
             }
 
-            if (!doTame && usedLevels.Any())
+            if (usedLevels.Any())
             {
                 // make sure wild total level is valid (probably not the same algorithm as in game)
-                var maxWildLevel = (int)(30 * difficulty);
-                var wildLevel = torpidityLevel + 1;
-                var shouldBeLevel = (int)Math.Min(maxWildLevel, Math.Round(wildLevel / difficulty) * difficulty);
-                var levelOffset = shouldBeLevel - wildLevel;
+                var levelOffset = creatureLevel - torpidityLevel - 1;
                 var delta = levelOffset > 0 ? 1 : -1;
                 var sii = 0;
                 var siCount = usedLevels.Count;

@@ -1,4 +1,5 @@
-﻿using System.Media;
+﻿using System.Collections.Generic;
+using System.IO;
 using ARKBreedingStats.library;
 
 namespace ARKBreedingStats.utils
@@ -8,74 +9,104 @@ namespace ARKBreedingStats.utils
     /// </summary>
     internal static class SoundFeedback
     {
+        private static PlayAudioStreams _currentPlayAudioStreams;
+
         internal enum FeedbackSounds
         {
+            None,
             Failure,
             Success,
             Good,
             Great,
             Indifferent,
             Updated,
-            NewMutation
+            NewMutation,
+            NewColor,
+            NewRegionColor,
+            /// <summary>
+            /// User can select specific colors, this sound will play if such a color is extracted.
+            /// </summary>
+            NewDesiredColor
         }
-
-        private static readonly SoundPlayer Sp = new SoundPlayer();
 
         /// <summary>
         /// Beeps.
         /// </summary>
-        public static void BeepSignal(FeedbackSounds kind)
+        public static void BeepSignal(params FeedbackSounds[] sounds)
         {
-            switch (kind)
+            var soundList = new List<Stream>();
+            foreach (var sound in sounds)
             {
-                case FeedbackSounds.Updated:
-                    Sp.Stream = Properties.Resources.updated;
-                    Sp.Play();
-                    return;
-                case FeedbackSounds.Indifferent:
-                    Sp.Stream = Properties.Resources.indifferent;
-                    Sp.Play();
-                    return;
-                case FeedbackSounds.Failure:
-                    Sp.Stream = Properties.Resources.failure;
-                    Sp.Play();
-                    return;
-                case FeedbackSounds.Success:
-                    Sp.Stream = Properties.Resources.success;
-                    Sp.Play();
-                    return;
-                case FeedbackSounds.Good:
-                    Sp.Stream = Properties.Resources.topstat;
-                    Sp.Play();
-                    return;
-                case FeedbackSounds.Great:
-                    Sp.Stream = Properties.Resources.newtopstat;
-                    Sp.Play();
-                    return;
-                case FeedbackSounds.NewMutation:
-                    Sp.Stream = Properties.Resources.newMutation;
-                    Sp.Play();
-                    return;
+                switch (sound)
+                {
+                    case FeedbackSounds.Updated:
+                        soundList.Add(Properties.Resources.updated);
+                        break;
+                    case FeedbackSounds.Indifferent:
+                        soundList.Add(Properties.Resources.indifferent);
+                        break;
+                    case FeedbackSounds.Failure:
+                        soundList.Add(Properties.Resources.failure);
+                        break;
+                    case FeedbackSounds.Success:
+                        soundList.Add(Properties.Resources.success);
+                        break;
+                    case FeedbackSounds.Good:
+                        soundList.Add(Properties.Resources.topstat);
+                        break;
+                    case FeedbackSounds.Great:
+                        soundList.Add(Properties.Resources.newtopstat);
+                        break;
+                    case FeedbackSounds.NewMutation:
+                        soundList.Add(Properties.Resources.newMutation);
+                        break;
+                    case FeedbackSounds.NewColor:
+                        soundList.Add(Properties.Resources.newColor);
+                        break;
+                    case FeedbackSounds.NewRegionColor:
+                        soundList.Add(Properties.Resources.newRegionColor);
+                        break;
+                    case FeedbackSounds.NewDesiredColor:
+                        soundList.Add(Properties.Resources.newDesiredColor);
+                        break;
+                }
             }
+
+            _currentPlayAudioStreams?.Stop();
+            _currentPlayAudioStreams = new PlayAudioStreams(soundList);
         }
 
         /// <summary>
         /// Sound feedback according to current LevelStatusFlags.
         /// </summary>
-        public static void BeepSignalCurrentLevelFlags(bool creatureAlreadyExists = false, bool extractionSuccessful = true)
+        public static void BeepSignalCurrentLevelFlags(bool creatureAlreadyExists = false, bool extractionSuccessful = true, bool playColorSound = true)
         {
             if (extractionSuccessful)
             {
+                FeedbackSounds levelSound;
                 if (creatureAlreadyExists)
-                    BeepSignal(FeedbackSounds.Updated);
-                else if (LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.NewMutation))
-                    BeepSignal(FeedbackSounds.NewMutation);
-                else if (LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel))
-                    BeepSignal(FeedbackSounds.Great);
-                else if (LevelStatusFlags.CombinedLevelStatusFlags.HasFlag(LevelStatusFlags.LevelStatus.TopLevel))
-                    BeepSignal(FeedbackSounds.Good);
+                    levelSound = FeedbackSounds.Updated;
+                else if (LevelColorStatusFlags.StatLevelStatusFlagsCombined.HasFlag(LevelColorStatusFlags.LevelStatus.NewMutation))
+                    levelSound = FeedbackSounds.NewMutation;
+                else if (LevelColorStatusFlags.StatLevelStatusFlagsCombined.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel))
+                    levelSound = FeedbackSounds.Great;
+                else if (LevelColorStatusFlags.StatLevelStatusFlagsCombined.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel))
+                    levelSound = FeedbackSounds.Good;
                 else
-                    BeepSignal(FeedbackSounds.Success);
+                    levelSound = FeedbackSounds.Success;
+
+                var colorSound = FeedbackSounds.None;
+                if (playColorSound)
+                {
+                    if (LevelColorStatusFlags.ColorFlagsCombined.HasFlag(LevelColorStatusFlags.ColorStatus.DesiredColor))
+                        colorSound = FeedbackSounds.NewDesiredColor;
+                    else if (LevelColorStatusFlags.ColorFlagsCombined.HasFlag(LevelColorStatusFlags.ColorStatus.NewColor))
+                        colorSound = FeedbackSounds.NewColor;
+                    else if (LevelColorStatusFlags.ColorFlagsCombined.HasFlag(LevelColorStatusFlags.ColorStatus.NewRegionColor))
+                        colorSound = FeedbackSounds.NewRegionColor;
+                }
+
+                BeepSignal(levelSound, colorSound);
             }
             else
             {

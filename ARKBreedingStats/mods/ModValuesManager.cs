@@ -42,6 +42,14 @@ namespace ARKBreedingStats.mods
 
                 if (Values.V.modsManifest?.ModsByFiles != null)
                 {
+                    // reload manual mod values files. This avoids needing an app restart if a manual mod value file was added to the folder
+                    if (ModsManifest.LoadManualValueFiles(Values.V.modsManifest, out var customModsManifest)
+                        && customModsManifest?.ModsByFiles.Any() == true)
+                    {
+                        Values.V.modsManifest = ModsManifest.MergeModsManifest(Values.V.modsManifest, customModsManifest);
+                        Values.V.modsManifest.Initialize();
+                    }
+
                     _modInfos = Values.V.modsManifest.ModsByFiles.Select(smi => smi.Value).Where(mi => mi.Mod != null && !mi.Mod.IsExpansion).ToArray();
                     _lviAvailableMods = _modInfos.Select(mi => (CreateLvi(mi), mi)).OrderBy(m => m.mi.Mod?.Title).ToArray();
                 }

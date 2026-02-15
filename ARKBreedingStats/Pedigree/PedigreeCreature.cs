@@ -149,7 +149,7 @@ namespace ARKBreedingStats.Pedigree
             {
                 foreach (var t in Creature.Traits)
                 {
-                    if (t.TraitDefinition.StatIndex != statIndex) continue;
+                    if (t.TraitDefinition?.StatIndex != statIndex) continue;
                     if (t.MutationProbability > 0)
                     {
                         p.Color = Color.DeepPink;
@@ -279,7 +279,7 @@ namespace ARKBreedingStats.Pedigree
 
                 _tt.SetToolTip(labelSex, "Sex: " + Loc.S(_creature.sex.ToString()));
 
-                var levelColorOptions = Form1.StatsOptionsLevelColors.GetStatsOptions(Creature.Species);
+                var levelColorOptions = Form1.StatsOptionsLevelColors.GetOptions(Creature.Species);
 
                 for (var s = 0; s < DisplayedStatsCount; s++)
                 {
@@ -315,11 +315,11 @@ namespace ARKBreedingStats.Pedigree
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
                             _labelsStats[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7);
                         else
-                            _labelsStats[s].BackColor = Utils.AdjustColorLight(levelColorOptions.StatOptions[si].GetLevelColor(_creature.levelsWild[si]),
+                            _labelsStats[s].BackColor = Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
                                 _creature.IsTopStat(si) ? 0.2 : 0.7);
 
                         _labelsStats[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
-                        var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition.StatIndex == si), Environment.NewLine);
+                        var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition?.StatIndex == si), Environment.NewLine);
                         if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
@@ -333,7 +333,7 @@ namespace ARKBreedingStats.Pedigree
                     if (_creature.levelsMutated != null && _creature.levelsMutated[si] > 0)
                     {
                         _labelsStatsMut[s].Text = _creature.levelsMutated[si].ToString();
-                        _labelsStatsMut[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.StatOptions[si].GetLevelColor(_creature.levelsMutated[si], mutationLevel: true),
+                        _labelsStatsMut[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsMutated[si], mutationLevel: true),
                             _creature.IsTopMutationStat(si) ? 0.2 : 0.7));
                         _labelsStatsMut[s].Visible = true;
                     }

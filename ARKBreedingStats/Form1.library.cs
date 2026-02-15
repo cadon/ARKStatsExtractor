@@ -12,6 +12,7 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
@@ -349,7 +350,7 @@ namespace ARKBreedingStats
                 var lowestLevels = new int[Stats.StatsCount];
                 var highestMutationLevels = new int[Stats.StatsCount];
                 var lowestMutationLevels = new int[Stats.StatsCount];
-                var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
+                var considerAsTopStat = StatsOptionsConsiderTopStats.GetOptions(species).Options;
                 var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
                 for (var s = 0; s < Stats.StatsCount; s++)
                 {
@@ -638,7 +639,7 @@ namespace ARKBreedingStats
                     continue;
                 if (!considerTopStats.TryGetValue(c.Species, out var consideredTopStats))
                 {
-                    consideredTopStats = StatsOptionsConsiderTopStats.GetStatsOptions(c.Species).StatOptions.Select(si => si.ConsiderStat).ToArray();
+                    consideredTopStats = StatsOptionsConsiderTopStats.GetOptions(c.Species).Options.Select(si => si.ConsiderStat).ToArray();
                     considerTopStats[c.Species] = consideredTopStats;
                 }
                 c.SetTopStatCount(consideredTopStats, considerWastedStatsForTopCreatures);
@@ -1196,8 +1197,8 @@ namespace ARKBreedingStats
             // apply colors to the subItems
             var displayZeroMutationLevels = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
 
-            var statOptionsColors = StatsOptionsLevelColors.GetStatsOptions(cr.Species).StatOptions;
-            var statOptionsTopStats = StatsOptionsConsiderTopStats.GetStatsOptions(cr.Species).StatOptions;
+            var statOptionsColors = StatsOptionsLevelColors.GetOptions(cr.Species).Options;
+            var statOptionsTopStats = StatsOptionsConsiderTopStats.GetOptions(cr.Species).Options;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -1816,7 +1817,7 @@ namespace ARKBreedingStats
                     listViewLibrary_SelectedIndexChanged(null, null);
                     break;
                 case Keys.B when e.Control:
-                    CopySelectedCreatureName();
+                    CopyFocusedCreatureName();
                     break;
                 case Keys.C when e.Control:
                     CopySelectedCreatureFromLibraryToClipboard(false);
@@ -2537,7 +2538,7 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns if there is a selected creature, out creature is set to the first selected creature in the library.
+        /// Returns the currently focused creature in the library if it is also selected, else it will return the first selected creature.
         /// </summary>
         private bool TryGetSelectedLibraryCreature(out Creature creature)
         {
@@ -2546,8 +2547,19 @@ namespace ARKBreedingStats
                 creature = null;
                 return false;
             }
-            creature = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
+
+            var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            var useIndex = focusedIndex >= 0 && listViewLibrary.SelectedIndices.Contains(focusedIndex)
+                ? focusedIndex
+                : listViewLibrary.SelectedIndices[0];
+            creature = _creaturesDisplayed[useIndex];
             return true;
+        }
+
+        private void ViewLibraryWithFilter(string libraryFilter)
+        {
+            tabControlMain.SelectedTab = tabPageLibrary;
+            ToolStripTextBoxLibraryFilter.Text = libraryFilter;
         }
     }
 }

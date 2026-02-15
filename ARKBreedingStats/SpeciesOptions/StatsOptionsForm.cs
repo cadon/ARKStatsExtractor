@@ -1,11 +1,12 @@
-﻿using ARKBreedingStats.StatsOptions.LevelColorSettings;
+﻿using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.SpeciesOptions.ColorSettings;
+using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.utils;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.SpeciesOptions
 {
     internal class StatsOptionsForm : Form
     {
@@ -13,8 +14,9 @@ namespace ARKBreedingStats.StatsOptions
         protected readonly ToolTip Tt = new ToolTip();
 
         public static void ShowWindow(Form parent,
-            StatsOptionsSettings<StatLevelColors> levelColorSettings,
-            StatsOptionsSettings<ConsiderTopStats> topStatsSettings,
+            SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>> levelColorSettings,
+            SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>> topStatsSettings,
+            SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>> wantedRegionColorsSettings,
             int selectTabPageIndex = 0
             )
         {
@@ -42,6 +44,8 @@ namespace ARKBreedingStats.StatsOptions
                 AddAndDock(new LevelGraphOptionsControl(levelColorSettings, f.Tt), levelColorSettings.SettingsName);
             if (topStatsSettings != null)
                 AddAndDock(new ConsiderTopStatsControl(topStatsSettings, f.Tt), topStatsSettings.SettingsName);
+            if (wantedRegionColorsSettings != null)
+                AddAndDock(new WantedRegionColorsControl(wantedRegionColorsSettings, f.Tt), wantedRegionColorsSettings.SettingsName);
 
             void AddAndDock(Control c, string tabName)
             {

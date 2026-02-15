@@ -43,7 +43,8 @@ namespace ARKBreedingStats.ocr
         /// </summary>
         public bool CheckResolutionSupportedByOcr()
         {
-            return CheckResolutionSupportedByOcr(GetScreenshotOfProcess());
+            using (var bmpScreenshot = GetScreenshotOfProcess())
+                return CheckResolutionSupportedByOcr(bmpScreenshot);
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace ARKBreedingStats.ocr
             //}
 
             Rectangle cropRect = new Rectangle(x, y, width, height);
-            Bitmap target = null;
+            Bitmap target;
             try
             {
                 target = new Bitmap(cropRect.Width, cropRect.Height);
@@ -103,11 +104,8 @@ namespace ARKBreedingStats.ocr
             }
 
             using (Graphics g = Graphics.FromImage(target))
-            {
                 g.DrawImage(source, new Rectangle(0, 0, target.Width, target.Height),
-                                 cropRect,
-                                 GraphicsUnit.Pixel);
-            }
+                    cropRect, GraphicsUnit.Pixel);
 
             return target;
         }
@@ -323,10 +321,12 @@ namespace ARKBreedingStats.ocr
             tribeName = string.Empty;
             sex = Sex.Unknown;
             double[] finalValues = { 0 };
+            bool disposeBmp;
             if (ocrConfig?.UsedLabelRectangles == null)
             {
                 OcrText = "Error: OCR not configured.\nYou can configure the OCR in the OCR-tab by loading or creating an OCR config-file.\nFor more details see the online manual.";
-                ProcessScreenshot(out _);
+                var bmp = ProcessScreenshot(out _, out disposeBmp);
+                if (disposeBmp) bmp?.Dispose();
                 return finalValues;
             }
 
@@ -344,24 +344,27 @@ namespace ARKBreedingStats.ocr
             if (!oneLabelNotEmpty)
             {
                 OcrText = "Error: The rectangles where to read the text in the image with OCR are not configured.\nYou can configure them by navigating to the OCR-tab then to the Labels tab.\nFor more details see the online manual.";
-                ProcessScreenshot(out _);
+                var bmp = ProcessScreenshot(out _, out disposeBmp);
+                if (disposeBmp) bmp?.Dispose();
                 return finalValues;
             }
 
-            Bitmap screenShotBmp = ProcessScreenshot(out string outText);
+            var screenShotBmp = ProcessScreenshot(out string outText, out disposeBmp);
             if (!string.IsNullOrEmpty(outText))
             {
+                if (disposeBmp) screenShotBmp?.Dispose();
                 OcrText = outText;
                 return finalValues;
             }
 
-            Bitmap ProcessScreenshot(out string errorText)
+            Bitmap ProcessScreenshot(out string errorText, out bool returnBmpCanBeDisposed)
             {
+                returnBmpCanBeDisposed = true; // if true, calling method can dispose bmp, else not since it is used elsewhere
                 errorText = null;
                 _ocrControl.debugPanel.Controls.Clear();
                 _ocrControl.ClearLists();
 
-                Bitmap bmp;
+                Bitmap bmp = null;
                 if (screenShotFromClipboard)
                 {
                     var im = Clipboard.GetImage();
@@ -383,7 +386,8 @@ namespace ARKBreedingStats.ocr
                     }
                     catch (Exception ex)
                     {
-                        errorText = $"Error when trying to load the screenshot from the clipboard for the OCR.\n\n" + ex.Message + (ex.InnerException != null ? $" - InnerException: {ex.InnerException.Message}" : null);
+                        errorText = "Error when trying to load the screenshot from the clipboard for the OCR.\n\n" + ex.Message + (ex.InnerException != null ? $" - InnerException: {ex.InnerException.Message}" : null);
+                        bmp?.Dispose();
                         return null;
                     }
                 }
@@ -396,6 +400,7 @@ namespace ARKBreedingStats.ocr
                     catch (Exception ex)
                     {
                         errorText = $"Error when trying to load the file\n{useImageFilePath}\nfor the OCR.\n\n" + ex.Message + (ex.InnerException != null ? $" - InnerException: {ex.InnerException.Message}" : null);
+                        bmp?.Dispose();
                         return null;
                     }
                 }
@@ -449,9 +454,10 @@ namespace ARKBreedingStats.ocr
                     }
                 }
 
-                if (enableOutput)
+                if (enableOutput && _ocrControl != null)
                 {
-                    _ocrControl?.DisplayBmpInOcrControl(bmp);
+                    _ocrControl.DisplayBmpInOcrControl(bmp);
+                    returnBmpCanBeDisposed = false;
                 }
 
                 return bmp;
@@ -530,6 +536,7 @@ namespace ARKBreedingStats.ocr
                 }
                 catch (OperationCanceledException)
                 {
+                    if (disposeBmp) screenShotBmp?.Dispose();
                     OcrText = "Canceled";
                     return finalValues;
                 }
@@ -675,6 +682,7 @@ namespace ARKBreedingStats.ocr
                 }
             }
 
+            if (disposeBmp) screenShotBmp?.Dispose();
             OcrText = finishedText;
 
             // TODO reorder stats to match 12-stats-order
@@ -734,6 +742,7 @@ namespace ARKBreedingStats.ocr
         }
 
         private Process _screenCaptureProcess;
+
         public bool IsDinoInventoryVisible()
         {
             if (_screenCaptureProcess == null)
@@ -746,18 +755,22 @@ namespace ARKBreedingStats.ocr
             if (Win32API.GetForegroundWindow() != _screenCaptureProcess.MainWindowHandle)
                 return false;
 
-            Bitmap screenshotBmp = Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture);
+            using (var screenshotBmp =
+                   Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture))
+            {
 
-            if (screenshotBmp == null
-                || !CheckResolutionSupportedByOcr(screenshotBmp))
-                return false;
+                if (screenshotBmp == null
+                    || !CheckResolutionSupportedByOcr(screenshotBmp))
+                    return false;
 
-            const OcrTemplate.OcrLabels label = OcrTemplate.OcrLabels.Level;
-            Rectangle rec = ocrConfig.UsedLabelRectangles[(int)label];
-            Bitmap bmp = SubImage(screenshotBmp, rec.X, rec.Y, rec.Width, rec.Height);
-            string statOCR = PatternOcr.ReadImageOcr(bmp, true, Properties.Settings.Default.OCRWhiteThreshold);
-
-            return Regex.IsMatch(statOCR, @":\d+$");
+                const OcrTemplate.OcrLabels label = OcrTemplate.OcrLabels.Level;
+                Rectangle rec = ocrConfig.UsedLabelRectangles[(int)label];
+                using (var bmp = SubImage(screenshotBmp, rec.X, rec.Y, rec.Width, rec.Height))
+                {
+                    string statOCR = PatternOcr.ReadImageOcr(bmp, true, Properties.Settings.Default.OCRWhiteThreshold);
+                    return Regex.IsMatch(statOCR, @":\d+$");
+                }
+            }
         }
 
         /// <summary>

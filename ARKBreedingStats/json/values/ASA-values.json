@@ -1,5 +1,5 @@
 {
-	"version": "77.46.1",
+	"version": "78.32.1",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -4577,6 +4577,7 @@
 				"matingCooldownMin": 129600,
 				"matingCooldownMax": 345600
 			},
+			"matesWith": [ "/Game/Genesis2/Dinos/MilkGlider/MilkGlider_Character_BP.MilkGlider_Character_BP_C" ],
 			"taming": {
 				"nonViolent": false,
 				"violent": true,
@@ -12805,7 +12806,7 @@
 			"skipWildLevelStats": 512,
 			"colors": [
 				{
-					"name": "Wing and main body",
+					"name": "Main",
 					"colors": [
 						"BigFoot0",
 						"BigFoot5",
@@ -12821,11 +12822,11 @@
 						"Dino Albino"
 					]
 				},
-				null,
-				null,
-				null,
+				{ "name": "Accent" },
+				{ "name": "Wings" },
+				{ "name": "Wings accent" },
 				{
-					"name": "Fur",
+					"name": "Accent 2",
 					"colors": [
 						"BigFoot0",
 						"BigFoot5",
@@ -12840,22 +12841,7 @@
 						"DragonBase1"
 					]
 				},
-				{
-					"name": "Feather highlights",
-					"colors": [
-						"BigFoot0",
-						"BigFoot5",
-						"BigFoot0",
-						"Dino Light Orange",
-						"BigFoot4",
-						"WolfFur",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Light Grey",
-						"Dark Grey",
-						"NearWhite"
-					]
-				}
+				null
 			]
 		},
 		{
@@ -27329,214 +27315,6 @@
 						"BigFoot5",
 						"BigFoot5",
 						"BigFoot5"
-					]
-				}
-			]
-		},
-		{
-			"blueprintPath": "/Game/LostColony/Missions/Overworld/Outpost/Dinos/Neophyte_Character_BP_Outpost.Neophyte_Character_BP_Outpost",
-			"name": "Neophyte",
-			"variants": [ "LostColony", "Mission", "Outpost", "Overworld" ],
-			"fullStatsRaw": [
-				[ 13500, 0.2, 0.216, -900, 0 ],
-				[ 225, 0.05, 0.06, 0, 0 ],
-				[ 1500, 0.06, 0, 0.5, 0 ],
-				[ 150, 0.1, 0.1, 0, 0 ],
-				[ 1600, 0.1, 0.1, 0, 0.15 ],
-				null,
-				null,
-				[ 280, 0.02, 0.04, 0, 0 ],
-				[ 1, 0.05, 0.1, -0.5, 0.4 ],
-				null,
-				null,
-				null
-			],
-			"taming": {
-				"nonViolent": false,
-				"violent": false,
-				"tamingIneffectiveness": 3.125,
-				"affinityNeeded0": 2200,
-				"affinityIncreasePL": 100,
-				"foodConsumptionBase": 0.002066,
-				"foodConsumptionMult": 150,
-				"babyFoodConsumptionMult": 510
-			},
-			"boneDamageAdjusters": {
-				"head_exp": 1.5,
-				"jaw_exp": 1.5
-			},
-			"displayedStats": 407,
-			"skipWildLevelStats": 512,
-			"colors": [
-				{
-					"name": "Skin main",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dino Darker Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"NearBlack",
-						"DarkWarmGray",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"BurntSienna",
-						"LightAutumn",
-						"Cream",
-						"DarkCement",
-						"LightCement",
-						"Mustard",
-						"BlackSands"
-					]
-				},
-				{
-					"name": "Bone knuckle",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dino Darker Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"NearBlack",
-						"DarkWarmGray",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"BurntSienna",
-						"LightAutumn",
-						"Cream",
-						"DarkCement",
-						"LightCement",
-						"Mustard",
-						"BlackSands"
-					]
-				},
-				{
-					"name": "Wing membrane a",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dino Darker Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"NearBlack",
-						"DarkWarmGray",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"Cream",
-						"DarkCement",
-						"LightCement",
-						"Mustard",
-						"Cream"
-					]
-				},
-				{
-					"name": "Wing membrane b",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dino Darker Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"NearBlack",
-						"DarkWarmGray",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"BurntSienna",
-						"LightAutumn",
-						"Cream",
-						"DarkCement",
-						"LightCement",
-						"Mustard",
-						"BlackSands"
-					]
-				},
-				{
-					"name": "Light belly",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dino Darker Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"NearBlack",
-						"DarkWarmGray",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"BurntSienna",
-						"LightAutumn",
-						"Cream",
-						"DarkCement",
-						"LightCement",
-						"Mustard",
-						"BlackSands",
-						"Glacial",
-						"Custard",
-						"Cream"
-					]
-				},
-				{
-					"name": "None",
-					"colors": [
-						"Dino Light Orange",
-						"Dino Light Brown",
-						"Dino Medium Brown",
-						"Dino Dark Brown",
-						"Light Grey",
-						"Dino Darker Grey",
-						"Dino Albino",
-						"BigFoot0",
-						"BigFoot4",
-						"BigFoot5",
-						"WolfFur",
-						"DarkWolfFur",
-						"NearBlack",
-						"DarkWarmGray",
-						"MediumWarmGray",
-						"LightWarmGray",
-						"BurntSienna",
-						"LightAutumn",
-						"Cream",
-						"DarkCement",
-						"LightCement",
-						"Mustard",
-						"BlackSands",
-						"Custard",
-						"Cream"
 					]
 				}
 			]

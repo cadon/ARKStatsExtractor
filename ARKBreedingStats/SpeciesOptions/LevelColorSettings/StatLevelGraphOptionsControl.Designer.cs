@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.StatsOptions.LevelColorSettings
+﻿namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 {
     partial class StatLevelGraphOptionsControl
     {

@@ -1,11 +1,12 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -62,7 +63,7 @@ namespace ARKBreedingStats.uiControls
             TagsChanged = false;
             SpeciesChanged = false;
 
-            CreatureColored.GetColoredCreatureWithCallback(pictureBox1.SetImageAndDisposeOld, this,
+            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this,
                 _colors, _uniqueSpecies ? creatureList[0].Species : null,
                 new[] { true, true, true, true, true, true }, 128, game: CreatureCollection.CurrentCreatureCollection?.Game);
 
@@ -125,6 +126,8 @@ namespace ARKBreedingStats.uiControls
             SetLocalizations();
             this.ResumeDrawingAndLayout();
         }
+
+        private void UpdateCreatureImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist _) => pictureBox1.SetImageAndDisposeOld(bmp);
 
         private void buttonStatus_Click(object sender, EventArgs e)
         {
@@ -283,7 +286,7 @@ namespace ARKBreedingStats.uiControls
             // color was chosen
             _colors[region] = _cp.Cp.SelectedColorId;
             sender.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(_colors[region]));
-            CreatureColored.GetColoredCreatureWithCallback(pictureBox1.SetImageAndDisposeOld, this,
+            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this,
                 _colors, _uniqueSpecies ? _creatureList[0].Species : null,
                 new[] { true, true, true, true, true, true }, 128, game: CreatureCollection.CurrentCreatureCollection?.Game);
         }

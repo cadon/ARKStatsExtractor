@@ -1,14 +1,14 @@
-﻿using System.Drawing;
-using ARKBreedingStats.StatsOptions.LevelColorSettings;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Drawing;
+using System.Linq;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 {
     /// <summary>
-    /// Options for a stat regarding breeding weights, top stat calculation and graph representation.
+    /// Options for a stat regarding level colors.
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    public class StatLevelColors : StatOptionsBase
+    public class StatLevelColors : SpeciesOptionBase
     {
         /// <summary>
         /// Use for all levels, or only for even levels if LevelGraphRepresentationOdd is not null.
@@ -107,5 +107,8 @@ namespace ARKBreedingStats.StatsOptions
             LevelGraphRepresentation = LevelGraphRepresentation.GetDefault,
             LevelGraphRepresentationMutation = LevelGraphRepresentation.GetDefaultMutationLevel
         };
+
+        public static StatLevelColors[] GetDefaultOptions() =>
+            Enumerable.Range(0, Stats.StatsCount).Select(si => GetDefault()).ToArray();
     }
 }

@@ -2436,5 +2436,101 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesImagesUrls"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InfoGraphicBackgroundImagePath {
+            get {
+                return ((string)(this["InfoGraphicBackgroundImagePath"]));
+            }
+            set {
+                this["InfoGraphicBackgroundImagePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int InfoGraphicBorderWidth {
+            get {
+                return ((int)(this["InfoGraphicBorderWidth"]));
+            }
+            set {
+                this["InfoGraphicBorderWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PlayColorSoundOnAutoImport {
+            get {
+                return ((bool)(this["PlayColorSoundOnAutoImport"]));
+            }
+            set {
+                this["PlayColorSoundOnAutoImport"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color InfoGraphicTextOutlineColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicTextOutlineColor"]));
+            }
+            set {
+                this["InfoGraphicTextOutlineColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float InfoGraphicTextOutlineWidth {
+            get {
+                return ((float)(this["InfoGraphicTextOutlineWidth"]));
+            }
+            set {
+                this["InfoGraphicTextOutlineWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InfoGraphicCreatureOutlineWidth {
+            get {
+                return ((int)(this["InfoGraphicCreatureOutlineWidth"]));
+            }
+            set {
+                this["InfoGraphicCreatureOutlineWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color InfoGraphicCreatureOutlineColor {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicCreatureOutlineColor"]));
+            }
+            set {
+                this["InfoGraphicCreatureOutlineColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.8")]
+        public float InfoGraphicCreatureOutlineBlurring {
+            get {
+                return ((float)(this["InfoGraphicCreatureOutlineBlurring"]));
+            }
+            set {
+                this["InfoGraphicCreatureOutlineBlurring"] = value;
+            }
+        }
     }
 }

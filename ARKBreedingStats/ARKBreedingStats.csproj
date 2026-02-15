@@ -122,25 +122,31 @@
     </Compile>
     <Compile Include="SpeciesImages\ImagesManifest.cs" />
     <Compile Include="SpeciesImages\Poses.cs" />
+    <Compile Include="SpeciesOptions\ColorOptions.cs" />
+    <Compile Include="SpeciesOptions\ColorSettings\WantedRegionColorsControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SpeciesOptions\ColorSettings\WantedRegionColors.cs" />
+    <Compile Include="SpeciesOptions\StatsOptions.cs" />
     <Compile Include="Traits\CreatureTrait.cs" />
     <Compile Include="library\DummyCreatures.cs" />
     <Compile Include="NamePatterns\JavaScriptNamePattern.cs" />
     <Compile Include="NamePatterns\TokenModel.cs" />
     <Compile Include="species\CanHaveWildLevelExceptions.cs" />
     <Compile Include="species\ColorPattern.cs" />
-    <Compile Include="StatsOptions\StatsOptionsControl.cs">
+    <Compile Include="SpeciesOptions\SpeciesOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatsOptions\StatsOptionsForm.cs">
+    <Compile Include="SpeciesOptions\StatsOptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStats.cs" />
-    <Compile Include="StatsOptions\StatOptionsBase.cs" />
-    <Compile Include="StatsOptions\LevelColorSettings\LevelGraphRepresentation.cs" />
-    <Compile Include="library\LevelStatusFlags.cs" />
-    <Compile Include="StatsOptions\LevelColorSettings\StatLevelColors.cs" />
-    <Compile Include="StatsOptions\StatsOptions.cs" />
-    <Compile Include="StatsOptions\StatsOptionsSettings.cs" />
+    <Compile Include="SpeciesOptions\TopStatsSettings\ConsiderTopStats.cs" />
+    <Compile Include="SpeciesOptions\SpeciesOptionBase.cs" />
+    <Compile Include="SpeciesOptions\LevelColorSettings\LevelGraphRepresentation.cs" />
+    <Compile Include="library\LevelColorStatusFlags.cs" />
+    <Compile Include="SpeciesOptions\LevelColorSettings\StatLevelColors.cs" />
+    <Compile Include="SpeciesOptions\SpeciesOptionsBase.cs" />
+    <Compile Include="SpeciesOptions\SpeciesOptionsSettings.cs" />
     <Compile Include="library\TopLevels.cs" />
     <Compile Include="multiplierTesting\CalculateMultipliers.cs" />
     <Compile Include="multiplierTesting\SpeciesStatsExtractor.cs" />
@@ -155,12 +161,15 @@
     <Compile Include="Pedigree\IPedigreeCreature.cs" />
     <Compile Include="species\ArkColors.cs" />
     <Compile Include="species\Troodonism.cs" />
-    <Compile Include="StatsOptions\TopStatsSettings\ConsiderTopStatsControl.cs">
+    <Compile Include="SpeciesOptions\TopStatsSettings\ConsiderTopStatsControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Traits\TraitDefinition.cs" />
     <Compile Include="uiControls\ArkVersionDialog.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="uiControls\ColoredCreatureImageWithPose.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\ColorPickerWindow.cs">
       <SubType>Form</SubType>
@@ -186,10 +195,10 @@
     <Compile Include="uiControls\Hatching.Designer.cs">
       <DependentUpon>Hatching.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\LevelColorSettings\HueControl.cs">
+    <Compile Include="SpeciesOptions\LevelColorSettings\HueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatsOptions\LevelColorSettings\HueControl.Designer.cs">
+    <Compile Include="SpeciesOptions\LevelColorSettings\HueControl.Designer.cs">
       <DependentUpon>HueControl.cs</DependentUpon>
     </Compile>
     <Compile Include="uiControls\LibraryFilterTemplates.cs">
@@ -214,13 +223,13 @@
     <Compile Include="uiControls\ScrollForm.Designer.cs">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.cs">
+    <Compile Include="SpeciesOptions\LevelColorSettings\StatLevelGraphOptionsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.Designer.cs">
+    <Compile Include="SpeciesOptions\LevelColorSettings\StatLevelGraphOptionsControl.Designer.cs">
       <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatsOptions\LevelColorSettings\LevelGraphOptionsControl.cs">
+    <Compile Include="SpeciesOptions\LevelColorSettings\LevelGraphOptionsControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="uiControls\StatsDisplay.cs">
@@ -741,6 +750,7 @@
     <Compile Include="utils\ExtensionMethods.cs" />
     <Compile Include="utils\CreatureListSorter.cs" />
     <Compile Include="utils\Hashes.cs" />
+    <Compile Include="utils\ImageTools.cs" />
     <Compile Include="utils\LevelColorBar.cs" />
     <Compile Include="utils\Logging.cs" />
     <Compile Include="utils\MessageBoxes.cs" />
@@ -748,6 +758,7 @@
     <Compile Include="utils\NaturalComparer.cs" />
     <Compile Include="utils\RepositoryInfo.cs" />
     <Compile Include="utils\SoundFeedback.cs" />
+    <Compile Include="utils\PlayAudioStreams.cs" />
     <Compile Include="utils\Themes.cs" />
     <Compile Include="utils\WebService.cs" />
     <Compile Include="values\TamingFoodData.cs" />
@@ -830,7 +841,7 @@
     <EmbeddedResource Include="uiControls\Hatching.resx">
       <DependentUpon>Hatching.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\LevelColorSettings\HueControl.resx">
+    <EmbeddedResource Include="SpeciesOptions\LevelColorSettings\HueControl.resx">
       <DependentUpon>HueControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\LibraryFilterTemplates.resx">
@@ -842,7 +853,7 @@
     <EmbeddedResource Include="uiControls\ScrollForm.resx">
       <DependentUpon>ScrollForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatsOptions\LevelColorSettings\StatLevelGraphOptionsControl.resx">
+    <EmbeddedResource Include="SpeciesOptions\LevelColorSettings\StatLevelGraphOptionsControl.resx">
       <DependentUpon>StatLevelGraphOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="uiControls\StatSelector.resx">

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ARKBreedingStats.uiControls;
+using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -15,6 +17,9 @@ namespace ARKBreedingStats
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += UnhandledExceptionHandler;
 #endif
+
+            if (CloseIfDifferentInstanceOfAppIsRunning())
+                return;
 
             var args = Environment.GetCommandLineArgs();
             for (int i = 1; i < args.Length; i++)
@@ -35,7 +40,7 @@ namespace ARKBreedingStats
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1
             {
-                Font = new System.Drawing.Font(Properties.Settings.Default.DefaultFontName, Properties.Settings.Default.DefaultFontSize)
+                Font = new Font(Properties.Settings.Default.DefaultFontName, Properties.Settings.Default.DefaultFontSize)
             });
         }
 
@@ -84,6 +89,24 @@ namespace ARKBreedingStats
 
                 CustomMessageBox.Show(message, "Unhandled Exception", "OK", icon: MessageBoxIcon.Error,
                     showCopyToClipboard: true);
+            }
+        }
+
+        private static bool CloseIfDifferentInstanceOfAppIsRunning()
+        {
+            // Wine might crash when accessing Process
+            try
+            {
+                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length == 1) return false;
+                return MessageBox.Show($@"{Application.ProductName} seems to be running already.
+Starting a second instance of this app could cause issues with synchronization, automatic importing and app settings.
+
+Start another instance?", $"{Application.ProductName} seems to be running already", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) !=
+                       DialogResult.Yes;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

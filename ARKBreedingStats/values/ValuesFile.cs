@@ -4,7 +4,9 @@ using System.IO;
 using System.Runtime.Serialization;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ARKBreedingStats.values
 {
@@ -144,6 +146,65 @@ namespace ARKBreedingStats.values
                     throw;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Only loads the ModInfo header of a values file. This can be used if the other parts of the file are not needed.
+        /// </summary>
+        public static bool TryLoadingModInfoHeader(string filePath, out ModInfo modInfo)
+        {
+            modInfo = null;
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return false;
+
+            try
+            {
+                using (var fs = File.OpenRead(filePath))
+                using (var sr = new StreamReader(fs))
+                using (var jr = new JsonTextReader(sr) { SupportMultipleContent = false })
+                {
+                    // validate root
+                    if (!jr.Read() || jr.TokenType != JsonToken.StartObject)
+                    {
+                        MessageBoxes.ShowMessageBox("Error while trying to read the json values file, no json root object found in" + Environment.NewLine + filePath);
+                        return false;
+                    }
+
+                    modInfo = new ModInfo();
+                    string currentProp = null;
+                    while (jr.Read())
+                    {
+                        if (jr.TokenType == JsonToken.PropertyName)
+                        {
+                            currentProp = (string)jr.Value;
+                            // if species array, no further reading needed (only the header is needed)
+                            if (string.Equals(currentProp, "species", StringComparison.OrdinalIgnoreCase))
+                                break;
+                            continue; // move to token after property name
+                        }
+                        switch (currentProp)
+                        {
+                            case "version":
+                                modInfo.Version = Utils.TryParseVersionAlsoWithOnlyMajor(jr.Value?.ToString());
+                                break;
+                            case "format":
+                                modInfo.Format = jr.Value?.ToString();
+                                break;
+                            case "mod":
+                                modInfo.Mod = JToken.ReadFrom(jr).ToObject<Mod>();
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex,
+                    "Error while trying to read the mod info header of the values file" + Environment.NewLine +
+                    filePath);
+                return false;
+            }
+
+            return true;
         }
     }
 }

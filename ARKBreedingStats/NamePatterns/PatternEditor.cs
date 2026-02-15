@@ -23,7 +23,7 @@ namespace ARKBreedingStats.NamePatterns
         private readonly TokenModel _tokenModel;
         private readonly TopLevels _topLevels;
         private readonly int _libraryCreatureCount;
-        private readonly CreatureCollection.ColorExisting[] _colorExistings;
+        private readonly LevelColorStatusFlags.ColorStatus[] _colorExistings;
         private Dictionary<string, string> _customReplacings;
         private readonly Debouncer _updateNameDebouncer = new Debouncer();
         private readonly Action<PatternEditor> _reloadCallback;
@@ -130,7 +130,7 @@ namespace ARKBreedingStats.NamePatterns
             textBox.Select(start, end - start);
         }
 
-        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, CreatureCollection.ColorExisting[] colorExistings,
+        public PatternEditor(Creature creature, Creature[] creaturesOfSameSpecies, TopLevels topLevels, LevelColorStatusFlags.ColorStatus[] colorExistings,
             Dictionary<string, string> customReplacings, string namingPatternName, string patternString, Action<PatternEditor> reloadCallback, int libraryCreatureCount) : this()
         {
             Utils.SetWindowRectangle(this, Properties.Settings.Default.PatternEditorFormRectangle);
@@ -670,7 +670,8 @@ namespace ARKBreedingStats.NamePatterns
             {"colorNew","{{#colorNew: regionId }}. Returns newInRegion if the region contains a color that is not yet available in that species. Returns newInSpecies if that color is not yet available in any region of that species.\n{{#colorNew: 0 }}"},
             {"indexOf","{{#indexof: source string | string to find }}. Returns the index of the second parameter in the first parameter. If the string is not contained, an empty string will be returned.\n{{#indexof: hello | ll }}"},
             {"md5", "{{#md5: string }}, returns the md5 hash of a given string\n{{#md5: {hp}{st}{we} }}"},
-            {"list", "{{#list: list string | initial separator | final separator }}, removes empty entries, especially the last separator is removed.\n{{#list: 10,,48,24, | , | , }}"}
+            {"list", "{{#list: list string | initial separator | final separator }}, removes empty entries, especially the last separator is removed.\n{{#list: 10,,48,24, | , | , }}"},
+            {"creatureProperty", "{{#creatureProperty: name of existing creature | property }}, gets property of an existing creature with the given name. Supported properties are: name, owner, tribe, server, mutationCount, status, color0,...,color5, the levels with the two character abbreviation for wild and with the suffix _m for mutated and _d for domesticated, e.g. hp_m for the HP mutation levels.\n{{#creatureProperty: Marble | hp }}"}
         };
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -784,7 +785,7 @@ namespace ARKBreedingStats.NamePatterns
 
             // add javascript start indicator
             if (!JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
-                txtboxPattern.Text = "#!javascript" + Environment.NewLine + "return `${species}`;" + Environment.NewLine + txtboxPattern.Text;
+                txtboxPattern.Text = "#!javascript" + Environment.NewLine + "return species;" + Environment.NewLine + Environment.NewLine + txtboxPattern.Text;
         }
 
         private void BtJsTemplate_Click(object sender, EventArgs e)

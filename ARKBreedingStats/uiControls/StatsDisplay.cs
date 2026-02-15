@@ -2,7 +2,7 @@
 using ARKBreedingStats.utils;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
-using ARKBreedingStats.StatsOptions;
+using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -63,7 +63,7 @@ namespace ARKBreedingStats.uiControls
             if (_species != creature.Species)
             {
                 _species = creature.Species;
-                _levelColors = Form1.StatsOptionsLevelColors.GetStatsOptions(_species).StatOptions;
+                _levelColors = Form1.StatsOptionsLevelColors.GetOptions(_species).Options;
             }
 
             this.SuspendDrawingAndLayout();

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.species;
+using ARKBreedingStats.utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using ARKBreedingStats.Library;
-using ARKBreedingStats.species;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -36,10 +37,7 @@ namespace ARKBreedingStats.NamePatterns
             {
                 return replacement;
             }
-            else
-            {
-                return defaultValue;
-            }
+            return defaultValue;
         }
 
         private static string ParametersInvalid(string specificError, string expression, bool displayError)
@@ -77,7 +75,8 @@ namespace ARKBreedingStats.NamePatterns
                 {"indexof", FunctionIndexOf},
                 {"md5", FunctionMd5},
                 {"listname", FunctionListName },
-                {"list", FunctionList }
+                {"list", FunctionList },
+                {"creatureproperty", FunctionCreatureProperty }
             };
 
         private static string FunctionIf(Match m, NamePatternParameters p)
@@ -214,7 +213,7 @@ namespace ARKBreedingStats.NamePatterns
             {
                 return m.Groups[2].Value.PadLeft(padLen, padChar[0]);
             }
-            return ParametersInvalid($"No padding char given.", m.Groups[0].Value, p.DisplayError);
+            return ParametersInvalid("No padding char given.", m.Groups[0].Value, p.DisplayError);
         }
 
         private static string FunctionPadRight(Match m, NamePatternParameters p)
@@ -227,7 +226,7 @@ namespace ARKBreedingStats.NamePatterns
             {
                 return m.Groups[2].Value.PadRight(padLen, padChar[0]);
             }
-            return ParametersInvalid($"No padding char given.", m.Groups[0].Value, p.DisplayError);
+            return ParametersInvalid("No padding char given.", m.Groups[0].Value, p.DisplayError);
         }
 
         private static string FunctionFloatDiv(Match m, NamePatternParameters p)
@@ -355,9 +354,9 @@ namespace ARKBreedingStats.NamePatterns
 
             switch (p.ColorsExisting[regionId])
             {
-                case CreatureCollection.ColorExisting.ColorExistingInOtherRegion:
+                case LevelColorStatusFlags.ColorStatus.NewRegionColor:
                     return "newInRegion";
-                case CreatureCollection.ColorExisting.ColorIsNew:
+                case LevelColorStatusFlags.ColorStatus.NewColor:
                     return "newInSpecies";
                 default:
                     return string.Empty;
@@ -413,9 +412,71 @@ namespace ARKBreedingStats.NamePatterns
                     .Select(e => e.Trim()).Where(e => !string.IsNullOrEmpty(e)));
         }
 
+        private static string FunctionCreatureProperty(Match m, NamePatternParameters p)
+        {
+            // returns info of existing creature with specific name
+            // parameter: 1: creature name, 2: property name
+
+            var creatureName = m.Groups[2].Value;
+            var propertyName = m.Groups[3].Value.ToLowerInvariant();
+            return CreatureProperty(creatureName, propertyName, p.CreaturesOfSpecies);
+        }
+
+        internal static string CreatureProperty(string creatureName, string propertyName, Creature[] creaturesOfSpecies)
+        {
+            if (string.IsNullOrEmpty(propertyName)) return string.Empty;
+            var creature = creaturesOfSpecies.FirstOrDefault(c => c.name == creatureName);
+            if (creature == null) return string.Empty;
+            var dict = GetCreatureProperties(creatureName, creature);
+            if (dict == null) return string.Empty; // creature with this name does not exist
+            return dict.TryGetValue(propertyName, out var r) ? r : $"[ unknown property name: {propertyName} ]";
+        }
+
+        private static Dictionary<string, Dictionary<string, string>> _creaturePropertiesCache;
+
+        /// <summary>
+        /// If the property dictionary of a creature already exists, use it, else create it anew.
+        /// </summary>
+        private static Dictionary<string, string> GetCreatureProperties(string creatureName, Creature creature)
+        {
+            if (string.IsNullOrEmpty(creatureName)) return null;
+            if (_creaturePropertiesCache?.TryGetValue(creatureName, out var dict) == true) return dict;
+            if (_creaturePropertiesCache == null)
+                _creaturePropertiesCache = new Dictionary<string, Dictionary<string, string>>();
+
+            dict = new Dictionary<string, string>
+            {
+                {"name", creature.name},
+                {"owner", creature.owner},
+                {"tribe", creature.tribe},
+                {"server", creature.server},
+                {"mutationcount", creature.Mutations.ToString()},
+                {"mutationcountmaternal", creature.mutationsMaternal.ToString()},
+                {"mutationcountpaternal", creature.mutationsPaternal.ToString()},
+                {"status", creature.Status.ToString()}
+            };
+            for (var i = 0; i < Ark.ColorRegionCount; i++)
+                dict["color" + i] = creature.colors?[i].ToString() ?? string.Empty;
+            for (var i = 0; i < Stats.StatsCount; i++)
+            {
+                dict[NamePattern.StatAbbreviationFromIndex[i]] = creature.levelsWild?[i].ToString() ?? string.Empty;
+                dict[NamePattern.StatAbbreviationFromIndex[i] + "_m"] = creature.levelsMutated?[i].ToString() ?? string.Empty;
+                dict[NamePattern.StatAbbreviationFromIndex[i] + "_d"] = creature.levelsDom?[i].ToString() ?? string.Empty;
+            }
+
+            _creaturePropertiesCache[creatureName] = dict;
+            return dict;
+        }
+
+        /// <summary>
+        /// Clear creature property dictionary cache, call after name is created.
+        /// </summary>
+        public static void ClearCreatureProperties() => _creaturePropertiesCache?.Clear();
+
         public static void Dispose()
         {
             _md5?.Dispose();
+            _creaturePropertiesCache?.Clear();
         }
     }
 
@@ -429,6 +490,7 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         internal bool ProcessNumberField;
 
-        internal CreatureCollection.ColorExisting[] ColorsExisting;
+        internal LevelColorStatusFlags.ColorStatus[] ColorsExisting;
+        internal Creature[] CreaturesOfSpecies;
     }
 }

@@ -256,6 +256,10 @@ namespace ARKBreedingStats.species
                         }
                     }
 
+                    // For the taming multiplicative bonus Ark ignores values <0 and handles them like they're 0.
+                    if (completeRaws[s][StatsRawIndexMultiplicativeBonus] < 0)
+                        completeRaws[s][StatsRawIndexMultiplicativeBonus] = 0;
+
                     stats[s].IncreaseStatAsPercentage = _statLevelUpsAdditive?.TryGetValue(s, out var useAdditive) != true || !useAdditive;
                     stats[s].ValueCap = _statCaps?.TryGetValue(s, out var cap) == true ? cap : double.MaxValue;
                 }

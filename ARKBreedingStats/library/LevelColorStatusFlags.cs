@@ -2,23 +2,31 @@
 using System.Collections.Generic;
 using System.Text;
 using ARKBreedingStats.species;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.uiControls;
 using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.library
 {
     /// <summary>
-    /// Level status flags of the current extracted or to be added creature.
+    /// Level and color status flags of the current extracted or to be added creature.
     /// E.g. if a level is a new top stat or has a new mutations.
     /// </summary>
-    public static class LevelStatusFlags
+    public static class LevelColorStatusFlags
     {
         /// <summary>
         /// The level status of the currently to be added creature.
         /// </summary>
         public static readonly LevelStatus[] LevelStatusFlagsCurrentNewCreature = new LevelStatus[Stats.StatsCount];
-        public static LevelStatus CombinedLevelStatusFlags;
+        /// <summary>
+        /// Stat level flags of all stats merged.
+        /// </summary>
+        public static LevelStatus StatLevelStatusFlagsCombined;
+        public static ColorStatus[] ColorFlags = new ColorStatus[Ark.ColorRegionCount];
+        /// <summary>
+        /// Color flags of all regions merged.
+        /// </summary>
+        public static ColorStatus ColorFlagsCombined;
         public static string LevelInfoText;
 
         /// <summary>
@@ -37,7 +45,7 @@ namespace ARKBreedingStats.library
             newTopStatsText = new List<string>();
             topStatsText = new List<string>();
             var sbStatInfoText = new StringBuilder();
-            CombinedLevelStatusFlags = LevelStatus.Neutral;
+            StatLevelStatusFlagsCombined = LevelStatus.Neutral;
 
             foreach (var s in Stats.DisplayOrder)
             {
@@ -76,14 +84,14 @@ namespace ARKBreedingStats.library
                         if (levelsWild[s] > highSpeciesLevels[s])
                         {
                             LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.NewTopLevel;
-                            CombinedLevelStatusFlags |= LevelStatus.NewTopLevel;
+                            StatLevelStatusFlagsCombined |= LevelStatus.NewTopLevel;
                             newTopStatsText.Add(statName);
                             sbStatInfoText.Append($" {Loc.S("newTopLevel")}");
                         }
                         else if (levelsWild[s] > 0 && levelsWild[s] == highSpeciesLevels[s])
                         {
                             LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.TopLevel;
-                            CombinedLevelStatusFlags |= LevelStatus.TopLevel;
+                            StatLevelStatusFlagsCombined |= LevelStatus.TopLevel;
                             topStatsText.Add(statName);
                             sbStatInfoText.Append($" {Loc.S("topLevel")}");
                         }
@@ -95,14 +103,14 @@ namespace ARKBreedingStats.library
                     if (levelsWild[s] == lowSpeciesLevels[s])
                     {
                         LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.TopLevel;
-                        CombinedLevelStatusFlags |= LevelStatus.TopLevel;
+                        StatLevelStatusFlagsCombined |= LevelStatus.TopLevel;
                         topStatsText.Add(statName);
                         sbStatInfoText.Append($" {Loc.S("topLevel")}");
                     }
                     else if (levelsWild[s] < lowSpeciesLevels[s])
                     {
                         LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.NewTopLevel;
-                        CombinedLevelStatusFlags |= LevelStatus.NewTopLevel;
+                        StatLevelStatusFlagsCombined |= LevelStatus.NewTopLevel;
                         newTopStatsText.Add(statName);
                         sbStatInfoText.Append($" {Loc.S("newTopLevel")}");
                     }
@@ -112,7 +120,7 @@ namespace ARKBreedingStats.library
                     && levelsMutated[s] > highSpeciesMutationLevels[s])
                 {
                     LevelStatusFlagsCurrentNewCreature[s] |= LevelStatus.NewMutation;
-                    CombinedLevelStatusFlags |= LevelStatus.NewMutation;
+                    StatLevelStatusFlagsCombined |= LevelStatus.NewMutation;
                     sbStatInfoText.Append($" {Loc.S("new mutation")}");
                 }
                 sbStatInfoText.AppendLine();
@@ -125,7 +133,9 @@ namespace ARKBreedingStats.library
         {
             for (var s = 0; s < Stats.StatsCount; s++)
                 LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.Neutral;
-            CombinedLevelStatusFlags = LevelStatus.Neutral;
+            StatLevelStatusFlagsCombined = LevelStatus.Neutral;
+            for (var c = 0; c < Ark.ColorRegionCount; c++) ColorFlags[c] = ColorStatus.None;
+            ColorFlagsCombined = ColorStatus.None;
             LevelInfoText = null;
         }
 
@@ -160,6 +170,28 @@ namespace ARKBreedingStats.library
             /// Stat has new mutation.
             /// </summary>
             NewMutation = 32
+        }
+
+        [Flags]
+        public enum ColorStatus
+        {
+            None = 0,
+            /// <summary>
+            /// The color is already available in that region on a creature of that species.
+            /// </summary>
+            ExistsInRegion = 1,
+            /// <summary>
+            /// The color is new in this region, but already available in a different region on a creature of that species.
+            /// </summary>
+            NewRegionColor = 2,
+            /// <summary>
+            /// The color does not exist on any region on any creature of that species.
+            /// </summary>
+            NewColor = 4,
+            /// <summary>
+            /// The color is set as desired for this species.
+            /// </summary>
+            DesiredColor = 8
         }
     }
 }

@@ -43,6 +43,16 @@ namespace ARKBreedingStats.utils
         }
 
         /// <summary>
+        /// Sets the Image property of the Button to the passed Bitmap and disposes the previous Bitmap.
+        /// </summary>
+        public static void SetImageAndDisposeOld(this Button bt, Bitmap bmp)
+        {
+            var oldBmp = bt.Image as Bitmap;
+            bt.Image = bmp;
+            oldBmp?.Dispose();
+        }
+
+        /// <summary>
         /// Returns the value part of this color (HSV model).
         /// </summary>
         public static float GetValue(this Color c) => (float)Math.Max(c.R, Math.Max(c.G, c.B)) / byte.MaxValue;

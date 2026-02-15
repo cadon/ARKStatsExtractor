@@ -8,8 +8,8 @@ using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
-using ARKBreedingStats.StatsOptions;
-using ARKBreedingStats.StatsOptions.TopStatsSettings;
+using ARKBreedingStats.SpeciesOptions;
+using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
@@ -24,6 +24,8 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.SpeciesOptions.ColorSettings;
+using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using static ARKBreedingStats.Asb;
 using static ARKBreedingStats.settings.Settings;
 using static ARKBreedingStats.uiControls.StatWeighting;
@@ -94,8 +96,9 @@ namespace ARKBreedingStats
         private static double[] _lastOcrValues;
         private Species _lastOcrSpecies;
 
-        internal static readonly StatsOptionsSettings<StatLevelColors> StatsOptionsLevelColors = new StatsOptionsSettings<StatLevelColors>("statsLevelColors.json", "Level colors");
-        internal static readonly StatsOptionsSettings<ConsiderTopStats> StatsOptionsConsiderTopStats = new StatsOptionsSettings<ConsiderTopStats>("statsTopStats.json", "Consider for top stats");
+        internal static readonly SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>> StatsOptionsLevelColors = new SpeciesOptionsSettings<StatLevelColors, StatsOptions<StatLevelColors>>("statsLevelColors.json", "Level colors");
+        internal static readonly SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>> StatsOptionsConsiderTopStats = new SpeciesOptionsSettings<ConsiderTopStats, StatsOptions<ConsiderTopStats>>("statsTopStats.json", "Consider for top stats");
+        internal static readonly SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>> ColorOptionsWantedRegions = new SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>>("wantedRegionColors.json", "Wanted region colors");
 
         public Form1()
         {
@@ -160,6 +163,7 @@ namespace ARKBreedingStats
             currentBreeds1.Changed += SetCollectionChanged;
             PedigreeCreature.CollectionChanged += SetCollectionChanged;
             ArkConsoleCommands.SetMessageLabelText += SetMessageLabelText;
+            creatureAnalysis1.ViewLibraryWithFilter += ViewLibraryWithFilter;
 
             listViewLibrary.VirtualMode = true;
             listViewLibrary.RetrieveVirtualItem += ListViewLibrary_RetrieveVirtualItem;
@@ -321,8 +325,8 @@ namespace ARKBreedingStats
                 _statIOs[s].Input = 0;
             }
 
-            creatureInfoInputTester.PbColorRegion = pictureBoxColorRegionsTester;
-            creatureInfoInputExtractor.PbColorRegion = PbCreatureColorsExtractor;
+            creatureInfoInputTester.ColoredCreatureDisplay = ColoredCreatureImageDisplayTester;
+            creatureInfoInputExtractor.ColoredCreatureDisplay = ColoredCreatureImageDisplayExtractor;
             creatureInfoInputExtractor.ParentInheritance = parentInheritanceExtractor;
             parentInheritanceExtractor.Visible = false;
 
@@ -736,7 +740,7 @@ namespace ARKBreedingStats
             radarChart1.SetLevels(species: species);
             currentBreeds1.DisplaySpeciesCurrentBreedingPairs(species);
             var statNames = species.statNames;
-            var levelGraphRepresentations = StatsOptionsLevelColors.GetStatsOptions(species);
+            var levelGraphRepresentations = StatsOptionsLevelColors.GetOptions(species);
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -760,8 +764,8 @@ namespace ARKBreedingStats
                 if (!_activeStats[s]) _statIOs[s].Input = 0;
                 _statIOs[s].Title = Utils.StatName(s, false, statNames);
                 _testingIOs[s].Title = Utils.StatName(s, false, statNames);
-                _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
-                _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _statIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
+                _testingIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
                 _statIOs[s].CustomMutationLevelMultiplier = species.stats[s] != null && species.stats[s].IncPerMutatedLevel != species.stats[s].IncPerWildLevel;
 
                 // don't lock special stats of glow species
@@ -850,13 +854,13 @@ namespace ARKBreedingStats
         /// </summary>
         private void StatsOptionsLevelColorsSettingsChanged()
         {
-            var levelGraphRepresentations = StatsOptionsLevelColors.GetStatsOptions(speciesSelector1.SelectedSpecies);
+            var levelGraphRepresentations = StatsOptionsLevelColors.GetOptions(speciesSelector1.SelectedSpecies);
             if (levelGraphRepresentations == null) return;
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                _statIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
-                _testingIOs[s].SetStatOptions(levelGraphRepresentations.StatOptions[s]);
+                _statIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
+                _testingIOs[s].SetStatOptions(levelGraphRepresentations.Options[s]);
             }
 
         }
@@ -1521,6 +1525,7 @@ namespace ARKBreedingStats
 
             StatsOptionsLevelColors.SaveSettings();
             StatsOptionsConsiderTopStats.SaveSettings();
+            ColorOptionsWantedRegions.SaveSettings();
             Poses.SavePoses();
         }
 
@@ -1800,8 +1805,9 @@ namespace ARKBreedingStats
                 if (pedigree1.PedigreeNeedsUpdate)
                 {
                     Creature c = null;
-                    if (listViewLibrary.SelectedIndices.Count > 0)
-                        c = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
+                    var focusedCreatureIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+                    if (focusedCreatureIndex >= 0)
+                        c = _creaturesDisplayed[focusedCreatureIndex];
                     pedigree1.SetCreature(c, true);
                 }
             }
@@ -2142,11 +2148,10 @@ namespace ARKBreedingStats
 
         private void bestBreedingPartnersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-            {
-                Creature sc = (Creature)listViewLibrary.Items[listViewLibrary.SelectedIndices[0]].Tag;
-                ShowBestBreedingPartner(sc);
-            }
+            var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedIndex < 0) return;
+            Creature sc = (Creature)listViewLibrary.Items[focusedIndex].Tag;
+            ShowBestBreedingPartner(sc);
         }
 
         /// <summary>
@@ -3326,11 +3331,11 @@ namespace ARKBreedingStats
             }
             else
             {
-                CreatureCollection.ColorExisting[] colorAlreadyExistingInformation = null;
+                LevelColorStatusFlags.ColorStatus[] colorAlreadyExistingInformation = null;
                 if (Properties.Settings.Default.NamingPatterns != null
                     && !string.IsNullOrEmpty(Properties.Settings.Default.NamingPatterns[namingPatternIndex])
                     && Properties.Settings.Default.NamingPatterns[namingPatternIndex].IndexOf("#colorNew:", StringComparison.InvariantCultureIgnoreCase) != -1)
-                    colorAlreadyExistingInformation = _creatureCollection.ColorAlreadyAvailable(cr.Species, input.RegionColors, out _);
+                    colorAlreadyExistingInformation = _creatureCollection.DetermineColorStatus(cr.Species, input.RegionColors, out _, out _, out _);
                 input.ColorAlreadyExistingInformation = colorAlreadyExistingInformation;
 
                 input.GenerateCreatureName(cr, alreadyExistingCreature, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
@@ -3361,7 +3366,7 @@ namespace ARKBreedingStats
                 cr.tamingEff = rbWildExtractor.Checked ? -3 : _extractor.UniqueTamingEffectiveness();
                 cr.isBred = rbBredExtractor.Checked;
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    cr.SetTopStat(s, _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.TopLevel) || _statIOs[s].TopLevel.HasFlag(LevelStatusFlags.LevelStatus.NewTopLevel));
+                    cr.SetTopStat(s, _statIOs[s].TopLevel.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel) || _statIOs[s].TopLevel.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel));
             }
             else
             {
@@ -3639,7 +3644,8 @@ namespace ARKBreedingStats
                     break;
                 case ".sav":
                 case ".json":
-                    ImportExportGunFiles(files, true, out _, out _, out _, Properties.Settings.Default.PlaySoundOnAutoImport);
+                    ImportExportGunFiles(files, true, out _, out _, out _,
+                        Properties.Settings.Default.PlaySoundOnAutoImport, Properties.Settings.Default.PlayColorSoundOnAutoImport);
                     break;
                 case ".asb":
                 case ".xml":
@@ -3722,22 +3728,21 @@ namespace ARKBreedingStats
 
         private void toolStripMenuItemCopyCreatureName_Click(object sender, EventArgs e)
         {
-            CopySelectedCreatureName();
+            CopyFocusedCreatureName();
         }
 
         /// <summary>
         /// Copies the name of the currently selected creature to the clipboard.
         /// </summary>
-        private void CopySelectedCreatureName()
+        private void CopyFocusedCreatureName()
         {
-            if (listViewLibrary.SelectedIndices.Count > 0)
-            {
-                string name = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name;
-                if (string.IsNullOrEmpty(name))
-                    utils.ClipboardHandler.Clear();
-                else
-                    utils.ClipboardHandler.SetText(name);
-            }
+            var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedIndex < 0) return;
+            string name = _creaturesDisplayed[focusedIndex].name;
+            if (string.IsNullOrEmpty(name))
+                ClipboardHandler.Clear();
+            else
+                ClipboardHandler.SetText(name);
         }
 
         private void fixColorsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3796,14 +3801,16 @@ namespace ARKBreedingStats
 
         private void copyInfographicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count != 0)
-                _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].ExportInfoGraphicToClipboard(_creatureCollection);
+            var focusedCreatureIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedCreatureIndex >= 0)
+                _creaturesDisplayed[focusedCreatureIndex].ExportInfoGraphicToClipboard(_creatureCollection);
         }
 
         private void ToolStripMenuItemOpenWiki_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count != 0)
-                ArkWiki.OpenPage(_creaturesDisplayed[listViewLibrary.SelectedIndices[0]]?.Species?.name);
+            var focusedCreatureIndex = listViewLibrary.FocusedItem?.Index ?? -1;
+            if (focusedCreatureIndex >= 0)
+                ArkWiki.OpenPage(_creaturesDisplayed[focusedCreatureIndex]?.Species?.name);
         }
 
         private void libraryFilterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4036,12 +4043,12 @@ namespace ARKBreedingStats
 
         private void statsOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats);
+            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats, ColorOptionsWantedRegions);
         }
 
         private void ButtonOpenTopStatsSettingsClick(object sender, EventArgs e)
         {
-            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats, 1);
+            StatsOptionsForm.ShowWindow(this, StatsOptionsLevelColors, StatsOptionsConsiderTopStats, ColorOptionsWantedRegions, 1);
         }
 
         private void ExportAppSettings()
@@ -4168,21 +4175,22 @@ namespace ARKBreedingStats
 
         private void UpdateDisplayedPosesIfNeeded()
         {
-            if (!libraryInfoControl1.SpeciesChangedPoses.Any()) return;
+            if (!ColoredCreatureImageWithPose.SpeciesChangedPoses.Any()) return;
 
             if (creatureBoxListView.CurrentSpecies != null &&
-                libraryInfoControl1.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
+                ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
             {
                 creatureBoxListView.UpdateCreatureImage(false);
             }
 
-            if (libraryInfoControl1.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
+            if (ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
             {
                 creatureInfoInputExtractor.UpdateRegionColorImage(false);
                 creatureInfoInputTester.UpdateRegionColorImage(false);
+                libraryInfoControl1.UpdateCreatureImage();
             }
 
-            libraryInfoControl1.SpeciesChangedPoses.Clear();
+            ColoredCreatureImageWithPose.SpeciesChangedPoses.Clear();
         }
 
         private void copyConsoleColorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4226,6 +4234,11 @@ namespace ARKBreedingStats
                     level = c.levelFound;
             }
             ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, level);
+        }
+
+        private void uIScalingIssueFixToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/cadon/ARKStatsExtractor/issues/1350#issuecomment-2099309722");
         }
     }
 }

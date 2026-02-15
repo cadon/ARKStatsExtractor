@@ -42,7 +42,8 @@ namespace ARKBreedingStats
         /// <summary>
         /// This displays the sum of the chosen levels. This is the last step before a creature-extraction is considered as valid or not valid.
         /// </summary>
-        private void ShowSumOfChosenLevels(int levelsImpossibleToDistribute)
+        /// <returns>True if the level combination appears to be valid.</returns>
+        private bool ShowSumOfChosenLevels(int levelsImpossibleToDistribute)
         {
             // The wild levels of stats that don't change the stat value (e.g. speed) are not chosen, but calculated from the other chosen levels,
             // and must not be included in the sum, except if it's only one of these stats and all the other levels are determined uniquely!
@@ -73,7 +74,7 @@ namespace ARKBreedingStats
                     valid = false;
                     break;
                 }
-                _statIOs[s].TopLevel = LevelStatusFlags.LevelStatus.Neutral;
+                _statIOs[s].TopLevel = LevelColorStatusFlags.LevelStatus.Neutral;
             }
             if (valid)
             {
@@ -148,6 +149,7 @@ namespace ARKBreedingStats
             }
 
             UpdateAddToLibraryButtonAccordingToExtractorValidity(allValid);
+            return allValid;
         }
 
         /// <summary>
@@ -161,24 +163,24 @@ namespace ARKBreedingStats
             _creatureCollection.TopLevels.TryGetValue(species, out var topLevels);
 
             var statWeights = breedingPlan1.StatWeighting.GetWeightingForSpecies(species);
-            var considerAsTopStat = StatsOptionsConsiderTopStats.GetStatsOptions(species).StatOptions;
+            var considerAsTopStat = StatsOptionsConsiderTopStats.GetOptions(species).Options;
 
-            LevelStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
+            LevelColorStatusFlags.DetermineLevelStatus(species, topLevels, statWeights, considerAsTopStat, GetCurrentWildLevels(), GetCurrentMutLevels(),
                 GetCurrentBreedingValues(), out var topStatsText, out var newTopStatsText);
 
             for (var s = 0; s < Stats.StatsCount; s++)
             {
-                var levelStatusForStatIo = LevelStatusFlags.LevelStatusFlagsCurrentNewCreature[s];
+                var levelStatusForStatIo = LevelColorStatusFlags.LevelStatusFlagsCurrentNewCreature[s];
 
                 // ASA can have up to 511 levels because 255 mutation levels also contribute to the wild value. TODO separate to mutation levels
                 if (_creatureCollection.Game != Ark.Asa && s != Stats.Torpidity)
                 {
                     if (_statIOs[s].LevelWild > 255)
-                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.UltraMaxLevel;
+                        levelStatusForStatIo |= LevelColorStatusFlags.LevelStatus.UltraMaxLevel;
                     else if (_statIOs[s].LevelWild == 255)
-                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevel;
+                        levelStatusForStatIo |= LevelColorStatusFlags.LevelStatus.MaxLevel;
                     else if (_statIOs[s].LevelWild == 254)
-                        levelStatusForStatIo |= LevelStatusFlags.LevelStatus.MaxLevelForLevelUp;
+                        levelStatusForStatIo |= LevelColorStatusFlags.LevelStatus.MaxLevelForLevelUp;
                 }
 
                 _statIOs[s].TopLevel = levelStatusForStatIo;
@@ -196,7 +198,7 @@ namespace ARKBreedingStats
 
             if (infoText == null) infoText = "No top stats";
 
-            creatureAnalysis1.SetStatsAnalysis(LevelStatusFlags.CombinedLevelStatusFlags, infoText);
+            creatureAnalysis1.SetStatsAnalysis(LevelColorStatusFlags.StatLevelStatusFlagsCombined, infoText);
         }
 
         private void UpdateAddToLibraryButtonAccordingToExtractorValidity(bool valid)
@@ -540,13 +542,13 @@ namespace ARKBreedingStats
             var levelsImpossibleToDistribute = SetWildUnknownLevelsAccordingToOthers();
 
             lbSumDomSB.Text = _extractor.LevelDomSum.ToString();
-            ShowSumOfChosenLevels(levelsImpossibleToDistribute);
+            var validLevelDistribution = ShowSumOfChosenLevels(levelsImpossibleToDistribute);
             if (showLevelsInOverlay)
                 ShowLevelsInOverlay();
 
             SetActiveStat(activeStatKeeper);
 
-            if (!_extractor.PostTamed)
+            if (validLevelDistribution && !_extractor.PostTamed)
             {
                 labelFootnote.Text = Loc.S("lbNotYetTamed");
                 button2TamingCalc.Visible = true;
@@ -612,7 +614,7 @@ namespace ARKBreedingStats
                 labelErrorHelp.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
                 BtCopyIssueDumpToClipboard.Visible = false;
-                PbCreatureColorsExtractor.Visible = true;
+                ColoredCreatureImageDisplayExtractor.Visible = true;
                 return;
             }
 
@@ -684,7 +686,7 @@ namespace ARKBreedingStats
             groupBoxRadarChartExtractor.Visible = false;
             creatureAnalysis1.Visible = false;
             lbInfoYellowStats.Visible = false;
-            PbCreatureColorsExtractor.Visible = false;
+            ColoredCreatureImageDisplayExtractor.Visible = false;
             BtCopyIssueDumpToClipboard.Visible = true;
             string redInfoText = null;
             if (rbBredExtractor.Checked && numericUpDownImprintingBonusExtractor.Value > 0)
@@ -1604,12 +1606,17 @@ namespace ARKBreedingStats
                 input.ColorAlreadyExistingInformation = null;
                 return;
             }
-            var colorAlreadyExisting = _creatureCollection.ColorAlreadyAvailable(speciesSelector1.SelectedSpecies, input.RegionColors, out string infoText);
+
+            var colorIds = input.RegionColors;
+            var colorAlreadyExisting = _creatureCollection.DetermineColorStatus(speciesSelector1.SelectedSpecies, colorIds, out var infoText, out var creaturesWithColorsInRegion, out var desiredColors);
             var newColorStatus = input.SetRegionColorsExisting(colorAlreadyExisting);
             input.ColorAlreadyExistingInformation = colorAlreadyExisting;
 
             if (input == creatureInfoInputExtractor)
-                creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelStatusFlags.LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelStatusFlags.LevelStatus.TopLevel : LevelStatusFlags.LevelStatus.Neutral, infoText);
+            {
+                creatureAnalysis1.SetColorAnalysis(newColorStatus.newInSpecies ? LevelColorStatusFlags.LevelStatus.NewTopLevel : newColorStatus.newInRegion ? LevelColorStatusFlags.LevelStatus.TopLevel : LevelColorStatusFlags.LevelStatus.Neutral,
+                    infoText, colorIds, creaturesWithColorsInRegion, desiredColors);
+            }
         }
 
         private void copyLibrarydumpToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1627,7 +1634,7 @@ namespace ARKBreedingStats
             if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
             {
                 // copy spawn command to clipboard
-                ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, _statIOs[Stats.Torpidity].LevelWild + 1);
+                ArkConsoleCommands.WildSpawnToClipboard(speciesSelector1.SelectedSpecies, _statIOs[Stats.Torpidity].Status == StatIOStatus.Unique ? _statIOs[Stats.Torpidity].LevelWild + 1 : (int)numericUpDownLevel.Value);
                 return;
             }
 

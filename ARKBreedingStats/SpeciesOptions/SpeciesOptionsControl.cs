@@ -6,12 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats.StatsOptions
+namespace ARKBreedingStats.SpeciesOptions
 {
     /// <summary>
-    /// Base control for stats options. Displays selector for species settings.
+    /// Base control for species options. Displays selector for species settings.
     /// </summary>
-    internal class StatsOptionsControl<T> : TableLayoutPanel where T : StatOptionsBase
+    internal abstract class SpeciesOptionsControl<T, U> : TableLayoutPanel where T : SpeciesOptionBase where U : SpeciesOptionsBase<T>, new()
     {
         protected ComboBox CbbOptions;
         protected ComboBox CbbParent;
@@ -21,24 +21,24 @@ namespace ARKBreedingStats.StatsOptions
         protected Label LbParent;
         protected Label LbParentParent;
         protected Label LbAffectedSpecies;
-        protected StatsOptions<T> SelectedStatsOptions;
-        protected StatsOptionsSettings<T> StatsOptionsSettings;
+        protected SpeciesOptionsBase<T> SelectedOptions;
+        protected SpeciesOptionsSettings<T, U> SpeciesOptionsSettings;
         protected TextBox TbAffectedSpecies;
-        protected FlowLayoutPanel StatsContainer;
+        protected FlowLayoutPanel OptionsContainer;
         protected ToolTip Tt;
         private bool _ignoreIndexChange;
 
-        public StatsOptionsControl() { }
+        public SpeciesOptionsControl() { }
 
-        public StatsOptionsControl(StatsOptionsSettings<T> settings, ToolTip tt)
+        public SpeciesOptionsControl(SpeciesOptionsSettings<T, U> settings, ToolTip tt)
         {
             InitializeControls(settings, tt);
         }
 
-        protected void InitializeControls(StatsOptionsSettings<T> settings, ToolTip tt)
+        protected void InitializeControls(SpeciesOptionsSettings<T, U> settings, ToolTip tt)
         {
             if (settings == null) return;
-            StatsOptionsSettings = settings;
+            SpeciesOptionsSettings = settings;
             Tt = tt;
 
             AutoScroll = true;
@@ -48,9 +48,9 @@ namespace ARKBreedingStats.StatsOptions
 
             var flpHeaderControls = new FlowLayoutPanel { Dock = DockStyle.Fill };
             Controls.Add(flpHeaderControls, 0, 0);
-            StatsContainer = new FlowLayoutPanel { Dock = DockStyle.Fill };
-            StatsContainer.AutoScroll = true;
-            Controls.Add(StatsContainer, 0, 1);
+            OptionsContainer = new FlowLayoutPanel { Dock = DockStyle.Fill };
+            OptionsContainer.AutoScroll = true;
+            Controls.Add(OptionsContainer, 0, 1);
 
             var btNew = new Button { Width = 20, Height = 20 };
             BtRemove = new Button { Width = 20, Height = 20 };
@@ -98,7 +98,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             InitializeOptions();
         }
 
-        protected virtual void InitializeStatControls() { }
+        protected abstract void InitializeStatControls();
 
         protected void InitializeOptions(bool reselectItem = false)
         {
@@ -106,14 +106,14 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             CbbOptions.Items.Clear();
             CbbParent.Items.Clear();
 
-            var statsOptions = TreeOrder(StatsOptionsSettings.StatsOptionsDict);
-            CbbOptions.Items.AddRange(statsOptions);
-            CbbParent.Items.AddRange(statsOptions);
+            var options = TreeOrder(SpeciesOptionsSettings.SpeciesOptionsDict);
+            CbbOptions.Items.AddRange(options);
+            CbbParent.Items.AddRange(options);
 
             if (reselectItem)
             {
-                CbbOptions.SelectedItem = SelectedStatsOptions;
-                CbbParent.SelectedItem = SelectedStatsOptions.ParentOptions;
+                CbbOptions.SelectedItem = SelectedOptions;
+                CbbParent.SelectedItem = SelectedOptions.ParentOptions;
             }
             _ignoreIndexChange = false;
             if (CbbOptions.SelectedItem == null && CbbOptions.Items.Count > 0)
@@ -125,10 +125,10 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             var newNameBase = Species?.name ?? "new entry";
             var newName = newNameBase;
             var suffix = 1;
-            while (StatsOptionsSettings.StatsOptionsDict.ContainsKey(newName))
+            while (SpeciesOptionsSettings.SpeciesOptionsDict.ContainsKey(newName))
                 newName = newNameBase + "_" + ++suffix;
-            var newSettings = StatsOptionsSettings.GetDefaultStatOptions(newName);
-            StatsOptionsSettings.StatsOptionsDict.Add(newName, newSettings);
+            var newSettings = SpeciesOptionsSettings.GetDefaultSpeciesOptions(newName);
+            SpeciesOptionsSettings.SpeciesOptionsDict.Add(newName, newSettings);
             InitializeOptions();
             CbbOptions.SelectedItem = newSettings;
             TbOptionsName.Focus();
@@ -137,65 +137,65 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
 
         private void BtRemove_Click(object sender, EventArgs e)
         {
-            if (SelectedStatsOptions == null
-                || MessageBox.Show("Delete stat options\n" + SelectedStatsOptions.Name + "\n?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            if (SelectedOptions == null
+                || MessageBox.Show("Delete stat options\n" + SelectedOptions.Name + "\n?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                 != DialogResult.Yes) return;
 
             var index = CbbOptions.SelectedIndex;
             // set parent of dependant options to parent of this setting
-            foreach (var so in StatsOptionsSettings.StatsOptionsDict.Values)
+            foreach (var so in SpeciesOptionsSettings.SpeciesOptionsDict.Values)
             {
-                if (so.ParentOptions == SelectedStatsOptions)
-                    so.ParentOptions = SelectedStatsOptions.ParentOptions;
+                if (so.ParentOptions == SelectedOptions)
+                    so.ParentOptions = SelectedOptions.ParentOptions;
             }
 
-            StatsOptionsSettings.StatsOptionsDict.Remove(SelectedStatsOptions.Name);
+            SpeciesOptionsSettings.SpeciesOptionsDict.Remove(SelectedOptions.Name);
 
             InitializeOptions();
             if (CbbOptions.Items.Count > 0)
                 CbbOptions.SelectedIndex = Math.Max(0, index - 1); // select item before deleted one
-            StatsOptionsSettings.ClearSpeciesCache();
+            SpeciesOptionsSettings.ClearSpeciesCache();
         }
 
         private void CbbOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_ignoreIndexChange) return;
-            SelectedStatsOptions = CbbOptions.SelectedItem as StatsOptions<T>;
-            if (SelectedStatsOptions == null) return;
+            SelectedOptions = CbbOptions.SelectedItem as SpeciesOptionsBase<T>;
+            if (SelectedOptions == null) return;
 
             this.SuspendDrawingAndLayout();
-            TbOptionsName.Text = SelectedStatsOptions.Name;
-            var isNotRoot = SelectedStatsOptions.Name != string.Empty;
+            TbOptionsName.Text = SelectedOptions.Name;
+            var isNotRoot = SelectedOptions.Name != string.Empty;
             TbOptionsName.Enabled = isNotRoot;
             LbParent.Visible = isNotRoot;
             CbbParent.Visible = isNotRoot;
             BtRemove.Visible = isNotRoot;
-            LbParentParent.Text = ParentsParentText(SelectedStatsOptions.ParentOptions);
+            LbParentParent.Text = ParentsParentText(SelectedOptions.ParentOptions);
             LbAffectedSpecies.Visible = isNotRoot;
             TbAffectedSpecies.Visible = isNotRoot;
-            TbAffectedSpecies.Text = SelectedStatsOptions.AffectedSpecies == null ? string.Empty : string.Join(", ", SelectedStatsOptions.AffectedSpecies);
+            TbAffectedSpecies.Text = SelectedOptions.AffectedSpecies == null ? string.Empty : string.Join(", ", SelectedOptions.AffectedSpecies);
 
-            UpdateStatsControls(isNotRoot);
+            UpdateOptionControls(isNotRoot);
 
-            CbbParent.SelectedItem = SelectedStatsOptions.ParentOptions;
+            CbbParent.SelectedItem = SelectedOptions.ParentOptions;
             this.ResumeDrawingAndLayout();
         }
 
         private void TbAffectedSpeciesLeave(object sender, EventArgs e)
         {
-            if (SelectedStatsOptions == null) return;
+            if (SelectedOptions == null) return;
             var sp = TbAffectedSpecies.Text
                 .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s))
                 .Distinct()
                 .ToArray();
-            SelectedStatsOptions.AffectedSpecies = sp.Any() ? sp : null;
+            SelectedOptions.AffectedSpecies = sp.Any() ? sp : null;
         }
 
-        private string ParentsParentText(StatsOptions<T> selectedStatsOptions)
+        private string ParentsParentText(SpeciesOptionsBase<T> selectedOptions)
         {
             var maxGenerationsShown = 5;
-            var currentParent = selectedStatsOptions?.ParentOptions;
+            var currentParent = selectedOptions?.ParentOptions;
             var parentText = string.Empty;
             while (currentParent != null)
             {
@@ -214,44 +214,44 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         /// <summary>
         /// Override this method to update the UI of the stat controls.
         /// </summary>
-        protected virtual void UpdateStatsControls(bool isNotRoot) { }
+        protected virtual void UpdateOptionControls(bool isNotRoot) { }
 
         private void CbbParent_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_ignoreIndexChange) return;
-            SelectedStatsOptions = CbbOptions.SelectedItem as StatsOptions<T>;
-            if (SelectedStatsOptions == null) return;
-            var selectedParent = CbbParent.SelectedItem as StatsOptions<T>;
-            if (SelectedStatsOptions == selectedParent) return; // ignore if node itself is selected as parent
-            SelectedStatsOptions.ParentOptions = selectedParent;
+            SelectedOptions = CbbOptions.SelectedItem as SpeciesOptionsBase<T>;
+            if (SelectedOptions == null) return;
+            var selectedParent = CbbParent.SelectedItem as SpeciesOptionsBase<T>;
+            if (SelectedOptions == selectedParent) return; // ignore if node itself is selected as parent
+            SelectedOptions.ParentOptions = selectedParent;
             InitializeOptions(true);
-            StatsOptionsSettings.ClearSpeciesCache();
+            SpeciesOptionsSettings.ClearSpeciesCache();
         }
 
         private void TbOptionsName_Leave(object sender, EventArgs e)
         {
             var newNameBase = TbOptionsName.Text;
-            if (SelectedStatsOptions.Name == newNameBase) return; // nothing to change
+            if (SelectedOptions.Name == newNameBase) return; // nothing to change
             var newName = newNameBase;
             var suffix = 1;
-            while (StatsOptionsSettings.StatsOptionsDict.ContainsKey(newName))
+            while (SpeciesOptionsSettings.SpeciesOptionsDict.ContainsKey(newName))
                 newName = newNameBase + "_" + ++suffix;
 
             TbOptionsName.Text = newName;
-            if (SelectedStatsOptions.AffectedSpecies?.Any() != false)
+            if (SelectedOptions.AffectedSpecies?.Any() != false)
             {
-                SelectedStatsOptions.AffectedSpecies = new[] { newNameBase };
+                SelectedOptions.AffectedSpecies = new[] { newNameBase };
                 TbAffectedSpecies.Text = newNameBase;
             }
-            StatsOptionsSettings.StatsOptionsDict.Remove(SelectedStatsOptions.Name);
-            SelectedStatsOptions.Name = newName;
-            StatsOptionsSettings.StatsOptionsDict.Add(newName, SelectedStatsOptions);
+            SpeciesOptionsSettings.SpeciesOptionsDict.Remove(SelectedOptions.Name);
+            SelectedOptions.Name = newName;
+            SpeciesOptionsSettings.SpeciesOptionsDict.Add(newName, (U)SelectedOptions);
             // update text in combobox
-            CbbOptions.Items[CbbOptions.SelectedIndex] = SelectedStatsOptions;
-            var cbbParentIndex = CbbParent.Items.IndexOf(SelectedStatsOptions);
+            CbbOptions.Items[CbbOptions.SelectedIndex] = SelectedOptions;
+            var cbbParentIndex = CbbParent.Items.IndexOf(SelectedOptions);
             if (cbbParentIndex >= 0)
-                CbbParent.Items[cbbParentIndex] = SelectedStatsOptions;
-            StatsOptionsSettings.ClearSpeciesCache();
+                CbbParent.Items[cbbParentIndex] = SelectedOptions;
+            SpeciesOptionsSettings.ClearSpeciesCache();
         }
 
         private static void InitButtonImages(Button btNew, Button btRemove)
@@ -266,7 +266,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
                 g.FillRectangle(Brushes.LightGreen, size / 3 + 1, 1, size / 3 - 2, size - 2);
                 g.FillRectangle(Brushes.LightGreen, 1, size / 3 + 1, size - 2, size / 3 - 2);
             }
-            btNew.Image = bmp;
+            btNew.SetImageAndDisposeOld(bmp);
 
             bmp = new Bitmap(size, size);
             using (var g = Graphics.FromImage(bmp))
@@ -275,7 +275,7 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
                 g.DrawRectangle(p, 0, size / 3, size - 1, size / 3 - 1);
                 g.FillRectangle(Brushes.LightPink, 1, size / 3 + 1, size - 2, size / 3 - 2);
             }
-            btRemove.Image = bmp;
+            btRemove.SetImageAndDisposeOld(bmp);
         }
 
         public void SetSpecies(Species s)
@@ -297,23 +297,23 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         /// <summary>
         /// Returns array ordered like the tree.
         /// </summary>
-        private StatsOptions<T>[] TreeOrder(Dictionary<string, StatsOptions<T>> dict)
+        private SpeciesOptionsBase<T>[] TreeOrder(Dictionary<string, U> dict)
         {
-            var nodeChildren = dict.ToDictionary(kv => kv.Value, kv => new List<StatsOptions<T>>());
+            var nodeChildren = dict.ToDictionary(kv => kv.Value, kv => new List<U>());
             foreach (var item in dict)
             {
-                if (item.Value.ParentOptions != null && nodeChildren.TryGetValue(item.Value.ParentOptions, out var parent))
+                if (item.Value.ParentOptions != null && nodeChildren.TryGetValue((U)item.Value.ParentOptions, out var parent))
                     parent.Add(item.Value);
             }
 
             if (!dict.TryGetValue(string.Empty, out var rootNode))
-                return Array.Empty<StatsOptions<T>>();
+                return Array.Empty<SpeciesOptionsBase<T>>();
 
-            var sortedList = new List<StatsOptions<T>> { rootNode };
+            var sortedList = new List<SpeciesOptionsBase<T>> { rootNode };
             var level = 0;
             AddChildren(rootNode);
 
-            void AddChildren(StatsOptions<T> n)
+            void AddChildren(U n)
             {
                 if (!nodeChildren.TryGetValue(n, out var children)) return;
 

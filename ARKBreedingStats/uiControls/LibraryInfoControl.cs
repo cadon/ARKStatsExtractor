@@ -1,17 +1,13 @@
-﻿using ARKBreedingStats.library;
-using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Input;
-using ARKBreedingStats.SpeciesImages;
-using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -22,20 +18,15 @@ namespace ARKBreedingStats.uiControls
         private Button[] _colorRegionButtons;
         private ColorPickerControl _colorPicker;
         private Species _species;
-        private readonly PictureBox _speciesPictureBox = new PictureBox
+        private readonly ColoredCreatureImageWithPose _coloredCreatureDisplay = new ColoredCreatureImageWithPose(ColoredCreatureSize)
         {
-            Width = ColoredCreatureSize,
-            Height = ColoredCreatureSize,
             Margin = new Padding(10)
         };
-
-        private readonly Label _lbPose = new Label();
         private Sex _sex = Sex.Male;
         private readonly ToolTip _tt = new ToolTip();
         public byte[] SelectedColors { get; private set; }
         private int _selectedColorRegion;
         private const int ColoredCreatureSize = 384;
-        public readonly HashSet<Species> SpeciesChangedPoses = new HashSet<Species>();
 
         public LibraryInfoControl()
         {
@@ -109,11 +100,11 @@ namespace ARKBreedingStats.uiControls
             flpButtons.Controls.Add(colorsButton);
 
             colorsButton = AllRegionButton("1–6");
-            _tt.SetToolTip(colorsButton, "Sets region 0 to color id 1, region 1 to color id 2, etc. i.e. resulting in color ids [1,2,3,4,5,6], which is RGBYCM\nHold Ctrl to set it to [1,2,3,5,4,6] which is RGBCYM (this is used for the color masks)");
+            _tt.SetToolTip(colorsButton, "Sets region 0 to color id 1, region 1 to color id 2, etc. i.e. resulting in color ids [1,2,3,4,5,6], which is RBGYCM\nHold Ctrl to set it to [1,3,2,5,4,6] which is RGBCYM (this is used for the color masks)");
             colorsButton.Click += (s, e) =>
             {
                 SetColors(Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control)
-                    ? new byte[] { 1, 2, 3, 5, 4, 6 }
+                    ? new byte[] { 1, 3, 2, 5, 4, 6 }
                     : Enumerable.Range(1, Ark.ColorRegionCount).Select(i => (byte)i).ToArray());
             };
             flpButtons.Controls.Add(colorsButton);
@@ -131,9 +122,6 @@ namespace ARKBreedingStats.uiControls
             _colorPicker.UserMadeSelection += ColorPickerColorChosen;
 
             AddPictureBox();
-
-            _speciesPictureBox.Click += _speciesPictureBoxClick;
-            _tt.SetToolTip(_speciesPictureBox, "Click to copy image to the clipboard\nLeft click: plain image\nRight click: image with color info");
 
             LvColors.View = View.Details;
             LvColors.FullRowSelect = true;
@@ -186,35 +174,17 @@ namespace ARKBreedingStats.uiControls
             var tlp = new TableLayoutPanel();
             tlp.AutoSize = true;
             tlp.RowCount = 2;
-            tlp.ColumnCount = 4;
-            tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50));
-            tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
+            tlp.ColumnCount = 1;
             tlp.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-            tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100));
             tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             tlp.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-            tlp.Controls.Add(_speciesPictureBox);
-            tlp.SetColumnSpan(_speciesPictureBox, 4);
+            tlp.Controls.Add(_coloredCreatureDisplay);
 
             var bt = new Button { Text = Utils.SexSymbol(_sex) };
             bt.Dock = DockStyle.Left;
             tlp.Controls.Add(bt, 0, 1);
             bt.Click += ChangeSex;
-            bt = new Button { Text = "←" };
-            bt.Dock = DockStyle.Left;
-            tlp.Controls.Add(bt, 1, 1);
-            bt.Click += BtPosePreviousClick;
-            bt = new Button { Text = "→" };
-            bt.Dock = DockStyle.Right;
-            tlp.Controls.Add(bt, 3, 1);
-            bt.Click += BtPoseNextClick;
-
-            _lbPose.Dock = DockStyle.Fill;
-            _lbPose.TextAlign = ContentAlignment.MiddleCenter;
-            tlp.Controls.Add(_lbPose, 2, 1);
-
-            _tt.SetToolTip(_lbPose, "Some species may have more than one pose, this can be set here.");
 
             this.Controls.Add(tlp, 2, 1);
         }
@@ -226,25 +196,7 @@ namespace ARKBreedingStats.uiControls
             UpdateCreatureImage();
         }
 
-        private void BtPosePreviousClick(object sender, EventArgs e)
-        {
-            var delta = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 5 : 1;
-            var previouslySelectedPose = Poses.GetPose(_species);
-            var previousPose = Math.Max(0, previouslySelectedPose - delta);
-            if (previousPose == previouslySelectedPose) return;
-
-            Poses.SetPose(_species, previousPose);
-            UpdateCreatureImage();
-            SpeciesChangedPoses.Add(_species);
-        }
-
-        private void BtPoseNextClick(object sender, EventArgs e)
-        {
-            var delta = Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 5 : 1;
-            Poses.SetPose(_species, Poses.GetPose(_species) + delta);
-            UpdateCreatureImage();
-            SpeciesChangedPoses.Add(_species);
-        }
+        public void UpdateCreatureImage() => _coloredCreatureDisplay.SetCreatureImage(_species, SelectedColors, _sex, CreatureCollection.CurrentCreatureCollection?.Game);
 
         /// <summary>
         /// Set to random colors available in the library
@@ -326,28 +278,6 @@ namespace ARKBreedingStats.uiControls
             bt.Text = buttonText;
             _tt.SetToolTip(_colorRegionButtons[region], buttonText);
             bt.SetBackColorAndAccordingForeColor(color.Color);
-        }
-
-        public void UpdateCreatureImage()
-        {
-            CreatureColored.GetColoredCreatureWithCallback(SetImage, this,
-                SelectedColors, _species, _species.EnabledColorRegions, ColoredCreatureSize,
-                onlyImage: true, creatureSex: _sex, game: CreatureCollection.CurrentCreatureCollection?.Game);
-        }
-
-        private void SetImage(Bitmap bmp)
-        {
-            _speciesPictureBox.SetImageAndDisposeOld(bmp);
-            _lbPose.Text = $"Pose: {Poses.GetPose(_species)}";
-        }
-
-        private void _speciesPictureBoxClick(object sender, EventArgs e)
-        {
-            if (_speciesPictureBox.Image == null) return;
-            if (e is MouseEventArgs me && me.Button == MouseButtons.Right)
-                Clipboard.SetImage(CreatureInfoGraphic.GetImageWithColors(_speciesPictureBox.Image, SelectedColors, _species));
-            else
-                Clipboard.SetImage(_speciesPictureBox.Image);
         }
     }
 }

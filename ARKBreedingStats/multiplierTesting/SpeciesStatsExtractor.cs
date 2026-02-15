@@ -69,8 +69,15 @@ namespace ARKBreedingStats.multiplierTesting
             var creaturesOrderedByTeWithoutDomLevels = domCreatures
                 .Where(ec => ec.DinoImprintingQuality == 0 && ec.Stats.All(s => s.Tamed == 0 && s.Mutated == 0))
                 .OrderBy(ec => ec.TameEffectiveness).ToArray();
+            if (!creaturesOrderedByTeWithoutDomLevels.Any())
+            {
+                resultText = "No tamed creature with no imprinting and only wild levels provided, canceling";
+                isError = true;
+                return false;
+            }
             var crHighTe = creaturesOrderedByTeWithoutDomLevels.Last();
             var crLowTe = creaturesOrderedByTeWithoutDomLevels.First();
+
 
             var creaturesWithImprinting = domCreatures
                 .Where(c => c.DinoImprintingQuality > 0.01)
