@@ -4237,7 +4237,7 @@ namespace ARKBreedingStats
             // 
             this.ColoredCreatureImageDisplayTester.Location = new System.Drawing.Point(641, 489);
             this.ColoredCreatureImageDisplayTester.Name = "ColoredCreatureImageDisplayTester";
-            this.ColoredCreatureImageDisplayTester.Size = new System.Drawing.Size(251, 280);
+            this.ColoredCreatureImageDisplayTester.Size = new System.Drawing.Size(256, 280);
             this.ColoredCreatureImageDisplayTester.TabIndex = 15;
             // 
             // ColoredCreatureImageDisplayExtractor
