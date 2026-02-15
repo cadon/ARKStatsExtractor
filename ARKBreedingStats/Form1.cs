@@ -183,6 +183,9 @@ namespace ARKBreedingStats
 
             StatsOptionsLevelColors.SettingsChanged += StatsOptionsLevelColorsSettingsChanged;
 
+            ColoredCreatureImageDisplayExtractor.SetClickEventInfographic(InfographicFromExtractorToClipboard);
+            ColoredCreatureImageDisplayTester.SetClickEventInfographic(InfographicFromTesterToClipboard);
+
             openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter()
                 .ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
 
