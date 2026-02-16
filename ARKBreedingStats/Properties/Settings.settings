@@ -638,5 +638,8 @@
     <Setting Name="InfoGraphicCreatureOutlineBlurring" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0.8</Value>
     </Setting>
+    <Setting Name="InfoGraphicBorderRadius" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

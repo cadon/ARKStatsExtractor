@@ -36,6 +36,7 @@ namespace ARKBreedingStats.library
                 Properties.Settings.Default.InfoGraphicBackColor,
                 Properties.Settings.Default.InfoGraphicBorderColor,
                 Properties.Settings.Default.InfoGraphicBorderWidth,
+                Properties.Settings.Default.InfoGraphicBorderRadius,
                 Properties.Settings.Default.InfoGraphicTextOutlineColor,
                 Properties.Settings.Default.InfoGraphicTextOutlineWidth,
                 Properties.Settings.Default.InfoGraphicDisplayName,
@@ -73,7 +74,7 @@ namespace ARKBreedingStats.library
         /// </summary>
         /// <param name="cc">CreatureCollection for server settings.</param>
         public static async Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc,
-            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor, int borderWidth, Color colorOutlineText, float widthOutlineText,
+            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor, int borderWidth, float borderRadius, Color colorOutlineText, float widthOutlineText,
             bool displayCreatureName, bool displayWithDomLevels, bool displaySumWildMutLevels, bool displayMutations, bool displayGenerations, bool displayStatValues, bool displayMaxWildLevel,
             bool displayExtraRegionNames, bool displayRegionNamesIfNoImage, Color colorOutlineCreature, string backgroundImagePath = null, int widthOutlineCreature = 0, float creatureOutlineBlurring = 1)
         {
@@ -103,7 +104,7 @@ namespace ARKBreedingStats.library
             using (var fontSmall = new Font(fontName, fontSizeSmall))
             using (var fontHeader = new Font(fontName, fontSizeHeader, FontStyle.Bold))
             using (var fontBrush = new SolidBrush(foreColor))
-            using (var penOutline = new Pen(colorOutlineText, widthOutlineText * 2 + 1))
+            using (var penOutline = new Pen(colorOutlineText, widthOutlineText * 2 + 1) { LineJoin = LineJoin.Round })
             using (var borderAroundColors = new Pen(Utils.ForeColor(backColor), 1))
             using (var stringFormatRight = new StringFormat { Alignment = StringAlignment.Far })
             using (var stringFormatRightUp = new StringFormat
@@ -364,11 +365,33 @@ namespace ARKBreedingStats.library
                 }
 
                 // border
-                if (borderWidth > 0)
+                if (borderWidth > 0 || borderRadius > 0)
                 {
-                    g.SmoothingMode = SmoothingMode.None;
-                    using (var p = new Pen(borderColor, borderWidth))
-                        g.DrawRectangle(p, borderWidth / 2f, borderWidth / 2f, width - borderWidth, height - borderWidth);
+                    var bxy = borderWidth / 2f;
+                    var bWidth = width - borderWidth;
+                    var bHeight = height - borderWidth;
+                    if (borderRadius == 0)
+                    {
+                        g.SmoothingMode = SmoothingMode.None;
+                        using (var p = new Pen(borderColor, borderWidth))
+                            g.DrawRectangle(p, bxy, bxy, bWidth, bHeight);
+                    }
+                    else
+                    {
+                        using (var pRoundedRectangle = PathRoundedRectangle(bxy, bxy, bWidth - 1, bHeight - 1, borderRadius))
+                        using (var pRoundedRectangleInverted = new GraphicsPath())
+                        {
+                            pRoundedRectangleInverted.AddRectangle(new RectangleF(0, 0, width, height));
+                            pRoundedRectangleInverted.AddPath(pRoundedRectangle, false);
+                            g.SmoothingMode = SmoothingMode.AntiAlias;
+                            g.CompositingMode = CompositingMode.SourceCopy;
+                            g.FillPath(Brushes.Transparent, pRoundedRectangleInverted);
+                            g.CompositingMode = CompositingMode.SourceOver;
+                            if (borderWidth > 0)
+                                using (var p = new Pen(borderColor, borderWidth))
+                                    g.DrawPath(p, pRoundedRectangle);
+                        }
+                    }
                 }
             }
 
@@ -570,6 +593,32 @@ namespace ARKBreedingStats.library
             }
 
             return bmp;
+        }
+
+        /// <summary>
+        /// Returns a path around a rounded rectangle. Dispose after use.
+        /// </summary>
+        private static GraphicsPath PathRoundedRectangle(float x, float y, float width, float height, float radius)
+        {
+            var path = new GraphicsPath();
+
+            var diameterX = Math.Min(width, radius * 2);
+            var diameterY = Math.Min(height, radius * 2);
+            var arc = new RectangleF(x, y, diameterX, diameterY);
+
+            path.AddArc(arc, 180, 90); // top left
+
+            arc.X = x + width - diameterX;
+            path.AddArc(arc, 270, 90); // top right
+
+            arc.Y = y + height - diameterY;
+            path.AddArc(arc, 0, 90); // bottom right
+
+            arc.X = x;
+            path.AddArc(arc, 90, 90); // bottom left
+
+            path.CloseFigure();
+            return path;
         }
     }
 }

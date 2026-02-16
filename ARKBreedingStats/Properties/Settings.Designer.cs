@@ -2532,5 +2532,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicCreatureOutlineBlurring"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float InfoGraphicBorderRadius {
+            get {
+                return ((float)(this["InfoGraphicBorderRadius"]));
+            }
+            set {
+                this["InfoGraphicBorderRadius"] = value;
+            }
+        }
     }
 }

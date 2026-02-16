@@ -383,6 +383,7 @@ namespace ARKBreedingStats.settings
             BtInfoGraphicTextOutlineColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicTextOutlineColor));
             BtInfoGraphicCreatureOutlineColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicCreatureOutlineColor));
             NudInfoGraphicBorderWidth.ValueSave = Properties.Settings.Default.InfoGraphicBorderWidth;
+            NudInfoGraphicBorderRadius.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicBorderRadius;
             NudInfoGraphicTextOutlineWidth.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicTextOutlineWidth;
             NudInfoGraphicBgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicBackColor.A;
             NudInfoGraphicFgAlpha.ValueSave = Properties.Settings.Default.InfoGraphicForeColor.A;
@@ -669,6 +670,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicTextOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
             Properties.Settings.Default.InfoGraphicCreatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
             Properties.Settings.Default.InfoGraphicBorderWidth = (int)NudInfoGraphicBorderWidth.Value;
+            Properties.Settings.Default.InfoGraphicBorderRadius = (float)NudInfoGraphicBorderRadius.Value;
             Properties.Settings.Default.InfoGraphicTextOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
             NudInfoGraphicCreatureOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineColor.A;
             Properties.Settings.Default.InfoGraphicCreatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
@@ -1693,6 +1695,7 @@ namespace ARKBreedingStats.settings
             var backColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
             var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
             var borderWidth = (int)NudInfoGraphicBorderWidth.Value;
+            var borderRadius = (float)NudInfoGraphicBorderRadius.Value;
             var textOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
             var creatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
             var creatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
@@ -1711,7 +1714,7 @@ namespace ARKBreedingStats.settings
 
             var bmp = await _infoGraphicPreviewCreature
                     .InfoGraphicAsync(_cc,
-                        height, fontName, foreColor, backColor, borderColor, borderWidth, textOutlineColor,
+                        height, fontName, foreColor, backColor, borderColor, borderWidth, borderRadius, textOutlineColor,
                         textOutlineWidth, displayCreatureName, displayDomValues,
                         sumWildMut, displayMutationCounter, displayGenerations,
                         displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage,
