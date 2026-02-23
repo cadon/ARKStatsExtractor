@@ -47,7 +47,7 @@ namespace ARKBreedingStats.utils
             if (string.IsNullOrEmpty(outFilePath))
             {
                 // download and return string
-                using (var result = await httpClient.GetAsync(url).ConfigureAwait(false))
+                using (var result = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                 {
                     if (!result.IsSuccessStatusCode)
                     {
@@ -75,11 +75,31 @@ namespace ARKBreedingStats.utils
 
                 // save file
                 //url = "https://mock.httpstatus.io/401"; // for debugging
-                using (var downloadStream = await httpClient.GetStreamAsync(url).ConfigureAwait(false))
-                using (var fileStream = new FileStream(outFilePath, FileMode.Create, FileAccess.Write))
+
+                using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead)
+                           .ConfigureAwait(false))
                 {
-                    await downloadStream.CopyToAsync(fileStream).ConfigureAwait(false);
-                    await fileStream.FlushAsync().ConfigureAwait(false);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        if (showExceptionMessageBox)
+                        {
+                            var status = response.StatusCode;
+                            MessageBoxes.ShowMessageBox($@"Error while trying to download the file
+{url}
+
+HTTP {(int)status} ({status})
+Body:
+{await response.Content.ReadAsStringAsync().ConfigureAwait(false)}");
+                        }
+                        return (false, null);
+                    }
+
+                    using (var downloadStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                    using (var fileStream = new FileStream(outFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                    {
+                        await downloadStream.CopyToAsync(fileStream).ConfigureAwait(false);
+                        await fileStream.FlushAsync().ConfigureAwait(false);
+                    }
                 }
             }
             catch (Exception ex)
