@@ -85,8 +85,8 @@ namespace ARKBreedingStats.library
 
             var height = infoGraphicHeight < 5 ? 180 : infoGraphicHeight; // 180
             var contentHeight = height - 2 * borderWidth;
-            var contentWidth = contentHeight * 12 / 6; // 330
-            var width = contentWidth + 2 * borderWidth;
+            var contentWidth = contentHeight * 2;
+            var width = contentWidth + 2 * borderWidth + 2; // 360
             if (displayExtraRegionNames)
                 width += contentHeight / 2;
             var padding = 3 * Math.Max(1, height / 180);
