@@ -641,5 +641,8 @@
     <Setting Name="InfoGraphicBorderRadius" Type="System.Single" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="InfoGraphicCreatureScaling" Type="System.Single" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

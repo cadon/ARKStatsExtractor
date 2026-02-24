@@ -2544,5 +2544,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBorderRadius"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public float InfoGraphicCreatureScaling {
+            get {
+                return ((float)(this["InfoGraphicCreatureScaling"]));
+            }
+            set {
+                this["InfoGraphicCreatureScaling"] = value;
+            }
+        }
     }
 }
