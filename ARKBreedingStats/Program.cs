@@ -97,7 +97,7 @@ namespace ARKBreedingStats
             // Wine might crash when accessing Process
             try
             {
-                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length == 1) return false;
+                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length < 2) return false;
                 return MessageBox.Show($@"{Application.ProductName} seems to be running already.
 Starting a second instance of this app could cause issues with synchronization, automatic importing and app settings.
 
