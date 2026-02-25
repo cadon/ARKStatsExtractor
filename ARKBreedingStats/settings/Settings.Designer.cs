@@ -204,6 +204,10 @@
             this.label63 = new System.Windows.Forms.Label();
             this.PbInfoGraphicPreview = new System.Windows.Forms.PictureBox();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.label76 = new System.Windows.Forms.Label();
+            this.NudInfoGraphicCreatureScaling = new ARKBreedingStats.uiControls.Nud();
+            this.label75 = new System.Windows.Forms.Label();
+            this.NudInfoGraphicBorderRadius = new ARKBreedingStats.uiControls.Nud();
             this.label74 = new System.Windows.Forms.Label();
             this.NudInfoGraphicCreatureOutlineBlurring = new ARKBreedingStats.uiControls.Nud();
             this.label71 = new System.Windows.Forms.Label();
@@ -392,8 +396,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label75 = new System.Windows.Forms.Label();
-            this.NudInfoGraphicBorderRadius = new ARKBreedingStats.uiControls.Nud();
+            this.label77 = new System.Windows.Forms.Label();
+            this.NudInfoGraphicPadding = new ARKBreedingStats.uiControls.Nud();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             this.groupBoxMultiplier.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -457,6 +461,8 @@
             this.tabPageInfoGraphic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PbInfoGraphicPreview)).BeginInit();
             this.groupBox32.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureScaling)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicBorderRadius)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureOutlineBlurring)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureOutlineWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureOutlineAlpha)).BeginInit();
@@ -511,7 +517,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicBorderRadius)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicPadding)).BeginInit();
             this.SuspendLayout();
             // 
             // BtOpenLevelColorOptions
@@ -2754,7 +2760,7 @@
             // 
             // PbInfoGraphicPreview
             // 
-            this.PbInfoGraphicPreview.Location = new System.Drawing.Point(8, 347);
+            this.PbInfoGraphicPreview.Location = new System.Drawing.Point(8, 376);
             this.PbInfoGraphicPreview.Name = "PbInfoGraphicPreview";
             this.PbInfoGraphicPreview.Size = new System.Drawing.Size(333, 143);
             this.PbInfoGraphicPreview.TabIndex = 9;
@@ -2762,6 +2768,10 @@
             // 
             // groupBox32
             // 
+            this.groupBox32.Controls.Add(this.label77);
+            this.groupBox32.Controls.Add(this.NudInfoGraphicPadding);
+            this.groupBox32.Controls.Add(this.label76);
+            this.groupBox32.Controls.Add(this.NudInfoGraphicCreatureScaling);
             this.groupBox32.Controls.Add(this.label75);
             this.groupBox32.Controls.Add(this.NudInfoGraphicBorderRadius);
             this.groupBox32.Controls.Add(this.label74);
@@ -2791,10 +2801,72 @@
             this.groupBox32.Controls.Add(this.LbInfoGraphicSize);
             this.groupBox32.Location = new System.Drawing.Point(398, 47);
             this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(344, 293);
+            this.groupBox32.Size = new System.Drawing.Size(344, 325);
             this.groupBox32.TabIndex = 17;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "Visuals";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(9, 212);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(83, 13);
+            this.label76.TabIndex = 38;
+            this.label76.Text = "Creature scaling";
+            // 
+            // NudInfoGraphicCreatureScaling
+            // 
+            this.NudInfoGraphicCreatureScaling.DecimalPlaces = 1;
+            this.NudInfoGraphicCreatureScaling.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudInfoGraphicCreatureScaling.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.NudInfoGraphicCreatureScaling.Location = new System.Drawing.Point(102, 210);
+            this.NudInfoGraphicCreatureScaling.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.NudInfoGraphicCreatureScaling.Name = "NudInfoGraphicCreatureScaling";
+            this.NudInfoGraphicCreatureScaling.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudInfoGraphicCreatureScaling.Size = new System.Drawing.Size(58, 20);
+            this.NudInfoGraphicCreatureScaling.TabIndex = 37;
+            this.NudInfoGraphicCreatureScaling.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
+            // 
+            // label75
+            // 
+            this.label75.AutoSize = true;
+            this.label75.Location = new System.Drawing.Point(208, 162);
+            this.label75.Name = "label75";
+            this.label75.Size = new System.Drawing.Size(40, 13);
+            this.label75.TabIndex = 36;
+            this.label75.Text = "Radius";
+            // 
+            // NudInfoGraphicBorderRadius
+            // 
+            this.NudInfoGraphicBorderRadius.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudInfoGraphicBorderRadius.Location = new System.Drawing.Point(266, 160);
+            this.NudInfoGraphicBorderRadius.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.NudInfoGraphicBorderRadius.Name = "NudInfoGraphicBorderRadius";
+            this.NudInfoGraphicBorderRadius.NeutralNumber = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.NudInfoGraphicBorderRadius.Size = new System.Drawing.Size(37, 20);
+            this.NudInfoGraphicBorderRadius.TabIndex = 35;
+            this.NudInfoGraphicBorderRadius.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // label74
             // 
@@ -2828,7 +2900,7 @@
             0});
             this.NudInfoGraphicCreatureOutlineBlurring.Size = new System.Drawing.Size(37, 20);
             this.NudInfoGraphicCreatureOutlineBlurring.TabIndex = 30;
-            this.NudInfoGraphicCreatureOutlineBlurring.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicCreatureOutlineBlurring.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // label71
             // 
@@ -2856,7 +2928,7 @@
             0});
             this.NudInfoGraphicCreatureOutlineWidth.Size = new System.Drawing.Size(37, 20);
             this.NudInfoGraphicCreatureOutlineWidth.TabIndex = 32;
-            this.NudInfoGraphicCreatureOutlineWidth.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicCreatureOutlineWidth.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // NudInfoGraphicCreatureOutlineAlpha
             // 
@@ -2875,7 +2947,7 @@
             0});
             this.NudInfoGraphicCreatureOutlineAlpha.Size = new System.Drawing.Size(58, 20);
             this.NudInfoGraphicCreatureOutlineAlpha.TabIndex = 31;
-            this.NudInfoGraphicCreatureOutlineAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicCreatureOutlineAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // BtInfoGraphicCreatureOutlineColor
             // 
@@ -2905,7 +2977,7 @@
             0});
             this.NudInfoGraphicTextOutlineWidth.Size = new System.Drawing.Size(37, 20);
             this.NudInfoGraphicTextOutlineWidth.TabIndex = 29;
-            this.NudInfoGraphicTextOutlineWidth.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicTextOutlineWidth.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // label73
             // 
@@ -2933,7 +3005,7 @@
             0});
             this.NudInfoGraphicTextOutlineAlpha.Size = new System.Drawing.Size(58, 20);
             this.NudInfoGraphicTextOutlineAlpha.TabIndex = 27;
-            this.NudInfoGraphicTextOutlineAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicTextOutlineAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // BtInfoGraphicTextOutlineColor
             // 
@@ -2991,7 +3063,7 @@
             0});
             this.NudInfoGraphicBorderWidth.Size = new System.Drawing.Size(37, 20);
             this.NudInfoGraphicBorderWidth.TabIndex = 22;
-            this.NudInfoGraphicBorderWidth.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicBorderWidth.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // NudInfoGraphicBorderAlpha
             // 
@@ -3010,13 +3082,13 @@
             0});
             this.NudInfoGraphicBorderAlpha.Size = new System.Drawing.Size(58, 20);
             this.NudInfoGraphicBorderAlpha.TabIndex = 20;
-            this.NudInfoGraphicBorderAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicBorderAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // label57
             // 
-            this.label57.Location = new System.Drawing.Point(6, 223);
+            this.label57.Location = new System.Drawing.Point(6, 262);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(332, 65);
+            this.label57.Size = new System.Drawing.Size(332, 63);
             this.label57.TabIndex = 18;
             this.label57.Text = resources.GetString("label57.Text");
             // 
@@ -3037,7 +3109,7 @@
             0});
             this.NudInfoGraphicBgAlpha.Size = new System.Drawing.Size(58, 20);
             this.NudInfoGraphicBgAlpha.TabIndex = 19;
-            this.NudInfoGraphicBgAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicBgAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // CbbInfoGraphicFontName
             // 
@@ -3076,7 +3148,7 @@
             0});
             this.NudInfoGraphicFgAlpha.Size = new System.Drawing.Size(58, 20);
             this.NudInfoGraphicFgAlpha.TabIndex = 17;
-            this.NudInfoGraphicFgAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicFgAlpha.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // nudInfoGraphicHeight
             // 
@@ -3105,7 +3177,7 @@
             0,
             0,
             0});
-            this.nudInfoGraphicHeight.ValueChanged += new System.EventHandler(this.nudInfoGraphicHeight_ValueChanged);
+            this.nudInfoGraphicHeight.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // BtInfoGraphicForeColor
             // 
@@ -5069,33 +5141,33 @@
             this.panel1.Size = new System.Drawing.Size(758, 30);
             this.panel1.TabIndex = 12;
             // 
-            // label75
+            // label77
             // 
-            this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(208, 162);
-            this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(40, 13);
-            this.label75.TabIndex = 36;
-            this.label75.Text = "Radius";
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(9, 238);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(46, 13);
+            this.label77.TabIndex = 40;
+            this.label77.Text = "Padding";
             // 
-            // NudInfoGraphicBorderRadius
+            // NudInfoGraphicPadding
             // 
-            this.NudInfoGraphicBorderRadius.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudInfoGraphicBorderRadius.Location = new System.Drawing.Point(266, 160);
-            this.NudInfoGraphicBorderRadius.Maximum = new decimal(new int[] {
+            this.NudInfoGraphicPadding.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.NudInfoGraphicPadding.Location = new System.Drawing.Point(102, 236);
+            this.NudInfoGraphicPadding.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.NudInfoGraphicBorderRadius.Name = "NudInfoGraphicBorderRadius";
-            this.NudInfoGraphicBorderRadius.NeutralNumber = new decimal(new int[] {
+            this.NudInfoGraphicPadding.Name = "NudInfoGraphicPadding";
+            this.NudInfoGraphicPadding.NeutralNumber = new decimal(new int[] {
             0,
             0,
             0,
             0});
-            this.NudInfoGraphicBorderRadius.Size = new System.Drawing.Size(37, 20);
-            this.NudInfoGraphicBorderRadius.TabIndex = 35;
-            this.NudInfoGraphicBorderRadius.ValueChanged += new System.EventHandler(this.NudInfoGraphicAlpha_ValueChanged);
+            this.NudInfoGraphicPadding.Size = new System.Drawing.Size(58, 20);
+            this.NudInfoGraphicPadding.TabIndex = 39;
+            this.NudInfoGraphicPadding.ValueChanged += new System.EventHandler(this.NudInfoGraphicValueChanged);
             // 
             // Settings
             // 
@@ -5199,6 +5271,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PbInfoGraphicPreview)).EndInit();
             this.groupBox32.ResumeLayout(false);
             this.groupBox32.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureScaling)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicBorderRadius)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureOutlineBlurring)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureOutlineWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicCreatureOutlineAlpha)).EndInit();
@@ -5269,7 +5343,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudWaitBeforeScreenCapture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhiteThreshold)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicBorderRadius)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NudInfoGraphicPadding)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5639,5 +5713,9 @@
         private uiControls.Nud NudInfoGraphicCreatureOutlineBlurring;
         private System.Windows.Forms.Label label75;
         private uiControls.Nud NudInfoGraphicBorderRadius;
+        private System.Windows.Forms.Label label76;
+        private uiControls.Nud NudInfoGraphicCreatureScaling;
+        private System.Windows.Forms.Label label77;
+        private uiControls.Nud NudInfoGraphicPadding;
     }
 }

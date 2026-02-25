@@ -2556,5 +2556,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicCreatureScaling"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int InfoGraphicPadding {
+            get {
+                return ((int)(this["InfoGraphicPadding"]));
+            }
+            set {
+                this["InfoGraphicPadding"] = value;
+            }
+        }
     }
 }

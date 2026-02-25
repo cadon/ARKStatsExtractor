@@ -21,9 +21,6 @@ namespace ARKBreedingStats.library
         /// </summary>
         private static string _lastOutlineBmpId;
 
-        private static string LastOutlineBmpIdString(string speciesBlueprintpath, Color outlineColor, int outlineWidth,
-            float outlineBlur) => $"{speciesBlueprintpath},{outlineColor},{outlineWidth},{outlineBlur}";
-
         /// <summary>
         /// Creates an image with infos about the creature, using the user settings.
         /// </summary>
@@ -37,6 +34,7 @@ namespace ARKBreedingStats.library
                 Properties.Settings.Default.InfoGraphicBorderColor,
                 Properties.Settings.Default.InfoGraphicBorderWidth,
                 Properties.Settings.Default.InfoGraphicBorderRadius,
+                Properties.Settings.Default.InfoGraphicPadding,
                 Properties.Settings.Default.InfoGraphicTextOutlineColor,
                 Properties.Settings.Default.InfoGraphicTextOutlineWidth,
                 Properties.Settings.Default.InfoGraphicDisplayName,
@@ -75,7 +73,7 @@ namespace ARKBreedingStats.library
         /// </summary>
         /// <param name="cc">CreatureCollection for server settings.</param>
         public static async Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc,
-            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor, int borderWidth, float borderRadius, Color colorOutlineText, float widthOutlineText,
+            int infoGraphicHeight, string fontName, Color foreColor, Color backColor, Color borderColor, int borderWidth, float borderRadius, int padding, Color colorOutlineText, float widthOutlineText,
             bool displayCreatureName, bool displayWithDomLevels, bool displaySumWildMutLevels, bool displayMutations, bool displayGenerations, bool displayStatValues, bool displayMaxWildLevel,
             bool displayExtraRegionNames, bool displayRegionNamesIfNoImage, Color colorOutlineCreature, string backgroundImagePath = null, int widthOutlineCreature = 0, float creatureOutlineBlurring = 1, float creatureScaling = 1)
         {
@@ -84,14 +82,13 @@ namespace ARKBreedingStats.library
             var maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;
 
+            var borderAndPadding = borderWidth + padding;
             var heightBox = infoGraphicHeight < 5 ? 180 : infoGraphicHeight; // 180
-            var contentHeight = heightBox - 2 * borderWidth;
+            var contentHeight = heightBox - 2 * borderAndPadding;
             var contentWidth = contentHeight * 2;
-            var widthBox = contentWidth + 2 * borderWidth + 2; // 360
+            var widthBox = contentWidth + 2 * borderAndPadding + 8; // 360
             if (displayExtraRegionNames)
                 widthBox += contentHeight / 2;
-            var padding = 3 * Math.Max(1, heightBox / 180);
-            var borderAndPadding = borderWidth + padding;
 
             var fontSize = Math.Max(5, contentHeight / 18); // 10
             var fontSizeSmall = Math.Max(5, contentHeight * 2 / 45); // 8
@@ -126,7 +123,7 @@ namespace ARKBreedingStats.library
                 g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
                 if (backColor.A != 255)
-                    DrawBackgroundImage(g, widthBox, heightBox, backgroundImagePath, 0, yOffset);
+                    DrawBackgroundImage(g, backgroundImagePath, 0, yOffset, widthBox, heightBox);
 
                 var currentYPosition = borderAndPadding + yOffset;
                 using (var backgroundBrush = new SolidBrush(backColor))
@@ -296,7 +293,7 @@ namespace ARKBreedingStats.library
                 var (bmpCreature, bmpCreatureOutline, rectCreature, rectCreatureOutline, imageSizeInBox) =
                     await GetImage(widthImage, heightImage, widthBox,
                         (int)(xColor + borderAndPadding + circleDiameter + 8 * meanLetterWidth),
-                        currentYPosition + borderWidth + extraMarginBottom - heightImage + heightBox,
+                        currentYPosition + borderAndPadding + extraMarginBottom - heightImage + heightBox,
                         borderAndPadding, extraMarginBottom, creature, cc.Game, widthOutlineCreature, creatureOutlineBlurring, colorOutlineCreature);
 
                 var creatureImageShown = bmpCreature != null;
@@ -355,7 +352,8 @@ namespace ARKBreedingStats.library
 
                 bmpCreature?.Dispose();
             }
-
+            if (creatureScaling > 1)
+                bmp = ImageTools.TrimTransparency(bmp);
             return bmp;
         }
 
@@ -422,7 +420,7 @@ namespace ARKBreedingStats.library
             Rectangle rectCreature = Rectangle.Empty;
             Rectangle rectCreatureOutline = Rectangle.Empty;
             var imageSizeInBox = 0;
-            var imageSize = (int)Math.Min(
+            var imageSize = Math.Min(
                     widthImage - widthOfNonImage,
                     heightImage - heightOfNonImage);
             if (imageSize <= 5) return (null, null, rectCreature, rectCreatureOutline, imageSizeInBox);
@@ -438,8 +436,8 @@ namespace ARKBreedingStats.library
 
             if (widthOutlineCreature > 0 && colorOutlineCreature.A != 0)
             {
-                var outlineId = LastOutlineBmpIdString(creature.speciesBlueprint, colorOutlineCreature,
-                    widthOutlineCreature, creatureOutlineBlurring);
+                var outlineId =
+                    $"{creature.speciesBlueprint},{imageSize},{colorOutlineCreature},{widthOutlineCreature},{creatureOutlineBlurring}";
                 Bitmap outline;
                 if (outlineId == _lastOutlineBmpId)
                     outline = _lastOutlineBitmap;
@@ -456,17 +454,17 @@ namespace ARKBreedingStats.library
                 bmpCreatureOutline = outline;
                 rectCreatureOutline = new Rectangle(
                     widthImage - imageSize - borderAndPadding - outlinePadding,
-                    heightImage - imageSize - outlinePadding,
+                    heightImage - imageSize - borderAndPadding - outlinePadding,
                     imageSize + 2 * outlinePadding, imageSize + 2 * outlinePadding);
             }
 
             rectCreature = new Rectangle(widthImage - imageSize - borderAndPadding,
-                heightImage - imageSize, imageSize, imageSize);
+                heightImage - imageSize - borderAndPadding, imageSize, imageSize);
 
             return (bmpCreature, bmpCreatureOutline, rectCreature, rectCreatureOutline, imageSizeInBox);
         }
 
-        private static void DrawBackgroundImage(Graphics g, int width, int height, string imagePath, int x = 0, int y = 0)
+        private static void DrawBackgroundImage(Graphics g, string imagePath, int x, int y, int width, int height)
         {
             if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath)) return;
             try
@@ -478,9 +476,11 @@ namespace ARKBreedingStats.library
                     var scaleFactor = Math.Max(widthRatio, heightRatio);
                     var widthScaled = (int)Math.Round(bgImg.Width * scaleFactor);
                     var heightScaled = (int)Math.Round(bgImg.Height * scaleFactor);
-                    var offsetX = (widthScaled > width ? (width - widthScaled) / 2 : 0) + x;
-                    var offsetY = (heightScaled > height ? (height - heightScaled) / 2 : 0) + y;
-                    g.DrawImage(bgImg, offsetX, offsetY, widthScaled, heightScaled);
+                    var xSource = widthScaled > width ? (int)((widthScaled - width) / (2 * scaleFactor)) : 0;
+                    var ySource = heightScaled > height ? (int)((heightScaled - height) / (2 * scaleFactor)) : 0;
+                    var widthSourceArea = (int)Math.Round(width / scaleFactor);
+                    var heightSourceArea = (int)Math.Round(height / scaleFactor);
+                    g.DrawImage(bgImg, new Rectangle(x, y, width, height), new Rectangle(xSource, ySource, widthSourceArea, heightSourceArea), GraphicsUnit.Pixel);
                 }
             }
             catch (Exception ex)

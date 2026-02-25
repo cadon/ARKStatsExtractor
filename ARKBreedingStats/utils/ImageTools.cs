@@ -206,5 +206,61 @@ namespace ARKBreedingStats.utils
 
             return resultBitmap;
         }
+
+        public static Bitmap TrimTransparency(Bitmap bmp, bool disposeUntrimmedBmp = true)
+        {
+            if (bmp == null) return null;
+            if (bmp.PixelFormat != PixelFormat.Format32bppArgb) return bmp;
+
+            var rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            var data = bmp.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
+
+            var foundOpaque = false;
+            Rectangle rectTrimmed;
+            try
+            {
+                var bytesPerPixel = Image.GetPixelFormatSize(PixelFormat.Format32bppArgb) / 8;
+                var stride = data.Stride;
+                var buffer = new byte[stride * bmp.Height];
+                System.Runtime.InteropServices.Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
+
+                int left = bmp.Width, right = 0, top = bmp.Height, bottom = 0;
+
+                for (var y = 0; y < bmp.Height; y++)
+                    for (var x = 0; x < bmp.Width; x++)
+                    {
+                        var index = y * stride + x * bytesPerPixel;
+                        var alpha = buffer[index + 3];
+                        if (alpha == 0) continue;
+                        foundOpaque = true;
+                        if (x < left) left = x;
+                        if (x > right) right = x;
+                        if (y < top) top = y;
+                        if (y > bottom) bottom = y;
+                    }
+                rectTrimmed = new Rectangle(left, top, right - left + 1, bottom - top + 1);
+            }
+            finally
+            {
+                bmp.UnlockBits(data);
+            }
+
+            if (!foundOpaque)
+            {
+                if (disposeUntrimmedBmp) bmp.Dispose();
+                return null;
+            }
+
+            var trimmedBitmap = new Bitmap(rectTrimmed.Width, rectTrimmed.Height, PixelFormat.Format32bppArgb);
+
+            using (var g = Graphics.FromImage(trimmedBitmap))
+            {
+                g.DrawImage(bmp, new Rectangle(0, 0, rectTrimmed.Width, rectTrimmed.Height), rectTrimmed,
+                    GraphicsUnit.Pixel);
+            }
+            if (disposeUntrimmedBmp) bmp.Dispose();
+
+            return trimmedBitmap;
+        }
     }
 }

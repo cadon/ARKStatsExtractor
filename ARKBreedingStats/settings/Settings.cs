@@ -392,6 +392,8 @@ namespace ARKBreedingStats.settings
             NudInfoGraphicCreatureOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineColor.A;
             NudInfoGraphicCreatureOutlineWidth.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineWidth;
             NudInfoGraphicCreatureOutlineBlurring.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring;
+            NudInfoGraphicCreatureScaling.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicCreatureScaling;
+            NudInfoGraphicPadding.ValueSave = Properties.Settings.Default.InfoGraphicPadding;
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
@@ -675,6 +677,8 @@ namespace ARKBreedingStats.settings
             NudInfoGraphicCreatureOutlineAlpha.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineColor.A;
             Properties.Settings.Default.InfoGraphicCreatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
             Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
+            Properties.Settings.Default.InfoGraphicCreatureScaling = (float)NudInfoGraphicCreatureScaling.Value;
+            Properties.Settings.Default.InfoGraphicPadding = (int)NudInfoGraphicPadding.Value;
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
             Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
@@ -1696,10 +1700,12 @@ namespace ARKBreedingStats.settings
             var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
             var borderWidth = (int)NudInfoGraphicBorderWidth.Value;
             var borderRadius = (float)NudInfoGraphicBorderRadius.Value;
+            var padding = (int)NudInfoGraphicPadding.Value;
             var textOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
             var creatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
             var creatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
             var creatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
+            var creatureScaling = (float)NudInfoGraphicCreatureScaling.Value;
             var textOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
             var displayCreatureName = CbInfoGraphicCreatureName.Checked;
             var displayDomValues = RbInfoGraphicDomValues.Checked;
@@ -1714,11 +1720,11 @@ namespace ARKBreedingStats.settings
 
             var bmp = await _infoGraphicPreviewCreature
                     .InfoGraphicAsync(_cc,
-                        height, fontName, foreColor, backColor, borderColor, borderWidth, borderRadius, textOutlineColor,
+                        height, fontName, foreColor, backColor, borderColor, borderWidth, borderRadius, padding, textOutlineColor,
                         textOutlineWidth, displayCreatureName, displayDomValues,
                         sumWildMut, displayMutationCounter, displayGenerations,
                         displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage,
-                        creatureOutlineColor, backgroundImagePath, creatureOutlineWidth, creatureOutlineBlurring);
+                        creatureOutlineColor, backgroundImagePath, creatureOutlineWidth, creatureOutlineBlurring, creatureScaling);
 
             if (bmp == null) return;
             PbInfoGraphicPreview.Size = bmp.Size;
@@ -1753,11 +1759,9 @@ namespace ARKBreedingStats.settings
             _infoGraphicPreviewCreature.RecalculateCreatureValues(_cc.wildLevelStep);
         }
 
-        private void nudInfoGraphicHeight_ValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
-
         private void CbbInfoGraphicFontName_SelectedIndexChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
-        private void NudInfoGraphicAlpha_ValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
+        private void NudInfoGraphicValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
         private void BtInfoGraphicBackgroundImagePath_Click(object sender, EventArgs e)
         {
