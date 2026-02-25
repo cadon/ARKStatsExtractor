@@ -644,7 +644,10 @@
     <Setting Name="InfoGraphicCreatureScaling" Type="System.Single" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="InfoGraphicPadding" Type="System.Int32" Scope="User">
+    <Setting Name="InfoGraphicPaddingX" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="InfoGraphicPaddingY" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
   </Settings>

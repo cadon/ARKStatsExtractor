@@ -2560,12 +2560,24 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int InfoGraphicPadding {
+        public int InfoGraphicPaddingX {
             get {
-                return ((int)(this["InfoGraphicPadding"]));
+                return ((int)(this["InfoGraphicPaddingX"]));
             }
             set {
-                this["InfoGraphicPadding"] = value;
+                this["InfoGraphicPaddingX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int InfoGraphicPaddingY {
+            get {
+                return ((int)(this["InfoGraphicPaddingY"]));
+            }
+            set {
+                this["InfoGraphicPaddingY"] = value;
             }
         }
     }
