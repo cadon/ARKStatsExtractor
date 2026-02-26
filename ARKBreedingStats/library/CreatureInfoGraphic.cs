@@ -3,13 +3,17 @@ using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
+using Brush = System.Drawing.Brush;
+using Brushes = System.Drawing.Brushes;
+using Color = System.Drawing.Color;
+using Pen = System.Drawing.Pen;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace ARKBreedingStats.library
 {
@@ -131,8 +135,8 @@ namespace ARKBreedingStats.library
                 var fontSizeHeaderCalculated = CalculateFontSize(g, headerText, fontHeader, contentWidth);
 
                 // offset considering the rounded border
-                var xRadius = Math.Max(0, Math.Min(widthBox / 2f, borderRadius) - borderAndPaddingX);
-                var yRadius = Math.Max(0, Math.Min(heightBox / 2f, borderRadius) - borderAndPaddingY);
+                var xRadius = Math.Max(0, Math.Min(widthBox / 2f, borderRadius));
+                var yRadius = Math.Max(0, Math.Min(heightBox / 2f, borderRadius));
                 var xOffset = borderAndPaddingX + OffsetArc(xRadius, yRadius, currentYPosition - yOffsetBox);
 
                 if (fontSizeHeaderCalculated < fontSizeHeader)
@@ -173,13 +177,23 @@ namespace ARKBreedingStats.library
                 resizedFont?.Dispose();
                 currentYPosition += contentHeight * 17 / 180; //17
 
-                using (var p = new Pen(Color.FromArgb(50, foreColor), 1))
-                    g.DrawLine(p, borderWidth, currentYPosition, widthBox - borderWidth, currentYPosition);
-                currentYPosition += 2;
+                var lineWidth = Math.Max(1, heightBox / 180);
+                if (widthOutlineText > 0)
+                {
+                    using (var outlineBrush = new SolidBrush(colorOutlineText))
+                        g.FillRectangle(outlineBrush, 0, currentYPosition - lineWidth / 2 - widthOutlineText, widthBox, lineWidth + widthOutlineText * 2);
+                }
+                using (var p = new Pen(Color.FromArgb(50, foreColor), lineWidth))
+                    g.DrawLine(p, 0, currentYPosition - lineWidth / 2, widthBox, currentYPosition - lineWidth / 2);
+                currentYPosition += lineWidth;
 
                 // levels
                 var meanLetterWidth = fontSize * 7d / 10;
-                var xStatName = borderAndPaddingX;
+
+                var yBox = currentYPosition - yOffsetBox;
+                var yOfLastStat = yBox + (contentHeight / 9) + Enumerable.Range(0, Stats.StatsCount).Count(s => s != Stats.Torpidity && creature.Species.UsesStat(s)) * statLineHeight;
+                xOffset = borderAndPaddingX + Math.Max(OffsetArc(xRadius, yRadius, yBox), OffsetArc(xRadius, yRadius, heightBox - yOfLastStat));
+                var xStatName = xOffset;
                 var displayMutatedLevels =
                     !displaySumWildMutLevels && creature.levelsMutated != null && cc?.Game == Ark.Asa;
                 // x position of level number. torpor is the largest level number.
