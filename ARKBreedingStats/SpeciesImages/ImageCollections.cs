@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
 using Newtonsoft.Json.Linq;
 
@@ -49,16 +50,24 @@ namespace ARKBreedingStats.SpeciesImages
             foreach (var p in filesImagePacks)
             {
                 if (!FileService.LoadJsonFile(
-                        p, out ImagesManifest[] ims,
-                        out var errorText))
+                        p, out ValueModule<ImagesManifest[]> vm,
+                        out var errorTextVm))
                 {
-                    MessageBoxes.ShowMessageBox(
-                        $"Error when trying to load image packs manifest file\n{p}\n\n{errorText}",
-                        "Error when loading image packs manifest file");
-                    continue;
+                    // backwards compatibility
+                    if (!FileService.LoadJsonFile(
+                            p, out ImagesManifest[] ims,
+                            out var errorText))
+                    {
+                        MessageBoxes.ShowMessageBox(
+                            $"Error when trying to load image packs manifest file\n{p}\n\n{errorTextVm}\n{errorText}",
+                            "Error when loading image packs manifest file");
+                        continue;
+                    }
+
+                    vm = new ValueModule<ImagesManifest[]> { Data = ims };
                 }
 
-                foreach (var im in ims)
+                foreach (var im in vm.Data)
                 {
                     if (string.IsNullOrEmpty(im.Id))
                     {

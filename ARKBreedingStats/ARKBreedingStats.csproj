@@ -751,6 +751,7 @@
     <Compile Include="utils\CreatureListSorter.cs" />
     <Compile Include="utils\Hashes.cs" />
     <Compile Include="utils\ImageTools.cs" />
+    <Compile Include="utils\JsonUtils.cs" />
     <Compile Include="utils\LevelColorBar.cs" />
     <Compile Include="utils\Logging.cs" />
     <Compile Include="utils\MessageBoxes.cs" />

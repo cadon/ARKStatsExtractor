@@ -9,11 +9,15 @@ namespace ARKBreedingStats.Updater
     [JsonObject]
     public class ValueModule<T> where T : class
     {
-        public Version Format;
+        [JsonProperty("format")]
+        public int Format;
+        [JsonProperty("version")]
         public Version Version;
+
         /// <summary>
         /// Data of the module.
         /// </summary>
+        [JsonProperty("data")]
         public T Data;
     }
 }

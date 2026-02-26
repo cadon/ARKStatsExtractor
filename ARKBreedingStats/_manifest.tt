@@ -13,18 +13,23 @@ string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/As
   "format": "1.0",
   "modules":{
     "ARK Smart Breeding": {
-      "Id": "ARK Smart Breeding",
-      "Category": "main",
       "version": "<#= appVersion #>"
     },
     "NamePatternTemplates": {
-      "Id": "NamePatternTemplates",
       "Category": "Name Pattern Templates",
       "Name": "Name Pattern Templates",
       "Description": "Templates for naming patterns",
       "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/namePatternTemplates.json",
       "LocalPath": "json/namePatternTemplates.json",
-      "version": "2024.8.3"
+      "version": "2024.8.3",
+      "optional": true
+    },
+    "SpeciesImagePacks": {
+      "Category": "Images",
+      "Name": "Species image packs",
+      "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/imagePacks.json",
+      "LocalPath": "json/imagePacks.json",
+      "version": "2026.2.23"
     }
   }
 }

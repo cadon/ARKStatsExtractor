@@ -112,7 +112,7 @@ namespace ARKBreedingStats
             // load json-file of data
             try
             {
-                using (StreamReader sr = File.OpenText(filePath))
+                using (var sr = File.OpenText(filePath))
                 {
                     var ser = new Newtonsoft.Json.JsonSerializer();
                     if (converter != null)

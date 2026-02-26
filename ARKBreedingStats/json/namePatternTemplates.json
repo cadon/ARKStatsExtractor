@@ -1,7 +1,7 @@
 {
-  "Format": "1.0",
-  "Version": "2024.8.3",
-  "Data": [
+  "format": "1.0",
+  "version": "2024.8.3",
+  "data": [
     {
       "Pattern": "{{#substring: {{#format_int: {{#substring: {arkid} | -9 }} | X9 }} | -4 }}",
       "Title": "Short identifier",

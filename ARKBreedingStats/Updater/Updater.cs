@@ -249,8 +249,8 @@ namespace ARKBreedingStats.Updater
         {
             var manifest = AsbManifest.FromJsonFile(manifestFilePath);
 
-            if (manifest.modules.TryGetValue("ARK Smart Breeding", out var app))
-                return app.version;
+            if (manifest.Modules.TryGetValue("ARK Smart Breeding", out var app))
+                return app.Version;
 
             throw new FormatException("version of main app not found in manifest");
         }

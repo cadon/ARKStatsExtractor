@@ -1,5 +1,9 @@
-[
-  {
-    "url": "https://raw.github.com/arkutils/species-images/main/images/"
-  }
-]
+{
+  "format": 1,
+  "version": "1.0.0",
+  "data": [
+    {
+      "url": "https://raw.github.com/arkutils/species-images/main/images/"
+    }
+  ]
+}

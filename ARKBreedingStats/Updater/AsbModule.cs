@@ -28,8 +28,8 @@ namespace ARKBreedingStats.Updater
         public string Description;
         [JsonProperty]
         public string Author;
-        [JsonProperty]
-        public string version;
+        [JsonProperty("version")]
+        public string Version;
         /// <summary>
         /// The version of the online available module.
         /// </summary>
@@ -38,6 +38,13 @@ namespace ARKBreedingStats.Updater
         /// The version of the locally available module.
         /// </summary>
         public Version VersionLocal;
+
+        /// <summary>
+        /// If true the module is displayed in the update window and can be selected/unselected by the user.
+        /// If false the module is updated automatically and not shown in the updater window.
+        /// </summary>
+        [JsonProperty("optional")]
+        public bool Optional;
 
         public bool UpdateAvailable;
         /// <summary>
@@ -74,7 +81,7 @@ namespace ARKBreedingStats.Updater
         [OnDeserialized]
         internal void SetVersion(StreamingContext _)
         {
-            VersionOnline = Utils.TryParseVersionAlsoWithOnlyMajor(version);
+            VersionOnline = Utils.TryParseVersionAlsoWithOnlyMajor(Version);
 
             // local version
             if (string.IsNullOrEmpty(LocalPath)) return;
@@ -91,25 +98,11 @@ namespace ARKBreedingStats.Updater
             }
             else
             {
-                var filePath = FileService.GetPath(LocalPath);
-                if (File.Exists(filePath))
+                if (JsonUtils.ReadJsonNode(FileService.GetPath(LocalPath), "version", out string versionLocalString))
                 {
-                    try
-                    {
-                        var json = JObject.Parse(File.ReadAllText(filePath));
-                        var ver = json.Value<string>("Version");
-                        if (!string.IsNullOrEmpty(ver))
-                        {
-                            VersionLocal = Utils.TryParseVersionAlsoWithOnlyMajor(ver);
-                            LocallyAvailable = true;
-                            UpdateAvailable = VersionOnline > VersionLocal;
-                        }
-                    }
-                    catch (JsonReaderException ex)
-                    {
-                        Description = $"ERROR: Couldn't load json file of this module\n{ex.Message}"
-                                      + (string.IsNullOrEmpty(Description) ? string.Empty : "\n\n" + Description);
-                    }
+                    VersionLocal = Utils.TryParseVersionAlsoWithOnlyMajor(versionLocalString);
+                    LocallyAvailable = true;
+                    UpdateAvailable = VersionOnline > VersionLocal;
                 }
             }
         }

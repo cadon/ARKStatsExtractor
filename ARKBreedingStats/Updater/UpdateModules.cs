@@ -23,10 +23,11 @@ namespace ARKBreedingStats.Updater
                 return;
 
             _asbManifest = AsbManifest.FromJsonFile(manifestFilePath);
-            if (_asbManifest?.modules == null) return;
+            if (_asbManifest?.Modules == null) return;
 
             // Display installed and available modules
-            var moduleGroups = _asbManifest.modules.Where(kv => kv.Value.Category != "main").Select(kv => kv.Value)
+            // TODO update non optional modules automatically
+            var moduleGroups = _asbManifest.Modules.Where(kv => kv.Value.Optional).Select(kv => kv.Value)
                 .GroupBy(m => m.Category);
 
             _checkboxesUpdateModule = new List<CheckBox>();

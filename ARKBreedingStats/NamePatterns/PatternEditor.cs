@@ -296,7 +296,7 @@ namespace ARKBreedingStats.NamePatterns
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
             if (!File.Exists(manifestFilePath)) return;
             var asbManifest = AsbManifest.FromJsonFile(manifestFilePath);
-            var templateFileRelativePath = asbManifest?.modules?.Values.FirstOrDefault(m => m.Category == "Name Pattern Templates")?.LocalPath;
+            var templateFileRelativePath = asbManifest?.Modules?.Values.FirstOrDefault(m => m.Category == "Name Pattern Templates")?.LocalPath;
             if (templateFileRelativePath == null) return;
             var templateFilePath = FileService.GetPath(templateFileRelativePath);
             if (!File.Exists(templateFilePath)) return;
