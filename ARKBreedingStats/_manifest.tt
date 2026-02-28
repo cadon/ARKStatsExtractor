@@ -6,14 +6,11 @@
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
 <#@ output extension=".json" #>
-<#
-string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/AssemblyInfo.cs")), "AssemblyFileVersion\\(\"([^\"]*)\"").Groups[1].Value;
-#>
 {
   "format": "1.0",
   "modules":{
     "ARK Smart Breeding": {
-      "version": "<#= appVersion #>"
+      "version": "<#= Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/AssemblyInfo.cs")), "AssemblyFileVersion\\(\"([^\"]*)\"").Groups[1].Value #>"
     },
     "NamePatternTemplates": {
       "Category": "Name Pattern Templates",
@@ -21,15 +18,15 @@ string appVersion = Regex.Match(File.ReadAllText(Host.ResolvePath("Properties/As
       "Description": "Templates for naming patterns",
       "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/namePatternTemplates.json",
       "LocalPath": "json/namePatternTemplates.json",
-      "version": "2024.8.3",
-      "optional": true
+      "optional": true,
+      "version": "<#= Regex.Match(File.ReadAllText(Host.ResolvePath("json/namePatternTemplates.json")), "\"version\": ?\"([\\d\\.]+)\"").Groups[1].Value #>"
     },
     "SpeciesImagePacks": {
       "Category": "Images",
       "Name": "Species image packs",
       "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/imagePacks.json",
       "LocalPath": "json/imagePacks.json",
-      "version": "2026.2.23"
+      "version": "<#= Regex.Match(File.ReadAllText(Host.ResolvePath("json/imagePacks.json")), "\"version\": ?\"([\\d\\.]+)\"").Groups[1].Value #>"
     }
   }
 }

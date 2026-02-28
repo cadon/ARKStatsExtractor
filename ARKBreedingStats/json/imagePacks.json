@@ -1,9 +1,15 @@
 {
   "format": 1,
-  "version": "1.0.0",
+  "version": "2026.2.28",
   "data": [
     {
+      "default": true,
       "url": "https://raw.github.com/arkutils/species-images/main/images/"
+    },
+    {
+      "name": "Ports of Atlas",
+      "modid": 945275,
+      "url": "https://raw.github.com/minhquan1313/asb-images-the-ports-of-atlas/main/images/"
     }
   ]
 }

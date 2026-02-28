@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.Updater
 {
     public partial class UpdateModules : Form
     {
+        /// <summary>
+        /// Task for downloading non optional modules.
+        /// </summary>
+        public Task TaskDownloadingUpdates;
+
         public UpdateModules()
         {
-            InitializeComponent();
-            Loc.ControlText(BtOk, "OK");
-            Loc.ControlText(BtCancel, "Cancel");
-
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
             if (!File.Exists(manifestFilePath))
                 return;
@@ -25,8 +26,13 @@ namespace ARKBreedingStats.Updater
             _asbManifest = AsbManifest.FromJsonFile(manifestFilePath);
             if (_asbManifest?.Modules == null) return;
 
+            InitializeComponent();
+            Loc.ControlText(BtOk, "OK");
+            Loc.ControlText(BtCancel, "Cancel");
+
+            TaskDownloadingUpdates = DownloadModulesAsync(_asbManifest.Modules.Select(kv => kv.Value).Where(m => !m.Optional && m.UpdateAvailable).ToArray(), true);
+
             // Display installed and available modules
-            // TODO update non optional modules automatically
             var moduleGroups = _asbManifest.Modules.Where(kv => kv.Value.Optional).Select(kv => kv.Value)
                 .GroupBy(m => m.Category);
 
@@ -96,7 +102,7 @@ namespace ARKBreedingStats.Updater
             else if (module.UpdateAvailable)
             {
                 checkBoxDownloadText = "Update";
-                UpdateAvailable = true;
+                OptionalUpdateAvailable = true;
             }
 
             if (checkBoxDownloadText != null)
@@ -144,38 +150,48 @@ namespace ARKBreedingStats.Updater
         private void ClickCheckBox(CheckBox cb) => cb.Checked = !cb.Checked;
 
         /// <summary>
-        /// Is only true if for an already downloaded module an update is available.
+        /// Is only true if for an already downloaded optional module an update is available.
         /// </summary>
-        internal bool UpdateAvailable { get; private set; }
+        internal bool OptionalUpdateAvailable { get; private set; }
 
         private readonly AsbManifest _asbManifest;
         private readonly List<CheckBox> _checkboxesUpdateModule;
         private readonly List<CheckBox> _checkboxesSelectModule;
 
-        internal async Task<string> DownloadRequestedModulesAsync()
+        internal async Task<(string, List<string> idsSuccessfullyDownloaded)> DownloadRequestedModulesAsync()
         {
-            if (_asbManifest == null) return null;
+            if (_asbManifest == null) return (null, null);
             var downloadModules = _checkboxesUpdateModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule).ToArray();
-            if (!downloadModules.Any()) return null;
+            if (!downloadModules.Any()) return (null, null);
+            var (_, resultMessage, idsSuccessfullyDownloaded) = await DownloadModulesAsync(downloadModules);
 
+            return (resultMessage, idsSuccessfullyDownloaded);
+        }
+
+        private static async Task<(bool success, string errorMessage, List<string> idsSuccessfullyDownloaded)> DownloadModulesAsync(AsbModule[] modules, bool displayErrorMessage = false)
+        {
             var sb = new StringBuilder();
-            foreach (var module in downloadModules)
+            var success = true;
+            var idsSuccessfullyDownloaded = new List<string>();
+            foreach (var module in modules)
             {
-                var (success, message) = await module.DownloadAsync(true);
+                var (successModule, message) = await module.DownloadAsync(true);
+                success = success && successModule;
                 sb.AppendLine();
-                sb.AppendLine((success ? "Success: " : "Failed: ") + message);
+                sb.AppendLine((successModule ? "Success: " : "Failed: ") + message);
 
-                // if downloaded successfully, also select the module
-                if (success)
+                if (successModule)
                 {
-                    module.SetVersion(new StreamingContext());
-                    var checkBox = _checkboxesSelectModule.FirstOrDefault(cb => (cb.Tag as AsbModule) == module);
-                    if (checkBox != null)
-                        checkBox.Checked = true;
+                    module.Initialize();
+                    idsSuccessfullyDownloaded.Add(module.Id);
                 }
             }
 
-            return sb.ToString();
+            var resultMessage = sb.ToString();
+            if (!success && displayErrorMessage)
+                MessageBoxes.ShowMessageBox("Error while downloading ASB modules:\n\n" + resultMessage);
+
+            return (success, resultMessage, idsSuccessfullyDownloaded);
         }
     }
 }

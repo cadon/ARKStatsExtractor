@@ -119,7 +119,7 @@ namespace ARKBreedingStats.SpeciesImages
                     continue;
                 }
 
-                var isEnabledPack = Properties.Settings.Default.SpeciesImagesUrls?.Contains(im.Id) == true;
+                var isEnabledPack = enabledPacks?.Contains(im.Id) == true;
                 if (!im.LoadLocalImagePackInfo(filePathLocalManifest, isEnabledPack)
                     || !isEnabledPack)
                     continue;
@@ -127,6 +127,8 @@ namespace ARKBreedingStats.SpeciesImages
                 EnabledImageCollections.Add(new ImageCollection(im));
                 AnyManifests = true;
             }
+
+            Properties.Settings.Default.SpeciesImagesUrls = EnabledImageCollections.Select(ip => ip.Id).ToArray();
         }
 
         /// <summary>
@@ -151,12 +153,11 @@ namespace ARKBreedingStats.SpeciesImages
                 }
 
                 var packIsEnabled = enabledImagePackIds?.Contains(ip.Id) == true;
-
                 var manifestFileInfo = new FileInfo(filePathManifest);
-
+                var existsLocally = manifestFileInfo.Exists
+                                    && manifestFileInfo.Length != 0;
                 // only download if file does not exist or is outdated
-                var downloadFile = !manifestFileInfo.Exists
-                                   || manifestFileInfo.Length == 0
+                var downloadFile = !existsLocally
                                    || (forceUpdate && packIsEnabled);
                 if (!downloadFile && packIsEnabled)
                 {
@@ -177,6 +178,13 @@ namespace ARKBreedingStats.SpeciesImages
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(filePathManifest));
                     await WebService.DownloadAsync(ip.Url + ImagesManifest.FileName, filePathManifest).ConfigureAwait(false);
+
+                    // if the image pack is set as default and was not yet downloaded, enable it
+                    if (!existsLocally && ip.Default && !packIsEnabled)
+                    {
+                        enabledImagePackIds = enabledImagePackIds.Append(ip.Id).ToArray();
+                        Properties.Settings.Default.SpeciesImagesUrls = enabledImagePackIds;
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -10,15 +10,15 @@
       "Description": "Templates for naming patterns",
       "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/namePatternTemplates.json",
       "LocalPath": "json/namePatternTemplates.json",
-      "version": "2024.8.3",
-      "optional": true
+      "optional": true,
+      "version": "2024.8.3"
     },
     "SpeciesImagePacks": {
       "Category": "Images",
       "Name": "Species image packs",
       "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/imagePacks.json",
       "LocalPath": "json/imagePacks.json",
-      "version": "2026.2.23"
+      "version": "2026.2.28"
     }
   }
 }

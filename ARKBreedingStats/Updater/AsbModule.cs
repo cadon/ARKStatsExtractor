@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.utils;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.IO.Compression;
@@ -79,7 +78,9 @@ namespace ARKBreedingStats.Updater
         public bool LocallyAvailable;
 
         [OnDeserialized]
-        internal void SetVersion(StreamingContext _)
+        internal void Initialize(StreamingContext _) => Initialize();
+
+        internal void Initialize()
         {
             VersionOnline = Utils.TryParseVersionAlsoWithOnlyMajor(Version);
 
@@ -114,9 +115,9 @@ namespace ARKBreedingStats.Updater
         public async Task<(bool, string)> DownloadAsync(bool overwrite)
         {
             if (string.IsNullOrEmpty(LocalPath))
-                return (false, "LocalPath is empty, aborted.");
+                return (false, $"LocalPath of {Name} is not specified, aborted.");
             if (string.IsNullOrEmpty(Url))
-                return (false, "Url is empty, couldn't download anything.");
+                return (false, $"Url of {Name} is not specified, couldn't download anything.");
 
             var moduleFolderPath = FileService.GetPath(LocalPath);
             var tempFilePath = Path.GetTempFileName();

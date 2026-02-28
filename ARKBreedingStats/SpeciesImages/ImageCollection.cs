@@ -24,7 +24,7 @@ namespace ARKBreedingStats.SpeciesImages
         /// <summary>
         /// Local folder name, should be unique.
         /// </summary>
-        public string FolderName { get; private set; }
+        public string FolderName { get; }
 
         public string Name => _manifestSource?.Name ?? FolderName;
 
@@ -32,6 +32,8 @@ namespace ARKBreedingStats.SpeciesImages
         /// Manifest from the source, it's a downloaded file.
         /// </summary>
         private ImagesManifest _manifestSource;
+
+        public string Id => _manifestSource?.Id;
 
         public ImageCollection(ImagesManifest manifestSource)
         {

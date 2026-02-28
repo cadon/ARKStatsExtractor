@@ -3050,6 +3050,25 @@ namespace ARKBreedingStats
 
             // if Asa values are added or removed manually, adjust Asa setting
             _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : Ark.Ase;
+
+            if (!_creatureCollection.ModValueReloadNeeded) return;
+
+            var enabledImagePacks = Properties.Settings.Default.SpeciesImagesUrls;
+            var imagePacksAvailable = _creatureCollection.modIDs?
+                .Select(modId =>
+                    !string.IsNullOrEmpty(modId)
+                        ? ImageCollections.ImageManifests.Values.FirstOrDefault(im => im.ModId == modId)
+                        : null)
+                .Where(im => im != null && (enabledImagePacks == null || !enabledImagePacks.Contains(im.Id)))
+                .ToArray();
+            if (imagePacksAvailable?.Any() == true
+                && MessageBox.Show("There is a species image pack for the following loaded mods, load the images?\n\n" + string.Join("\n", imagePacksAvailable.Select(im => im.Name ?? im.Id)),
+                    "Load image packs?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Properties.Settings.Default.SpeciesImagesUrls = enabledImagePacks.Concat(imagePacksAvailable.Select(im => im.Id)).ToArray();
+                ImageCollections.LoadImagePackManifests();
+            }
+
             ReloadModValuesOfCollectionIfNeeded();
         }
 
@@ -3062,21 +3081,19 @@ namespace ARKBreedingStats
             // if the mods for the library changed,
             // first check if all mod value files are available and load missing files if possible,
             // then reload all values and mod values
-            if (_creatureCollection.ModValueReloadNeeded)
-            {
-                var modValuesNeedToBeLoaded = _creatureCollection.modIDs?.Any() == true;
-                // first reset values to default if needed
-                if (!onlyAdd)
-                    LoadStatAndKibbleValues(!modValuesNeedToBeLoaded);
-                // then load mod values if any
-                if (modValuesNeedToBeLoaded)
-                    LoadModValuesOfCollection(_creatureCollection, showResult, applySettings);
-                else
-                    UpdateAsaIndicator();
+            if (!_creatureCollection.ModValueReloadNeeded) return;
+            var modValuesNeedToBeLoaded = _creatureCollection.modIDs?.Any() == true;
+            // first reset values to default if needed
+            if (!onlyAdd)
+                LoadStatAndKibbleValues(!modValuesNeedToBeLoaded);
+            // then load mod values if any
+            if (modValuesNeedToBeLoaded)
+                LoadModValuesOfCollection(_creatureCollection, showResult, applySettings);
+            else
+                UpdateAsaIndicator();
 
-                if (setCollectionChanged)
-                    SetCollectionChanged(true);
-            }
+            if (setCollectionChanged)
+                SetCollectionChanged(true);
         }
 
         private void toolStripButtonAddPlayer_Click(object sender, EventArgs e)
@@ -3862,7 +3879,8 @@ namespace ARKBreedingStats
 
             using (var modules = new Updater.UpdateModules())
             {
-                if (!modules.UpdateAvailable && onlyShowDialogIfUpdatesAreAvailable)
+                await modules.TaskDownloadingUpdates;
+                if (!modules.OptionalUpdateAvailable && onlyShowDialogIfUpdatesAreAvailable)
                     return;
 
                 modules.ShowDialog();
@@ -3870,7 +3888,7 @@ namespace ARKBreedingStats
 
                 if (dialogResult != DialogResult.OK) return;
 
-                var result = await modules.DownloadRequestedModulesAsync();
+                var (result, _) = await modules.DownloadRequestedModulesAsync();
 
                 if (!string.IsNullOrEmpty(result))
                     MessageBox.Show(result, $"Data downloaded - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,

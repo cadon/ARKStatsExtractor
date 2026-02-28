@@ -48,6 +48,18 @@ namespace ARKBreedingStats.SpeciesImages
         public string Url;
 
         /// <summary>
+        /// Mod id if the images are for a specific mod.
+        /// </summary>
+        [JsonProperty("modid")]
+        public string ModId;
+
+        /// <summary>
+        /// If the manifest is downloaded while not yet existing locally and this property is true, the image pack is automatically enabled.
+        /// </summary>
+        [JsonProperty("default")]
+        public bool Default;
+
+        /// <summary>
         /// Folder name of the collection.
         /// </summary>
         public string FolderName;
