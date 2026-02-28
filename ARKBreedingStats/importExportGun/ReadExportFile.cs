@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 
 namespace ARKBreedingStats.importExportGun
@@ -18,46 +19,85 @@ namespace ARKBreedingStats.importExportGun
             {
                 using (BinaryReader br = new BinaryReader(fs))
                 {
-                    br.ReadBytes(4);
-                    if (Encoding.UTF8.GetString(br.ReadBytes(expectedStartString.Length))
-                        != expectedStartString)
+                    var header = br.ReadBytes(4);
+                    // Check for GVAS header to determine ASA format
+                    if (header[0] == 'G' && header[1] == 'V' && header[2] == 'A' && header[3] == 'S')
                     {
-                        error = $"Expected start string {expectedStartString} not found";
-                        return null;
-                    }
+                        // ASA format is a variant of GVAS - but we ignore most of it
 
-                    const string strProp = "StrProperty";
-                    if (!SearchBytes(br, Encoding.ASCII.GetBytes(strProp + '\0')))
-                    {
-                        error = $"Expected property {strProp} not found";
-                        return null;
-                    }
-
-                    // Assumption of the next 12 bytes:
-                    // first the length of the string in bytes including 4 leading bytes (i.e. 4 bytes longer than the actual string)
-                    // then four \0 bytes
-                    // the next 4 bytes are the length of the actual string, depending on the encoding:
-                    // If >0 it's the length in bytes and the string uses utf8, if it's <0 it's the negative length of the string in double bytes
-                    var jsonByteLength = br.ReadInt32() - 4; // string length (subtracting the 4 encoding length bytes)
-                    br.ReadBytes(4); // skipping \0 bytes
-                    var jsonCharLength = br.ReadInt32();
-                    var useUtf16 = false;
-                    if (jsonCharLength <= 0)
-                    {
-                        if (jsonCharLength * -2 == jsonByteLength)
+                        // Find classname to confirm correct save object
+                        if (!SearchBytes(br, Encoding.ASCII.GetBytes("DinoExportGunSave_C\0")))
                         {
-                            useUtf16 = true;
+                            error = "Expected start string DinoExportGunSave_C not found";
+                            return null;
+                        }
+                        
+                        // Find StrProperty
+                        if (!SearchBytes(br, Encoding.ASCII.GetBytes("StrProperty\0")))
+                        {
+                            error = "Expected property StrProperty not found";
+                            return null;
+                        }
+
+                        // Skip 25 bytes
+                        br.ReadBytes(9);
+
+                        // Read the length of the json string in bytes
+                        var jsonLength = br.ReadInt32();
+                        if (jsonLength >= 0)
+                        {
+                            // Read the json string as UTF-8
+                            return Encoding.UTF8.GetString(br.ReadBytes(jsonLength));
                         }
                         else
                         {
-                            error = $"Json length {jsonCharLength} at position {(br.BaseStream.Position - 4)} invalid";
-                            return null;
+                            // Read the json string as UTF-16 using the negative length
+                            return Encoding.Unicode.GetString(br.ReadBytes(jsonLength * -2));
                         }
                     }
+                    else
+                    {
+                        // ASE format
+                        if (Encoding.UTF8.GetString(br.ReadBytes(expectedStartString.Length))
+                        != expectedStartString)
+                        {
+                            error = $"Expected start string {expectedStartString} not found";
+                            return null;
+                        }
 
-                    return useUtf16
-                        ? Encoding.Unicode.GetString(br.ReadBytes(jsonByteLength))
-                        : Encoding.UTF8.GetString(br.ReadBytes(jsonByteLength));
+                        const string strProp = "StrProperty";
+                        if (!SearchBytes(br, Encoding.ASCII.GetBytes(strProp + '\0')))
+                        {
+                            error = $"Expected property {strProp} not found";
+                            return null;
+                        }
+
+                        // Assumption of the next 12 bytes:
+                        // first the length of the string in bytes including 4 leading bytes (i.e. 4 bytes longer than the actual string)
+                        // then four \0 bytes
+                        // the next 4 bytes are the length of the actual string, depending on the encoding:
+                        // If >0 it's the length in bytes and the string uses utf8, if it's <0 it's the negative length of the string in double bytes
+                        var jsonByteLength = br.ReadInt32() - 4; // string length (subtracting the 4 encoding length bytes)
+                        br.ReadBytes(4); // skipping \0 bytes
+                        var jsonCharLength = br.ReadInt32();
+                        var useUtf16 = false;
+                        if (jsonCharLength <= 0)
+                        {
+                            if (jsonCharLength * -2 == jsonByteLength)
+                            {
+                                useUtf16 = true;
+                            }
+                            else
+                            {
+                                error = $"Json length {jsonCharLength} at position {(br.BaseStream.Position - 4)} invalid";
+                                return null;
+                            }
+                        }
+
+                        return useUtf16
+                            ? Encoding.Unicode.GetString(br.ReadBytes(jsonByteLength))
+                            : Encoding.UTF8.GetString(br.ReadBytes(jsonByteLength));
+                    }
                 }
             }
         }
