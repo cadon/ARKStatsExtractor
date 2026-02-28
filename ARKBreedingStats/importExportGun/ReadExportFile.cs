@@ -43,10 +43,17 @@ namespace ARKBreedingStats.importExportGun
                         br.ReadBytes(9);
 
                         // Read the length of the json string in bytes
-                        var jsonByteLength = br.ReadInt32();
-
-                        // Read the json string
-                        return Encoding.UTF8.GetString(br.ReadBytes(jsonByteLength));
+                        var jsonLength = br.ReadInt32();
+                        if (jsonLength >= 0)
+                        {
+                            // Read the json string as UTF-8
+                            return Encoding.UTF8.GetString(br.ReadBytes(jsonLength));
+                        }
+                        else
+                        {
+                            // Read the json string as UTF-16 using the negative length
+                            return Encoding.Unicode.GetString(br.ReadBytes(jsonLength * -2));
+                        }
                     }
                     else
                     {
