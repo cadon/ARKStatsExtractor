@@ -40,7 +40,7 @@ namespace ARKBreedingStats.importExportGun
                         }
 
                         // Skip 25 bytes
-                        br.ReadBytes(25);
+                        br.ReadBytes(9);
 
                         // Read the length of the json string in bytes
                         var jsonByteLength = br.ReadInt32();
