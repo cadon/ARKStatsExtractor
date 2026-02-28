@@ -1,5 +1,5 @@
 {
-	"version": "78.32.1",
+	"version": "83.3.1",
 	"format": "1.16-mod-remap",
 	"mod": {
 		"id": "ASA",
@@ -3308,6 +3308,259 @@
 					]
 				}
 			]
+		},
+		{
+			"blueprintPath": "/Game/ASA/Dinos/GrandTortugar/GrandTortugar_Character_BP.GrandTortugar_Character_BP",
+			"name": "Grand Tortugar",
+			"fullStatsRaw": [
+				[ 1050, 0.2, 0.27, 0.5, 0 ],
+				[ 260, 0.1, 0.1, 0, 0 ],
+				[ 1000, 0.06, 0, 0.5, 0 ],
+				null,
+				[ 3500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 2250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.7, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 12599.6221,
+				"eggTempMin": 54,
+				"eggTempMax": 60,
+				"maturationTime": 279000.731,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": true,
+				"tamingIneffectiveness": 0.207,
+				"affinityNeeded0": 6250,
+				"affinityIncreasePL": 300,
+				"torporDepletionPS0": 0.3,
+				"foodConsumptionBase": 0.003156,
+				"foodConsumptionMult": 352.0631,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"neck_1": 0.5,
+				"neck_3": 1,
+				"head": 1,
+				"tail_1": 0.5,
+				"tail_2": 0.5,
+				"tail_3": 0.5,
+				"tail_4": 0.5,
+				"tail_5": 0.5,
+				"tail_6": 0.5,
+				"tail_7": 0.5,
+				"pelvis": 0.2
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Shell main",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				null,
+				{
+					"name": "Leg scales",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				{
+					"name": "Emissive",
+					"colors": [
+						"Dino Medium Blue",
+						"Dino Deep Blue",
+						"WyvernPurple1",
+						"DragonFire",
+						"DragonBase1",
+						"Dino Light Purple",
+						"Dino Light Green",
+						"Dino Light Orange",
+						"Light Green",
+						"PowderBlue",
+						"DryMoss",
+						"DragonBase1",
+						"BigFoot5",
+						"Green",
+						"Red"
+					]
+				},
+				{
+					"name": "Soft belly",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Medium Green",
+						"Dino Light Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Shell accent",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				}
+			],
+			"regionIntensities": [ 1.0, 1.5, 1.0, 1.0, 1.5, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/ASA/Dinos/Helicoprion/Helicoprion_Character_BP.Helicoprion_Character_BP",
@@ -17996,7 +18249,7 @@
 		},
 		{
 			"blueprintPath": "/Game/LostColony/Dinos/ZombieDino/DireWolf/Direwolf_Character_BP_Corrupted_Zombie.Direwolf_Character_BP_Corrupted_Zombie",
-			"name": "Revvenant Direwolf",
+			"name": "Revenant Direwolf",
 			"variants": [ "Corrupted", "LostColony", "Minion", "Revenant" ],
 			"fullStatsRaw": [
 				[ 330, 0.2, 0.27, 0.66, 0 ],
@@ -30801,6 +31054,146 @@
 			]
 		},
 		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Rockdrake/AstralRockDrake_Character_BP.AstralRockDrake_Character_BP",
+			"name": "Astral Rock Drake",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 6400, 0.2, 0.27, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 350, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 300, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 22498.2001,
+				"eggTempMin": -90,
+				"eggTempMax": -80,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.5,
+				"affinityNeeded0": 8500,
+				"affinityIncreasePL": 85,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"Head": 1.5,
+				"Jaw": 1.5
+			},
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/ScorpionKing/AstralScorpionKing_Character_BP.AstralScorpionKing_Character_BP",
+			"name": "Scorpion",
+			"nameMale": "Astral Pulmonoscorpius King",
+			"nameFemale": "Astral Pulmonoscorpius Queen",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 20000, 0.002, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 1500,
+				"affinityIncreasePL": 75,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "rig_c_tail9": 2 },
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Unknown",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				},
+				{
+					"name": "Dark muted-g",
+					"colors": [ "PowderBlue", "ActualBlack", "Dino Albino", "Glacial" ]
+				}
+			],
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
+		},
+		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Astral_Creatures/Tusoteuthis/Astral_Tusoteuthis_Character_BP.Astral_Tusoteuthis_Character_BP",
 			"name": "Astral Tusoteuthis",
 			"variants": [ "Astraeos" ],
@@ -31727,6 +32120,105 @@
 			"skipWildLevelStats": 512
 		},
 		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Hydra/Boss/Hydra_Character_BP_Boss_Easy.Hydra_Character_BP_Boss_Easy",
+			"name": "Hydraskos the Unbroken",
+			"variants": [ "Astraeos", "Boss", "Gamma" ],
+			"fullStatsRaw": [
+				[ 500000, 0.2, 0.27, 0.5, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 300000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Hydra/Boss/Hydra_Character_BP_Boss_Hard.Hydra_Character_BP_Boss_Hard",
+			"name": "Hydraskos the Unbroken",
+			"variants": [ "Alpha", "Astraeos", "Boss" ],
+			"fullStatsRaw": [
+				[ 1200000, 0.2, 0.27, 0.5, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 300000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Hydra/Boss/Hydra_Character_BP_Boss_Medium.Hydra_Character_BP_Boss_Medium",
+			"name": "Hydraskos the Unbroken",
+			"variants": [ "Astraeos", "Beta", "Boss" ],
+			"fullStatsRaw": [
+				[ 750000, 0.2, 0.27, 0.5, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				[ 100000, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 1500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 4000, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.151, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": { "0": 300000 },
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512
+		},
+		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kirayli/Kirayli_Character_BP.Kirayli_Character_BP",
 			"name": "Kirayli",
 			"variants": [ "Astraeos" ],
@@ -31768,6 +32260,1157 @@
 			"displayedStats": 927,
 			"noGender": true,
 			"skipWildLevelStats": 512
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Kraken/KrakenTentacle_Character_BP.KrakenTentacle_Character_BP",
+			"name": "Kraken (Tentacle)",
+			"variants": [ "Astraeos", "Boss", "Gamma", "Minion" ],
+			"fullStatsRaw": [
+				[ 1500, 0, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 1200, 0.06, 0, 0.5, 0 ],
+				[ 600, 0.1, 0.1, 0, 0 ],
+				[ 3500, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 1500, 0.02, 0.04, 0, 0 ],
+				[ 1, 0, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0.7, 0 ],
+				null,
+				null
+			],
+			"altBaseStats": {
+				"0": 3800,
+				"2": 100,
+				"3": 150,
+				"4": 100,
+				"7": 100
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Kraken/KrakenTentacle_Character_BP_Alpha.KrakenTentacle_Character_BP_Alpha",
+			"name": "Kraken (Tentacle)",
+			"variants": [ "Alpha", "Astraeos", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 11400, 0, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Kraken/KrakenTentacle_Character_BP_Beta.KrakenTentacle_Character_BP_Beta",
+			"name": "Kraken (Tentacle)",
+			"variants": [ "Astraeos", "Beta", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 7600, 0, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Kraken/Kraken_Character_BP.Kraken_Character_BP",
+			"name": "Kraken",
+			"variants": [ "Astraeos", "Boss", "Gamma" ],
+			"fullStatsRaw": [
+				[ 42000, 0, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Kraken/Kraken_Character_BP_Alpha.Kraken_Character_BP_Alpha",
+			"name": "Kraken",
+			"variants": [ "Alpha", "Astraeos", "Boss" ],
+			"fullStatsRaw": [
+				[ 126000, 0, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Kraken/Kraken_Character_BP_Beta.Kraken_Character_BP_Beta",
+			"name": "Kraken",
+			"variants": [ "Astraeos", "Beta", "Boss" ],
+			"fullStatsRaw": [
+				[ 84000, 0, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				},
+				{
+					"name": "Unknown",
+					"colors": [
+						"Dark Grey",
+						"Brown",
+						"Black",
+						"Dark Green",
+						"Dark Red"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Shark/Shark_Character_BP.Shark_Character_BP",
+			"name": "Kraken (Shark)",
+			"variants": [ "Astraeos", "Boss", "Gamma", "Minion" ],
+			"fullStatsRaw": [
+				[ 320, 0.2, 0.27, 0.3, 0 ],
+				[ 320, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 21978.022,
+				"incubationTime": 0,
+				"maturationTime": 256410.256,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body secondary",
+					"colors": [
+						"Light Grey",
+						"Dark Grey",
+						"Black",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Darker Grey",
+						"DragonGreen3",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body primary",
+					"colors": [
+						"Light Grey",
+						"Dark Grey",
+						"Black",
+						"Dino Dark Blue",
+						"Dino Darker Grey",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"ActualBlack",
+						"MidnightBlue",
+						"DarkBlue",
+						"DarkTeal"
+					]
+				},
+				null
+			],
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Shark/Shark_Character_BP_Alpha.Shark_Character_BP_Alpha",
+			"name": "Kraken (Shark)",
+			"variants": [ "Alpha", "Astraeos", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 960, 0.2, 0.27, 0.3, 0 ],
+				[ 320, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 21978.022,
+				"incubationTime": 0,
+				"maturationTime": 256410.256,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body secondary",
+					"colors": [
+						"Light Red",
+						"Black",
+						"Dino Light Red",
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"DragonFire",
+						"NearBlack",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body primary",
+					"colors": [
+						"Light Red",
+						"Black",
+						"Dark Red",
+						"Dino Dark Red",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"NearBlack",
+						"BurntSienna",
+						"MediumAutumn",
+						"Vermillion",
+						"Coral"
+					]
+				},
+				null
+			],
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Shark/Shark_Character_BP_Beta.Shark_Character_BP_Beta",
+			"name": "Kraken (Shark)",
+			"variants": [ "Astraeos", "Beta", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 640, 0.2, 0.27, 0.3, 0 ],
+				[ 320, 0.1, 0.1, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 2000, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 250, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 1, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 21978.022,
+				"incubationTime": 0,
+				"maturationTime": 256410.256,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 1.875,
+				"affinityNeeded0": 2000,
+				"affinityIncreasePL": 100,
+				"foodConsumptionBase": 0.001852,
+				"foodConsumptionMult": 199.984,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": {
+				"c_head": 1.5,
+				"c_jaw": 1.5
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body secondary",
+					"colors": [
+						"Light Orange",
+						"Black",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"NearBlack",
+						"Orange",
+						"LightAutumn"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body primary",
+					"colors": [
+						"Light Orange",
+						"Black",
+						"Dino Dark Orange",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"DragonBase1",
+						"NearBlack",
+						"Orange",
+						"LightAutumn",
+						"Cammo"
+					]
+				},
+				null
+			],
+			"regionIntensities": [ 0.6, 1.0, 1.0, 1.0, 1.0, 1.0 ]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Squid/Squid_Character_BP.Squid_Character_BP",
+			"name": "Kraken (Squid)",
+			"variants": [ "Astraeos", "Boss", "Gamma", "Minion" ],
+			"fullStatsRaw": [
+				[ 960, 0.2, 0.2025, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.06, 0, 0.5, 0 ],
+				[ 215, 0.1, 0.1, 0, 0 ],
+				[ 3200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.75,
+				"affinityNeeded0": 12500,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 180.0011,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "upper_beak": 3 },
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body primary",
+					"colors": [
+						"Light Grey",
+						"Dark Grey",
+						"Black",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"Dino Darker Grey",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"ActualBlack",
+						"MidnightBlue",
+						"DarkBlue",
+						"PineGreen",
+						"SpruceGreen",
+						"DarkTeal",
+						"MediumTeal"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body secondary",
+					"colors": [
+						"Light Grey",
+						"Dark Grey",
+						"Black",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Dark Purple",
+						"Dino Darker Grey",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"ActualBlack",
+						"MidnightBlue",
+						"DarkBlue",
+						"PineGreen",
+						"SpruceGreen",
+						"DarkTeal",
+						"MediumTeal"
+					]
+				},
+				{
+					"name": "Glow color",
+					"colors": [
+						"Light Green",
+						"Light Grey",
+						"DragonGreen3",
+						"WyvernPurple1",
+						"WyvernBlue0"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Squid/Squid_Character_BP_Alpha.Squid_Character_BP_Alpha",
+			"name": "Kraken (Squid)",
+			"variants": [ "Alpha", "Astraeos", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 2880, 0.2, 0.2025, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.06, 0, 0.5, 0 ],
+				[ 215, 0.1, 0.1, 0, 0 ],
+				[ 3200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.75,
+				"affinityNeeded0": 12500,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 180.0011,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "upper_beak": 3 },
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body primary",
+					"colors": [
+						"Light Red",
+						"Black",
+						"Dark Red",
+						"Dino Light Red",
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"NearBlack",
+						"BurntSienna",
+						"MediumAutumn",
+						"Coral"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body secondary",
+					"colors": [
+						"Light Red",
+						"Black",
+						"Dark Red",
+						"Dino Light Red",
+						"Dino Dark Red",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Darker Grey",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonFire",
+						"NearBlack",
+						"BurntSienna",
+						"MediumAutumn",
+						"Coral"
+					]
+				},
+				{
+					"name": "Glow color",
+					"colors": [
+						"Light Red",
+						"DragonBase0",
+						"DragonFire",
+						"Vermillion",
+						"Coral"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Kraken/Squid/Squid_Character_BP_Beta.Squid_Character_BP_Beta",
+			"name": "Kraken (Squid)",
+			"variants": [ "Astraeos", "Beta", "Boss", "Minion" ],
+			"fullStatsRaw": [
+				[ 1920, 0.2, 0.2025, 0.5, 0 ],
+				[ 300, 0.1, 0.1, 0, 0 ],
+				[ 1800, 0.06, 0, 0.5, 0 ],
+				[ 215, 0.1, 0.1, 0, 0 ],
+				[ 3200, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 800, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 1, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.75,
+				"affinityNeeded0": 12500,
+				"affinityIncreasePL": 125,
+				"foodConsumptionBase": 0.005,
+				"foodConsumptionMult": 180.0011,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "upper_beak": 3 },
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 520,
+			"colors": [
+				{
+					"name": "Body primary",
+					"colors": [
+						"Light Orange",
+						"Black",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"DragonBase1",
+						"DragonGreen1",
+						"DragonGreen2",
+						"NearBlack",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Cammo"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body secondary",
+					"colors": [
+						"Light Orange",
+						"Black",
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Darker Grey",
+						"DragonBase1",
+						"DragonGreen1",
+						"DragonGreen2",
+						"NearBlack",
+						"Orange",
+						"Peach",
+						"LightAutumn",
+						"Cammo"
+					]
+				},
+				{
+					"name": "Glow color",
+					"colors": [ "Light Orange", "DragonBase1", "Orange", "Peach" ]
+				}
+			]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/LightningInfused/Arthro/Arthro_Character_BP_Lightning.Arthro_Character_BP_Lightning",
@@ -32621,6 +34264,406 @@
 				},
 				null
 			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Minotaur_Boss/MinotaurTempleBoss_Character_BP.MinotaurTempleBoss_Character_BP",
+			"name": "Minotarchos",
+			"variants": [ "Astraeos", "Boss" ],
+			"fullStatsRaw": [
+				[ 200000, 0.05, 0.27, 0.5, 0 ],
+				[ 1320, 0, 0, 0, 0 ],
+				[ 2500, 0.06, 0, 0.5, 0 ],
+				[ 300, 0, 0, 0, 0 ],
+				[ 5000, 0, 0, 0, 0 ],
+				null,
+				null,
+				[ 600, 0, 0, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0, 0.151, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 333333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2000,
+				"affinityNeeded0": 10000,
+				"affinityIncreasePL": 5,
+				"foodConsumptionBase": 0.001929,
+				"foodConsumptionMult": 432.0028,
+				"babyFoodConsumptionMult": 510
+			},
+			"displayedStats": 919,
+			"noGender": true,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				{
+					"name": "Spine",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Green",
+						"Dino Dark Blue",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"DarkWolfFur",
+						"DragonFire",
+						"DragonBase0",
+						"DragonGreen0",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"MediumTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"DarkCement",
+						"DarkViolet",
+						"BurntSienna",
+						"MediumAutumn",
+						"MidnightBlue",
+						"BlackSands",
+						"PineGreen",
+						"SpruceGreen",
+						"DarkLavender",
+						"DarkTeal",
+						"Cammo",
+						"DryMoss"
+					]
+				},
+				null,
+				null,
+				{
+					"name": "Back",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Yellow",
+						"Dino Dark Yellow",
+						"Dino Light Green",
+						"Dino Medium Green",
+						"Dino Dark Green",
+						"Dino Light Blue",
+						"Dino Dark Blue",
+						"Dino Light Purple",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dino Darker Grey",
+						"Dino Albino",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5",
+						"WolfFur",
+						"DarkWolfFur",
+						"DragonFire",
+						"DragonBase0",
+						"DragonBase1",
+						"DragonGreen0",
+						"DragonGreen1",
+						"DragonGreen2",
+						"DragonGreen3",
+						"WyvernPurple0",
+						"WyvernPurple1",
+						"WyvernBlue0",
+						"WyvernBlue1",
+						"NearBlack",
+						"DarkTurquoise",
+						"GreenSlate",
+						"Sage",
+						"DarkWarmGray",
+						"MediumWarmGray",
+						"LightWarmGray",
+						"DarkCement",
+						"LightCement",
+						"BurntSienna",
+						"MediumAutumn",
+						"LightAutumn",
+						"Mustard",
+						"MidnightBlue",
+						"DarkBlue",
+						"BlackSands",
+						"Glacial",
+						"Cammo",
+						"DryMoss",
+						"Custard"
+					]
+				},
+				null
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Rhynio/RhynioDrone_Character_BP.RhynioDrone_Character_BP",
+			"name": "Rhyniognatha Drone",
+			"variants": [ "Astraeos" ],
+			"isFlyer": true,
+			"fullStatsRaw": [
+				[ 900, 0.136, 0.1404, 0.5, 0 ],
+				[ 350, 0.05, 0.06, 0, 0 ],
+				[ 800, 0.06, 0, 0.5, 0 ],
+				[ 800, 0.1, 0.1, 0, 0 ],
+				[ 1600, 0.1, 0.1, 0, 0.15 ],
+				null,
+				null,
+				[ 1100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"statImprintMult": [ 0.2, 0, 0.2, 0, 0.2, 0.2, 0, 0.2, 0.2, 0, 0, 0 ],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 0,
+				"maturationTime": 666666.667,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 0.9375,
+				"affinityNeeded0": 6850,
+				"affinityIncreasePL": 300,
+				"foodConsumptionBase": 0.001543,
+				"foodConsumptionMult": 216.0294,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "c_head": 1.5 },
+			"displayedStats": 927,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Body main",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Dark Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				null,
+				null,
+				null,
+				{
+					"name": "Body stripes and highlights",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Medium Brown",
+						"Dino Dark Brown",
+						"Light Grey",
+						"Dark Grey",
+						"Dino Darker Grey",
+						"Black",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				},
+				{
+					"name": "Underbelly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Light Grey",
+						"BigFoot0",
+						"BigFoot4",
+						"BigFoot5"
+					]
+				}
+			]
+		},
+		{
+			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Scorpion/ScorpionKing_Character_BP.ScorpionKing_Character_BP",
+			"name": "Scorpion",
+			"nameMale": "Pulmonoscorpius King",
+			"nameFemale": "Pulmonoscorpius Queen",
+			"variants": [ "Astraeos" ],
+			"fullStatsRaw": [
+				[ 20000, 0.002, 0.27, 0.5, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.06, 0, 0.5, 0 ],
+				[ 150, 0.1, 0.1, 0, 0 ],
+				[ 100, 0.1, 0.1, 0, 0 ],
+				null,
+				null,
+				[ 100, 0.02, 0.04, 0, 0 ],
+				[ 1, 0.05, 0.1, 0.5, 0.4 ],
+				[ 1, 0, 0.01, 0, 0 ],
+				null,
+				null
+			],
+			"breeding": {
+				"gestationTime": 0,
+				"incubationTime": 7199.42405,
+				"eggTempMin": 12,
+				"eggTempMax": 16,
+				"maturationTime": 133333.333,
+				"matingCooldownMin": 64800,
+				"matingCooldownMax": 172800
+			},
+			"taming": {
+				"nonViolent": false,
+				"violent": false,
+				"tamingIneffectiveness": 2.5,
+				"affinityNeeded0": 1500,
+				"affinityIncreasePL": 75,
+				"foodConsumptionBase": 0.01,
+				"foodConsumptionMult": 0.05,
+				"babyFoodConsumptionMult": 510
+			},
+			"boneDamageAdjusters": { "rig_c_tail9": 2 },
+			"displayedStats": 919,
+			"skipWildLevelStats": 512,
+			"colors": [
+				{
+					"name": "Body",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Uppershell",
+					"colors": [
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Medium Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"Dino Dark Red"
+					]
+				},
+				{
+					"name": "Claws",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Black",
+						"BigFoot5",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Lateral horns",
+					"colors": [
+						"Light Brown",
+						"Black",
+						"Brown",
+						"Dino Dark Orange",
+						"Dino Dark Brown",
+						"Dino Darker Grey",
+						"None"
+					]
+				},
+				{
+					"name": "Hair",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"Black",
+						"BigFoot5",
+						"Dino Dark Orange"
+					]
+				},
+				{
+					"name": "Belly",
+					"colors": [
+						"Dino Light Orange",
+						"Dino Light Brown",
+						"Dino Medium Brown",
+						"BigFoot0",
+						"BigFoot5",
+						"Dino Light Brown",
+						"Dino Medium Brown"
+					]
+				}
+			],
+			"regionIntensities": [ 1.0, 3.0, 1.0, 2.0, 1.0, 1.0 ]
 		},
 		{
 			"blueprintPath": "/Game/Mods/Astraeos/Assets/CoreBlueprints/Creatures/Worldboss/KingKaiju_Character_BP_WorldBoss_Astraeos.KingKaiju_Character_BP_WorldBoss_Astraeos",

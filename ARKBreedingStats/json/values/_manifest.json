@@ -77,6 +77,18 @@
 		"1083349027-SpeedyFlyers.json": { "version": "340.3.1636376737", "mod": { "id": "1083349027", "tag": "SpeedyFlyers", "title": "Najs Speedy Flyers" } },
 		"1090809604-Pyria.json": { "version": "358.17.1703902790", "mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" } },
 		"1092784125-Gryphons.json": { "version": "340.3.1623157051", "mod": { "id": "1092784125", "tag": "Gryphons", "title": "Gryphons" } },
+		"1105106-PA_EVO_Pack_02.json": {
+			"version": "1770247734.22007223",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1105106",
+				"ASA": true,
+				"tag": "PA_EVO_Pack_02",
+				"title": "Paleo ARK - Evolution | Dangerous Depths (Crossplay!)",
+				"author": "UpFromTheDepths",
+				"cfPage": "paleo-ark-evolution-dangerous-depths"
+			}
+		},
 		"111111111-PrimitivePlus.json": {
 			"version": "345.39.8870324",
 			"mod": { "id": "111111111", "tag": "PrimitivePlus", "title": "PrimitivePlus", "official": true }
@@ -143,6 +155,18 @@
 			"version": "356.3.1674545624",
 			"mod": { "id": "1178308359", "tag": "ShadDragon", "title": "Shad's Tameable Bosses" }
 		},
+		"1182199-PA_Plus_Pack_02.json": {
+			"version": "1767415373.22007223",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1182199",
+				"ASA": true,
+				"tag": "PA_Plus_Pack_02",
+				"title": "Paleo ARK EVO+ | Rulers of the Wastelands",
+				"author": "UpFromTheDepths",
+				"cfPage": "paleo-ark-evo-rulers-of-the-wastelands"
+			}
+		},
 		"1188224480-OgAlphas.json": { "version": "358.11.1623206057", "mod": { "id": "1188224480", "tag": "OgAlphas", "title": "OgAlphas" } },
 		"1201667-skyshroud_drakara.json": {
 			"version": "1769569989.21754965",
@@ -194,6 +218,18 @@
 		"1379111008-RealismPlus.json": {
 			"version": "356.5.1668063802",
 			"mod": { "id": "1379111008", "tag": "RealismPlus", "title": "Realism Plus by Storm" }
+		},
+		"1382641-PA_EVO_Pack_03.json": {
+			"version": "1771430269.22007223",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "1382641",
+				"ASA": true,
+				"tag": "PA_EVO_Pack_03",
+				"title": "Paleo ARK - Evolution | Hard Hitting Herbivores",
+				"author": "UpFromTheDepths",
+				"cfPage": "paleo-ark-evolution-hard-hitting-herbivores"
+			}
 		},
 		"1405944717-Project_Evolution.json": {
 			"version": "358.10.1690909595",
@@ -632,7 +668,7 @@
 			}
 		},
 		"932714-PrimalChaos.json": {
-			"version": "1770039496.21754965",
+			"version": "1771595380.22007223",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "932714",
@@ -667,8 +703,20 @@
 				"cfPage": "discovery-world"
 			}
 		},
+		"943455-Zytharian_Critters_Tek_Collection.json": {
+			"version": "1768618463.22007223",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "943455",
+				"ASA": true,
+				"tag": "Zytharian_Critters_Tek_Collection",
+				"title": "Zytharian Critters - Additional Tek Dinos Collection",
+				"author": "Zythara_",
+				"cfPage": "zytharian-critters-tek-collection"
+			}
+		},
 		"945275-PortsOfAtlas.json": {
-			"version": "1767657940.21533995",
+			"version": "1770474690.22007223",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "945275",
@@ -680,7 +728,7 @@
 			}
 		},
 		"952367-ArkDescended.json": {
-			"version": "1767781106.21533995",
+			"version": "1771767767.22007223",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "952367",
@@ -728,7 +776,7 @@
 			}
 		},
 		"970540-PA_EVO_Pack_01.json": {
-			"version": "1758248208.21533995",
+			"version": "1770702587.22007223",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "970540",
@@ -737,6 +785,18 @@
 				"title": "Paleo ARK - Evolution | Apex Predators (Crossplay)",
 				"author": "UpFromTheDepths",
 				"cfPage": "paleo-ark-evolution-apex-predators"
+			}
+		},
+		"972484-PA_Plus_Pack_01.json": {
+			"version": "1771428520.22007223",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "972484",
+				"ASA": true,
+				"tag": "PA_Plus_Pack_01",
+				"title": "Paleo ARK EVO+ | Native Aquatics (Crossplay!)",
+				"author": "UpFromTheDepths",
+				"cfPage": "paleo-ark-evo-plus-native-aquatics"
 			}
 		},
 		"974204-JurassicAwakening.json": {
@@ -752,7 +812,7 @@
 			}
 		},
 		"986540-PA_Ascension.json": {
-			"version": "1766481866.21533995",
+			"version": "1770666366.22007223",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "986540",
@@ -764,7 +824,7 @@
 			}
 		},
 		"ASA-values.json": {
-			"version": "78.32.1",
+			"version": "83.3.1",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},

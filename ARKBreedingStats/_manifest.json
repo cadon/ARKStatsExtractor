@@ -2,7 +2,7 @@
   "format": "1.0",
   "modules":{
     "ARK Smart Breeding": {
-      "version": "0.72.0.1"
+      "version": "0.72.1.0"
     },
     "NamePatternTemplates": {
       "Category": "Name Pattern Templates",
