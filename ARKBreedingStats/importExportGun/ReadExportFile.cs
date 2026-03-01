@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 
 namespace ARKBreedingStats.importExportGun
@@ -12,8 +11,9 @@ namespace ARKBreedingStats.importExportGun
         /// <summary>
         /// Reads the content of an export file and returns the containing json part as string.
         /// </summary>
-        public static string ReadFile(string filePath, string expectedStartString, out string error)
+        public static string ReadFile(string filePath, string expectedStartString, out string game, out string error)
         {
+            game = null;
             error = null;
             using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -24,6 +24,7 @@ namespace ARKBreedingStats.importExportGun
                     if (header[0] == 'G' && header[1] == 'V' && header[2] == 'A' && header[3] == 'S')
                     {
                         // ASA format is a variant of GVAS - but we ignore most of it
+                        game = Ark.Asa;
 
                         // Find classname to confirm correct save object
                         if (!SearchBytes(br, Encoding.ASCII.GetBytes("DinoExportGunSave_C\0")))
@@ -31,7 +32,7 @@ namespace ARKBreedingStats.importExportGun
                             error = "Expected start string DinoExportGunSave_C not found";
                             return null;
                         }
-                        
+
                         // Find StrProperty
                         if (!SearchBytes(br, Encoding.ASCII.GetBytes("StrProperty\0")))
                         {
@@ -58,6 +59,7 @@ namespace ARKBreedingStats.importExportGun
                     else
                     {
                         // ASE format
+                        game = Ark.Ase;
                         if (Encoding.UTF8.GetString(br.ReadBytes(expectedStartString.Length))
                         != expectedStartString)
                         {

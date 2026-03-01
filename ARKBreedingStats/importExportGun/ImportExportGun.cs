@@ -58,7 +58,7 @@ namespace ARKBreedingStats.importExportGun
                     switch (Path.GetExtension(filePath))
                     {
                         case ".sav":
-                            jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunSave_C", out resultText);
+                            jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunSave_C", out _, out resultText);
                             break;
                         case ".json":
                             jsonText = File.ReadAllText(filePath);
@@ -105,7 +105,17 @@ namespace ARKBreedingStats.importExportGun
                 resultText = $"Error when importing file {filePath}: file is empty. {resultText}";
                 return null;
             }
-            var exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
+
+            ExportGunCreatureFile exportedCreature;
+            try
+            {
+                exportedCreature = JsonConvert.DeserializeObject<ExportGunCreatureFile>(jsonText);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
             if (exportedCreature == null)
             {
                 resultText = "jsonText couldn't be deserialized";
@@ -290,8 +300,7 @@ namespace ARKBreedingStats.importExportGun
                     switch (Path.GetExtension(filePath))
                     {
                         case ".sav":
-                            jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunServerSave_C", out resultText);
-                            game = "ASE";
+                            jsonText = ReadExportFile.ReadFile(filePath, "DinoExportGunServerSave_C", out game, out resultText);
                             break;
                         case ".json":
                             jsonText = File.ReadAllText(filePath);
@@ -324,7 +333,16 @@ namespace ARKBreedingStats.importExportGun
                 resultText = $"The file is empty and cannot be imported: {filePath}{Environment.NewLine}{resultText}";
                 return null;
             }
-            var exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
+
+            ExportGunServerFile exportedServerMultipliers;
+            try
+            {
+                exportedServerMultipliers = JsonConvert.DeserializeObject<ExportGunServerFile>(jsonText);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
             // check if the file is a valid server settings file
             if (exportedServerMultipliers?.WildLevel == null
