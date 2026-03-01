@@ -110,7 +110,7 @@ namespace ARKBreedingStats.AsbServer
                         var tryToReconnect = reconnectTries++ < 4;
                         if (tryToReconnect)
                             WriteErrorMessage(
-                                $"ASB Server listening error, attempting to reconnect (try {reconnectTries})",
+                                $"ASB Server listening error ({ex.Message}), attempting to reconnect (try {reconnectTries})",
                                 stopListening: false);
                         else
                             WriteErrorMessage(
@@ -223,7 +223,7 @@ namespace ARKBreedingStats.AsbServer
                                     var msg = new HttpRequestMessage(HttpMethod.Post,
                                         $"{ApiUri}respond/{serverSendName.ConnectionToken}/{serverSendName.ExportId}");
                                     msg.Content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-                                    msg.Content.Headers.Add("Content-Length", jsonString.Length.ToString());
+                                    msg.Content.Headers.Add("Content-Length", Encoding.UTF8.GetByteCount(jsonString).ToString());
 
                                     var sendResponse = await WebService.GetHttpClient.SendAsync(msg, cancellationToken);
 #if DEBUG
