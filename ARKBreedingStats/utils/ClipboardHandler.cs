@@ -16,7 +16,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Attempts to set the specified text to the system clipboard.
         /// </summary>
-        /// <param name="text">The text to be copied to the clipboard. If null, an empty string will be used.</param>
+        /// <param name="text">The text to be copied to the clipboard. If null or empty the clipboard will be cleared.</param>
         /// <param name="error">
         /// When the operation fails, this parameter will contain an error message describing the failure.
         /// If the operation succeeds, this parameter will be set to <c>null</c>.
@@ -55,7 +55,10 @@ namespace ARKBreedingStats.utils
             {
                 try
                 {
-                    System.Windows.Forms.Clipboard.SetText(text ?? string.Empty);
+                    if (string.IsNullOrEmpty(text))
+                        Clipboard.Clear();
+                    else
+                        Clipboard.SetText(text);
                     return true;
                 }
                 catch (Exception ex)
