@@ -278,6 +278,7 @@ namespace ARKBreedingStats
                 infoInput.CreatureNote = c.note;
                 infoInput.CooldownUntil = c.cooldownUntil;
                 infoInput.GrowingUntil = c.growingUntil;
+                infoInput.SetTimersToChanged();
                 infoInput.DomesticatedAt = c.domesticatedAt;
                 infoInput.AddedToLibraryAt = c.addedToLibrary;
                 infoInput.CreatureFlags = c.flags;
