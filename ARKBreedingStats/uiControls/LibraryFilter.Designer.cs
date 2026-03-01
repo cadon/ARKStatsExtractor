@@ -53,10 +53,11 @@
             this.BtClearFlagFilter = new System.Windows.Forms.Button();
             this.ClbMaturationFilters = new System.Windows.Forms.CheckedListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CbLibraryGroupSpecies = new System.Windows.Forms.CheckBox();
             this.CbUseFilterInTopStatCalculation = new System.Windows.Forms.CheckBox();
             this.BtApply = new System.Windows.Forms.Button();
             this.BtCancel = new System.Windows.Forms.Button();
-            this.CbLibraryGroupSpecies = new System.Windows.Forms.CheckBox();
+            this.CbLibraryCombineBreedingCompatibleSpecies = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -355,6 +356,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.CbLibraryCombineBreedingCompatibleSpecies);
             this.panel1.Controls.Add(this.CbLibraryGroupSpecies);
             this.panel1.Controls.Add(this.CbUseFilterInTopStatCalculation);
             this.panel1.Controls.Add(this.BtApply);
@@ -364,6 +366,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(864, 30);
             this.panel1.TabIndex = 4;
+            // 
+            // CbLibraryGroupSpecies
+            // 
+            this.CbLibraryGroupSpecies.AutoSize = true;
+            this.CbLibraryGroupSpecies.Dock = System.Windows.Forms.DockStyle.Left;
+            this.CbLibraryGroupSpecies.Location = new System.Drawing.Point(170, 0);
+            this.CbLibraryGroupSpecies.Name = "CbLibraryGroupSpecies";
+            this.CbLibraryGroupSpecies.Size = new System.Drawing.Size(138, 30);
+            this.CbLibraryGroupSpecies.TabIndex = 3;
+            this.CbLibraryGroupSpecies.Text = "Group library by species";
+            this.CbLibraryGroupSpecies.UseVisualStyleBackColor = true;
             // 
             // CbUseFilterInTopStatCalculation
             // 
@@ -399,15 +412,16 @@
             this.BtCancel.Text = "Cancel";
             this.BtCancel.UseVisualStyleBackColor = true;
             // 
-            // CbLibraryGroupSpecies
+            // CbLibraryCombineBreedingCompatibleSpecies
             // 
-            this.CbLibraryGroupSpecies.AutoSize = true;
-            this.CbLibraryGroupSpecies.Location = new System.Drawing.Point(195, 7);
-            this.CbLibraryGroupSpecies.Name = "CbLibraryGroupSpecies";
-            this.CbLibraryGroupSpecies.Size = new System.Drawing.Size(138, 17);
-            this.CbLibraryGroupSpecies.TabIndex = 3;
-            this.CbLibraryGroupSpecies.Text = "Group library by species";
-            this.CbLibraryGroupSpecies.UseVisualStyleBackColor = true;
+            this.CbLibraryCombineBreedingCompatibleSpecies.AutoSize = true;
+            this.CbLibraryCombineBreedingCompatibleSpecies.Dock = System.Windows.Forms.DockStyle.Left;
+            this.CbLibraryCombineBreedingCompatibleSpecies.Location = new System.Drawing.Point(308, 0);
+            this.CbLibraryCombineBreedingCompatibleSpecies.Name = "CbLibraryCombineBreedingCompatibleSpecies";
+            this.CbLibraryCombineBreedingCompatibleSpecies.Size = new System.Drawing.Size(204, 30);
+            this.CbLibraryCombineBreedingCompatibleSpecies.TabIndex = 4;
+            this.CbLibraryCombineBreedingCompatibleSpecies.Text = "Combine breeding compatible species";
+            this.CbLibraryCombineBreedingCompatibleSpecies.UseVisualStyleBackColor = true;
             // 
             // LibraryFilter
             // 
@@ -463,5 +477,6 @@
         private System.Windows.Forms.CheckedListBox ClbMaturationFilters;
         private System.Windows.Forms.CheckBox CbMaturationAll;
         private System.Windows.Forms.CheckBox CbLibraryGroupSpecies;
+        private System.Windows.Forms.CheckBox CbLibraryCombineBreedingCompatibleSpecies;
     }
 }

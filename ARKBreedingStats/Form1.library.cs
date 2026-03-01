@@ -12,7 +12,6 @@ using ARKBreedingStats.utils;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
@@ -870,8 +869,7 @@ namespace ARKBreedingStats
         private void ShowCreaturesInListView(IEnumerable<Creature> creatures)
         {
             listViewLibrary.BeginUpdate();
-            var sorted = _creatureListSorter.DoSort(creatures, orderBySpecies: Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
-            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted;
+            _creaturesDisplayed = GetSortedCreatureList(creatures);
             listViewLibrary.VirtualListSize = _creaturesDisplayed.Length;
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
@@ -890,17 +888,52 @@ namespace ARKBreedingStats
             }
         }
 
-        private Creature[] InsertDividers(IList<Creature> creatures)
+        /// <summary>
+        /// Returns array of creatures to display in the library list view, including dividers if option is set.
+        /// </summary>
+        private Creature[] GetSortedCreatureList(IEnumerable<Creature> creatures, int columnIndex = -1)
+        {
+            Dictionary<Species, int> speciesOrderIndex = null;
+            if (Properties.Settings.Default.LibraryGroupBySpecies && _speciesInLibraryOrdered?.Any() == true)
+            {
+                if (Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies)
+                {
+                    var speciesIndex = -1;
+                    speciesOrderIndex = new Dictionary<Species, int>();
+                    foreach (var s in _speciesInLibraryOrdered)
+                    {
+                        if (speciesOrderIndex.ContainsKey(s)) continue;
+                        speciesOrderIndex[s] = ++speciesIndex;
+                        if (s.matesWith?.Any() != true) continue;
+                        foreach (var bp in s.matesWith)
+                        {
+                            var connectedSpecies = Values.V.SpeciesByBlueprint(bp);
+                            if (connectedSpecies == null) continue;
+                            speciesOrderIndex[connectedSpecies] = speciesIndex;
+                        }
+                    }
+                }
+                else
+                    speciesOrderIndex = _speciesInLibraryOrdered.Select((s, i) => (s, i)).ToDictionary(s => s.s, s => s.i);
+            }
+            var sorted = _creatureListSorter.DoSort(creatures, columnIndex, speciesOrderIndex);
+            return Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted, Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies) : sorted;
+        }
+
+        private Creature[] InsertDividers(IList<Creature> creatures, bool combineBreedingCompatibleSpecies)
         {
             if (!creatures.Any())
             {
                 return Array.Empty<Creature>();
             }
-            List<Creature> result = new List<Creature>();
+            var result = new List<Creature>();
             Species lastSpecies = null;
-            foreach (Creature c in creatures)
+            foreach (var c in creatures)
             {
-                if (lastSpecies == null || c.Species != lastSpecies)
+                if (lastSpecies == null
+                    || (c.Species != lastSpecies
+                        && (!combineBreedingCompatibleSpecies
+                            || lastSpecies.matesWith?.Contains(c.Species.blueprintPath) != true)))
                 {
                     result.Add(new Creature(c.Species)
                     {
@@ -937,8 +970,8 @@ namespace ARKBreedingStats
             }
             else
             {
-                throw new Exception($"ListViewItem could not be retrieved. ItemIndex: {e.ItemIndex}."
-                                    + $"_creaturesDisplayedLength: {_creaturesDisplayed?.Length}."
+                throw new Exception($"ListViewItem could not be retrieved. ItemIndex: {e.ItemIndex}. "
+                                    + $"_creaturesDisplayedLength: {_creaturesDisplayed?.Length}. "
                                     + $"_libraryListViewItemCacheLength: {_libraryListViewItemCache?.Length}");
             }
         }
@@ -984,7 +1017,23 @@ namespace ARKBreedingStats
                 if (creature.Species.blueprintPath != null)
                     _creatureCollection.GetCreatureCountBySpecies()
                         .TryGetValue(creature.Species.blueprintPath, out count);
+
                 var displayedText = creature.Species.DescriptiveNameAndMod + " (" + count + ")";
+
+                if (Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies && creature.Species.matesWith?.Any() == true)
+                {
+                    var addTexts = new List<string>();
+                    foreach (var bp in creature.Species.matesWith)
+                    {
+                        var sp = Values.V.SpeciesByBlueprint(bp);
+                        if (sp == null) continue;
+                        addTexts.Add($"{sp.DescriptiveNameAndMod} ({(_creatureCollection.GetCreatureCountBySpecies().TryGetValue(bp, out count) ? count : 0)})");
+                    }
+
+                    if (addTexts.Any())
+                        displayedText += ", " + string.Join(", ", addTexts);
+                }
+
                 float middle = (rect.Top + rect.Bottom) / 2f;
                 e.Graphics.FillRectangle(Brushes.Blue, rect.Left, middle, rect.Width - 3, 1);
                 SizeF strSize = e.Graphics.MeasureString(displayedText, e.Item.Font);
@@ -1419,8 +1468,7 @@ namespace ARKBreedingStats
             foreach (int i in listViewLibrary.SelectedIndices)
                 selectedCreatures.Add(_creaturesDisplayed[i]);
 
-            var sorted = _creatureListSorter.DoSort(_creaturesDisplayed.Where(c => !c.flags.HasFlag(CreatureFlags.Divider)), columnIndex, Properties.Settings.Default.LibraryGroupBySpecies ? _speciesInLibraryOrdered : null);
-            _creaturesDisplayed = Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted) : sorted;
+            _creaturesDisplayed = GetSortedCreatureList(_creaturesDisplayed.Where(c => !c.flags.HasFlag(CreatureFlags.Divider)), columnIndex);
             _libraryListViewItemCache = null;
             listViewLibrary.EndUpdate();
             SelectCreaturesInLibrary(selectedCreatures);
@@ -1531,7 +1579,10 @@ namespace ARKBreedingStats
                     Dictionary<string, string> customStatNames = null;
                     if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
                     {
-                        filteredList = filteredList.Where(c => c.Species == selectedSpecies);
+                        if (Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies)
+                            filteredList = filteredList.Where(c => c.Species == selectedSpecies || selectedSpecies.matesWith?.Contains(c.Species.blueprintPath) == true);
+                        else
+                            filteredList = filteredList.Where(c => c.Species == selectedSpecies);
                         customStatNames = selectedSpecies.statNames;
                     }
 

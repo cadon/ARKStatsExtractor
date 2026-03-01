@@ -650,5 +650,8 @@
     <Setting Name="InfoGraphicPaddingY" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
+    <Setting Name="LibraryCombineBreedingCompatibleSpecies" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

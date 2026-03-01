@@ -42,7 +42,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Sort list by given column index. If the columnIndex is -1, use last sorting.
         /// </summary>
-        public Creature[] DoSort(IEnumerable<Creature> list, int columnIndex = -1, Species[] orderBySpecies = null)
+        public Creature[] DoSort(IEnumerable<Creature> list, int columnIndex = -1, Dictionary<Species, int> speciesOrderIndex = null)
         {
             if (list == null) return null;
 
@@ -67,11 +67,11 @@ namespace ARKBreedingStats.utils
                 : (IComparer<object>)Comparer<object>.Default;
 
             // Perform the sort with these new sort options.
-            var orderedList = OrderList(list, comparer, orderBySpecies).ToArray();
+            var orderedList = OrderList(list, comparer, speciesOrderIndex).ToArray();
 
             // apply list index to creatures
             var i = 1;
-            if (orderBySpecies != null)
+            if (speciesOrderIndex != null)
             {
                 Species currentSpecies = null;
                 foreach (var c in orderedList)
@@ -93,14 +93,13 @@ namespace ARKBreedingStats.utils
             return orderedList;
         }
 
-        private IEnumerable<Creature> OrderList(IEnumerable<Creature> list, IComparer<object> comparer, Species[] orderBySpecies = null)
+        private IEnumerable<Creature> OrderList(IEnumerable<Creature> list, IComparer<object> comparer, Dictionary<Species, int> speciesOrderIndex = null)
         {
             IOrderedEnumerable<Creature> listOrdered;
 
-            if (orderBySpecies != null)
+            if (speciesOrderIndex != null)
             {
-                var dict = orderBySpecies.Select((s, i) => (s, i)).ToDictionary(s => s.s, s => s.i);
-                listOrdered = list.OrderBy(c => dict.TryGetValue(c.Species, out var i) ? i : int.MaxValue);
+                listOrdered = list.OrderBy(c => speciesOrderIndex.TryGetValue(c.Species, out var i) ? i : int.MaxValue);
                 if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
                     return listOrdered;
                 listOrdered = Order == SortOrder.Ascending

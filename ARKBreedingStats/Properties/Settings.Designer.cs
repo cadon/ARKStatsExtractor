@@ -2580,5 +2580,17 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicPaddingY"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LibraryCombineBreedingCompatibleSpecies {
+            get {
+                return ((bool)(this["LibraryCombineBreedingCompatibleSpecies"]));
+            }
+            set {
+                this["LibraryCombineBreedingCompatibleSpecies"] = value;
+            }
+        }
     }
 }

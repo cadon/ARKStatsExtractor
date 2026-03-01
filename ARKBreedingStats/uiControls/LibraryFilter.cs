@@ -38,6 +38,7 @@ namespace ARKBreedingStats.uiControls
             SetColorFilter(Properties.Settings.Default.FilterOnlyIfColorId);
             CbUseFilterInTopStatCalculation.Checked = Properties.Settings.Default.useFiltersInTopStatCalculation;
             CbLibraryGroupSpecies.Checked = Properties.Settings.Default.LibraryGroupBySpecies;
+            CbLibraryCombineBreedingCompatibleSpecies.Checked = Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies;
 
             UpdateOwnerServerTagLists();
 
@@ -263,6 +264,7 @@ namespace ARKBreedingStats.uiControls
             Properties.Settings.Default.FilterHideServers = GetCheckedStrings(ClbServers);
             Properties.Settings.Default.FilterHideTags = GetCheckedStrings(ClbTags);
             Properties.Settings.Default.LibraryGroupBySpecies = CbLibraryGroupSpecies.Checked;
+            Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies = CbLibraryCombineBreedingCompatibleSpecies.Checked;
 
             var flagsOneNeeded = CreatureFlags.None;
             var flagsAllNeeded = CreatureFlags.None;
