@@ -331,7 +331,6 @@ namespace ARKBreedingStats.species
             {
                 var ignoreVariants = _getIgnoreVariantInName();
                 VariantInfo = string.Join(", ", variants);
-                var gaun = variants.Any(v => ignoreVariants.Contains(v));
                 variantInfoForName = string.Join(", ", string.IsNullOrEmpty(name) ? variants : variants.Where(v => !name.Contains(v) && !ignoreVariants.Contains(v)));
             }
 
