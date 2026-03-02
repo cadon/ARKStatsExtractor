@@ -131,11 +131,15 @@ function Invoke-Build {
 
 function Invoke-PackageRelease {
     $project    = Join-Path $PSScriptRoot "ARKBreedingStats\ARKBreedingStats.csproj"
-    $publishDir = Join-Path $WorkPath "bin"
+    $publishDir = Join-Path $PSScriptRoot "ARKBreedingStats\bin\Release\net10.0-windows"
     $outputDir  = Join-Path $WorkPath "publish"
 
+    # dotnet publish (vs build) resolves runtime-specific NuGet assets and writes a clean
+    # deps.json that works on machines without a local NuGet package cache.
+    # Note: --no-build is intentionally omitted so publish can flatten runtime-specific
+    # assets (e.g. runtimes/win/lib/net10.0/) into the output directory correctly.
     Write-Host "`nPublishing..." -ForegroundColor Gray
-    dotnet publish $project --configuration Release --output "$publishDir" --no-build
+    dotnet publish $project --configuration Release --output "$publishDir"
     if ($LASTEXITCODE -ne 0) {
         Write-Host "`n=== Publish Failed ===" -ForegroundColor Red
         exit $LASTEXITCODE

@@ -69,6 +69,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "{#ReleaseDir}\*"; DestDir: "{app}"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion
+Source: "{#ReleaseDir}\runtimes\*"; DestDir: "{app}\runtimes\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
+
 Source: "{#ReleaseDir}\de\*"; DestDir: "{app}\de\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#ReleaseDir}\es\*"; DestDir: "{app}\es\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#ReleaseDir}\fr\*"; DestDir: "{app}\fr\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
