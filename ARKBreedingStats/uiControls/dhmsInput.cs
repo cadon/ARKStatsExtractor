@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -100,6 +101,7 @@ namespace ARKBreedingStats.uiControls
             ValueChanged?.Invoke(this, ts);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TimeSpan Timespan
         {
             get => ts;

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.raising
@@ -12,6 +13,7 @@ namespace ARKBreedingStats.raising
             labelF.TextAlign = ContentAlignment.MiddleRight;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatName
         {
             set => label1.Text = value;

@@ -94,7 +94,7 @@ namespace ARKBreedingStats
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(RepositoryInfo.RepositoryUrl);
+            Utils.OpenUri(RepositoryInfo.RepositoryUrl);
         }
 
         private const string Contributors = @"Thanks for contributions, help and support to

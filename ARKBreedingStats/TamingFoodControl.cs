@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -27,6 +28,7 @@ namespace ARKBreedingStats
             FoodName = name;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FoodName
         {
             get => _foodName;
@@ -52,18 +54,21 @@ namespace ARKBreedingStats
         /// <summary>
         /// Food amount currently set.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int Amount
         {
             get => (int)numericUpDown1.Value;
             set => numericUpDown1.Value = Math.Max(0, value);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FoodNameDisplay
         {
             get => groupBox1.Text;
             set => groupBox1.Text = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int MaxFood
         {
             get => maxFoodAmount;
@@ -74,6 +79,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TimeSpan TamingDuration
         {
             set
@@ -93,6 +99,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Amount of food used during taming.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int FoodUsed
         {
             set => labelFoodUsed.Text = value.ToString();

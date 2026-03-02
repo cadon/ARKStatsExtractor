@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+    inputs:
+      publish_release:
+        description: 'Publish a GitHub Release'
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.x'
+
+      - name: Build & Test
+        shell: pwsh
+        run: |
+          .\build.ps1 -Configuration Release
+
+      - name: Upload CI artifacts
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v6
+        with:
+          name: ARKSmartBreeding-${{ github.sha }}
+          path: .work/publish/*
+
+      - name: Create GitHub Release
+        if: ${{ inputs.publish_release }}
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $version = (dotnet msbuild ARKBreedingStats/ARKBreedingStats.csproj -getProperty:FileVersion).Trim()
+          $artifacts = Get-ChildItem ".work\publish\*" -Include "*.zip","*.exe"
+          gh release create "v$version" @($artifacts.FullName) `
+            --title "ARK Smart Breeding $version" `
+            --generate-notes

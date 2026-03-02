@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.ocr;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -101,6 +102,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Sets the overlay timer to enabled or disabled.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool EnableOverlayTimer
         {
             set => _timerUpdateTimer.Enabled = value;

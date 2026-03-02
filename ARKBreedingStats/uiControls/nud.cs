@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,6 +19,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closest valid value is set
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public decimal ValueSave
         {
             set
@@ -31,11 +33,13 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closest valid value is set
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double ValueSaveDouble
         {
             set => ValueSave = (decimal)value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double ValueDouble => (double)Value;
 
         protected override void OnValueChanged(EventArgs e)
@@ -59,6 +63,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// If the control displays this number, it will be dimmed. That way controls with changed numbers will be more visible.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public decimal NeutralNumber
         {
             get => _NeutralNumber;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats
 {
@@ -30,6 +31,7 @@ namespace ARKBreedingStats
             ListViewColumnSorter.DoSort((ListView)sender, e.Column);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Player> Players
         {
             set
@@ -39,6 +41,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Tribe> Tribes
         {
             set

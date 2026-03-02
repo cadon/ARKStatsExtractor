@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.settings
 {
@@ -14,12 +15,14 @@ namespace ARKBreedingStats.settings
             FormClosing += (sender, args) => cancellationTokenSource.Cancel();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatusText
         {
             get => StatusLabel.Text;
             set => StatusLabel.Text = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string FileName { get; set; }
         private readonly Stopwatch _stopwatch = new Stopwatch();
 

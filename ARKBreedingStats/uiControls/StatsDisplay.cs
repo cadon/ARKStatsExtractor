@@ -3,6 +3,7 @@ using ARKBreedingStats.utils;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -87,6 +88,7 @@ namespace ARKBreedingStats.uiControls
             this.ResumeDrawingAndLayout();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int BarMaxLevel
         {
             set

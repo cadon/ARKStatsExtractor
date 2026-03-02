@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.settings
 {
@@ -48,6 +49,7 @@ namespace ARKBreedingStats.settings
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string SoundFile
         {
             get => soundFile;
@@ -71,6 +73,7 @@ namespace ARKBreedingStats.settings
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Title
         {
             set

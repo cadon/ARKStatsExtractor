@@ -997,7 +997,7 @@ namespace ARKBreedingStats.ocr
                 File.Create(filePath).Dispose();
             }
 
-            Process.Start(filePath);
+            Utils.OpenUri(filePath);
         }
 
         private void BtReplacingLoadFile_Click(object sender, EventArgs e)

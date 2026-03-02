@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats
 {
@@ -55,6 +56,7 @@ namespace ARKBreedingStats
             this.ResumeDrawingAndLayout();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureCollection CreatureCollection
         {
             set
