@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ARKBreedingStats.Core;
+using Newtonsoft.Json;
 using System.Drawing;
 using System.Linq;
 

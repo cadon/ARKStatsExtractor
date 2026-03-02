@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using ARKBreedingStats.Core;
+using System.Linq;
 
 namespace ARKBreedingStats.library
 {

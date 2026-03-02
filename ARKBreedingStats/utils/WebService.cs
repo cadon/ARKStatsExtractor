@@ -20,12 +20,15 @@ namespace ARKBreedingStats.utils
         {
             get
             {
-                if (_httpClient == null)
-                {
-                    _httpClient = new HttpClient();
-                    _httpClient.Timeout = TimeSpan.FromSeconds(30);
-                    _httpClient.DefaultRequestHeaders.Add("User-Agent", "ASB");
-                }
+                _httpClient ??= new HttpClient
+                    {
+                        Timeout = TimeSpan.FromSeconds(30),
+                        DefaultRequestHeaders =
+                        {
+                            { "User-Agent", "ASB" }
+                        }
+                    };
+                    
                 return _httpClient;
             }
         }

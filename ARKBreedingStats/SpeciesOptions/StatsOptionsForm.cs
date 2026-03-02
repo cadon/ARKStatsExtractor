@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

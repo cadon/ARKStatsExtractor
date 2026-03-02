@@ -1,3 +1,4 @@
+using ARKBreedingStats.Core;
 using System.Drawing;
 using ARKBreedingStats.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

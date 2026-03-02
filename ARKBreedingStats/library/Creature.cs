@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.species;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -686,14 +687,6 @@ namespace ARKBreedingStats.Library
         /// <returns></returns>
         internal static int CalculatePreTameWildLevel(int postTameLevel, double tamingEffectiveness) => (int)Math.Ceiling(Math.Round(postTameLevel / (1 + tamingEffectiveness / 2), 6));
     }
-
-    public enum Sex
-    {
-        Unknown = 0,
-        Male = 1,
-        Female = 2,
-        Unspecified = 3
-    };
 
     public enum CreatureStatus
     {

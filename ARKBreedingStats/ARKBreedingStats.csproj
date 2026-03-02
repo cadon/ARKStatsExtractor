@@ -52,8 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArkSavegameToolkit\SavegameToolkitAdditions\SavegameToolkitAdditions.csproj" />
-    <ProjectReference Include="..\ArkSavegameToolkit\SavegameToolkit\SavegameToolkit.csproj" />
+    <ProjectReference Include="..\ARKBreedingStats.Core\ARKBreedingStats.Core.csproj" />
     <ProjectReference Include="..\ASB-Updater\ASB Updater.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>

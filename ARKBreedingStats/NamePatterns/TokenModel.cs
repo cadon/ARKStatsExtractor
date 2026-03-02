@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Library;
 
 namespace ARKBreedingStats.NamePatterns
 {

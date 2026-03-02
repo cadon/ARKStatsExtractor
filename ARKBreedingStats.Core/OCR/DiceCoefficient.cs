@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace ARKBreedingStats
+namespace ARKBreedingStats.Core
 {
     public static class DiceCoefficient
     {

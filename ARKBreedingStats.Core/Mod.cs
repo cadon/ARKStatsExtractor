@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
-namespace ARKBreedingStats.mods
+namespace ARKBreedingStats.Core
 {
     /// <summary>
-    /// Information about a mod which contains new species
+    /// Information about a mod which contains new species.
+    /// Represents static mod metadata loaded from JSON.
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class Mod
@@ -12,30 +13,30 @@ namespace ARKBreedingStats.mods
         /// The id used by steam
         /// </summary>
         [JsonProperty("id")]
-        public string Id;
+        public string? Id;
 
         /// <summary>
         /// The tag used by ARK in the blueprints
         /// </summary>
         [JsonProperty("tag")]
-        public string Tag;
+        public string? Tag;
 
         /// <summary>
         /// Mod tag prefixed with game identifier (ASA or ASE).
         /// </summary>
-        public string TagWithGamePrefix => (IsAsa ? Ark.Asa : Ark.Ase) + Tag;
+        public string TagWithGamePrefix => (IsAsa ? GameConstants.Asa : GameConstants.Ase) + Tag;
 
         /// <summary>
         /// Commonly used name to describe the mod
         /// </summary>
         [JsonProperty("title")]
-        public string Title;
+        public string? Title;
 
         /// <summary>
         /// Commonly used short name to describe the mod, is preferred over title for species suffix if available.
         /// </summary>
         [JsonProperty("shortTitle")]
-        public string ShortTitle;
+        public string? ShortTitle;
 
         /// <summary>
         /// Game expansions are usually maps. The species of these expansion are usually included in the vanilla game and thus these files are loaded automatically by this application.
@@ -46,7 +47,7 @@ namespace ARKBreedingStats.mods
         public bool IsExpansion;
 
         [JsonProperty("author")]
-        public string Author;
+        public string? Author;
 
         [JsonProperty("official")]
         public bool IsOfficial;
@@ -58,34 +59,31 @@ namespace ARKBreedingStats.mods
         /// Curse forge mod page name (ASA mods).
         /// </summary>
         [JsonProperty("cfPage")]
-        public string CfPage;
+        public string? CfPage;
 
         /// <summary>
         /// Filename of the mod-values
         /// </summary>
-        public string FileName;
+        public string? FileName;
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return Id?.GetHashCode() ?? 0;
         }
 
-        public bool Equals(Mod other)
+        public bool Equals(Mod? other)
         {
-            return !string.IsNullOrEmpty(Id) && other.Id == Id;
+            return other != null && !string.IsNullOrEmpty(Id) && other.Id == Id;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (obj == null)
-                return false;
-
-            return obj is Mod speciesObj && Equals(speciesObj);
+            return obj is Mod mod && Equals(mod);
         }
 
         public override string ToString()
         {
-            return Title;
+            return Title ?? string.Empty;
         }
 
         #region Other Mod
@@ -95,7 +93,7 @@ namespace ARKBreedingStats.mods
         /// </summary>
         public const string OtherModName = "[other mod]";
 
-        private static Mod _otherMod;
+        private static Mod? _otherMod;
 
         /// <summary>
         /// Generic entry for not available mods. Can be important for correctly determining the available colors.
@@ -105,7 +103,7 @@ namespace ARKBreedingStats.mods
             get
             {
                 if (_otherMod == null)
-                    _otherMod = new Mod { FileName = string.Empty, Id = Mod.OtherModName, Tag = Mod.OtherModName, Title = Mod.OtherModName };
+                    _otherMod = new Mod { FileName = string.Empty, Id = OtherModName, Tag = OtherModName, Title = OtherModName };
                 return _otherMod;
             }
         }

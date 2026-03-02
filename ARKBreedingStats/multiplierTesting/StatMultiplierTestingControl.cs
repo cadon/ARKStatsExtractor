@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.miscClasses;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.uiControls;
 using System;
 using System.Drawing;

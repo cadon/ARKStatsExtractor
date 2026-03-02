@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Core;
+using System;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings

@@ -1,3 +1,4 @@
+using ARKBreedingStats.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARKBreedingStats.Tests

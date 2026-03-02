@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.species;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace ARKBreedingStats.uiControls

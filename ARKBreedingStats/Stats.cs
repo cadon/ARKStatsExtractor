@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;

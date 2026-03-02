@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text.RegularExpressions;
+using ARKBreedingStats.Core;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using System.IO;
@@ -343,7 +344,7 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Sets the ArkColor objects for the natural occurring colors. Call after colors are loaded or changed by loading mods.
         /// </summary>
-        public void InitializeColors(ArkColors arkColors)
+        public void InitializeColors(ArkColors arkColors, bool alwaysShowAllColorRegions = false, bool hideInvisibleColorRegions = false)
         {
             if (colors != null)
             {
@@ -351,17 +352,19 @@ namespace ARKBreedingStats.species
                     colors[i]?.Initialize(arkColors);
             }
 
-            InitializeColorRegions();
+            InitializeColorRegions(alwaysShowAllColorRegions, hideInvisibleColorRegions);
         }
 
         /// <summary>
-        /// Sets which color regions are enabled. Call after Properties.Settings.Default.HideInvisibleColorRegions was changed.
+        /// Sets which color regions are enabled based on visibility settings.
         /// </summary>
-        public void InitializeColorRegions()
+        /// <param name="alwaysShowAllColorRegions">If true, all 6 color regions are shown regardless of species configuration.</param>
+        /// <param name="hideInvisibleColorRegions">If true, invisible color regions are hidden.</param>
+        public void InitializeColorRegions(bool alwaysShowAllColorRegions = false, bool hideInvisibleColorRegions = false)
         {
-            EnabledColorRegions = colors != null && !Properties.Settings.Default.AlwaysShowAllColorRegions
+            EnabledColorRegions = colors != null && !alwaysShowAllColorRegions
                 ? colors.Select(n =>
-                      !string.IsNullOrEmpty(n?.name) && (!n.invisible || !Properties.Settings.Default.HideInvisibleColorRegions)
+                      !string.IsNullOrEmpty(n?.name) && (!n.invisible || !hideInvisibleColorRegions)
                 ).ToArray()
                 : new[] { true, true, true, true, true, true, };
         }

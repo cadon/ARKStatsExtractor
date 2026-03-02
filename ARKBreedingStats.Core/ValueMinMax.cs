@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace ARKBreedingStats.miscClasses
+namespace ARKBreedingStats.Core
 {
     public struct MinMaxDouble
     {

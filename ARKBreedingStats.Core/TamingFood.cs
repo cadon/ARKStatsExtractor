@@ -1,7 +1,10 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
-namespace ARKBreedingStats.species
+namespace ARKBreedingStats.Core
 {
+    /// <summary>
+    /// Food-specific taming values for a species.
+    /// </summary>
     [JsonObject]
     public class TamingFood
     {
@@ -10,11 +13,13 @@ namespace ARKBreedingStats.species
         /// </summary>
         [JsonProperty("a")]
         public double affinity;
+        
         /// <summary>
         /// Amount of food one of this food gives.
         /// </summary>
         [JsonProperty("f")]
         public double foodValue;
+        
         /// <summary>
         /// When taming, some foods can only be feed in higher quantities, this indicates that amount.
         /// </summary>

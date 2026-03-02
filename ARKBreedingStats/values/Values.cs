@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using Newtonsoft.Json;
@@ -305,7 +306,7 @@ namespace ARKBreedingStats.values
             Ark.SetUndefinedColorId(undefinedColorAsa);
             _V.Colors.InitializeArkColors(Ark.UndefinedColorId);
             foreach (var s in _V.Species)
-                s.InitializeColors(_V.Colors);
+                s.InitializeColors(_V.Colors, Properties.Settings.Default.AlwaysShowAllColorRegions, Properties.Settings.Default.HideInvisibleColorRegions);
             _V.InvisibleColorRegionsExist = _V.Species.Any(s => s.colors?.Any(r => r?.invisible == true) == true);
         }
 

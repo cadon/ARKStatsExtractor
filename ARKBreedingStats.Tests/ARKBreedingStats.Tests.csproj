@@ -15,7 +15,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ARKBreedingStats\ARKBreedingStats.csproj" />
+    <ProjectReference Include="..\ARKBreedingStats.Core\ARKBreedingStats.Core.csproj" />
     <ProjectReference Include="..\ASB-Updater\ASB Updater.csproj" />
+  </ItemGroup>
+
+  <!-- Copy json folder (values, etc.) from main project for test data -->
+  <ItemGroup>
+    <None Include="..\ARKBreedingStats\json\**" Link="json\%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

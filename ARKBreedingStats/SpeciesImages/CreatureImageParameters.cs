@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Core;
+using System;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.ocr.PatternMatching;
 using ARKBreedingStats.species;

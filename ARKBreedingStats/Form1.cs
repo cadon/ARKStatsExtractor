@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.importExported;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.importExported;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
@@ -2242,7 +2243,7 @@ namespace ARKBreedingStats
                 if (settingsForm.ColorRegionDisplayChanged)
                 {
                     foreach (var sp in Values.V.Species)
-                        sp.InitializeColorRegions();
+                        sp.InitializeColorRegions(Properties.Settings.Default.AlwaysShowAllColorRegions, Properties.Settings.Default.HideInvisibleColorRegions);
                     // update visible color region buttons
                     creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
                     creatureInfoInputTester.RegionColors = creatureInfoInputTester.RegionColors;

@@ -1,6 +1,4 @@
-﻿using ARKBreedingStats.miscClasses;
-
-namespace ARKBreedingStats
+namespace ARKBreedingStats.Core
 {
     public class StatResult
     {

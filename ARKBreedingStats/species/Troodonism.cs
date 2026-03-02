@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ARKBreedingStats.Core;
+using System;
 
 namespace ARKBreedingStats.species
 {

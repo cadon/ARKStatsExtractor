@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.miscClasses;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.settings;
 using FluentFTP;
 using Newtonsoft.Json;

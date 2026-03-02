@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.Core;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ARKBreedingStats.Core;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace ARKBreedingStats.SpeciesOptions.TopStatsSettings

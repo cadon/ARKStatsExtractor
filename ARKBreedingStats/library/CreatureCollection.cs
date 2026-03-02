@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Core;
 using ARKBreedingStats.library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;

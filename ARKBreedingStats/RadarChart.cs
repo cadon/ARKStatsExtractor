@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using ARKBreedingStats.Core;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using Color = System.Drawing.Color;

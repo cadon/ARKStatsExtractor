@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.species;
 using System.ComponentModel;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;

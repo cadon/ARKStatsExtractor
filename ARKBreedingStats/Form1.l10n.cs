@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.Core;
+
+namespace ARKBreedingStats
 {
     public partial class Form1
     {

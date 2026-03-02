@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.library;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;

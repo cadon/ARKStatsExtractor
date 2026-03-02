@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.Core;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.SpeciesImages;
