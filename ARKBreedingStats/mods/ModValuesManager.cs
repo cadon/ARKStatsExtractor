@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.mods
 {
@@ -34,6 +35,7 @@ namespace ARKBreedingStats.mods
             LvAvailableModFiles.DoubleBuffered(true);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureCollection CreatureCollection
         {
             set

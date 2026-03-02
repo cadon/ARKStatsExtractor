@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -18,6 +19,7 @@ namespace ARKBreedingStats
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Note> NoteList
         {
             //get { return noteList; }

@@ -231,7 +231,9 @@ namespace ARKBreedingStats
 
             ReloadNamePatternCustomReplacings();
 
-            lbTesterWildLevel.ContextMenu = new ContextMenu(new[] { new MenuItem("Set random wild levels", SetRandomWildLevels) });
+            var lbTesterWildLevelContextMenu = new ContextMenuStrip();
+            lbTesterWildLevelContextMenu.Items.Add(new ToolStripMenuItem("Set random wild levels", null, SetRandomWildLevels));
+            lbTesterWildLevel.ContextMenuStrip = lbTesterWildLevelContextMenu;
 
             // name patterns menu entries
             const int namePatternCount = 6;

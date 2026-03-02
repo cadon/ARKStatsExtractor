@@ -11,6 +11,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.Pedigree
 {
@@ -708,6 +709,7 @@ namespace ARKBreedingStats.Pedigree
 
         public ListView ListViewCreatures => listViewCreatures;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LeftColumnWidth
         {
             set => splitContainer1.SplitterDistance = value;

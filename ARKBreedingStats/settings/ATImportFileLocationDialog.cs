@@ -2,12 +2,14 @@
 using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.settings
 {
     public partial class ATImportFileLocationDialog : Form
     {
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ATImportFileLocation AtImportFileLocation
         {
             get => new ATImportFileLocation(textBox_ConvenientName.Text,

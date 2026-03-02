@@ -6,6 +6,7 @@ using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -375,6 +376,7 @@ namespace ARKBreedingStats
                 _speciesChangeDebouncer.Debounce(300, FilterListWithUnselectedText, Dispatcher.CurrentDispatcher);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string[] LastSpecies
         {
             get => _lastSpeciesBPs.ToArray();
@@ -494,6 +496,7 @@ namespace ARKBreedingStats
             TextBoxTextChanged(null, null);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SplitterDistance
         {
             get => splitContainer2.SplitterDistance;

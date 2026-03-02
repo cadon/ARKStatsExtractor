@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -37,6 +38,7 @@ namespace ARKBreedingStats.uiControls
             LbTraitDescription.MaximumSize = new Size(PnTraitDescription.Width, 0);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<CreatureTrait> AssignedTraits
         {
             get => _assignedTraits;

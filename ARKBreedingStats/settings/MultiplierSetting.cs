@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.settings
 {
@@ -9,12 +10,14 @@ namespace ARKBreedingStats.settings
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatName { set => labelStatName.Text = value; }
 
         /// <summary>
         /// Stat multipliers. Setting a single value of the array won't do anything, use SetMultiplier() for that.
         /// Indices: 0: TameAdd, 1: TameMult, 2: DomLevel, 3: WildLevel
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double[] Multipliers
         {
             get => new[] { (double)nudTameAdd.Value, (double)nudTameMult.Value, (double)nudDomLevel.Value, (double)nudWildLevel.Value };

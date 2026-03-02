@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using System.ComponentModel;
 
 namespace ARKBreedingStats
 {
@@ -492,6 +493,7 @@ namespace ARKBreedingStats
                 _koNumbers = string.Empty;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double[] WeaponDamages
         {
             get => new[] { (double)nudWDmLongneck.Value, (double)nudWDmCrossbow.Value, (double)nudWDmBow.Value, (double)nudWDmSlingshot.Value, (double)nudWDmClub.Value, (double)nudWDmProd.Value, (double)nudWDmHarpoon.Value };
@@ -508,6 +510,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int WeaponDamagesEnabled
         {
             set

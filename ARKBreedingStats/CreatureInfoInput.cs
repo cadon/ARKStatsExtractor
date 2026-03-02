@@ -13,6 +13,7 @@ using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats
 {
@@ -48,6 +49,7 @@ namespace ARKBreedingStats
         public long MotherArkId, FatherArkId; // is only used when importing creatures with set parents. these ids are set externally after the creature data is set in the info input
 
         private CreatureTrait[] _traits;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureTrait[] Traits
         {
             get => _traits;
@@ -64,6 +66,7 @@ namespace ARKBreedingStats
         /// </summary>
         private Creature _alreadyExistingCreature;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// If true, it's the tester input. This affects the behaviour of the saveToLibrary button.
         /// In the extractor it will change colour and text if a creature is reimported, in the tester it will always display add to library.
@@ -194,6 +197,7 @@ namespace ARKBreedingStats
             Save2LibraryClicked?.Invoke(this);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string CreatureName
         {
             get => textBoxName.Text;
@@ -204,18 +208,21 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string CreatureOwner
         {
             get => textBoxOwner.Text;
             set => textBoxOwner.Text = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string CreatureTribe
         {
             get => textBoxTribe.Text;
             set => textBoxTribe.Text = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Sex CreatureSex
         {
             get => _sex;
@@ -239,6 +246,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureStatus CreatureStatus
         {
             get => _creatureStatus;
@@ -250,12 +258,14 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string CreatureServer
         {
             get => cbServer.Text;
             set => cbServer.Text = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Creature Mother
         {
             get => parentComboBoxMother.SelectedParent;
@@ -266,6 +276,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Creature Father
         {
             get => parentComboBoxFather.SelectedParent;
@@ -275,6 +286,7 @@ namespace ARKBreedingStats
                 FatherArkId = 0;
             }
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string CreatureNote
         {
             get => textBoxNote.Text;
@@ -291,11 +303,13 @@ namespace ARKBreedingStats
             CreatureStatus = Utils.NextStatus(_creatureStatus);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Creature[] CreaturesOfSameSpecies
         {
             set => _sameSpecies = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Possible parents of the current creature. Index 0: possible mothers, index 1: possible fathers. If species has no sex all parents are in index 0.
         /// </summary>
@@ -309,6 +323,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<int>[] ParentsSimilarities
         {
             set
@@ -319,6 +334,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ButtonEnabled
         {
             set
@@ -328,6 +344,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ShowSaveButton
         {
             set
@@ -379,6 +396,7 @@ namespace ARKBreedingStats
             _updateMaturation = true;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// DateTime when the cooldown of the creature is finished.
         /// </summary>
@@ -394,6 +412,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// DateTime when the creature is mature.
         /// </summary>
@@ -417,6 +436,7 @@ namespace ARKBreedingStats
             dhmsInputGrown.changed = true;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string[] AutocompleteOwnerList
         {
             set
@@ -427,6 +447,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string[] AutocompleteTribeList
         {
             set
@@ -437,6 +458,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// List of tribes of owners.
         /// </summary>
@@ -445,6 +467,7 @@ namespace ARKBreedingStats
             set => _ownersTribes = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string[] ServersList
         {
             set
@@ -458,6 +481,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// DateTime when the creature was domesticated.
         /// </summary>
@@ -473,6 +497,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Flags of the creature, e.g. if the creature is neutered.
         /// </summary>
@@ -500,12 +525,14 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int MutationCounterMother
         {
             get => (int)nudMutationsMother.Value;
             set => nudMutationsMother.ValueSave = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int MutationCounterFather
         {
             get => (int)nudMutationsFather.Value;
@@ -540,6 +567,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public byte[] RegionColors
         {
             get => DoNotUpdateVisuals ? _regionColorIDs : regionColorChooser1.ColorIds;
@@ -553,6 +581,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public byte[] ColorIdsAlsoPossible
         {
             get
@@ -571,6 +600,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Species SelectedSpecies
         {
             set
@@ -702,6 +732,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// If true the OCR and import exported methods will not change the owner field.
         /// </summary>
@@ -715,6 +746,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// If true the OCR and import exported methods will not change the tribe field.
         /// </summary>
@@ -728,6 +760,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// If true the importing will not change the server field.
         /// </summary>
@@ -741,6 +774,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// If not null it's assumed the creature is already existing in the library.
         /// </summary>
@@ -761,6 +795,7 @@ namespace ARKBreedingStats
         /// <summary>
         /// Timestamp when the creature was added to the library. Only relevant when creatures are already have been added and are edited.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public DateTime? AddedToLibraryAt { get; internal set; }
 
         private void SetAdd2LibColor(bool buttonEnabled)

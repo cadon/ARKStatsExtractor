@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.ocr.PatternMatching;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.ocr
 {
@@ -114,6 +115,7 @@ namespace ARKBreedingStats.ocr
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Displayed pattern.
         /// </summary>
@@ -267,6 +269,7 @@ namespace ARKBreedingStats.ocr
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// The differences to this pattern will be highlighted.
         /// </summary>
@@ -275,6 +278,7 @@ namespace ARKBreedingStats.ocr
             set => _patternRecognized = value.Clone();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int RecognizedOffset
         {
             set

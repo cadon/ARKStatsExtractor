@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -60,6 +61,7 @@ namespace ARKBreedingStats.uiControls
                 Link = "";
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Link
         {
             get => _linkPath;
@@ -75,6 +77,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsFile
         {
             // file or folder

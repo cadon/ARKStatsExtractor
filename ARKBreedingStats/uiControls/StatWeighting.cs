@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
@@ -109,6 +110,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double[] WeightValues
         {
             set
@@ -141,6 +143,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Array that for each stat indicates if the level, if high, should be only considered if odd (1), even (2), or always (0).
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public StatValueEvenOdd[] AnyOddEven
         {
             set
@@ -315,6 +318,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Dictionary<string, (double[], StatValueEvenOdd[])> CustomWeightings
         {
             get => _customWeightings;
@@ -349,6 +353,7 @@ namespace ARKBreedingStats.uiControls
             private StatValueEvenOdd _buttonState;
             public event Action StateChanged;
 
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public StatValueEvenOdd ButtonState
             {
                 get => _buttonState;
