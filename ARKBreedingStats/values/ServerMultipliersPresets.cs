@@ -1,9 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.utils;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.values
 {

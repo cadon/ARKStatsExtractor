@@ -40,6 +40,10 @@ namespace ARKBreedingStats.values
         /// </summary>
         public ServerMultipliers currentServerMultipliers;
         /// <summary>
+        /// User-configurable settings that affect domain-layer behavior (species name display, color region visibility).
+        /// </summary>
+        public DomainSettings DomainSettings = new DomainSettings();
+        /// <summary>
         /// List of presets for server multipliers for easier setting. Also contains the singleplayer multipliers.
         /// </summary>
         public ServerMultipliersPresets serverMultipliersPresets;
@@ -148,6 +152,7 @@ namespace ARKBreedingStats.values
             // transfer extra loaded objects from the old object to the new one if values is reloaded
             _V.modsManifest = modsManifest;
             _V.serverMultipliersPresets = serverMultipliersPresets;
+            _V.DomainSettings = DomainSettings;
             _V.Colors = new ArkColors(_V.ArkColorsDyesParsed);
         }
 
@@ -192,7 +197,8 @@ namespace ARKBreedingStats.values
 
             InitializeArkColors(undefinedColorAsa);
             _speciesAndColorsInitialized = true;
-            species.Species.ClearIgnoreVariantsInName();
+            LoadIgnoreVariantsInName();
+            LoadWildLevelExceptions();
         }
 
         /// <summary>
@@ -303,11 +309,42 @@ namespace ARKBreedingStats.values
 
         private void InitializeArkColors(bool undefinedColorAsa)
         {
+            // Sync color display settings from user preferences into the domain settings object
+            DomainSettings.AlwaysShowAllColorRegions = Properties.Settings.Default.AlwaysShowAllColorRegions;
+            DomainSettings.HideInvisibleColorRegions = Properties.Settings.Default.HideInvisibleColorRegions;
+
             Ark.SetUndefinedColorId(undefinedColorAsa);
             _V.Colors.InitializeArkColors(Ark.UndefinedColorId);
             foreach (var s in _V.Species)
-                s.InitializeColors(_V.Colors, Properties.Settings.Default.AlwaysShowAllColorRegions, Properties.Settings.Default.HideInvisibleColorRegions);
+                s.InitializeColors(_V.Colors, DomainSettings);
             _V.InvisibleColorRegionsExist = _V.Species.Any(s => s.colors?.Any(r => r?.invisible == true) == true);
+        }
+
+        /// <summary>
+        /// Populates DomainSettings.WildLevelExceptions from the already-loaded CanHaveWildLevelExceptions data
+        /// and applies the exception bits to all species.
+        /// </summary>
+        private void LoadWildLevelExceptions()
+        {
+            DomainSettings.WildLevelExceptions = CanHaveWildLevelExceptions.SpeciesStatBits;
+            if (DomainSettings.WildLevelExceptions == null) return;
+            foreach (var s in _V.Species)
+                s.ApplyWildLevelExceptions(DomainSettings.WildLevelExceptions);
+        }
+
+        /// <summary>
+        /// Loads the hide-variants-in-name list from the user-editable text file and stores it in DomainSettings.
+        /// </summary>
+        private void LoadIgnoreVariantsInName()
+        {
+            var filePath = FileService.GetJsonPath(FileService.HideVariantsInSpeciesNameFile);
+            DomainSettings.IgnoreVariantsInName = !File.Exists(filePath)
+                ? Array.Empty<string>()
+                : File.ReadAllLines(filePath).Where(l => !string.IsNullOrEmpty(l)).ToArray();
+
+            // Re-apply names now that ignore list is known
+            foreach (var s in _V.Species)
+                s.InitializeNames(DomainSettings.IgnoreVariantsInName);
         }
 
         /// <summary>

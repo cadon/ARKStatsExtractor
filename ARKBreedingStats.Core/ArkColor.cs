@@ -5,7 +5,7 @@ namespace ARKBreedingStats.Core;
 
 /// <summary>
 /// Class that represents a color in ARK.
-/// It contains the ingame name, a Color object and the linear color values.
+/// It contains the in-game name, a Color object and the linear color values.
 /// </summary>
 public class ArkColor
 {

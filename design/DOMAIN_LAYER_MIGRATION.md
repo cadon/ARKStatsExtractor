@@ -30,11 +30,25 @@ Separating domain layer (ARKBreedingStats.Core) from UI layer to enable:
 - `Species` (Core) = static JSON data (base stats, breeding, taming)
 - `ServerMultipliers` (App) = runtime server settings
 - `SpeciesCalculated` (App) = Species + ServerMultipliers → lazy calculated stats
-- `SpeciesCollection` (App) = manages all SpeciesCalculated, handles multiplier change events
+- `SpeciesLibrary` (App) = manages all SpeciesCalculated instances, handles multiplier change events
+
+### Library Pattern: Collection Management
+**Problem:** Need to efficiently update many entities when global settings change.
+
+**Solution:**
+- **SpeciesLibrary** = holds references to all species in the library
+  - Enumerates all species when ServerMultipliers change
+  - Invalidates cached calculated stats on all species
+  - Triggers recalculation lazily on next access
+  
+- **CreatureLibrary** = holds references to all creatures in the library
+  - Enumerates creatures to update stats when species data changes
+  - Updates timers, breeding calculations, etc.
+  - Manages creature lifecycle and persistence
 
 ## Migration Progress
 
-### ✅ Completed (15 classes, ~615 lines)
+### ✅ Completed (17 classes, ~920 lines)
 
 **Support Classes:**
 - [x] DiceCoefficient (32 lines, 5 tests) - string similarity
@@ -72,6 +86,19 @@ Separating domain layer (ARKBreedingStats.Core) from UI layer to enable:
 
 **Note:** ArkColors.cs remains in app layer as a collection/management class
 
+**Server Architecture (2 classes, ~305 lines):**
+- [x] ServerMultipliers (280 lines) - migrated from App layer to Core
+  - Added INotifyPropertyChanged implementation with property change notifications
+  - All 16+ multiplier properties now notify observers when changed
+  - Maintains JSON serialization for save/load
+  - Includes stat multipliers arrays, breeding multipliers, speed leveling settings
+- [x] SpeciesLibrary (25 lines) - collection manager in Core
+  - Subscribes to ServerMultipliers.PropertyChanged events
+  - Infrastructure ready for species invalidation when multipliers change
+  - Will enumerate all species to trigger recalculation (to be implemented with Species migration)
+
+**Files Updated:** 1 file (ServerMultipliersPresets.cs) updated to use Core.ServerMultipliers
+
 ### 🔜 Species Migration Preparation
 
 **Preparation Complete:**
@@ -81,30 +108,48 @@ Separating domain layer (ARKBreedingStats.Core) from UI layer to enable:
    - ✅ Updated `InitializeColors()` to accept and pass through these parameters
    - ✅ Updated all 3 call sites (Species.cs, Values.cs, Form1.cs) to pass settings explicitly
    - Methods now ready for Core migration (no UI dependencies)
+2. [x] Complete Species class analysis (see [SPECIES_ANALYSIS.md](SPECIES_ANALYSIS.md))
+   - ✅ Identified static domain data (~300 lines of JSON properties)
+   - ✅ Identified calculated/runtime properties (~300 lines)
+   - ✅ Documented remaining dependencies to remove
+   - ✅ Defined migration strategy: Incremental approach with ServerMultipliers first
+3. [x] Create ServerMultipliers class (Core layer) - **COMPLETED**
+   - ✅ Migrated comprehensive ServerMultipliers from App to Core (~280 lines)
+   - ✅ Added INotifyPropertyChanged with property notifications on all multipliers
+   - ✅ Maintains JSON serialization and all existing functionality
+   - ✅ Created SpeciesLibrary in Core to manage species and listen for multiplier changes
 
 **Next Steps:**
-2. [ ] Design Species split:
-   - [ ] Species (Core) - static data only
-   - [ ] Remove calculated/cached properties from Core version
-   - [ ] Create SpeciesCalculated (App layer) wrapper
+4. [ ] Refactor Species.Initialize() to accept ServerMultipliers parameter
+5. [ ] Decide: Move Species to Core or keep in App with reduced dependencies
+6. [ ] If needed: Create SpeciesCalculated wrapper pattern
 
 ### 🎯 Final Architecture Implementation
 
 1. [ ] Create ServerMultipliers class (App layer)
    - Breeding multipliers, stat multipliers, etc.
    - INotifyPropertyChanged or event-based
+   - Fire change events when any multiplier is modified
 
 2. [ ] Create SpeciesCalculated class (App layer)
    - Combines Species + ServerMultipliers
-   - Lazy<T> calculated properties
+   - Lazy<T> calculated properties (stats with multipliers applied)
    - Invalidate on multiplier changes
+   - Recalculate lazily on next access
 
-3. [ ] Create SpeciesCollection manager (App layer)
-   - Manages all SpeciesCalculated instances
+3. [ ] Create SpeciesLibrary manager (App layer)
+   - Manages all SpeciesCalculated instances (or Species with calculated stats)
    - Subscribes to ServerMultipliers change events
-   - Invalidates all species when multipliers change
+   - Enumerates and invalidates all species when multipliers change
+   - Provides lookup by blueprint path, name, etc.
 
-4. [ ] Update UI to use SpeciesCalculated instead of Species
+4. [ ] Consider CreatureLibrary pattern
+   - Holds references to all creatures in the user's library
+   - Enumerates creatures to update stats when species data changes
+   - Updates timers, breeding calculations, aging, etc.
+   - Manages creature persistence and lifecycle
+
+5. [ ] Update UI to use SpeciesLibrary/CreatureLibrary instead of direct species access
 
 ## Key Migration Patterns
 
@@ -177,6 +222,42 @@ species.InitializeColorRegions(Properties.Settings.Default.AlwaysShowAllColorReg
 ```
 This makes dependencies explicit and allows Core classes to remain testable and UI-independent.
 
+### Pattern 7: Library/Collection Management for Bulk Updates
+Use collection classes to manage and update multiple entities when global state changes:
+```csharp
+// SpeciesLibrary - manages all species instances
+public class SpeciesLibrary {
+    private readonly List<SpeciesCalculated> _species;
+    private readonly ServerMultipliers _multipliers;
+    
+    public SpeciesLibrary(ServerMultipliers multipliers) {
+        _multipliers = multipliers;
+        _multipliers.Changed += OnMultipliersChanged;
+    }
+    
+    private void OnMultipliersChanged() {
+        // Enumerate all species and invalidate cached calculations
+        foreach (var sp in _species) {
+            sp.InvalidateCalculatedStats();
+        }
+    }
+}
+
+// CreatureLibrary - manages all creature instances
+public class CreatureLibrary {
+    private readonly List<Creature> _creatures;
+    
+    public void UpdateAllStats() {
+        // Enumerate all creatures to recalculate stats, timers, etc.
+        foreach (var creature in _creatures) {
+            creature.RecalculateStats();
+            creature.UpdateTimers();
+        }
+    }
+}
+```
+This centralizes bulk updates rather than having UI code loop through collections.
+
 ## Commands Reference
 
 ```powershell
@@ -205,18 +286,18 @@ Remove-Item 'path/to/old/File.cs'
 **Current State:** 
 - Color classes migrated to Core (ArkColor, ColorRegion, ColorPattern)
 - Species.InitializeColorRegions() refactored to remove UI dependencies
-- All methods now accept settings as parameters (no direct Properties.Settings.Default access)
+- Species class fully analyzed (see [SPECIES_ANALYSIS.md](SPECIES_ANALYSIS.md))
+- **ServerMultipliers migrated to Core with INotifyPropertyChanged** ✅
+- **SpeciesLibrary created in Core** ✅
 - Build passing, tests green (90/90)
 
 **Next Action:** 
-Analyze Species class to identify:
-1. Static domain data that belongs in Core (base stats, breeding data, taming data, names, color definitions)
-2. Calculated/cached properties that need to move to SpeciesCalculated (App layer)
-3. UI-specific properties to remove or refactor
+Refactor Species.Initialize() and ApplyCanLevelOptions() to accept ServerMultipliers parameter instead of accessing settings directly. This will:
+- Remove `CanHaveWildLevelExceptions.GetWildLevelExceptions(name)` dependency
+- Pass speed leveling settings explicitly (AllowSpeedLeveling, AllowFlyerSpeedLeveling)
+- Make Species.Initialize() testable with different server configurations
 
-**Estimated Remaining:** ~4-6 major tasks:
-1. Species static data extraction to Core
-2. SpeciesCalculated wrapper in App layer
-3. ServerMultipliers class creation
-4. SpeciesCollection manager
-5. UI updates to use new architecture
+**Estimated Remaining:** ~2-3 major tasks:
+1. Species.Initialize() refactoring (~5-10 files to update)
+2. Decide on Species location (Core vs App, likely stays in App for now)
+3. Wire up SpeciesLibrary to invalidate species on multiplier changes

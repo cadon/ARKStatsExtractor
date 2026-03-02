@@ -1871,7 +1871,7 @@ namespace ARKBreedingStats
                 lbImprintedCount.Text =
                     "(" + Math.Round(
                         (double)numericUpDownImprintingBonusTester.Value /
-                        (100 * Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted)),
+                        (100 * Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers)),
                         2) + "×)";
             else lbImprintedCount.Text = string.Empty;
             BtSetImprinting100Tester.Text = numericUpDownImprintingBonusTester.Value == 100 ? "0" : "100";
@@ -1886,7 +1886,8 @@ namespace ARKBreedingStats
                                                         Math.Round(
                                                             (double)numericUpDownImprintingBonusExtractor.Value /
                                                             (100 * Ark.ImprintingGainPerCuddle(speciesSelector1
-                                                                .SelectedSpecies.breeding.maturationTimeAdjusted))) +
+                                                                .SelectedSpecies.breeding.maturationTimeAdjusted,
+                                                                Values.V.currentServerMultipliers))) +
                                                         "×)";
             else lbImprintingCuddleCountExtractor.Text = string.Empty;
         }
@@ -2242,8 +2243,10 @@ namespace ARKBreedingStats
                 if (settingsForm.LanguageChanged) SetLocalizations();
                 if (settingsForm.ColorRegionDisplayChanged)
                 {
+                    Values.V.DomainSettings.AlwaysShowAllColorRegions = Properties.Settings.Default.AlwaysShowAllColorRegions;
+                    Values.V.DomainSettings.HideInvisibleColorRegions = Properties.Settings.Default.HideInvisibleColorRegions;
                     foreach (var sp in Values.V.Species)
-                        sp.InitializeColorRegions(Properties.Settings.Default.AlwaysShowAllColorRegions, Properties.Settings.Default.HideInvisibleColorRegions);
+                        sp.InitializeColorRegions(Values.V.DomainSettings);
                     // update visible color region buttons
                     creatureInfoInputExtractor.RegionColors = creatureInfoInputExtractor.RegionColors;
                     creatureInfoInputTester.RegionColors = creatureInfoInputTester.RegionColors;
@@ -2943,7 +2946,7 @@ namespace ARKBreedingStats
                     speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted > 0)
                 {
                     double imprintingGainPerCuddle =
-                        Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted);
+                        Ark.ImprintingGainPerCuddle(speciesSelector1.SelectedSpecies.breeding.maturationTimeAdjusted, Values.V.currentServerMultipliers);
                     int cuddleCount = (int)Math.Round((double)numericUpDownImprintingBonusTester.Value /
                                                        (100 * imprintingGainPerCuddle));
                     double imprintingBonus;
