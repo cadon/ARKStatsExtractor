@@ -155,7 +155,7 @@ namespace ARKBreedingStats.SpeciesImages
                 }
             }
             if (File.Exists(filePath))
-                Process.Start(filePath);
+                Utils.OpenUri(filePath);
         }
 
         private void LlImagePackManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

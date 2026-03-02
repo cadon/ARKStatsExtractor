@@ -480,7 +480,7 @@ namespace ARKBreedingStats.NamePatterns
                     // create file with example dictionary entries to start with
                     File.WriteAllText(filePath, "{\n  \"Allosaurus\": \"Allo\",\n  \"Snow Owl\": \"Owl\"\n}");
                 }
-                Process.Start(filePath);
+                Utils.OpenUri(filePath);
             }
             catch (FileNotFoundException ex)
             {

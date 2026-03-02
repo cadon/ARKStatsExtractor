@@ -432,7 +432,7 @@ namespace ARKBreedingStats.importExported
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_selectedFolder) && Directory.Exists(_selectedFolder))
-                System.Diagnostics.Process.Start(_selectedFolder);
+                Utils.OpenUri(_selectedFolder);
         }
 
         private void toolStripCbHideImported_Click(object sender, EventArgs e)
