@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
@@ -80,7 +81,9 @@ namespace ARKBreedingStats.uiControls
                     if (c.tags.Contains(t))
                     {
                         if (mst.TagCheckState == CheckState.Indeterminate)
+                        {
                             mst.TagCheckState = CheckState.Checked;
+                        }
                         else if (mst.TagCheckState == CheckState.Unchecked)
                         {
                             mst.TagCheckState = CheckState.Indeterminate;
@@ -90,7 +93,9 @@ namespace ARKBreedingStats.uiControls
                     else
                     {
                         if (mst.TagCheckState == CheckState.Indeterminate)
+                        {
                             mst.TagCheckState = CheckState.Unchecked;
+                        }
                         else if (mst.TagCheckState == CheckState.Checked)
                         {
                             mst.TagCheckState = CheckState.Indeterminate;
@@ -107,21 +112,27 @@ namespace ARKBreedingStats.uiControls
             l.AddRange(ownerList);
             cbbOwner.AutoCompleteCustomSource = l;
             foreach (string s in ownerList)
+            {
                 cbbOwner.Items.Add(s);
+            }
 
             // tribe combobox
             l = new AutoCompleteStringCollection();
             l.AddRange(tribeList);
             cbbTribe.AutoCompleteCustomSource = l;
             foreach (string s in tribeList)
+            {
                 cbbTribe.Items.Add(s);
+            }
 
             // server combobox
             l = new AutoCompleteStringCollection();
             l.AddRange(serverList);
             cbbServer.AutoCompleteCustomSource = l;
             foreach (string s in serverList)
+            {
                 cbbServer.Items.Add(s);
+            }
 
             SetLocalizations();
             this.ResumeDrawingAndLayout();
@@ -155,33 +166,97 @@ namespace ARKBreedingStats.uiControls
             // set all variables
             foreach (Creature c in _creatureList)
             {
-                if (checkBoxOwner.Checked) c.owner = cbbOwner.Text;
-                if (cbTribe.Checked) c.tribe = cbbTribe.Text;
-                if (cbServer.Checked) c.server = cbbServer.Text;
-                if (checkBoxStatus.Checked) c.Status = _creatureStatus;
-                if (checkBoxSex.Checked) c.sex = _creatureSex;
-                if (checkBoxBred.Checked) c.isBred = checkBoxIsBred.Checked;
-                if (checkBoxMother.Enabled && checkBoxMother.Checked)
-                    c.motherGuid = parentComboBoxMother.SelectedParent?.guid ?? Guid.Empty;
-                if (checkBoxFather.Enabled && checkBoxFather.Checked)
-                    c.fatherGuid = parentComboBoxFather.SelectedParent?.guid ?? Guid.Empty;
-                if (checkBoxNote.Checked) c.note = textBoxNote.Text;
-                if (checkBoxSpecies.Checked) c.Species = (Species)cbbSpecies.SelectedItem;
+                if (checkBoxOwner.Checked)
+                {
+                    c.owner = cbbOwner.Text;
+                }
 
-                if (checkBoxColor1.Checked) c.colors[0] = _colors[0];
-                if (checkBoxColor2.Checked) c.colors[1] = _colors[1];
-                if (checkBoxColor3.Checked) c.colors[2] = _colors[2];
-                if (checkBoxColor4.Checked) c.colors[3] = _colors[3];
-                if (checkBoxColor5.Checked) c.colors[4] = _colors[4];
-                if (checkBoxColor6.Checked) c.colors[5] = _colors[5];
+                if (cbTribe.Checked)
+                {
+                    c.tribe = cbbTribe.Text;
+                }
+
+                if (cbServer.Checked)
+                {
+                    c.server = cbbServer.Text;
+                }
+
+                if (checkBoxStatus.Checked)
+                {
+                    c.Status = _creatureStatus;
+                }
+
+                if (checkBoxSex.Checked)
+                {
+                    c.sex = _creatureSex;
+                }
+
+                if (checkBoxBred.Checked)
+                {
+                    c.isBred = checkBoxIsBred.Checked;
+                }
+
+                if (checkBoxMother.Enabled && checkBoxMother.Checked)
+                {
+                    c.motherGuid = parentComboBoxMother.SelectedParent?.guid ?? Guid.Empty;
+                }
+
+                if (checkBoxFather.Enabled && checkBoxFather.Checked)
+                {
+                    c.fatherGuid = parentComboBoxFather.SelectedParent?.guid ?? Guid.Empty;
+                }
+
+                if (checkBoxNote.Checked)
+                {
+                    c.note = textBoxNote.Text;
+                }
+
+                if (checkBoxSpecies.Checked)
+                {
+                    c.Species = (Species)cbbSpecies.SelectedItem;
+                }
+
+                if (checkBoxColor1.Checked)
+                {
+                    c.colors[0] = _colors[0];
+                }
+
+                if (checkBoxColor2.Checked)
+                {
+                    c.colors[1] = _colors[1];
+                }
+
+                if (checkBoxColor3.Checked)
+                {
+                    c.colors[2] = _colors[2];
+                }
+
+                if (checkBoxColor4.Checked)
+                {
+                    c.colors[3] = _colors[3];
+                }
+
+                if (checkBoxColor5.Checked)
+                {
+                    c.colors[4] = _colors[4];
+                }
+
+                if (checkBoxColor6.Checked)
+                {
+                    c.colors[5] = _colors[5];
+                }
 
                 // tags
                 foreach (MultiSetterTag mst in tagsToUpdate)
                 {
                     if (mst.TagCheckState == CheckState.Checked && c.tags.IndexOf(mst.TagName) == -1)
+                    {
                         c.tags.Add(mst.TagName);
+                    }
                     else if (mst.TagCheckState == CheckState.Unchecked && c.tags.IndexOf(mst.TagName) != -1)
+                    {
                         while (c.tags.Remove(mst.TagName)) { }
+                    }
 
                     TagsChanged = true;
                 }
@@ -280,9 +355,16 @@ namespace ARKBreedingStats.uiControls
         }
         private void ChooseColor(int region, Button sender)
         {
-            if (_creatureList[0] == null || _cp.isShown) return;
+            if (_creatureList[0] == null || _cp.isShown)
+            {
+                return;
+            }
+
             _cp.Cp.PickColor(_colors[region], "Region " + region);
-            if (_cp.ShowDialog() != DialogResult.OK) return;
+            if (_cp.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
             // color was chosen
             _colors[region] = _cp.Cp.SelectedColorId;
             sender.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(_colors[region]));
@@ -304,10 +386,15 @@ namespace ARKBreedingStats.uiControls
         private void bAddTag_Click(object sender, EventArgs e)
         {
             var tagName = tbNewTag.Text.Trim();
-            if (string.IsNullOrEmpty(tagName)) return;
+            if (string.IsNullOrEmpty(tagName))
+            {
+                return;
+            }
 
             if (_tagControls.Any(t => t.TagName == tagName))
+            {
                 return;
+            }
 
             MultiSetterTag mst = new MultiSetterTag(tagName);
             flowLayoutPanelTags.SetFlowBreak(mst, true);

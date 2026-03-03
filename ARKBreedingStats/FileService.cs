@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -34,8 +34,8 @@ namespace ARKBreedingStats
         public const string CacheFolderName = "cache";
         public const string OcrFolderName = "ocr";
 
-        public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
-        private static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+        public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().Location).LocalPath;
+        private static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().Location).LocalPath);
 
         /// <summary>
         /// Returns a <see cref="StreamReader"/> of a file located in the json data folder
@@ -89,7 +89,10 @@ namespace ARKBreedingStats
                 {
                     var ser = new Newtonsoft.Json.JsonSerializer();
                     if (converter != null)
+                    {
                         ser.Converters.Add(converter);
+                    }
+
                     ser.Serialize(sw, data);
                 }
                 return true;
@@ -116,10 +119,15 @@ namespace ARKBreedingStats
                 {
                     var ser = new Newtonsoft.Json.JsonSerializer();
                     if (converter != null)
+                    {
                         ser.Converters.Add(converter);
+                    }
+
                     data = (T)ser.Deserialize(sr, typeof(T));
                     if (data != null)
+                    {
                         return true;
+                    }
 
                     errorMessage = $"File\n{Path.GetFullPath(filePath)}\ncontains no readable data.";
                     return false;
@@ -186,7 +194,10 @@ namespace ARKBreedingStats
         public static bool TryCreateDirectory(string path, out string error)
         {
             error = null;
-            if (Directory.Exists(path)) return true;
+            if (Directory.Exists(path))
+            {
+                return true;
+            }
 
             try
             {
@@ -206,7 +217,11 @@ namespace ARKBreedingStats
         /// <returns>True if the file is not existing after this method ends.</returns>
         public static bool TryDeleteFile(string filePath)
         {
-            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return true;
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
+                return true;
+            }
+
             try
             {
                 File.Delete(filePath);
@@ -225,7 +240,11 @@ namespace ARKBreedingStats
         /// <returns>True if the file is not existing after this method ends.</returns>
         public static bool TryDeleteFile(FileInfo fileInfo)
         {
-            if (!fileInfo.Exists) return true;
+            if (!fileInfo.Exists)
+            {
+                return true;
+            }
+
             try
             {
                 fileInfo.Delete();
@@ -243,7 +262,11 @@ namespace ARKBreedingStats
         /// </summary>
         public static bool TryDeleteDirectory(string dirPath)
         {
-            if (!Directory.Exists(dirPath)) return false;
+            if (!Directory.Exists(dirPath))
+            {
+                return false;
+            }
+
             try
             {
                 Directory.Delete(dirPath);
@@ -261,7 +284,11 @@ namespace ARKBreedingStats
         /// </summary>
         public static bool TryMoveFile(string filePathFrom, string filePathTo)
         {
-            if (!File.Exists(filePathFrom)) return false;
+            if (!File.Exists(filePathFrom))
+            {
+                return false;
+            }
+
             try
             {
                 File.Move(filePathFrom, filePathTo);
@@ -316,7 +343,9 @@ namespace ARKBreedingStats
         internal static bool IsValidJsonFile(string filePath)
         {
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
                 return false;
+            }
 
             string fileContent = File.ReadAllText(filePath);
             // currently very basic test, could be improved
@@ -335,13 +364,21 @@ namespace ARKBreedingStats
         /// </summary>
         public static void OpenFolderInExplorer(string path)
         {
-            if (string.IsNullOrEmpty(path)) return;
+            if (string.IsNullOrEmpty(path))
+            {
+                return;
+            }
+
             bool isFile = false;
 
             if (File.Exists(path))
+            {
                 isFile = true;
+            }
             else if (!Directory.Exists(path))
+            {
                 return;
+            }
 
             Process.Start("explorer.exe",
                 $"{(isFile ? "/select, " : string.Empty)}\"{path}\"");
@@ -352,9 +389,17 @@ namespace ARKBreedingStats
         /// </summary>
         public static string ReplaceInvalidCharacters(string name, char replaceBy = '_')
         {
-            if (string.IsNullOrEmpty(name)) return name;
+            if (string.IsNullOrEmpty(name))
+            {
+                return name;
+            }
+
             var invalidCharacters = Path.GetInvalidFileNameChars();
-            if (invalidCharacters.Contains(replaceBy)) replaceBy = '_';
+            if (invalidCharacters.Contains(replaceBy))
+            {
+                replaceBy = '_';
+            }
+
             return invalidCharacters.Aggregate(name, (current, invalidChar) => current.Replace(invalidChar, replaceBy));
         }
     }

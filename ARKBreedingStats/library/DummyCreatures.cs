@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
@@ -35,9 +36,13 @@ namespace ARKBreedingStats.library
             int maxWildLevel = Ark.MaxWildLevelDefault, int maxStatLevel = -1,
             bool setOwner = true, bool setTribe = true, bool setServer = true, bool saveSettings = false)
         {
-            if (count < 1) return null;
+            if (count < 1)
+            {
+                return null;
+            }
 
             if (saveSettings)
+            {
                 LastSettings = new DummyCreatureCreationSettings
                 {
                     CreatureCount = count,
@@ -54,6 +59,7 @@ namespace ARKBreedingStats.library
                     SetTribe = setTribe,
                     SetServer = setServer
                 };
+            }
 
             var creatures = new List<Creature>(count);
 
@@ -65,7 +71,11 @@ namespace ARKBreedingStats.library
 
             if (randomSpecies)
             {
-                if (numberSpecies < 1) numberSpecies = 1;
+                if (numberSpecies < 1)
+                {
+                    numberSpecies = 1;
+                }
+
                 speciesSelection = Values.V.Species.Where(s => s.IsDomesticable && !s.name.Contains("Tek") && !s.name.Contains("Alpha") && (s.variants?.Length ?? 0) < 2).ToArray();
                 speciesCount = speciesSelection.Length;
                 if (speciesCount > numberSpecies)
@@ -76,7 +86,11 @@ namespace ARKBreedingStats.library
                     while (speciesLeft > 0)
                     {
                         var i = rand.Next(speciesCount);
-                        if (speciesIndices.Contains(i)) continue;
+                        if (speciesIndices.Contains(i))
+                        {
+                            continue;
+                        }
+
                         speciesIndices.Add(i);
                         speciesLeft--;
                     }
@@ -87,7 +101,10 @@ namespace ARKBreedingStats.library
             }
 
             if (maxWildLevel < 1)
+            {
                 maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault;
+            }
+
             var difficulty = maxWildLevel / 30d;
 
             var nameCounter = new Dictionary<string, int>();
@@ -95,7 +112,9 @@ namespace ARKBreedingStats.library
             for (int i = 0; i < count; i++)
             {
                 if (randomSpecies)
+                {
                     species = speciesSelection[rand.Next(speciesCount)];
+                }
 
                 creatures.Add(CreateCreature(species, difficulty, tamed, rand, useMutatedLevels, setOwner, setTribe, setServer, nameCounter, maxStatLevel));
             }
@@ -125,7 +144,10 @@ namespace ARKBreedingStats.library
             bool useMutatedLevels = true, bool setOwner = true, bool setTribe = true, bool setServer = true, Dictionary<string, int> nameCounter = null,
             int maxStatLevel = -1)
         {
-            if (rand == null) rand = new Random();
+            if (rand == null)
+            {
+                rand = new Random();
+            }
 
             // rather "tame" higher creatures. Base levels are 1-30, scaled by difficulty
             var creatureLevel = (int)((rand.Next(5) == 0 ? rand.Next(21) + 1 : 21 + rand.Next(10)) * difficulty);
@@ -144,11 +166,18 @@ namespace ARKBreedingStats.library
             var usedLevels = new List<int>();
             for (int si = 0; si < Stats.StatsCount; si++)
             {
-                if (!species.UsesStat(si) || !species.CanLevelUpWildOrHaveMutations(si) || si == Stats.Torpidity) continue;
+                if (!species.UsesStat(si) || !species.CanLevelUpWildOrHaveMutations(si) || si == Stats.Torpidity)
+                {
+                    continue;
+                }
+
                 usedLevels.Add(si);
                 var level = (int)(levelFactor * GetBinomialLevel(rand));
                 if (maxStatLevel > -1 && level > maxStatLevel)
+                {
                     level = maxStatLevel;
+                }
+
                 torpidityLevel += level;
                 levelsWild[si] = level;
             }
@@ -166,7 +195,10 @@ namespace ARKBreedingStats.library
                     torpidityLevel += delta;
                     levelOffset -= delta;
                     sii++;
-                    if (sii == siCount) sii = 0;
+                    if (sii == siCount)
+                    {
+                        sii = 0;
+                    }
                 }
 
                 // if max stat level is set, ensure that. Can result in total levels impossible in game.
@@ -188,9 +220,15 @@ namespace ARKBreedingStats.library
             if (doTame)
             {
                 if (_namesFemale == null)
+                {
                     _namesFemale = NameList.GetNameList("F");
+                }
+
                 if (_namesMale == null)
+                {
                     _namesMale = NameList.GetNameList("M");
+                }
+
                 var names = sex == Sex.Female ? _namesFemale : _namesMale;
                 if (names == null)
                 {
@@ -224,11 +262,19 @@ namespace ARKBreedingStats.library
 
             creature.colors = species.RandomSpeciesColors(rand);
             if (setOwner)
+            {
                 creature.owner = $"Player {rand.Next(5) + 1}";
+            }
+
             if (setTribe)
+            {
                 creature.tribe = $"Tribe {rand.Next(5) + 1}";
+            }
+
             if (setServer)
+            {
                 creature.server = $"Server {rand.Next(5) + 1}";
+            }
 
             creature.InitializeFlags();
 
@@ -257,7 +303,10 @@ namespace ARKBreedingStats.library
             var bestLevelsWild = new int[Stats.StatsCount];
             var bestLevelsMutated = new int[Stats.StatsCount];
             var statWeights = new double[Stats.StatsCount];
-            for (int si = 0; si < Stats.StatsCount; si++) statWeights[si] = 1;
+            for (int si = 0; si < Stats.StatsCount; si++)
+            {
+                statWeights[si] = 1;
+            }
 
             // these variables are not used but needed for the method
             var filteredOutByMutationLimit = false;
@@ -268,7 +317,9 @@ namespace ARKBreedingStats.library
                 if (noGender)
                 {
                     if (allCreatures == null)
+                    {
                         allCreatures = creatures.ToList();
+                    }
                 }
                 else
                 {
@@ -303,7 +354,10 @@ namespace ARKBreedingStats.library
                     var statIndicesForPossibleMutation = mutationPossible ? new List<int>(Stats.StatsCount) : null;
                     for (int si = 0; si < Stats.StatsCount; si++)
                     {
-                        if (!species.UsesStat(si) || !species.CanLevelUpWildOrHaveMutations(si) || si == Stats.Torpidity) continue;
+                        if (!species.UsesStat(si) || !species.CanLevelUpWildOrHaveMutations(si) || si == Stats.Torpidity)
+                        {
+                            continue;
+                        }
 
                         int level;
                         int levelMutated = 0;
@@ -312,20 +366,29 @@ namespace ARKBreedingStats.library
                         {
                             level = Math.Max(mother.levelsWild[si], father.levelsWild[si]);
                             if (useMutatedLevels)
+                            {
                                 levelMutated = Math.Max(mother.levelsMutated?[si] ?? 0, father.levelsMutated?[si] ?? 0);
+                            }
                         }
                         else
                         {
                             level = Math.Min(mother.levelsWild[si], father.levelsWild[si]);
                             if (useMutatedLevels)
+                            {
                                 levelMutated = Math.Min(mother.levelsMutated[si], father.levelsMutated[si]);
+                            }
                         }
                         levelsWild[si] = level;
                         if (useMutatedLevels)
+                        {
                             levelsMutated[si] = levelMutated;
+                        }
+
                         torpidityLevel += level + levelMutated;
                         if (mutationPossible && species.stats[si].AddWhenTamed != 0)
+                        {
                             statIndicesForPossibleMutation.Add(si);
+                        }
                     }
 
                     levelsWild[Stats.Torpidity] = torpidityLevel;
@@ -335,10 +398,16 @@ namespace ARKBreedingStats.library
                     var colors = new byte[Ark.ColorRegionCount];
                     for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
                     {
-                        if (!species.EnabledColorRegions[ci]) continue;
+                        if (!species.EnabledColorRegions[ci])
+                        {
+                            continue;
+                        }
+
                         colors[ci] = rand.Next(2) == 0 ? mother.colors[ci] : father.colors[ci];
                         if (mutationPossible)
+                        {
                             colorRegionsForPossibleMutation.Add(ci);
+                        }
                     }
 
                     // mutations
@@ -358,28 +427,48 @@ namespace ARKBreedingStats.library
 
                             if ((mutationFromMother && mother.Mutations >= Ark.MutationPossibleWithLessThan)
                                 || (!mutationFromMother && father.Mutations >= Ark.MutationPossibleWithLessThan)
-                            ) continue;
+                            )
+                            {
+                                continue;
+                            }
 
                             // check if mutation occurs
-                            if (rand.NextDouble() >= randomMutationChance) continue;
+                            if (rand.NextDouble() >= randomMutationChance)
+                            {
+                                continue;
+                            }
 
                             if (useMutatedLevels)
                             {
                                 var newLevel = levelsMutated[statIndexForMutation] + Ark.LevelsAddedPerMutation;
-                                if (newLevel > 255) continue;
+                                if (newLevel > 255)
+                                {
+                                    continue;
+                                }
+
                                 levelsMutated[statIndexForMutation] = newLevel;
                             }
                             else
                             {
                                 var newLevel = levelsWild[statIndexForMutation] + Ark.LevelsAddedPerMutation;
-                                if (newLevel > 255) continue;
+                                if (newLevel > 255)
+                                {
+                                    continue;
+                                }
+
                                 levelsWild[statIndexForMutation] = newLevel;
                             }
 
                             mutationHappened = true;
                             levelsWild[Stats.Torpidity] += Ark.LevelsAddedPerMutation;
-                            if (mutationFromMother) mutationsMaternal++;
-                            else mutationsPaternal++;
+                            if (mutationFromMother)
+                            {
+                                mutationsMaternal++;
+                            }
+                            else
+                            {
+                                mutationsPaternal++;
+                            }
 
                             var colorRegionsForMutationsCount = colorRegionsForPossibleMutation.Count;
                             if (colorRegionsForMutationsCount != 0)
@@ -406,19 +495,27 @@ namespace ARKBreedingStats.library
                     creature.RecalculateCreatureValues(levelStep);
 
                     if (mutationHappened)
+                    {
                         creature.RecalculateNewMutations();
+                    }
 
                     creature.RecalculateAncestorGenerations();
                     creature.InitializeFlags();
 
                     if (noGender)
+                    {
                         allCreatures.Add(creature);
+                    }
                     else
                     {
                         if (creature.sex == Sex.Female)
+                        {
                             femalesMales[Sex.Female].Add(creature);
+                        }
                         else
+                        {
                             femalesMales[Sex.Male].Add(creature);
+                        }
                     }
 
                     newCreatures.Add(creature);
@@ -437,7 +534,10 @@ namespace ARKBreedingStats.library
         private static int GetBinomialLevel(Random rand)
         {
             if (_levelInverseCumulativeFunction == null)
+            {
                 InitializeLevelFunction();
+            }
+
             return _levelInverseCumulativeFunction[rand.Next(MaxSteps)];
         }
 
@@ -468,12 +568,21 @@ namespace ARKBreedingStats.library
                 //Console.WriteLine(new string('♥', (int)(10 * sum)));
 
                 var upToStep = (int)(sum * MaxSteps) + 1;
-                if (upToStep > MaxSteps) upToStep = MaxSteps;
+                if (upToStep > MaxSteps)
+                {
+                    upToStep = MaxSteps;
+                }
+
                 for (int s = currentStep; s < upToStep; s++)
+                {
                     _levelInverseCumulativeFunction[s] = level;
+                }
 
                 if (upToStep == MaxSteps)
+                {
                     break;
+                }
+
                 currentStep = upToStep;
             }
         }

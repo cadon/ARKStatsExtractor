@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
@@ -99,7 +99,10 @@ namespace ARKBreedingStats.miscClasses
             }
 
             var fileLength = new FileInfo(filePath).Length;
-            if (fileLength != hashFileLength) return false;
+            if (fileLength != hashFileLength)
+            {
+                return false;
+            }
 
             using (var md5 = MD5.Create())
             using (var stream = File.OpenRead(filePath))

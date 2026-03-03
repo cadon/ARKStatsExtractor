@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
@@ -35,7 +37,10 @@ namespace ARKBreedingStats.oldLibraryFormat
         /// </summary>
         public static void UpgradeFormatTo12Stats(CreatureCollectionOld ccOld, CreatureCollection ccNew)
         {
-            if (ccOld == null) return;
+            if (ccOld == null)
+            {
+                return;
+            }
 
             // if library has the old statMultiplier-indices, fix the order
             var newToOldIndices = new int[] { 0, 1, 7, 2, 3, -1, -1, 4, 5, 6, -1, -1 };
@@ -68,12 +73,16 @@ namespace ARKBreedingStats.oldLibraryFormat
                     if (newToOldIndices[s] >= 0)
                     {
                         for (int si = 0; si < 4; si++)
+                        {
                             newMultipliers[s][si] = ccOld.multipliers[newToOldIndices[s]][si];
+                        }
                     }
                     else
                     {
                         for (int si = 0; si < 4; si++)
+                        {
                             newMultipliers[s][si] = 1;
+                        }
                     }
                 }
                 ccOld.multipliers = newMultipliers;
@@ -117,16 +126,28 @@ namespace ARKBreedingStats.oldLibraryFormat
                 newC.InitializeArkIdInGame();
                 ccNew.creatures.Add(newC);
 
-                if (c.IsPlaceholder) newC.flags |= CreatureFlags.Placeholder;
-                if (c.neutered) newC.flags |= CreatureFlags.Neutered;
+                if (c.IsPlaceholder)
+                {
+                    newC.flags |= CreatureFlags.Placeholder;
+                }
+
+                if (c.neutered)
+                {
+                    newC.flags |= CreatureFlags.Neutered;
+                }
 
                 // set new species-id
                 if (c.Species == null
                     && !string.IsNullOrEmpty(c.speciesBlueprint))
+                {
                     c.Species = Values.V.SpeciesByBlueprint(c.speciesBlueprint);
+                }
+
                 if (c.Species == null
                     && Values.V.TryGetSpeciesByName(c.species, out Species speciesObject))
+                {
                     c.Species = speciesObject;
+                }
 
                 newC.Species = c.Species;
 
@@ -170,10 +191,15 @@ namespace ARKBreedingStats.oldLibraryFormat
                     tribe = cvOld.tribe
                 };
 
-                if (cvOld.neutered) cv.flags |= CreatureFlags.Neutered;
+                if (cvOld.neutered)
+                {
+                    cv.flags |= CreatureFlags.Neutered;
+                }
 
                 if (Values.V.TryGetSpeciesByName(cvOld.species, out Species species))
+                {
                     cv.Species = species;
+                }
 
                 ccNew.creaturesValues.Add(cv);
 
@@ -197,7 +223,9 @@ namespace ARKBreedingStats.oldLibraryFormat
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (newToOldIndices[s] >= 0)
+                    {
                         newA[s] = a[newToOldIndices[s]];
+                    }
                 }
             }
             return newA;
@@ -216,7 +244,9 @@ namespace ARKBreedingStats.oldLibraryFormat
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (newToOldIndices[s] >= 0)
+                    {
                         newA[s] = a[newToOldIndices[s]];
+                    }
                 }
             }
             return newA;
@@ -258,7 +288,10 @@ namespace ARKBreedingStats.oldLibraryFormat
             ccNew.wildLevelStep = ccOld.wildLevelStep;
 
             // check if multiplier-conversion is possible
-            if (ccOld?.multipliers == null) return;
+            if (ccOld?.multipliers == null)
+            {
+                return;
+            }
 
             ccNew.serverMultipliers = new ServerMultipliers
             {

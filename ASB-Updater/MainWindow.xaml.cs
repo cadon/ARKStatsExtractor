@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -124,7 +124,9 @@ namespace ASB_Updater
                 wasAlreadyUptodate = false;
                 result = await DoUpdate(progress);
                 if (result)
+                {
                     updater.Cleanup(progress);
+                }
             }
 
             Launch(wasAlreadyUptodate, result, progress);
@@ -302,7 +304,9 @@ namespace ASB_Updater
                 sb.AppendLine(tb.Text);
             }
             if (sb.Length != 0)
+            {
                 Clipboard.SetText(sb.ToString());
+            }
         }
     }
 

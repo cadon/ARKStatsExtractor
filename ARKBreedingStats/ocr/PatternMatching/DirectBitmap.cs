@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -53,7 +53,11 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
         public void Dispose()
         {
-            if (Disposed) return;
+            if (Disposed)
+            {
+                return;
+            }
+
             Bitmap.Dispose();
             BitsHandle.Free();
             Disposed = true;

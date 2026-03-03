@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using System;
@@ -58,7 +59,10 @@ namespace ARKBreedingStats.SpeciesImages
         {
             if (string.IsNullOrEmpty(species?.name)
                 || !ImageCollections.AnyManifests)
+            {
                 return (null, NeighbourPoseExist.None);
+            }
+
             var creatureImageParameters = new CreatureImageParameters(species, game, creatureSex, patternId, pose);
 
             return await SpeciesImageFilePath(creatureImageParameters, imagePackName, imageName, useComposition).ConfigureAwait(false);
@@ -79,23 +83,31 @@ namespace ARKBreedingStats.SpeciesImages
             var keyString = creatureImageParameters.BaseParameters + preferredResources + compositionHash;
             NeighbourPoseExist neighbourPoseExist;
             if (CachedSpeciesFilePaths.TryGetValue(keyString, out var filePathAndFileNameBase))
+            {
                 return (filePathAndFileNameBase,
                     CachedSpeciesNeighborPoseExists.TryGetValue(keyString, out neighbourPoseExist) ? neighbourPoseExist : NeighbourPoseExist.None);
+            }
 
             // if request needs a specific image, only try to get that
             if (!string.IsNullOrEmpty(imageName))
+            {
                 return (await GetImagePathAsync(keyString, new[] { imageName }, imagePackName).ConfigureAwait(false), NeighbourPoseExist.None);
+            }
 
             if (composition != null)
             {
                 var filePath = await CreateCompositionBaseFiles(keyString, composition, creatureImageParameters);
                 if (filePath != null)
+                {
                     return (filePath, NeighbourPoseExist.None);
+                }
             }
 
             // user may prefer an image pack for a species
             if (imagePackName == null)
+            {
                 imagePackName = UserPreferenceImagePack(creatureImageParameters.Species);
+            }
 
             // create ordered list of possible files, take first existing file (most specific). If pattern is given, it must be included.
             var possibleFileNames = creatureImageParameters.GetPossibleSpeciesImageNamesWithFallbacks();
@@ -134,7 +146,9 @@ namespace ARKBreedingStats.SpeciesImages
             CreatureImageParameters creatureImageParameters)
         {
             if (composition == null || composition.Hash == 0 || composition.Parts?.Any() != true)
+            {
                 return null; // no composition
+            }
 
             var filePathResult = FilePathCombinedSpeciesImage(speciesPropertiesKeyString);
             if (File.Exists(filePathResult))
@@ -150,7 +164,11 @@ namespace ARKBreedingStats.SpeciesImages
 
             var filePaths = (await Task.WhenAll(tasks).ConfigureAwait(false)).Select(f => f.FilePath).ToArray();
 
-            if (filePaths.Any(f => f == null)) return null;
+            if (filePaths.Any(f => f == null))
+            {
+                return null;
+            }
+
             if (composition.CombineImages(filePaths, filePathResult))
             {
                 CachedSpeciesFilePaths[speciesPropertiesKeyString] = filePathResult;
@@ -186,12 +204,18 @@ namespace ARKBreedingStats.SpeciesImages
                         && !string.IsNullOrEmpty(
                             (await ImageCollections.GetFile(possibleFileNamesPreviousPose.Select(f => f + FileExtension).ToArray(), imagePackName, true))
                             .FilePath))
+                    {
                         neighbourPosesExist |= NeighbourPoseExist.Previous;
+                    }
+
                     if (possibleFileNamesNextPose != null
                         && !string.IsNullOrEmpty(
                             (await ImageCollections.GetFile(possibleFileNamesNextPose.Select(f => f + FileExtension).ToArray(), imagePackName, true))
                             .FilePath))
+                    {
                         neighbourPosesExist |= NeighbourPoseExist.Next;
+                    }
+
                     CachedSpeciesNeighborPoseExists[speciesPropertiesKeyString] = neighbourPosesExist;
 
                     return filePath;
@@ -231,15 +255,22 @@ namespace ARKBreedingStats.SpeciesImages
         {
             var speciesImageFilePath = (await SpeciesImageFilePath(species, game ?? (species?.blueprintPath.StartsWith("/Game/ASA/") == true ? Ark.Asa : null),
                 patternId: (species?.patterns?.count ?? 0) > 0 ? 1 : -1)).FilePath;
-            if (speciesImageFilePath == null) return null;
+            if (speciesImageFilePath == null)
+            {
+                return null;
+            }
 
             var cacheFilePath = ColoredCreatureCacheFilePath(Path.GetFileNameWithoutExtension(speciesImageFilePath), colorIds, true);
             if (!string.IsNullOrEmpty(cacheFilePath) && File.Exists(cacheFilePath))
+            {
                 return cacheFilePath;
+            }
 
             if (CreatureColored.CreateAndSaveCacheSpeciesFile(colorIds, species?.EnabledColorRegions,
                     speciesImageFilePath, MaskFilePath(speciesImageFilePath), cacheFilePath, outputSize: 64))
+            {
                 return cacheFilePath;
+            }
 
             return null;
         }
@@ -260,7 +291,10 @@ namespace ARKBreedingStats.SpeciesImages
         /// <param name="clearAllCacheFiles">If true all cached images are cleared, use if the image packs were changed. If false, only unused images files are cleared.</param>
         internal static void CleanupCache(bool clearAllCacheFiles = false)
         {
-            if (string.IsNullOrEmpty(_imgCacheFolderPath) || !Directory.Exists(_imgCacheFolderPath)) return;
+            if (string.IsNullOrEmpty(_imgCacheFolderPath) || !Directory.Exists(_imgCacheFolderPath))
+            {
+                return;
+            }
 
             DirectoryInfo directory = new DirectoryInfo(_imgCacheFolderPath);
             var oldCacheFiles = clearAllCacheFiles ? directory.GetFiles() : directory.GetFiles().Where(f => f.LastAccessTime < DateTime.Now.AddDays(-7)).ToArray();

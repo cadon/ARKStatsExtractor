@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -52,7 +53,9 @@ namespace ARKBreedingStats.duplicates
                         + _creatureDuplicates1[i].name + "\" and \""
                         + _creatureDuplicates2[i].name + "\"",
                         "Possible duplicate found", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.Cancel)
+                    {
                         break;
+                    }
                 }
             }
         }
@@ -68,11 +71,20 @@ namespace ARKBreedingStats.duplicates
             if (c1.Species != c2.Species
                 || c1.isBred != c2.isBred
                 )
+            {
                 return false;
+            }
 
             // check if one creature is a parent of the other
-            if (IsAscendant(c1, c2)) return false;
-            if (IsAscendant(c2, c1)) return false;
+            if (IsAscendant(c1, c2))
+            {
+                return false;
+            }
+
+            if (IsAscendant(c2, c1))
+            {
+                return false;
+            }
 
             // check wild levels
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -101,7 +113,9 @@ namespace ARKBreedingStats.duplicates
                     || (possibleDescendant.Mother.Mother != null && possibleDescendant.Mother.Mother == possibleAscendant)
                     || (possibleDescendant.Father?.Mother != null && possibleDescendant.Father.Mother == possibleAscendant))
                     )
+                {
                     return true;
+                }
             }
             else if (possibleAscendant.sex == Sex.Male)
             {
@@ -110,7 +124,9 @@ namespace ARKBreedingStats.duplicates
                     || (possibleDescendant.Mother.Father != null && possibleDescendant.Mother.Father == possibleAscendant)
                     || (possibleDescendant.Father?.Father != null && possibleDescendant.Father.Father == possibleAscendant))
                     )
+                {
                     return true;
+                }
             }
             return false;
         }

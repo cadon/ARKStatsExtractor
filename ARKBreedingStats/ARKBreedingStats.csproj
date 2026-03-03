@@ -26,11 +26,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <!-- Non-standard framework references not covered by UseWindowsForms/UseWPF -->
-  <ItemGroup>
-    <Reference Include="System.Security" />
-  </ItemGroup>
-
   <!-- Files to copy to output directory -->
   <ItemGroup>
     <None Include="json\**" CopyToOutputDirectory="PreserveNewest" />
@@ -52,8 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArkSavegameToolkit\SavegameToolkitAdditions\SavegameToolkitAdditions.csproj" />
-    <ProjectReference Include="..\ArkSavegameToolkit\SavegameToolkit\SavegameToolkit.csproj" />
+    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.csproj" />
     <ProjectReference Include="..\ASB-Updater\ASB Updater.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>

@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -76,13 +76,22 @@ namespace ARKBreedingStats.SpeciesImages
         {
             DestinationPath = new GraphicsPath();
             if (PolygonRelativeToAbsolute(DestinationPolygon, rectangleReference, out var p))
+            {
                 DestinationPath.AddPolygon(p);
+            }
             else if (ArrayToRectangleF(DestinationEllipse, rectangleReference, out var r))
+            {
                 DestinationPath.AddEllipse(r);
+            }
             else if (ArrayToRectangleF(DestinationRectangle, rectangleReference, out r))
+            {
                 DestinationPath.AddRectangle(r);
+            }
+
             if (DestinationPath.GetBounds().IsEmpty)
+            {
                 DestinationPath.AddRectangle(rectangleReference);
+            }
         }
 
         /// <summary>

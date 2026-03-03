@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
@@ -43,7 +44,10 @@ namespace ARKBreedingStats.mods
         private void UpdateList(IEnumerable<Species> displayedSpecies)
         {
             lvSpecies.Items.Clear();
-            if (displayedSpecies == null) return;
+            if (displayedSpecies == null)
+            {
+                return;
+            }
 
             lvSpecies.Items.AddRange(displayedSpecies.Select(s => new ListViewItem(new string[] { s.DescriptiveNameAndMod, s.blueprintPath })
             {
@@ -66,7 +70,11 @@ namespace ARKBreedingStats.mods
 
             this.SuspendDrawingAndLayout();
 
-            if (!(lvSpecies.SelectedItems[0].Tag is Species species)) return;
+            if (!(lvSpecies.SelectedItems[0].Tag is Species species))
+            {
+                return;
+            }
+
             selectedSpecies = species;
 
             double?[][] overrides = cc?.CustomSpeciesStats?.ContainsKey(selectedSpecies.blueprintPath) ?? false ? cc.CustomSpeciesStats[selectedSpecies.blueprintPath] : null;
@@ -87,7 +95,10 @@ namespace ARKBreedingStats.mods
                 && (cc?.CustomSpeciesStats?.Remove(selectedSpecies.blueprintPath) ?? false))
             {
                 if (lvSpecies.SelectedItems.Count != 0)
+                {
                     lvSpecies.SelectedItems[0].BackColor = RowBackColor(false);
+                }
+
                 lvSpecies_SelectedIndexChanged(null, null);
                 StatOverridesChanged = true;
             }
@@ -95,10 +106,20 @@ namespace ARKBreedingStats.mods
 
         private void btSaveOverride_Click(object sender, EventArgs e)
         {
-            if (cc == null) return;
-            if (cc.CustomSpeciesStats == null) cc.CustomSpeciesStats = new Dictionary<string, double?[][]>();
+            if (cc == null)
+            {
+                return;
+            }
+
+            if (cc.CustomSpeciesStats == null)
+            {
+                cc.CustomSpeciesStats = new Dictionary<string, double?[][]>();
+            }
+
             if (!cc.CustomSpeciesStats.ContainsKey(selectedSpecies.blueprintPath))
+            {
                 cc.CustomSpeciesStats.Add(selectedSpecies.blueprintPath, new double?[Stats.StatsCount + 1][]);
+            }
 
             // if current array doesn't consider statImprintingMultipliers, add an element
             if (cc.CustomSpeciesStats[selectedSpecies.blueprintPath].Length == Stats.StatsCount)
@@ -114,17 +135,26 @@ namespace ARKBreedingStats.mods
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 overrides[s] = overrideEdits[s].StatOverrides;
-                if (overrides[s] != null) hasOverride = true;
+                if (overrides[s] != null)
+                {
+                    hasOverride = true;
+                }
 
                 // stat imprinting multipliers
                 imprintingOverrides[s] = overrideEdits[s].ImprintingOverride;
-                if (imprintingOverrides[s] != null) hasImprintingOverride = true;
+                if (imprintingOverrides[s] != null)
+                {
+                    hasImprintingOverride = true;
+                }
             }
 
             cc.CustomSpeciesStats[selectedSpecies.blueprintPath][Stats.StatsCount] = hasImprintingOverride ? imprintingOverrides : null;
 
             if (lvSpecies.SelectedItems.Count != 0)
+            {
                 lvSpecies.SelectedItems[0].BackColor = RowBackColor(hasOverride || hasImprintingOverride);
+            }
+
             StatOverridesChanged = true;
         }
 
@@ -145,7 +175,11 @@ namespace ARKBreedingStats.mods
                 Filter = "ASB custom stat override file (*.json)|*.json"
             })
             {
-                if (dlg.ShowDialog() != DialogResult.OK) return;
+                if (dlg.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
                 if (!FileService.LoadJsonFile(dlg.FileName, out Dictionary<string, double?[][]> dict, out string error))
                 {
                     MessageBoxes.ShowMessageBox(error, $"Error loading file");
@@ -201,7 +235,11 @@ namespace ARKBreedingStats.mods
                 Filter = "ASB custom stat override file (*.json)|*.json"
             })
             {
-                if (dlg.ShowDialog() != DialogResult.OK) return;
+                if (dlg.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
                 if (!FileService.SaveJsonFile(dlg.FileName, cc.CustomSpeciesStats, out string error))
                 {
                     MessageBoxes.ShowMessageBox(error, $"Error saving file");
@@ -222,7 +260,11 @@ namespace ARKBreedingStats.mods
         private void tbFilterSpecies_TextChanged(object sender, EventArgs e)
         {
             // throttle
-            if (throttlingTimer.Enabled) return;
+            if (throttlingTimer.Enabled)
+            {
+                return;
+            }
+
             throttlingTimer.Start();
         }
 
@@ -233,18 +275,29 @@ namespace ARKBreedingStats.mods
         {
             IEnumerable<Species> filteredSpecies;
             if (string.IsNullOrEmpty(tbFilterSpecies.Text))
+            {
                 filteredSpecies = species;
+            }
             else
+            {
                 filteredSpecies = species.Where(s => s.blueprintPath.IndexOf(tbFilterSpecies.Text, StringComparison.OrdinalIgnoreCase) != -1 || s.DescriptiveNameAndMod.IndexOf(tbFilterSpecies.Text, StringComparison.OrdinalIgnoreCase) != -1);
+            }
 
             if (cbOnlyDisplayOverriddenSpecies.Checked)
             {
                 if (cc?.CustomSpeciesStats == null)
+                {
                     UpdateList(null);
-                else UpdateList(filteredSpecies.Where(s => cc.CustomSpeciesStats.ContainsKey(s.blueprintPath)));
+                }
+                else
+                {
+                    UpdateList(filteredSpecies.Where(s => cc.CustomSpeciesStats.ContainsKey(s.blueprintPath)));
+                }
             }
             else
+            {
                 UpdateList(filteredSpecies);
+            }
         }
 
         private void ThrottlingTimer_Tick(object sender, EventArgs e)

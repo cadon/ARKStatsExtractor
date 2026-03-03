@@ -1,7 +1,9 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using ARKBreedingStats.Mods;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -87,7 +89,11 @@ namespace ARKBreedingStats.values
         {
             if (FileService.LoadJsonFile(filePath, out Values readData, out string errorMessage))
             {
-                if (!IsValidFormatVersion(readData.Format)) throw new FormatException($"Unsupported values format version: {(readData.Format ?? "null")}");
+                if (!IsValidFormatVersion(readData.Format))
+                {
+                    throw new FormatException($"Unsupported values format version: {(readData.Format ?? "null")}");
+                }
+
                 return readData;
             }
             throw new FileLoadException(errorMessage);
@@ -97,7 +103,11 @@ namespace ARKBreedingStats.values
         {
             if (FileService.LoadJsonFile(filePath, out ValuesFile readData, out string errorMessage))
             {
-                if (!IsValidFormatVersion(readData.Format)) throw new FormatException($"Unsupported values format version: {(readData.Format ?? "null")}");
+                if (!IsValidFormatVersion(readData.Format))
+                {
+                    throw new FormatException($"Unsupported values format version: {(readData.Format ?? "null")}");
+                }
+
                 return readData;
             }
             throw new FileLoadException(errorMessage);
@@ -121,7 +131,10 @@ namespace ARKBreedingStats.values
                         $"The mod file\n{filePath}\ndoesn't contains an object \"mod\" or that object doesn't contain a valid entry \"id\". The mod file cannot be loaded until this information is added";
                     return false;
                 }
-                if (setModFileName) values.Mod.FileName = Path.GetFileName(filePath);
+                if (setModFileName)
+                {
+                    values.Mod.FileName = Path.GetFileName(filePath);
+                }
 
                 return true;
             }
@@ -131,19 +144,25 @@ namespace ARKBreedingStats.values
                                + "This collection seems to have modified stat values that are saved in a separate file, "
                                + "which couldn't be found at the saved location.";
                 if (throwExceptionOnFail)
+                {
                     throw new FileNotFoundException(errorMessage, ex);
+                }
             }
             catch (FormatException ex)
             {
                 errorMessage = "Values-File '" + filePath + $"' has an invalid version.\n{ex.Message}\nTry updating ARK Smart Breeding.";
                 if (throwExceptionOnFail)
+                {
                     throw new FormatException(errorMessage);
+                }
             }
             catch (FileLoadException ex)
             {
                 errorMessage = ex.Message;
                 if (throwExceptionOnFail)
+                {
                     throw;
+                }
             }
             return false;
         }
@@ -154,7 +173,10 @@ namespace ARKBreedingStats.values
         public static bool TryLoadingModInfoHeader(string filePath, out ModInfo modInfo)
         {
             modInfo = null;
-            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return false;
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
+                return false;
+            }
 
             try
             {
@@ -178,7 +200,10 @@ namespace ARKBreedingStats.values
                             currentProp = (string)jr.Value;
                             // if species array, no further reading needed (only the header is needed)
                             if (string.Equals(currentProp, "species", StringComparison.OrdinalIgnoreCase))
+                            {
                                 break;
+                            }
+
                             continue; // move to token after property name
                         }
                         switch (currentProp)

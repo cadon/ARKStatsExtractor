@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Drawing;
 using ARKBreedingStats.utils;
 using Newtonsoft.Json;
@@ -61,7 +61,9 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
                 _lowerColorS = _lowerColor.GetSaturation();
                 _lowerColorV = _lowerColor.GetValue();
                 if (_lowerColorS < float.Epsilon)
+                {
                     _lowerColorH = _upperColorH;
+                }
 
                 _colorCache?.Clear();
             }
@@ -85,7 +87,9 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
                 _upperColorS = _upperColor.GetSaturation();
                 _upperColorV = _upperColor.GetValue();
                 if (_upperColorS == 0)
+                {
                     _upperColorH = _lowerColorH;
+                }
 
                 _colorCache?.Clear();
             }
@@ -114,10 +118,20 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         /// </summary>
         public Color GetLevelColor(int level)
         {
-            if (level <= LowerBound) return LowerColor;
-            if (level >= UpperBound) return UpperColor;
+            if (level <= LowerBound)
+            {
+                return LowerColor;
+            }
+
+            if (level >= UpperBound)
+            {
+                return UpperColor;
+            }
+
             if (_colorCache?.TryGetValue(level, out var c) == true)
+            {
                 return c;
+            }
 
             var relativePosition = (double)(level - LowerBound) / (UpperBound - LowerBound);
 
@@ -126,7 +140,11 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             var v = _lowerColorV + relativePosition * (_upperColorV - _lowerColorV);
 
             c = Utils.ColorFromHsv(h, s, v);
-            if (_colorCache == null) _colorCache = new Dictionary<int, Color>();
+            if (_colorCache == null)
+            {
+                _colorCache = new Dictionary<int, Color>();
+            }
+
             _colorCache[level] = c;
             return c;
         }
@@ -188,9 +206,21 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 
         public static bool operator ==(LevelGraphRepresentation a, LevelGraphRepresentation b)
         {
-            if (ReferenceEquals(a, b)) return true;
-            if (ReferenceEquals(a, null)) return false;
-            if (ReferenceEquals(b, null)) return false;
+            if (ReferenceEquals(a, b))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(a, null))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(b, null))
+            {
+                return false;
+            }
+
             return a.Equals(b);
         }
 
@@ -198,8 +228,16 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 
         public bool Equals(LevelGraphRepresentation other)
         {
-            if (ReferenceEquals(other, null)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
             return other.LowerBound == LowerBound
                    && other.UpperBound == UpperBound
                    && other.ColorGradientReversed == ColorGradientReversed
@@ -214,8 +252,15 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         /// </summary>
         public bool ColorEquals(LevelGraphRepresentation other)
         {
-            if (ReferenceEquals(other, null)) return false;
-            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
 
             return ColorGradientReversed == other.ColorGradientReversed
                    && Utils.ColorsEqual(other.LowerColor, LowerColor)

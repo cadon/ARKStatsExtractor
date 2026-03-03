@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -25,7 +25,11 @@ namespace ARKBreedingStats
         public SpeechRecognition(int maxLevel, int levelStep, List<string> aliases, Label indicator)
         {
             Initialized = false;
-            if (!aliases.Any()) return;
+            if (!aliases.Any())
+            {
+                return;
+            }
+
             _indicator = indicator;
             _recognizer = new SpeechRecognitionEngine();
             SetMaxLevelAndSpecies(maxLevel, levelStep, aliases);
@@ -60,7 +64,9 @@ namespace ARKBreedingStats
             {
                 string species = m.Groups[1].Value;
                 if (int.TryParse(m.Groups[2].Value, out int level))
+                {
                     SpeechCreatureRecognized?.Invoke(species, level);
+                }
             }
             /*}
             else
@@ -86,7 +92,11 @@ namespace ARKBreedingStats
                 Culture = culture
             };
 
-            if (levelSteps < 1) levelSteps = 1;
+            if (levelSteps < 1)
+            {
+                levelSteps = 1;
+            }
+
             int levelCount = (int)Math.Ceiling((double)maxLevel / levelSteps);
             Choices levelsChoice = new Choices(Enumerable.Range(1, levelCount).Select(i => (i * levelSteps).ToString()).ToArray());
             GrammarBuilder levelElement = new GrammarBuilder(levelsChoice);
@@ -135,7 +145,11 @@ namespace ARKBreedingStats
         /// <param name="aliases"></param>
         public void SetMaxLevelAndSpecies(int maxLevel, int levelStep, List<string> aliases)
         {
-            if (maxLevel == _maxLevel && levelStep == _levelStep && _aliasesCount == aliases.Count) return;
+            if (maxLevel == _maxLevel && levelStep == _levelStep && _aliasesCount == aliases.Count)
+            {
+                return;
+            }
+
             _maxLevel = maxLevel;
             _levelStep = levelStep;
             _aliasesCount = aliases.Count;

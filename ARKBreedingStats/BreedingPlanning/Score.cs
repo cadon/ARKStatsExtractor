@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ARKBreedingStats.BreedingPlanning
 {
@@ -41,8 +41,14 @@ namespace ARKBreedingStats.BreedingPlanning
         public string ToString(string format)
         {
             if (Secondary == 0 && Tertiary == 0)
+            {
                 return Primary.ToString(format);
-            if (Tertiary == 0) return $"{Primary.ToString(format)}.{Secondary.ToString(format)}";
+            }
+
+            if (Tertiary == 0)
+            {
+                return $"{Primary.ToString(format)}.{Secondary.ToString(format)}";
+            }
 
             return $"{Primary.ToString(format)}.{Secondary.ToString(format)}.{Tertiary.ToString(format)}";
         }
@@ -60,22 +66,61 @@ namespace ARKBreedingStats.BreedingPlanning
 
         public static bool operator <(Score left, Score right)
         {
-            if (left.Primary < right.Primary) return true;
-            if (left.Primary > right.Primary) return false;
-            if (left.Secondary < right.Secondary) return true;
-            if (left.Secondary > right.Secondary) return false;
-            if (left.Tertiary < right.Tertiary) return true;
+            if (left.Primary < right.Primary)
+            {
+                return true;
+            }
+
+            if (left.Primary > right.Primary)
+            {
+                return false;
+            }
+
+            if (left.Secondary < right.Secondary)
+            {
+                return true;
+            }
+
+            if (left.Secondary > right.Secondary)
+            {
+                return false;
+            }
+
+            if (left.Tertiary < right.Tertiary)
+            {
+                return true;
+            }
 
             return false;
         }
 
         public static bool operator >(Score left, Score right)
         {
-            if (left.Primary > right.Primary) return true;
-            if (left.Primary < right.Primary) return false;
-            if (left.Secondary > right.Secondary) return true;
-            if (left.Secondary < right.Secondary) return false;
-            if (left.Tertiary > right.Tertiary) return true;
+            if (left.Primary > right.Primary)
+            {
+                return true;
+            }
+
+            if (left.Primary < right.Primary)
+            {
+                return false;
+            }
+
+            if (left.Secondary > right.Secondary)
+            {
+                return true;
+            }
+
+            if (left.Secondary < right.Secondary)
+            {
+                return false;
+            }
+
+            if (left.Tertiary > right.Tertiary)
+            {
+                return true;
+            }
+
             return false;
         }
 

@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
@@ -100,7 +101,10 @@ namespace ARKBreedingStats.uiControls
 
         private void DrawData(Creature creature, bool highlight, int highlightStatIndex, ToolTip tt)
         {
-            if (creature?.Species == null) return;
+            if (creature?.Species == null)
+            {
+                return;
+            }
 
             var usedStats = Enumerable.Range(0, Stats.StatsCount).Where(si => si != Stats.Torpidity && creature.Species.UsesStat(si)).ToArray();
             var anglePerStat = 360f / usedStats.Length;
@@ -133,7 +137,9 @@ namespace ARKBreedingStats.uiControls
                 {
                     Cursor = Cursors.Hand;
                     if (highlightStatIndex != -1)
+                    {
                         borderColor = Color.Black;
+                    }
                 }
 
                 if (mutationOccurred)
@@ -171,7 +177,10 @@ namespace ARKBreedingStats.uiControls
 
                         var mutationStatus = _statInheritances[si];
                         const int anyMutationMask = 0b01110111;
-                        if ((mutationStatus & anyMutationMask) == 0) continue;
+                        if ((mutationStatus & anyMutationMask) == 0)
+                        {
+                            continue;
+                        }
 
                         const int mutationIsNotGuaranteedMask = 0b10001000;
                         var guaranteedMutation = (mutationStatus & mutationIsNotGuaranteedMask) == 0;
@@ -250,7 +259,9 @@ namespace ARKBreedingStats.uiControls
                 }
 
                 if (_mutationInColor != null && !_mutationInColor.Any(m => m))
+                {
                     _mutationInColor = null; // not needed, no possible mutations
+                }
 
                 // mutation indicator
                 if (!creature.flags.HasFlag(CreatureFlags.Placeholder))
@@ -278,19 +289,34 @@ namespace ARKBreedingStats.uiControls
                 string InheritanceExplanation(int statIndex)
                 {
                     var mutationStatus = _statInheritances[statIndex];
-                    if (mutationStatus == 0) return null;
+                    if (mutationStatus == 0)
+                    {
+                        return null;
+                    }
+
                     var resultMother = Mutation(true);
                     var resultFather = Mutation(false);
-                    if (resultMother == null && resultFather == null) return null;
+                    if (resultMother == null && resultFather == null)
+                    {
+                        return null;
+                    }
 
                     return $" ({resultMother}{(resultMother != null && resultFather != null ? " or " : null)}{resultFather})";
 
                     string Mutation(bool mother)
                     {
                         var status = (mutationStatus >> (!mother ? 4 : 0)) & 0xf;
-                        if (status == 0) return null;
+                        if (status == 0)
+                        {
+                            return null;
+                        }
+
                         var sex = mother ? "♀" : "♂";
-                        if (status == 8) return sex;
+                        if (status == 8)
+                        {
+                            return sex;
+                        }
+
                         if (status > 8)
                         {
                             var mutationCount = status & 7;
@@ -301,13 +327,18 @@ namespace ARKBreedingStats.uiControls
                 }
 
                 if (creature.levelsWild != null)
+                {
                     toolTipText +=
                         $"\n{string.Join("\n", usedStats.Select(si => $"{Utils.StatName(si, true, statNames)}:\t{creature.levelsWild[si],3}{InheritanceExplanation(si)}"))}";
+                }
+
                 toolTipText +=
                     $"\n{Loc.S("Mutations")}: {creature.Mutations} = {creature.mutationsMaternal} (♀) + {creature.mutationsPaternal} (♂)";
                 if (creature.colors != null)
+                {
                     toolTipText +=
                         $"\n{Loc.S("Colors")}\n{string.Join("\n", colors.Select((c, i) => c == null ? null : $"[{i}]:\t{c.Id} ({c.Name}){((_mutationInColor?[i] ?? false) ? " (mutated color)" : null)}").Where(s => s != null))}";
+                }
             }
 
             _tt?.SetToolTip(this, null);
@@ -335,7 +366,9 @@ namespace ARKBreedingStats.uiControls
             bool levelsKnownMother = creature.Mother?.levelsWild != null;
             bool levelsKnownFather = creature.Father?.levelsWild != null;
             if (!levelsKnownMother && !levelsKnownFather)
+            {
                 return (statInheritances, mutationInColor);
+            }
 
             var leftMutations = mutationsOccurredCount;
             var statIndicesWithPossibleMutations = usedStats.ToArray();
@@ -352,7 +385,10 @@ namespace ARKBreedingStats.uiControls
                     for (int i = 0; i < statIndicesWithPossibleMutationsCount; i++)
                     {
                         var si = statIndicesWithPossibleMutations[i];
-                        if (si == -1) continue;
+                        if (si == -1)
+                        {
+                            continue;
+                        }
 
                         var levelMother = creature.Mother.levelsWild[si];
                         var levelFather = creature.Father.levelsWild[si];
@@ -362,10 +398,14 @@ namespace ARKBreedingStats.uiControls
                         for (int m = 0; m <= leftMutations; m++)
                         {
                             if (possibleMutationsMother == -1 && creature.levelsWild[si] == levelMother + m * Ark.LevelsAddedPerMutation)
+                            {
                                 possibleMutationsMother = m;
+                            }
 
                             if (possibleMutationsFather == -1 && creature.levelsWild[si] == levelFather + m * Ark.LevelsAddedPerMutation)
+                            {
                                 possibleMutationsFather = m;
+                            }
                         }
 
                         // if only one parent can be the stat donor, a possible mutation is guaranteed
@@ -400,7 +440,10 @@ namespace ARKBreedingStats.uiControls
                         // this stat now has a known inheritance and doesn't need to be checked again
                         statIndicesWithPossibleMutations[i] = -1;
                         // start loop again if possible mutation count was changed
-                        if (loopAgain) break;
+                        if (loopAgain)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -410,7 +453,10 @@ namespace ARKBreedingStats.uiControls
                 for (int i = 0; i < statIndicesWithPossibleMutationsCount; i++)
                 {
                     var si = statIndicesWithPossibleMutations[i];
-                    if (si == -1) continue;
+                    if (si == -1)
+                    {
+                        continue;
+                    }
 
                     var levelMother = creature.Mother?.levelsWild?[si] ?? -1;
                     var levelFather = creature.Father?.levelsWild?[si] ?? -1;
@@ -420,10 +466,15 @@ namespace ARKBreedingStats.uiControls
                     {
                         if (possibleMutationsMother == -1 && levelMother != -1 && creature.levelsWild[si] ==
                             levelMother + m * Ark.LevelsAddedPerMutation)
+                        {
                             possibleMutationsMother = m;
+                        }
+
                         if (possibleMutationsFather == -1 && levelFather != -1 && creature.levelsWild[si] ==
                             levelFather + m * Ark.LevelsAddedPerMutation)
+                        {
                             possibleMutationsFather = m;
+                        }
                     }
                     statInheritances[si] = (byte)((possibleMutationsMother == -1 ? 0 : InheritanceFlag(possibleMutationsMother + 8, true))
                                                 | (possibleMutationsFather == -1 ? 0 : InheritanceFlag(possibleMutationsFather + 8, false)));
@@ -443,7 +494,9 @@ namespace ARKBreedingStats.uiControls
         private void PedigreeCreatureCompact_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
+            {
                 CreatureClicked?.Invoke(_creature, -1, e);
+            }
         }
 
         /// <summary>
@@ -451,7 +504,10 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public (int maternalInheritance, int paternalInheritance) PossibleStatInheritance(int statIndex)
         {
-            if (statIndex == -1) return (0, 0);
+            if (statIndex == -1)
+            {
+                return (0, 0);
+            }
 
             var inheritance = _statInheritances[statIndex];
             var motherInheritance = inheritance & 0xf;
@@ -459,8 +515,16 @@ namespace ARKBreedingStats.uiControls
 
             int InheritanceStatus(int status)
             {
-                if (status == 0) return 0;
-                if (status == 8) return 2;
+                if (status == 0)
+                {
+                    return 0;
+                }
+
+                if (status == 8)
+                {
+                    return 2;
+                }
+
                 return 3;
             }
 

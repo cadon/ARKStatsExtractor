@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -43,11 +43,17 @@ namespace ARKBreedingStats.importExported
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (_callbackNewFile == null) return;
+            if (_callbackNewFile == null)
+            {
+                return;
+            }
+
             var filePath = e.FullPath;
             var lastWriteTime = new FileInfo(filePath).LastWriteTimeUtc;
             if (filePath == _lastFilePath && lastWriteTime == _lastChangedTime)
+            {
                 return; // event was already processed. Some file changes raise multiple events
+            }
 
             _lastFilePath = filePath;
             _lastChangedTime = lastWriteTime;
@@ -66,7 +72,10 @@ namespace ARKBreedingStats.importExported
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
 
             if (disposing)
             {

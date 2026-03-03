@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -56,17 +56,26 @@ namespace ARKBreedingStats.utils
                 try
                 {
                     if (string.IsNullOrEmpty(text))
+                    {
                         Clipboard.Clear();
+                    }
                     else
+                    {
                         Clipboard.SetText(text);
+                    }
+
                     return true;
                 }
                 catch (Exception ex)
                 {
                     if (i > 1)
+                    {
                         Thread.Sleep(delayMs);
+                    }
                     else
+                    {
                         error = $"Failed to copy text {text} to clipboard, error: {ex.Message}";
+                    }
                 }
             }
             return false;
@@ -104,7 +113,10 @@ namespace ARKBreedingStats.utils
         /// </summary>
         internal static void SetImageWithAlphaToClipboard(Image img, bool disposeBmp = true)
         {
-            if (img == null) return;
+            if (img == null)
+            {
+                return;
+            }
 
             using (var pngStream = new MemoryStream())
             {
@@ -116,7 +128,10 @@ namespace ARKBreedingStats.utils
 
                 Clipboard.SetDataObject(data, true);
             }
-            if (disposeBmp) img.Dispose();
+            if (disposeBmp)
+            {
+                img.Dispose();
+            }
         }
     }
 }

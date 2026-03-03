@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -64,13 +64,18 @@ namespace ARKBreedingStats.ocr.PatternMatching
             {
                 // if only numbers are expected, skip non numerical patterns
                 if (onlyNumbers && !OnlyNumbersChars.Contains(c.Text))
+                {
                     continue;
+                }
 
                 foreach (var pattern in c.Patterns)
                 {
                     if (HammingWeight.SetBitCount((byte)(pattern.Apertures ^ recognizedPattern.Apertures)) > 1
                         || Math.Abs(pattern.YOffset - recognizedPattern.YOffset) > 3
-                    ) continue;
+                    )
+                    {
+                        continue;
+                    }
 
                     //var currentLetterWasSortedOutByAperture = pattern.Apertures != recognizedPattern.Apertures;
 
@@ -79,12 +84,18 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     var widthDiff = maxWidth - minWidth;
                     if (pattern.SetPixels > maxAllowedSet
                         || pattern.SetPixels < minAllowedSet
-                        || (widthDiff > 2 && widthDiff > maxWidth * 0.2)) continue; // if dimensions is too different ignore pattern
+                        || (widthDiff > 2 && widthDiff > maxWidth * 0.2))
+                    {
+                        continue; // if dimensions is too different ignore pattern
+                    }
 
                     int minHeight = Math.Min(pattern.Height, heightRecognized);
                     int maxHeight = Math.Max(pattern.Height, heightRecognized);
                     var heightDiff = maxHeight - minHeight;
-                    if (heightDiff > 2 && heightDiff > maxHeight * 0.2) continue;
+                    if (heightDiff > 2 && heightDiff > maxHeight * 0.2)
+                    {
+                        continue;
+                    }
 
                     var allowedDifference = pattern.SetPixels * 2 * tolerance;
 
@@ -207,7 +218,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
             var manualChar = new RecognitionTrainingForm(sym, image).Prompt();
 
             if (string.IsNullOrEmpty(manualChar))
+            {
                 return manualChar;
+            }
 
             return AddNewPattern(recognizedPattern, manualChar);
         }
@@ -302,7 +315,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
         private string AddNewPattern(Pattern newPattern, string text)
         {
-            if (string.IsNullOrEmpty(text) || newPattern == null) return text;
+            if (string.IsNullOrEmpty(text) || newPattern == null)
+            {
+                return text;
+            }
 
             var pat = Texts.FirstOrDefault(x => x.Text == text);
             if (pat != null)
@@ -321,10 +337,16 @@ namespace ARKBreedingStats.ocr.PatternMatching
 
         public void AddPattern(string text, Bitmap bmp)
         {
-            if (string.IsNullOrEmpty(text)) return;
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
 
             var newPattern = Pattern.FromBmp(bmp);
-            if (newPattern == null) return;
+            if (newPattern == null)
+            {
+                return;
+            }
 
             //// DEBUG
             //Debug.WriteLine(text);
@@ -350,7 +372,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
             }
 
             if (!alreadyAdded)
+            {
                 textData.Patterns.Add(newPattern);
+            }
         }
     }
 }

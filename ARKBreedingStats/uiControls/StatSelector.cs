@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -32,7 +33,11 @@ namespace ARKBreedingStats.uiControls
 
             foreach (var si in Stats.DisplayOrder)
             {
-                if (si == Stats.Torpidity) continue;
+                if (si == Stats.Torpidity)
+                {
+                    continue;
+                }
+
                 r = new RadioButton
                 {
                     Tag = si,
@@ -50,7 +55,11 @@ namespace ARKBreedingStats.uiControls
 
         private void RadioButtonCheckedChanged(object sender, EventArgs e)
         {
-            if (!(sender is RadioButton r && r.Checked && r.Tag is int statIndex)) return;
+            if (!(sender is RadioButton r && r.Checked && r.Tag is int statIndex))
+            {
+                return;
+            }
+
             StatIndexSelected?.Invoke(statIndex);
         }
 
@@ -59,13 +68,21 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public void SetStatNames(Species species)
         {
-            if (species == _selectedSpecies) return;
+            if (species == _selectedSpecies)
+            {
+                return;
+            }
+
             _selectedSpecies = species;
             var statNames = species.statNames;
 
             foreach (Control c in flowLayoutPanel1.Controls)
             {
-                if (!(c is RadioButton r && r.Tag is int statIndex)) continue;
+                if (!(c is RadioButton r && r.Tag is int statIndex))
+                {
+                    continue;
+                }
+
                 if (statIndex == -1)
                 {
                     _tt.SetToolTip(c, Loc.S("clear"));

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
@@ -30,8 +30,15 @@ namespace ARKBreedingStats.Updater
         [OnDeserialized]
         private void OnDeserialized(StreamingContext _)
         {
-            if (Modules == null) return;
-            foreach (var kv in Modules) kv.Value.Id = kv.Key;
+            if (Modules == null)
+            {
+                return;
+            }
+
+            foreach (var kv in Modules)
+            {
+                kv.Value.Id = kv.Key;
+            }
         }
 
         //internal static AsbManifest FromJsonString(string json) => JsonConvert.DeserializeObject<AsbManifest>(json);

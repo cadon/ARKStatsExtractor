@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -75,7 +75,11 @@ namespace ARKBreedingStats.mods
         {
             get
             {
-                if (!cbOverride.Checked) return null;
+                if (!cbOverride.Checked)
+                {
+                    return null;
+                }
+
                 return new double?[]{
                     (double)nudBase.Value,
                     (double)nudIw.Value,

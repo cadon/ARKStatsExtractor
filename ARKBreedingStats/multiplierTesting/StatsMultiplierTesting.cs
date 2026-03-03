@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
@@ -39,7 +41,10 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 var sc = new StatMultiplierTestingControl(_tt);
                 if (Stats.IsPercentage(s))
+                {
                     sc.Percent = true;
+                }
+
                 sc.OnLevelChanged += Sc_OnLevelChanged;
                 sc.OnTECalculated += SetTE;
                 sc.OnIBCalculated += SetIB;
@@ -69,7 +74,9 @@ namespace ARKBreedingStats.multiplierTesting
             if (officialSm != null)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _statControls[s].StatMultipliersGameDefault = officialSm.statMultipliers[s];
+                }
             }
         }
 
@@ -122,7 +129,11 @@ namespace ARKBreedingStats.multiplierTesting
             int sumW = 0, sumD = 0;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (s == Stats.Torpidity) continue;
+                if (s == Stats.Torpidity)
+                {
+                    continue;
+                }
+
                 sumW += _statControls[s].LevelWild;
                 sumW += _statControls[s].LevelMutations;
                 sumD += _statControls[s].LevelDom;
@@ -133,10 +144,18 @@ namespace ARKBreedingStats.multiplierTesting
             if (diff != 0)
             {
                 positive = diff > 0;
-                if (!positive) diff = -diff;
+                if (!positive)
+                {
+                    diff = -diff;
+                }
+
                 lbLevelSumWild.Text += $" ({(positive ? "+" : "")}{(sumW - _statControls[Stats.Torpidity].LevelWild)})";
 
-                if (diff > 50) diff = 50;
+                if (diff > 50)
+                {
+                    diff = 50;
+                }
+
                 lbLevelSumWild.BackColor = Utils.GetColorFromPercent(50 - diff, 0.6, !positive);
             }
             else { lbLevelSumWild.BackColor = SystemColors.Window; }
@@ -146,10 +165,18 @@ namespace ARKBreedingStats.multiplierTesting
             if (diff != 0)
             {
                 positive = diff > 0;
-                if (!positive) diff = -diff;
+                if (!positive)
+                {
+                    diff = -diff;
+                }
+
                 lbLevelSumDom.Text += $" ({(positive ? "+" : "")}{sumW + sumD + 1 - (int)nudCreatureLevel.Value})";
 
-                if (diff > 50) diff = 50;
+                if (diff > 50)
+                {
+                    diff = 50;
+                }
+
                 lbLevelSumDom.BackColor = Utils.GetColorFromPercent(50 - diff, 0.6, !positive);
             }
             else { lbLevelSumDom.BackColor = SystemColors.Window; }
@@ -159,21 +186,30 @@ namespace ARKBreedingStats.multiplierTesting
         {
             var te = (double)nudTE.Value / 100;
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _statControls[s].TE = te;
+            }
+
             if (rbDomesticated.Checked)
+            {
                 LbCalculatedWildLevel.Text = $"LW: {Creature.CalculatePreTameWildLevel(_statControls[Stats.Torpidity].LevelWild + 1, te)}";
+            }
         }
 
         private void nudIB_ValueChanged(object sender, EventArgs e)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _statControls[s].IB = (double)nudIB.Value / 100;
+            }
         }
 
         private void nudIBM_ValueChanged(object sender, EventArgs e)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _statControls[s].IBM = (double)nudIBM.Value;
+            }
         }
 
         private void rbWild_CheckedChanged(object sender, EventArgs e)
@@ -181,7 +217,10 @@ namespace ARKBreedingStats.multiplierTesting
             if (rbWild.Checked)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _statControls[s].Wild = true;
+                }
+
                 nudTE.BackColor = SystemColors.Window;
                 nudIB.BackColor = SystemColors.Window;
                 nudIBM.BackColor = SystemColors.Window;
@@ -194,7 +233,10 @@ namespace ARKBreedingStats.multiplierTesting
             if (rbDomesticated.Checked)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _statControls[s].Domesticated = true;
+                }
+
                 nudTE.BackColor = Color.FromArgb(215, 186, 255);
                 nudIB.BackColor = Color.FromArgb(255, 186, 242);
                 nudIBM.BackColor = Color.FromArgb(255, 153, 236);
@@ -207,13 +249,19 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         private void SetStatMultipliersFromCC()
         {
-            if (_cc?.serverMultipliers?.statMultipliers == null) return;
+            if (_cc?.serverMultipliers?.statMultipliers == null)
+            {
+                return;
+            }
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 var m = new double[4];
                 for (int i = 0; i < 4; i++)
+                {
                     m[i] = _cc.serverMultipliers.statMultipliers[s]?[i] ?? 1;
+                }
+
                 _statControls[s].StatMultipliers = m;
             }
             SetIBM(_cc.serverMultipliers.BabyImprintingStatScaleMultiplier);
@@ -229,7 +277,10 @@ namespace ARKBreedingStats.multiplierTesting
         public void SetSpecies(Species species, bool forceUpdate = false)
         {
             if (species == null ||
-                (!forceUpdate && (_selectedSpecies == species || !cbUpdateOnSpeciesChange.Checked))) return;
+                (!forceUpdate && (_selectedSpecies == species || !cbUpdateOnSpeciesChange.Checked)))
+            {
+                return;
+            }
 
             _selectedSpecies = species;
             BtResetSpeciesValues.Text = $"Reset species values - {_selectedSpecies.DescriptiveNameAndMod}";
@@ -281,25 +332,34 @@ namespace ARKBreedingStats.multiplierTesting
             int level = 1;
 
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _statControls[s].BeginUpdate();
+            }
 
             SetSpecies(species);
 
             if (statValues != null)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _statControls[s].StatValue = statValues[s];
+                }
             }
             if (levelsWild != null)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _statControls[s].LevelWild = levelsWild[s];
+                }
+
                 level += levelsWild[Stats.Torpidity];
             }
             if (levelsMut != null)
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _statControls[s].LevelMutations = levelsMut[s];
+                }
             }
             if (levelsDom != null)
             {
@@ -313,11 +373,18 @@ namespace ARKBreedingStats.multiplierTesting
             SetIB(IB);
 
             if (domesticated)
+            {
                 rbDomesticated.Checked = true;
-            else rbWild.Checked = true;
+            }
+            else
+            {
+                rbWild.Checked = true;
+            }
 
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _statControls[s].EndUpdate(true);
+            }
 
             nudCreatureLevel.Value = level > totalLevel ? level : totalLevel;
 
@@ -344,9 +411,15 @@ namespace ARKBreedingStats.multiplierTesting
                         for (int si = 0; si < 4; si++)
                         {
                             showWarning = _cc.serverMultipliers.statMultipliers[s][si] != _statControls[s].StatMultipliers[si];
-                            if (showWarning) break;
+                            if (showWarning)
+                            {
+                                break;
+                            }
                         }
-                        if (showWarning) break;
+                        if (showWarning)
+                        {
+                            break;
+                        }
                     }
                 }
             }
@@ -369,9 +442,14 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity)
+                {
                     error = !_statControls[s].CalculateIwM() || error;
+                }
             }
-            if (error) SetMessageLabelText?.Invoke("For some stats the IwM couldn't be calculated, because of a Divide by Zero-error, e.g. Lw and Iw needs to be >0.", MessageBoxIcon.Error);
+            if (error)
+            {
+                SetMessageLabelText?.Invoke("For some stats the IwM couldn't be calculated, because of a Divide by Zero-error, e.g. Lw and Iw needs to be >0.", MessageBoxIcon.Error);
+            }
         }
 
         private void idMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -380,9 +458,14 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity)
+                {
                     error = !_statControls[s].CalculateIdM() || error;
+                }
             }
-            if (error) SetMessageLabelText?.Invoke("For some stats the IdM couldn't be calculated, because of a Divide by Zero-error, e.g. Ld needs to be at least 1.", MessageBoxIcon.Error);
+            if (error)
+            {
+                SetMessageLabelText?.Invoke("For some stats the IdM couldn't be calculated, because of a Divide by Zero-error, e.g. Ld needs to be at least 1.", MessageBoxIcon.Error);
+            }
         }
 
         private void taMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -391,9 +474,14 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity)
+                {
                     error = !_statControls[s].CalculateTaM() || error;
+                }
             }
-            if (error) SetMessageLabelText?.Invoke("For some stats the TaM couldn't be calculated, because of a Divide by Zero-error, e.g. Ta needs to be at least 1.", MessageBoxIcon.Error);
+            if (error)
+            {
+                SetMessageLabelText?.Invoke("For some stats the TaM couldn't be calculated, because of a Divide by Zero-error, e.g. Ta needs to be at least 1.", MessageBoxIcon.Error);
+            }
         }
 
         private void tmMToolStripMenuItem_Click(object sender, EventArgs e)
@@ -402,9 +490,14 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity)
+                {
                     error = !_statControls[s].CalculateTmM() || error;
+                }
             }
-            if (error) SetMessageLabelText?.Invoke("For some stats the TmM couldn't be calculated, because of a Divide by Zero-error, e.g. Tm needs to be at least 1.", MessageBoxIcon.Error);
+            if (error)
+            {
+                SetMessageLabelText?.Invoke("For some stats the TmM couldn't be calculated, because of a Divide by Zero-error, e.g. Tm needs to be at least 1.", MessageBoxIcon.Error);
+            }
         }
 
         private void allIwToolStripMenuItem_Click(object sender, EventArgs e)
@@ -414,7 +507,10 @@ namespace ARKBreedingStats.multiplierTesting
             {
                 error = !_statControls[s].CalculateIw() || error;
             }
-            if (error) SetMessageLabelText?.Invoke("Divide by Zero-error, e.g. Lw or IwM needs to be greater than 0.", MessageBoxIcon.Error);
+            if (error)
+            {
+                SetMessageLabelText?.Invoke("Divide by Zero-error, e.g. Lw or IwM needs to be greater than 0.", MessageBoxIcon.Error);
+            }
         }
 
         private void allIdToolStripMenuItem_Click(object sender, EventArgs e)
@@ -423,10 +519,14 @@ namespace ARKBreedingStats.multiplierTesting
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity)
+                {
                     error = !_statControls[s].CalculateId() || error;
+                }
             }
-            if (error) SetMessageLabelText?.Invoke("Divide by Zero-error, e.g. Ld needs to be at least 1.", MessageBoxIcon.Error);
-
+            if (error)
+            {
+                SetMessageLabelText?.Invoke("Divide by Zero-error, e.g. Ld needs to be at least 1.", MessageBoxIcon.Error);
+            }
         }
 
         private void useStatMultipliersOfSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -437,14 +537,23 @@ namespace ARKBreedingStats.multiplierTesting
         private void useDefaultStatMultipliersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ServerMultipliers officialSM = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
-            if (officialSM == null) return;
+            if (officialSM == null)
+            {
+                return;
+            }
+
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _statControls[s].StatMultipliers = officialSM.statMultipliers[s];
+            }
         }
 
         private void copyStatMultipliersToSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_cc?.serverMultipliers?.statMultipliers == null) return;
+            if (_cc?.serverMultipliers?.statMultipliers == null)
+            {
+                return;
+            }
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
@@ -463,7 +572,9 @@ namespace ARKBreedingStats.multiplierTesting
         private void tbFineAdjustments_Scroll(object sender, EventArgs e)
         {
             if (_fineAdjustmentsNud != null)
+            {
                 _fineAdjustmentsNud.ValueSave = (decimal)((_fineAdjustmentRange.Min + (_fineAdjustmentRange.Max - _fineAdjustmentRange.Min) * 0.01 * tbFineAdjustments.Value) * _fineAdjustmentFactor);
+            }
         }
 
         private void SetFineAdjustmentNUD(Nud nud, string title, double min, double max)
@@ -486,18 +597,24 @@ namespace ARKBreedingStats.multiplierTesting
                     for (int s = 0; s < Stats.StatsCount; s++)
                     {
                         if (spM.statMultipliers[s] == null)
+                        {
                             _statControls[s].SetSinglePlayerSettings();
+                        }
                         else
+                        {
                             _statControls[s].SetSinglePlayerSettings(spM.statMultipliers[s][ServerMultipliers.IndexLevelWild],
                                 spM.statMultipliers[s][ServerMultipliers.IndexLevelDom],
                                 spM.statMultipliers[s][ServerMultipliers.IndexTamingAdd],
                                 spM.statMultipliers[s][ServerMultipliers.IndexTamingMult]);
+                        }
                     }
                     return;
                 }
             }
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _statControls[s].SetSinglePlayerSettings();
+            }
         }
 
         private void CbAtlas_CheckedChanged(object sender, EventArgs e)
@@ -521,7 +638,11 @@ namespace ARKBreedingStats.multiplierTesting
 
         private void SetAllowSpeedLeveling(bool allowSpeedLeveling, bool allowFlyerSpeedleveling)
         {
-            if (_selectedSpecies == null) return;
+            if (_selectedSpecies == null)
+            {
+                return;
+            }
+
             var speedLevelingAllowed = allowSpeedLeveling && (allowFlyerSpeedleveling || !_selectedSpecies.IsFlyer);
 
             double?[][] customStatOverrides = null;
@@ -541,7 +662,12 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Wild Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    if (_selectedSpecies.UsesStat(s)) _statControls[s].LevelWild = lv;
+                {
+                    if (_selectedSpecies.UsesStat(s))
+                    {
+                        _statControls[s].LevelWild = lv;
+                    }
+                }
             }
         }
 
@@ -550,7 +676,12 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Mutation Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    if (_selectedSpecies.UsesStat(s)) _statControls[s].LevelMutations = lv;
+                {
+                    if (_selectedSpecies.UsesStat(s))
+                    {
+                        _statControls[s].LevelMutations = lv;
+                    }
+                }
             }
         }
 
@@ -559,20 +690,35 @@ namespace ARKBreedingStats.multiplierTesting
             if (Utils.ShowTextInput("Dom Level", out string nr, "", "0") && int.TryParse(nr, out int lv))
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
-                    if (_selectedSpecies.UsesStat(s) && s != Stats.Torpidity) _statControls[s].LevelDom = lv;
+                {
+                    if (_selectedSpecies.UsesStat(s) && s != Stats.Torpidity)
+                    {
+                        _statControls[s].LevelDom = lv;
+                    }
+                }
             }
         }
 
         private void setAllWildLevelsToTheClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
-                if (_selectedSpecies.UsesStat(s)) _statControls[s].SetClosestWildLevel();
+            {
+                if (_selectedSpecies.UsesStat(s))
+                {
+                    _statControls[s].SetClosestWildLevel();
+                }
+            }
         }
 
         private void setAllDomLevelsToTheClosestValueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
-                if (_selectedSpecies.UsesStat(s)) _statControls[s].SetClosestDomLevel();
+            {
+                if (_selectedSpecies.UsesStat(s))
+                {
+                    _statControls[s].SetClosestDomLevel();
+                }
+            }
         }
 
         private void btUseMultipliersFromSettings_Click(object sender, EventArgs e)
@@ -611,7 +757,10 @@ To determine all species values, the files with the following creature combinati
 
         private void StatsMultiplierTesting_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
         }
 
         /// <summary>
@@ -620,7 +769,10 @@ To determine all species values, the files with the following creature combinati
         private void StatsMultiplierTesting_DragDrop(object sender, DragEventArgs e)
         {
             if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
+            {
                 return;
+            }
+
             ProcessDroppedFiles(files);
         }
 
@@ -633,7 +785,10 @@ To determine all species values, the files with the following creature combinati
             string lastFilePath = null;
             foreach (var filePath in files)
             {
-                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) continue;
+                if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+                {
+                    continue;
+                }
 
                 var extension = Path.GetExtension(filePath);
                 lastFilePath = filePath;
@@ -641,7 +796,11 @@ To determine all species values, the files with the following creature combinati
                 {
                     case ".ini":
                         // export file
-                        if (creatureImported) continue;
+                        if (creatureImported)
+                        {
+                            continue;
+                        }
+
                         var cv = importExported.ImportExported.ReadExportedCreature(filePath);
                         SetCreatureValueValues(cv);
                         results.Add($"imported creature values from {filePath}");
@@ -654,7 +813,10 @@ To determine all species values, the files with the following creature combinati
                         Creature creature = null;
                         double[] statValues = null;
                         if (!creatureImported)
+                        {
                             creature = ImportExportGun.LoadCreature(filePath, out lastError, out serverMultipliersHash, out statValues, true);
+                        }
+
                         if (creature != null)
                         {
                             SetCreatureValuesAndLevels(creature, statValues);
@@ -675,7 +837,10 @@ To determine all species values, the files with the following creature combinati
                                     continue;
                                 }
                                 if (string.IsNullOrEmpty(serverImportResult))
+                                {
                                     results.Add(serverImportResult);
+                                }
+
                                 continue;
                             }
 
@@ -702,7 +867,10 @@ To determine all species values, the files with the following creature combinati
 
         private void SetServerMultipliers(ExportGunServerFile esm)
         {
-            if (esm?.WildLevel == null) return;
+            if (esm?.WildLevel == null)
+            {
+                return;
+            }
 
             for (int si = 0; si < Stats.StatsCount; si++)
             {
@@ -760,7 +928,10 @@ To determine all species values, the files with the following creature combinati
         {
             var sb = new StringBuilder();
             if (!string.IsNullOrEmpty(speciesBlueprintPath))
+            {
                 sb.AppendLine($"\"blueprintPath\": \"{speciesBlueprintPath}\",");
+            }
+
             sb.AppendLine("\"fullStatsRaw\": [");
             var currentCulture = CultureInfo.CurrentCulture;
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
@@ -804,13 +975,22 @@ To determine all species values, the files with the following creature combinati
 
             CultureInfo.CurrentCulture = currentCulture;
             if (ClipboardHandler.SetText(sb.ToString(), out var error))
+            {
                 SetMessageLabelText?.Invoke("Raw stat values copied to clipboard.", MessageBoxIcon.Information);
-            else SetMessageLabelText?.Invoke($"Error while trying to copy raw stat values to clipboard. Error: {error}", MessageBoxIcon.Error);
+            }
+            else
+            {
+                SetMessageLabelText?.Invoke($"Error while trying to copy raw stat values to clipboard. Error: {error}", MessageBoxIcon.Error);
+            }
         }
 
         private void LbSpeciesValuesExtractor_DragEnter(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                return;
+            }
+
             e.Effect = DragDropEffects.Copy;
             LbSpeciesValuesExtractor.BackColor = Color.LightGreen;
         }
@@ -824,7 +1004,10 @@ To determine all species values, the files with the following creature combinati
         {
             LbSpeciesValuesExtractor.BackColor = Color.White;
             if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
+            {
                 return;
+            }
+
             ExtractSpeciesValuesFromExportFiles(files);
         }
 
@@ -839,9 +1022,13 @@ To determine all species values, the files with the following creature combinati
             foreach (var filePath in files)
             {
                 if (File.Exists(filePath))
+                {
                     filePaths.Add(filePath);
+                }
                 else if (Directory.Exists(filePath))
+                {
                     filePaths.AddRange(Directory.GetFiles(filePath, "*", SearchOption.AllDirectories));
+                }
             }
 
             foreach (var filePath in filePaths)
@@ -855,19 +1042,26 @@ To determine all species values, the files with the following creature combinati
 
                 var svMults = ImportExportGun.ReadServerMultipliers(filePath, out _);
                 if (svMults != null)
+                {
                     serverMultipliersFile = svMults;
+                }
             }
 
             if (!creatureFiles.Any())
             {
                 if (!string.IsNullOrEmpty(lastError))
+                {
                     lastError = Environment.NewLine + lastError;
+                }
+
                 MessageBoxes.ShowMessageBox("No creature files could be read" + lastError);
                 return;
             }
 
             if (serverMultipliersFile != null)
+            {
                 SetServerMultipliers(serverMultipliersFile);
+            }
 
             var sm = new ServerMultipliers(true);
             ImportExportGun.SetServerMultipliers(sm, serverMultipliersFile ?? GetServerMultipliers());
@@ -883,7 +1077,10 @@ To determine all species values, the files with the following creature combinati
             }
 
             if (!string.IsNullOrEmpty(resultText))
+            {
                 resultText += Environment.NewLine;
+            }
+
             SetMessageLabelText?.Invoke(resultText +
                 "Extracted the species values and copied them to the clipboard. Note the TBHM and singleplayer is not supported and may lead to wrong values.",
                 MessageBoxIcon.Information);

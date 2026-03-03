@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.utils;
+using ARKBreedingStats.utils;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -85,7 +85,10 @@ namespace ARKBreedingStats.Updater
             VersionOnline = Utils.TryParseVersionAlsoWithOnlyMajor(Version);
 
             // local version
-            if (string.IsNullOrEmpty(LocalPath)) return;
+            if (string.IsNullOrEmpty(LocalPath))
+            {
+                return;
+            }
 
             if (IsFolder)
             {
@@ -115,15 +118,22 @@ namespace ARKBreedingStats.Updater
         public async Task<(bool, string)> DownloadAsync(bool overwrite)
         {
             if (string.IsNullOrEmpty(LocalPath))
+            {
                 return (false, $"LocalPath of {Name} is not specified, aborted.");
+            }
+
             if (string.IsNullOrEmpty(Url))
+            {
                 return (false, $"Url of {Name} is not specified, couldn't download anything.");
+            }
 
             var moduleFolderPath = FileService.GetPath(LocalPath);
             var tempFilePath = Path.GetTempFileName();
             var (success, _) = await WebService.DownloadAsync(Url, tempFilePath);
             if (!success)
+            {
                 return (false, $"File\n{Url}\ncouldn't be downloaded");
+            }
 
             if (IsFolder)
             {
@@ -136,7 +146,10 @@ namespace ARKBreedingStats.Updater
                     {
                         foreach (ZipArchiveEntry file in archive.Entries)
                         {
-                            if (string.IsNullOrEmpty(file.Name)) continue;
+                            if (string.IsNullOrEmpty(file.Name))
+                            {
+                                continue;
+                            }
 
                             var filePathUnzipped = Path.Combine(moduleFolderPath, file.Name);
                             if (File.Exists(filePathUnzipped) &&

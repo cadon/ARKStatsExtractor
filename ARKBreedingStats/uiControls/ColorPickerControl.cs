@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -156,9 +157,13 @@ namespace ARKBreedingStats.uiControls
                 if (existingColors != null)
                 {
                     if (existingColors.Contains(colorId))
+                    {
                         bt.Status |= NoPaddingButton.ColorStatus.ExistingColor;
+                    }
                     else
+                    {
                         bt.Status |= NoPaddingButton.ColorStatus.NonExistingColor;
+                    }
                 }
             }
 
@@ -167,7 +172,9 @@ namespace ARKBreedingStats.uiControls
             HeightChanged?.Invoke(controlHeight);
             flowLayoutPanel1.ResumeDrawingAndLayout();
             if (Window != null)
+            {
                 Window.isShown = true;
+            }
         }
 
         private bool ColorVisible(byte id) => !checkBoxOnlyNatural.Checked || (_naturalColorIDs?.Contains(id) ?? true);
@@ -190,9 +197,14 @@ namespace ARKBreedingStats.uiControls
                         if (bt.Status.HasFlag(NoPaddingButton.ColorStatus.SelectedAlternative) != buttonIsColorAlternative)
                         {
                             if (buttonIsColorAlternative)
+                            {
                                 bt.Status |= NoPaddingButton.ColorStatus.SelectedAlternative;
+                            }
                             else
+                            {
                                 bt.Status &= ~NoPaddingButton.ColorStatus.SelectedAlternative;
+                            }
+
                             bt.Invalidate();
                         }
                     }
@@ -211,7 +223,9 @@ namespace ARKBreedingStats.uiControls
             SelectedColorId = (byte)((Button)sender).Tag;
             // if selected color was alternative selected color, remove alternative color
             if (SelectedColorId == SelectedColorIdAlternative)
+            {
                 SelectedColorIdAlternative = 0;
+            }
 
             if (sender is NoPaddingButton bts)
             {
@@ -233,7 +247,10 @@ namespace ARKBreedingStats.uiControls
         {
             flowLayoutPanel1.SuspendDrawingAndLayout();
             for (int c = 0; c < flowLayoutPanel1.Controls.Count; c++)
+            {
                 flowLayoutPanel1.Controls[c].Visible = ColorVisible((byte)flowLayoutPanel1.Controls[c].Tag);
+            }
+
             flowLayoutPanel1.ResumeDrawingAndLayout();
 
             Properties.Settings.Default.ColorSelectorShowAllColors = !checkBoxOnlyNatural.Checked;
@@ -249,11 +266,18 @@ namespace ARKBreedingStats.uiControls
 
                 var defaultVisibleRectangle = ClientRectangle;
                 if (Status.HasFlag(ColorStatus.NonExistingColor))
+                {
                     defaultVisibleRectangle.Inflate(-6, -6);
+                }
                 else
+                {
                     defaultVisibleRectangle.Inflate(-3, -3);
+                }
+
                 using (var b = new SolidBrush(BackColor))
+                {
                     pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
+                }
 
                 if (Status.HasFlag(ColorStatus.SelectedColor))
                 {
@@ -280,12 +304,18 @@ namespace ARKBreedingStats.uiControls
                     }
                 }
 
-                if (string.IsNullOrEmpty(Text)) return;
+                if (string.IsNullOrEmpty(Text))
+                {
+                    return;
+                }
+
                 StringFormat stringFormat = new StringFormat();
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
                 using (var b = new SolidBrush(ForeColor))
+                {
                     pe.Graphics.DrawString(Text, Font, b, ClientRectangle, stringFormat);
+                }
             }
 
             [Flags]

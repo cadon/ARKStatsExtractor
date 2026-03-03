@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
@@ -47,7 +47,11 @@ namespace ARKBreedingStats.uiControls
 
         private void ViewInLibrary(int regionId)
         {
-            if (_colorIdsCurrent == null) return;
+            if (_colorIdsCurrent == null)
+            {
+                return;
+            }
+
             ViewLibraryWithFilter?.Invoke($"c{regionId}: {_colorIdsCurrent[regionId]}");
         }
 
@@ -140,7 +144,9 @@ namespace ARKBreedingStats.uiControls
                 labelIcon.ForeColor = Color.Gold;
                 labelIcon.Text = "★";
                 if (labelText != null)
+                {
                     labelText.Text = "Keep this creature, it adds new traits to your library!";
+                }
             }
             else if (status.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel))
             {
@@ -148,7 +154,9 @@ namespace ARKBreedingStats.uiControls
                 labelIcon.ForeColor = Color.DarkGreen;
                 labelIcon.Text = "✓";
                 if (labelText != null)
+                {
                     labelText.Text = "Keep this creature!";
+                }
             }
             else
             {
@@ -156,7 +164,9 @@ namespace ARKBreedingStats.uiControls
                 labelIcon.ForeColor = Color.Gray;
                 labelIcon.Text = "-";
                 if (labelText != null)
+                {
                     labelText.Text = "This creature adds nothing new to your library.";
+                }
             }
         }
 

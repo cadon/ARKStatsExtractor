@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
@@ -27,7 +27,11 @@ namespace ARKBreedingStats.uiControls
         private void ColorPickerWindow_Load(object sender, EventArgs e)
         {
             int y = Cursor.Position.Y - Height;
-            if (y < 20) y = 20;
+            if (y < 20)
+            {
+                y = 20;
+            }
+
             SetDesktopLocation(Cursor.Position.X - 20, y);
         }
 

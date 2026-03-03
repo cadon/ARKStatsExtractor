@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+using ARKBreedingStats.Models;
+using Newtonsoft.Json;
 using System.Drawing;
 using System.Linq;
 
@@ -48,13 +49,17 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             if (mutationLevel
                 && UseDifferentColorsForMutationLevels
                 && LevelGraphRepresentationMutation != null)
+            {
                 return LevelGraphRepresentationMutation;
+            }
 
             if (useCustomOdd
                 && UseDifferentColorsForOddLevels
                 && LevelGraphRepresentationOdd != null
                 && level % 2 == 1)
+            {
                 return LevelGraphRepresentationOdd;
+            }
 
             return LevelGraphRepresentation ?? LevelGraphRepresentation.GetDefault;
         }
@@ -75,11 +80,19 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         public override void Initialize()
         {
             if (LevelGraphRepresentation != null || LevelGraphRepresentationOdd != null)
+            {
                 OverrideParent = true;
+            }
+
             if (LevelGraphRepresentationOdd != null)
+            {
                 UseDifferentColorsForOddLevels = true;
+            }
+
             if (LevelGraphRepresentationMutation != null)
+            {
                 UseDifferentColorsForMutationLevels = true;
+            }
         }
 
         /// <summary>
@@ -95,9 +108,14 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
                 return;
             }
             if (!UseDifferentColorsForOddLevels)
+            {
                 LevelGraphRepresentationOdd = null;
+            }
+
             if (!UseDifferentColorsForMutationLevels)
+            {
                 LevelGraphRepresentationMutation = null;
+            }
         }
 
         public override bool DefinesData() => LevelGraphRepresentation != null;

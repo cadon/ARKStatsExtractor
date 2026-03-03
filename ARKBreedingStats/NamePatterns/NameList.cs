@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -20,12 +20,22 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         public static string GetName(int nameIndex = 0, string listSuffix = null)
         {
-            if (nameIndex < 0) return null;
+            if (nameIndex < 0)
+            {
+                return null;
+            }
+
             var nameList = GetNameList(listSuffix);
-            if (nameList == null || nameList.Length == 0) return null;
+            if (nameList == null || nameList.Length == 0)
+            {
+                return null;
+            }
 
             if (nameIndex >= nameList.Length)
+            {
                 nameIndex %= nameList.Length;
+            }
+
             return nameList[nameIndex];
         }
 
@@ -34,7 +44,11 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         public static string[] GetNameList(string listSuffix = null)
         {
-            if (listSuffix == null) listSuffix = string.Empty;
+            if (listSuffix == null)
+            {
+                listSuffix = string.Empty;
+            }
+
             string[] list;
             if (!ListFileCheckedAt.TryGetValue(listSuffix, out var checkedAt)
                 || (DateTime.Now - checkedAt).TotalSeconds > 10
@@ -49,7 +63,11 @@ namespace ARKBreedingStats.NamePatterns
         {
             var filePath = FileService.GetJsonPath("creatureNames" + listSuffix + ".txt");
 
-            if (!File.Exists(filePath)) return null;
+            if (!File.Exists(filePath))
+            {
+                return null;
+            }
+
             try
             {
                 if (new FileInfo(filePath).LastWriteTime > checkedAt)

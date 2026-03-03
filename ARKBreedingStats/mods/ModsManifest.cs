@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Mods;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.mods
@@ -48,7 +50,10 @@ namespace ARKBreedingStats.mods
             while (true)
             {
                 string modsManifestFilePath = FileService.GetJsonPath(FileService.ValuesFolder, FileService.ManifestFileName);
-                if (forceDownload || !File.Exists(modsManifestFilePath)) await TryDownloadFileAsync();
+                if (forceDownload || !File.Exists(modsManifestFilePath))
+                {
+                    await TryDownloadFileAsync();
+                }
 
                 if (FileService.LoadJsonFile(modsManifestFilePath, out ModsManifest tmpV, out string errorMessage))
                 {
@@ -57,7 +62,9 @@ namespace ARKBreedingStats.mods
                     foreach (var mi in tmpV.ModsByFiles)
                     {
                         if (string.IsNullOrEmpty(mi.Value.Format))
+                        {
                             mi.Value.Format = tmpV.DefaultFormatVersion;
+                        }
                     }
 
                     return tmpV;
@@ -83,7 +90,10 @@ namespace ARKBreedingStats.mods
         {
             customModsManifest = null;
             string valuesFolderPath = FileService.GetJsonPath(FileService.ValuesFolder);
-            if (!Directory.Exists(valuesFolderPath)) return false;
+            if (!Directory.Exists(valuesFolderPath))
+            {
+                return false;
+            }
 
             var possibleModValueFiles = Directory.GetFiles(valuesFolderPath, "*.json");
 
@@ -97,14 +107,20 @@ namespace ARKBreedingStats.mods
             {
                 var fileName = Path.GetFileName(modValuesFilePath);
                 if (fileName.StartsWith("_") || (officialModsManifest.ModsByFiles.TryGetValue(fileName, out var modInfoAlreadyLoaded) && !modInfoAlreadyLoaded.ManuallyLoaded))
+                {
                     continue;
+                }
 
                 if (!ValuesFile.TryLoadingModInfoHeader(modValuesFilePath, out var modInfo))
+                {
                     continue;
+                }
 
                 // if mod is official and already loaded, or already loaded in this loop, ignore file
                 if (!alreadyLoadedOfficialModIds.Add(modInfo.Mod.Id))
+                {
                     continue;
+                }
 
                 modInfo.ManuallyLoaded = true;
                 customModsManifest.ModsByFiles.Add(fileName, modInfo);
@@ -132,14 +148,19 @@ namespace ARKBreedingStats.mods
 
             // generic entry for "other mod", this is needed to correctly determine the available color set.
             if (!ModsByFiles.ContainsKey(Mod.OtherMod.FileName))
+            {
                 ModsByFiles.Add(Mod.OtherMod.FileName, new ModInfo { Mod = Mod.OtherMod });
+            }
 
             string valuesPath = FileService.GetJsonPath(FileService.ValuesFolder);
 
             foreach (var fmi in ModsByFiles)
             {
                 var modInfo = fmi.Value;
-                if (modInfo.Mod == null) continue;
+                if (modInfo.Mod == null)
+                {
+                    continue;
+                }
 
                 modInfo.Mod.FileName = fmi.Key;
                 modInfo.LocallyAvailable = !string.IsNullOrEmpty(modInfo.Mod.FileName) && File.Exists(Path.Combine(valuesPath, modInfo.Mod.FileName));

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -24,8 +24,16 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                if (value > Maximum) value = Maximum;
-                if (value < Minimum) value = Minimum;
+                if (value > Maximum)
+                {
+                    value = Maximum;
+                }
+
+                if (value < Minimum)
+                {
+                    value = Minimum;
+                }
+
                 Value = value;
             }
         }

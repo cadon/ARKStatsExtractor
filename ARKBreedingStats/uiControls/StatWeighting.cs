@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,7 +42,10 @@ namespace ARKBreedingStats.uiControls
             for (int ds = 0; ds < displayedStats.Length; ds++)
             {
                 if (ds > 0) // first row exists due to designer
+                {
                     tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                }
+
                 Label l = new Label { TextAlign = System.Drawing.ContentAlignment.MiddleLeft };
                 Nud n = new Nud
                 {
@@ -72,15 +76,20 @@ namespace ARKBreedingStats.uiControls
 
         public void SetSpecies(Species species)
         {
-            if (species == null) return;
+            if (species == null)
+            {
+                return;
+            }
 
             _currentSpecies = species;
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 if (_statLabels[s] != null)
                 {
                     _statLabels[s].Text = Utils.StatName(s, true, species.statNames);
                     _tt.SetToolTip(_statLabels[s], Utils.StatName(s, false, species.statNames));
                 }
+            }
         }
 
         private void Input_ValueChanged(object sender, EventArgs e)
@@ -91,7 +100,9 @@ namespace ARKBreedingStats.uiControls
         private void WeightingsChangedNotifier()
         {
             if (WeightingsChanged != null)
+            {
                 _valueChangedDebouncer.Debounce(500, WeightingsChanged, Dispatcher.CurrentDispatcher);
+            }
         }
 
         public double[] Weightings
@@ -104,7 +115,9 @@ namespace ARKBreedingStats.uiControls
                 if (sumAbs > 0)
                 {
                     for (int i = 0; i < Stats.StatsCount; i++)
+                    {
                         w[i] /= sumAbs;
+                    }
                 }
                 return w;
             }
@@ -116,12 +129,16 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 if (value == null)
+                {
                     return;
+                }
 
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (_weightNuds[s] != null)
+                    {
                         _weightNuds[s].ValueSave = (decimal)value[s];
+                    }
                 }
             }
             get
@@ -131,9 +148,13 @@ namespace ARKBreedingStats.uiControls
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (_weightNuds[s] != null)
+                    {
                         weights[s] = (double)_weightNuds[s].Value;
+                    }
                     else
+                    {
                         weights[s] = 0;
+                    }
                 }
 
                 return weights;
@@ -149,12 +170,16 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 if (value == null)
+                {
                     return;
+                }
 
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (_statEvenOddButtons[s] != null)
+                    {
                         _statEvenOddButtons[s].ButtonState = value[s];
+                    }
                 }
             }
             get => _statEvenOddButtons.Select(b => b?.ButtonState ?? 0).ToArray();
@@ -170,10 +195,26 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public bool TrySetPresetBySpecies(Species species, bool useDefaultBackupIfAvailable = true)
         {
-            if (TrySetPresetByName(species.blueprintPath)) return true;
-            if (TrySetPresetByName(species.DescriptiveNameAndMod)) return true;
-            if (TrySetPresetByName(species.DescriptiveName)) return true;
-            if (TrySetPresetByName(species.name)) return true;
+            if (TrySetPresetByName(species.blueprintPath))
+            {
+                return true;
+            }
+
+            if (TrySetPresetByName(species.DescriptiveNameAndMod))
+            {
+                return true;
+            }
+
+            if (TrySetPresetByName(species.DescriptiveName))
+            {
+                return true;
+            }
+
+            if (TrySetPresetByName(species.name))
+            {
+                return true;
+            }
+
             return useDefaultBackupIfAvailable
                    && TrySetPresetByName(DefaultPreset);
         }
@@ -183,12 +224,21 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public bool TrySetPresetByName(string presetName)
         {
-            if (presetName == null) return false;
-            if (cbbPresets.SelectedItem as string == presetName) return true;
+            if (presetName == null)
+            {
+                return false;
+            }
+
+            if (cbbPresets.SelectedItem as string == presetName)
+            {
+                return true;
+            }
 
             int index = cbbPresets.Items.IndexOf(presetName);
             if (index == -1)
+            {
                 return false;
+            }
 
             cbbPresets.SelectedIndex = index;
             return true;
@@ -210,7 +260,11 @@ namespace ARKBreedingStats.uiControls
             {
                 return true;
             }
-            if (!_customWeightings.TryGetValue(presetName, out var weightings)) return false;
+            if (!_customWeightings.TryGetValue(presetName, out var weightings))
+            {
+                return false;
+            }
+
             WeightValues = weightings.Item1;
             AnyOddEven = weightings.Item2;
             return true;
@@ -230,10 +284,26 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public (double[], StatValueEvenOdd[]) GetWeightingForSpecies(Species species, bool useDefaultBackupIfAvailable = true)
         {
-            if (_customWeightings.TryGetValue(species.blueprintPath, out var weightings)) return weightings;
-            if (_customWeightings.TryGetValue(species.DescriptiveNameAndMod, out weightings)) return weightings;
-            if (_customWeightings.TryGetValue(species.DescriptiveName, out weightings)) return weightings;
-            if (_customWeightings.TryGetValue(species.name, out weightings)) return weightings;
+            if (_customWeightings.TryGetValue(species.blueprintPath, out var weightings))
+            {
+                return weightings;
+            }
+
+            if (_customWeightings.TryGetValue(species.DescriptiveNameAndMod, out weightings))
+            {
+                return weightings;
+            }
+
+            if (_customWeightings.TryGetValue(species.DescriptiveName, out weightings))
+            {
+                return weightings;
+            }
+
+            if (_customWeightings.TryGetValue(species.name, out weightings))
+            {
+                return weightings;
+            }
+
             return useDefaultBackupIfAvailable
                    && _customWeightings.TryGetValue(DefaultPreset, out weightings)
                    ? weightings
@@ -242,7 +312,11 @@ namespace ARKBreedingStats.uiControls
 
         public (double[], StatValueEvenOdd[]) GetWeightingByPresetName(string presetName, bool useDefaultBackupIfAvailable = true)
         {
-            if (_customWeightings.TryGetValue(presetName, out var weightings)) return weightings;
+            if (_customWeightings.TryGetValue(presetName, out var weightings))
+            {
+                return weightings;
+            }
+
             return useDefaultBackupIfAvailable
                 && _customWeightings.TryGetValue(DefaultPreset, out weightings) ? weightings : (null, null);
         }
@@ -268,16 +342,26 @@ namespace ARKBreedingStats.uiControls
         {
             var presetName = cbbPresets.SelectedItem.ToString();
             if (string.IsNullOrEmpty(presetName) || presetName == NoPreset)
+            {
                 SavePresetAs(_currentSpecies?.name);
-            else _customWeightings[presetName] = (WeightValues, AnyOddEven);
+            }
+            else
+            {
+                _customWeightings[presetName] = (WeightValues, AnyOddEven);
+            }
         }
 
         private void btSavePresetAs_Click(object sender, EventArgs e)
         {
             var presetName = cbbPresets.SelectedItem.ToString();
             if (string.IsNullOrEmpty(presetName) || presetName == NoPreset || presetName == DefaultPreset)
+            {
                 SavePresetAs(_currentSpecies?.name);
-            else SavePresetAs(presetName);
+            }
+            else
+            {
+                SavePresetAs(presetName);
+            }
         }
 
         private void SavePresetAs(string presetName)
@@ -295,8 +379,9 @@ namespace ARKBreedingStats.uiControls
                 };
             }
             else
+            {
                 suggestions = new[] { DefaultPreset };
-
+            }
 
             if (Utils.ShowTextInput("Preset Name", out var presetNameUser, "New Preset", presetName, suggestions)
                 && presetNameUser.Length > 0)
@@ -309,10 +394,15 @@ namespace ARKBreedingStats.uiControls
                         _customWeightings[presetNameUser] = (WeightValues, AnyOddEven);
                     }
                     else
+                    {
                         return;
+                    }
                 }
                 else
+                {
                     _customWeightings.Add(presetNameUser, (WeightValues, AnyOddEven));
+                }
+
                 CustomWeightings = _customWeightings;
                 TrySetPresetByName(presetNameUser);
             }
@@ -324,7 +414,11 @@ namespace ARKBreedingStats.uiControls
             get => _customWeightings;
             set
             {
-                if (value == null) return;
+                if (value == null)
+                {
+                    return;
+                }
+
                 _customWeightings = value;
                 // clear custom presets
                 cbbPresets.Items.Clear();
@@ -344,7 +438,9 @@ namespace ARKBreedingStats.uiControls
             var maxWidth = cbb.Items.Cast<string>().Select(s => (int)g.MeasureString(s, cbb.Font).Width + verticalScrollBarWidth).Max();
             maxWidth = Math.Min(600, maxWidth);
             if (maxWidth > cbb.DropDownWidth)
+            {
                 cbb.DropDownWidth = maxWidth;
+            }
         }
 
         private class TriButton : Button

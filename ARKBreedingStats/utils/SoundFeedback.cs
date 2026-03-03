@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using ARKBreedingStats.library;
 
@@ -85,25 +85,41 @@ namespace ARKBreedingStats.utils
             {
                 FeedbackSounds levelSound;
                 if (creatureAlreadyExists)
+                {
                     levelSound = FeedbackSounds.Updated;
+                }
                 else if (LevelColorStatusFlags.StatLevelStatusFlagsCombined.HasFlag(LevelColorStatusFlags.LevelStatus.NewMutation))
+                {
                     levelSound = FeedbackSounds.NewMutation;
+                }
                 else if (LevelColorStatusFlags.StatLevelStatusFlagsCombined.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel))
+                {
                     levelSound = FeedbackSounds.Great;
+                }
                 else if (LevelColorStatusFlags.StatLevelStatusFlagsCombined.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel))
+                {
                     levelSound = FeedbackSounds.Good;
+                }
                 else
+                {
                     levelSound = FeedbackSounds.Success;
+                }
 
                 var colorSound = FeedbackSounds.None;
                 if (playColorSound)
                 {
                     if (LevelColorStatusFlags.ColorFlagsCombined.HasFlag(LevelColorStatusFlags.ColorStatus.DesiredColor))
+                    {
                         colorSound = FeedbackSounds.NewDesiredColor;
+                    }
                     else if (LevelColorStatusFlags.ColorFlagsCombined.HasFlag(LevelColorStatusFlags.ColorStatus.NewColor))
+                    {
                         colorSound = FeedbackSounds.NewColor;
+                    }
                     else if (LevelColorStatusFlags.ColorFlagsCombined.HasFlag(LevelColorStatusFlags.ColorStatus.NewRegionColor))
+                    {
                         colorSound = FeedbackSounds.NewRegionColor;
+                    }
                 }
 
                 BeepSignal(levelSound, colorSound);

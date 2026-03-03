@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -30,11 +30,18 @@ namespace ARKBreedingStats.uiControls
         private void button1_Click(object sender, EventArgs e)
         {
             if (status == tagStatus.indifferent)
+            {
                 setStatus(tagStatus.include);
+            }
             else if (status == tagStatus.include)
+            {
                 setStatus(tagStatus.exclude);
+            }
             else
+            {
                 setStatus(tagStatus.indifferent);
+            }
+
             OnTagChanged?.Invoke();
         }
 

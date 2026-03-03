@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.library;
 using ARKBreedingStats.species;
 
@@ -27,7 +28,11 @@ namespace ARKBreedingStats.uiControls
                 return;
             }
 
-            if (topLevels == null) topLevels = new TopLevels(true);
+            if (topLevels == null)
+            {
+                topLevels = new TopLevels(true);
+            }
+
             var highLevels = topLevels.WildLevelsHighest;
             var lowLevels = topLevels.WildLevelsLowest;
 
@@ -40,7 +45,10 @@ namespace ARKBreedingStats.uiControls
 
             foreach (var si in Stats.DisplayOrder)
             {
-                if (!species.UsesStat(si) || si == Stats.Torpidity) continue;
+                if (!species.UsesStat(si) || si == Stats.Torpidity)
+                {
+                    continue;
+                }
 
                 sbNames += $"{Utils.StatName(si, customStatNames: species.statNames)}\n";
                 var isPercentage = Stats.IsPercentage(si);
@@ -50,7 +58,11 @@ namespace ARKBreedingStats.uiControls
                     var statValue = StatValueCalculation.CalculateValue(species, si, highLevels[si], 0, 0, true, 1, 0);
                     statRepresentation = isPercentage ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
                 }
-                else statRepresentation = "?";
+                else
+                {
+                    statRepresentation = "?";
+                }
+
                 sbValues += statRepresentation + "\n";
                 sbLevels += (highLevels[si] >= 0 ? highLevels[si].ToString() : "?") + "\n";
 
@@ -59,7 +71,11 @@ namespace ARKBreedingStats.uiControls
                     var statValue = StatValueCalculation.CalculateValue(species, si, lowLevels[si], 0, 0, true, 1, 0);
                     statRepresentation = isPercentage ? $"{statValue * 100:0.0} %" : $"{statValue:0.0}    ";
                 }
-                else statRepresentation = "?";
+                else
+                {
+                    statRepresentation = "?";
+                }
+
                 sbLowestValues += statRepresentation + "\n";
                 sbLowestLevels += (lowLevels[si] >= 0 ? lowLevels[si].ToString() : "?") + "\n";
             }

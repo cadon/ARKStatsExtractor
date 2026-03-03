@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -32,7 +33,10 @@ namespace ARKBreedingStats.library
                 fields = new[] { 0, 2, 3, 4, 5, 6, 16 };
             }
 
-            if (!fields.Any()) return 0;
+            if (!fields.Any())
+            {
+                return 0;
+            }
 
             var output = new StringBuilder();
             var secondaryLanguage = Loc.UseSecondaryCulture;
@@ -44,23 +48,38 @@ namespace ARKBreedingStats.library
                 {
                     case TableExportFields.WildLevels:
                         foreach (var si in Stats.DisplayOrder)
+                        {
                             output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_w\t");
+                        }
+
                         break;
                     case TableExportFields.MutationLevels:
                         foreach (var si in Stats.DisplayOrder)
+                        {
                             output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_m\t");
+                        }
+
                         break;
                     case TableExportFields.DomLevels:
                         foreach (var si in Stats.DisplayOrder)
+                        {
                             output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_d\t");
+                        }
+
                         break;
                     case TableExportFields.BreedingValues:
                         foreach (var si in Stats.DisplayOrder)
+                        {
                             output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_b\t");
+                        }
+
                         break;
                     case TableExportFields.CurrentValues:
                         foreach (var si in Stats.DisplayOrder)
+                        {
                             output.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + "_v\t");
+                        }
+
                         break;
                     case TableExportFields.ParentIds:
                         output.Append("MotherId\tFatherId\t");
@@ -110,23 +129,38 @@ namespace ARKBreedingStats.library
                             break;
                         case TableExportFields.WildLevels:
                             foreach (var si in Stats.DisplayOrder)
+                            {
                                 output.Append($"{c.levelsWild[si]}\t");
+                            }
+
                             break;
                         case TableExportFields.MutationLevels:
                             foreach (var si in Stats.DisplayOrder)
+                            {
                                 output.Append($"{c.levelsMutated?[si]}\t");
+                            }
+
                             break;
                         case TableExportFields.DomLevels:
                             foreach (var si in Stats.DisplayOrder)
+                            {
                                 output.Append($"{c.levelsDom[si]}\t");
+                            }
+
                             break;
                         case TableExportFields.BreedingValues:
                             foreach (var si in Stats.DisplayOrder)
+                            {
                                 output.Append($"{c.valuesBreeding[si]}\t");
+                            }
+
                             break;
                         case TableExportFields.CurrentValues:
                             foreach (var si in Stats.DisplayOrder)
+                            {
                                 output.Append($"{c.valuesCurrent[si]}\t");
+                            }
+
                             break;
                         case TableExportFields.IdInGame:
                             output.Append(c.ArkIdInGame + "\t");
@@ -148,11 +182,17 @@ namespace ARKBreedingStats.library
                             break;
                         case TableExportFields.ColorIds:
                             for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
+                            {
                                 output.Append($"{c.colors[ci]}\t");
+                            }
+
                             break;
                         case TableExportFields.ColorNames:
                             for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
+                            {
                                 output.Append($"{CreatureColors.CreatureColorName(c.colors[ci])}\t");
+                            }
+
                             break;
                         case TableExportFields.ServerName:
                             output.Append(c.server + "\t");
@@ -170,7 +210,9 @@ namespace ARKBreedingStats.library
             }
 
             if (ClipboardHandler.SetText(output.ToString(), out var error))
+            {
                 return creatures.Count;
+            }
 
             MessageBoxes.ShowMessageBox(error);
             return 0;
@@ -194,18 +236,25 @@ namespace ARKBreedingStats.library
         /// <param name="ARKml">True if ARKml markup for coloring should be used. That feature was disabled in the ARK-chat.</param>
         public static void ExportToClipboard(bool breeding = true, bool ARKml = false, params Creature[] creatures)
         {
-            if (creatures == null) return;
+            if (creatures == null)
+            {
+                return;
+            }
 
             var sb = new StringBuilder();
             foreach (var c in creatures)
+            {
                 AddCreatureStringInfo(sb, c, breeding, ARKml);
+            }
 
             string creaturesSerialized = Newtonsoft.Json.JsonConvert.SerializeObject(creatures);
 
             DataObject o = new DataObject();
             o.SetData(DataFormats.UnicodeText, sb.ToString());
             if (!string.IsNullOrEmpty(creaturesSerialized))
+            {
                 o.SetData(ClipboardCreatureFormat, creaturesSerialized);
+            }
 
             try
             {
@@ -222,7 +271,10 @@ namespace ARKBreedingStats.library
         /// </summary>
         private static void AddCreatureStringInfo(StringBuilder sb, Creature c, bool breeding, bool ARKml)
         {
-            if (sb == null) return;
+            if (sb == null)
+            {
+                return;
+            }
 
             var maxChartLevel = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 0;
             double colorFactor = maxChartLevel > 0 ? 100d / maxChartLevel : 1;
@@ -231,11 +283,17 @@ namespace ARKBreedingStats.library
             if (!breeding)
             {
                 if (!c.isDomesticated)
+                {
                     modifierText = ", wild";
+                }
                 else if (!c.isBred)
+                {
                     modifierText = ", TE: " + (c.tamingEff >= 0 ? Math.Round(100 * c.tamingEff, 1) + " %" : "unknown");
+                }
                 else if (c.imprintingBonus >= 0)
+                {
                     modifierText = ", Impr: " + Math.Round(100 * c.imprintingBonus, 2) + " %";
+                }
             }
 
             sb.Append((string.IsNullOrEmpty(c.name) ? "noName" : c.name) + " (" +
@@ -247,6 +305,7 @@ namespace ARKBreedingStats.library
             {
                 if (c.levelsWild[si] >= 0 &&
                     c.valuesBreeding[si] > 0) // ignore unknown levels (e.g. oxygen, speed for some species)
+                {
                     sb.Append(Utils.StatName(si, true, secondaryLanguage: secondaryLanguage) + ": " +
                               (breeding ? c.valuesBreeding[si] : c.valuesCurrent[si]) * (Stats.IsPercentage(si) ? 100 : 1) +
                               (Stats.IsPercentage(si) ? " %" : string.Empty) +
@@ -265,6 +324,7 @@ namespace ARKBreedingStats.library
                                           (int)(c.levelsDom[si] * colorFactor)) :
                                   breeding || si == Stats.Torpidity ? string.Empty : ", " + c.levelsDom[si]) +
                               "); ");
+                }
             }
 
             sb.Length--; // remove last space
@@ -278,9 +338,16 @@ namespace ARKBreedingStats.library
             {
                 var creatureSerialized = Clipboard.GetData(ClipboardCreatureFormat) as string;
                 if (!string.IsNullOrEmpty(creatureSerialized))
+                {
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<Creature[]>(creatureSerialized);
+                }
+
                 var clipBoardText = Clipboard.GetText();
-                if (string.IsNullOrEmpty(clipBoardText)) return null;
+                if (string.IsNullOrEmpty(clipBoardText))
+                {
+                    return null;
+                }
+
                 var parsedCreature = ParseCreature(clipBoardText);
                 if (parsedCreature == null)
                 {
@@ -303,14 +370,20 @@ namespace ARKBreedingStats.library
 
         private static Creature ParseCreature(string creatureValues)
         {
-            if (string.IsNullOrEmpty(creatureValues)) return null;
+            if (string.IsNullOrEmpty(creatureValues))
+            {
+                return null;
+            }
 
             const string statRegex = @"(?: (\w+): [\d.]+(?: ?%)? \((\d+)(?:, (\d+))?\);)?"; // TODO mutated levels
 
             Regex r = new Regex(
                 @"(.*?) \(([^,]+), Lvl \d+(?:, (?:wild|TE: ([\d.]+) ?%|Impr: ([\d.]+) ?%))?(?:, (Female|Male))?\):" + string.Concat(Enumerable.Repeat(statRegex, Stats.StatsCount)));
             Match m = r.Match(creatureValues);
-            if (!m.Success) return null;
+            if (!m.Success)
+            {
+                return null;
+            }
 
             if (!Values.V.TryGetSpeciesByName(m.Groups[2].Value, out Species species))
             {
@@ -342,11 +415,16 @@ namespace ARKBreedingStats.library
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (!statAbToIndex.TryGetValue(m.Groups[6 + 3 * s].Value, out var si)) continue;
+                if (!statAbToIndex.TryGetValue(m.Groups[6 + 3 * s].Value, out var si))
+                {
+                    continue;
+                }
 
                 int.TryParse(m.Groups[7 + 3 * s].Value, out wl[si]);
                 if (si != Stats.Torpidity)
+                {
                     int.TryParse(m.Groups[8 + 3 * s].Value, out dl[si]);
+                }
             }
 
             return new Creature(species, m.Groups[1].Value, sex: sex, levelsWild: wl, levelsDom: dl,
@@ -403,7 +481,10 @@ namespace ARKBreedingStats.library
                 var blueprintPath = m.Groups[2].Value.Trim();
                 var species = Values.V.SpeciesByBlueprint(blueprintPath);
                 if (species == null && Values.V.TryGetSpeciesByName(m.Groups[1].Value.Trim(), out var sp))
+                {
                     species = sp;
+                }
+
                 if (species == null)
                 {
                     resultSb.AppendLine($"Species for creature in line {i + 1} couldn't be recognized, skipping this line");
@@ -426,7 +507,11 @@ namespace ARKBreedingStats.library
                 double ParseDouble(int regExGroup)
                 {
                     var val = double.TryParse(m.Groups[regExGroup].Value.Trim().Replace(',', '.'), numberStyle, dotSeparatorCulture, out var valParsed) ? valParsed : 0;
-                    if (m.Groups[regExGroup + 1].Value.Trim() == "%") val /= 100;
+                    if (m.Groups[regExGroup + 1].Value.Trim() == "%")
+                    {
+                        val /= 100;
+                    }
+
                     return val;
                 }
 

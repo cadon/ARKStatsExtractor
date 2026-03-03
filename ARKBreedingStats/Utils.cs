@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,7 +54,11 @@ namespace ARKBreedingStats
             if (r > 255) { r = 255; }
             if (g > 255) { g = 255; }
 
-            if (light == 0) return;
+            if (light == 0)
+            {
+                return;
+            }
+
             if (light > 1) { light = 1; }
             if (light < -1) { light = -1; }
             if (light > 0)
@@ -78,7 +83,10 @@ namespace ARKBreedingStats
         /// <param name="lightDelta">-1 very dark, 0 no change, 1 very bright</param>
         public static Color AdjustColorLight(Color color, double lightDelta = 0)
         {
-            if (lightDelta == 0) return color;
+            if (lightDelta == 0)
+            {
+                return color;
+            }
 
             if (lightDelta > 1) { lightDelta = 1; }
             if (lightDelta < -1) { lightDelta = -1; }
@@ -121,7 +129,11 @@ namespace ARKBreedingStats
         public static Color ColorFromHsv(double hue, double saturation = 1, double value = 1, double alpha = 1)
         {
             hue %= 360;
-            if (hue < 0) hue += 360;
+            if (hue < 0)
+            {
+                hue += 360;
+            }
+
             saturation = Math.Max(Math.Min(saturation, 1), 0);
             value = Math.Max(Math.Min(value, 1), 0);
 
@@ -315,8 +327,16 @@ namespace ARKBreedingStats
         public static string LevelPercentile(int level)
         {
             double[] prb = { 100, 100, 100, 100, 100, 100, 100, 100, 100, 99.99, 99.98, 99.95, 99.88, 99.72, 99.40, 98.83, 97.85, 96.28, 93.94, 90.62, 86.20, 80.61, 73.93, 66.33, 58.10, 49.59, 41.19, 33.26, 26.08, 19.85, 14.66, 10.50, 7.30, 4.92, 3.21, 2.04, 1.25, 0.75, 0.43, 0.24, 0.13 };
-            if (level < 0) level = 0;
-            if (level >= prb.Length) level = prb.Length - 1;
+            if (level < 0)
+            {
+                level = 0;
+            }
+
+            if (level >= prb.Length)
+            {
+                level = prb.Length - 1;
+            }
+
             return string.Format(Loc.S("topPercentileLevel"), prb[level].ToString("N2"));
         }
 
@@ -337,10 +357,24 @@ namespace ARKBreedingStats
 
         public static void InitializeLocalizations()
         {
-            if (_statNames == null) _statNames = new string[Stats.StatsCount];
-            if (_statNamesAbb == null) _statNamesAbb = new string[Stats.StatsCount];
-            if (StatAbbreviationToIndex == null) StatAbbreviationToIndex = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-            else StatAbbreviationToIndex.Clear();
+            if (_statNames == null)
+            {
+                _statNames = new string[Stats.StatsCount];
+            }
+
+            if (_statNamesAbb == null)
+            {
+                _statNamesAbb = new string[Stats.StatsCount];
+            }
+
+            if (StatAbbreviationToIndex == null)
+            {
+                StatAbbreviationToIndex = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+            }
+            else
+            {
+                StatAbbreviationToIndex.Clear();
+            }
 
             for (int si = 0; si < Stats.StatsCount; si++)
             {
@@ -354,7 +388,11 @@ namespace ARKBreedingStats
             for (int si = 0; si < Stats.StatsCount; si++)
             {
                 var key = Loc.S(StatNameKeys[si] + "_Abb", defaultCulture);
-                if (StatAbbreviationToIndex.ContainsKey(key)) continue;
+                if (StatAbbreviationToIndex.ContainsKey(key))
+                {
+                    continue;
+                }
+
                 StatAbbreviationToIndex.Add(key, si);
             }
         }
@@ -374,14 +412,18 @@ namespace ARKBreedingStats
         public static string StatName(int statIndex, bool abbreviation = false, Dictionary<string, string> customStatNames = null, bool secondaryLanguage = false)
         {
             if (_statNames == null || statIndex < 0 || statIndex >= _statNames.Length)
+            {
                 return string.Empty;
+            }
 
             if (customStatNames != null && customStatNames.TryGetValue(statIndex.ToString(), out string statName))
             {
                 return Loc.S(abbreviation ? $"{statName}_Abb" : statName, secondaryCulture: secondaryLanguage);
             }
             if (secondaryLanguage)
+            {
                 return Loc.S(abbreviation ? StatNameKeys[statIndex] + "_Abb" : StatNameKeys[statIndex], secondaryCulture: true);
+            }
 
             // use cached names
             return abbreviation ? _statNamesAbb[statIndex] : _statNames[statIndex];
@@ -421,7 +463,11 @@ namespace ARKBreedingStats
         /// <returns></returns>
         public static string ShortTimeDate(DateTime? dt, bool omitDateIfToday = true)
         {
-            if (dt == null) return Loc.S("Unknown");
+            if (dt == null)
+            {
+                return Loc.S("Unknown");
+            }
+
             return dt.Value.ToShortTimeString() + (omitDateIfToday && DateTime.Today == dt.Value.Date ? string.Empty : " - " + dt.Value.ToShortDateString());
         }
 
@@ -481,7 +527,10 @@ namespace ARKBreedingStats
 
             input = string.Empty;
             if (inputForm.ShowDialog() != DialogResult.OK)
+            {
                 return false;
+            }
+
             input = textBox.Text;
             return true;
         }
@@ -518,7 +567,11 @@ namespace ARKBreedingStats
             foreach (var option in optionTexts)
             {
                 var optionButton = new Button { Text = option, Left = margin, Width = width - 3 * margin, Top = y, DialogResult = DialogResult.OK, Tag = i++ };
-                if (buttonHeight > 0) optionButton.Height = buttonHeight;
+                if (buttonHeight > 0)
+                {
+                    optionButton.Height = buttonHeight;
+                }
+
                 y += buttonHeight + 12;
                 optionButton.Click += (sender, e) =>
                 {
@@ -547,45 +600,29 @@ namespace ARKBreedingStats
         /// <summary>
         /// This function may only be used if the ArkId is unique (when importing files that have ArkId1 and ArkId2)
         /// </summary>
-        /// <param name="arkId">ArkId built from ArkId1 and ArkId2, user input from the ingame-representation is not allowed</param>
-        /// <returns>Guid built from the ArkId</returns>
-        public static Guid ConvertArkIdToGuid(long arkId)
-        {
-            byte[] bytes = new byte[16];
-            BitConverter.GetBytes(arkId).CopyTo(bytes, 0);
-            return new Guid(bytes);
-        }
+        public static Guid ConvertArkIdToGuid(long arkId) => ArkIdConverter.ConvertArkIdToGuid(arkId);
 
         /// <summary>
         /// This function may only be used if the Guid is created by an imported Ark id (i.e. two int32)
         /// </summary>
-        public static long ConvertCreatureGuidToArkId(Guid guid)
-        {
-            return BitConverter.ToInt64(guid.ToByteArray(), 0);
-        }
+        public static long ConvertCreatureGuidToArkId(Guid guid) => ArkIdConverter.ConvertCreatureGuidToArkId(guid);
 
-        public static bool IsArkIdImported(long arkId, Guid guid)
-        {
-            return arkId != 0
-                     && guid == ConvertArkIdToGuid(arkId);
-        }
+        public static bool IsArkIdImported(long arkId, Guid guid) => ArkIdConverter.IsArkIdImported(arkId, guid);
 
         /// <summary>
         /// Returns the Ark-Id as seen ingame from the unique representation used in ASB
         /// </summary>
-        /// <param name="importedArkId"></param>
-        /// <returns>Ingame visualization of the Ark-Id (not unique in rare cases)</returns>
-        public static string ConvertImportedArkIdToIngameVisualization(long importedArkId) => $"{(int)(importedArkId >> 32)}{(int)importedArkId}";
+        public static string ConvertImportedArkIdToIngameVisualization(long importedArkId) => ArkIdConverter.ConvertImportedArkIdToIngameVisualization(importedArkId);
 
         /// <summary>
         /// Converts the two 32 bit Ark id parts into one 64 bit Ark id.
         /// </summary>
-        public static long ConvertArkIdsToLongArkId(int id1, int id2) => ((long)id1 << 32) | (id2 & 0xFFFFFFFFL);
+        public static long ConvertArkIdsToLongArkId(int id1, int id2) => ArkIdConverter.ConvertArkIdsToLongArkId(id1, id2);
 
         /// <summary>
         /// Converts int64 Ark id to two int32 ids, like used in the game.
         /// </summary>
-        public static (int, int) ConvertArkId64ToArkIds32(long id) => ((int)(id >> 32), (int)id);
+        public static (int, int) ConvertArkId64ToArkIds32(long id) => ArkIdConverter.ConvertArkId64ToArkIds32(id);
 
         /// <summary>
         /// Returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end.
@@ -595,11 +632,26 @@ namespace ARKBreedingStats
         /// <returns>String with ellipsis in the middle</returns>
         public static string ShortPath(string longPath, int maxLength = 50)
         {
-            if (string.IsNullOrEmpty(longPath)) return longPath;
-            if (longPath.Length <= maxLength)
+            if (string.IsNullOrEmpty(longPath))
+            {
                 return longPath;
-            if (maxLength < 1) return string.Empty;
-            if (maxLength == 1) return longPath.Substring(0, 1);
+            }
+
+            if (longPath.Length <= maxLength)
+            {
+                return longPath;
+            }
+
+            if (maxLength < 1)
+            {
+                return string.Empty;
+            }
+
+            if (maxLength == 1)
+            {
+                return longPath.Substring(0, 1);
+            }
+
             int begin = maxLength / 3;
             return longPath.Substring(0, begin) + "…" + longPath.Substring(longPath.Length - maxLength + begin + 1);
         }
@@ -611,8 +663,16 @@ namespace ARKBreedingStats
         public static string ShortenStringByTrimmingMiddle(string str, int maxLength = 30)
         {
             var l = str.Length;
-            if (maxLength < 1) return string.Empty;
-            if (l <= maxLength) return str;
+            if (maxLength < 1)
+            {
+                return string.Empty;
+            }
+
+            if (l <= maxLength)
+            {
+                return str;
+            }
+
             var startEndLength = maxLength / 2;
             return str.Substring(0, startEndLength) + "…" + str.Substring(l - startEndLength);
         }
@@ -666,7 +726,10 @@ namespace ARKBreedingStats
         /// </summary>
         public static void SetWindowRectangle(Form form, Rectangle windowRect, bool maximized = false)
         {
-            if (form == null) return;
+            if (form == null)
+            {
+                return;
+            }
 
             if (double.IsInfinity(windowRect.Top)
                 || double.IsInfinity(windowRect.Left)
@@ -718,7 +781,9 @@ namespace ARKBreedingStats
         public static (Rectangle windowRect, bool maximized) GetWindowRectangle(Form form)
         {
             if (form == null)
+            {
                 return (DefaultFormRectangle, false);
+            }
 
             switch (form.WindowState)
             {
@@ -740,7 +805,10 @@ namespace ARKBreedingStats
             get
             {
                 if (string.IsNullOrEmpty(_applicationNameVersion))
+                {
                     _applicationNameVersion = $"{Application.ProductName} v{Application.ProductVersion}";
+                }
+
                 return _applicationNameVersion;
             }
         }
@@ -767,7 +835,9 @@ namespace ARKBreedingStats
         public static Version TryParseVersionAlsoWithOnlyMajor(string versionString)
         {
             if (Version.TryParse(versionString, out var version))
+            {
                 return version;
+            }
 
             return int.TryParse(versionString, out var major)
                     ? new Version(major, 0)
@@ -785,7 +855,11 @@ namespace ARKBreedingStats
         /// </summary>
         public static void OpenUri(string uri)
         {
-            if (string.IsNullOrEmpty(uri)) return;
+            if (string.IsNullOrEmpty(uri))
+            {
+                return;
+            }
+
             Process.Start(new ProcessStartInfo(uri) { UseShellExecute = true });
         }
     }

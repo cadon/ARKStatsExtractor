@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using ARKBreedingStats.species;
 using System.Drawing;
 using System.Windows.Forms;
@@ -29,7 +30,11 @@ namespace ARKBreedingStats.uiControls
 
         public void SetLevel(Species species, int wildLevel, int mutationLevels)
         {
-            if (LevelGraphMax <= 0) return;
+            if (LevelGraphMax <= 0)
+            {
+                return;
+            }
+
             const int controlWidth = 60;
             var wildMutSumLevel = Math.Max(0, wildLevel + mutationLevels);
             labelWildLevels.Width = controlWidth + controlWidth * (wildMutSumLevel > LevelGraphMax ? LevelGraphMax : wildMutSumLevel) / LevelGraphMax;

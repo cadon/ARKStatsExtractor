@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using System;
 using System.Drawing;
 using System.Linq;
@@ -53,7 +54,9 @@ namespace ARKBreedingStats.uiControls
         public void SetOneButtonPerRow(bool onePerRow)
         {
             foreach (var b in _buttonColors)
+            {
                 flowLayoutPanel1.SetFlowBreak(b, onePerRow);
+            }
         }
 
         public void SetSpecies(Species species, byte[] colorIDs)
@@ -101,12 +104,16 @@ namespace ARKBreedingStats.uiControls
                 if (_selectedColorIdsAlternative == null)
                 {
                     foreach (var bt in _buttonColors)
+                    {
                         bt.AlternativeColorPossible = false;
+                    }
 
                     return;
                 }
                 for (int i = 0; i < Ark.ColorRegionCount; i++)
+                {
                     _buttonColors[i].AlternativeColorPossible = _selectedColorIdsAlternative.Length > i && _selectedColorIdsAlternative[i] != 0;
+                }
             }
         }
 
@@ -153,17 +160,26 @@ namespace ARKBreedingStats.uiControls
 
         private void ChooseColor(int region, Button sender)
         {
-            if (_colorPicker.isShown || _colorRegions == null || region >= Ark.ColorRegionCount) return;
+            if (_colorPicker.isShown || _colorRegions == null || region >= Ark.ColorRegionCount)
+            {
+                return;
+            }
 
             _colorPicker.Cp.PickColor(_selectedRegionColorIds[region], _colorRegions[region]?.name + " (region " + region + ")", _colorRegions[region]?.naturalColors, _selectedColorIdsAlternative?[region] ?? 0);
-            if (_colorPicker.ShowDialog() != DialogResult.OK) return;
+            if (_colorPicker.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
 
             // color was chosen
             _selectedRegionColorIds[region] = _colorPicker.Cp.SelectedColorId;
             if (_colorPicker.Cp.SelectedColorIdAlternative != 0)
             {
                 if (_selectedColorIdsAlternative == null)
+                {
                     _selectedColorIdsAlternative = new byte[Ark.ColorRegionCount];
+                }
+
                 _selectedColorIdsAlternative[region] = _colorPicker.Cp.SelectedColorIdAlternative;
                 _buttonColors[region].AlternativeColorPossible = true;
             }
@@ -171,7 +187,9 @@ namespace ARKBreedingStats.uiControls
             {
                 _buttonColors[region].AlternativeColorPossible = false;
                 if (_selectedColorIdsAlternative != null)
+                {
                     _selectedColorIdsAlternative[region] = 0;
+                }
             }
             SetColorButton(sender, region);
             RegionColorChosen?.Invoke(true);
@@ -182,9 +200,17 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         internal void ChooseAllColors()
         {
-            if (_colorPicker.isShown || _colorRegions == null) return;
+            if (_colorPicker.isShown || _colorRegions == null)
+            {
+                return;
+            }
+
             _colorPicker.Cp.PickColor(_selectedRegionColorIds[0], "all regions");
-            if (_colorPicker.ShowDialog() != DialogResult.OK) return;
+            if (_colorPicker.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
             SetColorIds(Enumerable.Repeat(_colorPicker.Cp.SelectedColorId, Ark.ColorRegionCount).ToArray());
         }
 
@@ -193,10 +219,17 @@ namespace ARKBreedingStats.uiControls
             byte colorId = _selectedRegionColorIds[region];
             bt.SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(colorId));
             if (VerboseButtonTexts)
+            {
                 bt.Text = $"[{region}]: {colorId}";
+            }
             else if (Properties.Settings.Default.ShowColorIdOnRegionButtons)
+            {
                 bt.Text = colorId.ToString();
-            else bt.Text = region.ToString();
+            }
+            else
+            {
+                bt.Text = region.ToString();
+            }
             // tooltip
             _tt.SetToolTip(bt, $"[{region}] {_colorRegions?[region]?.name}:\n{colorId}: {CreatureColors.CreatureColorName(colorId)}");
         }
@@ -221,7 +254,10 @@ namespace ARKBreedingStats.uiControls
             for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
             {
                 if (colorAlreadyAvailable != null)
+                {
                     parameter = colorAlreadyAvailable[ci];
+                }
+
                 switch (parameter)
                 {
                     case LevelColorStatusFlags.ColorStatus.NewColor:
@@ -285,12 +321,18 @@ namespace ARKBreedingStats.uiControls
                     pe.Graphics.FillRectangle(b, defaultVisibleRectangle);
                 }
 
-                if (string.IsNullOrEmpty(Text)) return;
+                if (string.IsNullOrEmpty(Text))
+                {
+                    return;
+                }
+
                 StringFormat stringFormat = new StringFormat();
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
                 using (var b = new SolidBrush(ForeColor))
+                {
                     pe.Graphics.DrawString(Text, Font, b, ClientRectangle, stringFormat);
+                }
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
@@ -14,7 +14,10 @@ namespace ARKBreedingStats.utils
         {
             nodeValue = default;
             if (string.IsNullOrEmpty(filePath)
-                || !File.Exists(filePath)) return false;
+                || !File.Exists(filePath))
+            {
+                return false;
+            }
 
             using (var fs = File.OpenRead(filePath))
             using (var sr = new StreamReader(fs))
@@ -35,7 +38,10 @@ namespace ARKBreedingStats.utils
                         currentProp = (string)jr.Value;
                         continue; // move to token after property name
                     }
-                    if (currentProp != nodeName) continue;
+                    if (currentProp != nodeName)
+                    {
+                        continue;
+                    }
 
                     nodeValue = JToken.ReadFrom(jr).ToObject<T>();
                     return true;

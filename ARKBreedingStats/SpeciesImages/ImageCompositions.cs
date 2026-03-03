@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using ARKBreedingStats.Models;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ARKBreedingStats.species;
@@ -22,7 +23,11 @@ namespace ARKBreedingStats.SpeciesImages
         public static void LoadCompositions()
         {
             var filePath = FileService.GetJsonPath("imageCompositions.json");
-            if (!File.Exists(filePath)) return;
+            if (!File.Exists(filePath))
+            {
+                return;
+            }
+
             if (!FileService.LoadJsonFile(filePath, out Dictionary<string, ImageComposition> comps,
                     out var errorMessage))
             {

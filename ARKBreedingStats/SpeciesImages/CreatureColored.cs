@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using System;
@@ -73,7 +74,10 @@ namespace ARKBreedingStats.SpeciesImages
                             callBack(bmp, neighbourPoseExist);
                             ColoredCreatureCallbacks.TryRemove(callBack, out _);
                         }
-                        else bmp.Dispose(); // callback is outdated, dispose bitmap
+                        else
+                        {
+                            bmp.Dispose(); // callback is outdated, dispose bitmap
+                        }
                     }));
             });
         }
@@ -94,17 +98,25 @@ namespace ARKBreedingStats.SpeciesImages
         public static async Task<(Bitmap Bmp, NeighbourPoseExist NeighbourPose)> GetColoredCreatureAsync(byte[] colorIds, Species species, bool[] enabledColorRegions,
             int size, int pieSize = 64, bool onlyColors = false, bool onlyImage = false, Sex creatureSex = Sex.Unknown, string game = null)
         {
-            if (colorIds == null) colorIds = new byte[Ark.ColorRegionCount];
+            if (colorIds == null)
+            {
+                colorIds = new byte[Ark.ColorRegionCount];
+            }
 
             if (string.IsNullOrEmpty(species?.name))
+            {
                 return (DrawPieChart(colorIds, enabledColorRegions, size, pieSize), CreatureImageFile.NeighbourPoseExist.None);
+            }
 
             var patternId = -1;
             if (species.patterns != null)
             {
                 patternId = colorIds[species.patterns.selectRegion] % species.patterns.count;
                 // the pattern id is >0
-                if (patternId <= 0) patternId += species.patterns.count;
+                if (patternId <= 0)
+                {
+                    patternId += species.patterns.count;
+                }
             }
 
             var pose = Poses.GetPose(species);
@@ -112,7 +124,9 @@ namespace ARKBreedingStats.SpeciesImages
             var (speciesBaseImageFilePath, neighbourPoseExist) = await CreatureImageFile.SpeciesImageFilePath(species, game, creatureSex, patternId, useComposition: true, pose: pose).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(speciesBaseImageFilePath))
+            {
                 return (onlyImage ? null : DrawPieChart(colorIds, enabledColorRegions, size, pieSize), CreatureImageFile.NeighbourPoseExist.None); // no available images
+            }
 
             var speciesColorMaskFilePath = CreatureImageFile.MaskFilePath(speciesBaseImageFilePath);
 
@@ -124,7 +138,10 @@ namespace ARKBreedingStats.SpeciesImages
                 cacheFileExists = CreateAndSaveCacheSpeciesFile(colorIds, enabledColorRegions, speciesBaseImageFilePath, speciesColorMaskFilePath, cacheFilePath, compositionParts);
             }
 
-            if (onlyImage && !cacheFileExists) return (null, CreatureImageFile.NeighbourPoseExist.None); // creating the species file failed
+            if (onlyImage && !cacheFileExists)
+            {
+                return (null, CreatureImageFile.NeighbourPoseExist.None); // creating the species file failed
+            }
 
             if (cacheFileExists && size == TemplateSize)
             {
@@ -132,7 +149,9 @@ namespace ARKBreedingStats.SpeciesImages
                 {
                     // use temp bitmap to avoid persistent file locking
                     using (var bmpTemp = new Bitmap(cacheFilePath))
+                    {
                         return (new Bitmap(bmpTemp), neighbourPoseExist);
+                    }
                 }
                 catch
                 {
@@ -144,7 +163,9 @@ namespace ARKBreedingStats.SpeciesImages
                         {
                             // use temp bitmap to avoid persistent file locking
                             using (var bmpTemp = new Bitmap(cacheFilePath))
+                            {
                                 return (new Bitmap(bmpTemp), neighbourPoseExist);
+                            }
                         }
                         catch
                         {
@@ -173,7 +194,9 @@ namespace ARKBreedingStats.SpeciesImages
                 try
                 {
                     using (var cachedImgBmp = new Bitmap(cacheFilePath))
+                    {
                         graph.DrawImage(cachedImgBmp, 0, 0, size, size);
+                    }
                 }
                 catch
                 {
@@ -184,7 +207,9 @@ namespace ARKBreedingStats.SpeciesImages
                         try
                         {
                             using (var cachedImgBmp = new Bitmap(cacheFilePath))
+                            {
                                 graph.DrawImage(cachedImgBmp, 0, 0, size, size);
+                            }
                         }
                         catch
                         {
@@ -202,9 +227,15 @@ namespace ARKBreedingStats.SpeciesImages
         internal static Bitmap DrawPieChart(byte[] colorIds, bool[] enabledColorRegions, int size, int pieSize)
         {
             if (colorIds == null)
+            {
                 colorIds = Enumerable.Repeat((byte)0, Ark.ColorRegionCount).ToArray();
+            }
+
             if (enabledColorRegions == null)
+            {
                 enabledColorRegions = Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray();
+            }
+
             var pieAngle = enabledColorRegions.Count(c => c);
             pieAngle = 360 / (pieAngle > 0 ? pieAngle : 1);
             var pieNr = 0;
@@ -215,7 +246,11 @@ namespace ARKBreedingStats.SpeciesImages
                 graph.SmoothingMode = SmoothingMode.AntiAlias;
                 for (var c = 0; c < Ark.ColorRegionCount; c++)
                 {
-                    if (!enabledColorRegions[c]) continue;
+                    if (!enabledColorRegions[c])
+                    {
+                        continue;
+                    }
+
                     if (colorIds[c] > 0)
                     {
                         using (var b = new SolidBrush(CreatureColors.CreatureColor(colorIds[c])))
@@ -229,7 +264,9 @@ namespace ARKBreedingStats.SpeciesImages
                 }
 
                 using (var pen = new Pen(Color.Gray))
+                {
                     graph.DrawEllipse(pen, (size - pieSize) / 2, (size - pieSize) / 2, pieSize, pieSize);
+                }
             }
 
             return bm;
@@ -256,7 +293,9 @@ namespace ARKBreedingStats.SpeciesImages
             {
                 if (string.IsNullOrEmpty(cacheFilePath)
                     || !File.Exists(speciesBaseImageFilePath))
+                {
                     return false;
+                }
 
                 using (Bitmap bmpBaseImage = new Bitmap(speciesBaseImageFilePath))
                 using (Bitmap bmpColoredCreature =
@@ -287,7 +326,10 @@ namespace ARKBreedingStats.SpeciesImages
                         imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, bmpBaseImage);
                     }
 
-                    if (!imageFine) return false;
+                    if (!imageFine)
+                    {
+                        return false;
+                    }
 
                     // if image is a composition, optional shadows are already included in the base image
                     if (compositionParts?.Any() != true)
@@ -303,11 +345,20 @@ namespace ARKBreedingStats.SpeciesImages
 
                     // save image in cache for later use
                     string cacheFolder = Path.GetDirectoryName(cacheFilePath);
-                    if (string.IsNullOrEmpty(cacheFolder)) return false;
+                    if (string.IsNullOrEmpty(cacheFolder))
+                    {
+                        return false;
+                    }
+
                     if (!Directory.Exists(cacheFolder))
+                    {
                         Directory.CreateDirectory(cacheFolder);
+                    }
+
                     if (outputSize == bmpColoredCreature.Width)
+                    {
                         return SaveBitmapToFile(bmpColoredCreature, cacheFilePath);
+                    }
 
                     using (var resized = new Bitmap(outputSize, outputSize))
                     using (var g = Graphics.FromImage(resized))
@@ -324,7 +375,9 @@ namespace ARKBreedingStats.SpeciesImages
             finally
             {
                 if (!string.IsNullOrEmpty(cacheFilePath))
+                {
                     CurrentCacheCreations.TryRemove(cacheFilePath, out _);
+                }
             }
         }
 
@@ -432,7 +485,9 @@ namespace ARKBreedingStats.SpeciesImages
                                 byte* dBg = scan0Bg + j * strideBaseImage + i * bgBytes;
                                 // continue if the pixel is transparent
                                 if (bgHasTransparency && dBg[3] == 0)
+                                {
                                     continue;
+                                }
 
                                 byte* dMs = scan0Ms + j * strideMask + i * msBytes;
 
@@ -469,18 +524,41 @@ namespace ARKBreedingStats.SpeciesImages
                                         default: continue;
                                     }
 
-                                    if (o == 0) continue;
+                                    if (o == 0)
+                                    {
+                                        continue;
+                                    }
 
                                     // using "grain merge", e.g. see https://docs.gimp.org/en/gimp-concepts-layer-modes.html
                                     int rMix = finalR + rgb[m][0] - 128;
-                                    if (rMix < 0) rMix = 0;
-                                    else if (rMix > 255) rMix = 255;
+                                    if (rMix < 0)
+                                    {
+                                        rMix = 0;
+                                    }
+                                    else if (rMix > 255)
+                                    {
+                                        rMix = 255;
+                                    }
+
                                     int gMix = finalG + rgb[m][1] - 128;
-                                    if (gMix < 0) gMix = 0;
-                                    else if (gMix > 255) gMix = 255;
+                                    if (gMix < 0)
+                                    {
+                                        gMix = 0;
+                                    }
+                                    else if (gMix > 255)
+                                    {
+                                        gMix = 255;
+                                    }
+
                                     int bMix = finalB + rgb[m][2] - 128;
-                                    if (bMix < 0) bMix = 0;
-                                    else if (bMix > 255) bMix = 255;
+                                    if (bMix < 0)
+                                    {
+                                        bMix = 0;
+                                    }
+                                    else if (bMix > 255)
+                                    {
+                                        bMix = 255;
+                                    }
 
                                     finalR = (byte)(o * rMix + (1 - o) * finalR);
                                     finalG = (byte)(o * gMix + (1 - o) * finalG);
@@ -511,7 +589,10 @@ namespace ARKBreedingStats.SpeciesImages
 
         public static string RegionColorInfo(Species species, byte[] colorIds)
         {
-            if (species?.colors == null || colorIds == null) return null;
+            if (species?.colors == null || colorIds == null)
+            {
+                return null;
+            }
 
             var creatureRegionColors = new StringBuilder("Colors:");
             var cs = species.colors;

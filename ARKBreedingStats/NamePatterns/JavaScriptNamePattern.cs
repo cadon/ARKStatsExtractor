@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using Jint;
@@ -50,7 +51,9 @@ namespace ARKBreedingStats.NamePatterns
 
                         // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
                         if (numberedUniqueName == lastNumberedUniqueName)
+                        {
                             break;
+                        }
 
                         lastNumberedUniqueName = numberedUniqueName;
                         n++;

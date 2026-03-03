@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.library
@@ -14,8 +14,14 @@ namespace ARKBreedingStats.library
                 : new DummyCreatureCreationSettings();
             NudAmount.ValueSave = settings.CreatureCount;
             if (settings.OnlySelectedSpecies)
+            {
                 RbOnlySelectedSpecies.Checked = true;
-            else RbMultipleRandomSpecies.Checked = true;
+            }
+            else
+            {
+                RbMultipleRandomSpecies.Checked = true;
+            }
+
             NudSpeciesAmount.ValueSave = settings.SpeciesCount;
             CbTameCreatures.Checked = settings.Tamed;
             NudBreedForGenerations.ValueSave = settings.Generations;
@@ -43,7 +49,9 @@ namespace ARKBreedingStats.library
                     && MessageBox.Show("Adding many creatures and simulate breeding may take a long time. Continue?",
                         "Continue possible lengthy action?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                     != DialogResult.Yes)
+                {
                     return;
+                }
 
                 DialogResult = DialogResult.OK;
                 Settings = new DummyCreatureCreationSettings

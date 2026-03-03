@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -110,7 +111,11 @@ namespace ARKBreedingStats
                     tribeRelColors.Add(p.Tribe, c);
                 }
                 int notesL = p.Note?.Length ?? 0;
-                if (notesL > 40) notesL = 40;
+                if (notesL > 40)
+                {
+                    notesL = 40;
+                }
+
                 string rel = "n/a";
                 foreach (Tribe t in _tribes)
                 {
@@ -126,7 +131,10 @@ namespace ARKBreedingStats
                     Tag = p
                 };
                 if (!string.IsNullOrEmpty(p.Tribe))
+                {
                     lvi.SubItems[3].BackColor = tribeRelColors[p.Tribe];
+                }
+
                 lviPlayers.Add(lvi);
             }
 
@@ -265,7 +273,11 @@ namespace ARKBreedingStats
             {
                 PlayerName = string.IsNullOrEmpty(name) ? "<new Player>" : name
             };
-            if (_players == null) _players = new List<Player>();
+            if (_players == null)
+            {
+                _players = new List<Player>();
+            }
+
             _players.Add(p);
             UpdatePlayerList();
             int i = listViewPlayer.Items.Count - 1;
@@ -281,14 +293,29 @@ namespace ARKBreedingStats
         /// <param name="playerNames"></param>
         public void AddPlayers(HashSet<string> playerNames)
         {
-            if (playerNames == null || !playerNames.Any()) return;
+            if (playerNames == null || !playerNames.Any())
+            {
+                return;
+            }
+
             var existingPlayers = _players?.Select(p => p.PlayerName).ToHashSet();
             if (existingPlayers != null)
+            {
                 playerNames.ExceptWith(existingPlayers);
+            }
+
             var newPlayersArray = playerNames.Where(newPlayer => !string.IsNullOrEmpty(newPlayer))
                 .Select(p => new Player { PlayerName = p }).ToArray();
-            if (!newPlayersArray.Any()) return;
-            if (_players == null) _players = new List<Player>();
+            if (!newPlayersArray.Any())
+            {
+                return;
+            }
+
+            if (_players == null)
+            {
+                _players = new List<Player>();
+            }
+
             _players.AddRange(newPlayersArray);
             UpdatePlayerList();
         }
@@ -303,7 +330,11 @@ namespace ARKBreedingStats
             {
                 TribeName = string.IsNullOrEmpty(name) ? "<new Tribe>" : name
             };
-            if (_tribes == null) _tribes = new List<Tribe>();
+            if (_tribes == null)
+            {
+                _tribes = new List<Tribe>();
+            }
+
             _tribes.Add(t);
             UpdateTribeList();
             int i = listViewTribes.Items.Count - 1;
@@ -319,14 +350,29 @@ namespace ARKBreedingStats
         /// <param name="tribeNames"></param>
         public void AddTribes(HashSet<string> tribeNames)
         {
-            if (tribeNames == null || !tribeNames.Any()) return;
+            if (tribeNames == null || !tribeNames.Any())
+            {
+                return;
+            }
+
             var existingTribes = _tribes?.Select(t => t.TribeName).ToHashSet();
             if (existingTribes != null)
+            {
                 tribeNames.ExceptWith(existingTribes);
+            }
+
             var newTribesArray = tribeNames.Distinct().Where(newTribe => !string.IsNullOrEmpty(newTribe))
                 .Select(t => new Tribe { TribeName = t }).ToArray();
-            if (!newTribesArray.Any()) return;
-            if (_tribes == null) _tribes = new List<Tribe>();
+            if (!newTribesArray.Any())
+            {
+                return;
+            }
+
+            if (_tribes == null)
+            {
+                _tribes = new List<Tribe>();
+            }
+
             _tribes.AddRange(newTribesArray);
             UpdateTribeList();
         }
@@ -403,7 +449,9 @@ namespace ARKBreedingStats
         private void textBoxTribeNotes_TextChanged(object sender, EventArgs e)
         {
             if (_selectedTribe != null)
+            {
                 _selectedTribe.Note = textBoxTribeNotes.Text;
+            }
         }
 
         private void UpdateTribeRowRelation(ListViewItem tribeRow, Tribe.Relation rel)
@@ -428,13 +476,17 @@ namespace ARKBreedingStats
         private void listViewPlayer_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
+            {
                 DeleteSelectedPlayer();
+            }
         }
 
         private void listViewTribes_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
+            {
                 DeleteSelectedTribes();
+            }
         }
 
         /// <summary>
@@ -443,9 +495,13 @@ namespace ARKBreedingStats
         public void RemoveSelected()
         {
             if (listViewPlayer.Focused)
+            {
                 DeleteSelectedPlayer();
+            }
             else if (listViewTribes.Focused)
+            {
                 DeleteSelectedTribes();
+            }
         }
 
         private void listViewTribes_Enter(object sender, EventArgs e)

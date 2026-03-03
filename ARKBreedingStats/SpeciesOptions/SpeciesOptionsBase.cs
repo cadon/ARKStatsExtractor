@@ -1,4 +1,4 @@
-﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.SpeciesOptions
@@ -45,7 +45,11 @@ namespace ARKBreedingStats.SpeciesOptions
         [OnDeserialized]
         private void BackwardCompatibility(StreamingContext _)
         {
-            if (_speciesOptionElementsBackwardCompatibility == null) return;
+            if (_speciesOptionElementsBackwardCompatibility == null)
+            {
+                return;
+            }
+
             Options = _speciesOptionElementsBackwardCompatibility;
             _speciesOptionElementsBackwardCompatibility = null;
         }

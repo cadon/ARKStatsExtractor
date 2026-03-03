@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,7 +15,9 @@ namespace ARKBreedingStats.utils
         {
             // Handle NaNs
             if (float.IsNaN(x))
+            {
                 return x;
+            }
 
             // Return the correct EPSILON either side of zero
             float v;

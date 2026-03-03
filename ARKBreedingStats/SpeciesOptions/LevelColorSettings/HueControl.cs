@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.uiControls;
@@ -26,13 +26,21 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             if (isHigh)
             {
                 var newValue = (int)NudLevelHigh.Value;
-                if (LevelGraphRepresentation.UpperBound == newValue) return;
+                if (LevelGraphRepresentation.UpperBound == newValue)
+                {
+                    return;
+                }
+
                 LevelGraphRepresentation.UpperBound = newValue;
             }
             else
             {
                 var newValue = (int)NudLevelLow.Value;
-                if (LevelGraphRepresentation.LowerBound == newValue) return;
+                if (LevelGraphRepresentation.LowerBound == newValue)
+                {
+                    return;
+                }
+
                 LevelGraphRepresentation.LowerBound = newValue;
             }
             if (NudLevelHigh.Value >= NudLevelLow.Value)
@@ -41,9 +49,13 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
                 return;
             }
             if (isHigh)
+            {
                 NudLevelLow.ValueSave = NudLevelHigh.Value;
+            }
             else
+            {
                 NudLevelHigh.ValueSave = NudLevelLow.Value;
+            }
         }
 
         private void BtColorClick(object sender, EventArgs e) => SelectColor((Button)sender);
@@ -51,7 +63,11 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         private void SelectColor(Button bt)
         {
             colorDialog1.Color = bt.BackColor;
-            if (colorDialog1.ShowDialog() != DialogResult.OK) return;
+            if (colorDialog1.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
             var cl = colorDialog1.Color;
             SetColor(cl, bt == BtColorHigh, bt);
 
@@ -59,12 +75,21 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 
         private void SetColor(Color cl, bool higherColor, Button bt)
         {
-            if (bt.BackColor == cl) return;
+            if (bt.BackColor == cl)
+            {
+                return;
+            }
+
             bt.BackColor = cl;
             if (higherColor)
+            {
                 LevelGraphRepresentation.UpperColor = cl;
+            }
             else
+            {
                 LevelGraphRepresentation.LowerColor = cl;
+            }
+
             UpdateGradient();
         }
 
@@ -89,8 +114,11 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             if (levelRange <= 0)
             {
                 using (var g = Graphics.FromImage(bmp))
+                {
                     g.FillRectangle(new SolidBrush(LevelGraphRepresentation.GetLevelColor((int)NudLevelHigh.Value)),
                         0, 0, bmp.Width, bmp.Height);
+                }
+
                 PbColorGradient.Invalidate();
                 return;
             }
@@ -123,9 +151,14 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             {
                 // copy or paste hue setting
                 if (e.Button == MouseButtons.Right)
+                {
                     CopyHueSetting();
+                }
                 else if (e.Button == MouseButtons.Left)
+                {
                     PasteHueSetting();
+                }
+
                 return;
             }
 
@@ -144,7 +177,10 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             _colorLowHsv = LevelGraphRepresentation.LowerColor.GetHsv();
             _colorHighHsv = LevelGraphRepresentation.UpperColor.GetHsv();
             if (_colorLowHsv.h > _colorHighHsv.h)
+            {
                 _colorLowHsv.h -= 360;
+            }
+
             sf.Show(this);
         }
 
@@ -162,15 +198,27 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         private void PasteHueSetting()
         {
             var clipText = Clipboard.GetText();
-            if (string.IsNullOrEmpty(clipText)) return;
+            if (string.IsNullOrEmpty(clipText))
+            {
+                return;
+            }
+
             var levelGraphSettings = JsonConvert.DeserializeObject<LevelGraphRepresentation>(clipText);
-            if (levelGraphSettings == null) return;
+            if (levelGraphSettings == null)
+            {
+                return;
+            }
+
             SetControlValues(levelGraphSettings);
         }
 
         public void SetControlValues(LevelGraphRepresentation levelGraphSettings)
         {
-            if (levelGraphSettings == null) return;
+            if (levelGraphSettings == null)
+            {
+                return;
+            }
+
             NudLevelLow.ValueSave = levelGraphSettings.LowerBound;
             NudLevelHigh.ValueSave = levelGraphSettings.UpperBound;
             SetColor(levelGraphSettings.LowerColor, false, BtColorLow);
@@ -183,7 +231,9 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             var visible = levelGraphSettings != null;
             Visible = visible;
             if (!visible)
+            {
                 return;
+            }
 
             LevelGraphRepresentation = levelGraphSettings;
             SetControlValues(levelGraphSettings);
@@ -194,10 +244,21 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         {
             var centerHue = (_colorHighHsv.h + _colorLowHsv.h) / 2;
             var hueHalfDistance = Math.Abs(centerHue - _colorLowHsv.h) + dy * 0.3;
-            if (hueHalfDistance >= 179) hueHalfDistance = 179;
-            if (hueHalfDistance < 0) hueHalfDistance = 0;
+            if (hueHalfDistance >= 179)
+            {
+                hueHalfDistance = 179;
+            }
+
+            if (hueHalfDistance < 0)
+            {
+                hueHalfDistance = 0;
+            }
+
             if (LevelGraphRepresentation.ColorGradientReversed)
+            {
                 dx = -dx;
+            }
+
             var rangeFactor = 1 + dy * 0.005;
             dx = (int)(dx * rangeFactor);
             centerHue -= dx;
@@ -216,12 +277,21 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         {
             LevelGraphRepresentation newSettings;
             if (LevelGraphRepresentation.ColorEquals(LevelGraphRepresentation.GetDefault))
+            {
                 newSettings = LevelGraphRepresentation.GetDefaultMutationLevel;
+            }
             else if (LevelGraphRepresentation.ColorEquals(LevelGraphRepresentation.GetDefaultMutationLevel))
+            {
                 newSettings = LevelGraphRepresentation.GetDefaultInverted;
+            }
             else if (LevelGraphRepresentation.ColorEquals(LevelGraphRepresentation.GetDefaultInverted))
+            {
                 newSettings = LevelGraphRepresentation.GetDefaultMutationLevelInverted;
-            else newSettings = LevelGraphRepresentation.GetDefault;
+            }
+            else
+            {
+                newSettings = LevelGraphRepresentation.GetDefault;
+            }
 
             SetColor(newSettings.LowerColor, false, BtColorLow);
             SetColor(newSettings.UpperColor, true, BtColorHigh);

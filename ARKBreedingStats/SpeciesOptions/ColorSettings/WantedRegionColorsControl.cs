@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.SpeciesOptions.ColorSettings
@@ -49,7 +49,9 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
                     var error = !SelectedOptions.Options[locVar].SetColorsWanted(tb.Text, true, out var errorMessage);
                     labelError.Text = error ? errorMessage : string.Empty;
                     if (!error)
+                    {
                         tb.Text = SelectedOptions.Options[locVar].GetColorIdsCsv();
+                    }
                 };
                 _controlsColorIds[ci] = tb;
                 OptionsContainer.Controls.Add(tb);

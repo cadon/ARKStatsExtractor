@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.uiControls
@@ -33,8 +34,15 @@ namespace ARKBreedingStats.uiControls
         public static bool FoodAmountFromUntil(Species species, double babyFoodConsumptionSpeedMultiplier, double dinoFoodDrainMultiplier, double tamedDinoFoodDrainMultiplier, double fromMaturation, double untilMaturation, out double totalFood)
         {
             totalFood = 0;
-            if (fromMaturation == untilMaturation) return true;
-            if (species?.taming == null || species.breeding == null || fromMaturation > untilMaturation || untilMaturation > 1) return false;
+            if (fromMaturation == untilMaturation)
+            {
+                return true;
+            }
+
+            if (species?.taming == null || species.breeding == null || fromMaturation > untilMaturation || untilMaturation > 1)
+            {
+                return false;
+            }
 
             // food rate in hunger units/s
             // min food rate at maturation 100 %

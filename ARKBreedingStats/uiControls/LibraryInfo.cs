@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
@@ -39,10 +40,17 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         internal static bool SetColorInfo(Species species, IList<Creature> creatures, bool libraryFilterConsidered, TableLayoutPanel tlpColorInfoText = null, ListView lvColorTable = null)
         {
-            if (species == null || creatures == null) return false;
+            if (species == null || creatures == null)
+            {
+                return false;
+            }
+
             if (species == _infoForSpecies
                 && _libraryFilterConsidered == libraryFilterConsidered
-                && _infoForSpecies != null) return true;
+                && _infoForSpecies != null)
+            {
+                return true;
+            }
 
             _infoForSpecies = species;
             _libraryFilterConsidered = libraryFilterConsidered;
@@ -63,7 +71,10 @@ namespace ARKBreedingStats.uiControls
             var properties = new Dictionary<CreatureFlags, int>();
             var flags = ((CreatureFlags[])Enum.GetValues(typeof(CreatureFlags))).Where(f => f != CreatureFlags.None).ToArray();
             foreach (var flag in flags)
+            {
                 properties[flag] = 0;
+            }
+
             var creatureCount = 0;
 
             var regionsUsed = _infoForSpecies.colors?.Select(r => !string.IsNullOrEmpty(r?.name)).ToArray()
@@ -79,7 +90,9 @@ namespace ARKBreedingStats.uiControls
                     || cr.flags.HasFlag(CreatureFlags.Placeholder)
                     || cr.flags.HasFlag(CreatureFlags.Dead)
                     || cr.colors == null)
+                {
                     continue;
+                }
 
                 var allColorsEqual = -1;
                 var allUsedRegionColorsEqual = -1;
@@ -90,32 +103,51 @@ namespace ARKBreedingStats.uiControls
                     var co = cr.colors[ri];
 
                     if (allColorsEqual == -1)
+                    {
                         allColorsEqual = co;
+                    }
                     else if (allColorsEqual != co)
+                    {
                         allColorsEqual = -2;
+                    }
 
                     if (!speciesUsesAllRegions && regionsUsed[ri])
                     {
                         if (allUsedRegionColorsEqual == -1)
+                        {
                             allUsedRegionColorsEqual = co;
+                        }
                         else if (allUsedRegionColorsEqual != co)
+                        {
                             allUsedRegionColorsEqual = -2;
+                        }
                     }
 
-                    if (ColorsExistPerRegion[ri].Contains(co)) continue;
+                    if (ColorsExistPerRegion[ri].Contains(co))
+                    {
+                        continue;
+                    }
+
                     ColorsExistPerRegion[ri].Add(co);
                     colorsDontExistPerRegion[ri].Remove(co);
                 }
 
                 if (allColorsEqual >= 0)
+                {
                     creaturesEqualColors.Add((cr, (byte)allColorsEqual));
+                }
+
                 if (allUsedRegionColorsEqual >= 0)
+                {
                     creaturesUsedEqualColors.Add((cr, (byte)allUsedRegionColorsEqual));
+                }
 
                 foreach (var flag in flags)
                 {
                     if (cr.flags.HasFlag(flag))
+                    {
                         properties[flag]++;
+                    }
                 }
             }
             SetColorsAvailableInAllRegions(allAvailableColorIds, regionsUsed);
@@ -128,7 +160,10 @@ namespace ARKBreedingStats.uiControls
                 if (tlpColorInfoText != null)
                 {
                     while (tlpColorInfoText.RowStyles.Count <= tableRow)
+                    {
                         tlpColorInfoText.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    }
+
                     var l = new Label
                     {
                         Text = text,
@@ -155,7 +190,11 @@ namespace ARKBreedingStats.uiControls
             var rangeSb = new StringBuilder();
             for (int i = 0; i < Ark.ColorRegionCount; i++)
             {
-                if (!species.EnabledColorRegions[i]) continue;
+                if (!species.EnabledColorRegions[i])
+                {
+                    continue;
+                }
+
                 AddParagraph($"Color region {i}: {species.colors?[i]?.name}", bold: true, relativeFontSize: 1.1f);
                 var colorsExist = ColorsExistPerRegion[i].Count;
                 AddParagraph($"{colorsExist} color id{(colorsExist != 1 ? "s" : string.Empty)} available in your library:");
@@ -168,7 +207,10 @@ namespace ARKBreedingStats.uiControls
             var regionsUsedList = string.Join(", ", regionsUsed.Select((used, ri) => (used, ri)).Where(r => r.used)
                 .Select(r => r.ri));
             if (string.IsNullOrEmpty(regionsUsedList))
+            {
                 regionsUsedList = "species uses no region";
+            }
+
             if (!speciesUsesAllRegions && ColorsExistInAllUsedRegions.Any())
             {
                 AddParagraph($"These colors exist in all regions the {_infoForSpecies.name} uses ({regionsUsedList})", bold: true, relativeFontSize: 1.1f);
@@ -206,7 +248,11 @@ namespace ARKBreedingStats.uiControls
             string CreateNumberRanges(HashSet<byte> numbers)
             {
                 var count = numbers.Count;
-                if (count == 0) return null;
+                if (count == 0)
+                {
+                    return null;
+                }
+
                 if (count == 1)
                 {
                     return numbers.First().ToString();
@@ -223,8 +269,13 @@ namespace ARKBreedingStats.uiControls
                         if (lastNumberOfSet)
                         {
                             if (currentlyInRange)
+                            {
                                 rangeSb.Append($"-{number}");
-                            else rangeSb.Append($", {number}");
+                            }
+                            else
+                            {
+                                rangeSb.Append($", {number}");
+                            }
                         }
                         currentlyInRange = true;
                     }
@@ -237,9 +288,13 @@ namespace ARKBreedingStats.uiControls
                     else
                     {
                         if (lastNumber == -2)
+                        {
                             rangeSb.Append($"{number}"); // first number of row
+                        }
                         else
+                        {
                             rangeSb.Append($", {number}");
+                        }
                     }
                     lastNumber = number;
                 }
@@ -265,7 +320,10 @@ namespace ARKBreedingStats.uiControls
             ColorsExistInAllRegions.Clear();
             ColorsExistInAllUsedRegions.Clear();
 
-            if (!ColorsExistPerRegion.Any(r => r.Any())) return;
+            if (!ColorsExistPerRegion.Any(r => r.Any()))
+            {
+                return;
+            }
 
             foreach (var colorId in allAvailableColorIds)
             {
@@ -279,22 +337,34 @@ namespace ARKBreedingStats.uiControls
                     if (regionsUsed[r])
                     {
                         speciesUsesAnyRegion = true;
-                        if (inThisRegion) continue;
+                        if (inThisRegion)
+                        {
+                            continue;
+                        }
+
                         inAllUsedRegions = false;
                         break;
                     }
                 }
 
                 if (inAllRegions)
+                {
                     ColorsExistInAllRegions.Add(colorId);
+                }
+
                 if (inAllUsedRegions && speciesUsesAnyRegion)
+                {
                     ColorsExistInAllUsedRegions.Add(colorId);
+                }
             }
         }
 
         private static void UpdateColorListView(ListView lvColorTable)
         {
-            if (lvColorTable == null) return;
+            if (lvColorTable == null)
+            {
+                return;
+            }
 
             lvColorTable.BeginUpdate();
             lvColorTable.Items.Clear();

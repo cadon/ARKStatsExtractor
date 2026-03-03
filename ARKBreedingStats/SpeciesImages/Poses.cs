@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using ARKBreedingStats.Models;
+using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -22,9 +23,14 @@ namespace ARKBreedingStats.SpeciesImages
             if (FileService.LoadJsonFileIfAvailable(FileService.GetJsonPath(Filename),
                     out Dictionary<string, int> ps, out var errorMessage)
                 && ps.Any())
+            {
                 SelectedPoses = ps;
+            }
+
             if (!string.IsNullOrEmpty(errorMessage))
+            {
                 MessageBoxes.ShowMessageBox("Error when loading species image poses.\n\n" + errorMessage);
+            }
         }
 
         internal static void SavePoses()
@@ -40,7 +46,9 @@ namespace ARKBreedingStats.SpeciesImages
             foreach (var bp in keys)
             {
                 if (SelectedPoses.TryGetValue(bp, out var p) && p == 0)
+                {
                     SelectedPoses.Remove(bp);
+                }
             }
 
             if (SelectedPoses?.Any() != true)
@@ -50,13 +58,23 @@ namespace ARKBreedingStats.SpeciesImages
             }
 
             if (!FileService.SaveJsonFile(filePath, SelectedPoses, out var errorMessage))
+            {
                 MessageBoxes.ShowMessageBox("Error when saving species image poses.\n\n" + errorMessage);
+            }
         }
 
         internal static void SetPose(Species species, int pose)
         {
-            if (species == null) return;
-            if (SelectedPoses == null) SelectedPoses = new Dictionary<string, int>();
+            if (species == null)
+            {
+                return;
+            }
+
+            if (SelectedPoses == null)
+            {
+                SelectedPoses = new Dictionary<string, int>();
+            }
+
             SelectedPoses[species.blueprintPath] = pose;
         }
 

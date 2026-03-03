@@ -1,4 +1,4 @@
-using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARKBreedingStats.Tests

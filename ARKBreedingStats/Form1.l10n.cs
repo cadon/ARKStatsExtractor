@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+using ARKBreedingStats.Models;
+
+namespace ARKBreedingStats
 {
     public partial class Form1
     {
@@ -15,7 +17,9 @@
         private void SetLocalizations(bool initialize = true)
         {
             if (initialize)
+            {
                 InitLocalization();
+            }
 
             // menu
             Loc.ControlText(fileToolStripMenuItem);

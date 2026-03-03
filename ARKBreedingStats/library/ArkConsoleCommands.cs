@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -29,11 +30,17 @@ namespace ARKBreedingStats.library
         /// </summary>
         public static void WildSpawnToClipboard(Species species, int level = 35)
         {
-            if (species?.blueprintPath == null) return;
+            if (species?.blueprintPath == null)
+            {
+                return;
+            }
+
             level = Math.Max(1, level);
             var command = $"SpawnDino \"Blueprint'{species.blueprintPath}'\" {SpawnDistance} {level}";
             if (TryCopyCommandToClipboard(command))
+            {
                 SetMessageLabelText($"Copied to clipboard: {command}", MessageBoxIcon.Information);
+            }
         }
 
         /// <summary>
@@ -42,7 +49,10 @@ namespace ARKBreedingStats.library
         /// </summary>
         public static void UnstableSpawnCommandToClipboard(Creature cr, string game = null)
         {
-            if (cr == null) return;
+            if (cr == null)
+            {
+                return;
+            }
 
             // see https://ark.wiki.gg/wiki/Console_commands#SpawnExactDino for this command in ARK. It's unstable and can crash the game if the format or data is not correct.
             var xp = 0; // TODO
@@ -105,8 +115,10 @@ namespace ARKBreedingStats.library
                                + $"{(cr.colors == null ? "0 0 0 0 0 0" : string.Join(" ", cr.colors))}";
 
             if (TryCopyCommandToClipboard(spawnCommand))
+            {
                 SetMessageLabelText($"The SpawnExactDino admin console command for the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard. The command needs the mod DinoStorage V2 installed on the server to work. It doesn't include the mutation levels",
                     MessageBoxIcon.Warning);
+            }
         }
 
         /// <summary>
@@ -114,25 +126,38 @@ namespace ARKBreedingStats.library
         /// </summary>
         public static void MutationLevelCommandToClipboard(Creature cr)
         {
-            if (cr == null) return;
+            if (cr == null)
+            {
+                return;
+            }
+
             var commands = new List<string>();
             if (cr.levelsMutated?.Any(l => l > 0) == true)
+            {
                 commands.AddRange(cr.levelsMutated.Select((l, i) => (l, i)).Where(li => li.l > 0).Select(li => $"addmutations {li.i} {li.l}"));
+            }
 
             if (TryCopyCommandsToClipboard(commands))
+            {
                 SetMessageLabelText($"The admin console command for adding the mutation levels to the creature {cr.name} ({cr.SpeciesName}) was copied to the clipboard.",
                     MessageBoxIcon.Information);
+            }
         }
 
         public static void AdminCommandToSetColors(byte[] colors, Species species = null)
         {
-            if (colors == null) return;
+            if (colors == null)
+            {
+                return;
+            }
 
             var colorCommands = new List<string>(Ark.ColorRegionCount);
             for (int ci = 0; ci < colors.Length; ci++)
             {
                 if (species?.EnabledColorRegions[ci] != false)
+                {
                     colorCommands.Add($"setTargetDinoColor {ci} {colors[ci]}");
+                }
             }
 
             TryCopyCommandsToClipboard(colorCommands);

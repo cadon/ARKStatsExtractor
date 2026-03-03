@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using System;
 
@@ -23,7 +24,9 @@ namespace ARKBreedingStats.raising
             incubationMode = null;
 
             if (species?.breeding == null)
+            {
                 return false;
+            }
 
             nextMatingMin = new TimeSpan(0, 0, (int)(species.breeding.matingCooldownMinAdjusted));
             nextMatingMax = new TimeSpan(0, 0, (int)(species.breeding.matingCooldownMaxAdjusted));
@@ -48,7 +51,9 @@ namespace ARKBreedingStats.raising
                 || (species.breeding.eggTempMin == 0
                     && species.breeding.eggTempMax == 0)
                 )
+            {
                 return null;
+            }
 
             bool celsius = Properties.Settings.Default.celsius;
             return "Egg-Temperature: "

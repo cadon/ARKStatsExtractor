@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Library;
 using System;
 using System.Drawing;
 using System.IO;
@@ -117,7 +117,11 @@ namespace ARKBreedingStats.importExported
                 MessageBox.Show("Are you sure to remove the exported file for this creature?\nThis cannot be undone.\n\n"
                     + "(Hold the Shift key to not show this confirmation message.)",
                     "Remove file?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                != DialogResult.Yes) return successfullyDeleted;
+                != DialogResult.Yes)
+            {
+                return successfullyDeleted;
+            }
+
             try
             {
                 File.Delete(exportedFile);

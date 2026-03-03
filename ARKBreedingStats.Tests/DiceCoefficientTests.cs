@@ -1,3 +1,5 @@
+using ARKBreedingStats.Models;
+using ARKBreedingStats.OCR;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARKBreedingStats.Tests

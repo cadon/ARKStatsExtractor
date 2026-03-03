@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.ocr
+namespace ARKBreedingStats.ocr
 {
     /// <summary>
     /// Lookup table to count set bits of a number.
@@ -29,7 +29,10 @@
         /// </summary>
         public static void InitializeBitCounts()
         {
-            if (_hammingIsInitialized) return;
+            if (_hammingIsInitialized)
+            {
+                return;
+            }
 
             //// for ushort
             //_bitCounts = new byte[ushort.MaxValue + 1];
@@ -41,7 +44,9 @@
 
             //for (uint i = 0; i < ushort.MaxValue; i++)
             for (uint i = 0; i < byte.MaxValue; i++)
+            {
                 _bitCounts[i] = BitsSetCountWegner(i);
+            }
 
             _hammingIsInitialized = true;
         }

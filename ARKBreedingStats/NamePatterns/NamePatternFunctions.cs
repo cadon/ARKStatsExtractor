@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
@@ -43,9 +44,12 @@ namespace ARKBreedingStats.NamePatterns
         private static string ParametersInvalid(string specificError, string expression, bool displayError)
         {
             if (displayError)
+            {
                 MessageBoxes.ShowMessageBox($"The syntax of the following pattern function\n{expression}\ncannot be processed and will be ignored."
                                             + (string.IsNullOrEmpty(specificError) ? string.Empty : $"\n\nSpecific error:\n{specificError}"),
                     $"Naming pattern function error");
+            }
+
             return displayError ? expression : specificError;
         }
 
@@ -159,25 +163,48 @@ namespace ARKBreedingStats.NamePatterns
         {
             // check param number: 1: substring, 2: p1, 3: pos, 4: length
             if (!int.TryParse(m.Groups[3].Value, out var pos))
+            {
                 return m.Groups[2].Value;
+            }
 
             var text = m.Groups[2].Value;
             var textLength = text.Length;
 
-            if (pos < 0) pos += textLength;
-            if (pos < 0) pos = 0;
-            if (pos >= textLength) return string.Empty;
+            if (pos < 0)
+            {
+                pos += textLength;
+            }
+
+            if (pos < 0)
+            {
+                pos = 0;
+            }
+
+            if (pos >= textLength)
+            {
+                return string.Empty;
+            }
 
             if (string.IsNullOrEmpty(m.Groups[4].Value))
+            {
                 return text.Substring(pos);
+            }
 
             var substringLength = int.TryParse(m.Groups[4].Value, out var v) ? v : 0;
             if (substringLength < 0)
+            {
                 substringLength += textLength - pos;
+            }
 
-            if (substringLength <= 0) return string.Empty;
+            if (substringLength <= 0)
+            {
+                return string.Empty;
+            }
+
             if (pos + substringLength > textLength)
+            {
                 substringLength = textLength - pos;
+            }
 
             return text.Substring(pos, substringLength);
         }
@@ -196,9 +223,14 @@ namespace ARKBreedingStats.NamePatterns
         private static string FormatString(string s, string formatString, Match m, NamePatternParameters p, bool isInteger = false)
         {
             if (string.IsNullOrEmpty(formatString))
+            {
                 return ParametersInvalid("No Format string given", m.Groups[0].Value, p.DisplayError);
+            }
 
-            if (string.IsNullOrEmpty(s)) return string.Empty;
+            if (string.IsNullOrEmpty(s))
+            {
+                return string.Empty;
+            }
 
             return isInteger ? Convert.ToInt32(s).ToString(formatString) : Convert.ToDouble(s).ToString(formatString);
         }
@@ -236,9 +268,13 @@ namespace ARKBreedingStats.NamePatterns
             double dividend = double.Parse(m.Groups[2].Value);
             double divisor = double.Parse(m.Groups[3].Value);
             if (divisor > 0)
+            {
                 return ((dividend / divisor)).ToString(m.Groups[4].Value);
+            }
             else
+            {
                 return ParametersInvalid("Division by 0", m.Groups[0].Value, p.DisplayError);
+            }
         }
 
         private static string FunctionDiv(Match m, NamePatternParameters p)
@@ -248,9 +284,13 @@ namespace ARKBreedingStats.NamePatterns
             double number = double.Parse(m.Groups[2].Value);
             double div = double.Parse(m.Groups[3].Value);
             if (div > 0)
+            {
                 return ((int)(number / div)).ToString();
+            }
             else
+            {
                 return ParametersInvalid("Division by 0", m.Groups[0].Value, p.DisplayError);
+            }
         }
 
         private static string FunctionCasing(Match m, NamePatternParameters p)
@@ -275,7 +315,11 @@ namespace ARKBreedingStats.NamePatterns
                 to = from;
                 from = 0;
             }
-            if (from < 0 || from >= to) return string.Empty;
+            if (from < 0 || from >= to)
+            {
+                return string.Empty;
+            }
+
             return NamePattern.Random.Next(from, to).ToString();
         }
 
@@ -284,7 +328,10 @@ namespace ARKBreedingStats.NamePatterns
             // parameter: 1: replace, 2: text, 3: find, 4: replace
             if (string.IsNullOrEmpty(m.Groups[2].Value)
                 || string.IsNullOrEmpty(m.Groups[3].Value))
+            {
                 return m.Groups[2].Value;
+            }
+
             return m.Groups[2].Value.Replace(UnEscapeSpecialCharacters(m.Groups[3].Value), UnEscapeSpecialCharacters(m.Groups[4].Value));
         }
 
@@ -329,15 +376,27 @@ namespace ARKBreedingStats.NamePatterns
         {
             // parameter 1: region id (0,...,5), 2: if not empty, the color name instead of the numerical id is returned, 3: if not empty, the function will return also a value even if the color region is not used on that species.
             if (!int.TryParse(m.Groups[2].Value, out int regionId)
-                || regionId < 0 || regionId > 5) return ParametersInvalid("color region id has to be a number in the range 0 - 5", m.Groups[0].Value, p.DisplayError);
+                || regionId < 0 || regionId > 5)
+            {
+                return ParametersInvalid("color region id has to be a number in the range 0 - 5", m.Groups[0].Value, p.DisplayError);
+            }
 
             if (!p.Creature.Species.EnabledColorRegions[regionId] &&
                 string.IsNullOrWhiteSpace(m.Groups[4].Value))
+            {
                 return string.Empty; // species does not use this region and user doesn't want it (param 3 is empty)
+            }
 
-            if (p.Creature.colors == null) return string.Empty; // no color info
+            if (p.Creature.colors == null)
+            {
+                return string.Empty; // no color info
+            }
+
             if (string.IsNullOrWhiteSpace(m.Groups[3].Value))
+            {
                 return p.Creature.colors[regionId].ToString();
+            }
+
             return CreatureColors.CreatureColorName(p.Creature.colors[regionId]);
         }
 
@@ -348,9 +407,15 @@ namespace ARKBreedingStats.NamePatterns
         {
             // parameter 1: region id (0,...,5)
             if (!int.TryParse(m.Groups[2].Value, out int regionId)
-                || regionId < 0 || regionId > 5) return ParametersInvalid("color region id has to be a number in the range 0 - 5", m.Groups[0].Value, p.DisplayError);
+                || regionId < 0 || regionId > 5)
+            {
+                return ParametersInvalid("color region id has to be a number in the range 0 - 5", m.Groups[0].Value, p.DisplayError);
+            }
 
-            if (p.ColorsExisting == null) return string.Empty;
+            if (p.ColorsExisting == null)
+            {
+                return string.Empty;
+            }
 
             switch (p.ColorsExisting[regionId])
             {
@@ -367,7 +432,10 @@ namespace ARKBreedingStats.NamePatterns
         {
             // parameter: 1: source string, 2: string to find
             if (string.IsNullOrEmpty(m.Groups[2].Value) || string.IsNullOrEmpty(m.Groups[3].Value))
+            {
                 return string.Empty;
+            }
+
             int index = m.Groups[2].Value.IndexOf(m.Groups[3].Value);
             return index >= 0 ? index.ToString() : string.Empty;
         }
@@ -376,14 +444,19 @@ namespace ARKBreedingStats.NamePatterns
 
         private static string FunctionMd5(Match m, NamePatternParameters p)
         {
-            if (_md5 == null) _md5 = MD5.Create();
+            if (_md5 == null)
+            {
+                _md5 = MD5.Create();
+            }
 
             var inputBytes = Encoding.ASCII.GetBytes(UnEscapeSpecialCharacters(m.Groups[2].Value));
             var hashBytes = _md5.ComputeHash(inputBytes);
 
             var sb = new StringBuilder();
             foreach (var b in hashBytes)
+            {
                 sb.Append(b.ToString("X2"));
+            }
 
             return sb.ToString();
         }
@@ -391,7 +464,10 @@ namespace ARKBreedingStats.NamePatterns
         private static string FunctionListName(Match m, NamePatternParameters p)
         {
             // parameter: 1: name index, 2: list suffix
-            if (!int.TryParse(m.Groups[2].Value, out var nameIndex)) return string.Empty;
+            if (!int.TryParse(m.Groups[2].Value, out var nameIndex))
+            {
+                return string.Empty;
+            }
 
             return NameList.GetName(nameIndex, m.Groups[3].Value);
         }
@@ -404,8 +480,15 @@ namespace ARKBreedingStats.NamePatterns
             var listString = m.Groups[2].Value;
             var initialSeparator = m.Groups[3].Value;
             var finalSeparator = m.Groups[4].Value;
-            if (string.IsNullOrWhiteSpace(listString)) return string.Empty;
-            if (string.IsNullOrEmpty(initialSeparator)) return listString;
+            if (string.IsNullOrWhiteSpace(listString))
+            {
+                return string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(initialSeparator))
+            {
+                return listString;
+            }
 
             return string.Join(finalSeparator,
                 listString.Split(new[] { initialSeparator }, StringSplitOptions.RemoveEmptyEntries)
@@ -424,11 +507,23 @@ namespace ARKBreedingStats.NamePatterns
 
         internal static string CreatureProperty(string creatureName, string propertyName, Creature[] creaturesOfSpecies)
         {
-            if (string.IsNullOrEmpty(propertyName)) return string.Empty;
+            if (string.IsNullOrEmpty(propertyName))
+            {
+                return string.Empty;
+            }
+
             var creature = creaturesOfSpecies.FirstOrDefault(c => c.name == creatureName);
-            if (creature == null) return string.Empty;
+            if (creature == null)
+            {
+                return string.Empty;
+            }
+
             var dict = GetCreatureProperties(creatureName, creature);
-            if (dict == null) return string.Empty; // creature with this name does not exist
+            if (dict == null)
+            {
+                return string.Empty; // creature with this name does not exist
+            }
+
             return dict.TryGetValue(propertyName, out var r) ? r : $"[ unknown property name: {propertyName} ]";
         }
 
@@ -439,10 +534,20 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         private static Dictionary<string, string> GetCreatureProperties(string creatureName, Creature creature)
         {
-            if (string.IsNullOrEmpty(creatureName)) return null;
-            if (_creaturePropertiesCache?.TryGetValue(creatureName, out var dict) == true) return dict;
+            if (string.IsNullOrEmpty(creatureName))
+            {
+                return null;
+            }
+
+            if (_creaturePropertiesCache?.TryGetValue(creatureName, out var dict) == true)
+            {
+                return dict;
+            }
+
             if (_creaturePropertiesCache == null)
+            {
                 _creaturePropertiesCache = new Dictionary<string, Dictionary<string, string>>();
+            }
 
             dict = new Dictionary<string, string>
             {
@@ -456,7 +561,10 @@ namespace ARKBreedingStats.NamePatterns
                 {"status", creature.Status.ToString()}
             };
             for (var i = 0; i < Ark.ColorRegionCount; i++)
+            {
                 dict["color" + i] = creature.colors?[i].ToString() ?? string.Empty;
+            }
+
             for (var i = 0; i < Stats.StatsCount; i++)
             {
                 dict[NamePattern.StatAbbreviationFromIndex[i]] = creature.levelsWild?[i].ToString() ?? string.Empty;

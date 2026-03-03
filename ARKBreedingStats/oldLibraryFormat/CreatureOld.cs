@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
@@ -67,7 +68,9 @@ namespace ARKBreedingStats.oldLibraryFormat
         public override bool Equals(object obj)
         {
             if (obj == null)
+            {
                 return false;
+            }
 
             return obj is CreatureOld creatureObj && Equals(creatureObj);
         }

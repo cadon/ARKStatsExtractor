@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using System.ComponentModel;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -34,11 +35,18 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                if (value == null) return;
+                if (value == null)
+                {
+                    return;
+                }
+
                 _selectedSpecies = value;
                 this.SuspendDrawingAndLayout();
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _stats[s].Visible = _selectedSpecies.UsesStat(s);
+                }
+
                 this.ResumeDrawingAndLayout();
             }
         }
@@ -54,7 +62,10 @@ namespace ARKBreedingStats.uiControls
                         && _currentLevelsWild[s] == levelsWild[s]
                         && _currentLevelsMutations[s] == levelsMutations[s]
                     ))
+                {
                     continue;
+                }
+
                 _currentLevelsWild[s] = levelsWild[s];
                 _currentLevelsMutations[s] = levelsMutations[s];
                 _stats[s].SetLevel(_selectedSpecies, levelsWild[s], levelsMutations[s]);
@@ -68,7 +79,9 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _stats[s].MaxDomLevel = value;
+                }
             }
         }
 
@@ -78,15 +91,23 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 for (int s = 0; s < Stats.StatsCount; s++)
+                {
                     _stats[s].LevelGraphMax = value;
+                }
             }
         }
 
         public void SetLocalization()
         {
-            if (_stats == null) return;
+            if (_stats == null)
+            {
+                return;
+            }
+
             foreach (var s in _stats)
+            {
                 s.SetLocalization();
+            }
         }
     }
 }

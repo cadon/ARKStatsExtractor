@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -20,12 +20,16 @@ namespace ARKBreedingStats.uiControls
             using (var f = new CustomMessageBox())
             {
                 if (message.Length > 500)
+                {
                     f.Size = new Size(600, message.Length > 1000 ? 700 : 500);
+                }
 
                 f.LabelMessage.Text = message;
                 f.Text = $"{title} - {Utils.ApplicationNameVersion}";
                 if (string.IsNullOrEmpty(buttonYes))
+                {
                     f.ButtonYes.Visible = false;
+                }
                 else
                 {
                     f.ButtonYes.Text = buttonYes;
@@ -33,7 +37,9 @@ namespace ARKBreedingStats.uiControls
                 }
 
                 if (string.IsNullOrEmpty(buttonNo))
+                {
                     f.ButtonNo.Visible = false;
+                }
                 else
                 {
                     f.ButtonNo.Text = buttonNo;
@@ -41,7 +47,9 @@ namespace ARKBreedingStats.uiControls
                 }
 
                 if (string.IsNullOrEmpty(buttonCancel))
+                {
                     f.ButtonCancel.Visible = false;
+                }
                 else
                 {
                     f.ButtonCancel.Text = buttonCancel;
@@ -73,7 +81,10 @@ namespace ARKBreedingStats.uiControls
         private void BtCopyToClipboard_Click(object sender, System.EventArgs e)
         {
             var message = Text + "\n\n" + LabelMessage.Text;
-            if (string.IsNullOrEmpty(message)) return;
+            if (string.IsNullOrEmpty(message))
+            {
+                return;
+            }
 
             utils.ClipboardHandler.SetText(message);
         }

@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.multiplierTesting;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.raising;
@@ -3884,7 +3884,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputTester.CreatureNote = "";
             this.creatureInfoInputTester.CreatureOwner = "";
             this.creatureInfoInputTester.CreatureServer = "";
-            this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Library.Sex.Unknown;
+            this.creatureInfoInputTester.CreatureSex = ARKBreedingStats.Models.Sex.Unknown;
             this.creatureInfoInputTester.CreatureStatus = ARKBreedingStats.Library.CreatureStatus.Available;
             this.creatureInfoInputTester.CreatureTribe = "";
             this.creatureInfoInputTester.DomesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
@@ -4032,7 +4032,7 @@ namespace ARKBreedingStats
             this.creatureInfoInputExtractor.CreatureNote = "";
             this.creatureInfoInputExtractor.CreatureOwner = "";
             this.creatureInfoInputExtractor.CreatureServer = "";
-            this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Library.Sex.Unknown;
+            this.creatureInfoInputExtractor.CreatureSex = ARKBreedingStats.Models.Sex.Unknown;
             this.creatureInfoInputExtractor.CreatureStatus = ARKBreedingStats.Library.CreatureStatus.Available;
             this.creatureInfoInputExtractor.CreatureTribe = "";
             this.creatureInfoInputExtractor.DomesticatedAt = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);

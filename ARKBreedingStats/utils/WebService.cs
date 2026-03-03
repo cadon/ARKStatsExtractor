@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
@@ -20,12 +20,15 @@ namespace ARKBreedingStats.utils
         {
             get
             {
-                if (_httpClient == null)
-                {
-                    _httpClient = new HttpClient();
-                    _httpClient.Timeout = TimeSpan.FromSeconds(30);
-                    _httpClient.DefaultRequestHeaders.Add("User-Agent", "ASB");
-                }
+                _httpClient ??= new HttpClient
+                    {
+                        Timeout = TimeSpan.FromSeconds(30),
+                        DefaultRequestHeaders =
+                        {
+                            { "User-Agent", "ASB" }
+                        }
+                    };
+                    
                 return _httpClient;
             }
         }
@@ -40,7 +43,9 @@ namespace ARKBreedingStats.utils
         {
             Debug.WriteLine("Downloading from URL: " + url);
             if (!string.IsNullOrEmpty(outFilePath))
+            {
                 Debug.WriteLine("Saving to: " + outFilePath);
+            }
 
             var httpClient = GetHttpClient;
 
@@ -67,11 +72,16 @@ namespace ARKBreedingStats.utils
                 if (directory == null)
                 {
                     if (showExceptionMessageBox)
+                    {
                         MessageBoxes.ShowMessageBox($"Error while trying to download\n{url}\n\nInvalid local save path:\n{outFilePath}", "Error while trying to download");
+                    }
+
                     return (false, null);
                 }
                 if (!Directory.Exists(directory))
+                {
                     Directory.CreateDirectory(directory);
+                }
 
                 // save file
                 //url = "https://mock.httpstatus.io/401"; // for debugging
@@ -105,10 +115,13 @@ Body:
             catch (Exception ex)
             {
                 if (showExceptionMessageBox)
+                {
                     MessageBoxes.ExceptionMessageBox(ex, $@"Error while trying to download the file
 {url}
 or while trying do write it to
 {outFilePath}", "Download error");
+                }
+
                 return (false, null);
             }
 

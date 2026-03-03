@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -27,7 +27,11 @@ namespace ARKBreedingStats.uiControls
                 using (OpenFileDialog dlg = new OpenFileDialog())
                 {
                     string previousLocation = Link;
-                    if (!string.IsNullOrWhiteSpace(previousLocation)) dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
+                    if (!string.IsNullOrWhiteSpace(previousLocation))
+                    {
+                        dlg.InitialDirectory = Path.GetDirectoryName(previousLocation);
+                    }
+
                     dlg.FileName = Path.GetFileName(previousLocation);
                     dlg.Filter = fileFilter;
                     if (dlg.ShowDialog() == DialogResult.OK)
@@ -58,7 +62,9 @@ namespace ARKBreedingStats.uiControls
         {
             if (MessageBox.Show("Delete the selection of this " + (_isFile ? "file" : "folder"), "Remove?",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
                 Link = "";
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -73,7 +79,10 @@ namespace ARKBreedingStats.uiControls
                     lbLink.Text = _linkPath.Substring(0, 30) + "…" + _linkPath.Substring(_linkPath.Length - 59);
                     _tt.SetToolTip(lbLink, _linkPath);
                 }
-                else lbLink.Text = _linkPath;
+                else
+                {
+                    lbLink.Text = _linkPath;
+                }
             }
         }
 

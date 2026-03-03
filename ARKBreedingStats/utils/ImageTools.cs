@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -11,7 +11,10 @@ namespace ARKBreedingStats.utils
         /// </summary>
         internal static Bitmap BlurImageAlpha(Bitmap bmp, int radius)
         {
-            if (bmp == null || radius <= 0) return bmp;
+            if (bmp == null || radius <= 0)
+            {
+                return bmp;
+            }
 
             var expandedWidth = bmp.Width + 2 * radius;
             var expandedHeight = bmp.Height + 2 * radius;
@@ -19,7 +22,9 @@ namespace ARKBreedingStats.utils
             var expandedBitmap = new Bitmap(expandedWidth, expandedHeight, PixelFormat.Format32bppArgb);
 
             using (var g = Graphics.FromImage(expandedBitmap))
+            {
                 g.DrawImage(bmp, radius, radius);
+            }
 
             var blurredBitmap = new Bitmap(expandedWidth, expandedHeight, PixelFormat.Format32bppArgb);
 
@@ -46,6 +51,7 @@ namespace ARKBreedingStats.utils
                 var tempBuffer = new byte[buffer.Length];
 
                 for (var y = 0; y < expandedHeight; y++)
+                {
                     for (var x = 0; x < expandedWidth; x++)
                     {
                         //int r = 0, g = 0, b = 0;
@@ -54,7 +60,10 @@ namespace ARKBreedingStats.utils
                         for (var k = -radius; k <= radius; k++)
                         {
                             var offsetX = x + k;
-                            if (offsetX < 0 || offsetX >= expandedWidth) continue;
+                            if (offsetX < 0 || offsetX >= expandedWidth)
+                            {
+                                continue;
+                            }
 
                             var pixelIndex = y * stride + offsetX * bytesPerPixel;
                             //b += buffer[pixelIndex] * kernel[k + radius];
@@ -69,11 +78,13 @@ namespace ARKBreedingStats.utils
                         tempBuffer[destIndex + 2] = buffer[destIndex + 2];
                         tempBuffer[destIndex + 3] = (byte)(a / kernelSum);
                     }
+                }
 
                 buffer = tempBuffer;
                 tempBuffer = new byte[buffer.Length];
 
                 for (var x = 0; x < expandedWidth; x++)
+                {
                     for (var y = 0; y < expandedHeight; y++)
                     {
                         //int r = 0, g = 0, b = 0;
@@ -82,7 +93,10 @@ namespace ARKBreedingStats.utils
                         for (var k = -radius; k <= radius; k++)
                         {
                             var offsetY = y + k;
-                            if (offsetY < 0 || offsetY >= expandedHeight) continue;
+                            if (offsetY < 0 || offsetY >= expandedHeight)
+                            {
+                                continue;
+                            }
 
                             var pixelIndex = offsetY * stride + x * bytesPerPixel;
                             //b += buffer[pixelIndex] * kernel[k + radius];
@@ -97,6 +111,7 @@ namespace ARKBreedingStats.utils
                         tempBuffer[destIndex + 2] = buffer[destIndex + 2];
                         tempBuffer[destIndex + 3] = (byte)(a / kernelSum);
                     }
+                }
 
                 System.Runtime.InteropServices.Marshal.Copy(tempBuffer, 0, destData.Scan0, tempBuffer.Length);
             }
@@ -118,8 +133,16 @@ namespace ARKBreedingStats.utils
         internal static unsafe Bitmap OutlineOpacities(Bitmap bmpBase, Color outlineColor, int outlineSize,
             float outlineBlurriness = 1, byte alphaThreshold = 60)
         {
-            if (bmpBase == null || outlineSize <= 0) return null;
-            if (bmpBase.PixelFormat != PixelFormat.Format32bppArgb) return null;
+            if (bmpBase == null || outlineSize <= 0)
+            {
+                return null;
+            }
+
+            if (bmpBase.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                return null;
+            }
+
             outlineSize = Math.Min(100, outlineSize); // limit to 100
 
             var width = bmpBase.Width;
@@ -142,6 +165,7 @@ namespace ARKBreedingStats.utils
                 var alphaBrush = new byte[outlinePlus1 * outlinePlus1];
                 var brushBorderFactor = (outlineBlurriness - 0.5) * -4;
                 for (var x = 0; x < outlinePlus1; x++)
+                {
                     for (var y = 0; y < outlinePlus1; y++)
                     {
                         var relativeDistance = Math.Min(1, Math.Sqrt(x * x + y * y) / outlineSize);
@@ -149,6 +173,7 @@ namespace ARKBreedingStats.utils
                         var expTimesLinear = Math.Min(1, Math.Exp(brushBorderFactor * relativeDistance) * (1 - relativeDistance));
                         alphaBrush[y * outlinePlus1 + x] = (byte)(outlineColor.A * expTimesLinear);
                     }
+                }
 
                 var bytesPerPixel = Image.GetPixelFormatSize(PixelFormat.Format32bppArgb) / 8;
                 var baseStride = baseData.Stride;
@@ -159,6 +184,7 @@ namespace ARKBreedingStats.utils
 
                 // Loop through each pixel in the base image
                 for (var y = 0; y < heightResult; y++)
+                {
                     for (var x = 0; x < widthResult; x++)
                     {
                         // set color
@@ -170,32 +196,53 @@ namespace ARKBreedingStats.utils
                         // check if pixel is considered transparent and one but not all neighbour pixels are opaque
                         var xBase = x - outlineSize;
                         var yBase = y - outlineSize;
-                        if (xBase < 0 || xBase >= width || yBase < 0 || yBase >= height || basePtr[yBase * baseStride + xBase * bytesPerPixel + 3] <= alphaThreshold) continue;
+                        if (xBase < 0 || xBase >= width || yBase < 0 || yBase >= height || basePtr[yBase * baseStride + xBase * bytesPerPixel + 3] <= alphaThreshold)
+                        {
+                            continue;
+                        }
 
                         var rightSolid = xBase + 1 < width && basePtr[yBase * baseStride + (xBase + 1) * bytesPerPixel + 3] > alphaThreshold;
                         var leftSolid = xBase - 1 >= 0 && basePtr[yBase * baseStride + (xBase - 1) * bytesPerPixel + 3] > alphaThreshold;
                         var downSolid = yBase + 1 < height && basePtr[(yBase + 1) * baseStride + xBase * bytesPerPixel + 3] > alphaThreshold;
                         var upSolid = yBase - 1 >= 0 && basePtr[(yBase - 1) * baseStride + xBase * bytesPerPixel + 3] > alphaThreshold;
 
-                        if (!(rightSolid || leftSolid || downSolid || upSolid)) continue;
-                        if (rightSolid && leftSolid && downSolid && upSolid) continue;
+                        if (!(rightSolid || leftSolid || downSolid || upSolid))
+                        {
+                            continue;
+                        }
+
+                        if (rightSolid && leftSolid && downSolid && upSolid)
+                        {
+                            continue;
+                        }
 
                         // draw outline
                         for (var oy = -outlineSize; oy <= outlineSize; oy++)
+                        {
                             for (var ox = -outlineSize; ox <= outlineSize; ox++)
                             {
                                 var nx = x + ox;
                                 var ny = y + oy;
-                                if (nx < 0 || nx >= widthResult || ny < 0 || ny >= heightResult) continue;
+                                if (nx < 0 || nx >= widthResult || ny < 0 || ny >= heightResult)
+                                {
+                                    continue;
+                                }
 
                                 var alpha = alphaBrush[Math.Abs(oy) * outlinePlus1 + Math.Abs(ox)];
-                                if (alpha == 0) continue;
+                                if (alpha == 0)
+                                {
+                                    continue;
+                                }
                                 // set alpha
 
                                 if (alpha > resultPtr[ny * resultStride + nx * bytesPerPixel + 3])
+                                {
                                     resultPtr[ny * resultStride + nx * bytesPerPixel + 3] = alpha;
+                                }
                             }
+                        }
                     }
+                }
             }
             finally
             {
@@ -209,8 +256,15 @@ namespace ARKBreedingStats.utils
 
         public static Bitmap TrimTransparency(Bitmap bmp, bool disposeUntrimmedBmp = true)
         {
-            if (bmp == null) return null;
-            if (bmp.PixelFormat != PixelFormat.Format32bppArgb) return bmp;
+            if (bmp == null)
+            {
+                return null;
+            }
+
+            if (bmp.PixelFormat != PixelFormat.Format32bppArgb)
+            {
+                return bmp;
+            }
 
             var rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
             var data = bmp.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
@@ -227,17 +281,39 @@ namespace ARKBreedingStats.utils
                 int left = bmp.Width, right = 0, top = bmp.Height, bottom = 0;
 
                 for (var y = 0; y < bmp.Height; y++)
+                {
                     for (var x = 0; x < bmp.Width; x++)
                     {
                         var index = y * stride + x * bytesPerPixel;
                         var alpha = buffer[index + 3];
-                        if (alpha == 0) continue;
+                        if (alpha == 0)
+                        {
+                            continue;
+                        }
+
                         foundOpaque = true;
-                        if (x < left) left = x;
-                        if (x > right) right = x;
-                        if (y < top) top = y;
-                        if (y > bottom) bottom = y;
+                        if (x < left)
+                        {
+                            left = x;
+                        }
+
+                        if (x > right)
+                        {
+                            right = x;
+                        }
+
+                        if (y < top)
+                        {
+                            top = y;
+                        }
+
+                        if (y > bottom)
+                        {
+                            bottom = y;
+                        }
                     }
+                }
+
                 rectTrimmed = new Rectangle(left, top, right - left + 1, bottom - top + 1);
             }
             finally
@@ -247,7 +323,11 @@ namespace ARKBreedingStats.utils
 
             if (!foundOpaque)
             {
-                if (disposeUntrimmedBmp) bmp.Dispose();
+                if (disposeUntrimmedBmp)
+                {
+                    bmp.Dispose();
+                }
+
                 return null;
             }
 
@@ -258,7 +338,10 @@ namespace ARKBreedingStats.utils
                 g.DrawImage(bmp, new Rectangle(0, 0, rectTrimmed.Width, rectTrimmed.Height), rectTrimmed,
                     GraphicsUnit.Pixel);
             }
-            if (disposeUntrimmedBmp) bmp.Dispose();
+            if (disposeUntrimmedBmp)
+            {
+                bmp.Dispose();
+            }
 
             return trimmedBitmap;
         }

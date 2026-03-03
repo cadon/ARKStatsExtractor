@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
@@ -44,14 +45,22 @@ Ctrl + left click to cycle through presets.",
         protected override void UpdateOptionControls(bool isNotRoot)
         {
             for (var si = 0; si < Stats.StatsCount; si++)
+            {
                 _statOptionsControls[si].SetStatOptions(SelectedOptions.Options?[si], isNotRoot, SelectedOptions.ParentOptions);
+            }
         }
 
         private void ResetCurrentSettingsToDefault(object sender, EventArgs e)
         {
-            if (SelectedOptions == null) return;
+            if (SelectedOptions == null)
+            {
+                return;
+            }
+
             if (SelectedOptions.Options == null)
+            {
                 SelectedOptions.Options = new StatLevelColors[Stats.StatsCount];
+            }
 
             var isNotRoot = !string.IsNullOrEmpty(SelectedOptions.Name);
             for (var si = 0; si < Stats.StatsCount; si++)

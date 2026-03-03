@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -65,18 +65,30 @@ namespace ARKBreedingStats.ocr
         {
             Version = new Version(CurrentVersion);
             if (initialize)
+            {
                 InitializeOcrTemplate();
+            }
         }
 
         public void InitializeOcrTemplate()
         {
-            if (RecognitionPatterns == null) RecognitionPatterns = new RecognitionPatterns();
-            if (LabelRectangles == null) LabelRectangles = new Dictionary<string, Rectangle[]>();
+            if (RecognitionPatterns == null)
+            {
+                RecognitionPatterns = new RecognitionPatterns();
+            }
+
+            if (LabelRectangles == null)
+            {
+                LabelRectangles = new Dictionary<string, Rectangle[]>();
+            }
 
             if (labelRectangles != null)
             {
                 if (!LabelRectangles.ContainsKey(DefaultLabelsName))
+                {
                     LabelRectangles[DefaultLabelsName] = labelRectangles;
+                }
+
                 labelRectangles = null;
             }
 
@@ -84,7 +96,10 @@ namespace ARKBreedingStats.ocr
                 !LabelRectangles.TryGetValue(SelectedLabelSetName, out var currentRecSet))
             {
                 if (!LabelRectangles.ContainsKey(DefaultLabelsName))
+                {
                     LabelRectangles[DefaultLabelsName] = EmptyLabelSet;
+                }
+
                 UsedLabelRectangles = LabelRectangles[DefaultLabelsName];
                 SelectedLabelSetName = DefaultLabelsName;
             }
@@ -134,7 +149,9 @@ namespace ARKBreedingStats.ocr
         public bool SaveFile(string filePath)
         {
             if (FileService.SaveJsonFile(filePath, this, out var errorMessage, new Newtonsoft.Json.Converters.VersionConverter()))
+            {
                 return true;
+            }
 
             MessageBoxes.ShowMessageBox(errorMessage, "OCR config file save error");
             return false;
@@ -153,7 +170,10 @@ namespace ARKBreedingStats.ocr
         public void SetLabelSet(string setName)
         {
             if (string.IsNullOrEmpty(setName)
-                || SelectedLabelSetName == setName) return;
+                || SelectedLabelSetName == setName)
+            {
+                return;
+            }
 
             SelectedLabelSetName = setName;
             if (LabelRectangles.TryGetValue(setName, out var set))
@@ -169,7 +189,10 @@ namespace ARKBreedingStats.ocr
 
         public void DeleteLabelSet(string setName)
         {
-            if (string.IsNullOrEmpty(setName)) return;
+            if (string.IsNullOrEmpty(setName))
+            {
+                return;
+            }
 
             LabelRectangles.Remove(setName);
             if (setName == SelectedLabelSetName)
@@ -213,7 +236,10 @@ namespace ARKBreedingStats.ocr
         {
             errorMessage = null;
             if (string.IsNullOrEmpty(newName)
-                || newName == SelectedLabelSetName) return false;
+                || newName == SelectedLabelSetName)
+            {
+                return false;
+            }
 
             if (LabelRectangles.ContainsKey(newName))
             {

@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.Mods;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
@@ -57,8 +58,13 @@ namespace ARKBreedingStats.mods
                 }
                 UpdateModListBoxes();
                 if (_cc.Game == Ark.Asa)
+                {
                     RbAsa.Checked = true;
-                else RbAse.Checked = true;
+                }
+                else
+                {
+                    RbAse.Checked = true;
+                }
             }
         }
 
@@ -86,16 +92,32 @@ namespace ARKBreedingStats.mods
 
         private void MoveSelectedMod(int moveBy)
         {
-            if (!(lbModList.SelectedItem is ModInfo selectedLoadedMod) || _cc?.ModList == null) return;
+            if (!(lbModList.SelectedItem is ModInfo selectedLoadedMod) || _cc?.ModList == null)
+            {
+                return;
+            }
 
             int i = _cc.ModList.IndexOf(selectedLoadedMod.Mod);
-            if (i == -1) return;
+            if (i == -1)
+            {
+                return;
+            }
 
             int newPos = i + moveBy;
-            if (newPos < 0) newPos = 0;
-            if (newPos >= _cc.ModList.Count) newPos = _cc.ModList.Count - 1;
+            if (newPos < 0)
+            {
+                newPos = 0;
+            }
 
-            if (newPos == i) return;
+            if (newPos >= _cc.ModList.Count)
+            {
+                newPos = _cc.ModList.Count - 1;
+            }
+
+            if (newPos == i)
+            {
+                return;
+            }
 
             _cc.ModList.Remove(selectedLoadedMod.Mod);
             _cc.ModList.Insert(newPos, selectedLoadedMod.Mod);
@@ -121,7 +143,10 @@ namespace ARKBreedingStats.mods
 
             var modToModInfo = _modInfos.ToDictionary(mi => mi.Mod, mi => mi);
 
-            foreach (ModInfo mi in _modInfos) mi.CurrentlyInLibrary = false;
+            foreach (ModInfo mi in _modInfos)
+            {
+                mi.CurrentlyInLibrary = false;
+            }
 
             foreach (Mod m in _cc.ModList)
             {
@@ -145,7 +170,9 @@ namespace ARKBreedingStats.mods
         {
             var mi = GetSelectedModInfoAvailable();
             if (mi != null)
+            {
                 DisplayModInfo(mi);
+            }
         }
 
         private ModInfo GetSelectedModInfoAvailable()
@@ -155,7 +182,11 @@ namespace ARKBreedingStats.mods
         private void SetSelectedModInfoAvailable(ModInfo modInfo)
         {
             LvAvailableModFiles.SelectedIndices.Clear();
-            if (modInfo == null) return;
+            if (modInfo == null)
+            {
+                return;
+            }
+
             for (var i = 0; i < LvAvailableModFiles.Items.Count; i++)
             {
                 var lvi = LvAvailableModFiles.Items[i];
@@ -171,7 +202,11 @@ namespace ARKBreedingStats.mods
 
         private void DisplayModInfo(ModInfo modInfo)
         {
-            if (modInfo?.Mod == null) return;
+            if (modInfo?.Mod == null)
+            {
+                return;
+            }
+
             lbModName.Text = modInfo.Mod.Title;
             SetLabelInfo(LbGameLabel, LbGame, modInfo.Mod.IsAsa ? Ark.Asa : Ark.Ase);
             LbModVersion.Text = modInfo.Version?.ToString();
@@ -215,7 +250,11 @@ namespace ARKBreedingStats.mods
 
         private void LlbSteamPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!(sender is LinkLabel ll && ll.Tag is string link) || string.IsNullOrEmpty(link)) return;
+            if (!(sender is LinkLabel ll && ll.Tag is string link) || string.IsNullOrEmpty(link))
+            {
+                return;
+            }
+
             Utils.OpenUri(link);
         }
 
@@ -226,7 +265,10 @@ namespace ARKBreedingStats.mods
         private void AddSelectedMod()
         {
             var mi = GetSelectedModInfoAvailable();
-            if (mi?.Mod == null || _cc?.ModList == null) return;
+            if (mi?.Mod == null || _cc?.ModList == null)
+            {
+                return;
+            }
 
             _cc.ModList.Add(mi.Mod);
             UpdateModListBoxes();
@@ -237,7 +279,10 @@ namespace ARKBreedingStats.mods
         private void RemoveSelectedMod()
         {
             var mi = (ModInfo)lbModList.SelectedItem;
-            if (mi?.Mod == null || _cc?.ModList == null) return;
+            if (mi?.Mod == null || _cc?.ModList == null)
+            {
+                return;
+            }
 
             if (_cc.ModList.Remove(mi.Mod))
             {
@@ -251,7 +296,9 @@ namespace ARKBreedingStats.mods
         {
             string valuesFolderPath = FileService.GetJsonPath(FileService.ValuesFolder);
             if (Directory.Exists(valuesFolderPath))
+            {
                 Utils.OpenUri(valuesFolderPath);
+            }
         }
 
         private void LvAvailableModFiles_DoubleClick(object sender, EventArgs e) => AddSelectedMod();
@@ -303,7 +350,9 @@ namespace ARKBreedingStats.mods
 
             // for some reason the groups are removed each time items are added, so add them here
             foreach (ListViewItem lvi in LvAvailableModFiles.Items)
+            {
                 lvi.Group = ((ModInfo)lvi.Tag).Mod.IsOfficial ? LvAvailableModFiles.Groups[0] : LvAvailableModFiles.Groups[1];
+            }
 
             LvAvailableModFiles.EndUpdate();
 

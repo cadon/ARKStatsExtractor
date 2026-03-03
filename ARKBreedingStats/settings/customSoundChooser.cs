@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -26,7 +26,9 @@ namespace ARKBreedingStats.settings
             })
             {
                 if (fileSelect.ShowDialog() == DialogResult.OK)
+                {
                     SoundFile = fileSelect.FileName;
+                }
                 else if (MessageBox.Show("Set to default sound?", "To default?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     soundFile = "";
@@ -38,7 +40,10 @@ namespace ARKBreedingStats.settings
 
         private void buttonPlay_Click(object sender, EventArgs e)
         {
-            if (soundplayer == null) System.Media.SystemSounds.Hand.Play();
+            if (soundplayer == null)
+            {
+                System.Media.SystemSounds.Hand.Play();
+            }
             else
             {
                 try { soundplayer.Play(); }

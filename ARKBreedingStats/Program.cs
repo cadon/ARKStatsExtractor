@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.uiControls;
+using ARKBreedingStats.uiControls;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -19,7 +19,9 @@ namespace ARKBreedingStats
 #endif
 
             if (CloseIfDifferentInstanceOfAppIsRunning())
+            {
                 return;
+            }
 
             var args = Environment.GetCommandLineArgs();
             for (int i = 1; i < args.Length; i++)
@@ -60,7 +62,9 @@ namespace ARKBreedingStats
                             "Show the settings file in the explorer?",
                             $"Error reading configuration file - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
                         == DialogResult.Yes)
+                    {
                         FileService.OpenFolderInExplorer(configEx.Filename);
+                    }
                 }
                 else
                 {
@@ -73,13 +77,19 @@ namespace ARKBreedingStats
                                         "Show the settings file in the explorer?",
                             $"Error reading configuration file - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error)
                         == DialogResult.Yes)
+                    {
                         FileService.OpenFolderInExplorer(settingsFilePath);
+                    }
                 }
                 Environment.Exit(78);
             }
             else
             {
-                if (System.Diagnostics.Debugger.IsAttached) throw e;
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    throw e;
+                }
+
                 string message = e.Message
                     + "\n\n" + e.GetType() + " in " + e.Source + " (" + Utils.ApplicationNameVersion + ")"
                     + "\n\nMethod throwing the error: " + e.TargetSite.DeclaringType?.FullName + "." + e.TargetSite.Name
@@ -97,7 +107,11 @@ namespace ARKBreedingStats
             // Wine might crash when accessing Process
             try
             {
-                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length < 2) return false;
+                if (Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Length < 2)
+                {
+                    return false;
+                }
+
                 return MessageBox.Show($@"{Application.ProductName} seems to be running already.
 Starting a second instance of this app could cause issues with synchronization, automatic importing and app settings.
 

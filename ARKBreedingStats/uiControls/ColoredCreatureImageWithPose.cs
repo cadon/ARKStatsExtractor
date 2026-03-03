@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
@@ -77,7 +78,11 @@ namespace ARKBreedingStats.uiControls
 
         public void SetClickEventInfographic(Action a)
         {
-            if (a == null) return;
+            if (a == null)
+            {
+                return;
+            }
+
             _tt.SetToolTip(_pb, @"Click to copy infographic of this creature to the clipboard.
 With hold Ctrl key and left click: plain image
 With hold Ctrl key and right click: image with color info");
@@ -86,19 +91,31 @@ With hold Ctrl key and right click: image with color info");
             _pb.Click += (s, e) =>
             {
                 if (Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))
+                {
                     SpeciesPictureBoxClick(s, e);
+                }
                 else
+                {
                     CopyInfoGraphicToClipboard?.Invoke();
+                }
             };
         }
 
         private void SpeciesPictureBoxClick(object sender, EventArgs e)
         {
-            if (_pb.Image == null) return;
+            if (_pb.Image == null)
+            {
+                return;
+            }
+
             if (e is System.Windows.Forms.MouseEventArgs me && me.Button == MouseButtons.Right)
+            {
                 ClipboardHandler.SetImageWithAlphaToClipboard(CreatureInfoGraphic.GetImageWithColors(_pb.Image, _colorIds, _species));
+            }
             else
+            {
                 ClipboardHandler.SetImageWithAlphaToClipboard(_pb.Image, false);
+            }
         }
 
         private void ChangePose(int poseDelta)
@@ -106,7 +123,11 @@ With hold Ctrl key and right click: image with color info");
             poseDelta *= Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Shift) ? 5 : 1;
             var previouslySelectedPose = Poses.GetPose(_species);
             var setPoseTo = Math.Max(0, previouslySelectedPose + poseDelta);
-            if (setPoseTo == previouslySelectedPose) return;
+            if (setPoseTo == previouslySelectedPose)
+            {
+                return;
+            }
+
             Poses.SetPose(_species, setPoseTo);
             SetCreatureImage();
             SpeciesChangedPoses.Add(_species);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -32,7 +32,10 @@ namespace ARKBreedingStats.uiControls
 
         public void SetCustomStatNames(Dictionary<string, string> customStatNames)
         {
-            if (customStatNames == null && _statNamesAreDefault) return;
+            if (customStatNames == null && _statNamesAreDefault)
+            {
+                return;
+            }
 
             _statNamesAreDefault = customStatNames == null;
 

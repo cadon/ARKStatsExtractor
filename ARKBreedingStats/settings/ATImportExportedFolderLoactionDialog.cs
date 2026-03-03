@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using System.ComponentModel;
 
@@ -40,7 +40,10 @@ namespace ARKBreedingStats.settings
                 string previousLocation = ATImportExportedFolderLocation.FolderPath;
                 dlg.RootFolder = Environment.SpecialFolder.Desktop;
                 if (!string.IsNullOrWhiteSpace(previousLocation))
+                {
                     dlg.SelectedPath = previousLocation;
+                }
+
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     textBox_FolderPath.Text = dlg.SelectedPath;

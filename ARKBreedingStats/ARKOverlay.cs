@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.ocr;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.ocr;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,9 +61,14 @@ namespace ARKBreedingStats
 
 
             using (var bmpScreenshot = ArkOcr.Ocr.GetScreenshotOfProcess())
+            {
                 Size = bmpScreenshot?.Size ?? default;
+            }
+
             if (Size == default)
+            {
                 Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            }
 
             _timerUpdateTimer = new Timer { Interval = 1000 };
             _timerUpdateTimer.Tick += TimerUpdateTimer_Tick;
@@ -89,7 +95,10 @@ namespace ARKBreedingStats
 
         public void InitLabelPositions()
         {
-            if (!_ocrPossible) return;
+            if (!_ocrPossible)
+            {
+                return;
+            }
 
             for (int statIndex = 0; statIndex < _labels.Length; statIndex++)
             {
@@ -119,12 +128,22 @@ namespace ARKBreedingStats
                 parentInheritance1.Visible = false;
             }
 
-            if (!_ocrPossible) return;
+            if (!_ocrPossible)
+            {
+                return;
+            }
 
             _toggleInventoryCheck = !_toggleInventoryCheck;
-            if (!checkInventoryStats || !_toggleInventoryCheck) return;
-            if (_OCRing)
+            if (!checkInventoryStats || !_toggleInventoryCheck)
+            {
                 return;
+            }
+
+            if (_OCRing)
+            {
+                return;
+            }
+
             lblStatus.Text = "…";
             Application.DoEvents();
             _OCRing = true;
@@ -133,8 +152,13 @@ namespace ARKBreedingStats
                 if (_currentlyInInventory)
                 {
                     for (int i = 0; i < _labels.Length; i++)
+                    {
                         if (_labels[i] != null)
+                        {
                             _labels[i].Text = string.Empty;
+                        }
+                    }
+
                     _currentlyInInventory = false;
                 }
             }
@@ -163,15 +187,22 @@ namespace ARKBreedingStats
                 int di = displayIndices[s];
                 _labels[s].Text = wildValues[di] == -1 ? "?" : wildValues[di].ToString();
                 if (tamedValues[di] > 0)
+                {
                     _labels[s].Text += $" +{tamedValues[di]}";
+                }
+
                 if (colors != null && di < colors.Length)
+                {
                     _labels[s].ForeColor = colors[di];
+                }
             }
 
             // total level
             _labels[7].Text = "w" + levelWild;
             if (levelDom != 0)
+            {
                 _labels[7].Text += "+d" + levelDom;
+            }
         }
 
         /// <summary>
@@ -214,7 +245,9 @@ namespace ARKBreedingStats
                     sb.AppendLine($"{Utils.Duration(timeLeft)} : {tle.name}");
                 }
                 if (timerListChanged)
+                {
                     timers = timers.Where(t => t.showInOverlay).ToArray();
+                }
             }
             if (IncubationTimers?.Any() ?? false)
             {
@@ -239,7 +272,9 @@ namespace ARKBreedingStats
                     sb.AppendLine($"{Utils.Duration(timeLeft)} : {(it.Mother?.Species ?? it.Father?.Species)?.DescriptiveName ?? "unknown species"}");
                 }
                 if (timerListChanged)
+                {
                     IncubationTimers = IncubationTimers.Where(it => it.ShowInOverlay).ToList();
+                }
             }
             if (CreatureTimers?.Any() ?? false)
             {
@@ -264,7 +299,9 @@ namespace ARKBreedingStats
                     sb.AppendLine($"{(timeLeft == null ? "grown" : Utils.Duration(timeLeft.Value))} : {c.name} ({c.Species.DescriptiveName})");
                 }
                 if (timerListChanged)
+                {
                     CreatureTimers = CreatureTimers.Where(c => c.ShowInOverlay).ToList();
+                }
             }
             sb.Append(_notes);
             labelTimer.Text = sb.ToString();
@@ -283,20 +320,33 @@ namespace ARKBreedingStats
             creature.ShowInOverlay = true;
 
             if (theOverlay == null)
+            {
                 return;
+            }
 
             if (theOverlay.CreatureTimers == null)
+            {
                 theOverlay.CreatureTimers = new List<Creature> { creature };
-            else theOverlay.CreatureTimers.Add(creature);
+            }
+            else
+            {
+                theOverlay.CreatureTimers.Add(creature);
+            }
         }
 
         public static void RemoveTimer(Creature creature)
         {
             creature.ShowInOverlay = false;
-            if (theOverlay?.CreatureTimers == null) return;
+            if (theOverlay?.CreatureTimers == null)
+            {
+                return;
+            }
+
             theOverlay.CreatureTimers.Remove(creature);
             if (!theOverlay.CreatureTimers.Any())
+            {
                 theOverlay.CreatureTimers = null;
+            }
         }
 
         public static void AddTimer(IncubationTimerEntry incubationTimer)
@@ -304,26 +354,41 @@ namespace ARKBreedingStats
             incubationTimer.ShowInOverlay = true;
 
             if (theOverlay == null)
+            {
                 return;
+            }
 
             if (theOverlay.IncubationTimers == null)
+            {
                 theOverlay.IncubationTimers = new List<IncubationTimerEntry> { incubationTimer };
-            else theOverlay.IncubationTimers.Add(incubationTimer);
+            }
+            else
+            {
+                theOverlay.IncubationTimers.Add(incubationTimer);
+            }
         }
 
         public static void RemoveTimer(IncubationTimerEntry incubationTimer)
         {
             incubationTimer.ShowInOverlay = false;
-            if (theOverlay?.IncubationTimers == null) return;
+            if (theOverlay?.IncubationTimers == null)
+            {
+                return;
+            }
+
             theOverlay.IncubationTimers.Remove(incubationTimer);
             if (!theOverlay.IncubationTimers.Any())
+            {
                 theOverlay.IncubationTimers = null;
+            }
         }
 
         public void SetLabelFontSize(float relativeSize)
         {
             foreach (var l in _initialFontSizes)
+            {
                 l.Key.Font = new Font(l.Key.Font.FontFamily, l.Value * relativeSize, l.Key.Font.Style);
+            }
         }
 
         internal void SetLocalizations()

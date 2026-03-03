@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Text;
 
 namespace ARKBreedingStats.importExportGun
@@ -112,7 +112,11 @@ namespace ARKBreedingStats.importExportGun
         /// <returns>True if pattern found.</returns>
         private static bool SearchBytes(BinaryReader br, byte[] bytesToFind)
         {
-            if (bytesToFind == null || bytesToFind.Length == 0) return false;
+            if (bytesToFind == null || bytesToFind.Length == 0)
+            {
+                return false;
+            }
+
             var pi = 0; // index of pattern currently comparing, indices before already found
             var l = br.BaseStream.Length;
             while (br.BaseStream.Position < l)
@@ -121,7 +125,10 @@ namespace ARKBreedingStats.importExportGun
                 {
                     pi++;
                     if (pi == bytesToFind.Length)
+                    {
                         return true;
+                    }
+
                     continue;
                 }
 

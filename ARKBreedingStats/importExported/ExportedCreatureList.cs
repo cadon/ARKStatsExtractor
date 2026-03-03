@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.values;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,8 +81,15 @@ namespace ARKBreedingStats.importExported
         /// </summary>
         public void LoadFilesInFolder(string folderPath = null)
         {
-            if (string.IsNullOrEmpty(folderPath)) folderPath = _selectedFolder;
-            if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
+            if (string.IsNullOrEmpty(folderPath))
+            {
+                folderPath = _selectedFolder;
+            }
+
+            if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
+            {
+                return;
+            }
 
             string[] files = Directory.GetFiles(folderPath, "*.ini");
             LoadFiles(files);
@@ -93,7 +100,10 @@ namespace ARKBreedingStats.importExported
         /// </summary>
         public void LoadFiles(string[] files)
         {
-            if (files == null || files.Length == 0) return;
+            if (files == null || files.Length == 0)
+            {
+                return;
+            }
 
             _selectedFolder = Path.GetDirectoryName(files[0]);
 
@@ -104,12 +114,18 @@ namespace ARKBreedingStats.importExported
                                 + $" files to import ({files.Length}) which can take some time.\n" +
                                 "Do you really want to read all these files?",
                                 "Many files to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
                 return;
+            }
 
             this.SuspendDrawingAndLayout();
             ClearControls();
             _hiddenSpecies.Clear();
-            foreach (var i in _speciesHideItems) i.Dispose();
+            foreach (var i in _speciesHideItems)
+            {
+                i.Dispose();
+            }
+
             _speciesHideItems.Clear();
 
             List<string> unknownSpeciesBlueprintPaths = new List<string>();
@@ -127,13 +143,17 @@ namespace ARKBreedingStats.importExported
                     ecc.DoCheckArkIdInLibrary();
                     _eccs.Add(ecc);
                     if (!string.IsNullOrEmpty(ecc.creatureValues.Species?.name) && !_hiddenSpecies.Contains(ecc.creatureValues.Species.name))
+                    {
                         _hiddenSpecies.Add(ecc.creatureValues.Species.name);
+                    }
                 }
                 else if (!string.IsNullOrEmpty(ecc.speciesBlueprintPath))
                 {
                     if (unknownSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath)
                         || ignoreSpeciesBlueprintPaths.Contains(ecc.speciesBlueprintPath))
+                    {
                         continue;
+                    }
 
                     // check if species should be ignored (e.g. if it's a raft)
                     if (Values.V.IgnoreSpeciesBlueprint(ecc.speciesBlueprintPath))
@@ -168,7 +188,10 @@ namespace ARKBreedingStats.importExported
             this.ResumeDrawingAndLayout();
 
             // check for unsupported species
-            if (unknownSpeciesBlueprintPaths.Any()) CheckForUnknownMods?.Invoke(unknownSpeciesBlueprintPaths);
+            if (unknownSpeciesBlueprintPaths.Any())
+            {
+                CheckForUnknownMods?.Invoke(unknownSpeciesBlueprintPaths);
+            }
         }
 
         private void Ecc_DisposeIt(object sender, EventArgs e)
@@ -187,7 +210,9 @@ namespace ARKBreedingStats.importExported
             else
             {
                 if (!_hiddenSpecies.Contains(i.Text))
+                {
                     _hiddenSpecies.Add(i.Text);
+                }
             }
             FilterList();
         }
@@ -199,7 +224,9 @@ namespace ARKBreedingStats.importExported
             try
             {
                 while (panel1.Controls.Count > 0)
+                {
                     panel1.Controls[0].Dispose();
+                }
             }
             finally
             {
@@ -221,7 +248,11 @@ namespace ARKBreedingStats.importExported
             foreach (var ecc in _eccs)
             {
                 totalFiles++;
-                if (!ecc.Visible) hiddenCreatures++;
+                if (!ecc.Visible)
+                {
+                    hiddenCreatures++;
+                }
+
                 switch (ecc.Status)
                 {
                     case ExportedCreatureControl.ImportStatus.JustImported: justImported++; break;
@@ -264,14 +295,20 @@ namespace ARKBreedingStats.importExported
             if (_eccs.Count(c => c.Visible) > 50 &&
                     MessageBox.Show($"There are many creature-files to import ({_eccs.Count}) which can take some time.\n" +
                             "Do you really want to import all these creature at once?",
-                            "Many creatures to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+                            "Many creatures to import", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
 
             UpdateVisualData?.Invoke(false);
             foreach (var ecc in _eccs)
             {
                 if (!ecc.Visible
                     || (onlyUnimported && ecc.Status != ExportedCreatureControl.ImportStatus.NotImported && ecc.Status != ExportedCreatureControl.ImportStatus.NeedsLevelChoosing))
+                {
                     continue;
+                }
+
                 ecc.extractAndAddToLibrary(false);
             }
             UpdateStatusBarLabelAndControls();
@@ -302,7 +339,10 @@ namespace ARKBreedingStats.importExported
                 foreach (var ecc in _eccs)
                 {
                     if (ecc.Status != ExportedCreatureControl.ImportStatus.JustImported &&
-                        ecc.Status != ExportedCreatureControl.ImportStatus.OldImported) continue;
+                        ecc.Status != ExportedCreatureControl.ImportStatus.OldImported)
+                    {
+                        continue;
+                    }
 
                     var destFilePath = Path.Combine(importedPath, Path.GetFileName(ecc.exportedFile));
                     var destFileExists = File.Exists(destFilePath);
@@ -323,12 +363,19 @@ namespace ARKBreedingStats.importExported
                                     DialogResult.Yes;
                                 break;
                         }
-                        if (doBreak) break;
+                        if (doBreak)
+                        {
+                            break;
+                        }
                     }
 
                     try
                     {
-                        if (destFileExists) File.Delete(destFilePath);
+                        if (destFileExists)
+                        {
+                            File.Delete(destFilePath);
+                        }
+
                         File.Move(ecc.exportedFile, destFilePath);
                         movedFilesCount++;
                         ecc.Dispose();
@@ -343,11 +390,15 @@ namespace ARKBreedingStats.importExported
                 if (!suppressMessages)
                 {
                     if (movedFilesCount > 0)
+                    {
                         MessageBox.Show($"{movedFilesCount} imported files moved to\n{importedPath}", "Files moved",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     else
+                    {
                         MessageBox.Show("No files were moved.", "No files moved",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             UpdateStatusBarLabelAndControls();
@@ -373,8 +424,10 @@ namespace ARKBreedingStats.importExported
                     }
                 }
                 if (!dontDisplayAnyWarnings && deletedFilesCount > 0)
+                {
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             UpdateStatusBarLabelAndControls();
             this.ResumeDrawingAndLayout();
@@ -401,7 +454,9 @@ namespace ARKBreedingStats.importExported
                     }
                 }
                 if (!dontDisplayAnyWarnings && deletedFilesCount > 0)
+                {
                     MessageBox.Show(deletedFilesCount + " imported files deleted.", "Deleted Files", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             UpdateStatusBarLabelAndControls();
             this.ResumeDrawingAndLayout();
@@ -414,7 +469,9 @@ namespace ARKBreedingStats.importExported
             {
                 string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
                 if (Directory.Exists(path))
+                {
                     effects = DragDropEffects.Copy;
+                }
             }
             e.Effect = effects;
         }
@@ -425,14 +482,18 @@ namespace ARKBreedingStats.importExported
             {
                 string path = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
                 if (Directory.Exists(path))
+                {
                     LoadFilesInFolder(path);
+                }
             }
         }
 
         private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_selectedFolder) && Directory.Exists(_selectedFolder))
+            {
                 Utils.OpenUri(_selectedFolder);
+            }
         }
 
         private void toolStripCbHideImported_Click(object sender, EventArgs e)
@@ -442,7 +503,10 @@ namespace ARKBreedingStats.importExported
 
         private void FilterList()
         {
-            if (!_allowFiltering) return;
+            if (!_allowFiltering)
+            {
+                return;
+            }
 
             this.SuspendDrawingAndLayout();
             foreach (var ecc in _eccs)
@@ -470,7 +534,9 @@ namespace ARKBreedingStats.importExported
             _eccs.Sort(_eccComparer);
 
             foreach (var ecc in _eccs)
+            {
                 panel1.Controls.Add(ecc);
+            }
 
             // update button order index
             for (int i = 0; i < 5; i++)
@@ -500,7 +566,9 @@ namespace ARKBreedingStats.importExported
         private void setUserSuffixToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Utils.ShowTextInput("Owner suffix (will be appended to the owner)", out string ownerSfx, "Owner Suffix", ownerSuffix))
+            {
                 ownerSuffix = ownerSfx;
+            }
         }
 
         private void filterAllSpeciestoolStripMenuItem_Click(object sender, EventArgs e)
@@ -511,7 +579,10 @@ namespace ARKBreedingStats.importExported
             foreach (var i in _speciesHideItems)
             {
                 i.Checked = check;
-                if (!check) _hiddenSpecies.Add(i.Text);
+                if (!check)
+                {
+                    _hiddenSpecies.Add(i.Text);
+                }
             }
             _allowFiltering = true;
             FilterList();
@@ -560,7 +631,9 @@ namespace ARKBreedingStats.importExported
         private void saveCurrentFolderInMainMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_selectedFolder) && Directory.Exists(_selectedFolder))
+            {
                 AddFolderToPresets?.Invoke(_selectedFolder);
+            }
         }
     }
 
@@ -612,14 +685,20 @@ namespace ARKBreedingStats.importExported
                 case OrderProperties.ImportStatus:
                     result = (int)a.Status - (int)b.Status; break;
             }
-            if (!ascending) return -result;
+            if (!ascending)
+            {
+                return -result;
+            }
+
             return result;
         }
 
         internal void UpdateOrderList(OrderProperties orderProperty)
         {
             if (OrderPropertyList[0] == orderProperty)
+            {
                 OrderOrderList[0] = !OrderOrderList[0];
+            }
             else
             {
                 int index = OrderPropertyList.IndexOf(orderProperty);

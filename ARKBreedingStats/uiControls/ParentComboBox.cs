@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -30,10 +30,16 @@ namespace ARKBreedingStats.uiControls
         {
             get
             {
-                if (parentList == null) return null;
+                if (parentList == null)
+                {
+                    return null;
+                }
                 // at index 0 is the n/a
                 if (SelectedIndex > 0 && SelectedIndex - 1 < parentList.Count)
+                {
                     return parentList[SelectedIndex - 1];
+                }
+
                 return null;
             }
         }
@@ -54,7 +60,10 @@ namespace ARKBreedingStats.uiControls
                 if (_preselectedCreatureGuid == Guid.Empty || parentList == null)
                 {
                     if (Items.Count != 0)
+                    {
                         SelectedIndex = 0;
+                    }
+
                     return;
                 }
 
@@ -80,22 +89,34 @@ namespace ARKBreedingStats.uiControls
                 Items.Add(naLabel);
                 int selInd = 0;
                 parentList = value;
-                if (value == null) return;
+                if (value == null)
+                {
+                    return;
+                }
 
                 for (int c = 0; c < parentList.Count; c++)
                 {
-                    if (parentList[c] == null) continue;
+                    if (parentList[c] == null)
+                    {
+                        continue;
+                    }
+
                     string similarities = string.Empty;
                     string status = string.Empty;
                     if (parentsSimilarity != null && parentsSimilarity.Count > c)
+                    {
                         similarities = " (" + (parentsSimilarity[c] >= 0 ? parentsSimilarity[c].ToString() : "?") + ")";
+                    }
+
                     if (parentList[c].Status != CreatureStatus.Available)
                     {
                         status = " (" + Utils.StatusSymbol(parentList[c].Status) + ")";
                     }
                     Items.Add(parentList[c].name + status + similarities);
                     if (parentList[c].guid == _preselectedCreatureGuid)
+                    {
                         selInd = c + 1;
+                    }
                 }
                 SelectedIndex = selInd;
             }

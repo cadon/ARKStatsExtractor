@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestAdapter" Version="4.1.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.csproj" />
+  </ItemGroup>
+
+  <!-- Reuse test assets from ARKBreedingStats.Tests -->
+  <ItemGroup>
+    <None Include="..\ARKBreedingStats.Tests\assets\**" Link="assets\%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

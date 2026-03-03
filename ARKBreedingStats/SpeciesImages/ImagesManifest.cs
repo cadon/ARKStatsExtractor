@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.utils;
 using Newtonsoft.Json;
@@ -84,17 +85,25 @@ namespace ARKBreedingStats.SpeciesImages
         public void Initialize(StreamingContext _)
         {
             if (Url?.EndsWith("/") == false)
+            {
                 Url += "/";
+            }
 
             Id = string.IsNullOrEmpty(Url) ? Name : Url;
 
             FolderName = string.IsNullOrEmpty(Url) ? Name : Encryption.Md5(Url);
-            if (string.IsNullOrEmpty(FolderName)) return;
+            if (string.IsNullOrEmpty(FolderName))
+            {
+                return;
+            }
+
             FolderName = FileService.ReplaceInvalidCharacters(FolderName)
                 .Replace(' ', '_');
             const int maxFolderName = 32;
             if (FolderName.Length > maxFolderName)
+            {
                 FolderName = FolderName.Substring(0, maxFolderName);
+            }
         }
 
         /// <summary>
@@ -137,21 +146,38 @@ namespace ARKBreedingStats.SpeciesImages
                 if (metaData != null)
                 {
                     var name = metaData["name"]?.Value<string>();
-                    if (!string.IsNullOrEmpty(name)) Name = name;
+                    if (!string.IsNullOrEmpty(name))
+                    {
+                        Name = name;
+                    }
+
                     var description = metaData["description"]?.Value<string>();
-                    if (!string.IsNullOrEmpty(description)) Description = description;
+                    if (!string.IsNullOrEmpty(description))
+                    {
+                        Description = description;
+                    }
+
                     var creator = metaData["creator"]?.Value<string>();
-                    if (!string.IsNullOrEmpty(creator)) Creator = creator;
+                    if (!string.IsNullOrEmpty(creator))
+                    {
+                        Creator = creator;
+                    }
                 }
 
-                if (!addFileHashes) return true;
+                if (!addFileHashes)
+                {
+                    return true;
+                }
 
                 FileHashes = (json["files"] as JObject)?
                     .Properties().Where(f => f.Name != "!info.json")
                     .Select(p => (p.Name, p.Value["hash"]?.ToString()))
                     .Where(p => !string.IsNullOrEmpty(p.Name))
                     .ToDictionary(p => p.Name, p => p.Item2);
-                if (FileHashes != null) return true;
+                if (FileHashes != null)
+                {
+                    return true;
+                }
 
                 MessageBoxes.ShowMessageBox(
                        $"Error when parsing manifest file\n{ImageCollections.ManifestFilePathOfPack(FolderName)}\n\n"
@@ -177,7 +203,11 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         private bool ParseFiles(string directoryPath)
         {
-            if (!Directory.Exists(directoryPath)) return false;
+            if (!Directory.Exists(directoryPath))
+            {
+                return false;
+            }
+
             var files = Directory.GetFiles(directoryPath, "*" + CreatureImageFile.FileExtension);
             FileHashes = files.ToDictionary(Path.GetFileName, f => default(string));
             return true;

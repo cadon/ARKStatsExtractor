@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -21,10 +21,15 @@ namespace ARKBreedingStats.Updater
         {
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
             if (!File.Exists(manifestFilePath))
+            {
                 return;
+            }
 
             _asbManifest = AsbManifest.FromJsonFile(manifestFilePath);
-            if (_asbManifest?.Modules == null) return;
+            if (_asbManifest?.Modules == null)
+            {
+                return;
+            }
 
             InitializeComponent();
             Loc.ControlText(BtOk, "OK");
@@ -98,7 +103,9 @@ namespace ARKBreedingStats.Updater
 
             string checkBoxDownloadText = null;
             if (!module.LocallyAvailable)
+            {
                 checkBoxDownloadText = "Download";
+            }
             else if (module.UpdateAvailable)
             {
                 checkBoxDownloadText = "Update";
@@ -108,12 +115,18 @@ namespace ARKBreedingStats.Updater
             if (checkBoxDownloadText != null)
             {
                 var cb = new CheckBox { Text = checkBoxDownloadText, Tag = module, Padding = new Padding(3) };
-                if (module.UpdateAvailable) cb.BackColor = Color.Yellow;
+                if (module.UpdateAvailable)
+                {
+                    cb.BackColor = Color.Yellow;
+                }
+
                 cb.CheckedChanged += (s, e) => cb.BackColor = cb.Checked ? Color.LightGreen : ((cb.Tag as AsbModule)?.UpdateAvailable ?? false) ? Color.Yellow : SystemColors.Control;
 
                 c.Click += (s, e) => ClickCheckBox(cb);
                 foreach (Control cc in c.Controls)
+                {
                     cc.Click += (s, e) => ClickCheckBox(cb);
+                }
 
                 c.Controls.Add(cb);
                 c.SetRow(cb, 2);
@@ -130,7 +143,9 @@ namespace ARKBreedingStats.Updater
                 {
                     c.Click += (s, e) => ClickCheckBox(cb);
                     foreach (Control cc in c.Controls)
+                    {
                         cc.Click += (s, e) => ClickCheckBox(cb);
+                    }
                 }
 
                 // if there's only one option, choose that
@@ -160,9 +175,17 @@ namespace ARKBreedingStats.Updater
 
         internal async Task<(string, List<string> idsSuccessfullyDownloaded)> DownloadRequestedModulesAsync()
         {
-            if (_asbManifest == null) return (null, null);
+            if (_asbManifest == null)
+            {
+                return (null, null);
+            }
+
             var downloadModules = _checkboxesUpdateModule.Where(cb => cb.Checked).Select(cb => cb.Tag as AsbModule).ToArray();
-            if (!downloadModules.Any()) return (null, null);
+            if (!downloadModules.Any())
+            {
+                return (null, null);
+            }
+
             var (_, resultMessage, idsSuccessfullyDownloaded) = await DownloadModulesAsync(downloadModules);
 
             return (resultMessage, idsSuccessfullyDownloaded);
@@ -189,7 +212,9 @@ namespace ARKBreedingStats.Updater
 
             var resultMessage = sb.ToString();
             if (!success && displayErrorMessage)
+            {
                 MessageBoxes.ShowMessageBox("Error while downloading ASB modules:\n\n" + resultMessage);
+            }
 
             return (success, resultMessage, idsSuccessfullyDownloaded);
         }

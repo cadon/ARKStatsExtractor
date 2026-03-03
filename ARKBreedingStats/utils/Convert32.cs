@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ARKBreedingStats.utils
 {
@@ -10,7 +10,11 @@ namespace ARKBreedingStats.utils
         /// </summary>
         public static string ToBase32String(byte[] bytes)
         {
-            if (bytes == null) return null;
+            if (bytes == null)
+            {
+                return null;
+            }
+
             var outputLength = (int)Math.Ceiling(bytes.Length * 8d / 5);
             var s = new char[outputLength];
 

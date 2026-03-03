@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -24,7 +24,10 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 foreach (Control c in Controls)
+                {
                     c.Dispose();
+                }
+
                 Controls.Clear();
                 tagSelectors.Clear();
                 int i = 0;
@@ -55,7 +58,9 @@ namespace ARKBreedingStats.uiControls
         {
             int i = tagStrings.IndexOf(tag);
             if (i >= 0)
+            {
                 tagSelectors[i].Status = status;
+            }
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -65,8 +70,13 @@ namespace ARKBreedingStats.uiControls
             {
                 List<string> l = new List<string>();
                 foreach (TagSelector ts in tagSelectors)
+                {
                     if (ts.Status == TagSelector.tagStatus.exclude)
+                    {
                         l.Add(ts.TagName);
+                    }
+                }
+
                 return l;
             }
         }
@@ -78,8 +88,13 @@ namespace ARKBreedingStats.uiControls
             {
                 List<string> l = new List<string>();
                 foreach (TagSelector ts in tagSelectors)
+                {
                     if (ts.Status == TagSelector.tagStatus.include)
+                    {
                         l.Add(ts.TagName);
+                    }
+                }
+
                 return l;
             }
         }

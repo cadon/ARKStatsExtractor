@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using System.Windows.Forms;
 using ARKBreedingStats.species;
@@ -94,14 +95,19 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 for (var s = 0; s < Stats.StatsCount; s++)
+                {
                     _stats[s].BarMaxLevel = value;
+                }
             }
         }
 
         public void Clear()
         {
             for (var s = 0; s < Stats.StatsCount; s++)
+            {
                 _stats[s].SetNumbers(0, 0, 0, 0, 0);
+            }
+
             _lbSex.Text = string.Empty;
         }
     }

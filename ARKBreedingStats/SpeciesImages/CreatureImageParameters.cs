@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.ocr.PatternMatching;
 using ARKBreedingStats.species;
@@ -34,9 +35,15 @@ namespace ARKBreedingStats.SpeciesImages
             SpeciesName = species.name;
             ModName = species.Mod?.Id;
             if (string.IsNullOrEmpty(ModName))
+            {
                 ModName = game;
+            }
+
             if (!string.IsNullOrEmpty(ModName))
+            {
                 ModName = "_" + ModName;
+            }
+
             CreatureSex = sex == Sex.Female ? "_sf" : sex == Sex.Male ? "_sm" : string.Empty;
             Pattern = patternId >= 0 ? "_p" + patternId : string.Empty;
             PoseId = pose;
@@ -68,6 +75,7 @@ namespace ARKBreedingStats.SpeciesImages
         {
             var speciesNameUsed = speciesName ?? SpeciesName;
             if (onlyWithPose)
+            {
                 return new List<string>
                 {
                     speciesNameUsed + ModName + CreatureSex + Pattern + Pose,
@@ -75,6 +83,7 @@ namespace ARKBreedingStats.SpeciesImages
                     speciesNameUsed + CreatureSex + Pattern + Pose,
                     speciesNameUsed + Pattern + Pose
                 };
+            }
 
             return new List<string>
             {
@@ -97,11 +106,19 @@ namespace ARKBreedingStats.SpeciesImages
             var possibleFileNames = GetPossibleSpeciesImageNames(onlyWithPose: onlyWithPose);
             // fallback for some variant species to use the vanilla one if no aberrant image is available (they're pretty similar)
             if (SpeciesName.StartsWith("Aberrant "))
+            {
                 possibleFileNames.AddRange(GetPossibleSpeciesImageNames(SpeciesName.Replace("Aberrant ", string.Empty), onlyWithPose));
+            }
+
             if (SpeciesName.Contains("Brute "))
+            {
                 possibleFileNames.AddRange(GetPossibleSpeciesImageNames(SpeciesName.Replace("Brute ", string.Empty), onlyWithPose));
+            }
+
             if (SpeciesName.Contains("Polar "))
+            {
                 possibleFileNames.AddRange(GetPossibleSpeciesImageNames(SpeciesName.Replace("Polar Bear", "Dire Bear").Replace("Polar ", string.Empty), onlyWithPose));
+            }
 
             return possibleFileNames.Distinct().ToArray();
         }

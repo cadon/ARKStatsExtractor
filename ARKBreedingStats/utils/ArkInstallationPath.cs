@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,12 +19,18 @@ namespace ARKBreedingStats.utils
         /// </summary>
         internal static bool GetListOfExportFolders(out (string path, string launcherPlayerName)[] exportFolders, out string error)
         {
-            if (ExtractSteamExportLocations(out exportFolders, out error)) return true;
+            if (ExtractSteamExportLocations(out exportFolders, out error))
+            {
+                return true;
+            }
 
             var steamError = error;
 
             // steam path couldn't be localized. Try Epic
-            if (ExtractEpicExportLocations(out exportFolders, out error)) return true;
+            if (ExtractEpicExportLocations(out exportFolders, out error))
+            {
+                return true;
+            }
 
             error = $"Steam: {steamError}\n\nEpic: {error}";
 
@@ -41,7 +47,9 @@ namespace ARKBreedingStats.utils
             exportFolders = null;
 
             if (!GetSteamLibraryArkInstallationFolders(out var existingArkPaths, out var steamNamesIds, out error))
+            {
                 return false;
+            }
 
             var relativeExportFolder = RelativeExportPath();
 
@@ -51,12 +59,14 @@ namespace ARKBreedingStats.utils
             foreach (var arkPath in existingArkPaths)
             {
                 foreach (var steamNameId in steamNamesIds)
+                {
                     exportFolders[i++] = (
                         arkPath.Game == Ark.Game.Ase
                         ? Path.Combine(arkPath.Path, relativeExportFolder, steamNameId.steamPlayerId)
                         : Path.Combine(arkPath.Path, relativeExportFolder), // ASA doesn't use steam id as subfolder
                         $"{steamNameId.steamPlayerName} ({arkPath.Game})"
                         );
+                }
                 // for export gun mod
                 exportFolders[i++] = (Path.Combine(arkPath.Path, relativeExportFolder, "ASB"),
                     $"ExportGun ({arkPath.Game})");
@@ -89,7 +99,10 @@ namespace ARKBreedingStats.utils
 
             if (!ReadSteamPlayerIdsAndArkInstallPaths(configFilePath, libraryFoldersFilePath,
                     out steamNamesIds, out string[] arkInstallFolders,
-                    out error)) return false;
+                    out error))
+            {
+                return false;
+            }
 
             var relativeAsePath = Path.Combine("steamapps", "common", "ARK");
             var relativeAsaPath = Path.Combine("steamapps", "common", "ARK Survival Ascended");
@@ -128,7 +141,10 @@ namespace ARKBreedingStats.utils
                 return false;
             }
 
-            if (!ReadEpicArkInstallPaths(configFilePath, out string[] arkInstallFolders, out error)) return false;
+            if (!ReadEpicArkInstallPaths(configFilePath, out string[] arkInstallFolders, out error))
+            {
+                return false;
+            }
 
             var existingArkPaths = arkInstallFolders.Where(Directory.Exists).ToArray();
 
@@ -162,7 +178,11 @@ namespace ARKBreedingStats.utils
                 @"SOFTWARE\Valve\Steam\");
             using (var key = Registry.LocalMachine.OpenSubKey(keyName))
             {
-                if (key == null) return false;
+                if (key == null)
+                {
+                    return false;
+                }
+
                 steamPath = (string)key.GetValue("InstallPath");
                 return !string.IsNullOrEmpty(steamPath);
             }
@@ -216,12 +236,16 @@ namespace ARKBreedingStats.utils
                 var pathRegex = new Regex(@"""path""\s*""([^""]+)""");
                 mm = pathRegex.Matches(File.ReadAllText(steamLibraryFoldersFilePath));
                 if (mm.Count > 0)
+                {
                     arkInstallPaths = arkInstallPaths.Concat(from Match mi in mm select removeEscapeBackslashes.Replace(mi.Groups[1].Value, "$1")).ToArray();
+                }
             }
 
             bool anyPlayerIds = steamPlayerIds.Any();
             if (!anyPlayerIds)
+            {
                 error = "No steam accounts in the steam config file found.";
+            }
 
             return anyPlayerIds;
         }
@@ -284,7 +308,11 @@ namespace ARKBreedingStats.utils
 
             DateTime LastWriteOfNewestFileInFolder(string folderPath)
             {
-                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return new DateTime();
+                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
+                {
+                    return new DateTime();
+                }
+
                 return new DirectoryInfo(folderPath).GetFiles("*.ini").Select(fi => fi.LastWriteTime).DefaultIfEmpty(new DateTime()).Max();
             }
         }
@@ -297,7 +325,9 @@ namespace ARKBreedingStats.utils
             localConfigPaths = null;
 
             if (!GetSteamLibraryArkInstallationFolders(out var existingArkPaths, out _, out error))
+            {
                 return false;
+            }
 
             var relativeLocalConfigPathAse = RelativeLocalConfigPathAse();
             var relativeLocalConfigPathAsa = RelativeLocalConfigPathAsa();

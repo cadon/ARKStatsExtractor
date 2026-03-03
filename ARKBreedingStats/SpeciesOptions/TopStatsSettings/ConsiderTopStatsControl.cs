@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+using ARKBreedingStats.Models;
+using System.Windows.Forms;
 
 namespace ARKBreedingStats.SpeciesOptions.TopStatsSettings
 {

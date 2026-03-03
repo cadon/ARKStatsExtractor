@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -35,7 +35,11 @@ namespace ARKBreedingStats.uiControls
 
         private void ScrollForm_MouseMove(object sender, MouseEventArgs e)
         {
-            if (Moved == null) return;
+            if (Moved == null)
+            {
+                return;
+            }
+
             var p = Cursor.Position;
             p.Offset(_centerOffset);
             Moved(p.X, p.Y);

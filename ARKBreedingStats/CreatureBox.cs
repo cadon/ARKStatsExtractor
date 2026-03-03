@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
@@ -79,7 +80,10 @@ namespace ARKBreedingStats
                     checkBoxIsBred.Checked = _creature.isBred;
                     panelParents.Visible = _creature.isBred;
                     if (_creature.isBred)
+                    {
                         PopulateParentsList();
+                    }
+
                     textBoxName.Text = _creature.name;
                     textBoxOwner.Text = _creature.owner;
                     textBoxNote.Text = _creature.note;
@@ -175,7 +179,10 @@ namespace ARKBreedingStats
                 _creature.owner = textBoxOwner.Text;
                 Creature parent = null;
                 if (checkBoxIsBred.Checked)
+                {
                     parent = parentComboBoxMother.SelectedParent;
+                }
+
                 _creature.motherGuid = parent?.guid ?? Guid.Empty;
                 bool parentsChanged = false;
                 if (_creature.Mother != parent)
@@ -185,7 +192,10 @@ namespace ARKBreedingStats
                 }
                 parent = null;
                 if (checkBoxIsBred.Checked)
+                {
                     parent = parentComboBoxFather.SelectedParent;
+                }
+
                 _creature.fatherGuid = parent?.guid ?? Guid.Empty;
                 if (_creature.Father != parent)
                 {
@@ -193,7 +203,9 @@ namespace ARKBreedingStats
                     parentsChanged = true;
                 }
                 if (parentsChanged)
+                {
                     _creature.RecalculateAncestorGenerations();
+                }
 
                 _creature.isBred = checkBoxIsBred.Checked;
 
@@ -249,12 +261,18 @@ namespace ARKBreedingStats
         {
             panelParents.Visible = checkBoxIsBred.Checked;
             if (checkBoxIsBred.Checked)
+            {
                 PopulateParentsList();
+            }
         }
 
         public void UpdateCreatureImage(bool colorsChanged = true)
         {
-            if (_creature == null) return;
+            if (_creature == null)
+            {
+                return;
+            }
+
             if (colorsChanged)
             {
                 _creature.colors = regionColorChooser1.ColorIds;
@@ -284,13 +302,21 @@ namespace ARKBreedingStats
 
         private void LbMotherClick(object sender, EventArgs e)
         {
-            if (_creature?.Mother == null) return;
+            if (_creature?.Mother == null)
+            {
+                return;
+            }
+
             SelectCreature?.Invoke(_creature.Mother);
         }
 
         private void LbFatherClick(object sender, EventArgs e)
         {
-            if (_creature?.Father == null) return;
+            if (_creature?.Father == null)
+            {
+                return;
+            }
+
             SelectCreature?.Invoke(_creature.Father);
         }
     }

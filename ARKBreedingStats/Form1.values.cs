@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.Mods;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.values;
 using System;
@@ -27,7 +29,10 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool LoadModValueFiles(List<string> modFilesToLoad, bool showResult, bool applySettings, out List<Mod> mods)
         {
-            if (modFilesToLoad == null) throw new ArgumentNullException();
+            if (modFilesToLoad == null)
+            {
+                throw new ArgumentNullException();
+            }
 
             // first ensure that all mod-files are available
             CheckAvailabilityAndUpdateModFiles(modFilesToLoad, Values.V, out _);
@@ -38,10 +43,14 @@ namespace ARKBreedingStats
             {
                 speciesSelector1.SetSpeciesLists(Values.V.Species, Values.V.aliases);
                 if (applySettings)
+                {
                     ApplySettingsToValues();
+                }
             }
             if (showResult && !string.IsNullOrEmpty(resultsMessage))
+            {
                 MessageBox.Show(resultsMessage, "Loading Mod Values", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             _creatureCollection.ModList = mods;
             UpdateStatusBar();
@@ -94,8 +103,16 @@ namespace ARKBreedingStats
                     ) == DialogResult.Yes)
             {
                 List<string> modTagsToAdd = new List<string>();
-                if (locallyAvailableModsExist) modTagsToAdd.AddRange(locallyAvailableModFiles);
-                if (onlineAvailableModsExist) modTagsToAdd.AddRange(onlineAvailableModFiles);
+                if (locallyAvailableModsExist)
+                {
+                    modTagsToAdd.AddRange(locallyAvailableModFiles);
+                }
+
+                if (onlineAvailableModsExist)
+                {
+                    modTagsToAdd.AddRange(onlineAvailableModFiles);
+                }
+
                 HandleUnknownMods.AddModsToCollection(creatureCollection, modTagsToAdd);
             }
         }
@@ -154,7 +171,10 @@ namespace ARKBreedingStats
                 {
                     modsManifest = await ModsManifest.TryLoadModManifestFile(forceUpdate);
                     // assume all officially supported mods are online available
-                    foreach (var m in modsManifest.ModsByFiles) m.Value.OnlineAvailable = true;
+                    foreach (var m in modsManifest.ModsByFiles)
+                    {
+                        m.Value.OnlineAvailable = true;
+                    }
                 }
                 catch (FileNotFoundException ex)
                 {
@@ -196,11 +216,15 @@ namespace ARKBreedingStats
             try
             {
                 if (values.modsManifest == null)
+                {
                     LoadModsManifestAsync(values).Wait();
+                }
 
                 values.LoadValues(forceReload, out var errorMessage, out var errorMessageTitle);
                 if (!string.IsNullOrEmpty(errorMessage))
+                {
                     MessageBoxes.ShowMessageBox(errorMessage, errorMessageTitle);
+                }
 
                 success = true;
             }
@@ -210,7 +234,9 @@ namespace ARKBreedingStats
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
                     Utils.OpenUri(Updater.Updater.ReleasesUrl);
+                }
             }
             catch (FileNotFoundException)
             {
@@ -218,13 +244,17 @@ namespace ARKBreedingStats
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
                     Utils.OpenUri(Updater.Updater.ReleasesUrl);
+                }
             }
             catch (FormatException ex)
             {
                 FormatExceptionMessageBox(FileService.ValuesJson, ex.Message);
                 if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
+                {
                     CheckForUpdates();
+                }
             }
             catch (SerializationException ex)
             {

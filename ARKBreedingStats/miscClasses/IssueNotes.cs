@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace ARKBreedingStats.miscClasses
@@ -21,7 +21,9 @@ namespace ARKBreedingStats.miscClasses
                 foreach (var preIssue in prependIssues)
                 {
                     if (!string.IsNullOrEmpty(preIssue))
+                    {
                         notes.Add($"{issueNumber++}. {preIssue}");
+                    }
                 }
             }
 
@@ -30,7 +32,10 @@ namespace ARKBreedingStats.miscClasses
             while (issueFlags >= n)
             {
                 if ((issueFlags & n) != 0)
+                {
                     notes.Add($"{issueNumber++}. {GetHelpText((Issue)n)}");
+                }
+
                 n <<= 1;
             }
             return string.Join("\n\n", notes.ToArray());

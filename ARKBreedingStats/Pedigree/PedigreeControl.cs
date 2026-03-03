@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.library;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
@@ -107,7 +108,9 @@ namespace ARKBreedingStats.Pedigree
             {
                 DrawLines(e.Graphics, _lines, _pedigreeViewMode == PedigreeViewMode.Classic ? 1 : PedigreeCreatureCompact.PedigreeLineWidthFactor);
                 if (_creatureChildren.Any())
+                {
                     e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 50, _yBottomOfPedigree);
+                }
             }
         }
 
@@ -219,40 +222,63 @@ namespace ARKBreedingStats.Pedigree
         public void RecreateAfterLoading(bool isActiveControl = false)
         {
             if (_selectedCreature == null)
+            {
                 return;
+            }
 
             _selectedCreature = _creatures.FirstOrDefault(c => c.guid == _selectedCreature.guid);
 
             if (_selectedCreature == null)
+            {
                 Clear();
+            }
             else if (isActiveControl)
+            {
                 CreatePedigree();
-            else PedigreeNeedsUpdate = true;
+            }
+            else
+            {
+                PedigreeNeedsUpdate = true;
+            }
         }
 
         private void ClearControls(bool suspendDrawingAndLayout = true)
         {
             // clear pedigree
             if (suspendDrawingAndLayout)
+            {
                 this.SuspendDrawingAndLayout();
+            }
 
             foreach (var pc in _pedigreeControls)
+            {
                 pc.Dispose();
+            }
+
             _pedigreeControls.Clear();
             _lines[0].Clear();
             _lines[1].Clear();
             _lines[2].Clear();
             if (PbRegionColors.Image != null)
+            {
                 PbRegionColors.SetImageAndDisposeOld(null);
+            }
+
             PbRegionColors.Visible = false;
             LbCreatureName.Text = null;
             if (suspendDrawingAndLayout)
+            {
                 this.ResumeDrawingAndLayout();
+            }
         }
 
         private void SetViewMode(PedigreeViewMode viewMode)
         {
-            if (_pedigreeViewMode == viewMode) return;
+            if (_pedigreeViewMode == viewMode)
+            {
+                return;
+            }
+
             _pedigreeViewMode = viewMode;
 
             var classicViewMode = viewMode == PedigreeViewMode.Classic;
@@ -329,7 +355,9 @@ namespace ARKBreedingStats.Pedigree
                 LbCreatureName.Text = _selectedCreature.name;
 
                 if (PbKeyExplanations.Image == null)
+                {
                     DrawKey(PbKeyExplanations, _selectedSpecies);
+                }
 
                 _pedigreeControls.Add(new PedigreeCreature(_selectedCreature, _enabledColorRegions)
                 {
@@ -356,11 +384,13 @@ namespace ARKBreedingStats.Pedigree
                         int si = PedigreeCreature.DisplayedStats[s];
                         if (_selectedCreature.valuesCurrent[si] > 0 && _selectedCreature.levelsWild[si] >= 0 &&
                             _selectedCreature.levelsWild[si] == c.levelsWild[si])
+                        {
                             _lines[0].Add(new[]
                             {
                                 PedigreeCreation.LeftMargin + PedigreeCreature.XOffsetFirstStat + PedigreeCreature.HorizontalStatDistance * s, y + 6,
                                 PedigreeCreation.LeftMargin + PedigreeCreature.XOffsetFirstStat + PedigreeCreature.HorizontalStatDistance * s, y + 15, 0, 0
                         });
+                        }
                     }
                 }
                 _pedigreeControls.Add(pc);
@@ -392,7 +422,10 @@ namespace ARKBreedingStats.Pedigree
 
         private static void DrawKey(PictureBox pb, Species species)
         {
-            if (species == null) return;
+            if (species == null)
+            {
+                return;
+            }
 
             var w = pb.Width;
             var h = pb.Height;
@@ -536,7 +569,10 @@ namespace ARKBreedingStats.Pedigree
                 }
             }
 
-            if (_creatures == null || (centralCreature == _selectedCreature && !forceUpdate)) return;
+            if (_creatures == null || (centralCreature == _selectedCreature && !forceUpdate))
+            {
+                return;
+            }
 
             if (centralCreature.Species != _selectedSpecies)
             {
@@ -605,7 +641,9 @@ namespace ARKBreedingStats.Pedigree
         public void SetSpeciesIfNotSet(Species species)
         {
             if (_selectedSpecies == null)
+            {
                 SetSpecies(species);
+            }
         }
 
         /// <summary>
@@ -614,15 +652,23 @@ namespace ARKBreedingStats.Pedigree
         public void SetSpecies(Species species = null, bool forceUpdate = false)
         {
             if (!forceUpdate && (species == null || species == _selectedSpecies))
+            {
                 return;
+            }
 
             if (PbKeyExplanations.Image != null)
+            {
                 PbKeyExplanations.SetImageAndDisposeOld(null);
+            }
 
             if (species != null)
+            {
                 _selectedSpecies = species;
+            }
             else if (_selectedCreature == null)
+            {
                 return;
+            }
 
             EnabledColorRegions = _selectedSpecies.EnabledColorRegions;
             _creaturesOfSpecies = _creatures.Where(c => c.Species == _selectedSpecies).ToArray();
@@ -636,7 +682,10 @@ namespace ARKBreedingStats.Pedigree
             listViewCreatures.BeginUpdate();
             var filterStrings = TextBoxFilter.Text.Split(',').Select(f => f.Trim())
                 .Where(f => !string.IsNullOrEmpty(f)).ToArray();
-            if (!filterStrings.Any()) filterStrings = null;
+            if (!filterStrings.Any())
+            {
+                filterStrings = null;
+            }
 
             var items = new List<ListViewItem>();
 
@@ -652,7 +701,9 @@ namespace ARKBreedingStats.Pedigree
                        || (cr.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
                        || (cr.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
                    ))
+                {
                     continue;
+                }
 
                 string crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";
                 ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel })
@@ -661,9 +712,15 @@ namespace ARKBreedingStats.Pedigree
                     UseItemStyleForSubItems = false
                 };
                 if (cr.flags.HasFlag(CreatureFlags.Placeholder))
+                {
                     lvi.SubItems[0].ForeColor = Color.LightGray;
+                }
+
                 if (crLevel == "?")
+                {
                     lvi.SubItems[1].ForeColor = Color.LightGray;
+                }
+
                 items.Add(lvi);
             }
 
@@ -719,19 +776,25 @@ namespace ARKBreedingStats.Pedigree
         private void RbViewClassic_CheckedChanged(object sender, EventArgs e)
         {
             if (RbViewClassic.Checked)
+            {
                 SetViewMode(PedigreeViewMode.Classic);
+            }
         }
 
         private void RbViewCompact_CheckedChanged(object sender, EventArgs e)
         {
             if (RbViewCompact.Checked)
+            {
                 SetViewMode(PedigreeViewMode.Compact);
+            }
         }
 
         private void RbViewH_CheckedChanged(object sender, EventArgs e)
         {
             if (RbViewH.Checked)
+            {
                 SetViewMode(PedigreeViewMode.HView);
+            }
         }
 
         private enum PedigreeViewMode

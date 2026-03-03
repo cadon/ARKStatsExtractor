@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading;
 
@@ -40,7 +40,10 @@ namespace ARKBreedingStats
 
         private void OnChanged(object source, FileSystemEventArgs e)
         {
-            if (string.IsNullOrEmpty(_currentFile)) return;
+            if (string.IsNullOrEmpty(_currentFile))
+            {
+                return;
+            }
 
             if (e.ChangeType != WatcherChangeTypes.Changed &&                                                    // default || DropBox
                 !(e.ChangeType == WatcherChangeTypes.Renamed && _lastChangeType == WatcherChangeTypes.Deleted) && // NextCloud
@@ -54,7 +57,9 @@ namespace ARKBreedingStats
             // first wait for the time the user has set
             var waitMs = Properties.Settings.Default.WaitBeforeAutoLoadMs;
             if (waitMs > 0)
+            {
                 Thread.Sleep(waitMs);
+            }
 
             // Wait until the file is writeable
             const int numberOfRetries = 5;
@@ -104,7 +109,9 @@ namespace ARKBreedingStats
         {
             _lastUpdated = DateTime.Now;
             if (!string.IsNullOrEmpty(_currentFile))
+            {
                 _fileWatcher.EnableRaisingEvents = true;
+            }
         }
 
         private void UpdateProperties()
@@ -135,7 +142,10 @@ namespace ARKBreedingStats
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
 
             if (disposing)
             {
