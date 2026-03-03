@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -739,7 +740,7 @@ namespace ARKBreedingStats
             get
             {
                 if (string.IsNullOrEmpty(_applicationNameVersion))
-                    _applicationNameVersion = $"{Application.ProductName} v{typeof(Utils).Assembly.GetName().Version}";
+                    _applicationNameVersion = $"{Application.ProductName} v{Application.ProductVersion}";
                 return _applicationNameVersion;
             }
         }
@@ -777,5 +778,15 @@ namespace ARKBreedingStats
         /// Compares two colors, only considering their ARGB values (ignoring the color name which is considered by the default Color.Equals()).
         /// </summary>
         public static bool ColorsEqual(Color c1, Color c2) => c1.A == c2.A && c1.R == c2.R && c1.G == c2.G && c1.B == c2.B;
+
+        /// <summary>
+        /// Opens a URL or file/folder path using the system default handler.
+        /// Uses UseShellExecute=true, which is required on .NET 5+ for shell-handled targets.
+        /// </summary>
+        public static void OpenUri(string uri)
+        {
+            if (string.IsNullOrEmpty(uri)) return;
+            Process.Start(new ProcessStartInfo(uri) { UseShellExecute = true });
+        }
     }
 }
