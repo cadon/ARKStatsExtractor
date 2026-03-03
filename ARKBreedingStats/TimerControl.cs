@@ -451,7 +451,7 @@ namespace ARKBreedingStats
                 return;
             }
             if (Directory.Exists(soundPath))
-                System.Diagnostics.Process.Start(soundPath);
+                Utils.OpenUri(soundPath);
         }
 
         private void btPlaySelectedSound_Click(object sender, EventArgs e)
