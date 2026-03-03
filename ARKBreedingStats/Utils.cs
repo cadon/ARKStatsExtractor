@@ -739,7 +739,7 @@ namespace ARKBreedingStats
             get
             {
                 if (string.IsNullOrEmpty(_applicationNameVersion))
-                    _applicationNameVersion = $"{Application.ProductName} v{Application.ProductVersion}";
+                    _applicationNameVersion = $"{Application.ProductName} v{typeof(Utils).Assembly.GetName().Version}";
                 return _applicationNameVersion;
             }
         }
