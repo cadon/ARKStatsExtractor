@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Mods;
+using ARKBreedingStats.OCR;
 using ARKBreedingStats.importExported;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
@@ -2232,7 +2234,7 @@ namespace ARKBreedingStats
             var gameSettingBefore = _creatureCollection.Game;
             var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
-            using (Settings settingsForm = new Settings(_creatureCollection, page))
+            using (settings.Settings settingsForm = new settings.Settings(_creatureCollection, page))
             {
                 var settingsSaved = settingsForm.ShowDialog() == DialogResult.OK;
                 _settingsLastTabPage = settingsForm.LastTabPageIndex;

@@ -1,11 +1,11 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using System;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.ocr.PatternMatching;
 using ARKBreedingStats.species;
 using System.Collections.Generic;
 using System.Linq;
-using static ARKBreedingStats.Ark;
+using static ARKBreedingStats.Models.Ark;
 
 namespace ARKBreedingStats.SpeciesImages
 {

@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
@@ -1894,7 +1894,7 @@ namespace ARKBreedingStats
                 {
                     if (MessageBox.Show("No fields for the table export selected.\nDo you want to go to the options to edit the export fields?", "No Export Fields set",
                          MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                        OpenSettingsDialog(Settings.SettingsTabPages.General);
+                        OpenSettingsDialog(settings.Settings.SettingsTabPages.General);
                     return;
                 }
                 if (listViewLibrary.SelectedIndices.Count > 0)
@@ -1916,7 +1916,7 @@ namespace ARKBreedingStats
 
         private void editSpreadsheetExportFieldsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenSettingsDialog(Settings.SettingsTabPages.General);
+            OpenSettingsDialog(settings.Settings.SettingsTabPages.General);
         }
 
         /// <summary>

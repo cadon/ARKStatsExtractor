@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.uiControls;

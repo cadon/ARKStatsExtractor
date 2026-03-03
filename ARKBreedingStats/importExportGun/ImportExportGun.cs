@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.values;

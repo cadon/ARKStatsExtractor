@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -677,18 +677,18 @@ namespace ARKBreedingStats
             if (!parentListValid)
                 ParentListRequested?.Invoke(this);
             using (var pe = new PatternEditor(creature, _sameSpecies, topLevels, ColorAlreadyExistingInformation,
-                       customReplacings, $"pattern {namingPatternIndex + 1}", Settings.Default.NamingPatterns?[namingPatternIndex], reloadCallback, LibraryCreatureCount))
+                       customReplacings, $"pattern {namingPatternIndex + 1}", Properties.Settings.Default.NamingPatterns?[namingPatternIndex], reloadCallback, LibraryCreatureCount))
             {
                 if (pe.ShowDialog() == DialogResult.OK)
                 {
-                    var namingPatterns = Settings.Default.NamingPatterns ?? new string[6];
+                    var namingPatterns = Properties.Settings.Default.NamingPatterns ?? new string[6];
                     namingPatterns[namingPatternIndex] = pe.NamePattern;
-                    Settings.Default.NamingPatterns = namingPatterns;
-                    Settings.Default.PatternNameToClipboardAfterManualApplication = pe.PatternNameToClipboardAfterManualApplication;
+                    Properties.Settings.Default.NamingPatterns = namingPatterns;
+                    Properties.Settings.Default.PatternNameToClipboardAfterManualApplication = pe.PatternNameToClipboardAfterManualApplication;
                 }
 
-                (Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);
-                Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
+                (Properties.Settings.Default.PatternEditorFormRectangle, _) = Utils.GetWindowRectangle(pe);
+                Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
             }
         }
 
@@ -883,16 +883,16 @@ namespace ARKBreedingStats
 
         private void BtSaveOTSPreset_Click(object sender, EventArgs e)
         {
-            Settings.Default.DefaultOwnerName = CreatureOwner;
-            Settings.Default.DefaultTribeName = CreatureTribe;
-            Settings.Default.DefaultServerName = CreatureServer;
+            Properties.Settings.Default.DefaultOwnerName = CreatureOwner;
+            Properties.Settings.Default.DefaultTribeName = CreatureTribe;
+            Properties.Settings.Default.DefaultServerName = CreatureServer;
         }
 
         private void BtApplyOTSPreset_Click(object sender, EventArgs e)
         {
-            CreatureOwner = Settings.Default.DefaultOwnerName;
-            CreatureTribe = Settings.Default.DefaultTribeName;
-            CreatureServer = Settings.Default.DefaultServerName;
+            CreatureOwner = Properties.Settings.Default.DefaultOwnerName;
+            CreatureTribe = Properties.Settings.Default.DefaultTribeName;
+            CreatureServer = Properties.Settings.Default.DefaultServerName;
         }
 
         /// <summary>

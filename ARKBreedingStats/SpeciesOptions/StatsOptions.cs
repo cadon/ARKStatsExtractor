@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 
 namespace ARKBreedingStats.SpeciesOptions
 {

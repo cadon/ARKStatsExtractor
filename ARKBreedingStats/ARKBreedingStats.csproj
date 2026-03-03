@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ARKBreedingStats.Core\ARKBreedingStats.Core.csproj" />
+    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.csproj" />
     <ProjectReference Include="..\ASB-Updater\ASB Updater.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>

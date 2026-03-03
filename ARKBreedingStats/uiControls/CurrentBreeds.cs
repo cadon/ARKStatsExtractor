@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;

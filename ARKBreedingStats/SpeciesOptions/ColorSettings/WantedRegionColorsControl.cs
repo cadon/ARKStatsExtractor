@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+using ARKBreedingStats.Models;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.SpeciesOptions.ColorSettings

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

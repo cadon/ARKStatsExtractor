@@ -1,8 +1,9 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
+using ARKBreedingStats.Mods;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;

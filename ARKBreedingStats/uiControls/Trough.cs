@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.uiControls

@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.values;
@@ -399,7 +399,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show(
                     "No save game files are configured for importing.\nYou can do this in the settings. Do you want to open the according settings-page?",
                     $"Save import not configured - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    OpenSettingsDialog(Settings.SettingsTabPages.SaveImport);
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.SaveImport);
                 return;
             }
 
@@ -411,7 +411,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show(
                     "No save game files for the quick import are selected.\nYou can do this in the settings. Do you want to open the according settings-page?",
                     $"Quick import not configured - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    OpenSettingsDialog(Settings.SettingsTabPages.SaveImport);
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.SaveImport);
                 return;
             }
 

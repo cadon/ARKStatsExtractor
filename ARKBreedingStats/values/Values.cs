@@ -1,5 +1,7 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Mods;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using Newtonsoft.Json;
@@ -445,7 +447,7 @@ namespace ARKBreedingStats.values
             else lines = File.ReadAllLines(filePath).ToList();
 
             // check if species is already a favorite
-            var favoriteOrderEntry = species.name + "@" + ARKBreedingStats.species.Species.FavoritePrefix + species.name;
+            var favoriteOrderEntry = species.name + "@" + ARKBreedingStats.Models.Species.FavoritePrefix + species.name;
             var i = lines.IndexOf(favoriteOrderEntry);
             if (i != -1) lines.RemoveAt(i);
             else
@@ -454,10 +456,10 @@ namespace ARKBreedingStats.values
                 var lineIndex = lines.FindIndex(l => l.StartsWith(species.name + '@'));
                 if (lineIndex >= 0)
                 {
-                    var m = Regex.Match(lines[lineIndex], @"([^@]+)@(" + Regex.Escape(ARKBreedingStats.species.Species.FavoritePrefix) + @")?(.*)");
+                    var m = Regex.Match(lines[lineIndex], @"([^@]+)@(" + Regex.Escape(ARKBreedingStats.Models.Species.FavoritePrefix) + @")?(.*)");
                     if (m.Success)
                     {
-                        if (m.Groups[2].Value == ARKBreedingStats.species.Species.FavoritePrefix)
+                        if (m.Groups[2].Value == ARKBreedingStats.Models.Species.FavoritePrefix)
                         {
                             // remove fav prefix
                             lines[lineIndex] = m.Groups[1].Value + "@" + m.Groups[3].Value;
@@ -465,7 +467,7 @@ namespace ARKBreedingStats.values
                         else
                         {
                             // add fav prefix
-                            lines[lineIndex] = m.Groups[1].Value + "@" + ARKBreedingStats.species.Species.FavoritePrefix + m.Groups[3].Value;
+                            lines[lineIndex] = m.Groups[1].Value + "@" + ARKBreedingStats.Models.Species.FavoritePrefix + m.Groups[3].Value;
                         }
                     }
                     else
@@ -609,26 +611,26 @@ namespace ARKBreedingStats.values
 
                         bool customOverrideForThisStatExists = customOverrideExists && customFullStatsRaw[s] != null;
 
-                        sp.stats[s].BaseValue = GetRawStatValue(s, species.Species.StatsRawIndexBase, customOverrideForThisStatExists);
+                        sp.stats[s].BaseValue = GetRawStatValue(s, ARKBreedingStats.Models.Species.StatsRawIndexBase, customOverrideForThisStatExists);
 
                         // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
-                        double addWhenTamed = GetRawStatValue(s, species.Species.StatsRawIndexAdditiveBonus, customOverrideForThisStatExists);
+                        double addWhenTamed = GetRawStatValue(s, ARKBreedingStats.Models.Species.StatsRawIndexAdditiveBonus, customOverrideForThisStatExists);
                         sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
 
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        double multAffinity = GetRawStatValue(s, species.Species.StatsRawIndexMultiplicativeBonus, customOverrideForThisStatExists);
+                        double multAffinity = GetRawStatValue(s, ARKBreedingStats.Models.Species.StatsRawIndexMultiplicativeBonus, customOverrideForThisStatExists);
                         sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
 
                         if (useSpeedLevelup || s != Stats.SpeedMultiplier)
                         {
-                            sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, species.Species.StatsRawIndexIncPerDomLevel, customOverrideForThisStatExists) * statMultipliers[2];
+                            sp.stats[s].IncPerTamedLevel = GetRawStatValue(s, ARKBreedingStats.Models.Species.StatsRawIndexIncPerDomLevel, customOverrideForThisStatExists) * statMultipliers[2];
                         }
                         else
                         {
                             sp.stats[s].IncPerTamedLevel = 0;
                         }
 
-                        sp.stats[s].IncPerWildLevel = GetRawStatValue(s, species.Species.StatsRawIndexIncPerWildLevel, customOverrideForThisStatExists) * statMultipliers[3];
+                        sp.stats[s].IncPerWildLevel = GetRawStatValue(s, ARKBreedingStats.Models.Species.StatsRawIndexIncPerWildLevel, customOverrideForThisStatExists) * statMultipliers[3];
                         sp.stats[s].IncPerMutatedLevel = sp.stats[s].IncPerWildLevel * sp.mutationMult[s];
 
                         var altBaseValue = 0d;

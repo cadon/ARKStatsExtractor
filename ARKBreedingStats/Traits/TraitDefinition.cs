@@ -1,7 +1,7 @@
 // TraitDefinition data model moved to ARKBreedingStats.Core/TraitDefinition.cs
 // This file contains only the app-layer file loader.
 
-using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using System.Collections.Generic;
 
 namespace ARKBreedingStats.Traits

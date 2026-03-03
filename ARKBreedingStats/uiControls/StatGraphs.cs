@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using System.Windows.Forms.DataVisualization.Charting;
 

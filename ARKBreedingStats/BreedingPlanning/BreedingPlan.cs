@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.Properties;
@@ -116,16 +116,16 @@ namespace ARKBreedingStats.BreedingPlanning
             BreedingPlanNeedsUpdate = false;
             BtRecalculatePlan.Visible = false;
 
-            cbServerFilterLibrary.Checked = Settings.Default.UseServerFilterForBreedingPlan;
-            cbOwnerFilterLibrary.Checked = Settings.Default.UseOwnerFilterForBreedingPlan;
-            cbBPIncludeCooldowneds.Checked = Settings.Default.IncludeCooldownsInBreedingPlan;
-            cbBPIncludeCryoCreatures.Checked = Settings.Default.IncludeCryoedInBreedingPlan;
-            cbBPOnlyOneSuggestionForFemales.Checked = Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale;
-            cbBPMutationLimitOnlyOnePartner.Checked = Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
-            CbIgnoreSexInPlanning.Checked = Settings.Default.IgnoreSexInBreedingPlan;
-            CbDontSuggestOverLimitOffspring.Checked = Settings.Default.BreedingPlanDontSuggestOverLimitOffspring;
-            CbConsiderMutationLevels.Checked = Settings.Default.BreedingPlanConsiderMutatedLevels;
-            CbOnlySameSpecies.Checked = Settings.Default.BreedingPlanOnlySameSpecies;
+            cbServerFilterLibrary.Checked = Properties.Settings.Default.UseServerFilterForBreedingPlan;
+            cbOwnerFilterLibrary.Checked = Properties.Settings.Default.UseOwnerFilterForBreedingPlan;
+            cbBPIncludeCooldowneds.Checked = Properties.Settings.Default.IncludeCooldownsInBreedingPlan;
+            cbBPIncludeCryoCreatures.Checked = Properties.Settings.Default.IncludeCryoedInBreedingPlan;
+            cbBPOnlyOneSuggestionForFemales.Checked = Properties.Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale;
+            cbBPMutationLimitOnlyOnePartner.Checked = Properties.Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit;
+            CbIgnoreSexInPlanning.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
+            CbDontSuggestOverLimitOffspring.Checked = Properties.Settings.Default.BreedingPlanDontSuggestOverLimitOffspring;
+            CbConsiderMutationLevels.Checked = Properties.Settings.Default.BreedingPlanConsiderMutatedLevels;
+            CbOnlySameSpecies.Checked = Properties.Settings.Default.BreedingPlanOnlySameSpecies;
 
             tagSelectorList1.OnTagChanged += TagSelectorList1_OnTagChanged;
 
@@ -206,7 +206,7 @@ namespace ARKBreedingStats.BreedingPlanning
             if (_currentSpecies != null)
             {
                 includeBpSpecies = new HashSet<string> { _currentSpecies.blueprintPath };
-                if (_currentSpecies.matesWith != null && !Settings.Default.BreedingPlanOnlySameSpecies)
+                if (_currentSpecies.matesWith != null && !Properties.Settings.Default.BreedingPlanOnlySameSpecies)
                     includeBpSpecies.UnionWith(_currentSpecies.matesWith);
             }
 
@@ -360,22 +360,22 @@ namespace ARKBreedingStats.BreedingPlanning
             else selectMales = FilterByTags(males);
 
             // filter by servers
-            if (cbServerFilterLibrary.Checked && (Settings.Default.FilterHideServers?.Any() ?? false))
+            if (cbServerFilterLibrary.Checked && (Properties.Settings.Default.FilterHideServers?.Any() ?? false))
             {
-                selectFemales = selectFemales.Where(c => !Settings.Default.FilterHideServers.Contains(c.server));
-                selectMales = selectMales?.Where(c => !Settings.Default.FilterHideServers.Contains(c.server));
+                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
+                selectMales = selectMales?.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
             }
             // filter by owner
-            if (cbOwnerFilterLibrary.Checked && (Settings.Default.FilterHideOwners?.Any() ?? false))
+            if (cbOwnerFilterLibrary.Checked && (Properties.Settings.Default.FilterHideOwners?.Any() ?? false))
             {
-                selectFemales = selectFemales.Where(c => !Settings.Default.FilterHideOwners.Contains(c.owner));
-                selectMales = selectMales?.Where(c => !Settings.Default.FilterHideOwners.Contains(c.owner));
+                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
+                selectMales = selectMales?.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
             }
             // filter by tribe
-            if (cbTribeFilterLibrary.Checked && (Settings.Default.FilterHideTribes?.Any() ?? false))
+            if (cbTribeFilterLibrary.Checked && (Properties.Settings.Default.FilterHideTribes?.Any() ?? false))
             {
-                selectFemales = selectFemales.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
-                selectMales = selectMales?.Where(c => !Settings.Default.FilterHideTribes.Contains(c.tribe));
+                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
+                selectMales = selectMales?.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
             }
 
             var selectedFemales = selectFemales.ToArray();
@@ -405,7 +405,7 @@ namespace ARKBreedingStats.BreedingPlanning
             if (selectedMales != null)
                 combinedCreatures.AddRange(selectedMales);
 
-            if (Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.NoGender)
+            if (Properties.Settings.Default.IgnoreSexInBreedingPlan || _currentSpecies.NoGender)
             {
                 selectedFemales = combinedCreatures.ToArray();
                 selectedMales = combinedCreatures.ToArray();
@@ -1068,13 +1068,13 @@ namespace ARKBreedingStats.BreedingPlanning
 
         private void checkBoxIncludeCooldowneds_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.IncludeCooldownsInBreedingPlan = cbBPIncludeCooldowneds.Checked;
+            Properties.Settings.Default.IncludeCooldownsInBreedingPlan = cbBPIncludeCooldowneds.Checked;
             DetermineBestBreeding(_chosenCreature, true);
         }
 
         private void cbBPIncludeCryoCreatures_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.IncludeCryoedInBreedingPlan = cbBPIncludeCryoCreatures.Checked;
+            Properties.Settings.Default.IncludeCryoedInBreedingPlan = cbBPIncludeCryoCreatures.Checked;
             DetermineBestBreeding(_chosenCreature, true);
         }
 
@@ -1249,55 +1249,55 @@ namespace ARKBreedingStats.BreedingPlanning
 
         private void cbServerFilterLibrary_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.UseServerFilterForBreedingPlan = cbServerFilterLibrary.Checked;
+            Properties.Settings.Default.UseServerFilterForBreedingPlan = cbServerFilterLibrary.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void cbOwnerFilterLibrary_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.UseOwnerFilterForBreedingPlan = cbOwnerFilterLibrary.Checked;
+            Properties.Settings.Default.UseOwnerFilterForBreedingPlan = cbOwnerFilterLibrary.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void cbTribeFilterLibrary_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.UseTribeFilterForBreedingPlan = cbTribeFilterLibrary.Checked;
+            Properties.Settings.Default.UseTribeFilterForBreedingPlan = cbTribeFilterLibrary.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void cbOnlyOneSuggestionForFemales_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale = cbBPOnlyOneSuggestionForFemales.Checked;
+            Properties.Settings.Default.BreedingPlanOnlyBestSuggestionForEachFemale = cbBPOnlyOneSuggestionForFemales.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void cbMutationLimitOnlyOnePartner_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit = cbBPMutationLimitOnlyOnePartner.Checked;
+            Properties.Settings.Default.BreedingPlanOnePartnerMoreMutationsThanLimit = cbBPMutationLimitOnlyOnePartner.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void CbIgnoreSexInPlanning_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.IgnoreSexInBreedingPlan = CbIgnoreSexInPlanning.Checked;
+            Properties.Settings.Default.IgnoreSexInBreedingPlan = CbIgnoreSexInPlanning.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void CbDontSuggestOverLimitOffspring_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.BreedingPlanDontSuggestOverLimitOffspring = CbDontSuggestOverLimitOffspring.Checked;
+            Properties.Settings.Default.BreedingPlanDontSuggestOverLimitOffspring = CbDontSuggestOverLimitOffspring.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void CbConsiderMutationLevels_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.BreedingPlanConsiderMutatedLevels = CbConsiderMutationLevels.Checked;
+            Properties.Settings.Default.BreedingPlanConsiderMutatedLevels = CbConsiderMutationLevels.Checked;
             CalculateBreedingScoresAndDisplayPairs();
         }
 
         private void CbOnlySameSpecies_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Default.BreedingPlanOnlySameSpecies = CbOnlySameSpecies.Checked;
+            Properties.Settings.Default.BreedingPlanOnlySameSpecies = CbOnlySameSpecies.Checked;
             DetermineBestBreeding(_chosenCreature, true);
         }
 

@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using ARKBreedingStats.Core;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Mods;
 using ARKBreedingStats.values;
 
 namespace ARKBreedingStats.mods

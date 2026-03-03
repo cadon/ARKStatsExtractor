@@ -1,3 +1,4 @@
+using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using System.Collections.Generic;
 using System.Linq;

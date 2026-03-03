@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.settings;
 using ARKBreedingStats.values;
 using System;
@@ -25,7 +26,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show("There is no valid folder set in the settings.\n\nOpen the settings-page?",
                         "No valid export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.ExportedImport);
                 }
             }
             else
@@ -51,7 +52,7 @@ namespace ARKBreedingStats
                 MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
                         "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
+                OpenSettingsDialog(settings.Settings.SettingsTabPages.ExportedImport);
             }
         }
 
@@ -77,7 +78,7 @@ namespace ARKBreedingStats
                                     "Usually the folder path ends with\n" + @"…\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
                         $"No default export-folder set - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.ExportedImport);
                 }
                 return;
             }
