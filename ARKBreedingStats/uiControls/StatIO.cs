@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -53,6 +54,7 @@ namespace ARKBreedingStats.uiControls
             _tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double Input
         {
             get => (double)numericUpDownInput.Value * (_percent ? 0.01 : 1);
@@ -72,6 +74,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Title
         {
             set
@@ -81,6 +84,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelWild
         {
             get => (short)nudLvW.Value;
@@ -103,6 +107,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelMut
         {
             get => (short)nudLvM.Value;
@@ -117,6 +122,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelDom
         {
             get => (short)nudLvD.Value;
@@ -127,6 +133,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double BreedingValue
         {
             get => _breedingValue;
@@ -147,6 +154,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// Indicates whether this stat is expressed as a percentage.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Percent
         {
             get => _percent;
@@ -157,6 +165,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Selected
         {
             set
@@ -173,6 +182,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public StatIOStatus Status
         {
             get => _status;
@@ -203,6 +213,7 @@ namespace ARKBreedingStats.uiControls
         }
 
         private LevelColorStatusFlags.LevelStatus _topLevel;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public LevelColorStatusFlags.LevelStatus TopLevel
         {
             get => _topLevel;
@@ -253,6 +264,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ShowBarAndLock
         {
             set
@@ -263,6 +275,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public StatIOInputType InputType
         {
             get => _inputType;
@@ -275,6 +288,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsActive
         {
             set
@@ -400,6 +414,7 @@ namespace ARKBreedingStats.uiControls
             checkBoxFixDomZero.Image = (_domZeroFixed ? Properties.Resources.locked : Properties.Resources.unlocked);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool DomLevelLockedZero
         {
             get => _domZeroFixed;
@@ -409,6 +424,7 @@ namespace ARKBreedingStats.uiControls
         /// <summary>
         /// If true, the control tries to keep the sum of the wild and mutated levels equal.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool LinkWildMutated
         {
             set

@@ -5,6 +5,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace ARKBreedingStats.uiControls
         private Species _currentSpecies;
         public event Form1.CollectionChangedEventHandler Changed;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CurrentBreedingPair[] CurrentBreedingPairs
         {
             set

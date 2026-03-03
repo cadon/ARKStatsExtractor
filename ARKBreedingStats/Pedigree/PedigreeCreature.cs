@@ -67,12 +67,14 @@ namespace ARKBreedingStats.Pedigree
         /// <summary>
         /// If set to true, the control will not display sex, status or creature colors.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool OnlyLevels { get; set; }
         public bool[] enabledColorRegions;
         private bool _contextMenuAvailable;
         /// <summary>
         /// If set to true, the levelHatched in parentheses is appended with an '+'.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool TotalLevelUnknown { get; set; }
 
         public static readonly int[] DisplayedStats = {
@@ -242,6 +244,7 @@ namespace ARKBreedingStats.Pedigree
         /// <summary>
         /// The creature that is displayed in this control.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Creature Creature
         {
             get => _creature;
@@ -400,6 +403,7 @@ namespace ARKBreedingStats.Pedigree
                 groupBox1.Text += $" - {_creature.SpeciesName}";
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Highlight
         {
             set
@@ -409,6 +413,7 @@ namespace ARKBreedingStats.Pedigree
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HandCursor
         {
             set => Cursor = value ? Cursors.Hand : Cursors.Default;

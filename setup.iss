@@ -2,8 +2,8 @@
 #define AppPublisher "cadon & friends"
 #define AppURL "https://github.com/cadon/ARKStatsExtractor"
 #define AppExeName "ARK Smart Breeding.exe"
-#define ReleaseDir "ARKBreedingStats\bin\Release\net48"
-#define ReleaseDirUpdater "ASB-Updater\bin\Release\net48"
+#define ReleaseDir "ARKBreedingStats\bin\Release\net10.0-windows"
+#define ReleaseDirUpdater "ASB-Updater\bin\Release\net10.0-windows"
 #define OutputDir ".work\publish"
 #define AppVersion GetVersionNumbersString(ReleaseDir + "\" + AppExeName)
 
