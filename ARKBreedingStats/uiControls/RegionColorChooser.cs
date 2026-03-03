@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -21,6 +22,7 @@ namespace ARKBreedingStats.uiControls
         private readonly ColorPickerWindow _colorPicker;
         private ColorRegion[] _colorRegions;
         private readonly ToolTip _tt = new ToolTip();
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// If true, the button text will display the region and color id.
         /// </summary>
@@ -89,6 +91,7 @@ namespace ARKBreedingStats.uiControls
         }
 
         public byte[] ColorIds => _selectedRegionColorIds.ToArray();
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public byte[] ColorIdsAlsoPossible
         {
             get => _selectedColorIdsAlternative?.ToArray();
@@ -239,7 +242,9 @@ namespace ARKBreedingStats.uiControls
 
         private class NoPaddingButton : Button
         {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public LevelColorStatusFlags.ColorStatus ColorStatus { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public bool AlternativeColorPossible { get; set; }
 
             protected override void OnPaint(PaintEventArgs pe)

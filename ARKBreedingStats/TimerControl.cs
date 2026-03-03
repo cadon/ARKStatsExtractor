@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -238,6 +239,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string TimerAlertsCSV
         {
             get => string.Join(",", timerAlerts);
@@ -258,6 +260,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureCollection CreatureCollection
         {
             set
@@ -385,6 +388,7 @@ namespace ARKBreedingStats
             ARKOverlay.theOverlay.timers = timerListEntries.Where(t => t.showInOverlay).OrderBy(t => t.time).ToArray();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ListViewColumnSorter ColumnSorter
         {
             set => listViewTimer.ListViewItemSorter = value;

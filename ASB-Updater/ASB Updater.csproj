@@ -2,25 +2,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <RootNamespace>ASB_Updater</RootNamespace>
     <AssemblyName>asb-updater</AssemblyName>
     <ApplicationIcon>asb-updater.ico</ApplicationIcon>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
-  </PropertyGroup>
 
-  <!-- Microsoft.CSharp is required for 'dynamic' keyword support on net48 -->
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
+    <Title>ASB Updater</Title>
+    <Product>ASB Updater</Product>
+    <Copyright>Copyright © 2018</Copyright>
+    <Version>1.3.0.0</Version>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.IO.Compression.ZipFile" Version="4.3.0" />
+
   </ItemGroup>
 
 </Project>

@@ -15,6 +15,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using static ARKBreedingStats.uiControls.StatWeighting;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.BreedingPlanning
 {
@@ -993,6 +994,7 @@ namespace ARKBreedingStats.BreedingPlanning
             PairMated?.Invoke(pedigreeCreatureBest.Creature?.Mother, pedigreeCreatureBest.Creature?.Father);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Species CurrentSpecies
         {
             get => _currentSpecies;
@@ -1028,6 +1030,7 @@ namespace ARKBreedingStats.BreedingPlanning
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int MaxWildLevels
         {
             set => offspringPossibilities1.maxWildLevel = value <= 0 ? Ark.MaxWildLevelDefault : value;
@@ -1184,12 +1187,14 @@ namespace ARKBreedingStats.BreedingPlanning
             SetBreedingData(_currentSpecies);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int MutationLimit
         {
             get => (int)nudBPMutationLimit.Value;
             set => nudBPMutationLimit.Value = value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IgnoreSexInBreedingPlan
         {
             set => CbIgnoreSexInPlanning.Checked = value;

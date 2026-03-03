@@ -45,6 +45,7 @@ namespace ARKBreedingStats.mods
 
         public void SetStatNameByIndex(int statIndex, Dictionary<string, string> customStatNames = null) => StatName = $"[{statIndex}] {Utils.StatName(statIndex, false, customStatNames)}";
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatName
         {
             set => cbOverride.Text = value;

@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.species;
+using System.ComponentModel;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
 
@@ -28,6 +29,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Species Species
         {
             set
@@ -60,6 +62,7 @@ namespace ARKBreedingStats.uiControls
             this.ResumeDrawingAndLayout();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelDomMax
         {
             set
@@ -69,6 +72,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelGraphMax
         {
             set

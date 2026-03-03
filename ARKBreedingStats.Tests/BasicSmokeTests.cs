@@ -33,7 +33,7 @@ namespace ARKBreedingStats.Tests
         }
 
         [TestMethod]
-        public void ARKBreedingStats_TargetFramework_IsNet48()
+        public void ARKBreedingStats_TargetFramework_IsNet10()
         {
             // Arrange
             var assembly = Assembly.GetAssembly(typeof(Utils));
@@ -43,8 +43,8 @@ namespace ARKBreedingStats.Tests
 
             // Assert
             Assert.IsNotNull(targetFrameworkAttribute, "Assembly should have TargetFramework attribute");
-            Assert.IsTrue(targetFrameworkAttribute.FrameworkName.Contains(".NETFramework,Version=v4.8"), 
-                $"Expected .NET Framework 4.8 but got: {targetFrameworkAttribute.FrameworkName}");
+            Assert.IsTrue(targetFrameworkAttribute.FrameworkName.Contains(".NETCoreApp,Version=v10.0"),
+                $"Expected .NET 10 but got: {targetFrameworkAttribute.FrameworkName}");
         }
 
         [TestMethod]
