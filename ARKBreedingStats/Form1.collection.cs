@@ -543,7 +543,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (_creatureCollection.ModValueReloadNeeded)
+            if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash))
             {
                 // load original multipliers if they were changed
                 if (!LoadStatAndKibbleValues(false).statValuesLoaded)
@@ -552,7 +552,7 @@ namespace ARKBreedingStats
                     return false;
                 }
             }
-            if (_creatureCollection.ModValueReloadNeeded
+            if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)
                 && !LoadModValuesOfCollection(_creatureCollection, false, false))
             {
                 MessageBoxes.ShowMessageBox("Mod values of the library file couldn't be loaded.", icon: MessageBoxIcon.Error);

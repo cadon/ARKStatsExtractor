@@ -1042,7 +1042,7 @@ namespace ARKBreedingStats
 
                 int oldModHash = _creatureCollection.modListHash;
                 // if mods were added, try to import the creature values again
-                if (_creatureCollection.ModValueReloadNeeded
+                if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)
                     && LoadModValuesOfCollection(_creatureCollection, true, true)
                     && oldModHash != _creatureCollection.modListHash)
                 {

@@ -21,6 +21,7 @@ namespace ARKBreedingStats
 
         public bool updateTimer;
         private List<TimerListEntry> timerListEntries;
+        private readonly Dictionary<TimerListEntry, ListViewItem> _timerLvis = new Dictionary<TimerListEntry, ListViewItem>();
         public event Form1.CollectionChangedEventHandler OnTimerChange;
         public event Action TimerAddedRemoved;
         private List<Creature> creatures;
@@ -98,13 +99,13 @@ namespace ARKBreedingStats
                 sound = soundName,
                 showInOverlay = Properties.Settings.Default.DisplayTimersInOverlayAutomatically
             };
-            tle.lvi = CreateLvi(name, tle);
+            _timerLvis[tle] = CreateLvi(name, tle);
             int i = 0;
             while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < finishTime)
             {
                 i++;
             }
-            listViewTimer.Items.Insert(i, tle.lvi);
+            listViewTimer.Items.Insert(i, _timerLvis[tle]);
             timerListEntries.Add(tle);
             OnTimerChange?.Invoke();
             TimerAddedRemoved?.Invoke();
@@ -113,7 +114,7 @@ namespace ARKBreedingStats
 
         private void RemoveTimer(TimerListEntry timerEntry, bool invokeChange = true)
         {
-            timerEntry.lvi.Remove();
+            if (_timerLvis.Remove(timerEntry, out var lviRemove)) lviRemove.Remove();
             timerListEntries.Remove(timerEntry);
             if (!invokeChange) return;
             OnTimerChange?.Invoke();
@@ -155,18 +156,18 @@ namespace ARKBreedingStats
             DateTime now = DateTime.Now;
             foreach (TimerListEntry t in timerListEntries)
             {
-                if (t.lvi == null)
+                if (!_timerLvis.TryGetValue(t, out var tlvi))
                     continue;
                 TimeSpan diff = t.timerIsRunning ? t.time.Subtract(now) : t.leftTime;
                 int totalSeconds = (int)diff.TotalSeconds;
                 if (updateTimer)
-                    t.lvi.SubItems[2].Text = totalSeconds > 0 ? diff.ToString("dd':'hh':'mm':'ss") : "Finished";
+                    tlvi.SubItems[2].Text = totalSeconds > 0 ? diff.ToString("dd':'hh':'mm':'ss") : "Finished";
                 if (diff.TotalSeconds < 0)
                     continue;
                 if (totalSeconds < 11)
-                    t.lvi.BackColor = Color.LightSalmon;
+                    tlvi.BackColor = Color.LightSalmon;
                 else if (totalSeconds < 61)
-                    t.lvi.BackColor = Color.Gold;
+                    tlvi.BackColor = Color.Gold;
 
                 if (timerAlerts == null || !timerAlerts.Any() || totalSeconds > timerAlerts.First())
                     continue;
@@ -269,16 +270,17 @@ namespace ARKBreedingStats
                 creatures = value.creatures;
 
                 listViewTimer.Items.Clear();
+                _timerLvis.Clear();
 
                 foreach (TimerListEntry tle in timerListEntries)
                 {
-                    tle.lvi = CreateLvi(tle.name, tle);
+                    _timerLvis[tle] = CreateLvi(tle.name, tle);
                     int i = 0;
                     while (i < listViewTimer.Items.Count && ((TimerListEntry)listViewTimer.Items[i].Tag).time < tle.time)
                     {
                         i++;
                     }
-                    listViewTimer.Items.Insert(i, tle.lvi);
+                    listViewTimer.Items.Insert(i, _timerLvis[tle]);
 
                     if (tle.creatureGuid != Guid.Empty)
                     {
@@ -532,6 +534,8 @@ namespace ARKBreedingStats
                     }
 
                     tle.StartStopTimer(startTimer);
+                    if (_timerLvis.TryGetValue(tle, out var timerLvi))
+                        timerLvi.SubItems[1].Text = tle.timerIsRunning ? tle.time.ToString() : Loc.S("paused");
                 }
             }
         }

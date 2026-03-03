@@ -309,7 +309,7 @@ namespace ARKBreedingStats
 
             LbWarningLevel255.Visible = false;
 
-            TraitDefinition.LoadTraitDefinitions();
+            TraitDefinitionLoader.LoadTraitDefinitions();
 
             ImageCompositions.LoadCompositions();
             ImageCollections.LoadImagePackInfos();
@@ -3057,7 +3057,7 @@ namespace ARKBreedingStats
             // if Asa values are added or removed manually, adjust Asa setting
             _creatureCollection.Game = _creatureCollection.modIDs?.Contains(Ark.Asa) == true ? Ark.Asa : Ark.Ase;
 
-            if (!_creatureCollection.ModValueReloadNeeded) return;
+            if (!_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)) return;
 
             var enabledImagePacks = Properties.Settings.Default.SpeciesImagesUrls;
             var imagePacksAvailable = _creatureCollection.modIDs?
@@ -3087,7 +3087,7 @@ namespace ARKBreedingStats
             // if the mods for the library changed,
             // first check if all mod value files are available and load missing files if possible,
             // then reload all values and mod values
-            if (!_creatureCollection.ModValueReloadNeeded) return;
+            if (!_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)) return;
             var modValuesNeedToBeLoaded = _creatureCollection.modIDs?.Any() == true;
             // first reset values to default if needed
             if (!onlyAdd)

@@ -26,11 +26,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <!-- Non-standard framework references not covered by UseWindowsForms/UseWPF -->
-  <ItemGroup>
-    <Reference Include="System.Security" />
-  </ItemGroup>
-
   <!-- Files to copy to output directory -->
   <ItemGroup>
     <None Include="json\**" CopyToOutputDirectory="PreserveNewest" />

@@ -548,45 +548,29 @@ namespace ARKBreedingStats
         /// <summary>
         /// This function may only be used if the ArkId is unique (when importing files that have ArkId1 and ArkId2)
         /// </summary>
-        /// <param name="arkId">ArkId built from ArkId1 and ArkId2, user input from the ingame-representation is not allowed</param>
-        /// <returns>Guid built from the ArkId</returns>
-        public static Guid ConvertArkIdToGuid(long arkId)
-        {
-            byte[] bytes = new byte[16];
-            BitConverter.GetBytes(arkId).CopyTo(bytes, 0);
-            return new Guid(bytes);
-        }
+        public static Guid ConvertArkIdToGuid(long arkId) => ArkIdConverter.ConvertArkIdToGuid(arkId);
 
         /// <summary>
         /// This function may only be used if the Guid is created by an imported Ark id (i.e. two int32)
         /// </summary>
-        public static long ConvertCreatureGuidToArkId(Guid guid)
-        {
-            return BitConverter.ToInt64(guid.ToByteArray(), 0);
-        }
+        public static long ConvertCreatureGuidToArkId(Guid guid) => ArkIdConverter.ConvertCreatureGuidToArkId(guid);
 
-        public static bool IsArkIdImported(long arkId, Guid guid)
-        {
-            return arkId != 0
-                     && guid == ConvertArkIdToGuid(arkId);
-        }
+        public static bool IsArkIdImported(long arkId, Guid guid) => ArkIdConverter.IsArkIdImported(arkId, guid);
 
         /// <summary>
         /// Returns the Ark-Id as seen ingame from the unique representation used in ASB
         /// </summary>
-        /// <param name="importedArkId"></param>
-        /// <returns>Ingame visualization of the Ark-Id (not unique in rare cases)</returns>
-        public static string ConvertImportedArkIdToIngameVisualization(long importedArkId) => $"{(int)(importedArkId >> 32)}{(int)importedArkId}";
+        public static string ConvertImportedArkIdToIngameVisualization(long importedArkId) => ArkIdConverter.ConvertImportedArkIdToIngameVisualization(importedArkId);
 
         /// <summary>
         /// Converts the two 32 bit Ark id parts into one 64 bit Ark id.
         /// </summary>
-        public static long ConvertArkIdsToLongArkId(int id1, int id2) => ((long)id1 << 32) | (id2 & 0xFFFFFFFFL);
+        public static long ConvertArkIdsToLongArkId(int id1, int id2) => ArkIdConverter.ConvertArkIdsToLongArkId(id1, id2);
 
         /// <summary>
         /// Converts int64 Ark id to two int32 ids, like used in the game.
         /// </summary>
-        public static (int, int) ConvertArkId64ToArkIds32(long id) => ((int)(id >> 32), (int)id);
+        public static (int, int) ConvertArkId64ToArkIds32(long id) => ArkIdConverter.ConvertArkId64ToArkIds32(id);
 
         /// <summary>
         /// Returns a shortened string with an ellipsis in the middle. One third of the beginning is shown and two thirds of then end.

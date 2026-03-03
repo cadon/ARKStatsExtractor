@@ -1,5 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.settings;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -503,7 +504,7 @@ namespace ARKBreedingStats
         {
             CheckForMissingModFiles(_creatureCollection, unknownSpeciesBlueprintPaths);
             // if mods were added, try to import the creature values again
-            if (_creatureCollection.ModValueReloadNeeded
+            if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)
                 && LoadModValuesOfCollection(_creatureCollection, true, true))
                 _exportedCreatureList.LoadFilesInFolder();
         }

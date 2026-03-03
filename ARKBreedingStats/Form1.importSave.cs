@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Core;
 using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.settings;
+using ARKBreedingStats.values;
 using FluentFTP;
 using Newtonsoft.Json;
 using System;
@@ -150,7 +151,7 @@ namespace ARKBreedingStats
                 UpdateCreatureParentLinkingSort(goToLibraryTab: true);
 
                 // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
-                if (_creatureCollection.ModValueReloadNeeded
+                if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)
                     && LoadModValuesOfCollection(_creatureCollection, true, true))
                     SetCollectionChanged(true);
             }
