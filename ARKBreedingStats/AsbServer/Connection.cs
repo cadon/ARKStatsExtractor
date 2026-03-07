@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -27,7 +27,10 @@ namespace ARKBreedingStats.AsbServer
         public static async void StartListeningAsync(
             IProgress<ProgressReportAsbServer> progressDataSent, string serverToken = null)
         {
-            if (string.IsNullOrEmpty(serverToken)) return;
+            if (string.IsNullOrEmpty(serverToken))
+            {
+                return;
+            }
 
             // stop previous listening if any
             StopListening();
@@ -99,7 +102,10 @@ namespace ARKBreedingStats.AsbServer
                                 {
                                     if (report.StoppedListening
                                        && cancellationTokenSource == _lastCancellationTokenSource)
+                                    {
                                         _lastCancellationTokenSource = null;
+                                    }
+
                                     progressDataSent.Report(report);
                                 }
                             }
@@ -109,16 +115,22 @@ namespace ARKBreedingStats.AsbServer
                     {
                         var tryToReconnect = reconnectTries++ < 4;
                         if (tryToReconnect)
+                        {
                             WriteErrorMessage(
                                 $"ASB Server listening error ({ex.Message}), attempting to reconnect (try {reconnectTries})",
                                 stopListening: false);
+                        }
                         else
+                        {
                             WriteErrorMessage(
                                 $"ASB Server listening error: {ex.GetType()}: {ex.Message}{Environment.NewLine}Stack trace: {ex.StackTrace}",
                                 stopListening: true);
+                        }
 
                         if (!tryToReconnect)
+                        {
                             break;
+                        }
                         // try to reconnect after with increasing delays (10, 20, 40, 80 s)
                         Thread.Sleep(5_000 * (1 << reconnectTries));
                     }
@@ -141,7 +153,10 @@ namespace ARKBreedingStats.AsbServer
                     Console.WriteLine(message);
 #endif
                     if (stopListening)
+                    {
                         cancellationTokenSource.Cancel();
+                    }
+
                     progressDataSent.Report(new ProgressReportAsbServer { Message = message, StoppedListening = stopListening, IsError = true });
                 }
             }
@@ -167,7 +182,9 @@ namespace ARKBreedingStats.AsbServer
             {
                 var received = await reader.ReadLineAsync();
                 if (string.IsNullOrEmpty(received))
+                {
                     continue; // empty line marks end of event
+                }
 
 #if DEBUG
                 Console.WriteLine($"{DateTime.Now}: {received} (token: {serverToken})");
@@ -179,7 +196,11 @@ namespace ARKBreedingStats.AsbServer
                     case "event: ping":
                         continue;
                     case "event: replaced":
-                        if (cancellationToken.IsCancellationRequested) return null;
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            return null;
+                        }
+
                         StopListening();
                         return new ProgressReportAsbServer
                         {
@@ -189,7 +210,11 @@ namespace ARKBreedingStats.AsbServer
                         };
                     case "event: closing":
                         // only report closing if the user hasn't done this already
-                        if (cancellationToken.IsCancellationRequested) return null;
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            return null;
+                        }
+
                         return new ProgressReportAsbServer
                         {
                             Message = "ASB Server listening stopped. Connection closed by the server, trying to reconnect",
@@ -200,8 +225,15 @@ namespace ARKBreedingStats.AsbServer
                         while (true)
                         {
                             var data = await ReadEventData(reader, cancellationToken, report);
-                            if (data.cancelled) return null;
-                            if (!data.endOfEvent) continue;
+                            if (data.cancelled)
+                            {
+                                return null;
+                            }
+
+                            if (!data.endOfEvent)
+                            {
+                                continue;
+                            }
 
                             report.TaskNameGenerated = new TaskCompletionSource<ServerSendName>();
                             progressDataSent.Report(report);
@@ -273,8 +305,15 @@ namespace ARKBreedingStats.AsbServer
                             while (true)
                             {
                                 var data = await ReadEventData(reader, cancellationToken, report);
-                                if (data.cancelled) return null;
-                                if (!data.endOfEvent) continue;
+                                if (data.cancelled)
+                                {
+                                    return null;
+                                }
+
+                                if (!data.endOfEvent)
+                                {
+                                    continue;
+                                }
 
                                 progressDataSent.Report(report);
                                 break;
@@ -297,10 +336,14 @@ namespace ARKBreedingStats.AsbServer
         {
             var data = await reader.ReadLineAsync();
             if (cancellationToken.IsCancellationRequested)
+            {
                 return (true, false);
+            }
 
             if (string.IsNullOrEmpty(data))
+            {
                 return (false, true);
+            }
 
             var match = RgEventData.Match(data);
             if (match.Success)
@@ -327,7 +370,10 @@ namespace ARKBreedingStats.AsbServer
         public static bool StopListening()
         {
             if (_lastCancellationTokenSource == null)
+            {
                 return false; // nothing to stop
+            }
+
             if (_lastCancellationTokenSource.IsCancellationRequested)
             {
                 _lastCancellationTokenSource = null;
@@ -347,7 +393,10 @@ namespace ARKBreedingStats.AsbServer
         /// </summary>
         public static async Task SendCreatureData(Creature creature, string token, int waitForResponse = 5)
         {
-            if (creature == null || string.IsNullOrEmpty(token)) return;
+            if (creature == null || string.IsNullOrEmpty(token))
+            {
+                return;
+            }
 
             // don't use the static FileService.GetHttpClient here, it will block the other sending connection
             using (var client = new HttpClient())
@@ -385,7 +434,10 @@ namespace ARKBreedingStats.AsbServer
                     status != ServerCreatureStatusNeuter
                     && status != ServerCreatureStatusDead
                     )
-                ) return;
+                )
+            {
+                return;
+            }
 
             var client = WebService.GetHttpClient;
 

@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -17,6 +18,7 @@ namespace ARKBreedingStats.uiControls
             cbTagChecked.ForeColor = SystemColors.GrayText;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CheckState TagCheckState
         {
             get => cbTagChecked.CheckState;

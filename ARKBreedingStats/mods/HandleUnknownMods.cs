@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Mods;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,9 @@ namespace ARKBreedingStats.mods
                 .ToArray();
 
             if (!unknownModTags.Any())
+            {
                 return (null, null, null, null);
+            }
 
             // check if the needed mod-values can be downloaded automatically.
             var locallyAvailableModFiles = new List<string>();
@@ -48,16 +51,26 @@ namespace ARKBreedingStats.mods
                 if (Values.V.modsManifest.ModsByTag.TryGetValue(game + modTag, out var modInfo))
                 {
                     if (loadedMods.Contains(modInfo.Mod))
+                    {
                         alreadyLoadedModFilesWithoutNeededClass.Add(modTag);
+                    }
                     else if (modInfo.LocallyAvailable)
+                    {
                         locallyAvailableModFiles.Add(modTag);
+                    }
                     else if (modInfo.OnlineAvailable)
+                    {
                         onlineAvailableModFiles.Add(modTag);
+                    }
                     else
+                    {
                         unavailableModFiles.Add(modTag);
+                    }
                 }
                 else
+                {
                     unavailableModFiles.Add(modTag);
+                }
             }
 
             return (locallyAvailableModFiles, onlineAvailableModFiles, unavailableModFiles, alreadyLoadedModFilesWithoutNeededClass);
@@ -70,7 +83,11 @@ namespace ARKBreedingStats.mods
         /// <param name="modTags">List of the mod tags. Each entry must be loaded.</param>
         public static void AddModsToCollection(CreatureCollection creatureCollection, List<string> modTags)
         {
-            if (creatureCollection.modIDs == null) creatureCollection.modIDs = new List<string>();
+            if (creatureCollection.modIDs == null)
+            {
+                creatureCollection.modIDs = new List<string>();
+            }
+
             creatureCollection.modIDs.AddRange(modTags
                 .Select(mt => Values.V.modsManifest.ModsByTag.TryGetValue(creatureCollection.Game + mt, out var modInfo) ? modInfo.Mod.Id : null)
                 .Where(id => !string.IsNullOrEmpty(id))

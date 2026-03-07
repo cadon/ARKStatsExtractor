@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -40,7 +40,9 @@ namespace ARKBreedingStats.ocr
         {
             SetWhiteThreshold(Properties.Settings.Default.OCRWhiteThreshold);
             if (!LoadAndInitializeOcrTemplate(Properties.Settings.Default.ocrFile))
+            {
                 Properties.Settings.Default.ocrFile = null;
+            }
         }
 
         private void InitLabelEntries()
@@ -76,13 +78,18 @@ namespace ARKBreedingStats.ocr
 
         private void OCRDebugLayoutPanel_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
         }
 
         private void OCRDebugLayoutPanel_DragDrop(object sender, DragEventArgs e)
         {
             if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
+            {
                 return;
+            }
 
             cbEnableOutput.Checked = true;
             try
@@ -101,7 +108,9 @@ namespace ARKBreedingStats.ocr
                 {
                     bmp.Dispose();
                     if (!ArkOcr.Ocr.ocrConfig?.RecognitionPatterns?.Texts?.Any() ?? false)
+                    {
                         ArkOcr.Ocr.ocrConfig.RecognitionPatterns.TrainingSettings.IsTrainingEnabled = true;
+                    }
 
                     DoOcr?.Invoke(files[0], true, false);
                 }
@@ -122,7 +131,10 @@ namespace ARKBreedingStats.ocr
         private void LoadTemplateLetter()
         {
             var text = textBoxTemplate.Text;
-            if (string.IsNullOrEmpty(text)) return;
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
 
             _selectedTextData = ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == text);
 
@@ -137,9 +149,16 @@ namespace ARKBreedingStats.ocr
         {
             ListBoxPatternsOfString.Items.Clear();
 
-            if (_selectedTextData == null) return;
+            if (_selectedTextData == null)
+            {
+                return;
+            }
+
             int patternCount = _selectedTextData.Patterns.Count;
-            if (patternCount == 0) return;
+            if (patternCount == 0)
+            {
+                return;
+            }
 
             var matches = new string[patternCount];
             int bestMatchIndex = 0;
@@ -176,7 +195,10 @@ namespace ARKBreedingStats.ocr
         /// </summary>
         private void SaveTemplate(string text, Pattern pattern)
         {
-            if (string.IsNullOrEmpty(text) || pattern == null) return;
+            if (string.IsNullOrEmpty(text) || pattern == null)
+            {
+                return;
+            }
 
             var existingTemplate = ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == text);
             if (existingTemplate == null)
@@ -187,7 +209,10 @@ namespace ARKBreedingStats.ocr
             {
                 foreach (var p in existingTemplate.Patterns)
                 {
-                    if (p.Equals(pattern)) return;
+                    if (p.Equals(pattern))
+                    {
+                        return;
+                    }
                 }
 
                 existingTemplate.Patterns.Add(pattern);
@@ -231,7 +256,10 @@ namespace ARKBreedingStats.ocr
 
         private void SetLabelControls(int rectangleIndex)
         {
-            if (rectangleIndex < 0 || rectangleIndex >= ArkOcr.Ocr.ocrConfig.UsedLabelRectangles.Length) return;
+            if (rectangleIndex < 0 || rectangleIndex >= ArkOcr.Ocr.ocrConfig.UsedLabelRectangles.Length)
+            {
+                return;
+            }
 
             Rectangle rec = ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[rectangleIndex];
             _ignoreValueChange = true;
@@ -253,7 +281,9 @@ namespace ARKBreedingStats.ocr
             for (int i = OCRDebugLayoutPanel.Controls.Count - 1; i >= 0; i--)
             {
                 if (OCRDebugLayoutPanel.Controls[i] is PictureBox pb)
+                {
                     pb.Dispose();
+                }
             }
             OCRDebugLayoutPanel.Controls.Clear();
 
@@ -262,7 +292,10 @@ namespace ARKBreedingStats.ocr
             OCRDebugLayoutPanel.Controls.SetChildIndex(b, 0);
             int scrollHorizontal = bmp.Width - OCRDebugLayoutPanel.Width;
             if (scrollHorizontal > 0)
+            {
                 OCRDebugLayoutPanel.AutoScrollPosition = new Point(scrollHorizontal / 2, 0);
+            }
+
             b.Click += PictureBoxClicked;
 
             _screenshot?.Dispose();
@@ -286,7 +319,10 @@ namespace ARKBreedingStats.ocr
             if (_screenshot == null
                 || OCRDebugLayoutPanel.Controls.Count == 0
                 || !(OCRDebugLayoutPanel.Controls[OCRDebugLayoutPanel.Controls.Count - 1] is PictureBox p)
-                ) return;
+                )
+            {
+                return;
+            }
 
             _redrawingDebouncer.Cancel();
 
@@ -339,7 +375,9 @@ namespace ARKBreedingStats.ocr
 
                     if (magnifiedRectangle.Y - OCRDebugLayoutPanel.VerticalScroll.Value >
                         OCRDebugLayoutPanel.Height / 2)
+                    {
                         magnifiedMarginTop = recMargin + OCRDebugLayoutPanel.VerticalScroll.Value;
+                    }
                     else
                     {
                         magnifiedMarginBottom = OCRDebugLayoutPanel.Height < b.Height
@@ -354,7 +392,9 @@ namespace ARKBreedingStats.ocr
             Bitmap disp = (Bitmap)p.Image; // take pointer to old image to dispose it soon
             p.Image = b;
             if (disp != null && disp != _screenshot)
+            {
                 disp.Dispose();
+            }
         }
 
         /// <summary>
@@ -381,13 +421,19 @@ namespace ARKBreedingStats.ocr
                 {
                     var xBmp = x + labelRectangle.X;
                     if (xBmp >= bmpWidth)
+                    {
                         break;
+                    }
+
                     bool inXBorder = x < margin || x >= labelRectangle.Width - margin;
                     for (int y = Math.Max(0, -labelRectangle.Y); y < labelRectangle.Height; y++)
                     {
                         var yBmp = y + labelRectangle.Y;
                         if (yBmp >= bmpHeight)
+                        {
                             break; // it gets only bigger
+                        }
+
                         bool inBorder = inXBorder || y < margin || y >= labelRectangle.Height - margin;
                         byte* px = scan0Bmp + yBmp * bmpData.Stride + xBmp * bytes;
                         var b = px[0];
@@ -491,7 +537,11 @@ namespace ARKBreedingStats.ocr
 
         private void UpdateRectangle()
         {
-            if (!_updateDrawing) return;
+            if (!_updateDrawing)
+            {
+                return;
+            }
+
             int i = listBoxLabelRectangles.SelectedIndex;
             if (i >= 0 && i < ArkOcr.Ocr.ocrConfig.UsedLabelRectangles.Length)
             {
@@ -499,8 +549,12 @@ namespace ARKBreedingStats.ocr
                 if (chkbSetAllStatLabels.Checked && i < 9)
                 {
                     for (int s = 0; s < 9; s++)
+                    {
                         if (i != s)
+                        {
                             ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[s] = new Rectangle((int)nudX.Value, ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[s].Y, (int)nudWidth.Value, (int)nudHeight.Value);
+                        }
+                    }
                 }
                 ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[i] = new Rectangle((int)nudX.Value, (int)nudY.Value, (int)nudWidth.Value, (int)nudHeight.Value);
 
@@ -532,7 +586,10 @@ namespace ARKBreedingStats.ocr
 
         private bool SaveOcrFileAs()
         {
-            if (ArkOcr.Ocr.ocrConfig == null) return false;
+            if (ArkOcr.Ocr.ocrConfig == null)
+            {
+                return false;
+            }
 
             string path = FileService.GetJsonPath(FileService.OcrFolderName);
             using (SaveFileDialog dlg = new SaveFileDialog
@@ -591,7 +648,10 @@ namespace ARKBreedingStats.ocr
         {
             var currentOcrConfig = ArkOcr.Ocr.ocrConfig;
             ArkOcr.Ocr.ocrConfig = new OcrTemplate(true);
-            if (SaveOcrFileAs()) return;
+            if (SaveOcrFileAs())
+            {
+                return;
+            }
 
             // user doesn't want to create new config, reset to old one
             ArkOcr.Ocr.ocrConfig = currentOcrConfig;
@@ -614,7 +674,10 @@ namespace ARKBreedingStats.ocr
             ArkOcr.Ocr.ocrConfig = loadedOcrConfig;
             ArkOcr.Ocr.LoadReplacingsFile();
             UpdateOcrLabel(filePath);
-            if (loadedOcrConfig == null) return false;
+            if (loadedOcrConfig == null)
+            {
+                return false;
+            }
 
             InitializeComboboxLabelSetNames();
             InitLabelEntries();
@@ -673,7 +736,9 @@ namespace ARKBreedingStats.ocr
                 MessageBoxes.ShowMessageBox($"OCR patterns created for\n{characters}\nin font size {fontSize}", "OCR patterns created", MessageBoxIcon.Information);
             }
             else
+            {
                 MessageBoxes.ShowMessageBox($"Unknown error while creating OCR patterns for\n{characters}\nin font size {fontSize}");
+            }
         }
 
         private void buttonLoadCalibrationImage_Click(object sender, EventArgs e)
@@ -688,17 +753,27 @@ namespace ARKBreedingStats.ocr
             };
 
             if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[0].Height))
+            {
                 fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[0].Height, statValueChars); // stats
+            }
+
             if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[9].Height))
+            {
                 fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[9].Height, levelChars); // level
+            }
+
             if (!fontSizesChars.ContainsKey(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[11].Height))
+            {
                 fontSizesChars.Add(ArkOcr.Ocr.ocrConfig.UsedLabelRectangles[11].Height, textChars); // owner
+            }
 
             string fontFilePath = null;
             foreach (var c in fontSizesChars)
             {
                 if (!ArkOcr.Ocr.CreateOcrTemplatesFromFontFile(c.Key, c.Value, _fontFilePath, ref fontFilePath))
+                {
                     return; // user probably cancelled font selection
+                }
             }
             _fontFilePath = fontFilePath;
 
@@ -719,13 +794,17 @@ namespace ARKBreedingStats.ocr
         private void nudResolutionWidth_ValueChanged(object sender, EventArgs e)
         {
             if (ArkOcr.Ocr.ocrConfig != null)
+            {
                 ArkOcr.Ocr.ocrConfig.resolutionWidth = (int)nudResolutionWidth.Value;
+            }
         }
 
         private void nudResolutionHeight_ValueChanged(object sender, EventArgs e)
         {
             if (ArkOcr.Ocr.ocrConfig != null)
+            {
                 ArkOcr.Ocr.ocrConfig.resolutionHeight = (int)nudResolutionHeight.Value;
+            }
         }
 
         private void buttonGetResFromScreenshot_Click(object sender, EventArgs e)
@@ -739,7 +818,11 @@ namespace ARKBreedingStats.ocr
 
         private void nudResizing_ValueChanged(object sender, EventArgs e)
         {
-            if (ArkOcr.Ocr.ocrConfig == null) return;
+            if (ArkOcr.Ocr.ocrConfig == null)
+            {
+                return;
+            }
+
             ArkOcr.Ocr.ocrConfig.resize = (double)nudResizing.Value;
             UpdateResizeResultLabel();
         }
@@ -757,7 +840,9 @@ namespace ARKBreedingStats.ocr
                     $"{(int)(ArkOcr.Ocr.ocrConfig.resize * ArkOcr.Ocr.ocrConfig.resolutionWidth)} × {resizedHeight}";
             string infoText = "\nKeep in mind, any change of the resizing needs new character templates to be made";
             if (resizedHeight < 1080)
+            {
                 lbResizeResult.Text += "\nThe size is probably too small for good results, you can try to increse the factor." + infoText;
+            }
         }
 
         private void CbTrainRecognition_CheckedChanged(object sender, EventArgs e)
@@ -783,7 +868,10 @@ namespace ARKBreedingStats.ocr
         private static void SaveOcrSettings(ref bool setting, object sender)
         {
             bool setTo = sender is CheckBox cb && cb.Checked;
-            if (setting == setTo) return;
+            if (setting == setTo)
+            {
+                return;
+            }
 
             setting = setTo;
 
@@ -796,15 +884,22 @@ namespace ARKBreedingStats.ocr
             if (tabControlManage.SelectedTab != tabPage3
                 || listBoxLabelRectangles.SelectedIndex == -1
             )
+            {
                 return;
+            }
 
             var coords = (MouseEventArgs)e;
             nudX.ValueSave = coords.X;
             nudY.ValueSave = coords.Y;
             if (nudHeight.Value == 0)
+            {
                 nudHeight.ValueSave = 18;
+            }
+
             if (nudWidth.Value == 0)
+            {
                 nudWidth.ValueSave = 150;
+            }
         }
 
         #region Pattern editing
@@ -819,7 +914,10 @@ namespace ARKBreedingStats.ocr
         private void listBoxRecognized_SelectedIndexChanged(object sender, EventArgs e)
         {
             var recognizedPattern = listBoxRecognized.SelectedItem as RecognizedCharData;
-            if (recognizedPattern == null) return;
+            if (recognizedPattern == null)
+            {
+                return;
+            }
 
             _selectedTextData = ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.FirstOrDefault(t => t.Text == recognizedPattern.Text) ??
                                 new TextData();
@@ -909,12 +1007,17 @@ namespace ARKBreedingStats.ocr
                 || ListBoxPatternsOfString.SelectedIndex == -1
                 || MessageBox.Show($"Remove the selected pattern for the string {_selectedTextData.Text}", "Remove Pattern?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            {
                 return;
+            }
 
             var selectedIndex = ListBoxPatternsOfString.SelectedIndex;
             _selectedTextData.Patterns.RemoveAt(selectedIndex);
             int patternCount = _selectedTextData.Patterns.Count;
-            if (selectedIndex >= patternCount) selectedIndex = patternCount - 1;
+            if (selectedIndex >= patternCount)
+            {
+                selectedIndex = patternCount - 1;
+            }
 
             ListPatternsOfText(selectedIndex);
         }
@@ -925,7 +1028,10 @@ namespace ARKBreedingStats.ocr
         {
             // open explorer with currently loaded ocrConfigFile
             var ocrFile = Properties.Settings.Default.ocrFile;
-            if (string.IsNullOrEmpty(ocrFile) || !File.Exists(ocrFile)) return;
+            if (string.IsNullOrEmpty(ocrFile) || !File.Exists(ocrFile))
+            {
+                return;
+            }
 
             Process.Start("explorer.exe", $"/select,\"{ocrFile}\"");
         }
@@ -935,7 +1041,10 @@ namespace ARKBreedingStats.ocr
             var rectangles = ArkOcr.Ocr.ocrConfig.UsedLabelRectangles;
             int y = rectangles[0].Y;
             int yDiff = rectangles[1].Y - y;
-            if (yDiff < 0) return;
+            if (yDiff < 0)
+            {
+                return;
+            }
 
             int width = rectangles[0].Width;
             int height = rectangles[0].Height;
@@ -962,16 +1071,25 @@ namespace ARKBreedingStats.ocr
         private void RemovePatterns(string patternText)
         {
 
-            if (ArkOcr.Ocr.ocrConfig == null || patternText == string.Empty) return;
+            if (ArkOcr.Ocr.ocrConfig == null || patternText == string.Empty)
+            {
+                return;
+            }
 
             if (MessageBox.Show(patternText != null ? $"Remove all the OCR patterns for the text\n\n{patternText}" : "WARNING\nRemove all patterns in this config file?", "Remove patterns?",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
                 return;
+            }
 
             if (patternText == null)
+            {
                 ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.Clear();
+            }
             else
+            {
                 ArkOcr.Ocr.ocrConfig.RecognitionPatterns.Texts.RemoveAll(t => t.Text == patternText);
+            }
 
             LoadTemplateLetter();
         }
@@ -989,15 +1107,17 @@ namespace ARKBreedingStats.ocr
         private void BtReplacingOpenFile_Click(object sender, EventArgs e)
         {
             var filePath = FileService.GetJsonPath(FileService.OcrFolderName, FileService.OcrReplacingsFile);
-            if (string.IsNullOrEmpty(filePath)) return;
-
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
 
             if (!File.Exists(filePath))
             {
                 File.Create(filePath).Dispose();
             }
 
-            Process.Start(filePath);
+            Utils.OpenUri(filePath);
         }
 
         private void BtReplacingLoadFile_Click(object sender, EventArgs e)
@@ -1013,26 +1133,42 @@ namespace ARKBreedingStats.ocr
 
         private void BtNewLabelSet_Click(object sender, EventArgs e)
         {
-            if (ArkOcr.Ocr.ocrConfig == null) return;
+            if (ArkOcr.Ocr.ocrConfig == null)
+            {
+                return;
+            }
+
             ArkOcr.Ocr.ocrConfig.SetLabelSet(ArkOcr.Ocr.ocrConfig.NewLabelSet());
             InitializeComboboxLabelSetNames();
         }
 
         private void BtDeleteLabelSet_Click(object sender, EventArgs e)
         {
-            if (ArkOcr.Ocr.ocrConfig == null) return;
+            if (ArkOcr.Ocr.ocrConfig == null)
+            {
+                return;
+            }
+
             ArkOcr.Ocr.ocrConfig.DeleteCurrentLabelSet();
             InitializeComboboxLabelSetNames();
         }
 
         private void TbLabelSetName_Leave(object sender, EventArgs e)
         {
-            if (ArkOcr.Ocr.ocrConfig == null) return;
+            if (ArkOcr.Ocr.ocrConfig == null)
+            {
+                return;
+            }
 
             if (ArkOcr.Ocr.ocrConfig.LabelSetChangeName(TbLabelSetName.Text, out var errorMessage))
+            {
                 InitializeComboboxLabelSetNames();
+            }
+
             if (!string.IsNullOrEmpty(errorMessage))
+            {
                 MessageBoxes.ShowMessageBox(errorMessage, "Label set name change error");
+            }
         }
 
         private void InitializeComboboxLabelSetNames()
@@ -1050,7 +1186,11 @@ namespace ARKBreedingStats.ocr
 
         private void CbbLabelSets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ArkOcr.Ocr.ocrConfig == null) return;
+            if (ArkOcr.Ocr.ocrConfig == null)
+            {
+                return;
+            }
+
             ArkOcr.Ocr.ocrConfig.SetLabelSet(((ComboBox)sender).SelectedItem.ToString());
             TbLabelSetName.Text = ArkOcr.Ocr.ocrConfig.SelectedLabelSetName;
             RedrawScreenshot();

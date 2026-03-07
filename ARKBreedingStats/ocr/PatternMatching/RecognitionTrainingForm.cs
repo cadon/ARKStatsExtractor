@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -36,9 +36,13 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     for (int x = 0; x < w; x++)
                     {
                         if (image[x, y])
+                        {
                             db.Bits[y * w + x] = -1; // white
+                        }
                         else
+                        {
                             db.Bits[y * w + x] = -16777216; // black
+                        }
                     }
 
                     if (y >= charData.Coords.Y && y < charYMax)
@@ -91,7 +95,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
             ShowDialog();
 
             if (_selectedText == null)
+            {
                 throw new OperationCanceledException("User canceled ocr");
+            }
 
             return _selectedText;
         }

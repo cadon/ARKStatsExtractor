@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
@@ -61,7 +62,9 @@ namespace ARKBreedingStats
 
             if (_creatureCollection.DeletedCreatureGuids != null
                 && _creatureCollection.DeletedCreatureGuids.Contains(creature.guid))
+            {
                 _creatureCollection.DeletedCreatureGuids.RemoveAll(guid => guid == creature.guid);
+            }
 
             _creatureCollection.MergeCreatureList(new[] { creature });
 
@@ -87,14 +90,23 @@ namespace ARKBreedingStats
 
             // link new creature to its parents if they're available, or creature placeholders
             if (creature.Mother == null || creature.Father == null)
+            {
                 UpdateParents(new List<Creature> { creature });
+            }
 
             // if the new creature is the ancestor of any other creatures, update the generation count of all creatures
             if (motherOf.Any() || fatherOf.Any())
             {
                 var creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species).ToArray();
-                foreach (var cr in creaturesOfSpecies) cr.generation = -1;
-                foreach (var cr in creaturesOfSpecies) cr.RecalculateAncestorGenerations();
+                foreach (var cr in creaturesOfSpecies)
+                {
+                    cr.generation = -1;
+                }
+
+                foreach (var cr in creaturesOfSpecies)
+                {
+                    cr.RecalculateAncestorGenerations();
+                }
             }
             else
             {
@@ -102,7 +114,9 @@ namespace ARKBreedingStats
             }
 
             if (Properties.Settings.Default.PauseGrowingTimerAfterAddingBaby)
+            {
                 creature.StartStopMatureTimer(false);
+            }
 
             _filterListAllowed = false;
             UpdateCreatureListings(species, false);
@@ -132,14 +146,21 @@ namespace ARKBreedingStats
         {
             if (tabControlMain.SelectedTab == tabPageLibrary)
             {
-                if (listViewLibrary.SelectedIndices.Count == 0) return;
+                if (listViewLibrary.SelectedIndices.Count == 0)
+                {
+                    return;
+                }
+
                 if ((ModifierKeys & Keys.Shift) == 0
                     && MessageBox.Show("Do you really want to delete the entry and all data for "
                                     + $"\"{_creaturesDisplayed[listViewLibrary.SelectedIndices[0]].name}\""
                                     + $"{(listViewLibrary.SelectedIndices.Count > 1 ? " and " + (listViewLibrary.SelectedIndices.Count - 1) + " other creatures" : null)}?\n\n"
                                     + "(Hold the Shift key to delete without this messagebox confirmation shown.)",
                         "Delete Creature?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                    != DialogResult.Yes) return;
+                    != DialogResult.Yes)
+                {
+                    return;
+                }
 
                 bool onlyOneSpecies = true;
                 Species species = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]].Species;
@@ -149,7 +170,9 @@ namespace ARKBreedingStats
                     if (onlyOneSpecies)
                     {
                         if (species != cr.Species)
+                        {
                             onlyOneSpecies = false;
+                        }
                     }
                     _creatureCollection.DeleteCreature(cr);
                 }
@@ -245,7 +268,10 @@ namespace ARKBreedingStats
 
             CreateCreatureTagList();
 
-            if (_creatureCollection.modIDs == null) _creatureCollection.modIDs = new List<string>();
+            if (_creatureCollection.modIDs == null)
+            {
+                _creatureCollection.modIDs = new List<string>();
+            }
 
             if (keepCurrentSelection)
             {
@@ -293,7 +319,11 @@ namespace ARKBreedingStats
         /// <param name="cc"></param>
         private static void ApplySpeciesObjectsToCollection(CreatureCollection cc)
         {
-            if (cc == null) return;
+            if (cc == null)
+            {
+                return;
+            }
+
             foreach (var cr in cc.creatures)
             {
                 cr.Species = Values.V.SpeciesByBlueprint(cr.speciesBlueprint);
@@ -325,7 +355,9 @@ namespace ARKBreedingStats
                     {
                         var sp = Values.V.SpeciesByBlueprint(bp);
                         if (sp != null)
+                        {
                             _creatureCollection.TopLevels.Remove(sp);
+                        }
                     }
                 }
             }
@@ -337,11 +369,16 @@ namespace ARKBreedingStats
             foreach (var species in speciesList)
             {
                 if (species == null)
+                {
                     continue;
+                }
 
                 var speciesCreatures = _creatureCollection.GetSpeciesCompatibleCreatures(species);
 
-                if (!speciesCreatures.Any()) continue;
+                if (!speciesCreatures.Any())
+                {
+                    continue;
+                }
 
                 var usedStatIndices = new List<int>(8);
                 var usedAndConsideredStatIndices = new List<int>();
@@ -359,7 +396,9 @@ namespace ARKBreedingStats
                     {
                         usedStatIndices.Add(s);
                         if (considerAsTopStat[s].ConsiderStat)
+                        {
                             usedAndConsideredStatIndices.Add(s);
+                        }
                     }
                 }
                 var bestCreaturesWildLevels = new List<Creature>[Stats.StatsCount];
@@ -451,8 +490,13 @@ namespace ARKBreedingStats
                                 else if (c.levelsMutated[s] == lowestMutationLevels[s])
                                 {
                                     if (bestCreaturesMutatedLevels[s] == null)
+                                    {
                                         bestCreaturesMutatedLevels[s] = new List<Creature> { c };
-                                    else bestCreaturesMutatedLevels[s].Add(c);
+                                    }
+                                    else
+                                    {
+                                        bestCreaturesMutatedLevels[s].Add(c);
+                                    }
                                 }
                             }
                             else if (statPreferences[s] == StatWeighting.StatValuePreference.High
@@ -485,16 +529,26 @@ namespace ARKBreedingStats
                 int minTotalLevelWithAllTopLevels = 1;
                 foreach (var si in usedStatIndices)
                 {
-                    if (si == Stats.Torpidity) continue;
+                    if (si == Stats.Torpidity)
+                    {
+                        continue;
+                    }
+
                     switch (statPreferences[si])
                     {
                         case StatWeighting.StatValuePreference.High:
                             if (highestLevels[si] > 0)
+                            {
                                 minTotalLevelWithAllTopLevels += highestLevels[si];
+                            }
+
                             break;
                         case StatWeighting.StatValuePreference.Low:
                             if (lowestLevels[si] > 0)
+                            {
                                 minTotalLevelWithAllTopLevels += lowestLevels[si];
+                            }
+
                             break;
                     }
                 }
@@ -510,13 +564,22 @@ namespace ARKBreedingStats
                             continue;
                         case StatWeighting.StatValuePreference.Low:
                             if (highestLevels[s] > 0 && lowestLevels[s] >= 0)
+                            {
                                 sumTopLevels += highestLevels[s] - lowestLevels[s];
+                            }
+
                             if (lowestMutationLevels[s] >= 0)
+                            {
                                 sumTopLevels += highestMutationLevels[s] - lowestMutationLevels[s];
+                            }
+
                             break;
                         case StatWeighting.StatValuePreference.High:
                             if (highestLevels[s] > 0)
+                            {
                                 sumTopLevels += highestLevels[s];
+                            }
+
                             sumTopLevels += highestMutationLevels[s];
                             break;
                     }
@@ -525,7 +588,11 @@ namespace ARKBreedingStats
                 {
                     foreach (var c in speciesCreatures)
                     {
-                        if (c.levelsWild == null || c.flags.HasFlag(CreatureFlags.Placeholder)) continue;
+                        if (c.levelsWild == null || c.flags.HasFlag(CreatureFlags.Placeholder))
+                        {
+                            continue;
+                        }
+
                         int sumCreatureLevels = 0;
                         foreach (var s in usedAndConsideredStatIndices)
                         {
@@ -533,7 +600,10 @@ namespace ARKBreedingStats
                             {
                                 case StatWeighting.StatValuePreference.Low:
                                     if (c.levelsWild[s] >= 0)
+                                    {
                                         sumCreatureLevels += highestLevels[s] - c.levelsWild[s] + highestMutationLevels[s] - (c.levelsMutated?[s] ?? 0);
+                                    }
+
                                     break;
                                 case StatWeighting.StatValuePreference.High:
                                     sumCreatureLevels += (c.levelsWild[s] > 0 ? c.levelsWild[s] : 0)
@@ -551,11 +621,15 @@ namespace ARKBreedingStats
                     if (bestCreaturesMutatedLevels[s] != null)
                     {
                         foreach (var c in bestCreaturesMutatedLevels[s])
+                        {
                             c.topBreedingCreature = true;
+                        }
                     }
 
                     if (bestCreaturesWildLevels[s] == null || bestCreaturesWildLevels[s].Count == 0)
+                    {
                         continue; // no creature has levelups in this stat or the stat is not used for this species
+                    }
 
                     var crCount = bestCreaturesWildLevels[s].Count;
                     if (crCount == 1)
@@ -568,7 +642,9 @@ namespace ARKBreedingStats
                     {
                         currentCreature.topBreedingCreature = true;
                         if (currentCreature.sex != Sex.Male)
+                        {
                             continue;
+                        }
 
                         // check how many best stat the male has
                         int maxval = 0;
@@ -577,7 +653,9 @@ namespace ARKBreedingStats
                             if ((statPreferences[s] == StatWeighting.StatValuePreference.High && currentCreature.levelsWild[cs] == highestLevels[cs])
                                 || (statPreferences[s] == StatWeighting.StatValuePreference.Low && currentCreature.levelsWild[cs] == lowestLevels[cs])
                                 )
+                            {
                                 maxval++;
+                            }
                         }
 
                         if (maxval > 1)
@@ -587,7 +665,9 @@ namespace ARKBreedingStats
                             {
                                 if (otherMale.sex != Sex.Male
                                     || currentCreature.Equals(otherMale))
+                                {
                                     continue;
+                                }
 
                                 int othermaxval = 0;
                                 for (int ocs = 0; ocs < Stats.StatsCount; ocs++)
@@ -606,7 +686,9 @@ namespace ARKBreedingStats
                                     }
                                 }
                                 if (othermaxval == 1)
+                                {
                                     otherMale.topBreedingCreature = false;
+                                }
                             }
                         }
                     }
@@ -618,13 +700,17 @@ namespace ARKBreedingStats
                     if (bestCreaturesWildLevels[s] != null)
                     {
                         foreach (var c in bestCreaturesWildLevels[s])
+                        {
                             c.SetTopStat(s, true);
+                        }
                     }
 
                     if (bestCreaturesMutatedLevels[s] != null)
                     {
                         foreach (var c in bestCreaturesMutatedLevels[s])
+                        {
                             c.SetTopMutationStat(s, true);
+                        }
                     }
                 }
             }
@@ -635,7 +721,10 @@ namespace ARKBreedingStats
             foreach (Creature c in creatures)
             {
                 if (c.Species == null || c.flags.HasFlag(CreatureFlags.Placeholder))
+                {
                     continue;
+                }
+
                 if (!considerTopStats.TryGetValue(c.Species, out var consideredTopStats))
                 {
                     consideredTopStats = StatsOptionsConsiderTopStats.GetOptions(c.Species).Options.Select(si => si.ConsiderStat).ToArray();
@@ -646,7 +735,9 @@ namespace ARKBreedingStats
 
             var selectedSpecies = speciesSelector1.SelectedSpecies;
             if (selectedSpecies != null)
+            {
                 hatching1.SetSpecies(selectedSpecies, _creatureCollection.TopLevels.TryGetValue(selectedSpecies, out var tl) ? tl : null);
+            }
         }
 
         /// <summary>
@@ -712,16 +803,29 @@ namespace ARKBreedingStats
 
                     bool AreIntArraysEqual(int[] firstArray, int[] secondArray)
                     {
-                        if (firstArray == null && secondArray == null) return true;
-                        if (firstArray == null || secondArray == null) return false;
+                        if (firstArray == null && secondArray == null)
+                        {
+                            return true;
+                        }
+
+                        if (firstArray == null || secondArray == null)
+                        {
+                            return false;
+                        }
+
                         var firstCount = firstArray.Length;
                         var secondCount = secondArray.Length;
-                        if (firstCount != secondCount) return false;
+                        if (firstCount != secondCount)
+                        {
+                            return false;
+                        }
 
                         for (int i = 0; i < firstCount; i++)
                         {
                             if (firstArray[i] != secondArray[i])
+                            {
                                 return false;
+                            }
                         }
 
                         return true;
@@ -729,16 +833,29 @@ namespace ARKBreedingStats
 
                     bool AreByteArraysEqual(byte[] firstArray, byte[] secondArray)
                     {
-                        if (firstArray == null && secondArray == null) return true;
-                        if (firstArray == null || secondArray == null) return false;
+                        if (firstArray == null && secondArray == null)
+                        {
+                            return true;
+                        }
+
+                        if (firstArray == null || secondArray == null)
+                        {
+                            return false;
+                        }
+
                         var firstCount = firstArray.Length;
                         var secondCount = secondArray.Length;
-                        if (firstCount != secondCount) return false;
+                        if (firstCount != secondCount)
+                        {
+                            return false;
+                        }
 
                         for (int i = 0; i < firstCount; i++)
                         {
                             if (firstArray[i] != secondArray[i])
+                            {
                                 return false;
+                            }
                         }
 
                         return true;
@@ -794,17 +911,24 @@ namespace ARKBreedingStats
 
             foreach (Creature c in creatures)
             {
-                if (c.motherGuid == Guid.Empty && c.fatherGuid == Guid.Empty) continue;
+                if (c.motherGuid == Guid.Empty && c.fatherGuid == Guid.Empty)
+                {
+                    continue;
+                }
 
                 Creature mother = null;
                 if (c.motherGuid != Guid.Empty
                     && !creatureGuids.TryGetValue(c.motherGuid, out mother))
+                {
                     mother = EnsurePlaceholderCreature(placeholderAncestors, c, c.motherGuid, c.motherName, Sex.Female);
+                }
 
                 Creature father = null;
                 if (c.fatherGuid != Guid.Empty
                     && !creatureGuids.TryGetValue(c.fatherGuid, out father))
+                {
                     father = EnsurePlaceholderCreature(placeholderAncestors, c, c.fatherGuid, c.fatherName, Sex.Male);
+                }
 
                 c.Mother = mother;
                 c.Father = father;
@@ -828,12 +952,19 @@ namespace ARKBreedingStats
         private Creature EnsurePlaceholderCreature(Dictionary<Guid, Creature> placeholders, Creature tmpl, Guid guid, string name, Sex sex)
         {
             if (guid == Guid.Empty)
+            {
                 return null;
+            }
+
             if (placeholders.TryGetValue(guid, out var existingCreature))
+            {
                 return existingCreature;
+            }
 
             if (string.IsNullOrEmpty(name))
+            {
                 name = (sex == Sex.Female ? "Mother" : sex == Sex.Male ? "Father" : "Parent") + " of " + tmpl.name;
+            }
 
             var creature = new Creature(tmpl.Species, name, null, null, sex, levelStep: _creatureCollection.getWildLevelStep())
             {
@@ -853,16 +984,24 @@ namespace ARKBreedingStats
         /// <param name="cc"></param>
         private void UpdateIncubationParents(CreatureCollection cc)
         {
-            if (!cc.incubationListEntries.Any()) return;
+            if (!cc.incubationListEntries.Any())
+            {
+                return;
+            }
 
             var dict = cc.creatures.ToDictionary(c => c.guid);
 
             foreach (IncubationTimerEntry it in cc.incubationListEntries)
             {
                 if (it.motherGuid != Guid.Empty && dict.TryGetValue(it.motherGuid, out var m))
+                {
                     it.Mother = m;
+                }
+
                 if (it.fatherGuid != Guid.Empty && dict.TryGetValue(it.fatherGuid, out var f))
+                {
                     it.Father = f;
+                }
             }
         }
 
@@ -902,19 +1041,33 @@ namespace ARKBreedingStats
                     speciesOrderIndex = new Dictionary<Species, int>();
                     foreach (var s in _speciesInLibraryOrdered)
                     {
-                        if (speciesOrderIndex.ContainsKey(s)) continue;
+                        if (speciesOrderIndex.ContainsKey(s))
+                        {
+                            continue;
+                        }
+
                         speciesOrderIndex[s] = ++speciesIndex;
-                        if (s.matesWith?.Any() != true) continue;
+                        if (s.matesWith?.Any() != true)
+                        {
+                            continue;
+                        }
+
                         foreach (var bp in s.matesWith)
                         {
                             var connectedSpecies = Values.V.SpeciesByBlueprint(bp);
-                            if (connectedSpecies == null) continue;
+                            if (connectedSpecies == null)
+                            {
+                                continue;
+                            }
+
                             speciesOrderIndex[connectedSpecies] = speciesIndex;
                         }
                     }
                 }
                 else
+                {
                     speciesOrderIndex = _speciesInLibraryOrdered.Select((s, i) => (s, i)).ToDictionary(s => s.s, s => s.i);
+                }
             }
             var sorted = _creatureListSorter.DoSort(creatures, columnIndex, speciesOrderIndex);
             return Properties.Settings.Default.LibraryGroupBySpecies ? InsertDividers(sorted, Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies) : sorted;
@@ -1015,8 +1168,10 @@ namespace ARKBreedingStats
                 var rect = e.Bounds;
                 var count = 0;
                 if (creature.Species.blueprintPath != null)
+                {
                     _creatureCollection.GetCreatureCountBySpecies()
                         .TryGetValue(creature.Species.blueprintPath, out count);
+                }
 
                 var displayedText = creature.Species.DescriptiveNameAndMod + " (" + count + ")";
 
@@ -1026,12 +1181,18 @@ namespace ARKBreedingStats
                     foreach (var bp in creature.Species.matesWith)
                     {
                         var sp = Values.V.SpeciesByBlueprint(bp);
-                        if (sp == null) continue;
+                        if (sp == null)
+                        {
+                            continue;
+                        }
+
                         addTexts.Add($"{sp.DescriptiveNameAndMod} ({(_creatureCollection.GetCreatureCountBySpecies().TryGetValue(bp, out count) ? count : 0)})");
                     }
 
                     if (addTexts.Any())
+                    {
                         displayedText += ", " + string.Join(", ", addTexts);
+                    }
                 }
 
                 float middle = (rect.Top + rect.Bottom) / 2f;
@@ -1060,7 +1221,9 @@ namespace ARKBreedingStats
             // if row is selected, save and reselect later
             var selectedCreatures = new HashSet<Creature>();
             foreach (int i in listViewLibrary.SelectedIndices)
+            {
                 selectedCreatures.Add(_creaturesDisplayed[i]);
+            }
 
             // data of the selected creature changed, update listview
             cr.RecalculateCreatureValues(_creatureCollection.getWildLevelStep());
@@ -1078,7 +1241,10 @@ namespace ARKBreedingStats
 
             // recreate ownerList
             if (ownerServerChanged)
+            {
                 UpdateOwnerServerTagLists();
+            }
+
             SetCollectionChanged(true, cr.Species);
 
             SelectCreaturesInLibrary(selectedCreatures);
@@ -1155,10 +1321,16 @@ namespace ARKBreedingStats
         /// <param name="creature"></param>
         private void SelectCreatureInLibrary(Creature creature)
         {
-            if (creature == null) return;
+            if (creature == null)
+            {
+                return;
+            }
 
             var index = Array.IndexOf(_creaturesDisplayed, creature);
-            if (index == -1) return;
+            if (index == -1)
+            {
+                return;
+            }
 
             _reactOnCreatureSelectionChange = false;
             listViewLibrary.SelectedIndices.Clear();
@@ -1169,10 +1341,17 @@ namespace ARKBreedingStats
 
         private void UpdateCreatureListViewItem(Creature creature)
         {
-            if (_libraryListViewItemCache == null) return;
+            if (_libraryListViewItemCache == null)
+            {
+                return;
+            }
             // int listViewLibrary replace old row with new one
             var index = Array.IndexOf(_creaturesDisplayed, creature);
-            if (index == -1) return; // not in cache currently
+            if (index == -1)
+            {
+                return; // not in cache currently
+            }
+
             var cacheIndex = index - _libraryItemCacheFirstIndex;
             if (cacheIndex >= 0 && cacheIndex < _libraryListViewItemCache.Length)
             {
@@ -1318,9 +1497,13 @@ namespace ARKBreedingStats
                 if (Properties.Settings.Default.LibraryHighlightTopCreatures && cr.topBreedingCreature)
                 {
                     if (cr.onlyTopConsideredStats)
+                    {
                         lvi.BackColor = Color.Gold;
+                    }
                     else
+                    {
                         lvi.BackColor = Color.LightGreen;
+                    }
                 }
                 lvi.SubItems[ColumnIndexTopStats].BackColor = Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, 0.7);
             }
@@ -1341,22 +1524,32 @@ namespace ARKBreedingStats
 
             // color for generation
             if (cr.generation == 0)
+            {
                 lvi.SubItems[ColumnIndexGeneration].ForeColor = Color.LightGray;
+            }
 
             // color of WildLevelColumn
             if (cr.levelFound == 0)
+            {
                 lvi.SubItems[ColumnIndexWildLevel].ForeColor = Color.LightGray;
+            }
 
             // color for mutations counter
             if (cr.Mutations > 0)
             {
                 if (cr.Mutations < Ark.MutationPossibleWithLessThan)
+                {
                     lvi.SubItems[ColumnIndexMutations].BackColor = Utils.MutationColor;
+                }
                 else
+                {
                     lvi.SubItems[ColumnIndexMutations].BackColor = Utils.MutationColorOverLimit;
+                }
             }
             else
+            {
                 lvi.SubItems[ColumnIndexMutations].ForeColor = Color.LightGray;
+            }
 
             // color for cooldown
             lvi.SubItems[ColumnIndexCountdown].ForeColor = cooldownForeColor;
@@ -1422,29 +1615,45 @@ namespace ARKBreedingStats
 
             double minCld;
             if (useGrowingLeft)
+            {
                 minCld = cr.growingLeft.TotalMinutes;
+            }
             else
+            {
                 minCld = dt.Subtract(now).TotalMinutes;
+            }
 
             if (isGrowing)
             {
                 // growing
                 if (minCld < 1)
+                {
                     backColor = Color.FromArgb(168, 187, 255); // light blue
+                }
                 else if (minCld < 10)
+                {
                     backColor = Color.FromArgb(197, 168, 255); // light blue/pink
+                }
                 else
+                {
                     backColor = Color.FromArgb(236, 168, 255); // light pink
+                }
             }
             else
             {
                 // mating-cooldown
                 if (minCld < 1)
+                {
                     backColor = Color.FromArgb(235, 255, 109); // green-yellow
+                }
                 else if (minCld < 10)
+                {
                     backColor = Color.FromArgb(255, 250, 109); // yellow
+                }
                 else
+                {
                     backColor = Color.FromArgb(255, 179, 109); // yellow-orange
+                }
             }
 
             return useGrowingLeft ? Utils.Duration(cr.growingLeft) : dt.ToString();
@@ -1466,7 +1675,9 @@ namespace ARKBreedingStats
 
             var selectedCreatures = new HashSet<Creature>();
             foreach (int i in listViewLibrary.SelectedIndices)
+            {
                 selectedCreatures.Add(_creaturesDisplayed[i]);
+            }
 
             _creaturesDisplayed = GetSortedCreatureList(_creaturesDisplayed.Where(c => !c.flags.HasFlag(CreatureFlags.Divider)), columnIndex);
             _libraryListViewItemCache = null;
@@ -1480,7 +1691,9 @@ namespace ARKBreedingStats
         private void listViewLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_reactOnCreatureSelectionChange)
+            {
                 _libraryIndexChangedDebouncer.Debounce(100, LibrarySelectedIndexChanged, Dispatcher.CurrentDispatcher);
+            }
         }
 
         /// <summary>
@@ -1492,7 +1705,9 @@ namespace ARKBreedingStats
             foreach (int i in listViewLibrary.SelectedIndices)
             {
                 if (_creaturesDisplayed[i].flags.HasFlag(CreatureFlags.Divider))
+                {
                     listViewLibrary.SelectedIndices.Remove(i);
+                }
             }
 
             int cnt = listViewLibrary.SelectedIndices.Count;
@@ -1508,7 +1723,10 @@ namespace ARKBreedingStats
                 Creature c = _creaturesDisplayed[listViewLibrary.SelectedIndices[0]];
                 creatureBoxListView.SetCreature(c);
                 if (tabControlLibFilter.SelectedTab == tabPageLibRadarChart)
+                {
                     radarChartLibrary.SetLevels(c.levelsWild, c.levelsMutated, c.Species);
+                }
+
                 pedigree1.PedigreeNeedsUpdate = true;
             }
 
@@ -1516,14 +1734,20 @@ namespace ARKBreedingStats
             var selCrs = new List<Creature>(cnt);
 
             foreach (int i in listViewLibrary.SelectedIndices)
+            {
                 selCrs.Add(_creaturesDisplayed[i]);
+            }
 
             List<string> tagList = new List<string>();
             foreach (Creature cr in selCrs)
             {
                 foreach (string t in cr.tags)
+                {
                     if (!tagList.Contains(t))
+                    {
                         tagList.Add(t);
+                    }
+                }
             }
             tagList.Sort();
 
@@ -1554,12 +1778,16 @@ namespace ARKBreedingStats
         private void FilterLib(bool selectFirstIfNothingIsSelected = false)
         {
             if (!_filterListAllowed)
+            {
                 return;
+            }
 
             // save selected creatures to re-select them after the filtering
             var selectedCreatures = new HashSet<Creature>();
             foreach (int i in listViewLibrary.SelectedIndices)
+            {
                 selectedCreatures.Add(_creaturesDisplayed[i]);
+            }
 
             IEnumerable<Creature> filteredList;
 
@@ -1580,9 +1808,14 @@ namespace ARKBreedingStats
                     if (listBoxSpeciesLib.SelectedItem is Species selectedSpecies)
                     {
                         if (Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies)
+                        {
                             filteredList = filteredList.Where(c => c.Species == selectedSpecies || selectedSpecies.matesWith?.Contains(c.Species.blueprintPath) == true);
+                        }
                         else
+                        {
                             filteredList = filteredList.Where(c => c.Species == selectedSpecies);
+                        }
+
                         customStatNames = selectedSpecies.statNames;
                     }
 
@@ -1634,7 +1867,10 @@ namespace ARKBreedingStats
                     {
                         var colorIds = m.Groups[2].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                                 .Select(int.Parse).Distinct().ToArray();
-                        if (!colorIds.Any()) continue;
+                        if (!colorIds.Any())
+                        {
+                            continue;
+                        }
 
                         var colorRegions = m.Groups[1].Value.Where(r => r != ' ').Select(r => int.Parse(r.ToString())).ToArray();
 
@@ -1645,7 +1881,11 @@ namespace ARKBreedingStats
 
                     // stat filter
                     m = statFilterRegex.Match(f);
-                    if (!m.Success) continue;
+                    if (!m.Success)
+                    {
+                        continue;
+                    }
+
                     if (!Utils.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
                     {
                         // mutations
@@ -1683,12 +1923,30 @@ namespace ARKBreedingStats
                     removeFilterIndex.Add(i);
                 }
 
-                if (!statGreaterThan.Any()) statGreaterThan = null;
-                if (!statLessThan.Any()) statLessThan = null;
-                if (!statEqualTo.Any()) statEqualTo = null;
-                if (!colorFilterOr.Any()) colorFilterOr = null;
+                if (!statGreaterThan.Any())
+                {
+                    statGreaterThan = null;
+                }
+
+                if (!statLessThan.Any())
+                {
+                    statLessThan = null;
+                }
+
+                if (!statEqualTo.Any())
+                {
+                    statEqualTo = null;
+                }
+
+                if (!colorFilterOr.Any())
+                {
+                    colorFilterOr = null;
+                }
+
                 foreach (var i in removeFilterIndex)
+                {
                     filterStrings.RemoveAt(i);
+                }
 
                 filteredList = filteredList.Where(c => filterStrings.All(f =>
                     c.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) != -1
@@ -1723,7 +1981,9 @@ namespace ARKBreedingStats
         private IEnumerable<Creature> ApplyLibraryFilterSettings(IEnumerable<Creature> creatures)
         {
             if (creatures == null)
+            {
                 return Enumerable.Empty<Creature>();
+            }
 
             var anyFilterSet = false;
 
@@ -1811,7 +2071,10 @@ namespace ARKBreedingStats
 
         private void listBoxSpeciesLib_Click(object sender, EventArgs e)
         {
-            if (!(ModifierKeys == Keys.Control && listBoxSpeciesLib.SelectedItem is Species species)) return;
+            if (!(ModifierKeys == Keys.Control && listBoxSpeciesLib.SelectedItem is Species species))
+            {
+                return;
+            }
 
             Values.V.ToggleSpeciesFavorite(species);
             UpdateSpeciesLists(_creatureCollection.creatures);
@@ -1844,8 +2107,13 @@ namespace ARKBreedingStats
             }
 
             if (Keyboard.Modifiers.HasFlag(System.Windows.Input.ModifierKeys.Control))
+            {
                 CopyCreatureNamePatternToClipboard(index);
-            else GenerateCreatureNames(index, true);
+            }
+            else
+            {
+                GenerateCreatureNames(index, true);
+            }
 
             e.Handled = true;
             e.SuppressKeyPress = true;
@@ -1893,14 +2161,19 @@ namespace ARKBreedingStats
                 {
                     if (MessageBox.Show("No fields for the table export selected.\nDo you want to go to the options to edit the export fields?", "No Export Fields set",
                          MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
-                        OpenSettingsDialog(Settings.SettingsTabPages.General);
+                    {
+                        OpenSettingsDialog(settings.Settings.SettingsTabPages.General);
+                    }
+
                     return;
                 }
                 if (listViewLibrary.SelectedIndices.Count > 0)
                 {
                     var exportCount = ExportImportCreatures.ExportTable(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]).ToArray());
                     if (exportCount != 0)
+                    {
                         SetMessageLabelText($"{exportCount} creatures were exported to the clipboard for pasting in a spreadsheet.", MessageBoxIcon.Information);
+                    }
 
                     return;
                 }
@@ -1910,12 +2183,14 @@ namespace ARKBreedingStats
             }
 
             if (tabControlMain.SelectedTab == tabPageExtractor)
+            {
                 CopyExtractionToClipboard();
+            }
         }
 
         private void editSpreadsheetExportFieldsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenSettingsDialog(Settings.SettingsTabPages.General);
+            OpenSettingsDialog(settings.Settings.SettingsTabPages.General);
         }
 
         /// <summary>
@@ -1925,7 +2200,10 @@ namespace ARKBreedingStats
         {
             // shows a dialog to set multiple settings to all selected creatures
             if (listViewLibrary.SelectedIndices.Count <= 0)
+            {
                 return;
+            }
+
             List<Creature> selectedCreatures = new List<Creature>();
 
             // check if multiple species are selected
@@ -1942,7 +2220,9 @@ namespace ARKBreedingStats
             }
             List<Creature>[] parents = null;
             if (!multipleSpecies)
+            {
                 parents = FindPossibleParents(new Creature(sp));
+            }
 
             using (MultiSetter ms = new MultiSetter(selectedCreatures,
                 parents,
@@ -1955,14 +2235,22 @@ namespace ARKBreedingStats
                 if (ms.ShowDialog() == DialogResult.OK)
                 {
                     if (ms.ParentsChanged)
+                    {
                         UpdateParents(selectedCreatures);
+                    }
+
                     if (ms.TagsChanged)
+                    {
                         CreateCreatureTagList();
+                    }
+
                     if (ms.SpeciesChanged)
                     {
                         UpdateSpeciesLists(_creatureCollection.creatures);
                         foreach (var c in selectedCreatures)
+                        {
                             c.RecalculateCreatureValues(_creatureCollection.wildLevelStep);
+                        }
                     }
                     UpdateOwnerServerTagLists();
                     SetCollectionChanged(true, !multipleSpecies ? sp : null);
@@ -1982,7 +2270,10 @@ namespace ARKBreedingStats
         private void ToolStripButtonLibraryFilterClear_Click(object sender, EventArgs e)
         {
             if (_libraryFilterTemplates != null && !_libraryFilterTemplates.IsDisposed)
+            {
                 _libraryFilterTemplates.ControlVisibility = false;
+            }
+
             ToolStripTextBoxLibraryFilter.Clear();
             ToolStripTextBoxLibraryFilter.Focus();
         }
@@ -1994,13 +2285,18 @@ namespace ARKBreedingStats
         /// <param name="e"></param>
         private async void saveInfographicsToFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            if (listViewLibrary.SelectedIndices.Count == 0)
+            {
+                return;
+            }
 
             try
             {
                 var initialFolder = Properties.Settings.Default.InfoGraphicExportFolder;
                 if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
+                {
                     initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                }
 
                 string folderPath = null;
                 using (var fs = new FolderBrowserDialog
@@ -2009,10 +2305,15 @@ namespace ARKBreedingStats
                 })
                 {
                     if (fs.ShowDialog() == DialogResult.OK)
+                    {
                         folderPath = fs.SelectedPath;
+                    }
                 }
 
-                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath)) return;
+                if (string.IsNullOrEmpty(folderPath) || !Directory.Exists(folderPath))
+                {
+                    return;
+                }
 
                 Properties.Settings.Default.InfoGraphicExportFolder = folderPath;
 
@@ -2052,12 +2353,18 @@ namespace ARKBreedingStats
                         }
                     }
                     (await c.InfoGraphicAsync(_creatureCollection)).Save(filePath);
-                    if (firstImageFilePath == null) firstImageFilePath = filePath;
+                    if (firstImageFilePath == null)
+                    {
+                        firstImageFilePath = filePath;
+                    }
 
                     imagesCreated++;
                 }
 
-                if (imagesCreated == 0) return;
+                if (imagesCreated == 0)
+                {
+                    return;
+                }
 
                 var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
                 SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
@@ -2073,7 +2380,9 @@ namespace ARKBreedingStats
         private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
         {
             if (TryGetSelectedLibraryCreature(out var c))
+            {
                 EditCreatureInTester(c);
+            }
         }
 
         private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
@@ -2109,13 +2418,17 @@ namespace ARKBreedingStats
         private void currentValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TryGetSelectedLibraryCreature(out var c))
+            {
                 SetCreatureValuesToExtractor(c);
+            }
         }
 
         private void wildValuesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TryGetSelectedLibraryCreature(out var c))
+            {
                 SetCreatureValuesToExtractor(c, true);
+            }
         }
 
         private void SetMatureBreedingStateOfSelectedCreatures(bool setMaturity = false, double maturity = 1, bool clearMatingCooldown = false,
@@ -2126,13 +2439,19 @@ namespace ARKBreedingStats
             {
                 var c = _creaturesDisplayed[i];
                 if (setMaturity)
+                {
                     c.Maturation = maturity;
+                }
 
                 if (clearMatingCooldown && c.cooldownUntil > DateTime.Now)
+                {
                     c.cooldownUntil = null;
+                }
 
                 if (justMated)
+                {
                     c.cooldownUntil = DateTime.Now.AddSeconds(c.Species.breeding?.matingCooldownMinAdjusted ?? 0);
+                }
 
                 UpdateCreatureListViewItem(c);
             }
@@ -2161,7 +2480,10 @@ namespace ARKBreedingStats
             if (listViewLibrary.SelectedIndices.Count == 0
                || MessageBox.Show("Set the mutagen flag on the selected creatures and increase their levels accordingly?",
                    "Apply mutagen?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes
-               ) return;
+               )
+            {
+                return;
+            }
 
             // a tamed creature receives 5 level in hp, st, we, dm (i.e. a total of 20 levels)
             // a bred creature receives 1 level in hp, st, we, dm (i.e. a total of 4 levels)
@@ -2176,22 +2498,33 @@ namespace ARKBreedingStats
                 var c = _creaturesDisplayed[i];
 
                 if (!c.isDomesticated
-                    || c.flags.HasFlag(CreatureFlags.MutagenApplied)) continue;
+                    || c.flags.HasFlag(CreatureFlags.MutagenApplied))
+                {
+                    continue;
+                }
 
                 var levelIncrease = c.isBred ? Ark.MutagenLevelUpsBred : Ark.MutagenLevelUpsNonBred;
 
                 foreach (var si in Ark.StatIndicesAffectedByMutagen)
+                {
                     c.levelsWild[si] += levelIncrease;
+                }
+
                 c.levelsWild[Stats.Torpidity] += statCountAffectedByMutagen * levelIncrease;
 
                 c.flags |= CreatureFlags.MutagenApplied;
 
                 libraryChanged = true;
                 if (!affectedSpeciesBlueprints.Contains(c.speciesBlueprint))
+                {
                     affectedSpeciesBlueprints.Add(c.speciesBlueprint);
+                }
             }
 
-            if (!libraryChanged) return;
+            if (!libraryChanged)
+            {
+                return;
+            }
 
             // update list / recalculate topStats
             CalculateTopStats(_creatureCollection.creatures
@@ -2212,46 +2545,60 @@ namespace ARKBreedingStats
         private void adminCommandToSetColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TryGetSelectedLibraryCreature(out var cr))
+            {
                 ArkConsoleCommands.AdminCommandToSetColors(cr.colors, cr.Species);
+            }
         }
 
         private void adminCommandToSpawnExactDinoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TryGetSelectedLibraryCreature(out var c))
+            {
                 CreateExactSpawnCommand(c);
+            }
         }
 
         private void adminCommandToSpawnExactDinoDS2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TryGetSelectedLibraryCreature(out var c))
+            {
                 CreateExactSpawnDS2Command(c);
+            }
         }
 
         private void adminCommandSetMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (TryGetSelectedLibraryCreature(out var c))
+            {
                 CreateExactMutationLevelCommand(c);
+            }
         }
 
         private void exactSpawnCommandToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var cr = GetCreatureFromExtractorOrTesterOrLibrary();
             if (cr != null)
+            {
                 CreateExactSpawnCommand(cr);
+            }
         }
 
         private void exactSpawnCommandDS2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var cr = GetCreatureFromExtractorOrTesterOrLibrary();
             if (cr != null)
+            {
                 CreateExactSpawnDS2Command(cr);
+            }
         }
 
         private void commandMutationLevelsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var cr = GetCreatureFromExtractorOrTesterOrLibrary();
             if (cr != null)
+            {
                 CreateExactMutationLevelCommand(cr);
+            }
         }
 
         /// <summary>
@@ -2260,11 +2607,20 @@ namespace ARKBreedingStats
         private Creature GetCreatureFromExtractorOrTesterOrLibrary()
         {
             if (tabControlMain.SelectedTab == tabPageExtractor)
+            {
                 return CreateCreatureFromExtractorOrTester(creatureInfoInputExtractor);
+            }
+
             if (tabControlMain.SelectedTab == tabPageStatTesting)
+            {
                 return CreateCreatureFromExtractorOrTester(creatureInfoInputTester);
+            }
+
             if (tabControlMain.SelectedTab == tabPageLibrary)
+            {
                 return TryGetSelectedLibraryCreature(out var c) ? c : null;
+            }
+
             return null;
         }
 
@@ -2292,15 +2648,24 @@ namespace ARKBreedingStats
         private void ToolStripButtonSaveFilterPresetClick(object sender, EventArgs e)
         {
             var text = ToolStripTextBoxLibraryFilter.Text.Trim();
-            if (string.IsNullOrEmpty(text)) return;
+            if (string.IsNullOrEmpty(text))
+            {
+                return;
+            }
 
             var presets = Properties.Settings.Default.LibraryFilterPresets;
-            if (presets != null && presets.Contains(text)) return;
+            if (presets != null && presets.Contains(text))
+            {
+                return;
+            }
 
             int oldLength = presets?.Length ?? 0;
             var newPresets = new string[oldLength + 1];
             if (presets != null)
+            {
                 Array.Copy(presets, newPresets, oldLength);
+            }
+
             newPresets[oldLength] = text;
 
             Properties.Settings.Default.LibraryFilterPresets = newPresets;
@@ -2318,7 +2683,9 @@ namespace ARKBreedingStats
             if (_libraryFilterTemplates == null || _libraryFilterTemplates.IsDisposed)
             {
                 if (Properties.Settings.Default.LibraryFilterPresets == null)
+                {
                     return;
+                }
 
                 _libraryFilterTemplates = new LibraryFilterTemplates
                 {
@@ -2351,10 +2718,15 @@ namespace ARKBreedingStats
             })
             {
                 if (ofd.ShowDialog(this) == DialogResult.OK)
+                {
                     filePath = ofd.FileName;
+                }
             }
 
-            if (string.IsNullOrEmpty(filePath)) return;
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
 
             if (!ExportImportCreatures.ImportCreaturesFromTsvFile(filePath, out var creatures, out var result))
             {
@@ -2369,7 +2741,9 @@ namespace ARKBreedingStats
             SetCollectionChanged(true);
 
             if (_creatureCollection.creatures.Any())
+            {
                 tabControlMain.SelectedTab = tabPageLibrary;
+            }
 
             // reapply last sorting
             SortLibrary();
@@ -2390,7 +2764,9 @@ namespace ARKBreedingStats
                     && MessageBox.Show($"Apply the naming pattern {namePatternIndex + 1} to the selected creatures?",
                     "Apply naming pattern?", MessageBoxButtons.YesNo, MessageBoxIcon.Information) != DialogResult.Yes)
                 )
+            {
                 return;
+            }
 
             var creaturesToUpdate = new List<Creature>();
             Creature[] sameSpecies = null;
@@ -2399,10 +2775,15 @@ namespace ARKBreedingStats
             foreach (int i in listViewLibrary.SelectedIndices)
             {
                 var cr = _creaturesDisplayed[i];
-                if (cr.Species == null) continue;
+                if (cr.Species == null)
+                {
+                    continue;
+                }
 
                 if (sameSpecies?.FirstOrDefault()?.Species != cr.Species)
+                {
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
+                }
 
                 // set new name
                 cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
@@ -2414,7 +2795,9 @@ namespace ARKBreedingStats
 
             listViewLibrary.BeginUpdate();
             foreach (var cr in creaturesToUpdate)
+            {
                 UpdateDisplayedCreatureValues(cr, false, false);
+            }
 
             listViewLibrary.EndUpdate();
         }
@@ -2423,12 +2806,18 @@ namespace ARKBreedingStats
         private void CopyCreatureNamePatternToClipboard(int namePatternIndex)
         {
             if (TryGetSelectedLibraryCreature(out var creature))
+            {
                 CopyCreatureNamePatternToClipboard(creature, namePatternIndex);
+            }
         }
 
         internal void CopyCreatureNamePatternToClipboard(Creature creature, int namePatternIndex)
         {
-            if (creature == null) return;
+            if (creature == null)
+            {
+                return;
+            }
+
             var generatedName = GenerateSingleCreatureNamePattern(creature, namePatternIndex);
             if (string.IsNullOrEmpty(generatedName))
             {
@@ -2436,15 +2825,24 @@ namespace ARKBreedingStats
                 return;
             }
             if (utils.ClipboardHandler.SetText(generatedName, out var error))
+            {
                 SetMessageLabelText($"Copied generated name of creature {creature} using pattern {namePatternIndex + 1} to the clipboard.{Environment.NewLine}The generated name is: {generatedName}");
-            else SetMessageLabelText($"Error while trying to copy name to clipboard. Error: {error}", MessageBoxIcon.Error);
+            }
+            else
+            {
+                SetMessageLabelText($"Error while trying to copy name to clipboard. Error: {error}", MessageBoxIcon.Error);
+            }
         }
 
         private string GenerateSingleCreatureNamePattern(Creature creature, int namePatternIndex)
         {
             var libraryCreatureCount = _creatureCollection.GetTotalCreatureCount();
 
-            if (creature.Species == null) return null;
+            if (creature.Species == null)
+            {
+                return null;
+            }
+
             var sameSpecies = _creatureCollection.creatures.Where(c => !c.flags.HasFlag(CreatureFlags.Placeholder) && c.Species == creature.Species).ToArray();
 
             return NamePattern.GenerateCreatureName(creature, creature, sameSpecies, _creatureCollection.TopLevels.TryGetValue(creature.Species, out var tl) ? tl : null,
@@ -2463,7 +2861,9 @@ namespace ARKBreedingStats
             var colIndicesOrdered = colIndices.Select((i, c) => (columnIndex: c, displayIndex: i))
                 .OrderBy(c => c.displayIndex).ToArray();
             for (int c = 0; c < colIndicesOrdered.Length && c < listViewLibrary.Columns.Count; c++)
+            {
                 listViewLibrary.Columns[colIndicesOrdered[c].columnIndex].DisplayIndex = colIndicesOrdered[c].displayIndex;
+            }
 
             listViewLibrary.EndUpdate();
         }
@@ -2493,21 +2893,28 @@ namespace ARKBreedingStats
             listViewLibrary.BeginUpdate();
             var statWidths = Stats.UsuallyVisibleStats.Select(w => w ? 30 : 0).ToArray();
             for (int ci = 0; ci < listViewLibrary.Columns.Count; ci++)
+            {
                 listViewLibrary.Columns[ci].Width = ci == ColumnIndexMutagenApplied ? 30
                     : ci < ColumnIndexFirstStat || ci >= ColumnIndexPostColor ? 60
                     : ci >= ColumnIndexFirstStat + Stats.StatsCount + Stats.StatsCount ? 30 // color
                     : ci < ColumnIndexFirstStat + Stats.StatsCount ? statWidths[ci - ColumnIndexFirstStat] // wild levels
                     : ci - ColumnIndexFirstStat - Stats.StatsCount == Stats.Torpidity ? 0 // no mutations for torpidity
                     : (int)(statWidths[ci - ColumnIndexFirstStat - Stats.StatsCount] * 1.24); // mutated needs space for one more letter
+            }
 
             // save in settings so it can be used when toggle the mutation columns, which use the settings
             var widths = new int[listViewLibrary.Columns.Count];
             for (int c = 0; c < widths.Length; c++)
+            {
                 widths[c] = listViewLibrary.Columns[c].Width;
+            }
+
             Properties.Settings.Default.columnWidths = widths;
 
             if (mutationColumnWidthsZero)
+            {
                 ToggleLibraryMutationLevelColumns(false);
+            }
 
             listViewLibrary.EndUpdate();
         }
@@ -2541,7 +2948,9 @@ namespace ARKBreedingStats
                 }
 
                 for (int ci = ColumnIndexFirstStat + Stats.StatsCount; ci < ColumnIndexFirstStat + 2 * Stats.StatsCount; ci++)
+                {
                     listViewLibrary.Columns[ci].Width = widths[ci];
+                }
             }
             else
             {
@@ -2560,17 +2969,27 @@ namespace ARKBreedingStats
 
         private void EditTraitsOfSelectedCreaturesInLibrary()
         {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            if (listViewLibrary.SelectedIndices.Count == 0)
+            {
+                return;
+            }
+
             EditTraits(listViewLibrary.SelectedIndices.Cast<int>().Select(i => _creaturesDisplayed[i]).ToArray());
         }
 
         private void EditTraits(IList<Creature> creatures)
         {
-            if (creatures?.Any() != true) return;
+            if (creatures?.Any() != true)
+            {
+                return;
+            }
+
             if (!TraitSelection.ShowTraitSelectionWindow(creatures[0].Traits?.ToList(),
                 $"Trait Selection for {creatures[0].name} ({creatures[0].Species}){(creatures.Count > 1 ? $" and {creatures.Count - 1} other creature{(creatures.Count > 2 ? "s" : string.Empty)}" : string.Empty)}",
                 out var appliedTraits))
+            {
                 return;
+            }
 
             foreach (int i in listViewLibrary.SelectedIndices)
             {
@@ -2582,7 +3001,11 @@ namespace ARKBreedingStats
 
         private void viewColorsInLibraryInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!TryGetSelectedLibraryCreature(out var c)) return;
+            if (!TryGetSelectedLibraryCreature(out var c))
+            {
+                return;
+            }
+
             libraryInfoControl1.SetSpecies(c.Species, false);
             libraryInfoControl1.SetColors(c.colors.ToArray());
             tabControlMain.SelectedTab = tabPageLibraryInfo;

@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -51,11 +52,23 @@ namespace ARKBreedingStats.uiControls
 
                         var inputs = new TextBox[] { mTBD, mTBH, mTBM, mTBS };
 
-                        if (e.KeyCode == Keys.Left) i--;
-                        else i++;
+                        if (e.KeyCode == Keys.Left)
+                        {
+                            i--;
+                        }
+                        else
+                        {
+                            i++;
+                        }
 
-                        if (i < 0) i = 3;
-                        else if (i > 3) i = 0;
+                        if (i < 0)
+                        {
+                            i = 3;
+                        }
+                        else if (i > 3)
+                        {
+                            i = 0;
+                        }
 
                         inputs[i].Focus();
                         break;
@@ -82,15 +95,25 @@ namespace ARKBreedingStats.uiControls
         {
             int.TryParse(input.Text, out var v);
             v += valueChange;
-            if (v < 0) v = 0;
+            if (v < 0)
+            {
+                v = 0;
+            }
+
             input.Text = v.ToString("D2");
             if (selectAfterChange)
+            {
                 input.SelectAll();
+            }
         }
 
         private void mTB_TextChanged(object sender, EventArgs e)
         {
-            if (!_change) return;
+            if (!_change)
+            {
+                return;
+            }
+
             int.TryParse(mTBD.Text, out int d);
             int.TryParse(mTBH.Text, out int h);
             int.TryParse(mTBM.Text, out int m);
@@ -100,6 +123,7 @@ namespace ARKBreedingStats.uiControls
             ValueChanged?.Invoke(this, ts);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TimeSpan Timespan
         {
             get => ts;

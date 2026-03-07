@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.uiControls;
@@ -37,7 +38,11 @@ namespace ARKBreedingStats.library
             out List<string> topStatsText, out List<string> newTopStatsText)
         {
             // if there are no creatures of the species yet, assume 0 levels to be the current best and worst
-            if (topLevels == null) topLevels = new TopLevels();
+            if (topLevels == null)
+            {
+                topLevels = new TopLevels();
+            }
+
             var highSpeciesLevels = topLevels.WildLevelsHighest;
             var lowSpeciesLevels = topLevels.WildLevelsLowest;
             var highSpeciesMutationLevels = topLevels.MutationLevelsHighest;
@@ -57,7 +62,9 @@ namespace ARKBreedingStats.library
                     || !species.CanLevelUpWildOrHaveMutations(s)
                     || !considerTopStats[s].ConsiderStat
                     )
+                {
                     continue;
+                }
 
                 var statName = Utils.StatName(s, false, species.statNames);
                 var statNameAbb = Utils.StatName(s, true, species.statNames);
@@ -132,9 +139,16 @@ namespace ARKBreedingStats.library
         public static void Clear()
         {
             for (var s = 0; s < Stats.StatsCount; s++)
+            {
                 LevelStatusFlagsCurrentNewCreature[s] = LevelStatus.Neutral;
+            }
+
             StatLevelStatusFlagsCombined = LevelStatus.Neutral;
-            for (var c = 0; c < Ark.ColorRegionCount; c++) ColorFlags[c] = ColorStatus.None;
+            for (var c = 0; c < Ark.ColorRegionCount; c++)
+            {
+                ColorFlags[c] = ColorStatus.None;
+            }
+
             ColorFlagsCombined = ColorStatus.None;
             LevelInfoText = null;
         }

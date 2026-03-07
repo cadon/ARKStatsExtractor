@@ -1,6 +1,8 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -18,6 +20,7 @@ namespace ARKBreedingStats
             InitializeComponent();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Note> NoteList
         {
             //get { return noteList; }
@@ -26,14 +29,21 @@ namespace ARKBreedingStats
                 listViewNoteTitles.Items.Clear();
                 richTextBoxNote.Text = string.Empty;
                 noteList = value;
-                if (noteList == null || !noteList.Any()) return;
+                if (noteList == null || !noteList.Any())
+                {
+                    return;
+                }
+
                 listViewNoteTitles.Items.AddRange(noteList.Select(n => new ListViewItem(n.Title) { Tag = n }).ToArray());
             }
         }
 
         private void listViewNoteTitles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewNoteTitles.SelectedIndices.Count == 0) return;
+            if (listViewNoteTitles.SelectedIndices.Count == 0)
+            {
+                return;
+            }
 
             selectedNote = (Note)listViewNoteTitles.SelectedItems[0].Tag;
             tbNoteTitle.Text = selectedNote.Title;
@@ -64,7 +74,9 @@ namespace ARKBreedingStats
                 noteList.Remove(n);
                 listViewNoteTitles.Items.Remove(listViewNoteTitles.SelectedItems[0]);
                 if (listViewNoteTitles.Items.Count > 0)
+                {
                     listViewNoteTitles.Items[0].Selected = true;
+                }
                 else
                 {
                     richTextBoxNote.Text = string.Empty;
@@ -101,7 +113,9 @@ namespace ARKBreedingStats
         {
             // display all checked notes in the overlay
             if (ARKOverlay.theOverlay == null)
+            {
                 return;
+            }
 
             var sb = new StringBuilder();
 
@@ -133,7 +147,10 @@ namespace ARKBreedingStats
         private void richTextBoxNote_Enter(object sender, EventArgs e)
         {
             // if a user clicks on this input to enter a note and no note is selected, create a new note
-            if (selectedNote != null) return;
+            if (selectedNote != null)
+            {
+                return;
+            }
 
             AddNote();
             richTextBoxNote.Focus();
@@ -143,7 +160,9 @@ namespace ARKBreedingStats
         {
             // if a user clicks on this input to enter a note and no note is selected, create a new note
             if (selectedNote == null)
+            {
                 AddNote();
+            }
         }
 
         /// <summary>
@@ -154,7 +173,10 @@ namespace ARKBreedingStats
         public void CheckForUnsavedChanges()
         {
             if (selectedNote == null
-                || selectedNote.Text == richTextBoxNote.Text) return;
+                || selectedNote.Text == richTextBoxNote.Text)
+            {
+                return;
+            }
 
             selectedNote.Text = richTextBoxNote.Text;
             changed?.Invoke();

@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
@@ -31,7 +32,10 @@ namespace ARKBreedingStats.uiControls
 
         public void SetCustomStatNames(Dictionary<string, string> customStatNames)
         {
-            if (customStatNames == null && _statNamesAreDefault) return;
+            if (customStatNames == null && _statNamesAreDefault)
+            {
+                return;
+            }
 
             _statNamesAreDefault = customStatNames == null;
 
@@ -61,6 +65,7 @@ namespace ARKBreedingStats.uiControls
             labelDomValue.Text = valueDom > 0 ? (_isPercent ? Math.Round(100 * valueDom, 1).ToString("N1") + " %" : valueDom.ToString("N1")) : "?";
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool ShowBars
         {
             set

@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.utils;
+using ARKBreedingStats.utils;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -28,7 +28,10 @@ namespace ARKBreedingStats.SpeciesImages
 
         public bool CombineImages(string[] filePaths, string filePathResult)
         {
-            if (filePaths == null) return false;
+            if (filePaths == null)
+            {
+                return false;
+            }
 
             // TODO assuming fixed 256 × 256 px for now
             const int size = 256;
@@ -48,13 +51,19 @@ namespace ARKBreedingStats.SpeciesImages
                         var filePath = filePaths[i++];
                         DrawPart(filePath, p, gBg);
                         maskExists |= DrawPart(CreatureImageFile.MaskFilePath(filePath), p, gM, true);
-                        if (p.BorderWidth <= 0) continue;
+                        if (p.BorderWidth <= 0)
+                        {
+                            continue;
+                        }
+
                         DrawBorder(p, gBg);
                         DrawBorder(p, gM, true);
                     }
                     bmpBg.Save(filePathResult);
                     if (maskExists)
+                    {
                         bmpMask.Save(CreatureImageFile.MaskFilePath(filePathResult));
+                    }
                 }
 
                 return true;
@@ -77,11 +86,17 @@ namespace ARKBreedingStats.SpeciesImages
 
         private static bool DrawPart(string filePath, ImageCompositionPart part, Graphics g, bool isMask = false)
         {
-            if (!File.Exists(filePath)) return false;
+            if (!File.Exists(filePath))
+            {
+                return false;
+            }
+
             using (var bmpPart = new Bitmap(filePath))
             {
                 if (isMask)
+                {
                     bmpPart.MakeTransparent(Color.Black);
+                }
 
                 var partRectangle = bmpPart.GetBounds();
                 part.InitializeDestinationPath(g.VisibleClipBounds);
@@ -93,10 +108,14 @@ namespace ARKBreedingStats.SpeciesImages
 
                 g.SetClip(part.DestinationPath);
                 if (part.Clear || part.BackgroundColor.A != 0)
+                {
                     g.Clear(isMask ? Color.Transparent : part.BackgroundColor);
+                }
 
                 if (!isMask && ImageCompositionPart.ArrayToRectangleF(part.ShadowRectangle, rDest, out var rectangleShadow))
+                {
                     CreatureColored.DrawShadowEllipse(g, rectangleShadow, part.ShadowColor, part.ShadowAngle, part.ShadowIntensity);
+                }
 
                 g.DrawImage(bmpPart, rDest, rectangleSource, GraphicsUnit.Pixel);
                 g.ResetClip();
@@ -107,7 +126,9 @@ namespace ARKBreedingStats.SpeciesImages
         private static void DrawBorder(ImageCompositionPart part, Graphics g, bool useBlack = false)
         {
             using (var pen = new Pen(useBlack ? Color.Black : part.BorderColor, part.BorderWidth))
+            {
                 g.DrawPath(pen, part.DestinationPath);
+            }
         }
     }
 }

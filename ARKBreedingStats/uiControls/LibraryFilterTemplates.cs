@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -18,6 +19,7 @@ namespace ARKBreedingStats.uiControls
             BtMoveDown.Visible = false;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string[] Presets
         {
             get
@@ -29,7 +31,9 @@ namespace ARKBreedingStats.uiControls
             {
                 LbStrings.Items.Clear();
                 if (value?.Any() ?? false)
+                {
                     LbStrings.Items.AddRange(value);
+                }
             }
         }
 
@@ -38,7 +42,9 @@ namespace ARKBreedingStats.uiControls
         private void LbStrings_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!CbEdit.Checked && LbStrings.SelectedItem != null)
+            {
                 StringSelected?.Invoke(LbStrings.SelectedItem.ToString());
+            }
         }
 
         public void AddPreset(string preset)
@@ -57,11 +63,23 @@ namespace ARKBreedingStats.uiControls
         private void BtRemove_Click(object sender, EventArgs e)
         {
             var i = LbStrings.SelectedIndex;
-            if (i == -1) return;
+            if (i == -1)
+            {
+                return;
+            }
+
             LbStrings.Items.RemoveAt(i);
             var count = LbStrings.Items.Count;
-            if (count == 0) return;
-            if (count <= i) i = count - 1;
+            if (count == 0)
+            {
+                return;
+            }
+
+            if (count <= i)
+            {
+                i = count - 1;
+            }
+
             LbStrings.SelectedIndex = i;
         }
 
@@ -71,12 +89,26 @@ namespace ARKBreedingStats.uiControls
 
         private void MoveItem(int index, int move)
         {
-            if (index == -1) return;
+            if (index == -1)
+            {
+                return;
+            }
 
             var newIndex = index + move;
-            if (newIndex < 0) newIndex = 0;
-            if (newIndex >= LbStrings.Items.Count) newIndex = LbStrings.Items.Count - 1;
-            if (newIndex == index) return;
+            if (newIndex < 0)
+            {
+                newIndex = 0;
+            }
+
+            if (newIndex >= LbStrings.Items.Count)
+            {
+                newIndex = LbStrings.Items.Count - 1;
+            }
+
+            if (newIndex == index)
+            {
+                return;
+            }
 
             var item = LbStrings.Items[index];
             LbStrings.Items.RemoveAt(index);
@@ -86,6 +118,7 @@ namespace ARKBreedingStats.uiControls
 
         private void BtCloseClick(object sender, EventArgs e) => ControlVisibility = false;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Hides the control and unsets the edit mode
         /// </summary>
@@ -96,7 +129,9 @@ namespace ARKBreedingStats.uiControls
             {
                 Visible = value;
                 if (!value)
+                {
                     CbEdit.Checked = false;
+                }
             }
         }
     }

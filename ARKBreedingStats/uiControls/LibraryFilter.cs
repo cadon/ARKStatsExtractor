@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -71,11 +71,17 @@ namespace ARKBreedingStats.uiControls
             {
                 buttonState = ButtonState.Neutral;
                 if ((Properties.Settings.Default.FilterFlagsOneNeeded & (int)s) != 0)
+                {
                     buttonState = ButtonState.OneNeeded;
+                }
                 else if ((Properties.Settings.Default.FilterFlagsAllNeeded & (int)s) != 0)
+                {
                     buttonState = ButtonState.AllNeeded;
+                }
                 else if ((Properties.Settings.Default.FilterFlagsExclude & (int)s) != 0)
+                {
                     buttonState = ButtonState.Exclude;
+                }
 
                 b = new Button
                 {
@@ -95,7 +101,11 @@ namespace ARKBreedingStats.uiControls
             foreach (var mf in _maturationFilter)
             {
                 var isChecked = !(Properties.Settings.Default[mf.Item1] as bool? ?? false);
-                if (!isChecked) maturationCheckBoxAll = false;
+                if (!isChecked)
+                {
+                    maturationCheckBoxAll = false;
+                }
+
                 ClbMaturationFilters.Items.Add(mf.Item2, isChecked);
             }
 
@@ -126,9 +136,13 @@ namespace ARKBreedingStats.uiControls
                     if (string.IsNullOrEmpty(stringValue))
                     {
                         if (!list.ContainsKey(string.Empty))
+                        {
                             list.Add(string.Empty, 1);
+                        }
                         else
+                        {
                             list[string.Empty]++;
+                        }
                     }
                     else if (!list.ContainsKey(stringValue))
                     {
@@ -144,9 +158,13 @@ namespace ARKBreedingStats.uiControls
                 if (!(c.tags?.Any() ?? false))
                 {
                     if (!tagList.ContainsKey(string.Empty))
+                    {
                         tagList.Add(string.Empty, 1);
+                    }
                     else
+                    {
                         tagList[string.Empty]++;
+                    }
                 }
                 else
                 {
@@ -187,7 +205,10 @@ namespace ARKBreedingStats.uiControls
 
         private void BtStatusClicked(object sender, EventArgs e)
         {
-            if (!(sender is Button b)) return;
+            if (!(sender is Button b))
+            {
+                return;
+            }
 
             (var flag, var state) = ((CreatureFlags, ButtonState))b.Tag;
             state = NextState(state);
@@ -199,7 +220,9 @@ namespace ARKBreedingStats.uiControls
         {
             int count = clb.Items.Count;
             for (int i = 0; i < count; i++)
+            {
                 clb.SetItemChecked(i, isChecked);
+            }
         }
 
         private void CbOwnersAll_CheckedChanged(object sender, EventArgs e)
@@ -293,8 +316,9 @@ namespace ARKBreedingStats.uiControls
 
             var i = 0;
             foreach (var mf in _maturationFilter)
+            {
                 Properties.Settings.Default[mf.Item1] = !ClbMaturationFilters.GetItemChecked(i++);
-
+            }
         }
 
         private void BtClearColorFilters_Click(object sender, EventArgs e)

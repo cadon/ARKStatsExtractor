@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -122,7 +122,9 @@ namespace ARKBreedingStats.SpeciesImages
                 var isEnabledPack = enabledPacks?.Contains(im.Id) == true;
                 if (!im.LoadLocalImagePackInfo(filePathLocalManifest, isEnabledPack)
                     || !isEnabledPack)
+                {
                     continue;
+                }
 
                 EnabledImageCollections.Add(new ImageCollection(im));
                 AnyManifests = true;
@@ -136,13 +138,19 @@ namespace ARKBreedingStats.SpeciesImages
         /// </summary>
         public static async Task FetchImageManifests(bool forceUpdate = false)
         {
-            if (ImageManifests == null) return;
+            if (ImageManifests == null)
+            {
+                return;
+            }
+
             var enabledImagePackIds = Properties.Settings.Default.SpeciesImagesUrls;
 
             foreach (var ip in ImageManifests.Values)
             {
                 if (string.IsNullOrEmpty(ip.Url))
+                {
                     continue; // assuming it is a local pack
+                }
 
                 var filePathManifest = ManifestFilePathOfPack(ip.FolderName);
                 if (string.IsNullOrEmpty(filePathManifest))
@@ -165,14 +173,20 @@ namespace ARKBreedingStats.SpeciesImages
                     {
                         var lastCommit = await LastCommit(ip.Url).ConfigureAwait(false);
                         if (lastCommit == null || manifestFileInfo.LastWriteTimeUtc < lastCommit.Value)
+                        {
                             downloadFile = true; // there was a recent commit to the repo
+                        }
                         else
+                        {
                             File.SetLastWriteTimeUtc(manifestFileInfo.FullName, DateTime.UtcNow);
+                        }
                     }
                 }
 
                 if (!downloadFile)
+                {
                     continue;
+                }
 
                 try
                 {
@@ -198,17 +212,27 @@ namespace ARKBreedingStats.SpeciesImages
 
         private static async Task<DateTime?> LastCommit(string url)
         {
-            if (string.IsNullOrEmpty(url)) return null;
+            if (string.IsNullOrEmpty(url))
+            {
+                return null;
+            }
+
             try
             {
                 var m = RegexGithubManifest.Match(url);
-                if (!m.Success) return null;
+                if (!m.Success)
+                {
+                    return null;
+                }
 
                 var urlLastCommit =
                     $"https://api.github.com/repos/{m.Groups[1].Value}/{m.Groups[2].Value}/commits?path={m.Groups[4].Value}_manifest.json&sha={m.Groups[3].Value}&page=1&per_page=1";
 
                 var (success, jsonStringLastCommit) = await WebService.DownloadAsync(urlLastCommit).ConfigureAwait(false);
-                if (!success || string.IsNullOrEmpty(jsonStringLastCommit)) return null;
+                if (!success || string.IsNullOrEmpty(jsonStringLastCommit))
+                {
+                    return null;
+                }
 
                 var json = JArray.Parse(jsonStringLastCommit);
                 return json[0]?["commit"]?["committer"]?["date"]?.ToObject<DateTime>();
@@ -229,7 +253,10 @@ namespace ARKBreedingStats.SpeciesImages
         /// <param name="onlyCheckIfFileListed">If true it is only checked if the file is listed in the manifest file list and no file is downloaded.</param>
         public static async Task<(string FilePath, string ImagePackName)> GetFile(IList<string> possibleFileNames, string imagePackNamePreferred = null, bool onlyCheckIfFileListed = false)
         {
-            if (possibleFileNames?.Any() != true) return (null, null);
+            if (possibleFileNames?.Any() != true)
+            {
+                return (null, null);
+            }
 
             var checkImagePacks = string.IsNullOrEmpty(imagePackNamePreferred)
                 ? EnabledImageCollections
@@ -242,7 +269,10 @@ namespace ARKBreedingStats.SpeciesImages
                     if (onlyCheckIfFileListed)
                     {
                         if (await imageCollection.IsFileInCollection(fileName))
+                        {
                             return (fileName, imageCollection.Name);
+                        }
+
                         continue;
                     }
 
@@ -255,7 +285,9 @@ namespace ARKBreedingStats.SpeciesImages
 
                     var filePath = Path.Combine(_imageBasePath, imageCollection.FolderName, collectionFileName);
                     if (File.Exists(filePath))
+                    {
                         return (filePath, imageCollection.Name);
+                    }
                 }
             }
 

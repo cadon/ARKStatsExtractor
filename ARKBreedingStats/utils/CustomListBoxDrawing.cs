@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 using System.Drawing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
 
@@ -21,16 +21,27 @@ namespace ARKBreedingStats.utils
 
         private static void Lb_MeasureItem(object sender, MeasureItemEventArgs e)
         {
-            if (e.Index < 0 || !(sender is ListBox lb)) return;
+            if (e.Index < 0 || !(sender is ListBox lb))
+            {
+                return;
+            }
+
             if (lb.Items[e.Index].ToString() == SeparatorString)
+            {
                 e.ItemHeight = 5;
+            }
             else
+            {
                 e.ItemHeight = TextRenderer.MeasureText(lb.Items[e.Index].ToString(), lb.Font).Height;
+            }
         }
 
         private static void Lb_DrawItem(object sender, DrawItemEventArgs e)
         {
-            if (e.Index < 0 || !(sender is ListBox lb)) return;
+            if (e.Index < 0 || !(sender is ListBox lb))
+            {
+                return;
+            }
 
             e.DrawBackground();
             var itemText = lb.Items[e.Index].ToString();

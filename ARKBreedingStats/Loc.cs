@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
@@ -35,13 +35,20 @@ namespace ARKBreedingStats
             }
 
             if (!string.IsNullOrEmpty(language2) && language2 != language)
+            {
                 _secondaryCulture = LoadCultureInfo(language2);
-            else _secondaryCulture = null;
+            }
+            else
+            {
+                _secondaryCulture = null;
+            }
 
             var culture = LoadCultureInfo(language) ?? CultureInfo.CurrentCulture;
             Thread.CurrentThread.CurrentUICulture = culture;
             if (_rm == null)
+            {
                 _rm = new ResourceManager("ARKBreedingStats.local.strings", typeof(Form1).Assembly);
+            }
         }
 
         public static bool UseSecondaryCulture => _secondaryCulture != null;
@@ -51,9 +58,15 @@ namespace ARKBreedingStats
         /// </summary>
         public static string S(string key, bool returnKeyIfValueNa = true, bool secondaryCulture = false)
         {
-            if (_rm == null) return null;
+            if (_rm == null)
+            {
+                return null;
+            }
+
             if (secondaryCulture && _secondaryCulture != null)
+            {
                 return S(key, _secondaryCulture, returnKeyIfValueNa);
+            }
 
             var s = _rm.GetString(key);
             //if (string.IsNullOrEmpty(s) && !key.EndsWith("TT")) System.Console.WriteLine("missing: " + key); // for debugging
@@ -65,7 +78,11 @@ namespace ARKBreedingStats
         /// </summary>
         public static string S(string key, CultureInfo culture, bool returnKeyIfValueNa = true)
         {
-            if (_rm == null) return null;
+            if (_rm == null)
+            {
+                return null;
+            }
+
             string s = _rm.GetString(key, culture);
             //if (string.IsNullOrEmpty(s) && !key.EndsWith("TT")) System.Console.WriteLine("missing: " + key); // for debugging
             return s ?? (returnKeyIfValueNa ? key : null);
@@ -117,14 +134,18 @@ namespace ARKBreedingStats
             i.Text = S(i.Name);
             string tt = S(i.Name + "TT", false);
             if (!string.IsNullOrEmpty(tt))
+            {
                 i.ToolTipText = tt;
+            }
         }
         public static void ControlText(ToolStripItem i, string key)
         {
             i.Text = S(key);
             string tt = S(key + "TT", false);
             if (!string.IsNullOrEmpty(tt))
+            {
                 i.ToolTipText = tt;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -45,6 +45,7 @@ namespace ARKBreedingStats.mods
 
         public void SetStatNameByIndex(int statIndex, Dictionary<string, string> customStatNames = null) => StatName = $"[{statIndex}] {Utils.StatName(statIndex, false, customStatNames)}";
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string StatName
         {
             set => cbOverride.Text = value;
@@ -74,7 +75,11 @@ namespace ARKBreedingStats.mods
         {
             get
             {
-                if (!cbOverride.Checked) return null;
+                if (!cbOverride.Checked)
+                {
+                    return null;
+                }
+
                 return new double?[]{
                     (double)nudBase.Value,
                     (double)nudIw.Value,

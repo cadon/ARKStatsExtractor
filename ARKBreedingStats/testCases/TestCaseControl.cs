@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -110,7 +111,9 @@ namespace ARKBreedingStats.testCases
         private void btDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Delete this test case?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
                 RemoveTestCase?.Invoke(this);
+            }
         }
     }
 }

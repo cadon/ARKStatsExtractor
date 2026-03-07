@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.uiControls;
@@ -6,6 +7,7 @@ using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -105,7 +107,9 @@ namespace ARKBreedingStats
             foreach (var s in species)
             {
                 if (!speciesNameToSpecies.ContainsKey(s.DescriptiveNameAndMod))
+                {
                     speciesNameToSpecies.Add(s.DescriptiveNameAndMod, s);
+                }
 
                 entryList.Add(new SpeciesListEntry
                 {
@@ -115,6 +119,7 @@ namespace ARKBreedingStats
                     Species = s
                 });
                 if (!string.IsNullOrEmpty(s.nameFemale) && s.name != s.nameFemale)
+                {
                     entryList.Add(new SpeciesListEntry
                     {
                         DisplayName = s.nameFemale + " (→" + s.name + ")",
@@ -122,7 +127,10 @@ namespace ARKBreedingStats
                         ModName = s.Mod?.Title ?? string.Empty,
                         Species = s
                     });
+                }
+
                 if (!string.IsNullOrEmpty(s.nameMale) && s.name != s.nameMale)
+                {
                     entryList.Add(new SpeciesListEntry
                     {
                         DisplayName = s.nameMale + " (→" + s.name + ")",
@@ -130,6 +138,7 @@ namespace ARKBreedingStats
                         ModName = s.Mod?.Title ?? string.Empty,
                         Species = s
                     });
+                }
             }
 
             foreach (var a in aliases)
@@ -177,9 +186,16 @@ namespace ARKBreedingStats
         private void ClearListImages()
         {
             var lvLargeImageList = lvLastSpecies.LargeImageList;
-            if (lvLargeImageList == null) return;
+            if (lvLargeImageList == null)
+            {
+                return;
+            }
+
             foreach (Image i in lvLargeImageList.Images)
+            {
                 i.Dispose();
+            }
+
             lvLargeImageList.Images.Clear();
             _iconIndices.Clear();
         }
@@ -213,7 +229,9 @@ namespace ARKBreedingStats
         private void UpdateImagesLibraryList()
         {
             foreach (ListViewItem lvi in lvSpeciesInLibrary.Items)
+            {
                 SetListViewItemImageIndex(lvi, lvi.Tag as Species);
+            }
         }
 
         /// <summary>
@@ -227,7 +245,11 @@ namespace ARKBreedingStats
             foreach (var s in _lastSpeciesBPs)
             {
                 var species = Values.V.SpeciesByBlueprint(s);
-                if (species == null) continue;
+                if (species == null)
+                {
+                    continue;
+                }
+
                 var lvi = new ListViewItem
                 {
                     Text = species.DescriptiveNameAndMod,
@@ -244,7 +266,10 @@ namespace ARKBreedingStats
 
         private void FilterList(string part = null)
         {
-            if (_entryList == null) return;
+            if (_entryList == null)
+            {
+                return;
+            }
 
             bool noVariantFiltering = VariantSelector.DisabledVariants == null || !VariantSelector.DisabledVariants.Any();
             var newItems = new List<ListViewItem>();
@@ -277,25 +302,33 @@ namespace ARKBreedingStats
             lvSpeciesList.EndUpdate();
 
             if (!Visible && !inputIsEmpty)
+            {
                 ToggleVisibility?.Invoke(true);
+            }
         }
 
         private void lvSpeciesList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvSpeciesList.SelectedItems.Count > 0)
+            {
                 SetSpecies((Species)lvSpeciesList.SelectedItems[0].Tag, true);
+            }
         }
 
         private void lvOftenUsed_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvLastSpecies.SelectedItems.Count > 0)
+            {
                 SetSpecies((Species)lvLastSpecies.SelectedItems[0].Tag, true);
+            }
         }
 
         private void lvSpeciesInLibrary_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lvSpeciesInLibrary.SelectedItems.Count > 0)
+            {
                 SetSpecies((Species)lvSpeciesInLibrary.SelectedItems[0].Tag, true);
+            }
         }
 
         /// <summary>
@@ -303,9 +336,17 @@ namespace ARKBreedingStats
         /// </summary>
         public bool SetSpeciesByEntryName(string entryString)
         {
-            if (_entryList == null || string.IsNullOrEmpty(entryString)) return false;
+            if (_entryList == null || string.IsNullOrEmpty(entryString))
+            {
+                return false;
+            }
+
             var species = _entryList.FirstOrDefault(e => e.DisplayName.Equals(entryString, StringComparison.OrdinalIgnoreCase))?.Species;
-            if (species == null) return false;
+            if (species == null)
+            {
+                return false;
+            }
+
             SetSpeciesByName(null, species);
             return true;
         }
@@ -338,11 +379,18 @@ namespace ARKBreedingStats
         /// <returns>True if the species was recognized and was or is set.</returns>
         public bool SetSpecies(Species species, bool alsoTriggerOnSameSpecies = false, bool ignoreInRecent = false, Asb.TriggerSource triggerSource = Asb.TriggerSource.User)
         {
-            if (species == null) return false;
+            if (species == null)
+            {
+                return false;
+            }
+
             if (SelectedSpecies == species)
             {
                 if (alsoTriggerOnSameSpecies)
+                {
                     OnSpeciesSelected?.Invoke(false, triggerSource);
+                }
+
                 return true;
             }
 
@@ -352,8 +400,11 @@ namespace ARKBreedingStats
                 _lastSpeciesBPs.Insert(0, species.blueprintPath);
                 if (_lastSpeciesBPs.Count > Properties.Settings.Default.SpeciesSelectorCountLastSpecies
                 ) // only keep keepNrLastSpecies of the last species in this list
+                {
                     _lastSpeciesBPs.RemoveRange(Properties.Settings.Default.SpeciesSelectorCountLastSpecies,
                         _lastSpeciesBPs.Count - Properties.Settings.Default.SpeciesSelectorCountLastSpecies);
+                }
+
                 UpdateLastSpecies();
             }
 
@@ -372,16 +423,21 @@ namespace ARKBreedingStats
         private void TextBoxTextChanged(object sender, EventArgs e)
         {
             if (!_ignoreTextBoxChange)
+            {
                 _speciesChangeDebouncer.Debounce(300, FilterListWithUnselectedText, Dispatcher.CurrentDispatcher);
+            }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string[] LastSpecies
         {
             get => _lastSpeciesBPs.ToArray();
             set
             {
                 if (value == null)
+                {
                     _lastSpeciesBPs.Clear();
+                }
                 else
                 {
                     _lastSpeciesBPs = value.ToList();
@@ -401,23 +457,34 @@ namespace ARKBreedingStats
         /// </returns>
         private static async Task<Image> SpeciesListImage(Species species, string game = null)
         {
-            if (species == null) return null;
+            if (species == null)
+            {
+                return null;
+            }
 
             if (string.IsNullOrEmpty(game))
+            {
                 game = CreatureCollection.CurrentCreatureCollection?.Game ?? Ark.Asa;
+            }
+
             var colorIds = species.name.Contains("Polar")
                 ? new byte[] { 18, 18, 18, 18, 18, 18 } // uniform color pattern that is used for all polar species in the selector
                 //: new byte[] { 44, 42, 57, 10, 26, 78 }
                 : species.RandomSpeciesColors()
                 ;
             var imagePath = await CreatureImageFile.GetSpeciesImageForSpeciesList(species, colorIds, game);
-            if (imagePath == null) return null;
+            if (imagePath == null)
+            {
+                return null;
+            }
 
             try
             {
                 // use temp bitmap to avoid persistent file locking
                 using (var bmpTemp = new Bitmap(imagePath))
+                {
                     return new Bitmap(bmpTemp);
+                }
             }
             catch (OutOfMemoryException)
             {
@@ -426,13 +493,18 @@ namespace ARKBreedingStats
                 {
                     imagePath =
                         await CreatureImageFile.GetSpeciesImageForSpeciesList(species, colorIds, game);
-                    if (imagePath == null) return null;
+                    if (imagePath == null)
+                    {
+                        return null;
+                    }
 
                     try
                     {
                         // use temp bitmap to avoid persistent file locking
                         using (var bmpTemp = new Bitmap(imagePath))
+                        {
                             return new Bitmap(bmpTemp);
+                        }
                     }
                     catch
                     {
@@ -450,9 +522,20 @@ namespace ARKBreedingStats
 
         private void SetListViewItemImageIndex(ListViewItem lvi, Species species)
         {
-            if (lvi == null) return;
-            if (species == null) species = SelectedSpecies;
-            if (species == null) return;
+            if (lvi == null)
+            {
+                return;
+            }
+
+            if (species == null)
+            {
+                species = SelectedSpecies;
+            }
+
+            if (species == null)
+            {
+                return;
+            }
 
             if (_iconIndices.TryGetValue(species.blueprintPath, out var index))
             {
@@ -468,7 +551,10 @@ namespace ARKBreedingStats
                     var imageList = lvLastSpecies.LargeImageList.Images;
                     index = img == null ? -1 : imageList.Count;
                     if (img != null)
+                    {
                         imageList.Add(img);
+                    }
+
                     lvi.ImageIndex = index;
                     _iconIndices[species.blueprintPath] = index;
                 }));
@@ -482,7 +568,10 @@ namespace ARKBreedingStats
                 && !string.IsNullOrEmpty(species?.blueprintPath)
                 && _iconIndices.TryGetValue(species.blueprintPath, out var i)
                 && i >= 0 && i < lvLastSpecies.LargeImageList.Images.Count)
+            {
                 return lvLastSpecies.LargeImageList.Images[i];
+            }
+
             return null;
         }
 
@@ -494,6 +583,7 @@ namespace ARKBreedingStats
             TextBoxTextChanged(null, null);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SplitterDistance
         {
             get => splitContainer2.SplitterDistance;
@@ -504,7 +594,9 @@ namespace ARKBreedingStats
         {
             VariantSelector.InitializeCheckStates();
             if (VariantSelector.ShowDialog() == DialogResult.OK)
+            {
                 TextBoxTextChanged(null, null);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -523,10 +615,20 @@ namespace ARKBreedingStats
         /// </summary>
         public void EnsureSelectedSpecies()
         {
-            if (SelectedSpecies != null) return;
-            if (SetToLastSetSpecies()) return;
+            if (SelectedSpecies != null)
+            {
+                return;
+            }
+
+            if (SetToLastSetSpecies())
+            {
+                return;
+            }
+
             if (Values.V.Species.Any())
+            {
                 SetSpecies(Values.V.Species[0]);
+            }
         }
     }
 

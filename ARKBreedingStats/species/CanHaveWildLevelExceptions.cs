@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using ARKBreedingStats.utils;
@@ -22,13 +22,17 @@ namespace ARKBreedingStats.species
             const string fileName = "canHaveWildLevelExceptions.json";
             var filePath = FileService.GetJsonPath(fileName);
             if (!File.Exists(filePath))
+            {
                 return;
+            }
 
             try
             {
                 FileService.LoadJsonFile(filePath, out SpeciesStatBits, out var errorMessage);
                 if (!string.IsNullOrEmpty(errorMessage))
+                {
                     MessageBoxes.ShowMessageBox(errorMessage, "error when loading wild level exception file");
+                }
             }
             catch (Exception ex)
             {
@@ -43,9 +47,16 @@ namespace ARKBreedingStats.species
         /// </summary>
         public static int GetWildLevelExceptions(string speciesName)
         {
-            if (SpeciesStatBits == null || string.IsNullOrEmpty(speciesName)) return 0;
+            if (SpeciesStatBits == null || string.IsNullOrEmpty(speciesName))
+            {
+                return 0;
+            }
+
             if (SpeciesStatBits.TryGetValue(speciesName, out var levelBits))
+            {
                 return levelBits;
+            }
+
             return 0;
         }
     }

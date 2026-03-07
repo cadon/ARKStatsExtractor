@@ -1,4 +1,4 @@
-﻿namespace ARKBreedingStats.SpeciesOptions
+namespace ARKBreedingStats.SpeciesOptions
 {
     /// <summary>
     /// Color options for specific species.

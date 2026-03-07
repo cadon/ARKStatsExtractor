@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Media;
@@ -15,7 +15,10 @@ namespace ARKBreedingStats.utils
 
         public PlayAudioStreams(List<Stream> audioStreams)
         {
-            if (audioStreams?.Any() != true || _cancellationTokenSource?.Token.IsCancellationRequested == true) return;
+            if (audioStreams?.Any() != true || _cancellationTokenSource?.Token.IsCancellationRequested == true)
+            {
+                return;
+            }
 
             Task.Run(() =>
             {
@@ -28,7 +31,9 @@ namespace ARKBreedingStats.utils
                     sp.Stream = s;
                     sp.PlaySync();
                     if (cancelToken.IsCancellationRequested)
+                    {
                         break;
+                    }
                 }
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;

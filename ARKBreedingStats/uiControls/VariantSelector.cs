@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -30,7 +31,9 @@ namespace ARKBreedingStats.uiControls
             var checkAll = DisabledVariants == null || !DisabledVariants.Any();
             int c = ClbVariants.Items.Count;
             for (int i = 0; i < c; i++)
+            {
                 ClbVariants.SetItemChecked(i, checkAll || !DisabledVariants.Contains(ClbVariants.Items[i].ToString()));
+            }
 
             SetDesktopLocation(Cursor.Position.X, Cursor.Position.Y);
         }
@@ -40,7 +43,9 @@ namespace ARKBreedingStats.uiControls
             var isChecked = CheckBoxAll.Checked;
             int c = ClbVariants.Items.Count;
             for (int i = 0; i < c; i++)
+            {
                 ClbVariants.SetItemChecked(i, isChecked);
+            }
         }
 
         internal void SetVariants(List<Species> species)
@@ -57,7 +62,9 @@ namespace ARKBreedingStats.uiControls
                 {
                     var v = ClbVariants.Items[i].ToString();
                     if (!ClbVariants.GetItemChecked(i) && !DisabledVariants.Contains(v))
+                    {
                         DisabledVariants.Add(v);
+                    }
                 }
             }
 
@@ -68,7 +75,9 @@ namespace ARKBreedingStats.uiControls
 
             var checkAll = DisabledVariants == null || !DisabledVariants.Any();
             foreach (var v in variants)
+            {
                 ClbVariants.Items.Add(v, checkAll || !DisabledVariants.Contains(v));
+            }
         }
 
         internal void FilterToDefault()
@@ -79,12 +88,22 @@ namespace ARKBreedingStats.uiControls
         private void ButtonOk_Click(object sender, EventArgs e)
         {
             if (DisabledVariants == null)
+            {
                 DisabledVariants = new List<string>();
-            else DisabledVariants.Clear();
+            }
+            else
+            {
+                DisabledVariants.Clear();
+            }
+
             int c = ClbVariants.Items.Count;
             for (int i = 0; i < c; i++)
+            {
                 if (!ClbVariants.GetItemChecked(i))
+                {
                     DisabledVariants.Add(ClbVariants.Items[i].ToString());
+                }
+            }
 
             DialogResult = DialogResult.OK;
             Close();
@@ -93,7 +112,10 @@ namespace ARKBreedingStats.uiControls
         private static List<string> DefaultVariantDeselection()
         {
             var filePath = FileService.GetJsonPath("variantsDefaultUnselected.txt");
-            if (!File.Exists(filePath)) return null;
+            if (!File.Exists(filePath))
+            {
+                return null;
+            }
 
             return File.ReadAllLines(filePath).Where(l => !string.IsNullOrEmpty(l)).ToList();
         }

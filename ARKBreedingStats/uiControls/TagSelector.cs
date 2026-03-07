@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.utils;
@@ -29,11 +30,18 @@ namespace ARKBreedingStats.uiControls
         private void button1_Click(object sender, EventArgs e)
         {
             if (status == tagStatus.indifferent)
+            {
                 setStatus(tagStatus.include);
+            }
             else if (status == tagStatus.include)
+            {
                 setStatus(tagStatus.exclude);
+            }
             else
+            {
                 setStatus(tagStatus.indifferent);
+            }
+
             OnTagChanged?.Invoke();
         }
 
@@ -59,12 +67,14 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public tagStatus Status
         {
             get => status;
             set => setStatus(value);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string TagName
         {
             get => label1.Text;

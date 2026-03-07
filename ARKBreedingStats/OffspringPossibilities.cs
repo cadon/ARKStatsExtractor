@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -45,7 +46,9 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (species.CanLevelUpWildOrHaveMutations(s) && s != Stats.Torpidity)
+                {
                     usedStatIndicesTest.Add(s);
+                }
             }
             int usedStatsCount = usedStatIndicesTest.Count;
 
@@ -63,9 +66,13 @@ namespace ARKBreedingStats
                 levelsLow[s] = Math.Min(parent1.levelsWild[s], parent2.levelsWild[s]) +
                                Math.Min(parent1.levelsMutated?[s] ?? 0, parent2.levelsMutated?[s] ?? 0);
                 if (levelsHigh[s] == levelsLow[s])
+                {
                     minimumLevel += levelsHigh[s];
+                }
                 else
+                {
                     usedStatIndices.Add(s);
+                }
             }
             usedStatsCount = usedStatIndices.Count;
             int totalLevelCombinations = 1 << usedStatsCount;
@@ -97,10 +104,18 @@ namespace ARKBreedingStats
                     }
                 }
                 if (!levelProbabilities.ContainsKey(totalLevel))
+                {
                     levelProbabilities[totalLevel] = probability;
-                else levelProbabilities[totalLevel] += probability;
+                }
+                else
+                {
+                    levelProbabilities[totalLevel] += probability;
+                }
 
-                if (levelProbabilities[totalLevel] > _graphMaxProbability) _graphMaxProbability = levelProbabilities[totalLevel];
+                if (levelProbabilities[totalLevel] > _graphMaxProbability)
+                {
+                    _graphMaxProbability = levelProbabilities[totalLevel];
+                }
             }
             DrawBars(levelProbabilities, _graphMaxProbability);
         }
@@ -142,8 +157,15 @@ namespace ARKBreedingStats
                     barPanels.Add(p);
 
                     // min/max-labels
-                    if (i == 0) _graphMinLevel = prob.Key;
-                    if (i == barNumber - 1) _graphMaxLevel = prob.Key;
+                    if (i == 0)
+                    {
+                        _graphMinLevel = prob.Key;
+                    }
+
+                    if (i == barNumber - 1)
+                    {
+                        _graphMaxLevel = prob.Key;
+                    }
 
                     i++;
                 }
@@ -183,14 +205,21 @@ namespace ARKBreedingStats
         public void Clear(bool suspendLayout = true)
         {
             if (suspendLayout)
+            {
                 this.SuspendDrawingAndLayout();
+            }
 
             tt.RemoveAll();
             foreach (Panel pnl in barPanels)
+            {
                 pnl.Dispose();
+            }
+
             barPanels.Clear();
             if (suspendLayout)
+            {
                 this.ResumeDrawingAndLayout();
+            }
         }
     }
 }

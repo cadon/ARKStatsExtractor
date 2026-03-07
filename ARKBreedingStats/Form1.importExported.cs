@@ -1,5 +1,7 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.settings;
+using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -24,7 +26,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show("There is no valid folder set in the settings.\n\nOpen the settings-page?",
                         "No valid export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.ExportedImport);
                 }
             }
             else
@@ -50,7 +52,7 @@ namespace ARKBreedingStats
                 MessageBox.Show("There is no valid folder set where the exported creatures are located. Set this folder in the settings.\n\nOpen the settings-page?",
                         "No default export-folder set", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
             {
-                OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
+                OpenSettingsDialog(settings.Settings.SettingsTabPages.ExportedImport);
             }
         }
 
@@ -76,7 +78,7 @@ namespace ARKBreedingStats
                                     "Usually the folder path ends with\n" + @"…\ARK\ShooterGame\Saved\DinoExports\<ID>" + "\n\nOpen the settings-page?",
                         $"No default export-folder set - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
                 {
-                    OpenSettingsDialog(Settings.SettingsTabPages.ExportedImport);
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.ExportedImport);
                 }
                 return;
             }
@@ -94,10 +96,16 @@ namespace ARKBreedingStats
                     {
                         var d = new DirectoryInfo(sf);
                         var fs = d.GetFiles("*.ini");
-                        if (!fs.Any()) continue;
+                        if (!fs.Any())
+                        {
+                            continue;
+                        }
+
                         var expFile = fs.OrderByDescending(f => f.LastWriteTime).First();
                         if (lastExportFile == null || expFile.LastWriteTime > lastExportFile.LastWriteTime)
+                        {
                             lastExportFile = expFile;
+                        }
                     }
                 }
 
@@ -155,9 +163,13 @@ namespace ARKBreedingStats
             if (addToLibraryIfUnique)
             {
                 if (_extractor.UniqueResults)
+                {
                     AddCreatureToCollection(true, exportedCreatureControl.creatureValues.motherArkId, exportedCreatureControl.creatureValues.fatherArkId, goToLibraryTab);
+                }
                 else
+                {
                     exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NeedsLevelChoosing, DateTime.Now);
+                }
             }
             else
             {
@@ -177,7 +189,9 @@ namespace ARKBreedingStats
 
             // moving a file to the archived folder can trigger another fileWatcherEvent, first check if the file is still there
             if (File.Exists(filePath))
+            {
                 ImportExportedAddIfPossible(filePath, Asb.TriggerSource.FileWatcher);
+            }
 
             fwe.Watching = true;
         }
@@ -199,7 +213,11 @@ namespace ARKBreedingStats
             {
                 case ".ini":
                     var loadResult = ExtractExportedFileInExtractor(filePath, out copiedNameToClipboard, out alreadyExistingCreature);
-                    if (loadResult == null) return null;
+                    if (loadResult == null)
+                    {
+                        return null;
+                    }
+
                     alreadyExists = loadResult.Value;
 
                     uniqueExtraction = _extractor.UniqueResults
@@ -219,7 +237,11 @@ namespace ARKBreedingStats
                     alreadyExistingCreature = ImportExportGunFiles(new[] { filePath }, Properties.Settings.Default.OnAutoImportAddToLibrary, out addedToLibrary,
                         out creature, out copiedNameToClipboard, triggerSource: triggerSource);
                     alreadyExists = alreadyExistingCreature != null;
-                    if (creature == null) return null;
+                    if (creature == null)
+                    {
+                        return null;
+                    }
+
                     uniqueExtraction = true;
                     break;
                 default: return null;
@@ -324,16 +346,23 @@ namespace ARKBreedingStats
                 else
                 {
                     if (creaturesOfSpecies == null)
+                    {
                         creaturesOfSpecies = _creatureCollection.creatures.Where(c => c.Species == creature.Species)
                             .ToArray();
+                    }
+
                     if (totalCreatureCount < 0)
+                    {
                         totalCreatureCount = _creatureCollection.GetTotalCreatureCount();
+                    }
 
                     creature.name = NamePattern.GenerateCreatureName(creature, alreadyExistingCreature, creaturesOfSpecies,
                         _creatureCollection.TopLevels.TryGetValue(creature.Species, out var topLevels) ? topLevels : null,
                         _customReplacingNamingPattern, false, 0, Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: totalCreatureCount);
                     if (alreadyExistingCreature != null)
+                    {
                         alreadyExistingCreature.name = creature.name; // if alreadyExistingCreature was already updated and creature is not used anymore make sure name is not lost
+                    }
                 }
 
                 nameWasApplied = true;
@@ -363,7 +392,10 @@ namespace ARKBreedingStats
                 if (utils.ClipboardHandler.SetText(string.IsNullOrEmpty(creatureName)
                        ? "<no name>"
                        : creatureName, out var error))
+                {
                     return true;
+                }
+
                 SetMessageLabelText($"Error while trying to copy name to clipboard: {error}", MessageBoxIcon.Error);
             }
 
@@ -385,7 +417,9 @@ namespace ARKBreedingStats
                 var sb = new StringBuilder();
                 sb.AppendLine($"{creature.SpeciesName} \"{creature.name}\" {(alreadyExistingCreature != null ? "updated in " : "added to")} the library.");
                 if (addedToLibrary && copiedNameToClipboard)
+                {
                     sb.AppendLine("Name copied to clipboard.");
+                }
 
                 sb.Append(LevelColorStatusFlags.LevelInfoText);
 
@@ -418,12 +452,16 @@ namespace ARKBreedingStats
                         libraryCreatureCount: _creatureCollection.GetTotalCreatureCount());
 
                     if (!string.IsNullOrEmpty(overlayPatternResult))
+                    {
                         infoText += Environment.NewLine + Environment.NewLine + overlayPatternResult;
+                    }
                 }
 
                 _overlay.SetInfoText(infoText, textColor);
                 if (Properties.Settings.Default.DisplayInheritanceInOverlay)
+                {
                     _overlay.SetInheritanceCreatures(creature, creature.Mother, creature.Father);
+                }
             }
         }
 
@@ -431,9 +469,13 @@ namespace ARKBreedingStats
         {
             Creature cr = _creatureCollection.creatures.FirstOrDefault(c => c.guid == exportedCreatureControl.creatureValues.guid);
             if (cr != null && !cr.flags.HasFlag(CreatureFlags.Placeholder))
+            {
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.OldImported, cr.addedToLibrary);
+            }
             else
+            {
                 exportedCreatureControl.setStatus(importExported.ExportedCreatureControl.ImportStatus.NotImported, DateTime.Now);
+            }
         }
 
         private void llOnlineHelpExtractionIssues_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -475,7 +517,10 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (alreadyExists) return;
+            if (alreadyExists)
+            {
+                return;
+            }
 
             folders.Add(new ATImportExportedFolderLocation(Path.GetFileName(folderPath), null, folderPath).ToString());
             Properties.Settings.Default.ExportCreatureFolders = folders.ToArray();
@@ -503,9 +548,11 @@ namespace ARKBreedingStats
         {
             CheckForMissingModFiles(_creatureCollection, unknownSpeciesBlueprintPaths);
             // if mods were added, try to import the creature values again
-            if (_creatureCollection.ModValueReloadNeeded
+            if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)
                 && LoadModValuesOfCollection(_creatureCollection, true, true))
+            {
                 _exportedCreatureList.LoadFilesInFolder();
+            }
         }
 
         /// <summary>

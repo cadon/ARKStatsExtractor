@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ARKBreedingStats.utils
@@ -9,9 +9,20 @@ namespace ARKBreedingStats.utils
 
         int IComparer<string>.Compare(string aStr, string bStr)
         {
-            if (aStr is null && bStr is null) return 0;
-            if (aStr is null) return -1;
-            if (bStr is null) return 1;
+            if (aStr is null && bStr is null)
+            {
+                return 0;
+            }
+
+            if (aStr is null)
+            {
+                return -1;
+            }
+
+            if (bStr is null)
+            {
+                return 1;
+            }
 
             // State vars
             int aI = 0;
@@ -29,9 +40,20 @@ namespace ARKBreedingStats.utils
                 }
 
                 // Handle when we hit the end of either string
-                if (aI >= aLen && bI >= bLen) return 0;
-                if (aI >= aLen) return -1; // The shorter string sorts first
-                if (bI >= bLen) return 1;
+                if (aI >= aLen && bI >= bLen)
+                {
+                    return 0;
+                }
+
+                if (aI >= aLen)
+                {
+                    return -1; // The shorter string sorts first
+                }
+
+                if (bI >= bLen)
+                {
+                    return 1;
+                }
 
                 // Pick up the next character from each string
                 char a = aStr[aI];
@@ -42,8 +64,15 @@ namespace ARKBreedingStats.utils
                 {
                     // Use simple ASCII indexes to compare characters
                     // (may want to upgrade to Unicode comparisons)
-                    if (a > b) return 1;
-                    if (b > a) return -1;
+                    if (a > b)
+                    {
+                        return 1;
+                    }
+
+                    if (b > a)
+                    {
+                        return -1;
+                    }
 
                     // Both match, so move on
                     aI += 1;
@@ -54,8 +83,16 @@ namespace ARKBreedingStats.utils
                 // Both sides are numbers so compare runs of digits as numbers
                 var (aNum, aSpanLen) = ParseNumber(aStr, aI);
                 var (bNum, bSpanLen) = ParseNumber(bStr, bI);
-                if (aNum > bNum) return 1;
-                if (bNum > aNum) return -1;
+                if (aNum > bNum)
+                {
+                    return 1;
+                }
+
+                if (bNum > aNum)
+                {
+                    return -1;
+                }
+
                 aI += aSpanLen;
                 bI += bSpanLen;
             }
@@ -79,7 +116,10 @@ namespace ARKBreedingStats.utils
             for (int i = start; i < str.Length; i++)
             {
                 char c = str[i];
-                if (!IsDigit(c)) break;
+                if (!IsDigit(c))
+                {
+                    break;
+                }
 
                 acc = acc * 10 + (c - '0');
                 len += 1;
@@ -98,7 +138,11 @@ namespace ARKBreedingStats.utils
             for (int i = start; i < str.Length; i++)
             {
                 char c = str[i];
-                if (!char.IsWhiteSpace(c)) break;
+                if (!char.IsWhiteSpace(c))
+                {
+                    break;
+                }
+
                 len += 1;
             }
 
@@ -130,12 +174,26 @@ namespace ARKBreedingStats.utils
         int InternalCompare(object a, object b)
         {
             // Handle cases with nulls and where both references point to the same object
-            if (ReferenceEquals(a, b)) return 0; // includes if both are null
-            if (a is null) return -1;
-            if (b is null) return 1;
+            if (ReferenceEquals(a, b))
+            {
+                return 0; // includes if both are null
+            }
+
+            if (a is null)
+            {
+                return -1;
+            }
+
+            if (b is null)
+            {
+                return 1;
+            }
 
             // Use our natural comparer if both are strings
-            if (a is string aStr && b is string bStr) return _stringComparer.Compare(aStr, bStr);
+            if (a is string aStr && b is string bStr)
+            {
+                return _stringComparer.Compare(aStr, bStr);
+            }
 
             // Fall back to the correct comparer for this type
             return Comparer.Default.Compare(a, b);

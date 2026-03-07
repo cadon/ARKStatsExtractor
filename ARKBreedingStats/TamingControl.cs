@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
+using ARKBreedingStats.species;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,6 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using System.ComponentModel;
 
 namespace ARKBreedingStats
 {
@@ -46,7 +49,10 @@ namespace ARKBreedingStats
 
         public void SetLevel(int level, bool updateTamingData = true)
         {
-            if (nudLevel.Value == level) return;
+            if (nudLevel.Value == level)
+            {
+                return;
+            }
 
             bool updateKeeper = _updateCalculation;
             _updateCalculation = updateTamingData;
@@ -57,7 +63,9 @@ namespace ARKBreedingStats
         public void SetSpecies(Species species, bool forceRefresh = false)
         {
             if (species == null || (_selectedSpecies == species && !forceRefresh))
+            {
                 return;
+            }
 
             _selectedSpecies = species;
 
@@ -99,7 +107,9 @@ namespace ARKBreedingStats
             SetTamingFoodControls(species, true, false);
 
             if (Properties.Settings.Default.TamingFoodOrderByTime)
+            {
                 SetOrderOfTamingFood(true, true);
+            }
 
             this.ResumeDrawingAndLayout();
         }
@@ -129,7 +139,10 @@ namespace ARKBreedingStats
                 _rbBoneDamageAdjusters[ib].Visible = true;
             }
             for (int j = ib + 1; j < _rbBoneDamageAdjusters.Count; j++)
+            {
                 _rbBoneDamageAdjusters[j].Visible = false;
+            }
+
             _rbBoneDamageAdjusters[0].Checked = true;
         }
 
@@ -139,7 +152,9 @@ namespace ARKBreedingStats
         private void SetTamingFoodControls(Species species, bool resetFoodToBest, bool suspendLayout)
         {
             if (suspendLayout)
+            {
                 this.SuspendDrawingAndLayout();
+            }
 
             var setFoodAmount = resetFoodToBest
                 ? null
@@ -189,12 +204,16 @@ namespace ARKBreedingStats
                     _foodControlsVisible.Add(tf);
                     tf.Amount = 0;
                     if (firstVisibleFoodIndex == -1)
+                    {
                         firstVisibleFoodIndex = i;
+                    }
 
                     // special cases where a creature eats multiple food items of one kind at once
                     var food = Values.V.GetTamingFood(species, f);
                     if (food != null && food.quantity > 1)
+                    {
                         tf.FoodNameDisplay = food.quantity + "× " + tf.FoodNameDisplay;
+                    }
                 }
             }
 
@@ -208,7 +227,9 @@ namespace ARKBreedingStats
             if (resetFoodToBest)
             {
                 if (firstVisibleFoodIndex >= 0)
+                {
                     _foodControls[firstVisibleFoodIndex].Amount = Taming.FoodAmountNeeded(species, (int)nudLevel.Value, _serverMultipliers.TamingSpeedMultiplier, _foodControls[0].FoodName, td.nonViolent, CbSanguineElixir.Checked);
+                }
             }
             else
             {
@@ -226,7 +247,9 @@ namespace ARKBreedingStats
             }
 
             if (suspendLayout)
+            {
                 this.ResumeDrawingAndLayout();
+            }
 
             _updateCalculation = true;
 
@@ -239,7 +262,9 @@ namespace ARKBreedingStats
         private void SetOrderOfTamingFood(bool orderByTamingTime, bool forceDo = false)
         {
             if (Properties.Settings.Default.TamingFoodOrderByTime == orderByTamingTime && !forceDo)
+            {
                 return;
+            }
 
             Properties.Settings.Default.TamingFoodOrderByTime = orderByTamingTime;
 
@@ -248,7 +273,9 @@ namespace ARKBreedingStats
 
             this.SuspendDrawingAndLayout();
             for (int i = 0; i < order.Length; i++)
+            {
                 flpTamingFood.Controls.SetChildIndex(order[i].c, i);
+            }
 
             SetTamingFoodSortAdorner(orderByTamingTime);
             this.ResumeDrawingAndLayout();
@@ -259,9 +286,13 @@ namespace ARKBreedingStats
             Loc.ControlText(lbMax);
             Loc.ControlText(lbTamingTime);
             if (orderByTamingTime)
+            {
                 lbTamingTime.Text += "▲";
+            }
             else
+            {
                 lbMax.Text += "▲";
+            }
         }
 
         private void nudLevel_ValueChanged(object sender, EventArgs e)
@@ -281,7 +312,11 @@ namespace ARKBreedingStats
         /// </summary>
         private void EstimateFoodValue()
         {
-            if (_selectedSpecies?.stats?[Stats.Food] == null) return;
+            if (_selectedSpecies?.stats?[Stats.Food] == null)
+            {
+                return;
+            }
+
             nudTotalFood.Value = (decimal)(_selectedSpecies.stats[Stats.Food].BaseValue * (1 + _selectedSpecies.stats[Stats.Food].IncPerWildLevel * ((int)nudLevel.Value / 7))); // approximating the food level
             nudCurrentFood.Value = nudTotalFood.Value;
         }
@@ -361,9 +396,13 @@ namespace ARKBreedingStats
                 labelResult.Text += _kibbleRecipe;
             }
             else if (foodAmountUsed.Count == 0)
+            {
                 labelResult.Text = Loc.S("noTamingData");
+            }
             else
+            {
                 labelResult.Text = Loc.S("notEnoughFoodToTame");
+            }
 
             numericUpDownCurrentTorpor.ValueSave = (decimal)(_selectedSpecies.stats[Stats.Torpidity].BaseValue * (1 + _selectedSpecies.stats[Stats.Torpidity].IncPerWildLevel * (level - 1)));
 
@@ -402,8 +441,16 @@ namespace ARKBreedingStats
             }
 
             double hunger = (double)(nudTotalFood.Value - nudCurrentFood.Value);
-            if (hunger < 0) hunger = 0;
-            if (hunger > _neededHunger) hunger = _neededHunger;
+            if (hunger < 0)
+            {
+                hunger = 0;
+            }
+
+            if (hunger > _neededHunger)
+            {
+                hunger = _neededHunger;
+            }
+
             var durationStarving = TimeSpan.FromSeconds((_neededHunger - hunger) / _foodDepletion);
             lbTimeUntilStarving.Text = (enoughFood ? $"{Loc.S("TimeUntilFeedingAllFood")}: {Utils.Duration(durationStarving)}" : string.Empty);
             if ((double)nudTotalFood.Value < _neededHunger)
@@ -411,7 +458,10 @@ namespace ARKBreedingStats
                 lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : string.Empty) + $"{Loc.S("WarningMoreStarvingThanFood")}";
                 lbTimeUntilStarving.ForeColor = Color.DarkRed;
             }
-            else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
+            else
+            {
+                lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
+            }
 
             _starvingTime = DateTime.Now.Add(durationStarving);
         }
@@ -451,9 +501,19 @@ namespace ARKBreedingStats
         {
             var duration = new TimeSpan(0, 0, Taming.SecondsUntilWakingUp(_selectedSpecies, _serverMultipliers, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
             lbTimeUntilWakingUp.Text = string.Format(Loc.S("lbTimeUntilWakingUp"), Utils.Duration(duration));
-            if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
-            else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
-            else lbTimeUntilWakingUp.ForeColor = Color.Black;
+            if (duration.TotalSeconds < 30)
+            {
+                lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
+            }
+            else if (duration.TotalSeconds < 120)
+            {
+                lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
+            }
+            else
+            {
+                lbTimeUntilWakingUp.ForeColor = Color.Black;
+            }
+
             _wakeUpTime = DateTime.Now.Add(duration);
         }
 
@@ -475,7 +535,10 @@ namespace ARKBreedingStats
         private void UpdateKOCounting(double boneDamageAdjuster = 0)
         {
             if (boneDamageAdjuster == 0)
+            {
                 boneDamageAdjuster = _currentBoneDamageAdjuster;
+            }
+
             lbKOInfo.Text = Taming.KnockoutInfo(_selectedSpecies, _serverMultipliers, (int)nudLevel.Value,
                     chkbDmLongneck.Checked ? (double)nudWDmLongneck.Value / 100 : 0,
                     chkbDmCrossbow.Checked ? (double)nudWDmCrossbow.Value / 100 : 0,
@@ -489,9 +552,12 @@ namespace ARKBreedingStats
                             + (string.IsNullOrEmpty(_boneDamageAdjustersImmobilization) ? string.Empty : "\n\n" + _boneDamageAdjustersImmobilization);
             lbKOInfo.ForeColor = knockoutNeeded ? SystemColors.ControlText : SystemColors.GrayText;
             if (!knockoutNeeded)
+            {
                 _koNumbers = string.Empty;
+            }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double[] WeaponDamages
         {
             get => new[] { (double)nudWDmLongneck.Value, (double)nudWDmCrossbow.Value, (double)nudWDmBow.Value, (double)nudWDmSlingshot.Value, (double)nudWDmClub.Value, (double)nudWDmProd.Value, (double)nudWDmHarpoon.Value };
@@ -508,6 +574,7 @@ namespace ARKBreedingStats
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int WeaponDamagesEnabled
         {
             set
@@ -533,13 +600,17 @@ namespace ARKBreedingStats
         private void buttonAddTorporTimer_Click(object sender, EventArgs e)
         {
             if (_selectedSpecies != null)
+            {
                 CreateTimer(Loc.S("timerWakeupOf") + " " + _selectedSpecies.name, _wakeUpTime, null, TimerControl.TimerGroups.Wakeup.ToString());
+            }
         }
 
         private void btnAddStarvingTimer_Click(object sender, EventArgs e)
         {
             if (_selectedSpecies != null)
+            {
                 CreateTimer(Loc.S("timerStarvingOf") + " " + _selectedSpecies.name, _starvingTime, null, TimerControl.TimerGroups.Starving.ToString());
+            }
         }
 
         public void SetServerMultipliers(ServerMultipliers serverMultipliers)
@@ -555,9 +626,14 @@ namespace ARKBreedingStats
             {
                 int i = _rbBoneDamageAdjusters.IndexOf(rb);
                 if (i >= 0)
+                {
                     _currentBoneDamageAdjuster = _rbBoneDamageAdjusterValues[i];
+                }
                 else
+                {
                     _currentBoneDamageAdjuster = 1;
+                }
+
                 UpdateKOCounting();
             }
         }
@@ -569,8 +645,13 @@ namespace ARKBreedingStats
         {
             int s = Taming.DurationAfterFirstFeeding(_selectedSpecies, (int)nudLevel.Value, _foodDepletion);
             if (s > 0)
+            {
                 _firstFeedingWaiting = "\n\n" + string.Format(Loc.S("waitingAfterFirstFeeding"), Utils.Duration(s));
-            else _firstFeedingWaiting = string.Empty;
+            }
+            else
+            {
+                _firstFeedingWaiting = string.Empty;
+            }
         }
 
         private void LinkLabelWikiPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

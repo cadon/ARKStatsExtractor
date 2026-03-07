@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -68,7 +68,10 @@ namespace ARKBreedingStats.utils
         public static Bitmap GetScreenshotOfProcess(string processName, int waitMs, bool hideOverlay = false)
         {
             Process[] p = Process.GetProcessesByName(processName);
-            if (!p.Any()) return null;
+            if (!p.Any())
+            {
+                return null;
+            }
 
             Bitmap grab = null;
 
@@ -88,7 +91,9 @@ namespace ARKBreedingStats.utils
                 grab = GrabCurrentScreen(proc, hideOverlay);
 
                 if (grab != null)
+                {
                     break;
+                }
             }
             return grab;
         }
@@ -100,7 +105,9 @@ namespace ARKBreedingStats.utils
             r.left = 0; r.right = 0; r.top = 0; r.bottom = 0;
 
             if (p.Length == 0)
+            {
                 return r;
+            }
 
             IntPtr proc = p[0].MainWindowHandle;
 
@@ -124,7 +131,9 @@ namespace ARKBreedingStats.utils
 
 
             if (rc.Width == 0 || rc.Height == 0)
+            {
                 return null;
+            }
 
             rc.left = p.x;
             rc.top = p.y;
@@ -132,7 +141,9 @@ namespace ARKBreedingStats.utils
             rc.bottom = rc.top + client.Height;
 
             if (rc.Width == 0 || rc.Height == 0)
+            {
                 return null;
+            }
 
             Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);
 
@@ -152,7 +163,9 @@ namespace ARKBreedingStats.utils
 
             // show overlay again if it was visible before and hidden for the screencapture
             if (hideOverlay && showOverlay)
+            {
                 ARKOverlay.theOverlay.Visible = showOverlay;
+            }
 
             return bmp;
         }
@@ -199,12 +212,21 @@ namespace ARKBreedingStats.utils
         /// <param name="hitTestVisible"></param>
         public static void SetHitTestVisibility(IntPtr wHnd, bool hitTestVisible)
         {
-            if (wHnd == IntPtr.Zero) return;
+            if (wHnd == IntPtr.Zero)
+            {
+                return;
+            }
+
             int wl = GetWindowLong(wHnd, ExStyle);
             if (hitTestVisible)
+            {
                 wl = wl & ~Transparent & ~Layered;
+            }
             else
+            {
                 wl = wl | Transparent | Layered;
+            }
+
             SetWindowLong(wHnd, ExStyle, wl);
         }
 

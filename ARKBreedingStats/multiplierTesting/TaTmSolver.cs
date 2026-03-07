@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ARKBreedingStats.multiplierTesting
 {
@@ -114,7 +114,10 @@ namespace ARKBreedingStats.multiplierTesting
                 taTaM = (squareRootPart + secondPart + thirdPart + _fTe * sW - sTe * _fW) / (2 * (_fTe - sTe));
                 tmTmM = (-squareRootPart + secondPart - thirdPart + 2 * _fTe * _fW - _fTe * sW - sTe * _fW) / dividend;
                 // if tmTmM is >0 or almost 0, result seems good 
-                if (Math.Round(tmTmM, 4) >= 0) return null; // no error
+                if (Math.Round(tmTmM, 4) >= 0)
+                {
+                    return null; // no error
+                }
             }
 
             // second option

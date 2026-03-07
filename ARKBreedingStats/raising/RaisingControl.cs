@@ -1,8 +1,10 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -53,7 +55,10 @@ namespace ARKBreedingStats.raising
         /// </summary>
         public void UpdateRaisingData(Species species, bool forceUpdate = false)
         {
-            if (!forceUpdate && _selectedSpecies == species) return;
+            if (!forceUpdate && _selectedSpecies == species)
+            {
+                return;
+            }
 
             _selectedSpecies = species;
             _ignoreChangedFood = true;
@@ -76,8 +81,10 @@ namespace ARKBreedingStats.raising
                 out TimeSpan nextMatingMax))
             {
                 if (matingTime != TimeSpan.Zero)
+                {
                     listViewRaisingTimes.Items.Add(new ListViewItem(new[]
                         {Loc.S("matingTime"), matingTime.ToString("d':'hh':'mm':'ss")}));
+                }
 
                 TimeSpan totalTime = incubationTime;
                 DateTime until = DateTime.Now.Add(totalTime);
@@ -108,12 +115,16 @@ namespace ARKBreedingStats.raising
 
                 var raisingInfo = new StringBuilder();
                 if (nextMatingMin != TimeSpan.Zero)
+                {
                     raisingInfo.AppendLine(
                         $"{Loc.S("TimeBetweenMating")}: {nextMatingMin:d':'hh':'mm':'ss} to {nextMatingMax:d':'hh':'mm':'ss}");
+                }
 
                 string eggInfo = Raising.EggTemperature(_selectedSpecies);
                 if (!string.IsNullOrEmpty(eggInfo))
+                {
                     raisingInfo.AppendLine(eggInfo);
+                }
 
                 labelRaisingInfos.Text = raisingInfo.ToString().Trim();
 
@@ -127,21 +138,32 @@ namespace ARKBreedingStats.raising
 
             var eats = new List<string>();
             if (_selectedSpecies.taming.eats != null)
+            {
                 eats.AddRange(_selectedSpecies.taming.eats);
+            }
+
             if (_selectedSpecies.taming.eatsAlsoPostTame != null)
+            {
                 eats.AddRange(_selectedSpecies.taming.eatsAlsoPostTame);
+            }
 
             _ignoreChangedFood = true;
             CbGrowingFood.DataSource = eats;
             _ignoreChangedFood = false;
             var selectIndex = string.IsNullOrEmpty(_lastSelectedFood) ? 0 : eats.IndexOf(_lastSelectedFood);
-            if (selectIndex == -1) selectIndex = 0;
+            if (selectIndex == -1)
+            {
+                selectIndex = 0;
+            }
+
             if (CbGrowingFood.Items.Count > 0)
             {
                 var triggerFoodManually = CbGrowingFood.SelectedIndex == selectIndex;
                 CbGrowingFood.SelectedIndex = selectIndex;
                 if (triggerFoodManually)
+                {
                     CbGrowingFood_SelectedIndexChanged(CbGrowingFood, null);
+                }
             }
 
             this.ResumeDrawingAndLayout();
@@ -166,28 +188,46 @@ namespace ARKBreedingStats.raising
                 var unconfirmedFoods = new List<string>();
 
                 if (!string.IsNullOrEmpty(_lastSelectedFood))
+                {
                     foodAmount = FoodAmountString(_lastSelectedFood);
+                }
+
                 if (string.IsNullOrEmpty(foodAmount))
+                {
                     foodAmount = FoodAmountString("Raw Meat");
+                }
+
                 if (string.IsNullOrEmpty(foodAmount))
+                {
                     foodAmount = FoodAmountString("Mejoberries");
+                }
+
                 if (string.IsNullOrEmpty(foodAmount))
+                {
                     foodAmount = FoodAmountString(_selectedSpecies.taming.eats[0]);
+                }
 
                 string FoodAmountString(string foodName)
                 {
                     if (Array.IndexOf(_selectedSpecies.taming.eats, foodName) == -1
                         && (_selectedSpecies.taming.eatsAlsoPostTame == null
-                            || Array.IndexOf(_selectedSpecies.taming.eatsAlsoPostTame, foodName) == -1)) return null;
+                            || Array.IndexOf(_selectedSpecies.taming.eatsAlsoPostTame, foodName) == -1))
+                    {
+                        return null;
+                    }
 
                     var food = Values.V.GetTamingFood(_selectedSpecies, foodName);
 
-                    if (food == null) return null;
+                    if (food == null)
+                    {
+                        return null;
+                    }
 
                     var foodValue = food.foodValue;
-                    if (foodValue == 0) return null;
-
-
+                    if (foodValue == 0)
+                    {
+                        return null;
+                    }
 
                     return (babyPhaseFoodValid ? $"\n\nFood for Baby-Phase: ~{Math.Ceiling(babyPhaseFood / foodValue)} {foodName}" : string.Empty)
                            + $"\nTotal Food for maturation: ~{Math.Ceiling(totalFood / foodValue)} {foodName}"
@@ -199,6 +239,7 @@ namespace ARKBreedingStats.raising
             LbFoodInfoGeneral.Text = foodAmount;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureCollection CreatureCollection
         {
             set
@@ -248,14 +289,22 @@ namespace ARKBreedingStats.raising
                 return;
             }
 
-            if (_lastSelectedFood == null) return;
-
+            if (_lastSelectedFood == null)
+            {
+                return;
+            }
 
             var food = Values.V.GetTamingFood(_selectedSpecies, _lastSelectedFood);
-            if (food == null) return;
+            if (food == null)
+            {
+                return;
+            }
 
             var foodValue = food.foodValue;
-            if (foodValue == 0) return;
+            if (foodValue == 0)
+            {
+                return;
+            }
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                 Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
@@ -263,7 +312,9 @@ namespace ARKBreedingStats.raising
                 Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
                 maturation, 0.1,
                 out var foodAmount))
+            {
                 labelAmountFoodBaby.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
+            }
 
             if (uiControls.Trough.FoodAmountFromUntil(_selectedSpecies,
                 Values.V.currentServerMultipliers.BabyFoodConsumptionSpeedMultiplier,
@@ -271,7 +322,9 @@ namespace ARKBreedingStats.raising
                 Values.V.currentServerMultipliers.TamedDinoCharacterFoodDrainMultiplier,
                 maturation, 1,
                 out foodAmount))
+            {
                 labelAmountFoodAdult.Text = $"{Math.Ceiling(foodAmount / foodValue)} {_lastSelectedFood} ({foodAmount:0.#} food units)";
+            }
         }
 
         public void AddIncubationTimer(Creature mother, Creature father, TimeSpan incubationDuration,
@@ -295,7 +348,9 @@ namespace ARKBreedingStats.raising
         public void RecreateList()
         {
             if (_cc == null)
+            {
                 return;
+            }
 
             updateListView = false;
             listViewBabies.BeginUpdate();
@@ -330,7 +385,9 @@ namespace ARKBreedingStats.raising
                 }
             }
             if (items.Any())
+            {
                 listViewBabies.Items.AddRange(items.ToArray());
+            }
 
             // add babies / growing
             items.Clear();
@@ -342,7 +399,10 @@ namespace ARKBreedingStats.raising
                         || (c.growingPaused && c.growingLeft.TotalHours > 0)))
                 {
                     Species species = c.Species;
-                    if (species?.breeding == null) continue;
+                    if (species?.breeding == null)
+                    {
+                        continue;
+                    }
 
                     DateTime babyUntil = c.growingPaused
                         ? now.Add(c.growingLeft).AddSeconds(-0.9 * species.breeding.maturationTimeAdjusted)
@@ -383,7 +443,9 @@ namespace ARKBreedingStats.raising
                 }
             }
             if (items.Any())
+            {
                 listViewBabies.Items.AddRange(items.ToArray());
+            }
 
             listViewBabies.EndUpdate();
             updateListView = true;
@@ -470,7 +532,9 @@ namespace ARKBreedingStats.raising
                     {
                         double diff = ite.incubationEnd.Subtract(alertTime).TotalSeconds;
                         if (diff >= 0 && diff < 1)
+                        {
                             timerControl.PlaySound("Birth", 1);
+                        }
                     }
                 }
             }
@@ -500,7 +564,9 @@ namespace ARKBreedingStats.raising
                         "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         for (int t = listViewBabies.SelectedIndices.Count - 1; t >= 0; t--)
+                        {
                             RemoveIncubationTimer((IncubationTimerEntry)listViewBabies.SelectedItems[t].Tag);
+                        }
 
                         RecreateList();
                         onChange?.Invoke();
@@ -575,7 +641,9 @@ namespace ARKBreedingStats.raising
                 {
                     var species = ite.Mother?.Species ?? ite.Father?.Species;
                     if (species != null)
+                    {
                         SetGlobalSpecies?.Invoke(species);
+                    }
 
                     parentStats1.SetParentValues(ite.Mother, ite.Father);
 
@@ -634,13 +702,17 @@ namespace ARKBreedingStats.raising
         private void dhmsInputTimerEditTimer_TextChanged(object sender, EventArgs e)
         {
             if (dhmsInputTimerEditTimer.Focused)
+            {
                 dateTimePickerEditTimerFinish.Value = DateTime.Now.Add(dhmsInputTimerEditTimer.Timespan);
+            }
         }
 
         private void dateTimePickerEditTimerFinish_ValueChanged(object sender, EventArgs e)
         {
             if (dateTimePickerEditTimerFinish.Focused)
+            {
                 dhmsInputTimerEditTimer.Timespan = dateTimePickerEditTimerFinish.Value.Subtract(DateTime.Now);
+            }
         }
 
         private void dhmsInputTimerEditTimer_ValueChanged(uiControls.dhmsInput sender, TimeSpan timespan)
@@ -650,7 +722,10 @@ namespace ARKBreedingStats.raising
 
         private void btStartPauseTimer_Click(object sender, EventArgs e)
         {
-            if (listViewBabies.SelectedIndices.Count == 0) return;
+            if (listViewBabies.SelectedIndices.Count == 0)
+            {
+                return;
+            }
 
             bool startTimer = true;
             for (int i = 0; i < listViewBabies.SelectedIndices.Count; i++)
@@ -684,7 +759,10 @@ namespace ARKBreedingStats.raising
         private void btAdjustAllTimers_Click(object sender, EventArgs e)
         {
             TimeSpan offset = dhmsInputOffsetAllTimers.Timespan;
-            if (cbSubtractOffsetToAllTimers.Checked) offset = -offset;
+            if (cbSubtractOffsetToAllTimers.Checked)
+            {
+                offset = -offset;
+            }
 
             DateTime now = DateTime.Now;
 
@@ -722,7 +800,10 @@ namespace ARKBreedingStats.raising
             {
                 _creatureMaturationEdit.growingUntil = dateTimePickerEditTimerFinish.Value;
             }
-            else return;
+            else
+            {
+                return;
+            }
 
             RecreateList();
             onChange?.Invoke();
@@ -736,10 +817,16 @@ namespace ARKBreedingStats.raising
 
         private void CbGrowingFood_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_ignoreChangedFood) return;
+            if (_ignoreChangedFood)
+            {
+                return;
+            }
+
             var foodName = (sender as ComboBox)?.SelectedItem as string;
             if (!string.IsNullOrEmpty(foodName))
+            {
                 _lastSelectedFood = foodName;
+            }
 
             FoodAmountNeeded();
             UpdateMaturationProgress();
@@ -752,14 +839,27 @@ namespace ARKBreedingStats.raising
             var isChecked = e.Item.Checked;
             if (e.Item.Tag is Creature creature)
             {
-                if (isChecked) ARKOverlay.AddTimer(creature);
-                else ARKOverlay.RemoveTimer(creature);
+                if (isChecked)
+                {
+                    ARKOverlay.AddTimer(creature);
+                }
+                else
+                {
+                    ARKOverlay.RemoveTimer(creature);
+                }
+
                 return;
             }
             if (e.Item.Tag is IncubationTimerEntry incubationTimerEntry)
             {
-                if (isChecked) ARKOverlay.AddTimer(incubationTimerEntry);
-                else ARKOverlay.RemoveTimer(incubationTimerEntry);
+                if (isChecked)
+                {
+                    ARKOverlay.AddTimer(incubationTimerEntry);
+                }
+                else
+                {
+                    ARKOverlay.RemoveTimer(incubationTimerEntry);
+                }
             }
         }
     }

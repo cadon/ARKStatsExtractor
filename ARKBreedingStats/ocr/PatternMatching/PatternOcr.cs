@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -30,7 +30,11 @@ namespace ARKBreedingStats.ocr.PatternMatching
         /// <returns></returns>
         public static string ReadImageOcr(Bitmap source, bool onlyNumbers, byte whiteThreshold, int x = 0, int y = 0, OCRControl ocrControl = null)
         {
-            if (source == null) return string.Empty;
+            if (source == null)
+            {
+                return string.Empty;
+            }
+
             var ret = string.Empty;
             var maxDistanceForNonSpace = Math.Max(2, source.Height / 4);
 
@@ -74,7 +78,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
             {
                 // read spaces
                 if (!onlyNumbers && sym.Coords.X - xPos > maxDistanceForNonSpace)
+                {
                     ret += " ";
+                }
 
                 xPos = sym.Coords.X + sym.Pattern.GetLength(0);
 
@@ -83,7 +89,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 if (string.IsNullOrEmpty(c))
                 {
                     if (c == null)
+                    {
                         return CleanUpOcr(ret); // recognition was cancelled
+                    }
+
                     continue;
                 }
 
@@ -114,7 +123,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 {
                     var canBeVisited = !visited[i, j];
                     visited[i, j] = true;
-                    if (!canBeVisited || !image[i, j]) continue;
+                    if (!canBeVisited || !image[i, j])
+                    {
+                        continue;
+                    }
 
                     var coordsData = VisitChar(i, j, visited, image);
                     VisitVertical(coordsData, visited, image);
@@ -154,11 +166,13 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 using (var g = Graphics.FromImage(bmp))
                 {
                     using (var b = new SolidBrush(Color.Black))
+                    {
                         for (int c = 0; c < setCoordsCount; c++)
                         {
                             b.Color = Color.FromArgb(255 - (c * step), c * step, 50);
                             g.FillRectangle(b, new Rectangle(coordsData.Coords[c].X, coordsData.Coords[c].Y, 1, 1));
                         }
+                    }
 
                     const int factor = 5;
                     using (var resizedBmp = new Bitmap(bmp.Width * factor, bmp.Height * factor))
@@ -183,7 +197,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
             {
                 for (int y = 0; y < h; y++)
                 {
-                    if (visited[x, y]) continue;
+                    if (visited[x, y])
+                    {
+                        continue;
+                    }
 
                     if (image[x, y])
                     {
@@ -238,7 +255,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
         private static CoordsData VisitChar(int x, int y, bool[,] visited, bool[,] image, CoordsData data = null)
         {
             if (data == null)
+            {
                 data = new CoordsData(x, x, y, y);
+            }
 
             var w = image.GetLength(0);
             var h = image.GetLength(1);

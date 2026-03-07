@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.IO;
@@ -62,21 +62,36 @@ namespace ARKBreedingStats.SpeciesImages
             try
             {
                 if (_manifestSource == null)
+                {
                     await LoadManifestAsync();
+                }
+
                 if (_manifestSource == null)
+                {
                     return null;
+                }
 
                 if (_manifestSource.FileHashes?.TryGetValue(fileName, out var hashRemoteFile) != true)
+                {
                     return null; // file not in this image pack
+                }
 
                 var filePathLocalImage = FileService.GetPath(FileService.ImageFolderName, FolderName, fileName);
                 if (string.IsNullOrEmpty(hashRemoteFile) || string.IsNullOrEmpty(_manifestSource.Url))
+                {
                     return fileName; // file is assumed to be available locally. No info about possible remote files.
+                }
+
                 var hashMatches = miscClasses.Encryption.FileEqualByHash(filePathLocalImage, hashRemoteFile);
                 if (hashMatches == true)
+                {
                     return fileName; // file available and up to date
+                }
+
                 if (hashMatches == null)
+                {
                     return null; // error, hash invalid or fileName empty
+                }
 
                 // file needs to be downloaded. Limit concurrent downloads.
                 Debug.WriteLine($"Waiting to download file, currently {Semaphore.CurrentCount} more downloads are allowed.");
@@ -123,7 +138,11 @@ namespace ARKBreedingStats.SpeciesImages
 
         private async Task UpdateManifestAsync(string manifestFilePath)
         {
-            if (string.IsNullOrEmpty(_manifestSource.Url)) return;
+            if (string.IsNullOrEmpty(_manifestSource.Url))
+            {
+                return;
+            }
+
             await WebService.DownloadAsync(_manifestSource.Url + ImagesManifest.FileName, manifestFilePath);
         }
 
@@ -133,7 +152,9 @@ namespace ARKBreedingStats.SpeciesImages
         public async Task<bool> IsFileInCollection(string fileName)
         {
             if (_manifestSource == null)
+            {
                 await LoadManifestAsync();
+            }
             // return true if file is listed in fileHashes or if it exists locally
             return _manifestSource?.FileHashes?.ContainsKey(fileName) == true
                 || File.Exists(FileService.GetPath(FileService.ImageFolderName, FolderName, fileName));

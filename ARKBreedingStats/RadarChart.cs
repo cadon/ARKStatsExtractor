@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using Color = System.Drawing.Color;
@@ -60,7 +61,9 @@ namespace ARKBreedingStats
         {
             var maxRadius = Math.Min(Width, Height) / 2;
             if (_maxR == maxRadius)
+            {
                 return false; // already set
+            }
 
             _maxR = maxRadius;
             _xm = _maxR + 1;
@@ -125,12 +128,18 @@ namespace ARKBreedingStats
         private bool SetMaxLevel(int maxLevel)
         {
             if (_maxLevel == maxLevel)
+            {
                 return false;
+            }
 
             _maxLevel = maxLevel;
 
             _step = (int)Math.Round(_maxLevel / 25d);
-            if (_step < 1) _step = 1;
+            if (_step < 1)
+            {
+                _step = 1;
+            }
+
             _step *= 5;
 
             return true;
@@ -143,19 +152,29 @@ namespace ARKBreedingStats
         public void InitializeVariables(int maxLevel)
         {
             if (SetSize() | SetMaxLevel(maxLevel))
+            {
                 SetLevels(); // update graph
+            }
         }
 
         private void InitializeStats(int displayedStats)
         {
-            if (displayedStats == _displayedStats) return;
+            if (displayedStats == _displayedStats)
+            {
+                return;
+            }
+
             _displayedStats = displayedStats;
             _displayedStatIndices.Clear();
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _currentMutatedLevels[s] = 0;
                 _currentWildLevels[s] = 0;
-                if (s == Stats.Torpidity || (_displayedStats & (1 << s)) == 0) continue;
+                if (s == Stats.Torpidity || (_displayedStats & (1 << s)) == 0)
+                {
+                    continue;
+                }
+
                 _displayedStatIndices.Add(s);
             }
 
@@ -183,8 +202,16 @@ namespace ARKBreedingStats
 
         private Point Coords(int radius, double angle)
         {
-            if (radius < 0) radius = 0;
-            if (radius > _maxR) radius = _maxR;
+            if (radius < 0)
+            {
+                radius = 0;
+            }
+
+            if (radius > _maxR)
+            {
+                radius = _maxR;
+            }
+
             return new Point(_xm + (int)(radius * Math.Cos(angle)), _ym + (int)(radius * Math.Sin(angle)));
         }
 
@@ -195,9 +222,14 @@ namespace ARKBreedingStats
         public void SetLevels(int[] levelsWild = null, int[] levelMutations = null, Species species = null)
         {
             if (species != null)
+            {
                 InitializeStats(species.DisplayedStats);
+            }
 
-            if (_maxR <= 5 || _ps.Count == 0) return; // image too small
+            if (_maxR <= 5 || _ps.Count == 0)
+            {
+                return; // image too small
+            }
 
             Bitmap bmp = new Bitmap(Width, Height);
             using (Graphics g = Graphics.FromImage(bmp))
@@ -225,7 +257,10 @@ namespace ARKBreedingStats
                             }
 
                             if (mutatedLevelChanged)
+                            {
                                 _currentMutatedLevels[s] = levelMutations[s];
+                            }
+
                             _psm[displayedStatIndex] = Coords((_currentWildLevels[s] + _currentMutatedLevels[s]) * _maxR / _maxLevel, angle);
                         }
 
@@ -263,16 +298,21 @@ namespace ARKBreedingStats
                 for (int r = 0; r < 5; r++)
                 {
                     using (var pen = new Pen(Utils.GetColorFromPercent((int)(100 * r * stepFactor), -0.4)))
+                    {
                         g.DrawEllipse(pen,
                             (int)(_xm - _maxR * r * stepFactor), (int)(_ym - _maxR * r * stepFactor),
                             (int)(2 * _maxR * r * stepFactor + 1), (int)(2 * _maxR * r * stepFactor + 1));
+                    }
                 }
                 // outline
                 using (var pen = new Pen(Utils.GetColorFromPercent(100, -0.4)))
+                {
                     g.DrawEllipse(pen, _xm - _maxR, _ym - _maxR, 2 * _maxR + 1, 2 * _maxR + 1);
+                }
 
                 // stat lines and bullet points
                 using (var pen = new Pen(Color.Gray))
+                {
                     for (var sdi = 0; sdi < _displayedStatIndices.Count; sdi++)
                     {
                         var s = _displayedStatIndices[sdi];
@@ -303,6 +343,7 @@ namespace ARKBreedingStats
                                 2 * bulletRadius);
                         }
                     }
+                }
 
                 using (var brush = new SolidBrush(Color.FromArgb(190, 255, 255, 255)))
                 {

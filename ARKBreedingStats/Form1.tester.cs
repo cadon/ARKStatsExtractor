@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,29 +43,42 @@ namespace ARKBreedingStats
         private void EditCreatureInTester(Creature c, bool virtualCreature, Asb.TriggerSource triggerSource)
         {
             if (c == null)
+            {
                 return;
+            }
 
             speciesSelector1.SetSpecies(c.Species, triggerSource: triggerSource);
             TamingEffectivenessTester = c.tamingEff;
             numericUpDownImprintingBonusTester.ValueSave = (decimal)c.imprintingBonus * 100;
             if (c.isBred)
+            {
                 rbBredTester.Checked = true;
+            }
             else if (c.isDomesticated)
+            {
                 rbTamedTester.Checked = true;
+            }
             else
+            {
                 rbWildTester.Checked = true;
+            }
 
             _hiddenLevelsCreatureTester = c.levelsWild[Stats.Torpidity];
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s != Stats.Torpidity && c.levelsWild[s] > 0)
+                {
                     _hiddenLevelsCreatureTester -= c.levelsWild[s] + (c.levelsMutated?[s] ?? 0);
+                }
             }
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s == Stats.Torpidity)
+                {
                     continue;
+                }
+
                 _testingIOs[s].LevelWild = c.levelsWild[s];
                 _testingIOs[s].LevelMut = c.levelsMutated?[s] ?? 0;
                 _testingIOs[s].LevelDom = c.levelsDom[s];
@@ -79,9 +93,15 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s == Stats.Torpidity)
+                {
                     continue;
+                }
+
                 if (s == Stats.StatsCount - 2) // update torpor after last stat-update
+                {
                     _updateTorporInTester = true;
+                }
+
                 TestingStatIOsRecalculateValue(_testingIOs[s]);
             }
             TestingStatIOsRecalculateValue(_testingIOs[Stats.Torpidity]);
@@ -90,7 +110,10 @@ namespace ARKBreedingStats
         private void SetTesterInputsTamed(bool domesticated)
         {
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _testingIOs[s].PostTame = domesticated;
+            }
+
             lbNotYetTamed.Visible = !domesticated;
         }
 
@@ -109,8 +132,10 @@ namespace ARKBreedingStats
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (s != Stats.Torpidity)
+                    {
                         torporLvl += (_testingIOs[s].LevelWild > 0 ? _testingIOs[s].LevelWild : 0)
                             + _testingIOs[s].LevelMut;
+                    }
                 }
                 _testingIOs[Stats.Torpidity].LevelWild = torporLvl + _hiddenLevelsCreatureTester;
             }
@@ -122,12 +147,21 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 domLevels += _testingIOs[s].LevelDom;
-                if (s == Stats.Torpidity) continue;
+                if (s == Stats.Torpidity)
+                {
+                    continue;
+                }
+
                 if (_testingIOs[s].LevelWild == 255)
+                {
                     wildLevel255 = true;
+                }
+
                 if (_testingIOs[s].LevelWild > 255
                     || _testingIOs[s].LevelDom > 255)
+                {
                     levelGreaterThan255 = true;
+                }
             }
             labelDomLevelSum.Text = $"Dom Levels: {domLevels}/{_creatureCollection.maxDomLevel}";
             labelDomLevelSum.BackColor = domLevels > _creatureCollection.maxDomLevel ? Color.LightSalmon : Color.Transparent;
@@ -137,7 +171,10 @@ namespace ARKBreedingStats
             int[] levelsWild = _testingIOs.Select(s => s.LevelWild).ToArray();
             int[] levelsMutations = _testingIOs.Select(s => s.LevelMut).ToArray();
             if (!_testingIOs[Stats.Torpidity].Enabled)
+            {
                 levelsWild[Stats.Torpidity] = 0;
+            }
+
             radarChart1.SetLevels(levelsWild, levelsMutations, speciesSelector1.SelectedSpecies);
             statPotentials1.SetLevels(levelsWild, levelsMutations, false);
             //statGraphs1.setGraph(sE, 0, testingIOs[0].LevelWild, testingIOs[0].LevelDom, !radioButtonTesterWild.Checked, (double)NumericUpDownTestingTE.Value / 100, (double)numericUpDownImprintingBonusTester.Value / 100);
@@ -149,11 +186,19 @@ namespace ARKBreedingStats
 
             var levelWarning = string.Empty;
             if (wildLevel255)
+            {
                 levelWarning += "A stat with a wild level of 255 cannot be leveled anymore. ";
+            }
+
             if (levelGreaterThan255)
+            {
                 levelWarning += "A level higher than 255 will not be saved correctly in ARK and may be reset to a lower level than 256 after loading.";
+            }
+
             if (string.IsNullOrEmpty(levelWarning))
+            {
                 LbWarningLevel255.Visible = false;
+            }
             else
             {
                 LbWarningLevel255.Text = levelWarning;
@@ -178,7 +223,9 @@ namespace ARKBreedingStats
         private void creatureInfoInputTester_Save2Library_Clicked(CreatureInfoInput sender)
         {
             if (_creatureTesterEdit == null)
+            {
                 return;
+            }
             // check if wild levels are changed, if yes warn that the creature can become invalid
             // TODO adjust check if mutated levels have a different multiplier than wild levels
             bool wildChanged = Math.Abs(_creatureTesterEdit.tamingEff - TamingEffectivenessTester) > .0005;
@@ -223,11 +270,16 @@ namespace ARKBreedingStats
             creatureInfoInputTester.SetCreatureData(_creatureTesterEdit);
 
             if (wildChanged)
+            {
                 CalculateTopStats(_creatureCollection.creatures.Where(c => c.Species == _creatureTesterEdit.Species).ToList(), _creatureTesterEdit.Species);
+            }
+
             UpdateDisplayedCreatureValues(_creatureTesterEdit, statusChanged, true);
 
             if (parentsChanged)
+            {
                 _creatureTesterEdit.RecalculateAncestorGenerations();
+            }
 
             _creatureTesterEdit.RecalculateNewMutations();
 
@@ -256,13 +308,20 @@ namespace ARKBreedingStats
                 creatureInfoInputTester.ShowSaveButton = enable && !virtualCreature;
                 labelCurrentTesterCreature.Visible = enable;
                 if (enable)
+                {
                     labelCurrentTesterCreature.Text = c.name;
+                }
+
                 lbCurrentCreature.Visible = enable;
                 _creatureTesterEdit = c;
                 if (c != null && CreatureCollection.CurrentCreatureCollection?.CreatureById(c.guid, c.ArkId, out var alreadyExistingCreature) == true)
+                {
                     creatureInfoInputTester.AlreadyExistingCreature = alreadyExistingCreature;
+                }
                 else
+                {
                     creatureInfoInputTester.AlreadyExistingCreature = null;
+                }
             }
 
             if (enable)
@@ -323,7 +382,10 @@ namespace ARKBreedingStats
         private void SetRandomWildLevels(object sender, EventArgs e)
         {
             var species = speciesSelector1.SelectedSpecies;
-            if (species == null) return;
+            if (species == null)
+            {
+                return;
+            }
 
             var difficulty = (CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault) / 30;
             var creature = DummyCreatures.CreateCreature(species, difficulty, !rbWildTester.Checked);
@@ -334,7 +396,9 @@ namespace ARKBreedingStats
             }
 
             if (rbTamedTester.Checked)
+            {
                 NumericUpDownTestingTE.ValueSaveDouble = creature.tamingEff * 100;
+            }
         }
 
         private void InfographicFromTesterToClipboard()
@@ -388,11 +452,15 @@ namespace ARKBreedingStats
         private void DisplayPreTamedLevelTester()
         {
             if (TamingEffectivenessTester >= 0)
+            {
                 lbWildLevelTester.Text =
                     $"{Loc.S("preTameLevel")}: {Creature.CalculatePreTameWildLevel(_testingIOs[Stats.Torpidity].LevelWild + 1, TamingEffectivenessTester)}";
+            }
             else
+            {
                 lbWildLevelTester.Text =
                     $"{Loc.S("preTameLevel")}: {Loc.S("unknown")}";
+            }
         }
 
         /// <summary>
@@ -409,7 +477,10 @@ namespace ARKBreedingStats
         {
             var linkWildMutated = CbLinkWildMutatedLevelsTester.Checked;
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _testingIOs[s].LinkWildMutated = linkWildMutated;
+            }
+
             Properties.Settings.Default.TesterLinkWildMutatedLevels = linkWildMutated;
         }
 

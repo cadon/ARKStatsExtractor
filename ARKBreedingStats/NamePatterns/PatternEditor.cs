@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Windows.Threading;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -135,7 +137,9 @@ namespace ARKBreedingStats.NamePatterns
         {
             Utils.SetWindowRectangle(this, Properties.Settings.Default.PatternEditorFormRectangle);
             if (Properties.Settings.Default.PatternEditorSplitterDistance > 0)
+            {
                 SplitterDistance = Properties.Settings.Default.PatternEditorSplitterDistance;
+            }
 
             InitializeLocalization();
 
@@ -185,7 +189,10 @@ namespace ARKBreedingStats.NamePatterns
                     btn.Tag = useExampleAsInput ? p.Value.Substring(substringUntil + 1) : $"{{{p.Key}}}";
 
                     if (!columns)
+                    {
                         btn.Dock = DockStyle.Top;
+                    }
+
                     btn.Click += Btn_Click;
 
                     var lbl = new Label
@@ -294,15 +301,34 @@ namespace ARKBreedingStats.NamePatterns
         private void InitializeTemplates()
         {
             var manifestFilePath = FileService.GetPath(FileService.ManifestFileName);
-            if (!File.Exists(manifestFilePath)) return;
+            if (!File.Exists(manifestFilePath))
+            {
+                return;
+            }
+
             var asbManifest = AsbManifest.FromJsonFile(manifestFilePath);
             var templateFileRelativePath = asbManifest?.Modules?.Values.FirstOrDefault(m => m.Category == "Name Pattern Templates")?.LocalPath;
-            if (templateFileRelativePath == null) return;
+            if (templateFileRelativePath == null)
+            {
+                return;
+            }
+
             var templateFilePath = FileService.GetPath(templateFileRelativePath);
-            if (!File.Exists(templateFilePath)) return;
-            if (!FileService.LoadJsonFile(templateFilePath, out ValueModule<PatternTemplate[]> module, out _)) return;
+            if (!File.Exists(templateFilePath))
+            {
+                return;
+            }
+
+            if (!FileService.LoadJsonFile(templateFilePath, out ValueModule<PatternTemplate[]> module, out _))
+            {
+                return;
+            }
+
             var templates = module.Data?.Where(t => !string.IsNullOrEmpty(t.Pattern)).ToArray();
-            if (templates == null || !templates.Any()) return;
+            if (templates == null || !templates.Any())
+            {
+                return;
+            }
 
             _tableLayoutPanelTemplates = CreateTableLayoutPanel();
             TabPagePatternTemplates.Controls.Add(_tableLayoutPanelTemplates);
@@ -372,7 +398,9 @@ namespace ARKBreedingStats.NamePatterns
             }
 
             if (!jsTemplateSet)
+            {
                 BtJsTemplate.Visible = false;
+            }
         }
 
         private string LocalizeTemplateString(string pattern)
@@ -392,7 +420,10 @@ namespace ARKBreedingStats.NamePatterns
         /// </summary>
         private static void ManuallySetControlSizes(TableLayoutPanel tlp, List<Panel> entries)
         {
-            if (tlp == null || entries == null) return;
+            if (tlp == null || entries == null)
+            {
+                return;
+            }
 
             tlp.SuspendLayout();
             var tableWidth = tlp.Width - 25;
@@ -409,7 +440,10 @@ namespace ARKBreedingStats.NamePatterns
                             break;
                         case Button bt:
                             if (bt.Right > tableWidth)
+                            {
                                 bt.Width = tableWidth - bt.Left;
+                            }
+
                             break;
                         case Panel p:
                             extraHeight += p.Height;
@@ -422,10 +456,15 @@ namespace ARKBreedingStats.NamePatterns
                 foreach (Control ctl in entry.Controls)
                 {
                     if (ctl.Bottom + extraHeight > maxBottom)
+                    {
                         maxBottom = ctl.Bottom + extraHeight + 8; // + margin
+                    }
                 }
 
-                if (entry.Height < maxBottom) entry.Height = maxBottom;
+                if (entry.Height < maxBottom)
+                {
+                    entry.Height = maxBottom;
+                }
             }
             tlp.ResumeLayout();
         }
@@ -440,7 +479,9 @@ namespace ARKBreedingStats.NamePatterns
         {
             string selectedFilePath = Properties.Settings.Default.CustomReplacingFilePath;
             if (string.IsNullOrEmpty(selectedFilePath))
+            {
                 selectedFilePath = FileService.GetJsonPath(FileService.CustomReplacingsNamePattern);
+            }
 
             string selectedFolder =
                 string.IsNullOrEmpty(selectedFilePath) ? null : Path.GetDirectoryName(selectedFilePath);
@@ -479,7 +520,7 @@ namespace ARKBreedingStats.NamePatterns
                     // create file with example dictionary entries to start with
                     File.WriteAllText(filePath, "{\n  \"Allosaurus\": \"Allo\",\n  \"Snow Owl\": \"Owl\"\n}");
                 }
-                Process.Start(filePath);
+                Utils.OpenUri(filePath);
             }
             catch (FileNotFoundException ex)
             {
@@ -684,6 +725,7 @@ namespace ARKBreedingStats.NamePatterns
             RepositoryInfo.OpenWikiPage("Name-Generator");
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SplitterDistance
         {
             get => splitContainer1.SplitterDistance;
@@ -701,20 +743,26 @@ namespace ARKBreedingStats.NamePatterns
             if (JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
             {
                 if (!visible)
+                {
                     tabControl1.TabPages.Add(TabPageJavaScriptConsole);
+                }
             }
             else
             {
                 if (visible)
+                {
                     tabControl1.TabPages.Remove(TabPageJavaScriptConsole);
-
+                }
             }
         }
 
         private void TextChangedDebouncer()
         {
             ShowHideConsoleTab();
-            if (!cbPreview.Checked) return;
+            if (!cbPreview.Checked)
+            {
+                return;
+            }
 
             ResetConsoleTab();
             var stopwatch = Stopwatch.StartNew();
@@ -760,8 +808,11 @@ namespace ARKBreedingStats.NamePatterns
             filter = string.IsNullOrEmpty(filter) ? null : filter;
             tlp.SuspendDrawingAndLayout();
             foreach (NamePatternEntry npe in namePatternEntries)
+            {
                 npe.Visible = filter == null
                               || npe.FilterString.IndexOf(filter, StringComparison.OrdinalIgnoreCase) != -1;
+            }
+
             tlp.ResumeDrawingAndLayout();
             // needed to reevaluate the need of the scrollbar
             tlp.AutoScroll = false;
@@ -781,17 +832,23 @@ namespace ARKBreedingStats.NamePatterns
         private void BtJavaScript_Click(object sender, EventArgs e)
         {
             if (!JsDependenciesAvailable())
+            {
                 return;
+            }
 
             // add javascript start indicator
             if (!JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
+            {
                 txtboxPattern.Text = "#!javascript" + Environment.NewLine + "return species;" + Environment.NewLine + Environment.NewLine + txtboxPattern.Text;
+            }
         }
 
         private void BtJsTemplate_Click(object sender, EventArgs e)
         {
             if (JsDependenciesAvailable())
+            {
                 Btn_Click(sender, e);
+            }
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -42,7 +42,10 @@ namespace ARKBreedingStats.uiControls
         public PopupMessage(string message, float fontSize = 8.25f) : this()
         {
             if (fontSize != 8.25f)
+            {
                 _label.Font = new Font(_label.Font.FontFamily, fontSize);
+            }
+
             _label.Text = message;
         }
 

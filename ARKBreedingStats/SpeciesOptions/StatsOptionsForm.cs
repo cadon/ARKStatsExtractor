@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -41,11 +42,19 @@ namespace ARKBreedingStats.SpeciesOptions
             tabs.Dock = DockStyle.Fill;
 
             if (levelColorSettings != null)
+            {
                 AddAndDock(new LevelGraphOptionsControl(levelColorSettings, f.Tt), levelColorSettings.SettingsName);
+            }
+
             if (topStatsSettings != null)
+            {
                 AddAndDock(new ConsiderTopStatsControl(topStatsSettings, f.Tt), topStatsSettings.SettingsName);
+            }
+
             if (wantedRegionColorsSettings != null)
+            {
                 AddAndDock(new WantedRegionColorsControl(wantedRegionColorsSettings, f.Tt), wantedRegionColorsSettings.SettingsName);
+            }
 
             void AddAndDock(Control c, string tabName)
             {
@@ -64,7 +73,11 @@ namespace ARKBreedingStats.SpeciesOptions
 
         private static void F_Closed(object sender, EventArgs e)
         {
-            if (_displayedForm == null) return;
+            if (_displayedForm == null)
+            {
+                return;
+            }
+
             Properties.Settings.Default.LevelColorWindowRectangle =
                 new Rectangle(_displayedForm.Left, _displayedForm.Top, _displayedForm.Width, _displayedForm.Height);
             _displayedForm.Tt.RemoveAllAndDispose();

@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.SpeciesImages;
@@ -67,12 +68,14 @@ namespace ARKBreedingStats.Pedigree
         /// <summary>
         /// If set to true, the control will not display sex, status or creature colors.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool OnlyLevels { get; set; }
         public bool[] enabledColorRegions;
         private bool _contextMenuAvailable;
         /// <summary>
         /// If set to true, the levelHatched in parentheses is appended with an '+'.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool TotalLevelUnknown { get; set; }
 
         public static readonly int[] DisplayedStats = {
@@ -104,7 +107,10 @@ namespace ARKBreedingStats.Pedigree
             _ttMonospaced.OwnerDraw = true;
             // set to monospaced font for better digit alignment
             if (TooltipFont == null)
+            {
                 TooltipFont = new Font("Consolas", 12);
+            }
+
             _ttMonospaced.Draw += TtMonospacedDraw;
             _ttMonospaced.Popup += TtMonospacedPopup;
             _tt.SetToolTip(labelSex, "Sex");
@@ -123,7 +129,9 @@ namespace ARKBreedingStats.Pedigree
                 l.Paint += StatLabelPaint;
             }
             foreach (var l in _labelsStatsMut)
+            {
                 l.MouseClick += element_MouseClick;
+            }
 
             // name patterns menu entries
             const int namePatternCount = 6;
@@ -140,7 +148,11 @@ namespace ARKBreedingStats.Pedigree
 
         private void StatLabelPaint(object sender, PaintEventArgs e)
         {
-            if (Creature?.Traits == null) return;
+            if (Creature?.Traits == null)
+            {
+                return;
+            }
+
             var g = e.Graphics;
             var statIndex = (int)((Control)sender).Tag;
             var i = 0;
@@ -149,7 +161,11 @@ namespace ARKBreedingStats.Pedigree
             {
                 foreach (var t in Creature.Traits)
                 {
-                    if (t.TraitDefinition?.StatIndex != statIndex) continue;
+                    if (t.TraitDefinition?.StatIndex != statIndex)
+                    {
+                        continue;
+                    }
+
                     if (t.MutationProbability > 0)
                     {
                         p.Color = Color.DeepPink;
@@ -170,7 +186,10 @@ namespace ARKBreedingStats.Pedigree
                         p.Color = Color.DarkGoldenrod;
                         b.Color = Color.Yellow;
                     }
-                    else continue;
+                    else
+                    {
+                        continue;
+                    }
 
                     const int circleWidth = 3;
                     const int markersPerColumn = 3;
@@ -207,7 +226,10 @@ namespace ARKBreedingStats.Pedigree
         public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false, bool displaySpecies = false, bool cursorHand = true) : this()
         {
             if (cursorHand)
+            {
                 Cursor = Cursors.Hand;
+            }
+
             this.enabledColorRegions = enabledColorRegions;
             this.comboId = comboId;
             DisplaySpecies = displaySpecies;
@@ -242,6 +264,7 @@ namespace ARKBreedingStats.Pedigree
         /// <summary>
         /// The creature that is displayed in this control.
         /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Creature Creature
         {
             get => _creature;
@@ -255,7 +278,11 @@ namespace ARKBreedingStats.Pedigree
                 }
                 SetTitle();
 
-                foreach (var l in _labelsStatsMut) l.Visible = _creature.levelsMutated != null;
+                foreach (var l in _labelsStatsMut)
+                {
+                    l.Visible = _creature.levelsMutated != null;
+                }
+
                 Height = PedigreeCreation.PedigreeElementHeight;
 
                 if (!OnlyLevels)
@@ -313,14 +340,22 @@ namespace ARKBreedingStats.Pedigree
                     {
                         _labelsStats[s].Text = _creature.levelsWild[si].ToString();
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
+                        {
                             _labelsStats[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7);
+                        }
                         else
+                        {
                             _labelsStats[s].BackColor = Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
                                 _creature.IsTopStat(si) ? 0.2 : 0.7);
+                        }
 
                         _labelsStats[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
                         var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition?.StatIndex == si), Environment.NewLine);
-                        if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
+                        if (!string.IsNullOrEmpty(traitList))
+                        {
+                            traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
+                        }
+
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
                             + (Stats.IsPercentage(si) ? "%" : string.Empty)
@@ -343,7 +378,9 @@ namespace ARKBreedingStats.Pedigree
 
                     // fonts are strange and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
                     using (var font = new Font("Microsoft Sans Serif", 8.25F, _creature.IsTopStat(si) ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
+                    {
                         _labelsStats[s].Font = font;
+                    }
                 }
                 if (OnlyLevels)
                 {
@@ -393,13 +430,21 @@ namespace ARKBreedingStats.Pedigree
                 $"{(!OnlyLevels && _creature.Status != CreatureStatus.Available ? "(" + Utils.StatusSymbol(_creature.Status) + ") " : string.Empty)}{_creature.name} ({totalLevel}{(TotalLevelUnknown ? "+" : string.Empty)})";
 
             if (_creature.growingUntil > DateTime.Now)
+            {
                 groupBox1.Text += $" (grown at {Utils.ShortTimeDate(_creature.growingUntil)})";
+            }
             else if (_creature.cooldownUntil > DateTime.Now)
+            {
                 groupBox1.Text += $" (cooldown until {Utils.ShortTimeDate(_creature.cooldownUntil)})";
+            }
+
             if (DisplaySpecies)
+            {
                 groupBox1.Text += $" - {_creature.SpeciesName}";
+            }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Highlight
         {
             set
@@ -409,6 +454,7 @@ namespace ARKBreedingStats.Pedigree
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool HandCursor
         {
             set => Cursor = value ? Cursors.Hand : Cursors.Default;
@@ -417,7 +463,9 @@ namespace ARKBreedingStats.Pedigree
         private void PedigreeCreature_MouseClick(object sender, MouseEventArgs e)
         {
             if (CreatureClicked != null && e.Button == MouseButtons.Left)
+            {
                 CreatureClicked(_creature, comboId, e);
+            }
         }
 
         private void element_MouseClick(object sender, MouseEventArgs e) => PedigreeCreature_MouseClick(sender, e);
@@ -468,9 +516,15 @@ namespace ARKBreedingStats.Pedigree
         private void removeCooldownGrowingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_creature.cooldownUntil > DateTime.Now)
+            {
                 _creature.cooldownUntil = DateTime.Now;
+            }
+
             if (_creature.growingUntil > DateTime.Now)
+            {
                 _creature.growingUntil = DateTime.Now;
+            }
+
             SetTitle();
         }
 
@@ -493,7 +547,11 @@ namespace ARKBreedingStats.Pedigree
 
         private void OpenWikipageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (_creature?.Species == null) return;
+            if (_creature?.Species == null)
+            {
+                return;
+            }
+
             ArkWiki.OpenPage(_creature.Species.name);
         }
 
@@ -505,7 +563,9 @@ namespace ARKBreedingStats.Pedigree
         private void copyNameToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(_creature?.name))
+            {
                 utils.ClipboardHandler.SetText(_creature.name);
+            }
         }
 
         private void copyInfoGraphicToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -518,7 +578,10 @@ namespace ARKBreedingStats.Pedigree
             if (!TraitSelection.ShowTraitSelectionWindow(Creature.Traits?.ToList(),
                     $"Trait Selection for {Creature.name} ({Creature.Species})",
                     out var appliedTraits))
+            {
                 return;
+            }
+
             Creature.Traits = appliedTraits?.ToArray();
             RecalculateBreedingPlan?.Invoke();
             CollectionChanged?.Invoke();

@@ -1,9 +1,11 @@
-﻿using Newtonsoft.Json;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
+using ARKBreedingStats.utils;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
-using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.values
 {
@@ -52,7 +54,9 @@ namespace ARKBreedingStats.values
                         "ARK Smart Breeding will not work properly without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.Updater.ReleasesUrl);
+                {
+                    Utils.OpenUri(Updater.Updater.ReleasesUrl);
+                }
             }
 
             return false;
@@ -67,7 +71,10 @@ namespace ARKBreedingStats.values
         {
             if (!string.IsNullOrEmpty(presetName)
                 && serverMultiplierDictionary.TryGetValue(presetName, out var serverPreset))
+            {
                 return serverPreset.Copy(true);
+            }
+
             return null;
         }
 

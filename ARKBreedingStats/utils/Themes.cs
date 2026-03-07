@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ARKBreedingStats.utils
@@ -24,7 +24,9 @@ namespace ARKBreedingStats.utils
             control.ForeColor = foreColor;
 
             foreach (Control c in control.Controls)
+            {
                 c.SetControlColors(backColor, foreColor);
+            }
         }
 
         /// <summary>
@@ -40,7 +42,9 @@ namespace ARKBreedingStats.utils
             }
 
             foreach (Control c in control.Controls)
+            {
                 c.InitializeTabControls();
+            }
         }
 
         private static void TabControl_DrawItem(object sender, DrawItemEventArgs e)

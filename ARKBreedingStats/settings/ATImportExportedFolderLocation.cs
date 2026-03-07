@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using Acornima;
@@ -57,7 +57,9 @@ namespace ARKBreedingStats.settings
         public static bool operator ==(ATImportExportedFolderLocation a, ATImportExportedFolderLocation b)
         {
             if (a is null)
+            {
                 return b is null;
+            }
 
             return ReferenceEquals(a, b) || a.Equals(b);
         }
@@ -70,7 +72,11 @@ namespace ARKBreedingStats.settings
         /// </summary>
         public bool IsDefaultForLibraryFile(string libraryFilePath)
         {
-            if (string.IsNullOrEmpty(libraryFilePath) || SetDefaultForLibraryFiles?.Any() != true) return false;
+            if (string.IsNullOrEmpty(libraryFilePath) || SetDefaultForLibraryFiles?.Any() != true)
+            {
+                return false;
+            }
+
             var fileName = Path.GetFileName(libraryFilePath);
             return SetDefaultForLibraryFiles.Any(p => p == libraryFilePath || p == fileName);
         }

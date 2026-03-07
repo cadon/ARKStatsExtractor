@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,12 +18,16 @@ namespace ARKBreedingStats.uiControls
             tagStrings = new List<string>();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string> tags
         {
             set
             {
                 foreach (Control c in Controls)
+                {
                     c.Dispose();
+                }
+
                 Controls.Clear();
                 tagSelectors.Clear();
                 int i = 0;
@@ -53,29 +58,43 @@ namespace ARKBreedingStats.uiControls
         {
             int i = tagStrings.IndexOf(tag);
             if (i >= 0)
+            {
                 tagSelectors[i].Status = status;
+            }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string> excludingTags
         {
             get
             {
                 List<string> l = new List<string>();
                 foreach (TagSelector ts in tagSelectors)
+                {
                     if (ts.Status == TagSelector.tagStatus.exclude)
+                    {
                         l.Add(ts.TagName);
+                    }
+                }
+
                 return l;
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string> includingTags
         {
             get
             {
                 List<string> l = new List<string>();
                 foreach (TagSelector ts in tagSelectors)
+                {
                     if (ts.Status == TagSelector.tagStatus.include)
+                    {
                         l.Add(ts.TagName);
+                    }
+                }
+
                 return l;
             }
         }

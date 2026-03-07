@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using ARKBreedingStats.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
@@ -21,7 +22,9 @@ namespace ARKBreedingStats.uiControls
         private void ParentStats_Paint(object sender, PaintEventArgs e)
         {
             if (ControlOffspring.Creature != null && _lines[0].Any())
+            {
                 PedigreeControl.DrawLines(e.Graphics, _lines);
+            }
         }
 
         internal void SetCreatures(Creature offspring = null, Creature mother = null, Creature father = null)
@@ -50,7 +53,9 @@ namespace ARKBreedingStats.uiControls
             void SetCreature(PedigreeCreature pc, Creature c)
             {
                 if (c == null)
+                {
                     pc.Visible = false;
+                }
                 else
                 {
                     pc.Creature = c;

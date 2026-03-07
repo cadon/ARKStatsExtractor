@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,7 +53,11 @@ namespace ARKBreedingStats.SpeciesOptions
         /// </summary>
         public void LoadSettings()
         {
-            if (string.IsNullOrEmpty(_settingsFileName)) return;
+            if (string.IsNullOrEmpty(_settingsFileName))
+            {
+                return;
+            }
+
             var filePath = FileService.GetJsonPath(_settingsFileName);
 
             string errorMessage = null;
@@ -60,20 +65,28 @@ namespace ARKBreedingStats.SpeciesOptions
                 || !FileService.LoadJsonFile(filePath, out SpeciesOptionsDict, out errorMessage))
             {
                 if (!string.IsNullOrEmpty(errorMessage))
+                {
                     MessageBoxes.ShowMessageBox(errorMessage);
+                }
+
                 SpeciesOptionsDict = new Dictionary<string, U>();
             }
 
             // default value
             if (!SpeciesOptionsDict.ContainsKey(string.Empty))
+            {
                 SpeciesOptionsDict[string.Empty] = GetDefaultSpeciesOptions(string.Empty);
+            }
+
             var rootSettings = SpeciesOptionsDict[string.Empty];
 
             // ensure root setting has all values
             for (var i = 0; i < rootSettings.Options.Length; i++)
             {
                 if (rootSettings.Options[i] == null)
+                {
                     rootSettings.Options[i] = GetDefaultOption();
+                }
             }
 
             foreach (var o in SpeciesOptionsDict.Values)
@@ -82,15 +95,21 @@ namespace ARKBreedingStats.SpeciesOptions
                 if (o.Name != string.Empty)
                 {
                     if (o.ParentName != null && SpeciesOptionsDict.TryGetValue(o.ParentName, out var po))
+                    {
                         o.ParentOptions = po;
+                    }
                     else
+                    {
                         o.ParentOptions = rootSettings; // root is default parent
+                    }
                 }
 
                 if (o.Options != null)
                 {
                     foreach (var so in o.Options)
+                    {
                         so?.Initialize();
+                    }
                 }
             }
         }
@@ -130,13 +149,19 @@ namespace ARKBreedingStats.SpeciesOptions
         public T GetDefaultOption()
         {
             if (typeof(T) == typeof(StatLevelColors))
+            {
                 return StatLevelColors.GetDefault() as T;
+            }
 
             if (typeof(T) == typeof(ConsiderTopStats))
+            {
                 return ConsiderTopStats.GetDefault() as T;
+            }
 
             if (typeof(T) == typeof(WantedRegionColors))
+            {
                 return WantedRegionColors.GetDefault() as T;
+            }
 
             throw new ArgumentOutOfRangeException($"Unknown type {typeof(T)}, no default value defined");
         }
@@ -146,7 +171,10 @@ namespace ARKBreedingStats.SpeciesOptions
         /// </summary>
         public void SaveSettings()
         {
-            if (string.IsNullOrEmpty(_settingsFileName)) return;
+            if (string.IsNullOrEmpty(_settingsFileName))
+            {
+                return;
+            }
 
             var filePath = FileService.GetJsonPath(_settingsFileName);
 
@@ -154,16 +182,25 @@ namespace ARKBreedingStats.SpeciesOptions
             foreach (var o in SpeciesOptionsDict.Values)
             {
                 if (o.ParentOptions?.Name != o.Name)
+                {
                     o.ParentName = o.ParentOptions?.Name;
+                }
                 else
+                {
                     o.ParentName = null; // don't save direct loop
+                }
+
                 foreach (var so in o.Options)
+                {
                     so?.PrepareForSaving(string.IsNullOrEmpty(o.Name));
+                }
             }
 
             FileService.SaveJsonFile(filePath, SpeciesOptionsDict, out var errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
+            {
                 MessageBoxes.ShowMessageBox(errorMessage);
+            }
         }
 
         /// <summary>
@@ -171,9 +208,15 @@ namespace ARKBreedingStats.SpeciesOptions
         /// </summary>
         public U GetOptions(Species species)
         {
-            if (string.IsNullOrEmpty(species?.blueprintPath) || SpeciesOptionsDict == null) return null;
+            if (string.IsNullOrEmpty(species?.blueprintPath) || SpeciesOptionsDict == null)
+            {
+                return null;
+            }
 
-            if (_cache.TryGetValue(species.blueprintPath, out var o)) return o;
+            if (_cache.TryGetValue(species.blueprintPath, out var o))
+            {
+                return o;
+            }
 
             U speciesOptions;
 
@@ -182,7 +225,9 @@ namespace ARKBreedingStats.SpeciesOptions
                 .Where(kv => kv.Value.AffectedSpecies != null)
                 .SelectMany(kv => kv.Value.AffectedSpecies.Select(sp => (sp, kv.Value)));
             foreach (var sp in list)
+            {
                 dict[sp.sp] = sp.Value;
+            }
 
             if (dict.TryGetValue(species.blueprintPath, out o)
                 || dict.TryGetValue(species.DescriptiveNameAndMod, out o)
@@ -230,7 +275,10 @@ namespace ARKBreedingStats.SpeciesOptions
                 if (speciesOptions?.DefinesData() != true)
                 {
                     if (defaultOptions == null && !SpeciesOptionsDict.TryGetValue(string.Empty, out defaultOptions))
+                    {
                         throw new Exception($"no default options found for type {typeof(U)}");
+                    }
+
                     speciesOptions = defaultOptions.Options[oi];
                 }
 

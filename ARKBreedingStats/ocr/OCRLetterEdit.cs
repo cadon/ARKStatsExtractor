@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.ocr.PatternMatching;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.ocr
 {
@@ -37,14 +38,21 @@ namespace ARKBreedingStats.ocr
             {
                 int gi = 0;
                 for (var x = 0; x < ImageWidth; x += _pxSize)
+                {
                     e.Graphics.DrawLine(gi++ % 5 == 0 ? gridPenBright : gridPen, x, 0, x, ImageHeight);
+                }
+
                 gi = 0;
                 for (var y = 0; y < ImageHeight; y += _pxSize)
+                {
                     e.Graphics.DrawLine(gi++ % 5 == 0 ? gridPenBright : gridPen, 0, y, ImageWidth, y);
+                }
             }
 
-            if (_patternDisplay == null) return;
-
+            if (_patternDisplay == null)
+            {
+                return;
+            }
 
             for (int y = 0; y < _patternDisplay.Height; y++)
             {
@@ -58,7 +66,9 @@ namespace ARKBreedingStats.ocr
                     if (!_overlay)
                     {
                         if (bitTemplate)
+                        {
                             e.Graphics.FillRectangle(Brushes.LightCoral, x * _pxSize, yTemplate * _pxSize, _pxSize, _pxSize);
+                        }
                     }
                     else
                     {
@@ -67,11 +77,17 @@ namespace ARKBreedingStats.ocr
                         var bitRecognized = _patternRecognized[x, y];
 
                         if (bitTemplate && bitRecognized)
+                        {
                             e.Graphics.FillRectangle(Brushes.White, x * _pxSize, yTemplate * _pxSize, _pxSize, _pxSize);
+                        }
                         else if (bitTemplate)
+                        {
                             e.Graphics.FillRectangle(Brushes.LightGreen, x * _pxSize, yTemplate * _pxSize, _pxSize, _pxSize);
+                        }
                         else if (bitRecognized)
+                        {
                             e.Graphics.FillRectangle(Brushes.DarkRed, x * _pxSize, yTemplate * _pxSize, _pxSize, _pxSize);
+                        }
                     }
                 }
             }
@@ -96,24 +112,48 @@ namespace ARKBreedingStats.ocr
                 var pxWidth = _patternDisplay.Width * _pxSize;
 
                 if ((_patternDisplay.Apertures & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, -pieWidth / 2, pieWidth, pieWidth, pieWidth, 270, 180);
+                }
+
                 if (((_patternDisplay.Apertures >> 1) & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, pxWidth - pieWidth / 2, pieWidth, pieWidth, pieWidth, 90, 180);
+                }
+
                 if (((_patternDisplay.Apertures >> 2) & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, -pieWidth / 2, pxHeight - 2 * pieWidth, pieWidth, pieWidth, 270, 180);
+                }
+
                 if (((_patternDisplay.Apertures >> 3) & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, pxWidth - pieWidth / 2, pxHeight - 2 * pieWidth, pieWidth, pieWidth, 90, 180);
+                }
+
                 if (((_patternDisplay.Apertures >> 4) & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, pxWidth / 2 - pieWidth / 2, -pieWidth / 2, pieWidth, pieWidth, 180, 360);
+                }
+
                 if (((_patternDisplay.Apertures >> 5) & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, pxWidth / 2 - pieWidth / 2, pxHeight / 3 - pieWidth / 2, pieWidth, pieWidth, 0, 360);
+                }
+
                 if (((_patternDisplay.Apertures >> 6) & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, pxWidth / 2 - pieWidth / 2, 2 * pxHeight / 3 - pieWidth / 2, pieWidth, pieWidth, 0, 360);
+                }
+
                 if (((_patternDisplay.Apertures >> 7) & 1) == 1)
+                {
                     e.Graphics.FillPie(brush, pxWidth / 2 - pieWidth / 2, pxHeight - pieWidth / 2, pieWidth, pieWidth, 180, 180);
+                }
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Displayed pattern.
         /// </summary>
@@ -153,13 +193,22 @@ namespace ARKBreedingStats.ocr
 
                 int size = Math.Max(value.HeightWithOffset, value.Width);
                 if (size > 0)
+                {
                     _pxSize = Math.Max(2, 100 / size);
-                else _pxSize = 3;
+                }
+                else
+                {
+                    _pxSize = 3;
+                }
+
                 Invalidate();
             }
             get
             {
-                if (_patternDisplay == null) return null;
+                if (_patternDisplay == null)
+                {
+                    return null;
+                }
                 // if array can be trimmed, recreate it
                 bool recreateArray = false;
                 // check for yOffset to reduce array size
@@ -179,7 +228,9 @@ namespace ARKBreedingStats.ocr
                     }
 
                     if (rowContainsData)
+                    {
                         break;
+                    }
 
                     yOffset++;
                     recreateArray = true;
@@ -199,7 +250,9 @@ namespace ARKBreedingStats.ocr
                     }
 
                     if (rowContainsData)
+                    {
                         break;
+                    }
 
                     height = y;
                     recreateArray = true;
@@ -220,7 +273,9 @@ namespace ARKBreedingStats.ocr
                     }
 
                     if (columnContainsData)
+                    {
                         break;
+                    }
 
                     xOffset++;
                     recreateArray = true;
@@ -240,7 +295,9 @@ namespace ARKBreedingStats.ocr
                     }
 
                     if (columnContainsData)
+                    {
                         break;
+                    }
 
                     width = x;
                     recreateArray = true;
@@ -267,6 +324,7 @@ namespace ARKBreedingStats.ocr
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// The differences to this pattern will be highlighted.
         /// </summary>
@@ -275,6 +333,7 @@ namespace ARKBreedingStats.ocr
             set => _patternRecognized = value.Clone();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int RecognizedOffset
         {
             set
@@ -287,13 +346,19 @@ namespace ARKBreedingStats.ocr
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
-            if (!drawingEnabled || _patternDisplay == null || _pxSize == 0) return;
+            if (!drawingEnabled || _patternDisplay == null || _pxSize == 0)
+            {
+                return;
+            }
 
             Point p = e.Location;
             int x = p.X / _pxSize + (_offset < 0 ? _offset : 0);
             int y = p.Y / _pxSize;
             // if toggled pixel is outside the borders due to a shifted display, ignore click
-            if (x < 0 || x >= _patternDisplay.Width || y >= _patternDisplay.Height) return;
+            if (x < 0 || x >= _patternDisplay.Width || y >= _patternDisplay.Height)
+            {
+                return;
+            }
 
             // toggle pixel
             _patternDisplay[x, y] = !_patternDisplay[x, y];

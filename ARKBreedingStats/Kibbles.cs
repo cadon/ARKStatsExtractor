@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

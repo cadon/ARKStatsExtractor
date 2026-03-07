@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.SpeciesOptions
+using ARKBreedingStats.Models;
+
+namespace ARKBreedingStats.SpeciesOptions
 {
     /// <summary>
     /// Stats options for specific species.

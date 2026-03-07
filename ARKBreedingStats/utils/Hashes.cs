@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace ARKBreedingStats.utils
 {
@@ -9,12 +9,18 @@ namespace ARKBreedingStats.utils
         /// </summary>
         public static int CombineOrderedHashes(IEnumerable<int> hashes)
         {
-            if (hashes == null) return 0;
+            if (hashes == null)
+            {
+                return 0;
+            }
+
             unchecked
             {
                 var combinedHash = 17;
                 foreach (var hash in hashes)
+                {
                     combinedHash = combinedHash * 31 + hash;
+                }
 
                 return combinedHash;
             }

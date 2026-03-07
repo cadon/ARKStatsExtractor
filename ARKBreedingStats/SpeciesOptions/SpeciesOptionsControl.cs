@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,11 @@ namespace ARKBreedingStats.SpeciesOptions
 
         protected void InitializeControls(SpeciesOptionsSettings<T, U> settings, ToolTip tt)
         {
-            if (settings == null) return;
+            if (settings == null)
+            {
+                return;
+            }
+
             SpeciesOptionsSettings = settings;
             Tt = tt;
 
@@ -117,7 +122,9 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             }
             _ignoreIndexChange = false;
             if (CbbOptions.SelectedItem == null && CbbOptions.Items.Count > 0)
+            {
                 CbbOptions.SelectedIndex = 0;
+            }
         }
 
         private void BtNew_Click(object sender, EventArgs e)
@@ -126,7 +133,10 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             var newName = newNameBase;
             var suffix = 1;
             while (SpeciesOptionsSettings.SpeciesOptionsDict.ContainsKey(newName))
+            {
                 newName = newNameBase + "_" + ++suffix;
+            }
+
             var newSettings = SpeciesOptionsSettings.GetDefaultSpeciesOptions(newName);
             SpeciesOptionsSettings.SpeciesOptionsDict.Add(newName, newSettings);
             InitializeOptions();
@@ -139,29 +149,44 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         {
             if (SelectedOptions == null
                 || MessageBox.Show("Delete stat options\n" + SelectedOptions.Name + "\n?", "Delete?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                != DialogResult.Yes) return;
+                != DialogResult.Yes)
+            {
+                return;
+            }
 
             var index = CbbOptions.SelectedIndex;
             // set parent of dependant options to parent of this setting
             foreach (var so in SpeciesOptionsSettings.SpeciesOptionsDict.Values)
             {
                 if (so.ParentOptions == SelectedOptions)
+                {
                     so.ParentOptions = SelectedOptions.ParentOptions;
+                }
             }
 
             SpeciesOptionsSettings.SpeciesOptionsDict.Remove(SelectedOptions.Name);
 
             InitializeOptions();
             if (CbbOptions.Items.Count > 0)
+            {
                 CbbOptions.SelectedIndex = Math.Max(0, index - 1); // select item before deleted one
+            }
+
             SpeciesOptionsSettings.ClearSpeciesCache();
         }
 
         private void CbbOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_ignoreIndexChange) return;
+            if (_ignoreIndexChange)
+            {
+                return;
+            }
+
             SelectedOptions = CbbOptions.SelectedItem as SpeciesOptionsBase<T>;
-            if (SelectedOptions == null) return;
+            if (SelectedOptions == null)
+            {
+                return;
+            }
 
             this.SuspendDrawingAndLayout();
             TbOptionsName.Text = SelectedOptions.Name;
@@ -183,7 +208,11 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
 
         private void TbAffectedSpeciesLeave(object sender, EventArgs e)
         {
-            if (SelectedOptions == null) return;
+            if (SelectedOptions == null)
+            {
+                return;
+            }
+
             var sp = TbAffectedSpecies.Text
                 .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s))
@@ -218,11 +247,23 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
 
         private void CbbParent_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_ignoreIndexChange) return;
+            if (_ignoreIndexChange)
+            {
+                return;
+            }
+
             SelectedOptions = CbbOptions.SelectedItem as SpeciesOptionsBase<T>;
-            if (SelectedOptions == null) return;
+            if (SelectedOptions == null)
+            {
+                return;
+            }
+
             var selectedParent = CbbParent.SelectedItem as SpeciesOptionsBase<T>;
-            if (SelectedOptions == selectedParent) return; // ignore if node itself is selected as parent
+            if (SelectedOptions == selectedParent)
+            {
+                return; // ignore if node itself is selected as parent
+            }
+
             SelectedOptions.ParentOptions = selectedParent;
             InitializeOptions(true);
             SpeciesOptionsSettings.ClearSpeciesCache();
@@ -231,11 +272,17 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         private void TbOptionsName_Leave(object sender, EventArgs e)
         {
             var newNameBase = TbOptionsName.Text;
-            if (SelectedOptions.Name == newNameBase) return; // nothing to change
+            if (SelectedOptions.Name == newNameBase)
+            {
+                return; // nothing to change
+            }
+
             var newName = newNameBase;
             var suffix = 1;
             while (SpeciesOptionsSettings.SpeciesOptionsDict.ContainsKey(newName))
+            {
                 newName = newNameBase + "_" + ++suffix;
+            }
 
             TbOptionsName.Text = newName;
             if (SelectedOptions.AffectedSpecies?.Any() != false)
@@ -250,7 +297,10 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             CbbOptions.Items[CbbOptions.SelectedIndex] = SelectedOptions;
             var cbbParentIndex = CbbParent.Items.IndexOf(SelectedOptions);
             if (cbbParentIndex >= 0)
+            {
                 CbbParent.Items[cbbParentIndex] = SelectedOptions;
+            }
+
             SpeciesOptionsSettings.ClearSpeciesCache();
         }
 
@@ -281,7 +331,11 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
         public void SetSpecies(Species s)
         {
             Species = s;
-            if (Species == null) return;
+            if (Species == null)
+            {
+                return;
+            }
+
             var autoCompleteList = new AutoCompleteStringCollection();
             autoCompleteList.AddRange(new[]
             {
@@ -303,11 +357,15 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
             foreach (var item in dict)
             {
                 if (item.Value.ParentOptions != null && nodeChildren.TryGetValue((U)item.Value.ParentOptions, out var parent))
+                {
                     parent.Add(item.Value);
+                }
             }
 
             if (!dict.TryGetValue(string.Empty, out var rootNode))
+            {
                 return Array.Empty<SpeciesOptionsBase<T>>();
+            }
 
             var sortedList = new List<SpeciesOptionsBase<T>> { rootNode };
             var level = 0;
@@ -315,7 +373,10 @@ BlueprintPath > DescriptiveNameAndMod > DescriptiveName > Name");
 
             void AddChildren(U n)
             {
-                if (!nodeChildren.TryGetValue(n, out var children)) return;
+                if (!nodeChildren.TryGetValue(n, out var children))
+                {
+                    return;
+                }
 
                 level++;
                 foreach (var item in children.OrderBy(cn => cn.Name))

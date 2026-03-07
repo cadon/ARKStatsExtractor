@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -121,12 +121,20 @@ namespace ARKBreedingStats.testCases
         private void ClearAll(bool clearCases = false)
         {
             foreach (var e in extractionTestControls)
+            {
                 e.Dispose();
+            }
+
             extractionTestControls.Clear();
             if (cases == null)
+            {
                 cases = new ExtractionTestCases();
+            }
+
             if (clearCases)
+            {
                 cases.testCases.Clear();
+            }
         }
 
         /// <summary>
@@ -151,7 +159,10 @@ namespace ARKBreedingStats.testCases
         {
             string initialPath = Application.StartupPath;
             if (!string.IsNullOrEmpty(Properties.Settings.Default.LastSaveFileTestCases))
+            {
                 initialPath = Path.GetDirectoryName(Properties.Settings.Default.LastSaveFileTestCases);
+            }
+
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "ASB Extraction Testcases (*.json)|*.json";
@@ -191,10 +202,15 @@ namespace ARKBreedingStats.testCases
         private void btRunAllTests_Click(object sender, EventArgs e)
         {
             foreach (var t in extractionTestControls)
+            {
                 t.ClearTestResult();
+            }
+
             Invalidate();
             foreach (var t in extractionTestControls)
+            {
                 t.RunTest();
+            }
         }
     }
 }

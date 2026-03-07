@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
@@ -48,7 +49,11 @@ namespace ARKBreedingStats.importExported
             bool inStatSection = false;
             foreach (string line in iniLines)
             {
-                if (line.TrimStart().StartsWith(";")) continue; // comment
+                if (line.TrimStart().StartsWith(";"))
+                {
+                    continue; // comment
+                }
+
                 if (line.Contains("[Max Character Status Values]"))
                 {
                     inStatSection = true;
@@ -56,7 +61,10 @@ namespace ARKBreedingStats.importExported
                 }
 
                 int i = line.IndexOf("=", StringComparison.Ordinal);
-                if (i == -1) continue;
+                if (i == -1)
+                {
+                    continue;
+                }
 
                 string parameterName;
                 string text = line.Substring(i + 1);
@@ -65,19 +73,27 @@ namespace ARKBreedingStats.importExported
                 {
                     statIndex++;
                     if (statIndex > 11)
+                    {
                         inStatSection = false;
+                    }
                 }
                 if (inStatSection)
+                {
                     parameterName = statParameterNames[statIndex];
+                }
                 else
                 {
                     parameterName = line.Substring(0, i);
                     if (parameterName.Contains("DinoAncestorsMale"))
+                    {
                         parameterName = "DinoAncestorsMale"; // only the last entry contains the parents
+                    }
                 }
 
                 if (string.IsNullOrEmpty(parameterName))
+                {
                     continue;
+                }
 
                 switch (parameterName)
                 {
@@ -107,7 +123,10 @@ namespace ARKBreedingStats.importExported
                         // despite the property is called DinoClass it contains the complete blueprint-path
                         cv.Species = Values.V.SpeciesByBlueprint(text, true);
                         if (cv.Species == null)
+                        {
                             cv.speciesBlueprint = text; // species is unknown, check the needed mods later
+                        }
+
                         break;
                     //case "DinoNameTag":
                     //    // get name if blueprintpath is not available (in this case a custom values_mod.json should be created, this is just a fallback
@@ -122,13 +141,21 @@ namespace ARKBreedingStats.importExported
                         break;
                     case "bNeutered":
                         if (text != "False")
+                        {
                             cv.flags |= CreatureFlags.Neutered;
+                        }
+
                         break;
                     case "TamerString":
                         if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
+                        {
                             cv.owner = text;
+                        }
                         else
+                        {
                             cv.tribe = text;
+                        }
+
                         break;
                     case "TamedName":
                         cv.name = text;
@@ -136,9 +163,15 @@ namespace ARKBreedingStats.importExported
                     case "ImprinterName":
                         cv.imprinterName = text;
                         if (string.IsNullOrEmpty(cv.owner))
+                        {
                             cv.owner = text;
+                        }
+
                         if (!string.IsNullOrWhiteSpace(text))
+                        {
                             cv.isBred = true;
+                        }
+
                         break;
                     case "RandomMutationsMale":
                         cv.mutationCounterFather = (int)value;
@@ -150,7 +183,10 @@ namespace ARKBreedingStats.importExported
                         if (cv.Species?.breeding != null)
                         {
                             cv.growingUntil = DateTime.Now.AddSeconds((int)(cv.Species.breeding.maturationTimeAdjusted * (1 - value)));
-                            if (value < 1) cv.isBred = true;
+                            if (value < 1)
+                            {
+                                cv.isBred = true;
+                            }
                         }
                         break;
                     case "CharacterLevel":
@@ -158,7 +194,11 @@ namespace ARKBreedingStats.importExported
                         break;
                     case "DinoImprintingQuality":
                         cv.imprintingBonus = value;
-                        if (value > 0) cv.isBred = true;
+                        if (value > 0)
+                        {
+                            cv.isBred = true;
+                        }
+
                         break;
                     // Colorization
                     case "ColorSet[0]":
@@ -229,9 +269,16 @@ namespace ARKBreedingStats.importExported
             }
 
             // if file was not recognized, return null
-            if (string.IsNullOrEmpty(cv.speciesBlueprint)) return null;
+            if (string.IsNullOrEmpty(cv.speciesBlueprint))
+            {
+                return null;
+            }
 
-            if (cv.Species?.NoGender == true) cv.sex = Sex.Unknown;
+            if (cv.Species?.NoGender == true)
+            {
+                cv.sex = Sex.Unknown;
+            }
+
             cv.ColorIdsAlsoPossible = ArkColors.GetAlternativeColorIds(cv.colorIDs);
 
             return cv;
@@ -243,7 +290,10 @@ namespace ARKBreedingStats.importExported
         /// </summary>
         private static byte ParseColorId(string text)
         {
-            if (text.Length < 33) return 0;
+            if (text.Length < 33)
+            {
+                return 0;
+            }
 
             var numberStyle = System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
             var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
@@ -254,14 +304,19 @@ namespace ARKBreedingStats.importExported
                )
             {
                 if (r == 0 && g == 0 && b == 0 && a == 1) // no color
+                {
                     return 0;
+                }
+
                 if (r == 1 && g == 1 && b == 1 && a == 1)
                 {
                     // in ASE and ASA this is the undefined color. In ASA it's also the white coloring.
                     // return undefined id for ASE, use color matching for ASA
                     // this will result in the white coloring, then the undefined color is added as alternative possible color
                     if (Ark.UndefinedColorId == Ark.UndefinedColorIdAse)
+                    {
                         return Ark.UndefinedColorId;
+                    }
                 }
 
                 return Values.V.Colors.ClosestColorId(r, g, b, a);
@@ -279,7 +334,10 @@ namespace ARKBreedingStats.importExported
         {
             if (int.TryParse(id1, out int id1Int)
                 && int.TryParse(id2, out int id2Int))
+            {
                 return Utils.ConvertArkIdsToLongArkId(id1Int, id2Int);
+            }
+
             return 0;
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -44,7 +45,10 @@ namespace ARKBreedingStats.utils
         /// </summary>
         public Creature[] DoSort(IEnumerable<Creature> list, int columnIndex = -1, Dictionary<Species, int> speciesOrderIndex = null)
         {
-            if (list == null) return null;
+            if (list == null)
+            {
+                return null;
+            }
 
             // Determine if clicked column is already the column that is being sorted.
             if (columnIndex == SortColumnIndex)
@@ -87,7 +91,9 @@ namespace ARKBreedingStats.utils
             else
             {
                 foreach (var c in orderedList)
+                {
                     c.ListIndex = i++;
+                }
             }
 
             return orderedList;
@@ -101,7 +107,10 @@ namespace ARKBreedingStats.utils
             {
                 listOrdered = list.OrderBy(c => speciesOrderIndex.TryGetValue(c.Species, out var i) ? i : int.MaxValue);
                 if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
+                {
                     return listOrdered;
+                }
+
                 listOrdered = Order == SortOrder.Ascending
                     ? listOrdered.ThenBy(_keySelectors[SortColumnIndex], comparer)
                     : listOrdered.ThenByDescending(_keySelectors[SortColumnIndex], comparer);
@@ -109,14 +118,19 @@ namespace ARKBreedingStats.utils
             else
             {
                 if (SortColumnIndex == -1 || SortColumnIndex >= _keySelectors.Length)
+                {
                     return list;
+                }
+
                 listOrdered = Order == SortOrder.Ascending
                     ? list.OrderBy(_keySelectors[SortColumnIndex], comparer)
                     : list.OrderByDescending(_keySelectors[SortColumnIndex], comparer);
             }
 
             if (_lastSortColumnIndex == -1 || _lastSortColumnIndex >= _keySelectors.Length)
+            {
                 return listOrdered;
+            }
 
             // sort by second column that was selected previously
             return _lastOrder == SortOrder.Ascending
@@ -176,7 +190,7 @@ namespace ARKBreedingStats.utils
             c => c.Status,
             c => c.flags & CreatureFlags.MutagenApplied,
             c => c.Level,
-            c => c.MaxPossibleLevel,
+            c => c.MaxPossibleLevel(CreatureCollection.CurrentCreatureCollection?.maxDomLevel ?? 0),
             c => c.TraitsString
         };
     }

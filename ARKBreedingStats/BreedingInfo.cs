@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.species;
 using System;
 using System.Text;
 using System.Windows.Forms;
@@ -18,12 +19,18 @@ namespace ARKBreedingStats
         /// <param name="species"></param>
         public void DisplayData(Species species)
         {
-            if (species?.breeding == null) return;
+            if (species?.breeding == null)
+            {
+                return;
+            }
+
             var breedingInfo = new StringBuilder();
 
             string firstTime = "Gestation";
             if (species.breeding.gestationTimeAdjusted <= 0)
+            {
                 firstTime = "Incubation";
+            }
 
             string[] rowNames = { firstTime, "Baby", "Maturation" };
             for (int k = 0; k < 3; k++)
@@ -64,12 +71,21 @@ namespace ARKBreedingStats
             // further info
             var eggTemp = raising.Raising.EggTemperature(species);
             if (!string.IsNullOrEmpty(eggTemp))
+            {
                 breedingInfo.AppendLine(eggTemp);
+            }
+
             if (!string.IsNullOrEmpty(eggTemp) && species.breeding.matingCooldownMinAdjusted > 0)
+            {
                 breedingInfo.AppendLine();
+            }
+
             if (species.breeding.matingCooldownMinAdjusted > 0)
+            {
                 breedingInfo.Append("Time until next mating is possible:\n" + new TimeSpan(0, 0, (int)species.breeding.matingCooldownMinAdjusted).ToString("d':'hh':'mm")
                               + " – " + new TimeSpan(0, 0, (int)species.breeding.matingCooldownMaxAdjusted).ToString("d':'hh':'mm"));
+            }
+
             labelBreedingInfos.Text = breedingInfo.ToString();
         }
     }

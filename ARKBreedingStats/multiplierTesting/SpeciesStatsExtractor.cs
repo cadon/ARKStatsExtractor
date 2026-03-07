@@ -1,4 +1,6 @@
-﻿using System;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -133,7 +135,10 @@ namespace ARKBreedingStats.multiplierTesting
                 species.fullStatsRaw[s] = new double[5];
                 var spStats = species.fullStatsRaw[s];
                 var baseValue = Math.Round(wildCreatureWithZeroWildLevels.GetStatValue(s), roundToDigits);
-                if (baseValue == 0) continue;
+                if (baseValue == 0)
+                {
+                    continue;
+                }
 
                 spStats[Species.StatsRawIndexBase] = baseValue;
 
@@ -191,12 +196,16 @@ namespace ARKBreedingStats.multiplierTesting
                     }
 
                     if (taTaM != 0 && svStats[ServerMultipliers.IndexTamingAdd] != 0)
+                    {
                         spStats[Species.StatsRawIndexAdditiveBonus] =
                             Math.Round(taTaM / svStats[ServerMultipliers.IndexTamingAdd], roundToDigits);
+                    }
 
                     tbhm = Math.Round(tbhm, roundToDigits);
                     if (tbhm != 1)
+                    {
                         species.TamedBaseHealthMultiplier = (float)tbhm;
+                    }
                 }
                 else
                 {
@@ -224,11 +233,16 @@ namespace ARKBreedingStats.multiplierTesting
 
                     var roundToDigitsTa = Stats.Precision(s); // round Ta more due to extraction rounding issues
                     if (taTaM != 0 && svStats[ServerMultipliers.IndexTamingAdd] != 0)
+                    {
                         spStats[Species.StatsRawIndexAdditiveBonus] =
                             Math.Round(taTaM / svStats[ServerMultipliers.IndexTamingAdd], roundToDigitsTa);
+                    }
+
                     if (tmTmM != 0 && svStats[ServerMultipliers.IndexTamingMult] != 0)
+                    {
                         spStats[Species.StatsRawIndexMultiplicativeBonus] =
                             Math.Round(tmTmM / svStats[ServerMultipliers.IndexTamingMult], roundToDigits);
+                    }
                 }
 
                 // dom level

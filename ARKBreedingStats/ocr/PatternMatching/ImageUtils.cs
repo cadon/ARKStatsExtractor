@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace ARKBreedingStats.ocr.PatternMatching
@@ -28,7 +28,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
                         byte* b = scan0 + y * bmpData.Stride + x * bBytes;
 
                         if (ArkOcr.HslLightness(b[0], b[1], b[2]) >= whiteThreshold)
+                        {
                             arr[x, y] = true;
+                        }
                     }
                 }
             }

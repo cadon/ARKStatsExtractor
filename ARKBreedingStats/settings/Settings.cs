@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -114,8 +116,13 @@ namespace ARKBreedingStats.settings
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (s < officialMultipliers.statMultipliers.Length)
+                {
                     _multSetter[s].SetNeutralValues(officialMultipliers.statMultipliers[s]);
-                else _multSetter[s].SetNeutralValues(null);
+                }
+                else
+                {
+                    _multSetter[s].SetNeutralValues(null);
+                }
             }
             nudTamingSpeed.NeutralNumber = 1;
             nudDinoCharacterFoodDrain.NeutralNumber = 1;
@@ -210,7 +217,9 @@ namespace ARKBreedingStats.settings
             _languages[Loc.S("SystemLanguage")] = string.Empty;
 
             foreach (var cm in Enum.GetNames(typeof(ColorModeColors.AsbColorMode)))
+            {
                 CbbColorMode.Items.Add(cm);
+            }
 
             var availableFonts = FontFamily.Families.Select(f => f.Name).ToArray();
             CbbInfoGraphicFontName.Items.AddRange(availableFonts);
@@ -227,7 +236,10 @@ namespace ARKBreedingStats.settings
                     {
                         _multSetter[s].Multipliers = cc.serverMultipliers.statMultipliers[s];
                     }
-                    else _multSetter[s].Multipliers = null;
+                    else
+                    {
+                        _multSetter[s].Multipliers = null;
+                    }
                 }
             }
             cbSingleplayerSettings.Checked = cc.serverMultipliers?.SinglePlayerSettings == true;
@@ -298,8 +310,15 @@ namespace ARKBreedingStats.settings
             SetFolderSelectionButton(BtBackupFolder, Properties.Settings.Default.BackupFolder, true);
 
             chkbSpeechRecognition.Checked = Properties.Settings.Default.SpeechRecognition;
-            if (Properties.Settings.Default.celsius) radioButtonCelsius.Checked = true;
-            else radioButtonFahrenheit.Checked = true;
+            if (Properties.Settings.Default.celsius)
+            {
+                radioButtonCelsius.Checked = true;
+            }
+            else
+            {
+                radioButtonFahrenheit.Checked = true;
+            }
+
             cbIgnoreSexInBreedingPlan.Checked = Properties.Settings.Default.IgnoreSexInBreedingPlan;
 
             #region extractor
@@ -369,9 +388,14 @@ namespace ARKBreedingStats.settings
             nudInfoGraphicHeight.ValueSave = Properties.Settings.Default.InfoGraphicHeight;
             CbInfoGraphicDisplayMaxWildLevel.Checked = Properties.Settings.Default.InfoGraphicShowMaxWildLevel;
             if (Properties.Settings.Default.InfoGraphicWithDomLevels)
+            {
                 RbInfoGraphicDomValues.Checked = true;
+            }
             else
+            {
                 RbInfoGraphicBreedingValues.Checked = true;
+            }
+
             CbInfoGraphicSumWildMut.Checked = Properties.Settings.Default.InfoGraphicDisplaySumWildMut;
             CbbInfoGraphicFontName.Text = Properties.Settings.Default.InfoGraphicFontName;
             CbInfoGraphicMutationCounter.Checked = Properties.Settings.Default.InfoGraphicDisplayMutations;
@@ -449,9 +473,13 @@ namespace ARKBreedingStats.settings
             CbBringToFrontOnImportExportIssue.Checked = Properties.Settings.Default.ImportExportedBringToFrontOnIssue;
             nudImportLowerBoundTE.ValueSave = (decimal)Properties.Settings.Default.ImportLowerBoundTE * 100;
             if (Properties.Settings.Default.ImportExportUseTamerStringForOwner)
+            {
                 RbTamerStringForOwner.Checked = true;
+            }
             else
+            {
                 RbTamerStringForTribe.Checked = true;
+            }
             #endregion
 
             #region import savegame
@@ -477,12 +505,18 @@ namespace ARKBreedingStats.settings
             if (exportFields != null)
             {
                 foreach (ExportImportCreatures.TableExportFields f in exportFields)
+                {
                     ClbExportSpreadsheetFields.Items.Add(f, true);
+                }
             }
 
             foreach (ExportImportCreatures.TableExportFields f in Enum.GetValues(typeof(ExportImportCreatures.TableExportFields)))
             {
-                if (exportFields?.Contains((int)f) ?? false) continue;
+                if (exportFields?.Contains((int)f) ?? false)
+                {
+                    continue;
+                }
+
                 ClbExportSpreadsheetFields.Items.Add(f, false);
             }
 
@@ -530,9 +564,14 @@ namespace ARKBreedingStats.settings
                 for (int s = 0; s < Stats.StatsCount; s++)
                 {
                     if (_cc.serverMultipliers.statMultipliers[s] == null)
+                    {
                         _cc.serverMultipliers.statMultipliers[s] = new double[4];
+                    }
+
                     for (int sm = 0; sm < 4; sm++)
+                    {
                         _cc.serverMultipliers.statMultipliers[s][sm] = _multSetter[s].Multipliers[sm];
+                    }
                 }
             }
 
@@ -581,7 +620,11 @@ namespace ARKBreedingStats.settings
             #endregion
 
             #region event-multiplier
-            if (_cc.serverMultipliersEvents == null) _cc.serverMultipliersEvents = new ServerMultipliers();
+            if (_cc.serverMultipliersEvents == null)
+            {
+                _cc.serverMultipliersEvents = new ServerMultipliers();
+            }
+
             _cc.serverMultipliersEvents.TamingSpeedMultiplier = (double)nudTamingSpeedEvent.Value;
             _cc.serverMultipliersEvents.DinoCharacterFoodDrainMultiplier = (double)nudDinoCharacterFoodDrainEvent.Value;
             _cc.serverMultipliersEvents.TamedDinoCharacterFoodDrainMultiplier = (double)nudTamedDinoCharacterFoodDrainEvent.Value;
@@ -751,7 +794,9 @@ namespace ARKBreedingStats.settings
             for (int i = 0; i < exportFieldCount; i++)
             {
                 if (ClbExportSpreadsheetFields.GetItemChecked(i))
+                {
                     exportFields.Add((int)Enum.Parse(typeof(ExportImportCreatures.TableExportFields), ClbExportSpreadsheetFields.Items[i].ToString()));
+                }
             }
             Properties.Settings.Default.CreatureTableExportFields = exportFields.ToArray();
 
@@ -817,7 +862,9 @@ namespace ARKBreedingStats.settings
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)
                 || e.Data.GetDataPresent(DataFormats.Text))
+            {
                 e.Effect = DragDropEffects.Copy;
+            }
         }
 
         private void tabPage2_DragDrop(object sender, DragEventArgs e)
@@ -851,7 +898,9 @@ namespace ARKBreedingStats.settings
         private void ExtractSettingsFromFile(string file, bool doMergeSettings = false)
         {
             if (!File.Exists(file))
+            {
                 return;
+            }
 
             ExtractSettingsFromText(File.ReadAllText(file), doMergeSettings);
         }
@@ -863,7 +912,10 @@ namespace ARKBreedingStats.settings
         /// <param name="doMergeSettings">If true the user is not asked if the settings should be reset before applying the settings.</param>
         private void ExtractSettingsFromText(string text, bool doMergeSettings = false)
         {
-            if (string.IsNullOrWhiteSpace(text)) return;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return;
+            }
 
             // ignore lines that start with a semicolon (comments)
             text = Regex.Replace(text, @"(?:\A|[\r\n]+);[^\r\n]*", string.Empty);
@@ -955,7 +1007,10 @@ namespace ARKBreedingStats.settings
             ParseAndSetValue(nudMaxGraphLevel, @"ASBMaxGraphLevels ?= ?(\d+)");
             // extractor
             if (ParseAndSetValue(nudWildLevelStep, @"ASBExtractorWildLevelSteps ?= ?(\d+)"))
+            {
                 cbConsiderWildLevelSteps.Checked = nudWildLevelStep.Value != 1;
+            }
+
             ParseAndSetCheckbox(cbAllowMoreThanHundredImprinting, @"ASBAllowHyperImprinting ?= ?(true|false)");
 
             // event multipliers breeding
@@ -996,7 +1051,9 @@ namespace ARKBreedingStats.settings
                     RegexOptions.Singleline);
             m = regexMaxLevelup.Match(text);
             if (m.Success)
+            {
                 nudMaxDomLevels.ValueSave = Regex.Matches(m.Groups[1].Value, "ExperiencePointsForLevel").Count + 1;
+            }
 
             // parse max wild dino levels
             var difficultyValue = -1d;
@@ -1009,7 +1066,9 @@ namespace ARKBreedingStats.settings
                 m = Regex.Match(text, @"OverrideOfficialDifficulty ?= ?(\d*\.?\d+)");
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
                     cultureForStrings, out d) && d > 0)
+                {
                     difficultyValue = d;
+                }
             }
 
             if (difficultyValue < 0)
@@ -1019,13 +1078,19 @@ namespace ARKBreedingStats.settings
                 if (m.Success && double.TryParse(m.Groups[1].Value, System.Globalization.NumberStyles.AllowDecimalPoint,
                         cultureForStrings, out var difficultyOffset)
                     && difficultyOffset > 0)
+                {
                     difficultyValue = difficultyOffset * (officialDifficulty - 0.5) + 0.5;
+                }
             }
 
             if (difficultyValue > 0)
+            {
                 nudMaxWildLevels.ValueSave = (int)(difficultyValue * 30);
+            }
             else
+            {
                 ParseAndSetValue(nudMaxWildLevels, @"ASBMaxWildLevels_Dinos ?= ?(\d+)");
+            }
         }
 
         /// <summary>
@@ -1034,7 +1099,10 @@ namespace ARKBreedingStats.settings
         /// <param name="text">Text containing the settings</param>
         private void ExtractEventSettingsFromText(string text)
         {
-            if (string.IsNullOrWhiteSpace(text)) return;
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return;
+            }
 
             // ignore lines that start with a semicolon (comments)
             text = Regex.Replace(text, @"(?:\A|[\r\n]+);[^\r\n]*", string.Empty);
@@ -1073,7 +1141,10 @@ namespace ARKBreedingStats.settings
         private void LoadServerMultipliersFromSavFile(string filePath)
         {
             var esm = ImportExportGun.ReadServerMultipliers(filePath, out _);
-            if (esm == null) return;
+            if (esm == null)
+            {
+                return;
+            }
 
             const int roundToDigits = 6;
             for (int s = 0; s < Stats.StatsCount; s++)
@@ -1159,7 +1230,9 @@ namespace ARKBreedingStats.settings
             {
                 // the control itself locks the checkbox to readonly, it seems only possible like this
                 if (aTImportFileLocationBindingSource[e.RowIndex] is ATImportFileLocation il)
+                {
                     il.ImportWithQuickImport = !il.ImportWithQuickImport;
+                }
             }
         }
 
@@ -1200,7 +1273,9 @@ namespace ARKBreedingStats.settings
             {
                 if (atImportFileLocationDialog.ShowDialog() == DialogResult.OK &&
                         !string.IsNullOrWhiteSpace(atImportFileLocationDialog.AtImportFileLocation.FileLocation))
+                {
                     atifl = atImportFileLocationDialog.AtImportFileLocation;
+                }
             }
             return atifl;
         }
@@ -1212,7 +1287,9 @@ namespace ARKBreedingStats.settings
             {
                 if (aTImportExportedFolderLocationDialog.ShowDialog() == DialogResult.OK &&
                                         !string.IsNullOrWhiteSpace(aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation.FolderPath))
+                {
                     atiefl = aTImportExportedFolderLocationDialog.ATImportExportedFolderLocation;
+                }
             }
             return atiefl;
         }
@@ -1226,16 +1303,23 @@ namespace ARKBreedingStats.settings
             foreach (var sm in Values.V.serverMultipliersPresets.PresetNameList)
             {
                 if (!string.IsNullOrWhiteSpace(sm) && sm != ServerMultipliersPresets.Singleplayer)
+                {
                     cbbStatMultiplierPresets.Items.Add(sm);
+                }
             }
             if (cbbStatMultiplierPresets.Items.Count > 0)
+            {
                 cbbStatMultiplierPresets.SelectedIndex = 0;
+            }
         }
 
         private void BtApplyPreset_Click(object sender, EventArgs e)
         {
             ServerMultipliers multiplierPreset = Values.V.serverMultipliersPresets.GetPreset(cbbStatMultiplierPresets.SelectedItem.ToString());
-            if (multiplierPreset == null) return;
+            if (multiplierPreset == null)
+            {
+                return;
+            }
 
             // first set multipliers to default/official values, then set different values of preset
             ApplyMultiplierPreset(Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official));
@@ -1247,7 +1331,10 @@ namespace ARKBreedingStats.settings
         /// </summary>
         private void ApplyMultiplierPreset(ServerMultipliers sm, bool onlyStatMultipliers = false)
         {
-            if (sm == null) return;
+            if (sm == null)
+            {
+                return;
+            }
 
             if (!onlyStatMultipliers)
             {
@@ -1271,7 +1358,11 @@ namespace ARKBreedingStats.settings
                 CbAtlasSettings.Checked = sm.AtlasSettings;
             }
 
-            if (sm.statMultipliers == null) return;
+            if (sm.statMultipliers == null)
+            {
+                return;
+            }
+
             int loopTo = Math.Min(Stats.StatsCount, sm.statMultipliers.Length);
             for (int s = 0; s < loopTo; s++)
             {
@@ -1303,13 +1394,17 @@ namespace ARKBreedingStats.settings
         private void cbMoveImportedFileToSubFolder_CheckedChanged(object sender, EventArgs e)
         {
             if (cbMoveImportedFileToSubFolder.Checked)
+            {
                 cbDeleteAutoImportedFile.Checked = false;
+            }
         }
 
         private void cbDeleteAutoImportedFile_CheckedChanged(object sender, EventArgs e)
         {
             if (cbDeleteAutoImportedFile.Checked)
+            {
                 cbMoveImportedFileToSubFolder.Checked = false;
+            }
         }
 
         private void btExportMultipliers_Click(object sender, EventArgs e)
@@ -1321,7 +1416,11 @@ namespace ARKBreedingStats.settings
                 FileName = "ASBMultipliers"
             })
             {
-                if (dlg.ShowDialog() != DialogResult.OK) return;
+                if (dlg.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
                 try
                 {
                     File.WriteAllText(dlg.FileName, GetMultiplierSettings());
@@ -1336,7 +1435,9 @@ namespace ARKBreedingStats.settings
         private void BtSettingsToClipboard_Click(object sender, EventArgs e)
         {
             if (!ClipboardHandler.SetText(GetMultiplierSettings(), out var error))
+            {
                 MessageBoxes.ShowMessageBox($"Error while trying to copy data to the clipboard. Error: {error}");
+            }
         }
 
         /// <summary>
@@ -1447,14 +1548,24 @@ namespace ARKBreedingStats.settings
             if (cbSingleplayerSettings.Checked)
             {
                 if (nudMaxDomLevels.Value != CreatureCollection.MaxDomLevelSinglePlayerDefault)
+                {
                     LbDefaultLevelups.Text = $"default: {CreatureCollection.MaxDomLevelSinglePlayerDefault}";
-                else LbDefaultLevelups.Text = string.Empty;
+                }
+                else
+                {
+                    LbDefaultLevelups.Text = string.Empty;
+                }
             }
             else
             {
                 if (nudMaxDomLevels.Value != CreatureCollection.MaxDomLevelDefault)
+                {
                     LbDefaultLevelups.Text = $"default: {CreatureCollection.MaxDomLevelDefault}";
-                else LbDefaultLevelups.Text = string.Empty;
+                }
+                else
+                {
+                    LbDefaultLevelups.Text = string.Empty;
+                }
             }
         }
 
@@ -1491,7 +1602,10 @@ namespace ARKBreedingStats.settings
             {
                 dlg.RootFolder = Environment.SpecialFolder.Desktop;
                 if (!string.IsNullOrEmpty(initialFolder) && Directory.Exists(initialFolder))
+                {
                     dlg.SelectedPath = initialFolder;
+                }
+
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     SetFolderSelectionButton(folderButton, dlg.SelectedPath, displayFullPathOnButton);
@@ -1507,7 +1621,9 @@ namespace ARKBreedingStats.settings
             button.Text = string.IsNullOrEmpty(folderPath) ? $"<{Loc.S("na")}>" : displayFullPathOnButton ? folderPath : Path.GetFileName(folderPath);
             button.Tag = folderPath;
             if (!button.AutoEllipsis)
+            {
                 _tt.SetToolTip(button, folderPath);
+            }
         }
 
         private void BtGetExportFolderAutomatically_Click(object sender, EventArgs e)
@@ -1523,14 +1639,22 @@ namespace ARKBreedingStats.settings
                     {
                         anyFolderExists = true;
                         if (exportFolderLocations.All(f => f.FolderPath != location.path))
+                        {
                             exportFolderLocations.Add(ATImportExportedFolderLocation.CreateFromString(
                                    $"{location.steamPlayerName}||{location.path}"));
+                        }
                     }
                 }
 
-                if (!anyFolderExists) MessageBoxes.ShowMessageBox("No export folders found. Did you already export a creature in game?\nTo do that, walk to a creature, hold the E key and select Options - Export Data.\nThis works only on the Steam and the Epic version of the game.");
+                if (!anyFolderExists)
+                {
+                    MessageBoxes.ShowMessageBox("No export folders found. Did you already export a creature in game?\nTo do that, walk to a creature, hold the E key and select Options - Export Data.\nThis works only on the Steam and the Epic version of the game.");
+                }
 
-                if (!exportFolderLocations.Any()) return;
+                if (!exportFolderLocations.Any())
+                {
+                    return;
+                }
 
                 // order the entries so that the folder with the newest file is the default
                 var orderedList = ArkInstallationPath.OrderByNewestFileInFolders(exportFolderLocations.Select(l => (l.FolderPath, l)));
@@ -1538,7 +1662,9 @@ namespace ARKBreedingStats.settings
                 aTExportFolderLocationsBindingSource.Clear();
 
                 foreach (var iel in orderedList)
+                {
                     aTExportFolderLocationsBindingSource.Add(iel);
+                }
             }
             else
             {
@@ -1555,10 +1681,16 @@ namespace ARKBreedingStats.settings
         /// <param name="e"></param>
         private void ColorButtonClick(object sender, EventArgs e)
         {
-            if (!(sender is Button bt)) return;
+            if (!(sender is Button bt))
+            {
+                return;
+            }
 
             colorDialog1.Color = bt.BackColor;
-            if (colorDialog1.ShowDialog() != DialogResult.OK) return;
+            if (colorDialog1.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
 
             bt.SetBackColorAndAccordingForeColor(colorDialog1.Color);
             ShowInfoGraphicPreview();
@@ -1578,7 +1710,10 @@ namespace ARKBreedingStats.settings
         {
             bool highlight = CbHighlightAdjustedMultipliers.Checked;
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _multSetter[s].SetHighlighted(highlight);
+            }
+
             nudTamingSpeed.SetExtraHighlightNonDefault(highlight);
             nudDinoCharacterFoodDrain.SetExtraHighlightNonDefault(highlight);
             NudWildDinoTorporDrainMultiplier.SetExtraHighlightNonDefault(highlight);
@@ -1615,19 +1750,29 @@ namespace ARKBreedingStats.settings
         private void ExportSpreadSheetMoveItem(int moveDifference)
         {
             if (ClbExportSpreadsheetFields.SelectedIndex < 0)
+            {
                 return;
+            }
 
             // Calculate new index using moveDifference
             var oldIndex = ClbExportSpreadsheetFields.SelectedIndex;
             var newIndex = oldIndex + moveDifference;
 
             // Checking bounds of the range
-            if (newIndex < 0) newIndex = 0;
+            if (newIndex < 0)
+            {
+                newIndex = 0;
+            }
+
             if (newIndex >= ClbExportSpreadsheetFields.Items.Count)
+            {
                 newIndex = ClbExportSpreadsheetFields.Items.Count - 1;
+            }
 
             if (newIndex == oldIndex)
+            {
                 return;
+            }
 
             var selected = ClbExportSpreadsheetFields.SelectedItem;
             var isChecked = ClbExportSpreadsheetFields.GetItemChecked(oldIndex);
@@ -1658,11 +1803,16 @@ namespace ARKBreedingStats.settings
         private void HighlightDefaultImportExportFolderEntry()
         {
             var rowCount = dataGridViewExportFolders.RowCount;
-            if (rowCount == 0) return;
+            if (rowCount == 0)
+            {
+                return;
+            }
 
             dataGridViewExportFolders.Rows[0].DefaultCellStyle = DirectoryExists(0) ? _styleDefaultEntry : _styleFolderNotFound;
             for (int i = 1; i < rowCount; i++)
+            {
                 dataGridViewExportFolders.Rows[i].DefaultCellStyle = DirectoryExists(i) ? null : _styleFolderNotFound;
+            }
 
             bool DirectoryExists(int r) => dataGridViewExportFolders.Rows[r].Cells[2].Value is string path &&
                                            Directory.Exists(path);
@@ -1692,8 +1842,14 @@ namespace ARKBreedingStats.settings
         private async Task ShowInfoGraphicPreview()
         {
             if (_infoGraphicPreviewCreature == null)
+            {
                 CreateInfoGraphicCreature();
-            if (_infoGraphicPreviewCreature == null) return;
+            }
+
+            if (_infoGraphicPreviewCreature == null)
+            {
+                return;
+            }
 
             var height = (int)nudInfoGraphicHeight.Value;
             var fontName = CbbInfoGraphicFontName.Text;
@@ -1729,7 +1885,11 @@ namespace ARKBreedingStats.settings
                         displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage,
                         creatureOutlineColor, backgroundImagePath, creatureOutlineWidth, creatureOutlineBlurring, creatureScaling);
 
-            if (bmp == null) return;
+            if (bmp == null)
+            {
+                return;
+            }
+
             PbInfoGraphicPreview.Size = bmp.Size;
             PbInfoGraphicPreview.SetImageAndDisposeOld(bmp);
         }
@@ -1743,7 +1903,10 @@ namespace ARKBreedingStats.settings
         private void CreateInfoGraphicCreature()
         {
             _infoGraphicPreviewCreature = DummyCreatures.CreateCreatures(1)?.FirstOrDefault();
-            if (_infoGraphicPreviewCreature == null) return;
+            if (_infoGraphicPreviewCreature == null)
+            {
+                return;
+            }
             // add some dom levels
             var rand = new Random();
             _infoGraphicPreviewCreature.levelsDom[Stats.Health] = rand.Next(20);
@@ -1801,7 +1964,10 @@ namespace ARKBreedingStats.settings
         {
             var isChecked = ((CheckBox)sender).Checked;
             if (!isChecked)
+            {
                 CbNaturalSortIgnoreSpaces.Checked = false;
+            }
+
             CbNaturalSortIgnoreSpaces.Enabled = isChecked;
         }
 
@@ -1815,7 +1981,11 @@ namespace ARKBreedingStats.settings
                 CheckFileExists = true
             })
             {
-                if (dlg.ShowDialog() != DialogResult.OK) return;
+                if (dlg.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+
                 ExtractSettingsFromFile(dlg.FileName);
             }
         }
@@ -1823,13 +1993,17 @@ namespace ARKBreedingStats.settings
         private void CbAllowSpeedLeveling_CheckedChanged(object sender, EventArgs e)
         {
             if (!CbAllowSpeedLeveling.Checked)
+            {
                 CbAllowFlyerSpeedLeveling.Checked = false;
+            }
         }
 
         private void CbAllowFlyerSpeedLeveling_CheckedChanged(object sender, EventArgs e)
         {
             if (CbAllowFlyerSpeedLeveling.Checked && RbGameAsa.Checked)
+            {
                 CbAllowSpeedLeveling.Checked = true;
+            }
         }
 
         private void BtAutoImportLocalSettings_Click(object sender, EventArgs e)
@@ -1849,15 +2023,24 @@ namespace ARKBreedingStats.settings
             // ask which configs to import
             var importIndex = Utils.ShowListInput(localConfigPaths.Select(c => $"{c.Item2}: {c.Item1.Replace("\\", "\\ ")}").ToArray(), // adding zero width spaces to allow word wrapping
                 "Select one of the configs to import.", "Auto import configs", 40);
-            if (importIndex == -1) return;
+            if (importIndex == -1)
+            {
+                return;
+            }
 
             CbAtlasSettings.Checked = false;
             // first import gameUserSettings.ini, then game.ini since gameUserSettings can contain wrong allowSpeedLeveling settings
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "gameUserSettings.ini"), true);
             ExtractSettingsFromFile(Path.Combine(localConfigPaths[importIndex].Item1, "game.ini"), true);
 
-            if (localConfigPaths[importIndex].Item2 == Ark.Game.Asa) RbGameAsa.Checked = true;
-            else RbGameAse.Checked = true;
+            if (localConfigPaths[importIndex].Item2 == Ark.Game.Asa)
+            {
+                RbGameAsa.Checked = true;
+            }
+            else
+            {
+                RbGameAse.Checked = true;
+            }
         }
 
         private async void BtRemoteServerSettingsUri_Click(object sender, EventArgs e)
@@ -1942,7 +2125,9 @@ namespace ARKBreedingStats.settings
             var isAsa = RbGameAsa.Checked;
             CbAllowSpeedLeveling.Visible = isAsa;
             if (isAsa && CbAllowFlyerSpeedLeveling.Checked)
+            {
                 CbAllowSpeedLeveling.Checked = true;
+            }
         }
 
         private void BtnUpdateOfficialEventValues_Click(object sender, EventArgs e)
@@ -1975,7 +2160,9 @@ namespace ARKBreedingStats.settings
         private void BtOverlayPatternEdit_Click(object sender, EventArgs e)
         {
             if (_infoGraphicPreviewCreature == null)
+            {
                 CreateInfoGraphicCreature();
+            }
 
             using (var pe = new PatternEditor(_infoGraphicPreviewCreature, null, null, null,
                        null, "Overlay pattern", Properties.Settings.Default.OverlayImportPattern, null, 0))

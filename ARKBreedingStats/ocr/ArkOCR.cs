@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,7 +45,9 @@ namespace ARKBreedingStats.ocr
         public bool CheckResolutionSupportedByOcr()
         {
             using (var bmpScreenshot = GetScreenshotOfProcess())
+            {
                 return CheckResolutionSupportedByOcr(bmpScreenshot);
+            }
         }
 
         /// <summary>
@@ -54,7 +57,9 @@ namespace ARKBreedingStats.ocr
         {
             if (screenshot == null
                 || ocrConfig == null)
+            {
                 return false;
+            }
 
             return screenshot.Width == ocrConfig.resolutionWidth && screenshot.Height == ocrConfig.resolutionHeight;
         }
@@ -104,8 +109,10 @@ namespace ARKBreedingStats.ocr
             }
 
             using (Graphics g = Graphics.FromImage(target))
+            {
                 g.DrawImage(source, new Rectangle(0, 0, target.Width, target.Height),
                     cropRect, GraphicsUnit.Pixel);
+            }
 
             return target;
         }
@@ -236,7 +243,11 @@ namespace ARKBreedingStats.ocr
             Marshal.Copy(rgbValues, 0, ptr, numBytes);
 
             dest.UnlockBits(bmpData);
-            if (disposeSource) source.Dispose();
+            if (disposeSource)
+            {
+                source.Dispose();
+            }
+
             return dest;
         }
 
@@ -248,7 +259,10 @@ namespace ARKBreedingStats.ocr
         public bool CreateOcrTemplatesFromFontFile(int fontPxSize, string calibrationText, string lastUsedFontFile, ref string fontFile)
         {
             var patterns = Ocr.ocrConfig?.RecognitionPatterns;
-            if (patterns == null) return false;
+            if (patterns == null)
+            {
+                return false;
+            }
 
             if (string.IsNullOrEmpty(fontFile))
             {
@@ -258,7 +272,9 @@ namespace ARKBreedingStats.ocr
                 })
                 {
                     if (!string.IsNullOrEmpty(lastUsedFontFile) && File.Exists(lastUsedFontFile))
+                    {
                         dlg.FileName = lastUsedFontFile;
+                    }
 
                     if (dlg.ShowDialog() == DialogResult.OK)
                     {
@@ -267,7 +283,10 @@ namespace ARKBreedingStats.ocr
                 }
             }
 
-            if (string.IsNullOrEmpty(fontFile) || !File.Exists(fontFile)) return false;
+            if (string.IsNullOrEmpty(fontFile) || !File.Exists(fontFile))
+            {
+                return false;
+            }
 
             using (PrivateFontCollection pfColl = new PrivateFontCollection())
             {
@@ -326,7 +345,11 @@ namespace ARKBreedingStats.ocr
             {
                 OcrText = "Error: OCR not configured.\nYou can configure the OCR in the OCR-tab by loading or creating an OCR config-file.\nFor more details see the online manual.";
                 var bmp = ProcessScreenshot(out _, out disposeBmp);
-                if (disposeBmp) bmp?.Dispose();
+                if (disposeBmp)
+                {
+                    bmp?.Dispose();
+                }
+
                 return finalValues;
             }
 
@@ -345,14 +368,22 @@ namespace ARKBreedingStats.ocr
             {
                 OcrText = "Error: The rectangles where to read the text in the image with OCR are not configured.\nYou can configure them by navigating to the OCR-tab then to the Labels tab.\nFor more details see the online manual.";
                 var bmp = ProcessScreenshot(out _, out disposeBmp);
-                if (disposeBmp) bmp?.Dispose();
+                if (disposeBmp)
+                {
+                    bmp?.Dispose();
+                }
+
                 return finalValues;
             }
 
             var screenShotBmp = ProcessScreenshot(out string outText, out disposeBmp);
             if (!string.IsNullOrEmpty(outText))
             {
-                if (disposeBmp) screenShotBmp?.Dispose();
+                if (disposeBmp)
+                {
+                    screenShotBmp?.Dispose();
+                }
+
                 OcrText = outText;
                 return finalValues;
             }
@@ -467,7 +498,9 @@ namespace ARKBreedingStats.ocr
             finalValues[8] = -1; // set imprinting to -1 to mark it as unknown and to set a difference to a creature with 0% imprinting.
 
             if (changeForegroundWindow)
+            {
                 Win32API.SetForegroundWindow(Application.OpenForms[0].Handle);
+            }
 
             HammingWeight.InitializeBitCounts();
 
@@ -481,7 +514,11 @@ namespace ARKBreedingStats.ocr
             for (int lbI = 0; lbI < labels.Length; lbI++)
             {
                 stI++;
-                if (lbI == 8) stI = 8;
+                if (lbI == 8)
+                {
+                    stI = 8;
+                }
+
                 var label = labels[stI];
 
                 switch (label)
@@ -512,11 +549,15 @@ namespace ARKBreedingStats.ocr
 
                 Rectangle rec = ocrConfig.UsedLabelRectangles[lbI];
                 if (rec.IsEmpty)
+                {
                     continue;
+                }
 
                 // wild creatures don't have the xp-bar, all stats are moved one row up
                 if (wild && stI < 9)
+                {
                     rec.Offset(0, ocrConfig.UsedLabelRectangles[0].Top - ocrConfig.UsedLabelRectangles[1].Top);
+                }
 
                 Bitmap testbmp = SubImage(screenShotBmp, rec.X, rec.Y, rec.Width, rec.Height);
                 //AddBitmapToDebug(testbmp);
@@ -526,17 +567,29 @@ namespace ARKBreedingStats.ocr
                 try
                 {
                     if (label == OcrTemplate.OcrLabels.NameSpecies)
+                    {
                         statOcr = PatternOcr.ReadImageOcr(testbmp, false, whiteThreshold, rec.X, rec.Y, _ocrControl);
+                    }
                     else if (label == OcrTemplate.OcrLabels.Level)
+                    {
                         statOcr = PatternOcr.ReadImageOcr(testbmp, true, whiteThreshold, rec.X, rec.Y, _ocrControl).Replace(".", ": ");
+                    }
                     else if (label == OcrTemplate.OcrLabels.Tribe || label == OcrTemplate.OcrLabels.Owner)
+                    {
                         statOcr = PatternOcr.ReadImageOcr(testbmp, false, whiteThreshold, rec.X, rec.Y, _ocrControl);
+                    }
                     else
+                    {
                         statOcr = PatternOcr.ReadImageOcr(testbmp, true, whiteThreshold, rec.X, rec.Y, _ocrControl).Trim('.'); // statValues are only numbers
+                    }
                 }
                 catch (OperationCanceledException)
                 {
-                    if (disposeBmp) screenShotBmp?.Dispose();
+                    if (disposeBmp)
+                    {
+                        screenShotBmp?.Dispose();
+                    }
+
                     OcrText = "Canceled";
                     return finalValues;
                 }
@@ -564,9 +617,13 @@ namespace ARKBreedingStats.ocr
                     r = new Regex(@".*?([♂♀])?[_.,-\/\\]*([^♂♀]+?)(?:[\(\[]([^\[\(\]\)]+)[\)\]]$|$)");
                 }
                 else if (label == OcrTemplate.OcrLabels.Owner || label == OcrTemplate.OcrLabels.Tribe)
+                {
                     r = new Regex(@"(.*)");
+                }
                 else if (label == OcrTemplate.OcrLabels.Level)
+                {
                     r = new Regex(@".*\D(\d+)");
+                }
                 else
                 {
                     r = new Regex(@"(?:[\d.,%\/]*\/)?(\d+[\.,']?\d?)(%)?\.?"); // only the second numbers is interesting after the current weight is not shown anymore
@@ -577,7 +634,9 @@ namespace ARKBreedingStats.ocr
                 if (mc.Count == 0)
                 {
                     if (label == OcrTemplate.OcrLabels.NameSpecies || label == OcrTemplate.OcrLabels.Owner || label == OcrTemplate.OcrLabels.Tribe)
+                    {
                         continue;
+                    }
                     //if (statName == "Torpor")
                     //{
                     //    // probably it's a wild creature
@@ -596,13 +655,20 @@ namespace ARKBreedingStats.ocr
                     if (label == OcrTemplate.OcrLabels.NameSpecies && mc[0].Groups.Count > 0)
                     {
                         if (mc[0].Groups[1].Value == "♀")
+                        {
                             sex = Sex.Female;
+                        }
                         else if (mc[0].Groups[1].Value == "♂")
+                        {
                             sex = Sex.Male;
+                        }
+
                         dinoName = mc[0].Groups[2].Value;
                         species = mc[0].Groups[3].Value;
                         if (species.Length == 0)
+                        {
                             species = dinoName;
+                        }
 
                         // remove non-letter chars
                         r = new Regex(@"[^a-zA-Z]");
@@ -657,7 +723,10 @@ namespace ARKBreedingStats.ocr
                 string FinishCleanupOcrText(string s, ref string outputText)
                 {
                     var t = s.Replace("�", string.Empty);
-                    if (regexReplacings == null) return t;
+                    if (regexReplacings == null)
+                    {
+                        return t;
+                    }
 
                     var beforeReplacements = t;
 
@@ -682,7 +751,11 @@ namespace ARKBreedingStats.ocr
                 }
             }
 
-            if (disposeBmp) screenShotBmp?.Dispose();
+            if (disposeBmp)
+            {
+                screenShotBmp?.Dispose();
+            }
+
             OcrText = finishedText;
 
             // TODO reorder stats to match 12-stats-order
@@ -749,11 +822,15 @@ namespace ARKBreedingStats.ocr
             {
                 _screenCaptureProcess = Process.GetProcessesByName(screenCaptureApplicationName).FirstOrDefault();
                 if (_screenCaptureProcess == null)
+                {
                     return false;
+                }
             }
 
             if (Win32API.GetForegroundWindow() != _screenCaptureProcess.MainWindowHandle)
+            {
                 return false;
+            }
 
             using (var screenshotBmp =
                    Win32API.GetScreenshotOfProcess(screenCaptureApplicationName, waitBeforeScreenCapture))
@@ -761,7 +838,9 @@ namespace ARKBreedingStats.ocr
 
                 if (screenshotBmp == null
                     || !CheckResolutionSupportedByOcr(screenshotBmp))
+                {
                     return false;
+                }
 
                 const OcrTemplate.OcrLabels label = OcrTemplate.OcrLabels.Level;
                 Rectangle rec = ocrConfig.UsedLabelRectangles[(int)label];
@@ -793,7 +872,11 @@ namespace ARKBreedingStats.ocr
             foreach (var l in lines)
             {
                 var m = regex.Match(l);
-                if (!m.Success) continue;
+                if (!m.Success)
+                {
+                    continue;
+                }
+
                 replacings.Add((m.Groups[1].Value, m.Groups[2].Value));
             }
 

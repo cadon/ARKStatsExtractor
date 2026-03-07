@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ARKBreedingStats.Models;
 using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
@@ -45,9 +46,13 @@ namespace ARKBreedingStats.NamePatterns
             if (pattern == null)
             {
                 if (namingPatternIndex == -1)
+                {
                     pattern = string.Empty;
+                }
                 else
+                {
                     pattern = Properties.Settings.Default.NamingPatterns?[namingPatternIndex] ?? string.Empty;
+                }
             }
 
             var levelsWildHighest = topLevels?.WildLevelsHighest;
@@ -75,16 +80,25 @@ namespace ARKBreedingStats.NamePatterns
                         }
                     }
                     if (topLevelSum != 0)
+                    {
                         creature.topness = (short)(creatureLevelSum * 1000f / topLevelSum);
-                    else creature.topness = 1000;
+                    }
+                    else
+                    {
+                        creature.topness = 1000;
+                    }
                 }
 
                 if (tokenModel != null)
+                {
                     tokenModel.toppercent = creature.topness / 10f;
+                }
             }
 
             if (tokenModel == null)
+            {
                 tokenModel = CreateTokenModel(creature, alreadyExistingCreature, creaturesOfSpecies, colorsExisting, topLevels, libraryCreatureCount);
+            }
 
             string name;
 
@@ -93,7 +107,9 @@ namespace ARKBreedingStats.NamePatterns
             var shebangMatch = JavaScriptNamePattern.JavaScriptShebang.Match(pattern);
 
             if (showDuplicateNameWarning || pattern.Contains("{n}") || shebangMatch.Success)
+            {
                 creatureNames = creaturesOfSpecies?.Where(c => c.guid != creature.guid).Select(x => x.name).ToArray() ?? Array.Empty<string>();
+            }
 
             if (shebangMatch.Success)
             {
@@ -148,7 +164,10 @@ namespace ARKBreedingStats.NamePatterns
                         creature, customReplacings, creaturesOfSpecies, displayError, true, colorsExisting);
 
                     // check if numberedUniqueName actually is different, else break the potentially infinite loop. E.g. it is not different if {n} is an unreached if branch or was altered with other functions
-                    if (numberedUniqueName == lastNumberedUniqueName) break;
+                    if (numberedUniqueName == lastNumberedUniqueName)
+                    {
+                        break;
+                    }
 
                     lastNumberedUniqueName = numberedUniqueName;
                 } while (creatureNames.Contains(numberedUniqueName, StringComparer.OrdinalIgnoreCase));
@@ -197,7 +216,14 @@ namespace ARKBreedingStats.NamePatterns
             int NrFunctions(string p)
             {
                 int nr = 0;
-                foreach (char c in p) if (c == '#') nr++;
+                foreach (char c in p)
+                {
+                    if (c == '#')
+                    {
+                        nr++;
+                    }
+                }
+
                 return nr;
             }
         }
@@ -211,7 +237,10 @@ namespace ARKBreedingStats.NamePatterns
             // function parameters can be non numeric if numbers are parsed
             try
             {
-                if (!parameters.ProcessNumberField && m.Groups[2].Value.Contains("{n}")) return m.Groups[0].Value;
+                if (!parameters.ProcessNumberField && m.Groups[2].Value.Contains("{n}"))
+                {
+                    return m.Groups[0].Value;
+                }
 
                 return NamePatternFunctions.ResolveFunction(m, parameters);
             }
@@ -271,10 +300,12 @@ namespace ARKBreedingStats.NamePatterns
 
             int generation = creature.generation;
             if (generation <= 0)
+            {
                 generation = Math.Max(
                     creature.Mother?.generation + 1 ?? 0,
                     creature.Father?.generation + 1 ?? 0
                 );
+            }
 
             string oldName = creature.name;
 
@@ -305,12 +336,17 @@ namespace ARKBreedingStats.NamePatterns
             string spcsNm = speciesName;
             char[] vowels = { 'a', 'e', 'i', 'o', 'u' };
             while (spcsNm.LastIndexOfAny(vowels) > 0)
+            {
                 spcsNm = spcsNm.Remove(spcsNm.LastIndexOfAny(vowels), 1); // remove last vowel (not the first letter)
+            }
 
             // for counting, add 1 if the creature is not yet in the library
             var addOne = alreadyExistingCreature == null ? 1 : 0;
             int speciesCount = (speciesCreatures?.Length ?? 0) + addOne;
-            if (addOne == 1) libraryCreatureCount++;
+            if (addOne == 1)
+            {
+                libraryCreatureCount++;
+            }
             // the index of the creature in its generation, ordered by addedToLibrary
             int nrInGeneration = (speciesCreatures?.Count(c => c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
             int nrInGenerationAndSameSex = (speciesCreatures?.Count(c => c.sex == creature.sex && c.addedToLibrary != null && c.generation == generation && (creature.addedToLibrary == null || c.addedToLibrary < creature.addedToLibrary)) ?? 0) + addOne;
@@ -396,7 +432,11 @@ namespace ARKBreedingStats.NamePatterns
             var levelOrderMutated = new List<(int, int)>(7);
             for (int si = 0; si < Stats.StatsCount; si++)
             {
-                if (si == Stats.Torpidity || !creature.Species.UsesStat(si)) continue;
+                if (si == Stats.Torpidity || !creature.Species.UsesStat(si))
+                {
+                    continue;
+                }
+
                 levelOrderWild.Add((si, creature.levelsWild[si]));
                 levelOrderMutated.Add((si, creature.levelsMutated?[si] ?? 0));
             }
@@ -404,7 +444,11 @@ namespace ARKBreedingStats.NamePatterns
             levelOrderMutated = levelOrderMutated.OrderByDescending(l => l.Item2).ToList();
             var usedStatsCount = levelOrderWild.Count;
 
-            if (topLevels == null) topLevels = new TopLevels();
+            if (topLevels == null)
+            {
+                topLevels = new TopLevels();
+            }
+
             var wildLevelsHighest = topLevels.WildLevelsHighest;
             var wildLevelsLowest = topLevels.WildLevelsLowest;
             var mutationLevelsHighest = topLevels.MutationLevelsHighest;

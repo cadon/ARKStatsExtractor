@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using SavegameToolkit;
@@ -124,7 +125,9 @@ namespace ARKBreedingStats
                         (c.Status == CreatureStatus.Available || c.Status == CreatureStatus.Cryopod) && c.server == serverName
                         ).Except(newCreatures);
                 foreach (var c in removedCreatures)
+                {
                     c.Status = CreatureStatus.Unavailable;
+                }
             }
 
             newCreatures.ForEach(creature =>
@@ -148,7 +151,9 @@ namespace ARKBreedingStats
 
             // error while deserializing that creature
             if (statusObject == null)
+            {
                 return null;
+            }
 
             string imprinterName = creatureObject.GetPropertyValue<string>("ImprinterName");
             string owner = string.IsNullOrWhiteSpace(imprinterName) ? creatureObject.GetPropertyValue<string>("TamerString") : imprinterName;
@@ -202,7 +207,9 @@ namespace ARKBreedingStats
                 double maturationDuration = species.breeding?.maturationTimeAdjusted ?? 0;
                 float bornSecondsAgo = (float)maturationDuration * babyAge;
                 if (bornSecondsAgo < maturationDuration - 120) // there seems to be a slight offset of one of these saved values, so don't display a creature as being in cooldown if it is about to leave it in the next 2 minutes
+                {
                     creature.growingUntil = DateTime.Now.Add(TimeSpan.FromSeconds(maturationDuration - bornSecondsAgo));
+                }
             }
             else
             {
@@ -248,7 +255,9 @@ namespace ARKBreedingStats
             }
 
             if (creatureObject.IsInCryo)
+            {
                 creature.Status = CreatureStatus.Cryopod;
+            }
 
             creature.RecalculateCreatureValues(levelStep);
 

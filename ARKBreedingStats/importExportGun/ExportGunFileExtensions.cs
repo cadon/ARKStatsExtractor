@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.importExportGun
+using ARKBreedingStats.Models;
+
+namespace ARKBreedingStats.importExportGun
 {
     internal static class ExportGunFileExtensions
     {

@@ -1,5 +1,7 @@
-﻿using ARKBreedingStats.miscClasses;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.miscClasses;
 using ARKBreedingStats.settings;
+using ARKBreedingStats.values;
 using FluentFTP;
 using Newtonsoft.Json;
 using System;
@@ -30,7 +32,9 @@ namespace ARKBreedingStats
             {
                 var initialFolder = Properties.Settings.Default.ManualSaveGameImportFolder;
                 if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
+                {
                     initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                }
 
                 string saveFileLocation = null;
                 using (OpenFileDialog dlg = new OpenFileDialog
@@ -46,12 +50,19 @@ namespace ARKBreedingStats
                     }
                 }
 
-                if (string.IsNullOrEmpty(saveFileLocation)) return;
+                if (string.IsNullOrEmpty(saveFileLocation))
+                {
+                    return;
+                }
 
                 error = await RunSavegameImport(saveFileLocation);
             }
 
-            if (string.IsNullOrEmpty(error)) return;
+            if (string.IsNullOrEmpty(error))
+            {
+                return;
+            }
+
             MessageBoxes.ShowMessageBox(error, "Savegame import error");
         }
 
@@ -112,8 +123,11 @@ namespace ARKBreedingStats
                             (workingCopyFilePath, errorMessage) = await CopyFtpFileAsync(uri, uriFileRegex, convenientName ?? serverName ?? fileLocation,
                                workingCopyFolderPath);
                             if (errorMessage != null)
+                            {
                                 // the user didn't enter credentials
                                 return errorMessage;
+                            }
+
                             break;
                         default:
                             throw new Exception($"Unsupported uri scheme: {uri.Scheme}");
@@ -122,7 +136,9 @@ namespace ARKBreedingStats
                 else
                 {
                     if (!File.Exists(fileLocation))
+                    {
                         return $"File not found: {fileLocation}";
+                    }
 
                     workingCopyFilePath = Path.Combine(workingCopyFolderPath,
                          Path.GetFileName(fileLocation));
@@ -149,9 +165,11 @@ namespace ARKBreedingStats
                 UpdateCreatureParentLinkingSort(goToLibraryTab: true);
 
                 // if unknown mods are used in the savegame-file and the user wants to load the missing mod-files, do it
-                if (_creatureCollection.ModValueReloadNeeded
+                if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)
                     && LoadModValuesOfCollection(_creatureCollection, true, true))
+                {
                     SetCollectionChanged(true);
+                }
             }
             catch (Exception ex)
             {
@@ -214,11 +232,15 @@ namespace ARKBreedingStats
                     try
                     {
                         if (progressDialog.IsDisposed)
+                        {
                             return (null, "aborted by user");
+                        }
 
                         progressDialog.StatusText = $"Authenticating on server {serverName}";
                         if (!progressDialog.Visible)
+                        {
                             progressDialog.Show(this);
+                        }
 
                         // TODO
                         // cancel token doesn't work correctly, instead of throwing 
@@ -369,7 +391,9 @@ namespace ARKBreedingStats
 
             var regexGroupNames = fileNameRegex.GetGroupNames().Where(n => n != "0").OrderBy(n => n).ToArray();
             if (regexGroupNames.Length == 0)
+            {
                 return listWithMatches.First().ftpFile;
+            }
 
             var orderedListWithMatches =
                 listWithMatches.OrderByDescending(f => f.match.Groups[regexGroupNames[0]].Value);
@@ -397,7 +421,10 @@ namespace ARKBreedingStats
                 if (MessageBox.Show(
                     "No save game files are configured for importing.\nYou can do this in the settings. Do you want to open the according settings-page?",
                     $"Save import not configured - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    OpenSettingsDialog(Settings.SettingsTabPages.SaveImport);
+                {
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.SaveImport);
+                }
+
                 return;
             }
 
@@ -409,7 +436,10 @@ namespace ARKBreedingStats
                 if (MessageBox.Show(
                     "No save game files for the quick import are selected.\nYou can do this in the settings. Do you want to open the according settings-page?",
                     $"Quick import not configured - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    OpenSettingsDialog(Settings.SettingsTabPages.SaveImport);
+                {
+                    OpenSettingsDialog(settings.Settings.SettingsTabPages.SaveImport);
+                }
+
                 return;
             }
 
@@ -436,7 +466,9 @@ namespace ARKBreedingStats
 
             SetMessageLabelText("Save game import done\r\n" + string.Join("\r\n--------\r\n", results), MessageBoxIcon.Information);
             if (listViewLibrary.SelectedIndices.Count > 0)
+            {
                 _ignoreNextMessageLabel = true;
+            }
             //MessageBoxes.ShowMessageBox(string.Join("\n\n--------\n\n", results), "Save game import done", MessageBoxIcon.Information);
         }
     }

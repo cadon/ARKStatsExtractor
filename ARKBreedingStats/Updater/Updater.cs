@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -74,8 +74,15 @@ namespace ARKBreedingStats.Updater
             try
             {
                 bool? wantsProgramUpdate = await CheckAndAskForUpdate(collectionDirty);
-                if (wantsProgramUpdate == null) return null;
-                if (!wantsProgramUpdate.Value) return false;
+                if (wantsProgramUpdate == null)
+                {
+                    return null;
+                }
+
+                if (!wantsProgramUpdate.Value)
+                {
+                    return false;
+                }
 
                 // Launch the updater and exit this app
                 LaunchUpdater();
@@ -89,7 +96,9 @@ namespace ARKBreedingStats.Updater
                         "Try checking for an updated version of ARK Smart Breeding. " +
                         "Do you want to visit the releases page?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
                     Process.Start(ReleasesUrl);
+                }
             }
             return null;
         }
@@ -112,7 +121,9 @@ namespace ARKBreedingStats.Updater
             args.Append(" doupdate");
             // use the %localAppData%\ARK Smart Breeding folder for the values files
             if (IsProgramInstalled)
+            {
                 args.Append(" useLocalAppData");
+            }
 
             // check if the application folder is protected, then ask for admin permissions for the updater.
             if (FileService.TestIfFolderIsProtected(AppDomain.CurrentDomain.BaseDirectory))
@@ -250,7 +261,9 @@ namespace ARKBreedingStats.Updater
             var manifest = AsbManifest.FromJsonFile(manifestFilePath);
 
             if (manifest.Modules.TryGetValue("ARK Smart Breeding", out var app))
+            {
                 return app.Version;
+            }
 
             throw new FormatException("version of main app not found in manifest");
         }
@@ -287,7 +300,9 @@ namespace ARKBreedingStats.Updater
             string tempFilePath = Path.GetTempFileName();
             string valuesFolder = Path.GetDirectoryName(destinationPath);
             if (!Directory.Exists(valuesFolder))
+            {
                 Directory.CreateDirectory(valuesFolder);
+            }
 
             try
             {
@@ -296,7 +311,11 @@ namespace ARKBreedingStats.Updater
                     // if successful downloaded, move tempFile
                     try
                     {
-                        if (File.Exists(destinationPath)) File.Delete(destinationPath);
+                        if (File.Exists(destinationPath))
+                        {
+                            File.Delete(destinationPath);
+                        }
+
                         File.Move(tempFilePath, destinationPath);
                         return true;
                     }
@@ -318,28 +337,18 @@ namespace ARKBreedingStats.Updater
             return false;
         }
 
-        //internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
-        //{
-        //    try
-        //    {
-        //        await DownloadAsync(ObeliskUrl + modValuesFileName,
-        //            FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBoxes.ExceptionMessageBox(ex, "Error while downloading values file");
-        //    }
-        //    return false;
-        //}
+        internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
+        {
+            var (success, _) = await WebService.DownloadAsync(ObeliskUrl + modValuesFileName,
+                FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
+            return success;
+        }
 
         internal static bool DownloadModValuesFile(string modValuesFileName)
         {
             try
             {
-                Task.Run(() => WebService.DownloadAsync(ObeliskUrl + modValuesFileName,
-                     FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)))).Wait();
-                return true;
+                return Task.Run(() => DownloadModValuesFileAsync(modValuesFileName)).GetAwaiter().GetResult();
             }
             catch
             {

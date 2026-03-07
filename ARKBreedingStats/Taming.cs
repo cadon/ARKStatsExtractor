@@ -1,4 +1,6 @@
-﻿using ARKBreedingStats.species;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Settings;
+using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
@@ -36,7 +38,9 @@ namespace ARKBreedingStats
 
             foodAmountUsed = new List<int>();
             foreach (int i in foodAmount)
+            {
                 foodAmountUsed.Add(0);
+            }
 
             if (species != null && species.taming != null)
             {
@@ -57,11 +61,17 @@ namespace ARKBreedingStats
                 // how much food / resources of the different kinds that this creature eats is needed
                 for (int f = 0; f < usedFood.Count; f++)
                 {
-                    if (foodAmount[f] <= 0) continue;
+                    if (foodAmount[f] <= 0)
+                    {
+                        continue;
+                    }
+
                     string foodName = usedFood[f];
                     var food = Values.V.GetTamingFood(species, foodName);
-                    if (food == null) continue;
-
+                    if (food == null)
+                    {
+                        continue;
+                    }
 
                     double foodAffinity = food.affinity * food.quantity;
                     double foodValue = food.foodValue; // TODO is the food value also affected by the quantity?
@@ -81,7 +91,9 @@ namespace ARKBreedingStats
                         int foodPiecesNeeded = (int)Math.Ceiling(affinityNeeded / foodAffinity);
 
                         if (foodPiecesNeeded > foodAmount[f])
+                        {
                             foodPiecesNeeded = foodAmount[f];
+                        }
 
                         foodAmountUsed[f] = foodPiecesNeeded;
 
@@ -89,10 +101,15 @@ namespace ARKBreedingStats
                         // mantis eats every 3 minutes, regardless of level
                         int seconds;
                         if (species.name == "Mantis")
+                        {
                             seconds = foodPiecesNeeded * 180;
+                        }
                         else
+                        {
                             seconds = (int)Math.Ceiling(foodPiecesNeeded * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult
                                 * serverMultipliers.DinoCharacterFoodDrainMultiplier * serverMultipliers.WildDinoCharacterFoodDrainMultiplier));
+                        }
+
                         affinityNeeded -= foodPiecesNeeded * foodAffinity;
 
                         // new approach with 1/(1 + IM*IA*N/AO + ID*D) from https://forums.unrealengine.com/development-discussion/modding/ark-survival-evolved/56959-tutorial-dinosaur-taming-parameters?85457-Tutorial-Dinosaur-Taming-Parameters=
@@ -106,17 +123,23 @@ namespace ARKBreedingStats
                         totalSeconds += seconds;
                     }
                     if (affinityNeeded <= 0)
+                    {
                         break;
+                    }
                 }
                 // add tamingIneffectivenessMultiplier? Needs settings?
                 te = 1 / (1 + species.taming.tamingIneffectiveness * foodByAffinity); // ignores damage, which has no input
                 if (te < 0)
+                {
                     te = 0;
+                }
 
                 torporNeeded -= totalTorpor;
 
                 if (torporNeeded < 0)
+                {
                     torporNeeded = 0;
+                }
                 // amount of Narcoberries(give 7.5 torpor each over 3s)
                 neededNarcoberries = (int)Math.Ceiling(torporNeeded / (7.5 + 3 * torporDepletionPerSecond));
                 // amount of Ascerbic Mushrooms (give 25 torpor each over 3s)
@@ -137,7 +160,9 @@ namespace ARKBreedingStats
                 {
                     var food = Values.V.GetTamingFood(species, usedFood[i]);
                     if (food != null)
+                    {
                         hunger += foodAmountUsed[i] * food.foodValue;
+                    }
                 }
             }
         }
@@ -163,12 +188,17 @@ namespace ARKBreedingStats
                 double affinityNeeded = (species.taming.affinityNeeded0 + species.taming.affinityIncreasePL * level) * (useSanguineElixir ? 0.7 : 1);
 
                 var food = Values.V.GetTamingFood(species, foodName);
-                if (food == null) return 0;
+                if (food == null)
+                {
+                    return 0;
+                }
 
                 var foodAffinity = food.affinity;
 
                 if (nonViolent)
+                {
                     foodAffinity *= species.taming.wakeAffinityMult;
+                }
 
                 foodAffinity *= tamingSpeedMultiplier * HardCodedTamingMultiplier;
 
@@ -176,7 +206,11 @@ namespace ARKBreedingStats
                 {
                     // amount of food needed for the affinity
                     int quantity = food.quantity;
-                    if (quantity < 1) quantity = 1;
+                    if (quantity < 1)
+                    {
+                        quantity = 1;
+                    }
+
                     return (int)Math.Ceiling(affinityNeeded / (foodAffinity * quantity));
                 }
             }
@@ -204,29 +238,44 @@ namespace ARKBreedingStats
 
             // using a more precise approach with an exponential increase, based on http://ark.crumplecorn.com/taming/controller.js?d=20160821
             if (torporDepletionPS0 > 0)
+            {
                 return (torporDepletionPS0 + Math.Pow(level - 1, 0.800403041) / (22.39671632 / torporDepletionPS0)) * wildDinoTorporDrainMultiplier;
+            }
+
             return 0;
         }
 
         public static TimeSpan TamingDuration(Species species, int foodQuantity, string foodName, double tamingFoodRateMultiplier, bool nonViolent = false)
         {
-            if (species?.taming == null) return TimeSpan.Zero;
+            if (species?.taming == null)
+            {
+                return TimeSpan.Zero;
+            }
 
             // calculate time to eat needed food
             var food = Values.V.GetTamingFood(species, foodName);
-            if (food == null) return TimeSpan.Zero;
+            if (food == null)
+            {
+                return TimeSpan.Zero;
+            }
 
             double foodValue = food.foodValue;
 
             if (nonViolent)
+            {
                 foodValue *= species.taming.wakeFoodDeplMult;
+            }
 
             int seconds;
             // mantis eats every 3 minutes, regardless of level
             if (species.name == "Mantis")
+            {
                 seconds = foodQuantity * 180;
+            }
             else
+            {
                 seconds = (int)Math.Ceiling(foodQuantity * foodValue / (species.taming.foodConsumptionBase * species.taming.foodConsumptionMult * tamingFoodRateMultiplier));
+            }
 
             return new TimeSpan(0, 0, seconds);
         }
@@ -246,7 +295,9 @@ namespace ARKBreedingStats
                 knockoutNeeded = species.taming.violent;
                 string warning = string.Empty;
                 if (!knockoutNeeded)
+                {
                     warning = "+++ Creature must not be knocked out for taming! +++\n\n";
+                }
 
                 // print needed tranq arrows needed to ko creature.
                 // wooden club: 10 torpor
@@ -269,12 +320,14 @@ namespace ARKBreedingStats
                 // torpor depletion per s
                 string torporDepletion = string.Empty;
                 if (torporDeplPS > 0)
+                {
                     torporDepletion = "\n" + Loc.S("TimeUntilTorporDepleted") + ": " + Utils.DurationUntil(new TimeSpan(0, 0, (int)Math.Round(totalTorpor / torporDeplPS)))
                             + "\n" + Loc.S("TorporDepletion") + ": " + Math.Round(torporDeplPS, 2)
                             + " / s;\n" + Loc.S("ApproxOneNarcoberryEvery") + " " + Math.Round(7.5 / torporDeplPS + 3, 1)
                             + " s " + Loc.S("OrOneAscerbicMushroom") + " " + Math.Round(25 / torporDeplPS + 3, 1)
                             + " s " + Loc.S("OrOneNarcoticEvery") + " " + Math.Round(40 / torporDeplPS + 8, 1)
                             + " s " + Loc.S("OrOneBioToxinEvery") + " " + Math.Round(80 / torporDeplPS + 16, 1) + " s";
+                }
 
                 return warning + koNumbers + torporDepletion;
             }
@@ -309,8 +362,10 @@ namespace ARKBreedingStats
                     }
                 }
                 if (species.immobilizedBy != null && species.immobilizedBy.Any())
+                {
                     text += $"{(text.Length > 0 ? "\n" : string.Empty)}{Loc.S("ImmobilizedBy")}: " +
                             $"{string.Join(", ", species.immobilizedBy)}";
+                }
             }
             return text;
         }

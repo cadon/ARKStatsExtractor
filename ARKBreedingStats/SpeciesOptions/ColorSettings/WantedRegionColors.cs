@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,11 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
         /// </summary>
         public bool IsColorWanted(byte colorId)
         {
-            if (_wantedColorBitFlags == null) return false;
+            if (_wantedColorBitFlags == null)
+            {
+                return false;
+            }
+
             Indices(colorId, out var arrayIndex, out var bitFlag);
             return (_wantedColorBitFlags[arrayIndex] & bitFlag) != 0;
         }
@@ -41,12 +45,20 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
         /// </summary>
         public void SetColorWanted(byte colorId, bool setColor)
         {
-            if (_wantedColorBitFlags == null) _wantedColorBitFlags = new uint[256 / BitsPerElement];
+            if (_wantedColorBitFlags == null)
+            {
+                _wantedColorBitFlags = new uint[256 / BitsPerElement];
+            }
+
             Indices(colorId, out var arrayIndex, out var bitFlag);
             if (setColor)
+            {
                 _wantedColorBitFlags[arrayIndex] |= bitFlag;
+            }
             else
+            {
                 _wantedColorBitFlags[arrayIndex] &= ~bitFlag;
+            }
         }
 
         private static readonly Regex CleanUpColorIdRanges = new Regex(@"[^\d\-,]");
@@ -59,9 +71,16 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
         public bool SetColorsWanted(string colorIds, bool clearOthers, out string errorMessage)
         {
             errorMessage = null;
-            if (clearOthers) _wantedColorBitFlags = new uint[256 / BitsPerElement];
+            if (clearOthers)
+            {
+                _wantedColorBitFlags = new uint[256 / BitsPerElement];
+            }
 
-            if (string.IsNullOrWhiteSpace(colorIds)) return true;
+            if (string.IsNullOrWhiteSpace(colorIds))
+            {
+                return true;
+            }
+
             colorIds = CleanUpColorIdRanges.Replace(colorIds, string.Empty);
 
             var colorIdsToSet = new List<byte>();
@@ -74,7 +93,9 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
                     {
                         var bounds = range.Split('-').Select(byte.Parse).ToArray();
                         for (var colorId = bounds[0]; colorId <= bounds[1]; colorId++)
+                        {
                             colorIdsToSet.Add(colorId);
+                        }
                     }
                     else
                     {
@@ -89,7 +110,10 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
                 return false;
             }
             foreach (var colorId in colorIdsToSet)
+            {
                 SetColorWanted(colorId, true);
+            }
+
             return true;
         }
 
@@ -99,21 +123,33 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
         /// <returns></returns>
         public string GetColorIdsCsv()
         {
-            if (_wantedColorBitFlags == null) return string.Empty;
+            if (_wantedColorBitFlags == null)
+            {
+                return string.Empty;
+            }
 
             var colorIds = new List<byte>();
             for (byte colorId = 0; ; colorId++)
             {
                 if (IsColorWanted(colorId))
+                {
                     colorIds.Add(colorId);
-                if (colorId == byte.MaxValue) break;
+                }
+
+                if (colorId == byte.MaxValue)
+                {
+                    break;
+                }
             }
 
             var result = new List<string>();
             for (var i = 0; i < colorIds.Count; i++)
             {
                 var start = colorIds[i];
-                while (i + 1 < colorIds.Count && colorIds[i + 1] == colorIds[i] + 1) i++;
+                while (i + 1 < colorIds.Count && colorIds[i + 1] == colorIds[i] + 1)
+                {
+                    i++;
+                }
 
                 var end = colorIds[i];
                 result.Add(start == end ? start.ToString() : $"{start}-{end}");
@@ -140,7 +176,9 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
         {
             OverrideParentBool = OverrideParent || isRoot;
             if (_wantedColorBitFlags?.All(f => f == 0) == true)
+            {
                 _wantedColorBitFlags = null;
+            }
         }
 
         public override bool DefinesData() => true;

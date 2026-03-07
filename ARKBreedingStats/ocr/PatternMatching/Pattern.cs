@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -20,7 +20,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
             Data = arr;
             YOffset = yOffset;
             if (Data != null)
+            {
                 UpdateProperties();
+            }
         }
 
         [OnDeserialized]
@@ -132,7 +134,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
                         }
                     }
 
-                    if (!inChar) continue;
+                    if (!inChar)
+                    {
+                        continue;
+                    }
 
                     for (int y = 0; y < bmpData.Height; y++)
                     {
@@ -141,11 +146,19 @@ namespace ARKBreedingStats.ocr.PatternMatching
                         {
                             allBits[x, y] = true;
                             if (yStart == -1 || y < yStart)
+                            {
                                 yStart = y;
+                            }
+
                             if (xEnd < x)
+                            {
                                 xEnd = x;
+                            }
+
                             if (yEnd < y)
+                            {
                                 yEnd = y;
+                            }
                         }
                     }
                 }
@@ -153,7 +166,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
             bmp.UnlockBits(bmpData);
             //Boolean2DimArrayConverter.ToDebugLog(allBits);
 
-            if (xStart < 0 || xStart > xEnd || yStart < 0 || yStart > yEnd) return null;
+            if (xStart < 0 || xStart > xEnd || yStart < 0 || yStart > yEnd)
+            {
+                return null;
+            }
             // create cropped pattern
 
             var width = xEnd - xStart + 1;
@@ -166,7 +182,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 for (int y = 0; y < height; y++)
                 {
                     if (allBits[xOriginal, y + yStart])
+                    {
                         croppedBits[x, y] = true;
+                    }
                 }
             }
 
@@ -184,12 +202,21 @@ namespace ARKBreedingStats.ocr.PatternMatching
                 || Width != otherPattern.Width
                 || Height != otherPattern.Height
                 || SetPixels != otherPattern.SetPixels
-                ) return false;
+                )
+            {
+                return false;
+            }
 
             for (int x = 0; x < Width; x++)
+            {
                 for (int y = 0; y < Height; y++)
+                {
                     if (Data[x, y] != otherPattern.Data[x, y])
+                    {
                         return false;
+                    }
+                }
+            }
 
             return true;
         }
@@ -211,7 +238,10 @@ namespace ARKBreedingStats.ocr.PatternMatching
             if (Data == null
                 || Data.GetLength(0) < 5
                 || Data.GetLength(1) + YOffset < 5
-            ) return 0;
+            )
+            {
+                return 0;
+            }
 
             // divide each side into two parts, then check if in the middle of a part there is an aperture at least 1/4 of the width or height.
             var widthHalf = Width / 2;
@@ -271,7 +301,9 @@ namespace ARKBreedingStats.ocr.PatternMatching
                     }
                 }
                 if (aperture)
+                {
                     apertures += (byte)(1 << i);
+                }
             }
 
             //AperturePixels = aperturePixelsList.ToArray(); // TODO debug remove

@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;

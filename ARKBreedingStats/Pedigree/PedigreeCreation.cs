@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -61,16 +61,25 @@ namespace ARKBreedingStats.Pedigree
                 yOffsetPedigreeBottom = yOffsetOriginCreature + controlHeightWithMargin;
             }
 
-            if (xOffsetStart < MinXPosCreature) xOffsetStart = MinXPosCreature;
+            if (xOffsetStart < MinXPosCreature)
+            {
+                xOffsetStart = MinXPosCreature;
+            }
 
             var xLowest = CreateOffspringParentsCompact(creature, xOffsetStart, yOffsetOriginCreature,
                 false, displayedGenerations, xOffsetParents, lines, pedigreeControls, tt, int.MaxValue, true, highlightInheritanceStatIndex, hView);
 
             var moveToLeft = xLowest - 2 * Margin;
             var maxMoveToLeft = Math.Max(0, xOffsetStart - MinXPosCreature);
-            if (moveToLeft > maxMoveToLeft) moveToLeft = maxMoveToLeft;
+            if (moveToLeft > maxMoveToLeft)
+            {
+                moveToLeft = maxMoveToLeft;
+            }
+
             if (moveToLeft > 0)
+            {
                 CompactViewLeftAlign(pedigreeControls, lines, moveToLeft);
+            }
 
             return yOffsetPedigreeBottom + 2 * Margin;
         }
@@ -84,23 +93,40 @@ namespace ARKBreedingStats.Pedigree
                     lines, pcs, tt, onlyDrawParents, highlightCreature, highlightStatIndex, hView, hViewRotation, out Point locationMother, out Point locationFather,
                     highlightMotherLine, highlightFatherLine);
 
-            if (creature.Mother != null && xLowest > locationMother.X) xLowest = locationMother.X;
-            if (creature.Father != null && xLowest > locationFather.X) xLowest = locationFather.X;
+            if (creature.Mother != null && xLowest > locationMother.X)
+            {
+                xLowest = locationMother.X;
+            }
 
-            if (--generations < 2) return xLowest;
+            if (creature.Father != null && xLowest > locationFather.X)
+            {
+                xLowest = locationFather.X;
+            }
+
+            if (--generations < 2)
+            {
+                return xLowest;
+            }
+
             bool halfXOffset = !hView || (generations % 2) == 1;
             var newXOffset = halfXOffset ? xOffsetParent / 2 : xOffsetParent;
             if (creature.Mother != null)
             {
                 var xLowestNew = CreateOffspringParentsCompact(creature.Mother, locationMother.X, locationMother.Y,
                     true, generations, newXOffset, lines, pcs, tt, xLowest, false, highlightStatIndex, hView, (hViewRotation + 3) % 4, motherInheritance.maternalInheritance, motherInheritance.paternalInheritance);
-                if (xLowestNew < xLowest) xLowest = xLowestNew;
+                if (xLowestNew < xLowest)
+                {
+                    xLowest = xLowestNew;
+                }
             }
             if (creature.Father != null)
             {
                 var xLowestNew = CreateOffspringParentsCompact(creature.Father, locationFather.X, locationFather.Y,
                     true, generations, newXOffset, lines, pcs, tt, xLowest, false, highlightStatIndex, hView, (hViewRotation + 1) % 4, fatherInheritance.maternalInheritance, fatherInheritance.paternalInheritance);
-                if (xLowestNew < xLowest) xLowest = xLowestNew;
+                if (xLowestNew < xLowest)
+                {
+                    xLowest = xLowestNew;
+                }
             }
 
             return xLowest;
@@ -118,7 +144,10 @@ namespace ARKBreedingStats.Pedigree
         {
             locationMother = Point.Empty;
             locationFather = Point.Empty;
-            if (creature == null) return ((0, 0), (0, 0));
+            if (creature == null)
+            {
+                return ((0, 0), (0, 0));
+            }
 
             if (!onlyDrawParents)
             {
@@ -129,10 +158,15 @@ namespace ARKBreedingStats.Pedigree
                 };
                 pcs.Add(c);
                 if (highlightStatIndex != -1)
+                {
                     (highlightMotherLine, highlightFatherLine) = c.PossibleStatInheritance(highlightStatIndex);
+                }
             }
 
-            if (creature.Mother == null && creature.Father == null) return ((0, 0), (0, 0));
+            if (creature.Mother == null && creature.Father == null)
+            {
+                return ((0, 0), (0, 0));
+            }
 
             var statInheritanceMother = (0, 0);
             var statInheritanceFather = (0, 0);
@@ -148,7 +182,9 @@ namespace ARKBreedingStats.Pedigree
                 };
                 pcs.Add(c);
                 if (highlightMotherLine != 0 && highlightStatIndex != -1)
+                {
                     statInheritanceMother = c.PossibleStatInheritance(highlightStatIndex);
+                }
             }
             // father
             if (creature.Father != null)
@@ -160,7 +196,9 @@ namespace ARKBreedingStats.Pedigree
                 };
                 pcs.Add(c);
                 if (highlightFatherLine != 0 && highlightStatIndex != -1)
+                {
                     statInheritanceFather = c.PossibleStatInheritance(highlightStatIndex);
+                }
             }
 
             // lines
@@ -169,8 +207,15 @@ namespace ARKBreedingStats.Pedigree
                 //  M──O──F
 
                 // keep normal lines black to make them more visible in this mode
-                if (highlightMotherLine == 0) highlightMotherLine = 1;
-                if (highlightFatherLine == 0) highlightFatherLine = 1;
+                if (highlightMotherLine == 0)
+                {
+                    highlightMotherLine = 1;
+                }
+
+                if (highlightFatherLine == 0)
+                {
+                    highlightFatherLine = 1;
+                }
 
                 var halfControlWidth = PedigreeCreatureCompact.ControlWidth / 2 - 1;
                 var xCenter = x + halfControlWidth;
@@ -229,13 +274,19 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         private static void CompactViewLeftAlign(List<Control> controls, List<int[]>[] lines, int moveToLeft)
         {
-            foreach (var c in controls) c.Left -= moveToLeft;
+            foreach (var c in controls)
+            {
+                c.Left -= moveToLeft;
+            }
+
             foreach (var ls in lines)
+            {
                 foreach (var l in ls)
                 {
                     l[0] -= moveToLeft;
                     l[2] -= moveToLeft;
                 }
+            }
         }
 
         #endregion
@@ -277,7 +328,9 @@ namespace ARKBreedingStats.Pedigree
         private static bool CreateParentsChild(Creature creature, List<int[]>[] lines, List<Control> pedigreeControls, int x, int y, bool[] enabledColorRegions, bool drawWithNoParents = false, bool highlightCreature = false)
         {
             if (creature == null || (!drawWithNoParents && creature.Mother == null && creature.Father == null))
+            {
                 return false;
+            }
 
             // creature
             pedigreeControls.Add(new PedigreeCreature(creature, enabledColorRegions)
@@ -314,12 +367,17 @@ namespace ARKBreedingStats.Pedigree
                 || (mother?.flags.HasFlag(CreatureFlags.Placeholder) != false
                     && father?.flags.HasFlag(CreatureFlags.Placeholder) != false)
                 )
+            {
                 return;
+            }
 
             for (int s = 0; s < PedigreeCreature.DisplayedStatsCount; s++)
             {
                 int si = PedigreeCreature.DisplayedStats[s];
-                if (offspring.valuesCurrent[si] <= 0) continue; // don't display arrows for unused stats
+                if (offspring.valuesCurrent[si] <= 0)
+                {
+                    continue; // don't display arrows for unused stats
+                }
 
                 var levelMother = mother?.levelsWild?[si] ?? -1;
                 var levelFather = father?.levelsWild?[si] ?? -1;
@@ -332,9 +390,13 @@ namespace ARKBreedingStats.Pedigree
                 if (levelMother != -1 && levelFather != -1)
                 {
                     if (levelMother < levelFather)
+                    {
                         better = -1;
+                    }
                     else if (levelMother > levelFather)
+                    {
                         better = 1;
+                    }
                 }
 
                 // offspring can have stats that are 2, 4 or 6 levels higher due to mutations
@@ -352,13 +414,17 @@ namespace ARKBreedingStats.Pedigree
                         {
                             motherInheritancePossible = true;
                             if (m > 0)
+                            {
                                 motherInheritanceWithMutationPossible = true;
+                            }
                         }
                         if (levelOffspring == levelFather + Ark.LevelsAddedPerMutation * m)
                         {
                             fatherInheritancePossible = true;
                             if (m > 0)
+                            {
                                 fatherInheritanceWithMutationPossible = true;
+                            }
                         }
                     }
                 }
@@ -379,7 +445,9 @@ namespace ARKBreedingStats.Pedigree
                         higherWildLevel = levelFather;
                         lowerWildLevel = levelMother;
                         if (levelMother < levelFather)
+                        {
                             higherWildLevelFrom = LevelInheritedFrom.Father;
+                        }
                     }
 
                     if (levelMotherMutated > levelFatherMutated)
@@ -393,7 +461,9 @@ namespace ARKBreedingStats.Pedigree
                         higherMutLevel = levelFatherMutated;
                         lowerMutLevel = levelMotherMutated;
                         if (levelMotherMutated < levelFatherMutated)
+                        {
                             higherMutationLevelFrom = LevelInheritedFrom.Father;
+                        }
                     }
 
                     var higherInheritancePossible = false;
@@ -408,44 +478,70 @@ namespace ARKBreedingStats.Pedigree
                         {
                             higherInheritancePossible = true;
                             if (m > 0)
+                            {
                                 higherInheritancePossibleWithMutations = true;
+                            }
                         }
                         else if (levelOffspring == lowerWildLevel
                                  && levelOffspringMutated == lowerMutLevel + Ark.LevelsAddedPerMutation * m)
                         {
                             lowerInheritancePossible = true;
                             if (m > 0)
+                            {
                                 lowerInheritancePossibleWithMutations = true;
+                            }
                         }
                     }
 
                     if (higherInheritancePossible)
                     {
                         if (higherWildLevelFrom != LevelInheritedFrom.Father)
+                        {
                             motherInheritancePossible = true;
+                        }
+
                         if (higherWildLevelFrom != LevelInheritedFrom.Mother)
+                        {
                             fatherInheritancePossible = true;
+                        }
+
                         if (higherInheritancePossibleWithMutations)
                         {
                             if (higherMutationLevelFrom != LevelInheritedFrom.Father)
+                            {
                                 motherInheritanceWithMutationPossible = true;
+                            }
+
                             if (higherMutationLevelFrom != LevelInheritedFrom.Mother)
+                            {
                                 fatherInheritanceWithMutationPossible = true;
+                            }
                         }
                     }
 
                     if (lowerInheritancePossible)
                     {
                         if (higherWildLevelFrom != LevelInheritedFrom.Mother)
+                        {
                             motherInheritancePossible = true;
+                        }
+
                         if (higherWildLevelFrom != LevelInheritedFrom.Father)
+                        {
                             fatherInheritancePossible = true;
+                        }
+
                         if (lowerInheritancePossibleWithMutations)
                         {
                             if (higherMutationLevelFrom != LevelInheritedFrom.Mother)
+                            {
                                 motherInheritanceWithMutationPossible = true;
+                            }
+
                             if (higherMutationLevelFrom != LevelInheritedFrom.Father)
+                            {
                                 fatherInheritanceWithMutationPossible = true;
+                            }
                         }
                     }
                 }

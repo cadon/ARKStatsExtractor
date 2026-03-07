@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using ARKBreedingStats.uiControls;
 
@@ -31,9 +31,13 @@ namespace ARKBreedingStats.utils
             }
 
             if (displayCopyMessageButton)
+            {
                 CustomMessageBox.Show(message, title, "OK", icon: icon, showCopyToClipboard: true);
+            }
             else
+            {
                 MessageBox.Show(message, $"{title} - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK, icon);
+            }
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -159,13 +159,18 @@ namespace ASB_Updater
             SetStatus(Stages.CHECK, progress);
             if (string.IsNullOrEmpty(applicationPath)
                 || !Directory.Exists(applicationPath))
+            {
                 return false;
+            }
 
             try
             {
                 string exePath = Path.Combine(applicationPath, "ARK Smart Breeding.exe");
                 // if exe does not exist, an update is needed
-                if (!File.Exists(exePath)) return true;
+                if (!File.Exists(exePath))
+                {
+                    return true;
+                }
 
                 string installedVersion = FileVersionInfo.GetVersionInfo(exePath).FileVersion;
 
@@ -287,7 +292,9 @@ namespace ASB_Updater
                 if (url == null)
                 {
                     if (!await Fetch(progress) || !Parse(progress))
+                    {
                         return false;
+                    }
 
                     url = _downloadUrl;
                     if (url == null)
@@ -327,7 +334,10 @@ namespace ASB_Updater
                     state: ProgressReporter.State.Error));
                 return false;
             }
-            if (!target.Exists) target.Create();
+            if (!target.Exists)
+            {
+                target.Create();
+            }
 
             try
             {

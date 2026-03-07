@@ -1,4 +1,5 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using System;
 using System.Drawing;
@@ -27,7 +28,9 @@ namespace ARKBreedingStats.raising
                 flowLayoutPanel1.SetFlowBreak(psv, true);
             }
             foreach (var si in Stats.DisplayOrder)
+            {
                 flowLayoutPanel1.Controls.Add(_parentStatValues[si]);
+            }
 
             _lbLevel = new Label
             {
@@ -42,7 +45,10 @@ namespace ARKBreedingStats.raising
         public void Clear()
         {
             for (int s = 0; s < Stats.StatsCount; s++)
+            {
                 _parentStatValues[s].SetValues();
+            }
+
             _lbLevel.Text = string.Empty;
         }
 
@@ -69,7 +75,9 @@ namespace ARKBreedingStats.raising
 
                 _parentStatValues[s].Visible = statDisplayed;
                 if (!statDisplayed)
+                {
                     continue;
+                }
 
                 int bestLevel = -1;
                 int bestLevelPercent = 0;
@@ -77,7 +85,9 @@ namespace ARKBreedingStats.raising
                 {
                     bestLevel = Math.Max(mother.levelsWild[s], father.levelsWild[s]);
                     if (MaxChartLevel > 0)
+                    {
                         bestLevelPercent = (100 * bestLevel) / MaxChartLevel;
+                    }
                 }
                 _parentStatValues[s].SetValues(
                     mother?.valuesBreeding == null ? -1 : (mother.valuesBreeding[s] * (Stats.IsPercentage(s) ? 100 : 1)),
@@ -108,18 +118,25 @@ namespace ARKBreedingStats.raising
                 _lbLevel.Text = string.Format(Loc.S("possibleLevelRange"), minLv, maxLv);
             }
             else
+            {
                 _lbLevel.Text = string.Empty;
+            }
         }
 
         public void SetLocalizations()
         {
             Loc.ControlText(label1, "Mother");
             Loc.ControlText(label2, "Father");
-            if (_parentStatValues == null) return;
+            if (_parentStatValues == null)
+            {
+                return;
+            }
 
             for (int s = Math.Min(_parentStatValues.Length, Stats.StatsCount) - 1; s >= 0; s--)
+            {
                 _parentStatValues[s].StatName =
                         Utils.StatName(s, true) + (Stats.IsPercentage(s) ? " %" : string.Empty);
+            }
         }
     }
 }

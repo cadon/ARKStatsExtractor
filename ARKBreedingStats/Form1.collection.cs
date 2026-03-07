@@ -1,4 +1,7 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.Mods;
+using ARKBreedingStats.Settings;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
@@ -78,13 +81,18 @@ namespace ARKBreedingStats
                     var gameVersionDialog = new ArkVersionDialog(this);
                     gameVersionDialog.ShowDialog();
                     if (gameVersionDialog.UseSelectionAsDefault)
+                    {
                         Properties.Settings.Default.NewLibraryGame = gameVersionDialog.GameVersion;
+                    }
+
                     asaMode = gameVersionDialog.GameVersion == Ark.Game.Asa;
                     break;
             }
 
             if (oldMultipliers == null)
+            {
                 oldMultipliers = Values.V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
+            }
 
             _creatureCollection = new CreatureCollection
             {
@@ -209,7 +217,9 @@ namespace ARKBreedingStats
             {
                 SaveNewCollection();
                 if (!string.IsNullOrEmpty(_currentFilePath))
+                {
                     Properties.Settings.Default.LastUsedCollectionFolder = Path.GetDirectoryName(_currentFilePath);
+                }
             }
             else
             {
@@ -239,7 +249,9 @@ namespace ARKBreedingStats
         {
             // remove expired timers if setting is set
             if (Properties.Settings.Default.DeleteExpiredTimersOnSaving)
+            {
                 timerList1.DeleteAllExpiredTimers(false, false);
+            }
 
             notesControl1.CheckForUnsavedChanges();
 
@@ -268,7 +280,9 @@ namespace ARKBreedingStats
                     }
 
                     if (new FileInfo(tempSavePath).Length == 0)
+                    {
                         throw new IOException("Saved file is empty and contains no data.");
+                    }
 
                     // if saving was successful, keep old file as backup if set or remove it, then move successfully saved temp file to correct
                     var backupEveryMinutes = Properties.Settings.Default.BackupEveryMinutes;
@@ -280,10 +294,14 @@ namespace ARKBreedingStats
                         && FileService.IsValidJsonFile(filePath))
                     {
                         if (!KeepBackupFile(filePath, keepBackupFilesCount))
+                        {
                             File.Delete(filePath); // outdated file is not needed anymore
+                        }
                     }
                     else
+                    {
                         File.Delete(filePath); // outdated file is not needed anymore
+                    }
 
                     File.Move(tempSavePath, filePath);
 
@@ -311,9 +329,13 @@ namespace ARKBreedingStats
             _fileSync?.SavingEnds();
 
             if (fileSaved)
+            {
                 SetCollectionChanged(false);
+            }
             else
+            {
                 MessageBoxes.ShowMessageBox($"This file couldn't be saved:\n{filePath}\nMaybe the file is used by another application.");
+            }
         }
 
         /// <summary>
@@ -330,9 +352,13 @@ namespace ARKBreedingStats
             try
             {
                 if (string.IsNullOrEmpty(backupFolderPath))
+                {
                     backupFolderPath = Path.GetDirectoryName(currentSaveFilePath);
+                }
                 else
+                {
                     Directory.CreateDirectory(backupFolderPath);
+                }
 
                 string backupFilePath = Path.Combine(backupFolderPath, backupFileName);
                 if (File.Exists(backupFilePath))
@@ -442,7 +468,10 @@ namespace ARKBreedingStats
                                             MessageBoxIcon.Information);
 
                                         if (Values.V.loadedModsHash != Values.NoModsHash)
+                                        {
                                             LoadStatAndKibbleValues(false); // reset values to default
+                                        }
+
                                         LoadModValueFiles(new List<string> { tmi.Value.Mod.FileName }, true, true,
                                             out mods);
                                         break;
@@ -458,14 +487,19 @@ namespace ARKBreedingStats
                                         + "Do you want to load the library and risk losing creatures?",
                                         $"Unknown mod-file - {Utils.ApplicationNameVersion}",
                                         MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+                                {
                                     return false;
+                                }
                             }
 
                             _creatureCollection =
                                 oldLibraryFormat.FormatConverter.ConvertXml2Asb(creatureCollectionOld, filePath);
                             _creatureCollection.ModList = mods ?? new List<Mod>(0);
 
-                            if (_creatureCollection == null) throw new Exception("Conversion failed");
+                            if (_creatureCollection == null)
+                            {
+                                throw new Exception("Conversion failed");
+                            }
 
                             string fileNameWoExt = Path.Combine(Path.GetDirectoryName(filePath),
                                 Path.GetFileNameWithoutExtension(filePath));
@@ -474,7 +508,11 @@ namespace ARKBreedingStats
                             if (File.Exists(filePath))
                             {
                                 int fi = 2;
-                                while (File.Exists(fileNameWoExt + "_" + fi + CollectionFileExtension)) fi++;
+                                while (File.Exists(fileNameWoExt + "_" + fi + CollectionFileExtension))
+                                {
+                                    fi++;
+                                }
+
                                 filePath = fileNameWoExt + "_" + fi + CollectionFileExtension;
                             }
 
@@ -521,7 +559,10 @@ namespace ARKBreedingStats
                         "This library format is unsupported in this version of ARK Smart Breeding." +
                         $"\n\n{ex.Message}\n\nTry updating to a newer version.");
                     if ((DateTime.Now - Properties.Settings.Default.lastUpdateCheck).TotalMinutes < 10)
+                    {
                         CheckForUpdates();
+                    }
+
                     return false;
                 }
                 catch (InvalidOperationException ex)
@@ -542,7 +583,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            if (_creatureCollection.ModValueReloadNeeded)
+            if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash))
             {
                 // load original multipliers if they were changed
                 if (!LoadStatAndKibbleValues(false).statValuesLoaded)
@@ -551,7 +592,7 @@ namespace ARKBreedingStats
                     return false;
                 }
             }
-            if (_creatureCollection.ModValueReloadNeeded
+            if (_creatureCollection.IsModValueReloadNeeded(Values.V.loadedModsHash)
                 && !LoadModValuesOfCollection(_creatureCollection, false, false))
             {
                 MessageBoxes.ShowMessageBox("Mod values of the library file couldn't be loaded.", icon: MessageBoxIcon.Error);
@@ -608,11 +649,15 @@ namespace ARKBreedingStats
             {
                 c.InitializeFlags();
                 if (c.ArkIdImported && c.ArkIdInGame == null)
+                {
                     c.ArkIdInGame = Utils.ConvertImportedArkIdToIngameVisualization(c.ArkId);
+                }
             }
 
             if (!keepCurrentSelections && _creatureCollection.creatures.Any())
+            {
                 tabControlMain.SelectedTab = tabPageLibrary;
+            }
 
             creatureBoxListView.CreatureCollection = _creatureCollection;
 
@@ -640,9 +685,13 @@ namespace ARKBreedingStats
             // set library species to what it was before loading
             selectedLibrarySpecies = Values.V.SpeciesByBlueprint(selectedLibrarySpecies?.blueprintPath);
             if (selectedLibrarySpecies != null)
+            {
                 listBoxSpeciesLib.SelectedItem = selectedLibrarySpecies;
+            }
             else if (Properties.Settings.Default.LibrarySelectSelectedSpeciesOnLoad)
+            {
                 listBoxSpeciesLib.SelectedItem = speciesSelector1.SelectedSpecies;
+            }
 
             _filterListAllowed = true;
             FilterLibRecalculate();
@@ -683,12 +732,20 @@ namespace ARKBreedingStats
             if (changed)
             {
                 if (species == null || pedigree1.SelectedSpecies == species)
+                {
                     pedigree1.PedigreeNeedsUpdate = true;
+                }
+
                 if (species == null || breedingPlan1.CurrentSpecies == species)
+                {
                     breedingPlan1.BreedingPlanNeedsUpdate = true;
+                }
             }
 
-            if (triggeredByFileWatcher) return;
+            if (triggeredByFileWatcher)
+            {
+                return;
+            }
 
             if (changed && Properties.Settings.Default.autosave)
             {
@@ -773,7 +830,9 @@ namespace ARKBreedingStats
         private bool OpenZippedLibrary(string filePath)
         {
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
                 return false;
+            }
 
             try
             {
@@ -815,7 +874,10 @@ namespace ARKBreedingStats
         /// <param name="filePath"></param>
         private void AddPathToRecentlyUsed(string filePath)
         {
-            if (string.IsNullOrEmpty(filePath)) return;
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
 
             var files = Properties.Settings.Default.LastUsedLibraryFiles;
             if (files == null)
@@ -828,7 +890,10 @@ namespace ARKBreedingStats
             if (files.FirstOrDefault() == filePath)
             {
                 if (recentlyUsedToolStripMenuItem.DropDownItems.Count == 0)
+                {
                     UpdateRecentlyUsedFileMenu();
+                }
+
                 return;
             }
 
@@ -845,7 +910,10 @@ namespace ARKBreedingStats
         {
             recentlyUsedToolStripMenuItem.DropDownItems.Clear();
 
-            if (!(Properties.Settings.Default.LastUsedLibraryFiles?.Any() ?? false)) return;
+            if (!(Properties.Settings.Default.LastUsedLibraryFiles?.Any() ?? false))
+            {
+                return;
+            }
 
             recentlyUsedToolStripMenuItem.DropDownItems.AddRange(
                 Properties.Settings.Default.LastUsedLibraryFiles.Select(f => new ToolStripMenuItem(f, null, OpenRecentlyUsedFile)).ToArray()
@@ -855,7 +923,10 @@ namespace ARKBreedingStats
         private void RemoveNonExistingFilesInRecentlyUsedFiles()
         {
             var files = Properties.Settings.Default.LastUsedLibraryFiles;
-            if (files?.Any() != true) return;
+            if (files?.Any() != true)
+            {
+                return;
+            }
 
             Properties.Settings.Default.LastUsedLibraryFiles = files.Where(File.Exists).ToArray();
         }
@@ -866,7 +937,9 @@ namespace ARKBreedingStats
                 && !string.IsNullOrEmpty(mi.Text)
                 && DiscardChangesAndLoadNewLibrary()
                 )
+            {
                 LoadCollectionFile(mi.Text);
+            }
         }
 
         /// <summary>
@@ -910,7 +983,9 @@ namespace ARKBreedingStats
                         multipliersImportSuccessful = ImportExportGun.SetCollectionMultipliers(_creatureCollection, esm, Path.GetFileNameWithoutExtension(filePath));
                         serverImportResult = serverImportResultTemp;
                         if (multipliersImportSuccessful == true)
+                        {
                             continue;
+                        }
                     }
 
                     importFailedCounter++;
@@ -924,9 +999,14 @@ namespace ARKBreedingStats
                 // for ASE the export gun create a .sav file containing a json, for ASA directly a .json file
                 var serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".json");
                 if (!File.Exists(serverMultiplierFilePath))
+                {
                     serverMultiplierFilePath = Path.Combine(Path.GetDirectoryName(lastCreatureFilePath), "Servers", serverMultipliersHash + ".sav");
+                }
+
                 if (File.Exists(serverMultiplierFilePath))
+                {
                     multipliersImportSuccessful = ImportExportGun.ImportServerMultipliers(_creatureCollection, serverMultiplierFilePath, serverMultipliersHash, out serverImportResult);
+                }
             }
 
             if (multipliersImportSuccessful == true)
@@ -972,7 +1052,9 @@ namespace ARKBreedingStats
                             new Creature(c.creature.Species, c.oldName), totalCreatureCount);
                         lastSpecies = c.creature.Species;
                         if (c.oldName == null)
+                        {
                             totalCreatureCount++; // if creature was added, increase total count for name pattern
+                        }
                     }
 
                     UpdateListsAfterCreaturesAdded(Properties.Settings.Default.AutoImportGotoLibraryAfterSuccess);
@@ -981,8 +1063,11 @@ namespace ARKBreedingStats
                     {
                         tabControlMain.SelectedTab = tabPageLibrary;
                         if (listBoxSpeciesLib.SelectedItem != null &&
-                            listBoxSpeciesLib.SelectedItem != lastImportedCreature.Species)
+                            (Species)listBoxSpeciesLib.SelectedItem != lastImportedCreature.Species)
+                        {
                             listBoxSpeciesLib.SelectedItem = lastImportedCreature.Species;
+                        }
+
                         SelectCreatureInLibrary(lastImportedCreature);
                     }
                     else
@@ -1010,7 +1095,9 @@ namespace ARKBreedingStats
 
             SetMessageLabelText(resultText, importFailedCounter > 0 || multipliersImportSuccessful == false ? MessageBoxIcon.Error : MessageBoxIcon.Information, lastCreatureFilePath);
             if (importCreatureExists && addCreatures)
+            {
                 _ignoreNextMessageLabel = true; // ignore message of selected creature (is shown after some delay / debouncing)
+            }
 
             return alreadyExistingCreature;
         }
@@ -1030,7 +1117,9 @@ namespace ARKBreedingStats
             UpdateIncubationParents(_creatureCollection);
 
             if (updateLists)
+            {
                 UpdateListsAfterCreaturesAdded(goToLibraryTab);
+            }
         }
 
         /// <summary>
@@ -1043,7 +1132,9 @@ namespace ARKBreedingStats
             UpdateCreatureListings();
 
             if (goToLibraryTab && _creatureCollection.creatures.Any())
+            {
                 tabControlMain.SelectedTab = tabPageLibrary;
+            }
 
             // reapply last sorting
             SortLibrary();
@@ -1083,7 +1174,11 @@ namespace ARKBreedingStats
                 for (var s = 0; s < Stats.StatsCount; s++)
                 {
                     var si = Stats.DisplayOrder[s];
-                    if (si == Stats.Torpidity) continue;
+                    if (si == Stats.Torpidity)
+                    {
+                        continue;
+                    }
+
                     var level = sp.Key.UsesStat(si)
                         ? (statWeights.Item1[si] < 0 ? sp.Value.WildLevelsLowest[si] : sp.Value.WildLevelsHighest[si])
                         : -1;
@@ -1101,7 +1196,10 @@ namespace ARKBreedingStats
                 columns[Stats.StatsCount + 1].Add(maxLevel.ToString());
             }
 
-            if (columns[0].Count == 1) return;
+            if (columns[0].Count == 1)
+            {
+                return;
+            }
 
             // remove unused stat columns
             columns = columns.Where(col => col.Count(c => !string.IsNullOrEmpty(c)) > 1).ToList();
@@ -1110,14 +1208,26 @@ namespace ARKBreedingStats
             var rowCount = columns[0].Count;
             var columnCount = columns.Count;
             for (int row = 0; row < rowCount; row++)
+            {
                 for (int col = 0; col < columnCount; col++)
+                {
                     sb.Append(columns[col][row] + (col == columnCount - 1 ? Environment.NewLine : "\t"));
+                }
+            }
 
-            if (sb.Length == 0) return;
+            if (sb.Length == 0)
+            {
+                return;
+            }
+
             if (ClipboardHandler.SetText(sb.ToString(), out var error))
+            {
                 SetMessageLabelText($"Top stats of this library for all {rowCount - 1} species copied to clipboard");
+            }
             else
+            {
                 SetMessageLabelText($"Error while copying the stats to the clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
+            }
         }
     }
 }

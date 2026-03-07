@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Timer = System.Timers.Timer;
@@ -33,7 +33,9 @@ namespace ARKBreedingStats.utils
             _timer.Elapsed += (s, o) =>
             {
                 if (_timer == null)
+                {
                     return;
+                }
 
                 _timer.Stop();
                 _timer = null;
@@ -63,7 +65,9 @@ namespace ARKBreedingStats.utils
             _timer.Elapsed += (s, o) =>
             {
                 if (_timer == null)
+                {
                     return;
+                }
 
                 _timer.Stop();
                 _timer = null;
@@ -94,7 +98,9 @@ namespace ARKBreedingStats.utils
             _timer.Elapsed += (s, o) =>
             {
                 if (_timer == null)
+                {
                     return;
+                }
 
                 _timer.Stop();
                 _timer = null;

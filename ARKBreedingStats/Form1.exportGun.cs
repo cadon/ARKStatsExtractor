@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.AsbServer;
+using ARKBreedingStats.AsbServer;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.library;
 using System;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
 
 namespace ARKBreedingStats
 {
@@ -15,8 +16,13 @@ namespace ARKBreedingStats
         private void listenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listenToolStripMenuItem.Checked)
+            {
                 AsbServerStartListening();
-            else AsbServerStopListening();
+            }
+            else
+            {
+                AsbServerStopListening();
+            }
         }
 
         private void listenWithNewTokenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -29,15 +35,24 @@ namespace ARKBreedingStats
         {
             var progressReporter = new Progress<ProgressReportAsbServer>(AsbServerDataSent);
             if (useNewToken || string.IsNullOrEmpty(Properties.Settings.Default.ExportServerToken))
+            {
                 Properties.Settings.Default.ExportServerToken = AsbServer.Connection.CreateNewToken();
+            }
+
             Task.Factory.StartNew(() => AsbServer.Connection.StartListeningAsync(progressReporter, Properties.Settings.Default.ExportServerToken));
         }
 
         private void AsbServerStopListening(bool displayMessage = true)
         {
-            if (!AsbServer.Connection.StopListening()) return;
+            if (!AsbServer.Connection.StopListening())
+            {
+                return;
+            }
+
             if (displayMessage)
+            {
                 SetMessageLabelText($"ASB Server listening stopped using token: {Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken)}", MessageBoxIcon.Error);
+            }
         }
 
         private void currentTokenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -51,7 +66,10 @@ namespace ARKBreedingStats
                           + " The current token is " + Environment.NewLine + Connection.TokenStringForDisplay(Properties.Settings.Default.ExportServerToken);
 
                 if (utils.ClipboardHandler.SetText(Properties.Settings.Default.ExportServerToken))
+                {
                     message += Environment.NewLine + "(token copied to clipboard)";
+                }
+
                 isError = false;
             }
             else
@@ -84,9 +102,16 @@ namespace ARKBreedingStats
         {
             // debug function, sends a status change of the selected creature to the server
             var focusedIndex = listViewLibrary.FocusedItem?.Index ?? -1;
-            if (focusedIndex < 0) return;
+            if (focusedIndex < 0)
+            {
+                return;
+            }
+
             var cr = (Creature)listViewLibrary.Items[focusedIndex].Tag;
-            if (cr == null) return;
+            if (cr == null)
+            {
+                return;
+            }
 
             // debug function, sends a status change of the selected creature to the server
             AsbServer.Connection.SendCreatureStatus(cr.ArkId, Properties.Settings.Default.ExportServerToken, status);
@@ -104,7 +129,9 @@ namespace ARKBreedingStats
                 string popupMessage = null;
                 var copyToClipboard = !string.IsNullOrEmpty(data.ClipboardText);
                 if (copyToClipboard && !utils.ClipboardHandler.SetText(data.ClipboardText))
+                {
                     copyToClipboard = false;
+                }
 
                 if (!string.IsNullOrEmpty(data.ServerToken))
                 {
@@ -116,13 +143,18 @@ namespace ARKBreedingStats
                                         : string.Empty);
 
                     if (displayPopup)
+                    {
                         popupMessage = message + Environment.NewLine + tokenInfo
                             + Environment.NewLine + Environment.NewLine + "Enable Streamer mode in Settings -> General to mask the token in the future";
+                    }
+
                     message += tokenInfo;
                 }
 
                 if (listenToolStripMenuItem.Checked == data.StoppedListening)
+                {
                     listenToolStripMenuItem.Checked = !data.StoppedListening;
+                }
 
                 SetMessageLabelText(message, data.IsError ? MessageBoxIcon.Error : MessageBoxIcon.Information, clipboardText: data.ClipboardText,
                     displayPopup: displayPopup, customPopupText: popupMessage);
@@ -192,7 +224,9 @@ namespace ARKBreedingStats
                 }
 
                 if (resultText == null)
+                {
                     resultText = $"Received creature from server: {creature}";
+                }
 
                 SetMessageLabelText(resultText, MessageBoxIcon.Information);
 
@@ -200,8 +234,10 @@ namespace ARKBreedingStats
                 {
                     tabControlMain.SelectedTab = tabPageLibrary;
                     if (listBoxSpeciesLib.SelectedItem != null &&
-                        listBoxSpeciesLib.SelectedItem != creature.Species)
+                        (Species)listBoxSpeciesLib.SelectedItem != creature.Species)
+                    {
                         listBoxSpeciesLib.SelectedItem = creature.Species;
+                    }
 
                     _ignoreNextMessageLabel = true;
                     SelectCreatureInLibrary(creature);
@@ -220,11 +256,19 @@ namespace ARKBreedingStats
         private void SetLockedCreatureProperties(Creature creature)
         {
             if (creatureInfoInputExtractor.LockOwner)
+            {
                 creature.owner = creatureInfoInputExtractor.CreatureOwner;
+            }
+
             if (creatureInfoInputExtractor.LockTribe)
+            {
                 creature.tribe = creatureInfoInputExtractor.CreatureTribe;
+            }
+
             if (creatureInfoInputExtractor.LockServer)
+            {
                 creature.server = creatureInfoInputExtractor.CreatureServer;
+            }
         }
 
         /// <summary>
@@ -232,7 +276,10 @@ namespace ARKBreedingStats
         /// </summary>
         private void saveExportFileLocallyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            if (listViewLibrary.SelectedIndices.Count == 0)
+            {
+                return;
+            }
 
             using (var folderBrowserDialog = new FolderBrowserDialog())
             {
@@ -240,7 +287,9 @@ namespace ARKBreedingStats
 
                 if (folderBrowserDialog.ShowDialog() != DialogResult.OK
                     || string.IsNullOrEmpty(folderBrowserDialog.SelectedPath))
+                {
                     return;
+                }
 
                 var savedCount = 0;
                 var path = folderBrowserDialog.SelectedPath;
@@ -259,7 +308,9 @@ namespace ARKBreedingStats
                         var filePath = Path.Combine(path, fileName + ".json");
                         var suffix = 1;
                         while (File.Exists(filePath))
+                        {
                             filePath = Path.Combine(path, fileName + "_" + (++suffix) + ".json");
+                        }
 
                         System.IO.File.WriteAllText(filePath, contentString);
                         savedCount++;

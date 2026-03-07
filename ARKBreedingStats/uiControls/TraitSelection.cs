@@ -1,4 +1,6 @@
-﻿using System;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -37,6 +40,7 @@ namespace ARKBreedingStats.uiControls
             LbTraitDescription.MaximumSize = new Size(PnTraitDescription.Width, 0);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<CreatureTrait> AssignedTraits
         {
             get => _assignedTraits;
@@ -61,14 +65,22 @@ namespace ARKBreedingStats.uiControls
 
         private void AddSelectedTrait()
         {
-            if (!(LbTraitsAvailable.SelectedItem is TraitDefinition traitDefinition)) return;
+            if (!(LbTraitsAvailable.SelectedItem is TraitDefinition traitDefinition))
+            {
+                return;
+            }
+
             _assignedTraitsBindingSource.Add(new CreatureTrait(traitDefinition));
             UpdateTierSelection();
         }
 
         private void RemoveSelectedTrait()
         {
-            if (!(LbTraitsAssigned.SelectedItem is CreatureTrait trait)) return;
+            if (!(LbTraitsAssigned.SelectedItem is CreatureTrait trait))
+            {
+                return;
+            }
+
             _assignedTraitsBindingSource.Remove(trait);
             UpdateTierSelection();
         }
@@ -95,7 +107,11 @@ namespace ARKBreedingStats.uiControls
 
         private void SetTier(int tier)
         {
-            if (!(LbTraitsAssigned.SelectedItem is CreatureTrait trait)) return;
+            if (!(LbTraitsAssigned.SelectedItem is CreatureTrait trait))
+            {
+                return;
+            }
+
             trait.Tier = (byte)tier;
             _assignedTraitsBindingSource.ResetCurrentItem();
         }
@@ -149,11 +165,15 @@ namespace ARKBreedingStats.uiControls
         {
             var filter = TbTraitFilter.Text.ToLowerInvariant();
             if (string.IsNullOrEmpty(filter))
+            {
                 LbTraitsAvailable.DataSource = _availableTraitDefinitions;
+            }
             else
+            {
                 LbTraitsAvailable.DataSource = _availableTraitDefinitions
                     .Where(t => t.Name.ToLowerInvariant().Contains(filter))
                     .ToArray();
+            }
         }
 
         /// <summary>
@@ -170,10 +190,15 @@ namespace ARKBreedingStats.uiControls
                 Utils.SetWindowRectangle(traitSelection, Properties.Settings.Default.WindowPositionTraitSelection);
                 traitSelection.ShowDialog();
                 (Properties.Settings.Default.WindowPositionTraitSelection, _) = Utils.GetWindowRectangle(traitSelection);
-                if (traitSelection.DialogResult != DialogResult.OK) return false;
+                if (traitSelection.DialogResult != DialogResult.OK)
+                {
+                    return false;
+                }
 
                 if (traitSelection.AssignedTraits.Any())
+                {
                     selectedCreatureTraits = traitSelection.AssignedTraits;
+                }
             }
 
             return true;

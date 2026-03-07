@@ -1,10 +1,12 @@
-﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.Models;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -16,24 +18,42 @@ namespace ARKBreedingStats.uiControls
         private Species _currentSpecies;
         public event Form1.CollectionChangedEventHandler Changed;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CurrentBreedingPair[] CurrentBreedingPairs
         {
             set
             {
                 _currentBreedsBySpeciesBp.Clear();
-                if (value?.Any() != true) return;
+                if (value?.Any() != true)
+                {
+                    return;
+                }
+
                 foreach (var p in value)
                 {
-                    if (p.Mother == null || p.Father == null) continue;
+                    if (p.Mother == null || p.Father == null)
+                    {
+                        continue;
+                    }
+
                     var bp = p.Mother.speciesBlueprint;
                     if (_currentBreedsBySpeciesBp.TryGetValue(bp, out var list))
+                    {
                         list.Add(p);
-                    else _currentBreedsBySpeciesBp.Add(bp, new List<CurrentBreedingPair> { p });
+                    }
+                    else
+                    {
+                        _currentBreedsBySpeciesBp.Add(bp, new List<CurrentBreedingPair> { p });
+                    }
                 }
             }
             get
             {
-                if (!_currentBreedsBySpeciesBp.Any()) return null;
+                if (!_currentBreedsBySpeciesBp.Any())
+                {
+                    return null;
+                }
+
                 return _currentBreedsBySpeciesBp.SelectMany(kv => kv.Value).ToArray();
             }
         }
@@ -59,27 +79,44 @@ namespace ARKBreedingStats.uiControls
             if (species != null)
             {
                 if (_currentSpecies == species && !forceUpdate)
+                {
                     return;
+                }
+
                 _currentSpecies = species;
                 LbTitle.Text = "Current breeding pairs of " + species.name;
             }
-            else if (!forceUpdate) return;
+            else if (!forceUpdate)
+            {
+                return;
+            }
+
             var pairsToDisplay = GetCurrentBreedingPairs(_currentSpecies, out var interSpeciesMating);
             var controls = CreateControlsOfBreedingPairs(pairsToDisplay, _currentSpecies, interSpeciesMating);
 
             FlpBreedingPairs.SuspendDrawingAndLayout();
             FlpBreedingPairs.Controls.Clear();
             if (controls != null)
+            {
                 FlpBreedingPairs.Controls.AddRange(controls);
+            }
+
             FlpBreedingPairs.ResumeDrawingAndLayout();
         }
 
         private List<CurrentBreedingPair> GetCurrentBreedingPairs(Species species, out bool interSpeciesMating)
         {
             interSpeciesMating = false;
-            if (species == null) return null;
+            if (species == null)
+            {
+                return null;
+            }
+
             if (!_currentBreedsBySpeciesBp.TryGetValue(species.blueprintPath, out var pairsToDisplay))
+            {
                 pairsToDisplay = new List<CurrentBreedingPair>();
+            }
+
             if (species.matesWith?.Any() == true)
             {
                 foreach (var bp in species.matesWith)
@@ -98,7 +135,11 @@ namespace ARKBreedingStats.uiControls
 
         private Control[] CreateControlsOfBreedingPairs(List<CurrentBreedingPair> pairsToDisplay, Species species, bool displaySpecies)
         {
-            if (pairsToDisplay == null) return null;
+            if (pairsToDisplay == null)
+            {
+                return null;
+            }
+
             var enabledColorRegions = species.EnabledColorRegions;
             var controls = new List<Control>();
             foreach (var pair in pairsToDisplay)
@@ -124,30 +165,51 @@ namespace ARKBreedingStats.uiControls
             var bp = mother.speciesBlueprint;
             if (_currentBreedsBySpeciesBp.TryGetValue(bp, out var list))
             {
-                if (list.Contains(pair)) return;
+                if (list.Contains(pair))
+                {
+                    return;
+                }
+
                 list.Add(pair);
             }
-            else _currentBreedsBySpeciesBp.Add(bp, new List<CurrentBreedingPair> { pair });
+            else
+            {
+                _currentBreedsBySpeciesBp.Add(bp, new List<CurrentBreedingPair> { pair });
+            }
 
             if (_currentSpecies == mother.Species)
+            {
                 DisplaySpeciesCurrentBreedingPairs(mother.Species, true);
+            }
 
             Changed?.Invoke();
         }
 
         public void RemovePair(CurrentBreedingPair pair)
         {
-            if (pair == null) return;
+            if (pair == null)
+            {
+                return;
+            }
 
             var motherSpeciesBlueprint = pair.Mother?.speciesBlueprint;
-            if (motherSpeciesBlueprint == null) return;
+            if (motherSpeciesBlueprint == null)
+            {
+                return;
+            }
 
             if (_currentBreedsBySpeciesBp.TryGetValue(motherSpeciesBlueprint, out var pairs))
+            {
                 if (pairs.Remove(pair) && pairs.Count == 0)
+                {
                     _currentBreedsBySpeciesBp.Remove(motherSpeciesBlueprint);
+                }
+            }
 
             if (_currentSpecies == pair.Mother?.Species)
+            {
                 DisplaySpeciesCurrentBreedingPairs(pair.Mother?.Species, true);
+            }
 
             Changed?.Invoke();
         }
