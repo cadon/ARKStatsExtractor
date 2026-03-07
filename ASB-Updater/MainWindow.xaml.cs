@@ -105,7 +105,6 @@ namespace ASB_Updater
         /// </summary>
         private void Init()
         {
-            CosturaUtility.Initialize();
             updater = new ASBUpdater();
         }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -43,6 +44,7 @@ namespace ARKBreedingStats.uiControls
             SelectedIndex = 0;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Guid PreselectedCreatureGuid
         {
             get => _preselectedCreatureGuid;
@@ -69,6 +71,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Creature> ParentList
         {
             set

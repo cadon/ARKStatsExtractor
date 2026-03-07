@@ -231,7 +231,9 @@ namespace ARKBreedingStats
 
             ReloadNamePatternCustomReplacings();
 
-            lbTesterWildLevel.ContextMenu = new ContextMenu(new[] { new MenuItem("Set random wild levels", SetRandomWildLevels) });
+            var lbTesterWildLevelContextMenu = new ContextMenuStrip();
+            lbTesterWildLevelContextMenu.Items.Add(new ToolStripMenuItem("Set random wild levels", null, SetRandomWildLevels));
+            lbTesterWildLevel.ContextMenuStrip = lbTesterWildLevelContextMenu;
 
             // name patterns menu entries
             const int namePatternCount = 6;
@@ -1306,7 +1308,7 @@ namespace ARKBreedingStats
                 if (MessageBox.Show(errorMessageKibbleLoading +
                                     "\n\nDo you want to visit the homepage of the tool to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    Process.Start(Updater.Updater.ReleasesUrl);
+                    Utils.OpenUri(Updater.Updater.ReleasesUrl);
             }
             else
             {
@@ -3791,7 +3793,7 @@ namespace ARKBreedingStats
         {
             try
             {
-                Process.Start(FileService.GetJsonPath());
+                Utils.OpenUri(FileService.GetJsonPath());
             }
             catch (FileNotFoundException ex)
             {
@@ -4037,12 +4039,12 @@ namespace ARKBreedingStats
 
         private void discordServerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(RepositoryInfo.DiscordServerInviteLink);
+            Utils.OpenUri(RepositoryInfo.DiscordServerInviteLink);
         }
 
         private void openModPageInBrowserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(RepositoryInfo.ExportGunModPage);
+            Utils.OpenUri(RepositoryInfo.ExportGunModPage);
         }
 
         private void MenuOpenNamePattern(object sender, EventArgs e)
@@ -4163,13 +4165,13 @@ namespace ARKBreedingStats
             if (!File.Exists(filePath))
                 File.WriteAllText(filePath, string.Empty);
             if (File.Exists(filePath))
-                Process.Start(filePath);
+                Utils.OpenUri(filePath);
             else MessageBoxes.ShowMessageBox($"Couldn't create file {filePath} automatically. Maybe you can create that file manually.");
         }
 
         private void howManyFemalesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://arkutils.netlify.app/tools/howmanyfemales");
+            Utils.OpenUri("https://arkutils.netlify.app/tools/howmanyfemales");
         }
 
         private void howGoodAreMyStatsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4177,7 +4179,7 @@ namespace ARKBreedingStats
             var maxWildLevel = CreatureCollection.CurrentCreatureCollection?.maxWildLevel ?? Ark.MaxWildLevelDefault;
             var usedStats = speciesSelector1.SelectedSpecies == null ? 6
                 : Enumerable.Range(0, Stats.StatsCount).Count(si => si != Stats.Torpidity && speciesSelector1.SelectedSpecies.CanLevelUpWildOrHaveMutations(si));
-            Process.Start($"https://arkutils.netlify.app/tools/wildstats/{maxWildLevel}/{usedStats}");
+            Utils.OpenUri($"https://arkutils.netlify.app/tools/wildstats/{maxWildLevel}/{usedStats}");
         }
 
         private void speciesImagesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4259,7 +4261,7 @@ namespace ARKBreedingStats
 
         private void uIScalingIssueFixToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/cadon/ARKStatsExtractor/issues/1350#issuecomment-2099309722");
+            Utils.OpenUri("https://github.com/cadon/ARKStatsExtractor/issues/1350#issuecomment-2099309722");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -18,6 +19,7 @@ namespace ARKBreedingStats.uiControls
             BtMoveDown.Visible = false;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string[] Presets
         {
             get
@@ -86,6 +88,7 @@ namespace ARKBreedingStats.uiControls
 
         private void BtCloseClick(object sender, EventArgs e) => ControlVisibility = false;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Hides the control and unsets the edit mode
         /// </summary>

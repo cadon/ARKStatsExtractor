@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.mods
 {
@@ -34,6 +35,7 @@ namespace ARKBreedingStats.mods
             LvAvailableModFiles.DoubleBuffered(true);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureCollection CreatureCollection
         {
             set
@@ -214,7 +216,7 @@ namespace ARKBreedingStats.mods
         private void LlbSteamPage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (!(sender is LinkLabel ll && ll.Tag is string link) || string.IsNullOrEmpty(link)) return;
-            System.Diagnostics.Process.Start(link);
+            Utils.OpenUri(link);
         }
 
         private void BtAddMod_Click(object sender, EventArgs e) => AddSelectedMod();
@@ -249,7 +251,7 @@ namespace ARKBreedingStats.mods
         {
             string valuesFolderPath = FileService.GetJsonPath(FileService.ValuesFolder);
             if (Directory.Exists(valuesFolderPath))
-                System.Diagnostics.Process.Start(valuesFolderPath);
+                Utils.OpenUri(valuesFolderPath);
         }
 
         private void LvAvailableModFiles_DoubleClick(object sender, EventArgs e) => AddSelectedMod();

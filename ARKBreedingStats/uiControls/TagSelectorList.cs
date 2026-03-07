@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace ARKBreedingStats.uiControls
             tagStrings = new List<string>();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string> tags
         {
             set
@@ -56,6 +58,7 @@ namespace ARKBreedingStats.uiControls
                 tagSelectors[i].Status = status;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string> excludingTags
         {
             get
@@ -68,6 +71,7 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<string> includingTags
         {
             get

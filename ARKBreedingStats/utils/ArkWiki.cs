@@ -14,6 +14,6 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Opens the page in the Ark wiki with the default browser.
         /// </summary>
-        public static void OpenPage(string pageName) => Process.Start(WikiUrl(pageName));
+        public static void OpenPage(string pageName) => Utils.OpenUri(WikiUrl(pageName));
     }
 }

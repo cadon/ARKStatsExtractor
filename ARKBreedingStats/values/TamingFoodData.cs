@@ -58,7 +58,7 @@ namespace ARKBreedingStats.values
                         "The taming info will be incomplete without that file.\n\n" +
                         "Do you want to visit the releases page to redownload it?",
                         $"{Loc.S("error")} - {Utils.ApplicationNameVersion}", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                    System.Diagnostics.Process.Start(Updater.Updater.ReleasesUrl);
+                    Utils.OpenUri(Updater.Updater.ReleasesUrl);
             }
 
             return false;

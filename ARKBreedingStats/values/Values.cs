@@ -390,7 +390,7 @@ namespace ARKBreedingStats.values
             if (!File.Exists(filePath))
                 File.WriteAllText(filePath, string.Empty);
             if (File.Exists(filePath))
-                Process.Start(filePath);
+                Utils.OpenUri(filePath);
         }
 
         /// <summary>
