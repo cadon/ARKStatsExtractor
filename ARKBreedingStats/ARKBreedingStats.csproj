@@ -9,7 +9,7 @@
     <RootNamespace>ARKBreedingStats</RootNamespace>
     <AssemblyName>ARK Smart Breeding</AssemblyName>
     <ApplicationIcon>ARKSmartBreeding.ico</ApplicationIcon>
-    
+
     <!-- Version is the single source of truth -->
     <Version>0.73.0.0</Version>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
@@ -19,7 +19,7 @@
     <Product>ARK Smart Breeding</Product>
     <Description>Extracts stats of creatures of the game ARK: Survival Evolved, saves them in a library, suggests breeding pairs and shows them in a list or pedigree.</Description>
     <Copyright>Copyright © 2015 - 2025, main developer cadon</Copyright>
-    
+
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NeutralLanguage>en</NeutralLanguage>
     <Nullable>disable</Nullable>
@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.csproj" />
+    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.Core.csproj" />
     <ProjectReference Include="..\ASB-Updater\ASB Updater.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>

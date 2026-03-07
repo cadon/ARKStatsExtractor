@@ -1,4 +1,3 @@
-using ARKBreedingStats.Models;
 using ARKBreedingStats.OCR;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

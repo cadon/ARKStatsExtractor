@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace ARKBreedingStats.Models
+namespace ARKBreedingStats.Models;
+
+[Serializable]
+public class Kibble : Dictionary<string, int>
 {
-    [Serializable]
-    public class Kibble : Dictionary<string, int>
+    public string RecipeAsText()
     {
-        public string RecipeAsText()
+        string result = "";
+
+        foreach (string s in Keys)
         {
-            string result = "";
-
-            foreach (string s in Keys)
-            {
-                result += $"\n {this[s]} × {s}";
-            }
-
-            return result;
+            result += $"\n {this[s]} × {s}";
         }
+
+        return result;
     }
 }

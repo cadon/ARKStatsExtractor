@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.csproj" />
+    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.Core.csproj" />
   </ItemGroup>
 
   <!-- Reuse test assets from ARKBreedingStats.Tests -->

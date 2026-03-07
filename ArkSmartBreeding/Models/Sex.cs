@@ -1,13 +1,12 @@
-namespace ARKBreedingStats.Models
+namespace ARKBreedingStats.Models;
+
+/// <summary>
+/// Biological sex of a creature.
+/// </summary>
+public enum Sex
 {
-    /// <summary>
-    /// Biological sex of a creature.
-    /// </summary>
-    public enum Sex
-    {
-        Unknown = 0,
-        Male = 1,
-        Female = 2,
-        Unspecified = 3
-    }
+    Unknown = 0,
+    Male = 1,
+    Female = 2,
+    Unspecified = 3
 }

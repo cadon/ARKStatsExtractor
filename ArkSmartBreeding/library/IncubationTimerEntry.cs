@@ -1,98 +1,97 @@
 using Newtonsoft.Json;
 using System;
 
-namespace ARKBreedingStats.Library
+namespace ARKBreedingStats.Library;
+
+[JsonObject(MemberSerialization.OptIn)]
+public class IncubationTimerEntry
 {
-    [JsonObject(MemberSerialization.OptIn)]
-    public class IncubationTimerEntry
+    [JsonProperty]
+    public bool timerIsRunning { get; set; }
+    public TimeSpan incubationDuration { get; set; }
+    [JsonProperty]
+    public DateTime incubationEnd { get; set; }
+    private Creature _mother;
+    private Creature _father;
+    [JsonProperty]
+    public Guid motherGuid { get; set; }
+    [JsonProperty]
+    public Guid fatherGuid { get; set; }
+    public string kind { get; set; } // contains "Egg" or "Gestation", depending on the species
+    public bool expired { get; set; }
+    public bool ShowInOverlay { get; set; }
+
+    public IncubationTimerEntry() { }
+
+    public IncubationTimerEntry(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
     {
-        [JsonProperty]
-        public bool timerIsRunning { get; set; }
-        public TimeSpan incubationDuration { get; set; }
-        [JsonProperty]
-        public DateTime incubationEnd { get; set; }
-        private Creature _mother;
-        private Creature _father;
-        [JsonProperty]
-        public Guid motherGuid { get; set; }
-        [JsonProperty]
-        public Guid fatherGuid { get; set; }
-        public string kind { get; set; } // contains "Egg" or "Gestation", depending on the species
-        public bool expired { get; set; }
-        public bool ShowInOverlay { get; set; }
-
-        public IncubationTimerEntry() { }
-
-        public IncubationTimerEntry(Creature mother, Creature father, TimeSpan incubationDuration, bool incubationStarted)
+        Mother = mother;
+        Father = father;
+        this.incubationDuration = incubationDuration;
+        incubationEnd = new DateTime();
+        if (incubationStarted)
         {
-            Mother = mother;
-            Father = father;
-            this.incubationDuration = incubationDuration;
-            incubationEnd = new DateTime();
-            if (incubationStarted)
-            {
-                StartTimer();
-            }
+            StartTimer();
         }
+    }
 
-        private void StartTimer()
+    private void StartTimer()
+    {
+        if (!timerIsRunning)
         {
-            if (!timerIsRunning)
-            {
-                timerIsRunning = true;
-                incubationEnd = DateTime.Now.Add(incubationDuration);
-            }
+            timerIsRunning = true;
+            incubationEnd = DateTime.Now.Add(incubationDuration);
         }
+    }
 
-        private void PauseTimer()
+    private void PauseTimer()
+    {
+        if (timerIsRunning)
         {
-            if (timerIsRunning)
-            {
-                timerIsRunning = false;
-                incubationDuration = incubationEnd.Subtract(DateTime.Now);
-            }
+            timerIsRunning = false;
+            incubationDuration = incubationEnd.Subtract(DateTime.Now);
         }
+    }
 
-        public void StartStopTimer(bool start)
+    public void StartStopTimer(bool start)
+    {
+        if (start)
         {
-            if (start)
-            {
-                StartTimer();
-            }
-            else
-            {
-                PauseTimer();
-            }
+            StartTimer();
         }
+        else
+        {
+            PauseTimer();
+        }
+    }
 
-        public Creature Mother
+    public Creature Mother
+    {
+        get => _mother;
+        set
         {
-            get => _mother;
-            set
-            {
-                motherGuid = value?.guid ?? Guid.Empty;
-                _mother = value;
-            }
+            motherGuid = value?.guid ?? Guid.Empty;
+            _mother = value;
         }
+    }
 
-        public Creature Father
+    public Creature Father
+    {
+        get => _father;
+        set
         {
-            get => _father;
-            set
-            {
-                fatherGuid = value?.guid ?? Guid.Empty;
-                _father = value;
-            }
+            fatherGuid = value?.guid ?? Guid.Empty;
+            _father = value;
         }
+    }
 
-        // Serializer does not support TimeSpan directly, so use this property for serialization instead.
-        [System.ComponentModel.Browsable(false)]
-        [JsonProperty("incubationDuration")]
-        public string incubationDurationString
-        {
-            get => System.Xml.XmlConvert.ToString(incubationDuration);
-            set => incubationDuration = string.IsNullOrEmpty(value) ?
-                    TimeSpan.Zero : System.Xml.XmlConvert.ToTimeSpan(value);
-        }
+    // Serializer does not support TimeSpan directly, so use this property for serialization instead.
+    [System.ComponentModel.Browsable(false)]
+    [JsonProperty("incubationDuration")]
+    public string incubationDurationString
+    {
+        get => System.Xml.XmlConvert.ToString(incubationDuration);
+        set => incubationDuration = string.IsNullOrEmpty(value) ?
+                TimeSpan.Zero : System.Xml.XmlConvert.ToTimeSpan(value);
     }
 }

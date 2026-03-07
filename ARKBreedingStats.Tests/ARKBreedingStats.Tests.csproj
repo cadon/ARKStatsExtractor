@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ARKBreedingStats\ARKBreedingStats.csproj" />
-    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.csproj" />
     <ProjectReference Include="..\ASB-Updater\ASB Updater.csproj" />
   </ItemGroup>
 
