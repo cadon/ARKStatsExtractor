@@ -232,28 +232,16 @@ namespace ARKBreedingStats.BreedingPlanning
             {
                 if (_onlyShowingASubset)
                 {
-                    Creatures = onlyConsiderTheseCreatures.Where(c => includeBpSpecies.Contains(c.speciesBlueprint)
-                                                                      && !c.flags.HasFlag(CreatureFlags.Neutered)
-                                                                      && !c.flags.HasFlag(CreatureFlags.Placeholder)
-                        )
-                        .ToList();
+                    Creatures = CreatureFiltering.GetQualifyingCreaturesFromSubset(onlyConsiderTheseCreatures, includeBpSpecies);
                 }
                 else
                 {
-                    var includeWithCooldown = cbBPIncludeCooldowneds.Checked;
-                    var ignoreBreedingCooldown = _currentSpecies?.NoGender == true; // for hermaphrodites only one partner needs to be not on cooldown
-                    Creatures = CreatureCollection.creatures
-                        .Where(c => includeBpSpecies.Contains(c.speciesBlueprint)
-                                    && !c.flags.HasFlag(CreatureFlags.Neutered)
-                                    && !c.flags.HasFlag(CreatureFlags.Placeholder)
-                                    && (c.Status == CreatureStatus.Available
-                                        || (c.Status == CreatureStatus.Cryopod && cbBPIncludeCryoCreatures.Checked))
-                                    && (includeWithCooldown
-                                        || !(c.growingUntil > DateTime.Now
-                                             || (!ignoreBreedingCooldown && c.cooldownUntil > DateTime.Now))
-                                    )
-                        )
-                        .ToList();
+                    Creatures = CreatureFiltering.GetQualifyingCreatures(
+                        CreatureCollection.creatures,
+                        includeBpSpecies,
+                        cbBPIncludeCooldowneds.Checked,
+                        cbBPIncludeCryoCreatures.Checked,
+                        _currentSpecies?.NoGender == true);
                 }
             }
 
@@ -263,51 +251,10 @@ namespace ARKBreedingStats.BreedingPlanning
 
         private IEnumerable<Creature> FilterByTags(IEnumerable<Creature> cl)
         {
-            if (cl == null)
-            {
-                return null;
-            }
-
-            List<string> excludingTagList = tagSelectorList1.excludingTags;
-            List<string> includingTagList = tagSelectorList1.includingTags;
-
-            List<Creature> filteredList = new List<Creature>();
-
-            if (excludingTagList.Any() || cbBPTagExcludeDefault.Checked)
-            {
-                foreach (Creature c in cl)
-                {
-                    bool exclude = cbBPTagExcludeDefault.Checked;
-                    if (!exclude && excludingTagList.Any())
-                    {
-                        foreach (string t in c.tags)
-                        {
-                            if (excludingTagList.Contains(t))
-                            {
-                                exclude = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (exclude && includingTagList.Any())
-                    {
-                        foreach (string t in c.tags)
-                        {
-                            if (includingTagList.Contains(t))
-                            {
-                                exclude = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (!exclude)
-                    {
-                        filteredList.Add(c);
-                    }
-                }
-                return filteredList;
-            }
-            return cl;
+            return CreatureFiltering.FilterByTags(cl,
+                tagSelectorList1.excludingTags,
+                tagSelectorList1.includingTags,
+                cbBPTagExcludeDefault.Checked);
         }
 
         /// <summary>
@@ -392,23 +339,21 @@ namespace ARKBreedingStats.BreedingPlanning
                 selectMales = FilterByTags(males);
             }
 
-            // filter by servers
-            if (cbServerFilterLibrary.Checked && (Properties.Settings.Default.FilterHideServers?.Any() ?? false))
+            // filter by servers, owners, tribes
+            if (cbServerFilterLibrary.Checked)
             {
-                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
-                selectMales = selectMales?.Where(c => !Properties.Settings.Default.FilterHideServers.Contains(c.server));
+                selectFemales = CreatureFiltering.FilterByServerOwnerTribe(selectFemales, Properties.Settings.Default.FilterHideServers, null, null);
+                selectMales = CreatureFiltering.FilterByServerOwnerTribe(selectMales, Properties.Settings.Default.FilterHideServers, null, null);
             }
-            // filter by owner
-            if (cbOwnerFilterLibrary.Checked && (Properties.Settings.Default.FilterHideOwners?.Any() ?? false))
+            if (cbOwnerFilterLibrary.Checked)
             {
-                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
-                selectMales = selectMales?.Where(c => !Properties.Settings.Default.FilterHideOwners.Contains(c.owner));
+                selectFemales = CreatureFiltering.FilterByServerOwnerTribe(selectFemales, null, Properties.Settings.Default.FilterHideOwners, null);
+                selectMales = CreatureFiltering.FilterByServerOwnerTribe(selectMales, null, Properties.Settings.Default.FilterHideOwners, null);
             }
-            // filter by tribe
-            if (cbTribeFilterLibrary.Checked && (Properties.Settings.Default.FilterHideTribes?.Any() ?? false))
+            if (cbTribeFilterLibrary.Checked)
             {
-                selectFemales = selectFemales.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
-                selectMales = selectMales?.Where(c => !Properties.Settings.Default.FilterHideTribes.Contains(c.tribe));
+                selectFemales = CreatureFiltering.FilterByServerOwnerTribe(selectFemales, null, null, Properties.Settings.Default.FilterHideTribes);
+                selectMales = CreatureFiltering.FilterByServerOwnerTribe(selectMales, null, null, Properties.Settings.Default.FilterHideTribes);
             }
 
             var selectedFemales = selectFemales.ToArray();
@@ -911,16 +856,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     return;
                 }
 
-                if (_currentSpecies.NoGender)
-                {
-                    _females = value.ToArray();
-                    _males = null;
-                }
-                else
-                {
-                    _females = value.Where(c => c.sex == Sex.Female).ToArray();
-                    _males = value.Where(c => c.sex == Sex.Male).ToArray();
-                }
+                (_females, _males) = CreatureFiltering.SplitBySex(value, _currentSpecies.NoGender);
 
                 DetermineBestLevels(value);
             }
@@ -1020,71 +956,23 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             int? levelStep = CreatureCollection.getWildLevelStep();
-            Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
-            Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
             Creature mother = _breedingPairs[comboIndex].Mother;
             Creature father = _breedingPairs[comboIndex].Father;
-            crB.Mother = mother;
-            crB.Father = father;
-            crW.Mother = mother;
-            crW.Father = father;
-            double probabilityBest = 1;
-            bool totalLevelUnknown = false; // if stats are unknown, total level is as well (==> oxygen, speed)
-            bool topStatBreedingMode = _breedingMode == BreedingScore.BreedingMode.TopStatsConservative || _breedingMode == BreedingScore.BreedingMode.TopStatsLucky;
-            for (int s = 0; s < Stats.StatsCount; s++)
-            {
-                if (s == Stats.Torpidity || !mother.Species.UsesStat(s))
-                {
-                    continue;
-                }
 
-                var higherLevelPreferred = _statWeights[s] >= 0;
-                crB.levelsWild[s] = higherLevelPreferred ? BreedingScore.GetHigherBestLevel(mother.levelsWild[s], father.levelsWild[s], _statOddEvens[s]) : Math.Min(mother.levelsWild[s], father.levelsWild[s]);
-                crB.levelsMutated[s] = higherLevelPreferred ? Math.Max(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0) : Math.Min(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0);
-                crB.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crB.levelsWild[s], crB.levelsMutated[s], 0, true, 1, 0);
-                crB.SetTopStat(s, _currentSpecies.stats[s].IncPerTamedLevel != 0 && crB.levelsWild[s] == _bestLevelsWild[s]);
-                crB.SetTopMutationStat(s, crB.levelsMutated[s] == _bestLevelsMutated[s]);
-                crW.levelsWild[s] = higherLevelPreferred ? Math.Min(mother.levelsWild[s], father.levelsWild[s]) : Math.Max(mother.levelsWild[s], father.levelsWild[s]);
-                crW.levelsMutated[s] = higherLevelPreferred ? Math.Min(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0) : Math.Max(mother.levelsMutated?[s] ?? 0, father.levelsMutated?[s] ?? 0);
-                crW.valuesBreeding[s] = StatValueCalculation.CalculateValue(_currentSpecies, s, crW.levelsWild[s], crW.levelsMutated[s], 0, true, 1, 0);
-                crW.SetTopStat(s, _currentSpecies.stats[s].IncPerTamedLevel != 0 && crW.levelsWild[s] == _bestLevelsWild[s]);
-                crB.SetTopMutationStat(s, crW.levelsMutated[s] == _bestLevelsMutated[s]);
-                if (crB.levelsWild[s] == -1 || crW.levelsWild[s] == -1)
-                {
-                    totalLevelUnknown = true;
-                }
+            var offspring = OffspringCalculation.CalculateOffspringPotential(
+                mother, father, _currentSpecies,
+                _statWeights, _statOddEvens,
+                _bestLevelsWild, _bestLevelsMutated,
+                _breedingMode, levelStep);
 
-                var probabilityInheritingHigherLevel = Ark.ProbabilityInheritHigherLevel + mother.ProbabilityOffsetInheritingHigherLevel(s) + father.ProbabilityOffsetInheritingHigherLevel(s);
+            offspring.Best.name = Loc.S("BestPossible");
+            offspring.Worst.name = Loc.S("WorstPossible");
 
-                // in top stats breeding mode consider only probability of top stats
-                if (crB.levelsWild[s] > crW.levelsWild[s]
-                    && (!topStatBreedingMode || crB.IsTopStat(s) || crB.IsTopMutationStat(s)))
-                {
-                    probabilityBest *= probabilityInheritingHigherLevel;
-                }
-                else if (crB.levelsWild[s] < crW.levelsWild[s]
-                         && (!topStatBreedingMode || crB.IsTopStat(s) || crB.IsTopMutationStat(s)))
-                {
-                    probabilityBest *= 1 - probabilityInheritingHigherLevel;
-                }
-            }
-            crB.levelsWild[Stats.Torpidity] = crB.levelsWild.Sum() + crB.levelsMutated.Sum();
-            crW.levelsWild[Stats.Torpidity] = crW.levelsWild.Sum() + crW.levelsMutated.Sum();
-            crB.name = Loc.S("BestPossible");
-            crW.name = Loc.S("WorstPossible");
-            crB.RecalculateCreatureValues(levelStep);
-            crW.RecalculateCreatureValues(levelStep);
-            pedigreeCreatureBest.TotalLevelUnknown = totalLevelUnknown;
-            pedigreeCreatureWorst.TotalLevelUnknown = totalLevelUnknown;
-            int mutationCounterMaternal = mother.Mutations;
-            int mutationCounterPaternal = father.Mutations;
-            crB.mutationsMaternal = mutationCounterMaternal;
-            crB.mutationsPaternal = mutationCounterPaternal;
-            crW.mutationsMaternal = mutationCounterMaternal;
-            crW.mutationsPaternal = mutationCounterPaternal;
-            pedigreeCreatureBest.Creature = crB;
-            pedigreeCreatureWorst.Creature = crW;
-            lbBPProbabilityBest.Text = $"{Loc.S("ProbabilityForBest")}: {probabilityBest:P}";
+            pedigreeCreatureBest.TotalLevelUnknown = offspring.TotalLevelUnknown;
+            pedigreeCreatureWorst.TotalLevelUnknown = offspring.TotalLevelUnknown;
+            pedigreeCreatureBest.Creature = offspring.Best;
+            pedigreeCreatureWorst.Creature = offspring.Worst;
+            lbBPProbabilityBest.Text = $"{Loc.S("ProbabilityForBest")}: {offspring.ProbabilityBest:P}";
             lbMutationProbability.Text = $"{Loc.S("ProbabilityForOneMutation")}: {_breedingPairs[comboIndex].MutationProbability:P}";
 
             // set probability barChart
@@ -1263,12 +1151,9 @@ namespace ARKBreedingStats.BreedingPlanning
             foreach (Species s in species)
             {
                 ListViewItem lvi = new ListViewItem { Text = s.DescriptiveNameAndMod, Tag = s };
-                var ignoreSexInSpecies = ignoreSex || s.NoGender;
 
-                // check if species has both available males and females
                 if (availableCreaturesBySpecies.TryGetValue(s, out var cs)
-                    && ((ignoreSexInSpecies && cs.Length > 1)
-                        || (cs.Any(c => c.sex == Sex.Female) && cs.Any(c => c.sex == Sex.Male))))
+                    && CreatureFiltering.CanSpeciesBreed(cs, ignoreSex, s.NoGender))
                 {
                     breedableSpecies.Add(lvi);
                 }
