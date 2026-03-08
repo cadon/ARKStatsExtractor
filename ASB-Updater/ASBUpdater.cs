@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ASB_Updater
@@ -45,6 +45,8 @@ namespace ASB_Updater
             "ASB is already up to date!"
         };
 
+        private static readonly HttpClient _httpClient = new();
+
         // Release feed URL
         private const string ReleasesUrl = "https://api.github.com/repos/cadon/ARKStatsExtractor/releases/latest";
         // Temporary download file name
@@ -65,13 +67,16 @@ namespace ASB_Updater
 
         private Stages Stage { get; set; }
 
+        static ASBUpdater()
+        {
+            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("ASB-Updater");
+        }
+
         public ASBUpdater()
         {
             _tempFolder = GetTemporaryDirectory();
             _tempZipNamePath = Path.Combine(_tempFolder, TempZipName);
             _tempReleasesPath = Path.Combine(_tempFolder, TempReleases);
-            // set TLS-protocol (github needs at least TLS 1.2) for update-check
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         /// <summary>
@@ -80,7 +85,7 @@ namespace ASB_Updater
         /// <returns></returns>
         private int GetProgress()
         {
-            int max = Enum.GetNames(typeof(Stages)).Length;
+            int max = Enum.GetNames<Stages>().Length;
             int current = (int)Stage;
 
             return (current * 100 / max);
@@ -280,39 +285,38 @@ namespace ASB_Updater
         /// <returns>Success or Fail</returns>
         private async Task<bool> DownloadFile(string url, string outName, IProgress<ProgressReporter> progress)
         {
-            using (var client = new WebClient())
+            if (url == null)
             {
-                client.Headers.Add("User-Agent", "Anything");
+                if (!await Fetch(progress) || !Parse(progress))
+                    return false;
 
+                url = _downloadUrl;
                 if (url == null)
                 {
-                    if (!await Fetch(progress) || !Parse(progress))
-                        return false;
-
-                    url = _downloadUrl;
-                    if (url == null)
-                    {
-                        progress.Report(new ProgressReporter("url for downloading is null due to error while parsing.", ProgressReporter.State.Error));
-                        return false;
-                    }
-                }
-
-                progress.Report(new ProgressReporter(message: $"downloading {url} to {outName}"));
-
-                try
-                {
-                    await client.DownloadFileTaskAsync(url, outName);
-                }
-                catch (WebException ex)
-                {
-                    progress.Report(new ProgressReporter($"There was an error while trying to download the file {url}: {ex.Message}", ProgressReporter.State.Error));
+                    progress.Report(new ProgressReporter("url for downloading is null due to error while parsing.", ProgressReporter.State.Error));
                     return false;
                 }
-                catch (InvalidOperationException ex)
-                {
-                    progress.Report(new ProgressReporter($"There was an error while trying to save the file from {url} to {outName}: {ex.Message}", ProgressReporter.State.Error));
-                    return false;
-                }
+            }
+
+            progress.Report(new ProgressReporter(message: $"downloading {url} to {outName}"));
+
+            try
+            {
+                using var response = await _httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                using var fs = new FileStream(outName, FileMode.Create, FileAccess.Write, FileShare.None);
+                await response.Content.CopyToAsync(fs);
+            }
+            catch (HttpRequestException ex)
+            {
+                progress.Report(new ProgressReporter($"There was an error while trying to download the file {url}: {ex.Message}", ProgressReporter.State.Error));
+                return false;
+            }
+            catch (IOException ex)
+            {
+                progress.Report(new ProgressReporter($"There was an error while trying to save the file from {url} to {outName}: {ex.Message}", ProgressReporter.State.Error));
+                return false;
             }
 
             return File.Exists(outName);

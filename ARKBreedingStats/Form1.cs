@@ -369,9 +369,6 @@ namespace ARKBreedingStats
                 extractionTestControl1.LoadExtractionTestCases(Properties.Settings.Default.LastSaveFileTestCases);
             }
 
-            // set TLS-protocol (GitHub needs at least TLS 1.2) for update-check
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-
             // check for updates
             if (DateTime.Now.AddDays(-2) > Properties.Settings.Default.lastUpdateCheck)
                 CheckForUpdates(true);

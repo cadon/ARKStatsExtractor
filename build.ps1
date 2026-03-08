@@ -30,18 +30,20 @@ New-Item -ItemType Directory -Path $WorkPath -ErrorAction SilentlyContinue | Out
 
 # Pinned Inno Setup version — update here to upgrade
 $InnoSetupVersion = '6.7.1'
-$InnoSetupDir     = Join-Path $WorkPath 'innosetup'
-$InnoSetupExe     = Join-Path $InnoSetupDir 'ISCC.exe'
+
 
 # ── Tool discovery ────────────────────────────────────────────────────────────
 
 function Get-InnoSetup {
-    # 1. Already downloaded locally
-    if (Test-Path $InnoSetupExe) { return $InnoSetupExe }
+    # 1. System install
+    $iscc = Get-Command 'ISCC.exe' -ErrorAction SilentlyContinue
+    if ($iscc) { return $iscc.Path }
 
-    # 2. System install
-    $system = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
-    if (Test-Path $system) { return $system }
+    $InnoSetupDir     = Join-Path $WorkPath 'innosetup'
+    $InnoSetupExe     = Join-Path $InnoSetupDir 'ISCC.exe'
+
+    # 2. Already downloaded locally
+    if (Test-Path $InnoSetupExe) { return $InnoSetupExe }
 
     # 3. Download from GitHub releases and install to local tools folder
     $tag       = "is-$($InnoSetupVersion.Replace('.', '_'))"
@@ -131,7 +133,7 @@ function Invoke-Build {
 
 function Invoke-PackageRelease {
     $project    = Join-Path $PSScriptRoot "ARKBreedingStats\ARKBreedingStats.csproj"
-    $publishDir = Join-Path $PSScriptRoot "ARKBreedingStats\bin\Release\net10.0-windows"
+    $publishDir = Join-Path $WorkPath "dist"
     $outputDir  = Join-Path $WorkPath "publish"
 
     # dotnet publish (vs build) resolves runtime-specific NuGet assets and writes a clean
@@ -142,6 +144,15 @@ function Invoke-PackageRelease {
     dotnet publish $project --configuration Release --output "$publishDir"
     if ($LASTEXITCODE -ne 0) {
         Write-Host "`n=== Publish Failed ===" -ForegroundColor Red
+        exit $LASTEXITCODE
+    }
+
+    # Publish updater as single-file exe
+    $updaterProject = Join-Path $PSScriptRoot "ASB-Updater\ASB Updater.csproj"
+    Write-Host "`nPublishing updater (single-file)..." -ForegroundColor Gray
+    dotnet publish $updaterProject --configuration Release --output "$publishDir"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`n=== Updater Publish Failed ===" -ForegroundColor Red
         exit $LASTEXITCODE
     }
 
@@ -185,8 +196,15 @@ Write-Host "Configuration: $Configuration" -ForegroundColor Gray
 Invoke-GenerateManifest
 Invoke-Build
 
-if ($Configuration -eq 'Release')  { Invoke-PackageRelease }
-if (-not $SkipTests)               { Invoke-Tests }
-else { Write-Host "Skipping tests (-SkipTests specified)." -ForegroundColor Gray }
+if ($Configuration -eq 'Release')  { 
+    Invoke-PackageRelease
+}
+
+if (-not $SkipTests) { 
+    Invoke-Tests
+}
+else { 
+    Write-Host "Skipping tests (-SkipTests specified)." -ForegroundColor Gray
+}
 
 exit 0
