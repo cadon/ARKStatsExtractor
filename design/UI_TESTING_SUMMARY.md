@@ -124,7 +124,7 @@ Custom test attribute that:
 Based on the analysis, create these service classes:
 
 ```
-ARKBreedingStats/
+ArkSmartBreeding.WinForms/
 ├── Services/
 │   ├── TamingCalculator.cs          // Extract from TamingControl
 │   ├── BreedingCalculator.cs        // Extract from CreatureInfoInput, StatIO
@@ -285,19 +285,19 @@ public class MyControlTests : UIControlTestBase
 
 ## Questions?
 
-**Q: Why are some tests failing?**  
+**Q: Why are some tests failing?**
 A: Many tests need complete Species/Creature objects with all required data. This is expected for integration tests. We can add test data builders to make this easier.
 
-**Q: Can I write tests without the STA thread attribute?**  
+**Q: Can I write tests without the STA thread attribute?**
 A: No - WinForms controls require STA threading. Always use `[STATestMethod]` for UI tests.
 
-**Q: Should I test private methods?**  
+**Q: Should I test private methods?**
 A: Generally no - test public behavior. Use `UITestHelpers.InvokePrivateMethod()` only when necessary for testing internal state.
 
-**Q: How do I mock dependencies?**  
+**Q: How do I mock dependencies?**
 A: After extracting services, you can mock them in tests. For now, tests use real dependencies.
 
-**Q: Are these tests too slow?**  
+**Q: Are these tests too slow?**
 A: Currently very fast (~1 second for 46 tests). If they become slow, we can optimize by reducing waits or using more unit tests for service logic.
 
 ---

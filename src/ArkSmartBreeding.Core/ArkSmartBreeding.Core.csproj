@@ -4,9 +4,9 @@
     <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    
+
     <RootNamespace>ARKBreedingStats</RootNamespace>
-    
+
     <!-- Assembly metadata -->
     <Title>ArkSmartBreeding</Title>
     <Product>ARK Smart Breeding</Product>
@@ -20,8 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArkSavegameToolkit\SavegameToolkit\SavegameToolkit.csproj" />
-    <ProjectReference Include="..\ArkSavegameToolkit\SavegameToolkitAdditions\SavegameToolkitAdditions.csproj" />
+    <ProjectReference Include="..\..\lib\ArkSavegameToolkit\SavegameToolkitAdditions\SavegameToolkitAdditions.csproj" />
   </ItemGroup>
 
 </Project>

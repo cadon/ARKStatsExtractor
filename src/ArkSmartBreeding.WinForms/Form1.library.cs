@@ -1438,7 +1438,7 @@ namespace ARKBreedingStats
                 }
                 else if (cr.levelsWild[s] < 0)
                 {
-                    // unknown level
+                    // unknown level 
                     lvi.SubItems[ColumnIndexFirstStat + s].ForeColor = Color.WhiteSmoke;
                     lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Color.White;
                 }

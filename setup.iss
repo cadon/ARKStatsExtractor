@@ -3,7 +3,7 @@
 #define AppURL "https://github.com/cadon/ARKStatsExtractor"
 #define AppExeName "ARK Smart Breeding.exe"
 #define ReleaseDir "ARKBreedingStats\bin\Release\net10.0-windows"
-#define ReleaseDirUpdater "ASB-Updater\bin\Release\net10.0-windows"
+#define ReleaseDirUpdater "ArkSmartBreeding.Updater\bin\Release\net10.0-windows"
 #define OutputDir ".work\publish"
 #define AppVersion GetVersionNumbersString(ReleaseDir + "\" + AppExeName)
 
@@ -13,7 +13,7 @@
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{8DDA440C-714D-4BE6-AD7B-F549ABB1BB02}
 AppName={#AppName}
-AppVersion={#AppVersion}  
+AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
@@ -109,7 +109,7 @@ Type: filesandordirs; Name: "{app}\images"
 var
   requiresRestart: boolean;
   DotNetPage: TInputOptionWizardPage;
-  InstallDotNetFramework: Boolean; 
+  InstallDotNetFramework: Boolean;
   downloadFiles: Boolean;
   DownloadPage: TDownloadWizardPage;
 
@@ -153,7 +153,7 @@ end;
 function NextButtonClick(CurPageID: Integer): Boolean;
 begin
   if (CurPageID = DotNetPage.ID) and DotNetFrameworkIsMissing() then begin
-    if DotNetPage.Values[0] then begin   
+    if DotNetPage.Values[0] then begin
       DownloadPage.Add('https://go.microsoft.com/fwlink/?LinkId=2085155', 'NetFrameworkInstaller.exe', '');
       InstallDotNetFramework := True;
       downloadFiles := True;
@@ -222,7 +222,7 @@ begin
   finally
     WizardForm.StatusLabel.Caption := StatusText;
     WizardForm.ProgressGauge.Style := npbstNormal;
-    
+
     DeleteFile(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
   end;
 end;

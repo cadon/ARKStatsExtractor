@@ -47,8 +47,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.Core.csproj" />
-    <ProjectReference Include="..\ASB-Updater\ASB Updater.csproj">
+    <ProjectReference Include="..\ArkSmartBreeding.Core\ArkSmartBreeding.Core.csproj" />
+    <ProjectReference Include="..\ArkSmartBreeding.Updater\ArkSmartBreeding.Updater.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <OutputItemType>Content</OutputItemType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

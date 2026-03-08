@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ArkSmartBreeding.WinForms\ArkSmartBreeding.WinForms.csproj" />
+    <ProjectReference Include="..\..\src\ArkSmartBreeding.Updater\ArkSmartBreeding.Updater.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Copy json folder (values, etc.) from main project for test data -->
+    <None Include="..\..\src\ArkSmartBreeding.WinForms\json\**" Link="json\%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="Always" />
+    <!-- Import test assets -->
+    <None Include="..\assets\**" Link="assets\%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+</Project>

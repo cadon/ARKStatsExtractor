@@ -12,7 +12,7 @@ The application has significant domain logic mixed into UI controls. The followi
 
 **Purpose**: Calculate and display taming information for creatures
 
-**Location**: `ARKBreedingStats/TamingControl.cs`
+**Location**: `ArkSmartBreeding.WinForms/TamingControl.cs`
 
 ### Responsibilities (Current - Mixed UI & Domain)
 - Display species taming data
@@ -41,12 +41,12 @@ The application has significant domain logic mixed into UI controls. The followi
    - Given: Control is initialized
    - When: `SetSpecies()` is called with valid species
    - Then: Species name, wiki link, and taming data are displayed
-   
+
 2. **Level change triggers recalculation**
    - Given: Species is set and taming data exists
    - When: User changes level via nudLevel
    - Then: All taming values are recalculated
-   
+
 3. **Food selection updates effectiveness**
    - Given: Multiple food options are available
    - When: User selects different food type
@@ -68,7 +68,7 @@ The application has significant domain logic mixed into UI controls. The followi
 
 **Purpose**: Input and edit creature information (name, owner, parents, colors, etc.)
 
-**Location**: `ARKBreedingStats/CreatureInfoInput.cs`
+**Location**: `ArkSmartBreeding.WinForms/CreatureInfoInput.cs`
 
 ### Responsibilities (Current - Mixed UI & Domain)
 - Display and edit creature metadata (name, owner, tribe, server)
@@ -130,7 +130,7 @@ The application has significant domain logic mixed into UI controls. The followi
 
 **Purpose**: Display and edit individual stat levels (Health, Stamina, etc.)
 
-**Location**: `ARKBreedingStats/uiControls/StatIO.cs`
+**Location**: `ArkSmartBreeding.WinForms/uiControls/StatIO.cs`
 
 ### Responsibilities (Current - Mixed UI & Domain)
 - Display stat input value
@@ -191,7 +191,7 @@ The application has significant domain logic mixed into UI controls. The followi
 
 **Purpose**: Display creature summary with edit capabilities
 
-**Location**: `ARKBreedingStats/CreatureBox.cs`
+**Location**: `ArkSmartBreeding.WinForms/CreatureBox.cs`
 
 ### Responsibilities (Current - Mixed UI & Domain)
 - Display creature name, stats, colors
@@ -243,7 +243,7 @@ The application has significant domain logic mixed into UI controls. The followi
 
 **Purpose**: Select species from available list
 
-**Location**: `ARKBreedingStats/SpeciesSelector.cs`
+**Location**: `ArkSmartBreeding.WinForms/SpeciesSelector.cs`
 
 ### Test Scenarios
 1. **Filter updates visible species**
@@ -257,7 +257,7 @@ The application has significant domain logic mixed into UI controls. The followi
 
 **Purpose**: Bulk edit multiple creatures
 
-**Location**: `ARKBreedingStats/uiControls/MultiSetter.cs`
+**Location**: `ArkSmartBreeding.WinForms/uiControls/MultiSetter.cs`
 
 ### Test Scenarios
 1. **Setting owner applies to all selected**

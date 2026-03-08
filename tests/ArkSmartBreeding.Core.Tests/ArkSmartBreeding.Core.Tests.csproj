@@ -14,12 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArkSmartBreeding\ArkSmartBreeding.Core.csproj" />
+    <ProjectReference Include="..\..\src\ArkSmartBreeding.Core\ArkSmartBreeding.Core.csproj" />
   </ItemGroup>
 
-  <!-- Reuse test assets from ARKBreedingStats.Tests -->
+  <!-- Import test assets -->
   <ItemGroup>
-    <None Include="..\ARKBreedingStats.Tests\assets\**" Link="assets\%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\assets\**" Link="assets\%(RecursiveDir)%(FileName)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

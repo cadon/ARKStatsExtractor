@@ -34,7 +34,7 @@ namespace ARKBreedingStats.Tests.UIControls
         public static void AssemblyInitialize(TestContext context)
         {
             // Load test library with sample creatures
-            var libraryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "Library.asb");
+            var libraryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "library.asb");
             if (!File.Exists(libraryPath))
             {
                 // Library file not found - tests can still run but will use mock data
@@ -48,6 +48,11 @@ namespace ARKBreedingStats.Tests.UIControls
                 // Set as current collection so UI controls can access it
                 CreatureCollection.CurrentCreatureCollection = collection;
                 
+                // Load mods manifest before loading values (mirrors production startup order)
+                var modsManifest = mods.ModsManifest.TryLoadModManifestFile(forceDownload: false).Result;
+                modsManifest?.Initialize();
+                values.Values.V.SetModsManifest(modsManifest);
+
                 // Initialize Values for species data
                 var valuesLoaded = values.Values.V.LoadValues(forceReload: false, out string valuesError, out string valuesErrorTitle);
                 if (valuesLoaded != null && valuesLoaded.Species != null && valuesLoaded.Species.Count > 0)

@@ -266,7 +266,7 @@ namespace ARKBreedingStats.NamePatterns
             "cr"  // StatNames.CraftingSpeedMultiplier;
         };
 
-        /// <summary>
+        /// <summary>        
         /// This method creates the token model for the dynamic creature name generation.
         /// </summary>
         /// <param name="creature">Creature with the data</param>
@@ -498,7 +498,7 @@ namespace ARKBreedingStats.NamePatterns
             return model;
         }
 
-        /// <summary>
+        /// <summary>        
         /// This method creates the token dictionary for the dynamic creature name generation.
         /// </summary>
         /// <param name="model">TokenModel containing the data for the token dictionary</param>

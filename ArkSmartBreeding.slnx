@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/lib/" />
+  <Folder Name="/lib/ArkSavegameToolkit/">
+    <Project Path="lib/ArkSavegameToolkit/SavegameToolkit/SavegameToolkit.csproj" />
+    <Project Path="lib/ArkSavegameToolkit/SavegameToolkitAdditions/SavegameToolkitAdditions.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/ArkSmartBreeding.Core/ArkSmartBreeding.Core.csproj" />
+    <Project Path="src/ArkSmartBreeding.Updater/ArkSmartBreeding.Updater.csproj" />
+    <Project Path="src/ArkSmartBreeding.WinForms/ArkSmartBreeding.WinForms.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ArkSmartBreeding.Core.Tests/ArkSmartBreeding.Core.Tests.csproj" />
+    <Project Path="tests/ArkSmartBreeding.WinForms.Tests/ArkSmartBreeding.WinForms.Tests.csproj" />
+  </Folder>
+
+</Solution>

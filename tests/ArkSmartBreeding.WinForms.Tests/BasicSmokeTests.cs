@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using ASB_Updater;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARKBreedingStats.Tests
@@ -26,7 +27,7 @@ namespace ARKBreedingStats.Tests
         public void ASBUpdater_Assembly_Loads()
         {
             // Arrange & Act
-            var assembly = Assembly.GetAssembly(typeof(ASB_Updater.ASBUpdater));
+            var assembly = Assembly.GetAssembly(typeof(ASBUpdater));
 
             // Assert
             Assert.IsNotNull(assembly, "ASB Updater assembly should load");

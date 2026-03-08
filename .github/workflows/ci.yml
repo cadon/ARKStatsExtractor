@@ -44,7 +44,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          $version = (dotnet msbuild ARKBreedingStats/ARKBreedingStats.csproj -getProperty:FileVersion).Trim()
+          $version = (dotnet msbuild ArkSmartBreeding.WinForms/ArkSmartBreeding.WinForms.csproj -getProperty:FileVersion).Trim()
           $artifacts = Get-ChildItem ".work\publish\*" -Include "*.zip","*.exe"
           gh release create "v$version" @($artifacts.FullName) `
             --title "ARK Smart Breeding $version" `

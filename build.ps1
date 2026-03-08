@@ -28,6 +28,10 @@ $RepoRoot = $PSScriptRoot
 $WorkPath = Join-Path $RepoRoot '.work'
 New-Item -ItemType Directory -Path $WorkPath -ErrorAction SilentlyContinue | Out-Null
 
+$solution = Join-Path $PSScriptRoot "ArkSmartBreeding.slnx"
+$winformsProject = Join-Path $PSScriptRoot "src\ArkSmartBreeding.WinForms\ArkSmartBreeding.WinForms.csproj"
+$coreProject = Join-Path $PSScriptRoot "src\ArkSmartBreeding.Core\ArkSmartBreeding.Core.csproj"
+
 # Pinned Inno Setup version — update here to upgrade
 $InnoSetupVersion = '6.7.1'
 $InnoSetupDir     = Join-Path $WorkPath 'innosetup'
@@ -66,8 +70,8 @@ function Get-InnoSetup {
 function Invoke-GenerateManifest {
     Write-Host "`nGenerating _manifest.json..." -ForegroundColor Gray
 
-    $projectDir   = Join-Path $PSScriptRoot 'ARKBreedingStats'
-    $project      = Join-Path $projectDir 'ARKBreedingStats.csproj'
+    $projectDir   = Join-Path $PSScriptRoot 'src' 'ArkSmartBreeding.WinForms'
+    $project      = Join-Path $projectDir 'ArkSmartBreeding.WinForms.csproj'
     $asbVersion   = (dotnet msbuild $project -getProperty:FileVersion).Trim()
 
     $namePatterns = Get-Content (Join-Path $projectDir 'json\namePatternTemplates.json') -Raw
@@ -87,7 +91,7 @@ function Invoke-GenerateManifest {
       "Category": "Name Pattern Templates",
       "Name": "Name Pattern Templates",
       "Description": "Templates for naming patterns",
-      "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/namePatternTemplates.json",
+      "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ArkSmartBreeding.WinForms/json/namePatternTemplates.json",
       "LocalPath": "json/namePatternTemplates.json",
       "optional": true,
       "version": "$npVersion"
@@ -95,7 +99,7 @@ function Invoke-GenerateManifest {
     "SpeciesImagePacks": {
       "Category": "Images",
       "Name": "Species image packs",
-      "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ARKBreedingStats/json/imagePacks.json",
+      "Url": "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/refs/heads/master/ArkSmartBreeding.WinForms/json/imagePacks.json",
       "LocalPath": "json/imagePacks.json",
       "version": "$ipVersion"
     }
@@ -112,7 +116,6 @@ function Invoke-GenerateManifest {
 }
 
 function Invoke-Build {
-    $solution = Join-Path $PSScriptRoot "ARKBreedingStats.sln"
     if (-not (Test-Path $solution)) {
         Write-Error "Solution file not found: $solution"
         exit 1
@@ -130,16 +133,14 @@ function Invoke-Build {
 }
 
 function Invoke-PackageRelease {
-    $project    = Join-Path $PSScriptRoot "ARKBreedingStats\ARKBreedingStats.csproj"
-    $publishDir = Join-Path $PSScriptRoot "ARKBreedingStats\bin\Release\net10.0-windows"
-    $outputDir  = Join-Path $WorkPath "publish"
+    $publishDir  = Join-Path $WorkPath "publish"
+    Remove-Item -Path $publishDir -Recurse -Force -ErrorAction SilentlyContinue
 
-    # dotnet publish (vs build) resolves runtime-specific NuGet assets and writes a clean
-    # deps.json that works on machines without a local NuGet package cache.
-    # Note: --no-build is intentionally omitted so publish can flatten runtime-specific
-    # assets (e.g. runtimes/win/lib/net10.0/) into the output directory correctly.
+    $packDir  = Join-Path $WorkPath "packages"
+    New-Item -Path $packDir -ItemType Directory -ErrorAction SilentlyContinue | Out-Null
+
     Write-Host "`nPublishing..." -ForegroundColor Gray
-    dotnet publish $project --configuration Release --output "$publishDir"
+    dotnet publish $project --configuration Release --output $publishDir
     if ($LASTEXITCODE -ne 0) {
         Write-Host "`n=== Publish Failed ===" -ForegroundColor Red
         exit $LASTEXITCODE
@@ -151,8 +152,7 @@ function Invoke-PackageRelease {
     Get-ChildItem $publishDir -Filter *.xml | Remove-Item -Force
 
     $version = (Get-Item (Join-Path $publishDir "ARK Smart Breeding.exe")).VersionInfo.FileVersion
-    if (-not (Test-Path $outputDir)) { New-Item -ItemType Directory -Path $outputDir | Out-Null }
-    $zipPath = Join-Path $outputDir "ARK.Smart.Breeding_$version.zip"
+    $zipPath = Join-Path $packDir "ARK.Smart.Breeding_$version.zip"
     Compress-Archive -Force -Path "$publishDir\*" -DestinationPath $zipPath
     Write-Host "  Created: $zipPath" -ForegroundColor Green
 
@@ -166,10 +166,9 @@ function Invoke-PackageRelease {
 }
 
 function Invoke-Tests {
-    $testProject = Join-Path $PSScriptRoot "ARKBreedingStats.Tests\ARKBreedingStats.Tests.csproj"
     Write-Host "`nRunning tests..." -ForegroundColor Gray
 
-    dotnet test $testProject --no-build --configuration $Configuration --logger "console;verbosity=normal"
+    dotnet test $solution --configuration $Configuration --logger "console;verbosity=normal"
     if ($LASTEXITCODE -ne 0) {
         Write-Host "`n=== Tests Failed ===" -ForegroundColor Red
         exit $LASTEXITCODE

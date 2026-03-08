@@ -17,7 +17,7 @@ All build steps go through `build.ps1` at the repo root. Run it from PowerShell:
 ```
 
 This will:
-1. Regenerate `ARKBreedingStats/_manifest.json` from the current version and JSON data files
+1. Regenerate `ArkSmartBreeding.WinForms/_manifest.json` from the current version and JSON data files
 2. Build the entire solution
 3. Run the test suite
 
@@ -87,7 +87,7 @@ dotnet test ARKBreedingStats.Tests\ARKBreedingStats.Tests.csproj --configuration
 | Project | Framework | Description |
 |---|---|---|
 | `ARKBreedingStats` | `net10.0-windows` | Main WinForms application |
-| `ASB-Updater` | `net10.0-windows` | WPF updater executable, copied to output at build |
+| `ArkSmartBreeding.Updater` | `net10.0-windows` | WPF updater executable, copied to output at build |
 | `ARKBreedingStats.Tests` | `net10.0-windows` | MSTest suite |
 | `ArkSavegameToolkit/SavegameToolkit` | `netstandard2.0` | Savegame parsing library |
 | `ArkSavegameToolkit/SavegameToolkitAdditions` | `netstandard2.0` | Savegame parsing extensions |
@@ -96,7 +96,7 @@ dotnet test ARKBreedingStats.Tests\ARKBreedingStats.Tests.csproj --configuration
 
 ## Version
 
-The application version is defined once in `ARKBreedingStats/ARKBreedingStats.csproj`:
+The application version is defined once in `ArkSmartBreeding.WinForms/ArkSmartBreeding.WinForms.csproj`:
 
 ```xml
 <Version>0.72.1.0</Version>
