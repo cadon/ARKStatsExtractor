@@ -31,7 +31,7 @@ using ARKBreedingStats.SpeciesOptions.ColorSettings;
 using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using static ARKBreedingStats.Asb;
 using static ARKBreedingStats.settings.Settings;
-using static ARKBreedingStats.uiControls.StatWeighting;
+using ARKBreedingStats.BreedingPlanning;
 using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats

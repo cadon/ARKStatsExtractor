@@ -1,3 +1,4 @@
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using System;
@@ -500,14 +501,5 @@ namespace ARKBreedingStats.uiControls
             High
         }
 
-        /// <summary>
-        /// Describes if a stat level should be even or odd or if it doesn't matter.
-        /// </summary>
-        public enum StatValueEvenOdd
-        {
-            Indifferent,
-            Odd,
-            Even
-        }
     }
 }

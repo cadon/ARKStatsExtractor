@@ -15,7 +15,6 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
-using static ARKBreedingStats.uiControls.StatWeighting;
 using System.ComponentModel;
 
 namespace ARKBreedingStats.BreedingPlanning
@@ -486,7 +485,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 _breedingPairs = BreedingScore.CalculateBreedingScores(selectedFemales, selectedMales, _currentSpecies,
                     bestPossLevels, _statWeights, _bestLevelsWild, _breedingMode,
                     considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
-                    ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
+                    ref creaturesMutationsFilteredOut, Properties.Settings.Default.IgnoreSexInBreedingPlan, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
                     cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.NoGender, CbConsiderMutationLevels.Checked);
 
                 DisplayBreedingCombinations();

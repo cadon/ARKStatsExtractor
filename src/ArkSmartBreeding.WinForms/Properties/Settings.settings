@@ -548,7 +548,7 @@
     <Setting Name="LibraryDisplayZeroMutationLevels" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="CustomStatWeightsOddEven" Type="ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd[][]" Scope="User">
+    <Setting Name="CustomStatWeightsOddEven" Type="ARKBreedingStats.BreedingPlanning.StatValueEvenOdd[][]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="NewLibraryGame" Type="ARKBreedingStats.Ark.Game" Scope="User">

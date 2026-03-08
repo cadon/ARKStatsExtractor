@@ -9,20 +9,20 @@
 //------------------------------------------------------------------------------
 
 namespace ARKBreedingStats.Properties {
-    
-    
+
+
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
+
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-        
+
         public static Settings Default {
             get {
                 return defaultInstance;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -34,7 +34,7 @@ namespace ARKBreedingStats.Properties {
                 this["LastSaveFile"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("387")]
@@ -46,7 +46,7 @@ namespace ARKBreedingStats.Properties {
                 this["consideredStats"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100, 100, 1400, 1000")]
@@ -58,7 +58,7 @@ namespace ARKBreedingStats.Properties {
                 this["MainWindowRect"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] columnWidths {
@@ -69,7 +69,7 @@ namespace ARKBreedingStats.Properties {
                 this["columnWidths"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -81,7 +81,7 @@ namespace ARKBreedingStats.Properties {
                 this["autosave"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
@@ -93,7 +93,7 @@ namespace ARKBreedingStats.Properties {
                 this["BackupEveryMinutes"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public double[][] customStatWeights {
@@ -104,7 +104,7 @@ namespace ARKBreedingStats.Properties {
                 this["customStatWeights"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] customStatWeightNames {
@@ -115,7 +115,7 @@ namespace ARKBreedingStats.Properties {
                 this["customStatWeightNames"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -127,7 +127,7 @@ namespace ARKBreedingStats.Properties {
                 this["listViewSortCol"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -139,7 +139,7 @@ namespace ARKBreedingStats.Properties {
                 this["listViewSortAsc"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2000-01-01")]
@@ -151,7 +151,7 @@ namespace ARKBreedingStats.Properties {
                 this["lastUpdateCheck"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -163,7 +163,7 @@ namespace ARKBreedingStats.Properties {
                 this["syncCollection"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -175,7 +175,7 @@ namespace ARKBreedingStats.Properties {
                 this["celsius"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] lastSpecies {
@@ -186,7 +186,7 @@ namespace ARKBreedingStats.Properties {
                 this["lastSpecies"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -198,7 +198,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayHiddenStats"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("ArkAscended")]
@@ -210,7 +210,7 @@ namespace ARKBreedingStats.Properties {
                 this["OCRApp"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public double[] weaponDamages {
@@ -221,7 +221,7 @@ namespace ARKBreedingStats.Properties {
                 this["weaponDamages"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -233,7 +233,7 @@ namespace ARKBreedingStats.Properties {
                 this["soundStarving"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -245,7 +245,7 @@ namespace ARKBreedingStats.Properties {
                 this["soundWakeup"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -257,7 +257,7 @@ namespace ARKBreedingStats.Properties {
                 this["soundBirth"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -269,7 +269,7 @@ namespace ARKBreedingStats.Properties {
                 this["SpeechRecognition"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("63")]
@@ -281,7 +281,7 @@ namespace ARKBreedingStats.Properties {
                 this["weaponDamagesEnabled"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("10")]
@@ -293,7 +293,7 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayInfoDuration"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("160")]
@@ -305,7 +305,7 @@ namespace ARKBreedingStats.Properties {
                 this["OCRWhiteThreshold"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -317,7 +317,7 @@ namespace ARKBreedingStats.Properties {
                 this["ocrFile"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("500")]
@@ -329,7 +329,7 @@ namespace ARKBreedingStats.Properties {
                 this["waitBeforeScreenCapture"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("{species} {sex_short}{n}")]
@@ -341,7 +341,7 @@ namespace ARKBreedingStats.Properties {
                 this["sequentialUniqueNamePattern"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -353,7 +353,7 @@ namespace ARKBreedingStats.Properties {
                 this["soundCustom"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("60,0")]
@@ -365,7 +365,7 @@ namespace ARKBreedingStats.Properties {
                 this["playAlarmTimes"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -377,7 +377,7 @@ namespace ARKBreedingStats.Properties {
                 this["inventoryCheckTimer"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -389,7 +389,7 @@ namespace ARKBreedingStats.Properties {
                 this["showColorsInLibrary"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] arkSavegamePaths {
@@ -400,7 +400,7 @@ namespace ARKBreedingStats.Properties {
                 this["arkSavegamePaths"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -412,7 +412,7 @@ namespace ARKBreedingStats.Properties {
                 this["savegameExtractionPath"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("20")]
@@ -424,7 +424,7 @@ namespace ARKBreedingStats.Properties {
                 this["MutationLimitBreedingPlanner"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -436,7 +436,7 @@ namespace ARKBreedingStats.Properties {
                 this["DevTools"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -448,7 +448,7 @@ namespace ARKBreedingStats.Properties {
                 this["LastSaveFileTestCases"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] ExportCreatureFolders {
@@ -459,7 +459,7 @@ namespace ARKBreedingStats.Properties {
                 this["ExportCreatureFolders"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -471,7 +471,7 @@ namespace ARKBreedingStats.Properties {
                 this["IgnoreSexInBreedingPlan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -483,7 +483,7 @@ namespace ARKBreedingStats.Properties {
                 this["DefaultOwnerName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -495,7 +495,7 @@ namespace ARKBreedingStats.Properties {
                 this["OwnerNameLocked"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -507,7 +507,7 @@ namespace ARKBreedingStats.Properties {
                 this["DefaultTribeName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -519,7 +519,7 @@ namespace ARKBreedingStats.Properties {
                 this["TribeNameLocked"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -531,7 +531,7 @@ namespace ARKBreedingStats.Properties {
                 this["ServerNameLocked"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -543,7 +543,7 @@ namespace ARKBreedingStats.Properties {
                 this["DefaultServerName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -555,7 +555,7 @@ namespace ARKBreedingStats.Properties {
                 this["showOCRButton"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -567,7 +567,7 @@ namespace ARKBreedingStats.Properties {
                 this["language"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -579,7 +579,7 @@ namespace ARKBreedingStats.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -591,7 +591,7 @@ namespace ARKBreedingStats.Properties {
                 this["ImportTribeNameFilter"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -603,7 +603,7 @@ namespace ARKBreedingStats.Properties {
                 this["UseServerFilterForBreedingPlan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 700, 700")]
@@ -615,7 +615,7 @@ namespace ARKBreedingStats.Properties {
                 this["ImportExportedFormRectangle"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -627,7 +627,7 @@ namespace ARKBreedingStats.Properties {
                 this["ApplyGlobalSpeciesToLibrary"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -639,7 +639,7 @@ namespace ARKBreedingStats.Properties {
                 this["UseOwnerFilterForBreedingPlan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -651,7 +651,7 @@ namespace ARKBreedingStats.Properties {
                 this["OCRIgnoresImprintValue"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -663,7 +663,7 @@ namespace ARKBreedingStats.Properties {
                 this["IncludeCooldownsInBreedingPlan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -675,7 +675,7 @@ namespace ARKBreedingStats.Properties {
                 this["IncludeCryoedInBreedingPlan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50")]
@@ -687,7 +687,7 @@ namespace ARKBreedingStats.Properties {
                 this["WarnWhenImportingMoreCreaturesThan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -699,7 +699,7 @@ namespace ARKBreedingStats.Properties {
                 this["SavedFtpCredentials"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -711,7 +711,7 @@ namespace ARKBreedingStats.Properties {
                 this["prettifyCollectionJson"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -723,7 +723,7 @@ namespace ARKBreedingStats.Properties {
                 this["applyNamePatternOnImportIfEmptyName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -735,7 +735,7 @@ namespace ARKBreedingStats.Properties {
                 this["copyNameToClipboardOnImportWhenAutoNameApplied"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -747,7 +747,7 @@ namespace ARKBreedingStats.Properties {
                 this["AutoImportExportedCreatures"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -759,7 +759,7 @@ namespace ARKBreedingStats.Properties {
                 this["MoveAutoImportedFileToSubFolder"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -771,7 +771,7 @@ namespace ARKBreedingStats.Properties {
                 this["DeleteAutoImportedFile"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -783,7 +783,7 @@ namespace ARKBreedingStats.Properties {
                 this["PlaySoundOnAutoImport"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50, 50, 700, 700")]
@@ -795,7 +795,7 @@ namespace ARKBreedingStats.Properties {
                 this["PatternEditorFormRectangle"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("40")]
@@ -807,7 +807,7 @@ namespace ARKBreedingStats.Properties {
                 this["PatternEditorSplitterDistance"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -819,7 +819,7 @@ namespace ARKBreedingStats.Properties {
                 this["ImportLowerBoundTE"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -831,7 +831,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayTimersInOverlayAutomatically"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -843,7 +843,7 @@ namespace ARKBreedingStats.Properties {
                 this["DeleteExpiredTimersOnSaving"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -855,7 +855,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayNonDomesticableSpecies"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif")]
@@ -867,7 +867,7 @@ namespace ARKBreedingStats.Properties {
                 this["DefaultFontName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("8.25")]
@@ -879,7 +879,7 @@ namespace ARKBreedingStats.Properties {
                 this["DefaultFontSize"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("500")]
@@ -891,7 +891,7 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesSelectorVerticalSplitterDistance"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -903,7 +903,7 @@ namespace ARKBreedingStats.Properties {
                 this["IgnoreUnknownBlueprintsOnSaveImport"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] libraryColumnDisplayIndices {
@@ -914,7 +914,7 @@ namespace ARKBreedingStats.Properties {
                 this["libraryColumnDisplayIndices"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
@@ -926,7 +926,7 @@ namespace ARKBreedingStats.Properties {
                 this["CustomStatOverrideFormRectangle"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("30, 30")]
@@ -938,7 +938,7 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayTimerPosition"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("30, 30")]
@@ -950,7 +950,7 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayInfoPosition"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] TCLVColumnDisplayIndices {
@@ -961,7 +961,7 @@ namespace ARKBreedingStats.Properties {
                 this["TCLVColumnDisplayIndices"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] TCLVColumnWidths {
@@ -972,7 +972,7 @@ namespace ARKBreedingStats.Properties {
                 this["TCLVColumnWidths"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -984,7 +984,7 @@ namespace ARKBreedingStats.Properties {
                 this["TCLVSortCol"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -996,7 +996,7 @@ namespace ARKBreedingStats.Properties {
                 this["TCLVSortAsc"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] NamingPatterns {
@@ -1007,7 +1007,7 @@ namespace ARKBreedingStats.Properties {
                 this["NamingPatterns"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1019,7 +1019,7 @@ namespace ARKBreedingStats.Properties {
                 this["KeepExpiredTimersInOverlay"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1031,7 +1031,7 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanOnlyBestSuggestionForEachFemale"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1043,7 +1043,7 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanOnePartnerMoreMutationsThanLimit"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -1055,7 +1055,7 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryHighlightTopCreatures"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -1067,7 +1067,7 @@ namespace ARKBreedingStats.Properties {
                 this["SaveImportCryo"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1079,7 +1079,7 @@ namespace ARKBreedingStats.Properties {
                 this["UseCustomOverlayLocation"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
@@ -1091,7 +1091,7 @@ namespace ARKBreedingStats.Properties {
                 this["CustomOverlayLocation"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1103,7 +1103,7 @@ namespace ARKBreedingStats.Properties {
                 this["AdminConsoleCommandWithCheat"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1115,7 +1115,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterFlagsExclude"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] FilterHideOwners {
@@ -1126,7 +1126,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideOwners"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] FilterHideTribes {
@@ -1137,7 +1137,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideTribes"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] FilterHideServers {
@@ -1148,7 +1148,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideServers"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] FilterHideTags {
@@ -1159,7 +1159,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideTags"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1171,7 +1171,7 @@ namespace ARKBreedingStats.Properties {
                 this["useFiltersInTopStatCalculation"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1183,7 +1183,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterOnlyIfColorId"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50, 50, 800, 600")]
@@ -1195,7 +1195,7 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryFilterWindowRect"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1207,7 +1207,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterFlagsAllNeeded"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1219,7 +1219,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterFlagsOneNeeded"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("50, 50, 800, 600")]
@@ -1231,7 +1231,7 @@ namespace ARKBreedingStats.Properties {
                 this["ModManagerWindowRect"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("20")]
@@ -1243,7 +1243,7 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesSelectorCountLastSpecies"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1255,7 +1255,7 @@ namespace ARKBreedingStats.Properties {
                 this["applyNamePatternOnAutoImportForNewCreatures"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1267,7 +1267,7 @@ namespace ARKBreedingStats.Properties {
                 this["LibrarySelectSelectedSpeciesOnLoad"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1279,7 +1279,7 @@ namespace ARKBreedingStats.Properties {
                 this["ImportExportUseTamerStringForOwner"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1291,7 +1291,7 @@ namespace ARKBreedingStats.Properties {
                 this["MainWindowMaximized"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] DisabledVariants {
@@ -1302,7 +1302,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisabledVariants"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -1314,7 +1314,7 @@ namespace ARKBreedingStats.Properties {
                 this["ImportExportedArchiveFolder"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1326,7 +1326,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayInheritanceInOverlay"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1338,7 +1338,7 @@ namespace ARKBreedingStats.Properties {
                 this["ColorMode"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("180")]
@@ -1350,7 +1350,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicHeight"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -1362,7 +1362,7 @@ namespace ARKBreedingStats.Properties {
                 this["CustomReplacingFilePath"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1374,7 +1374,7 @@ namespace ARKBreedingStats.Properties {
                 this["applyNamePatternOnAutoImportAlways"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1386,7 +1386,7 @@ namespace ARKBreedingStats.Properties {
                 this["Highlight255Level"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -1398,7 +1398,7 @@ namespace ARKBreedingStats.Properties {
                 this["LastUsedCollectionFolder"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] LastUsedLibraryFiles {
@@ -1409,7 +1409,7 @@ namespace ARKBreedingStats.Properties {
                 this["LastUsedLibraryFiles"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -1421,7 +1421,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicExportFolder"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1433,7 +1433,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicShowMaxWildLevel"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("AntiqueWhite")]
@@ -1445,7 +1445,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBackColor"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Black")]
@@ -1457,7 +1457,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicForeColor"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Arial")]
@@ -1469,7 +1469,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicFontName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Maroon")]
@@ -1481,7 +1481,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBorderColor"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -1493,7 +1493,7 @@ namespace ARKBreedingStats.Properties {
                 this["BackupFolder"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
@@ -1505,7 +1505,7 @@ namespace ARKBreedingStats.Properties {
                 this["BackupFileCount"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1517,7 +1517,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicWithDomLevels"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -1529,7 +1529,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicDisplayMutations"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -1541,7 +1541,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicDisplayGeneration"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1553,7 +1553,7 @@ namespace ARKBreedingStats.Properties {
                 this["ImgCacheUseLocalAppData"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("DinoExport_{arkid}_{species}.ini")]
@@ -1565,7 +1565,7 @@ namespace ARKBreedingStats.Properties {
                 this["AutoImportedExportFileRenamePattern"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1577,7 +1577,7 @@ namespace ARKBreedingStats.Properties {
                 this["AutoImportedExportFileRename"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1589,7 +1589,7 @@ namespace ARKBreedingStats.Properties {
                 this["AutoImportGotoLibraryAfterSuccess"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1601,7 +1601,7 @@ namespace ARKBreedingStats.Properties {
                 this["PauseGrowingTimerAfterAddingBaby"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] CreatureTableExportFields {
@@ -1612,7 +1612,7 @@ namespace ARKBreedingStats.Properties {
                 this["CreatureTableExportFields"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1624,7 +1624,7 @@ namespace ARKBreedingStats.Properties {
                 this["ConsiderWastedStatsForTopCreatures"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1636,7 +1636,7 @@ namespace ARKBreedingStats.Properties {
                 this["SaveFileImportUnclaimedBabies"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1648,7 +1648,7 @@ namespace ARKBreedingStats.Properties {
                 this["OcrGuessSpecies"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1660,7 +1660,7 @@ namespace ARKBreedingStats.Properties {
                 this["WaitBeforeAutoLoadMs"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1672,7 +1672,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicDisplayName"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] LibraryFilterPresets {
@@ -1683,7 +1683,7 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryFilterPresets"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1695,7 +1695,7 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeViewMode"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
@@ -1707,7 +1707,7 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeCompactViewGenerations"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1719,7 +1719,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicExtraRegionNames"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1731,7 +1731,7 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeWidthLeftColum"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] PedigreeListViewColumnWidths {
@@ -1742,7 +1742,7 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeListViewColumnWidths"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
@@ -1754,7 +1754,7 @@ namespace ARKBreedingStats.Properties {
                 this["PedigreeZoomFactor"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public string[] TimerPresets {
@@ -1765,7 +1765,7 @@ namespace ARKBreedingStats.Properties {
                 this["TimerPresets"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1777,7 +1777,7 @@ namespace ARKBreedingStats.Properties {
                 this["TamingFoodOrderByTime"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -1789,7 +1789,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicShowStatValues"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1801,7 +1801,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicShowRegionNamesIfNoImage"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1813,7 +1813,7 @@ namespace ARKBreedingStats.Properties {
                 this["PatternNameToClipboardAfterManualApplication"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -1825,7 +1825,7 @@ namespace ARKBreedingStats.Properties {
                 this["OnAutoImportAddToLibrary"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1837,7 +1837,7 @@ namespace ARKBreedingStats.Properties {
                 this["OCRFromClipboard"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0, 0, 0")]
@@ -1849,7 +1849,7 @@ namespace ARKBreedingStats.Properties {
                 this["OCRFromRectangle"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -1861,7 +1861,7 @@ namespace ARKBreedingStats.Properties {
                 this["RaisingFoodLastSelected"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1873,7 +1873,7 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanDontSuggestOverLimitOffspring"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -1885,7 +1885,7 @@ namespace ARKBreedingStats.Properties {
                 this["PlayerListSortColumn"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1897,7 +1897,7 @@ namespace ARKBreedingStats.Properties {
                 this["PlayerListSortAsc"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] PlayerListColumnWidths {
@@ -1908,7 +1908,7 @@ namespace ARKBreedingStats.Properties {
                 this["PlayerListColumnWidths"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public int[] PlayerListColumnDisplayIndices {
@@ -1919,7 +1919,7 @@ namespace ARKBreedingStats.Properties {
                 this["PlayerListColumnDisplayIndices"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1931,7 +1931,7 @@ namespace ARKBreedingStats.Properties {
                 this["ImportExportedBringToFrontOnIssue"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1943,7 +1943,7 @@ namespace ARKBreedingStats.Properties {
                 this["HideInvisibleColorRegions"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1955,7 +1955,7 @@ namespace ARKBreedingStats.Properties {
                 this["UseTribeFilterForBreedingPlan"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1967,7 +1967,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideAdults"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1979,7 +1979,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideNonAdults"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -1991,7 +1991,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideCooldowns"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2003,7 +2003,7 @@ namespace ARKBreedingStats.Properties {
                 this["FilterHideNonCooldowns"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2015,7 +2015,7 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryGroupBySpecies"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2027,7 +2027,7 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryColorInfoUseFilter"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2039,7 +2039,7 @@ namespace ARKBreedingStats.Properties {
                 this["UseNaturalSort"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2051,7 +2051,7 @@ namespace ARKBreedingStats.Properties {
                 this["NaturalSortIgnoreSpaces"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2063,7 +2063,7 @@ namespace ARKBreedingStats.Properties {
                 this["ShowColorIdOnRegionButtons"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2075,7 +2075,7 @@ namespace ARKBreedingStats.Properties {
                 this["AlwaysShowAllColorRegions"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public byte[][] CustomStatWeightOddEven {
@@ -2086,7 +2086,7 @@ namespace ARKBreedingStats.Properties {
                 this["CustomStatWeightOddEven"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -2098,7 +2098,7 @@ namespace ARKBreedingStats.Properties {
                 this["language2"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
@@ -2110,7 +2110,7 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayRelativeFontSize"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2122,7 +2122,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayLibraryCreatureIndex"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2134,7 +2134,7 @@ namespace ARKBreedingStats.Properties {
                 this["AskSaveSettingsOnClose"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -2146,7 +2146,7 @@ namespace ARKBreedingStats.Properties {
                 this["ExportServerToken"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2158,7 +2158,7 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryShowMutationLevelColumns"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2170,7 +2170,7 @@ namespace ARKBreedingStats.Properties {
                 this["StreamerMode"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2182,18 +2182,18 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryDisplayZeroMutationLevels"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd[][] CustomStatWeightsOddEven {
+        public ARKBreedingStats.BreedingPlanning.StatValueEvenOdd[][] CustomStatWeightsOddEven {
             get {
-                return ((ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd[][])(this["CustomStatWeightsOddEven"]));
+                return ((ARKBreedingStats.BreedingPlanning.StatValueEvenOdd[][])(this["CustomStatWeightsOddEven"]));
             }
             set {
                 this["CustomStatWeightsOddEven"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -2205,7 +2205,7 @@ namespace ARKBreedingStats.Properties {
                 this["NewLibraryGame"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2217,7 +2217,7 @@ namespace ARKBreedingStats.Properties {
                 this["KeepMultipliersForNewLibrary"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2229,7 +2229,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayPopupForServerToken"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2241,7 +2241,7 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanConsiderMutatedLevels"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2253,7 +2253,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicDisplaySumWildMut"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -2265,7 +2265,7 @@ namespace ARKBreedingStats.Properties {
                 this["ManualSaveGameImportFolder"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("400, 800")]
@@ -2277,7 +2277,7 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayInfoSize"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2289,7 +2289,7 @@ namespace ARKBreedingStats.Properties {
                 this["CopyNameToClipboardOnImport"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2301,7 +2301,7 @@ namespace ARKBreedingStats.Properties {
                 this["MoveMutationLevelsOnExtractionIfUnique"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2313,7 +2313,7 @@ namespace ARKBreedingStats.Properties {
                 this["TesterLinkWildMutatedLevels"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2325,7 +2325,7 @@ namespace ARKBreedingStats.Properties {
                 this["DisplayWarningAboutTooLongNameGenerated"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("200, 200, 1000, 650")]
@@ -2337,7 +2337,7 @@ namespace ARKBreedingStats.Properties {
                 this["LevelColorWindowRectangle"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -2349,7 +2349,7 @@ namespace ARKBreedingStats.Properties {
                 this["OverlayImportPattern"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
@@ -2361,7 +2361,7 @@ namespace ARKBreedingStats.Properties {
                 this["ExtractorConvertWildTorporTotalLevel"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2373,7 +2373,7 @@ namespace ARKBreedingStats.Properties {
                 this["ColorSelectorShowAllColors"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2385,7 +2385,7 @@ namespace ARKBreedingStats.Properties {
                 this["BeginServerListeningOnLaunch"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2397,7 +2397,7 @@ namespace ARKBreedingStats.Properties {
                 this["BreedingPlanOnlySameSpecies"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -2409,7 +2409,7 @@ namespace ARKBreedingStats.Properties {
                 this["BondedTamingRank"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("200, 200, 450, 600")]
@@ -2421,7 +2421,7 @@ namespace ARKBreedingStats.Properties {
                 this["WindowPositionTraitSelection"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsd=\"http://www.w3." +
@@ -2436,7 +2436,7 @@ namespace ARKBreedingStats.Properties {
                 this["SpeciesImagesUrls"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -2448,7 +2448,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBackgroundImagePath"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
@@ -2460,7 +2460,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBorderWidth"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
@@ -2472,7 +2472,7 @@ namespace ARKBreedingStats.Properties {
                 this["PlayColorSoundOnAutoImport"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("White")]
@@ -2484,7 +2484,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicTextOutlineColor"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -2496,7 +2496,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicTextOutlineWidth"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -2508,7 +2508,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicCreatureOutlineWidth"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("White")]
@@ -2520,7 +2520,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicCreatureOutlineColor"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.8")]
@@ -2532,7 +2532,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicCreatureOutlineBlurring"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -2544,7 +2544,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBorderRadius"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
@@ -2556,7 +2556,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicCreatureScaling"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
@@ -2568,7 +2568,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicPaddingX"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
@@ -2580,7 +2580,7 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicPaddingY"] = value;
             }
         }
-        
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]

@@ -44,10 +44,10 @@ namespace ARKBreedingStats.Tests.UIControls
             if (FileService.LoadJsonFile(libraryPath, out CreatureCollection collection, out string libraryError))
             {
                 TestCreatureCollection = collection;
-                
+
                 // Set as current collection so UI controls can access it
                 CreatureCollection.CurrentCreatureCollection = collection;
-                
+
                 // Load mods manifest before loading values (mirrors production startup order)
                 var modsManifest = mods.ModsManifest.TryLoadModManifestFile(forceDownload: false).Result;
                 modsManifest?.Initialize();
@@ -161,7 +161,7 @@ namespace ARKBreedingStats.Tests.UIControls
         {
             if (index < 0 || index >= comboBox.Items.Count)
             {
-                throw new ArgumentOutOfRangeException(nameof(index), 
+                throw new ArgumentOutOfRangeException(nameof(index),
                     $"Index {index} is out of range. ComboBox has {comboBox.Items.Count} items.");
             }
 

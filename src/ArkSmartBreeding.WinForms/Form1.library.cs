@@ -1,3 +1,4 @@
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Models;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
@@ -458,9 +459,9 @@ namespace ARKBreedingStats
                                 {
                                     // creature has a higher level than the current highest level
                                     // check if highest stats are only counted if odd or even
-                                    if (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Indifferent // even/odd doesn't matter
-                                        || (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Odd && c.levelsWild[s] % 2 == 1)
-                                        || (statWeights.Item2[s] == StatWeighting.StatValueEvenOdd.Even && c.levelsWild[s] % 2 == 0)
+                                    if (statWeights.Item2[s] == StatValueEvenOdd.Indifferent // even/odd doesn't matter
+                                        || (statWeights.Item2[s] == StatValueEvenOdd.Odd && c.levelsWild[s] % 2 == 1)
+                                        || (statWeights.Item2[s] == StatValueEvenOdd.Even && c.levelsWild[s] % 2 == 0)
                                        )
                                     {
                                         bestCreaturesWildLevels[s] = new List<Creature> { c };
@@ -1438,7 +1439,7 @@ namespace ARKBreedingStats
                 }
                 else if (cr.levelsWild[s] < 0)
                 {
-                    // unknown level 
+                    // unknown level
                     lvi.SubItems[ColumnIndexFirstStat + s].ForeColor = Color.WhiteSmoke;
                     lvi.SubItems[ColumnIndexFirstStat + s].BackColor = Color.White;
                 }

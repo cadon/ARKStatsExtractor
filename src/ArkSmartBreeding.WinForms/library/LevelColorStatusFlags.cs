@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ARKBreedingStats.BreedingPlanning;
 using ARKBreedingStats.Models;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.uiControls;
-using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.library
 {
