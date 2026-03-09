@@ -67,8 +67,10 @@ namespace ASB_Updater
                     return;
                 }
 
-                string oldLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AppDomain.CurrentDomain.FriendlyName);
-                string newLocation = Path.Combine(Path.GetTempPath(), AppDomain.CurrentDomain.FriendlyName);
+                // ensure the filename has an extension.
+                string fileName = Path.ChangeExtension(AppDomain.CurrentDomain.FriendlyName, ".exe");
+                string oldLocation = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+                string newLocation = Path.Combine(Path.GetTempPath(), fileName);
                 File.Copy(oldLocation, newLocation, true);
 
                 // backslashes and quotes in command line arguments are strange. https://stackoverflow.com/questions/9287812/backslash-and-quote-in-command-line-arguments
@@ -105,7 +107,6 @@ namespace ASB_Updater
         /// </summary>
         private void Init()
         {
-            CosturaUtility.Initialize();
             updater = new ASBUpdater();
         }
 

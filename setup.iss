@@ -2,9 +2,8 @@
 #define AppPublisher "cadon & friends"
 #define AppURL "https://github.com/cadon/ARKStatsExtractor"
 #define AppExeName "ARK Smart Breeding.exe"
-#define ReleaseDir "ARKBreedingStats\bin\Release"
-#define ReleaseDirUpdater "ASB-Updater\bin\Release"
-#define OutputDir "_publish"
+#define ReleaseDir ".work\dist"
+#define OutputDir ".work\publish"
 #define AppVersion GetVersionNumbersString(ReleaseDir + "\" + AppExeName)
 
 [Setup]
@@ -32,33 +31,33 @@ UninstallDisplayIcon={app}\{#AppExeName}
 
 [Messages]
 WelcomeLabel2=This will install [name/ver] on your computer.%n%nIf you plan to run [name] as a portable version in a shared location (i.e. not in the system's Program Files folder), we recommend to use the zip file version instead of this installer.
-de.WelcomeLabel2=Dieser Assistent wird jetzt [name/ver] auf Ihrem Computer installieren.%n%nWenn Sie planen [name] als portable Version in einem gemeinsam genutzten Verzeichnis (das heißt, außerhalb des Verzeichnisses für Programme) auszuführen, empfehlen wir anstelle dieses Installationsprogramms die Zip-Datei-Version zu nutzen.
+de.WelcomeLabel2=Dieser Assistent wird jetzt [name/ver] auf Ihrem Computer installieren.%n%nWenn Sie planen [name] als portable Version in einem gemeinsam genutzten Verzeichnis (das heiÃŸt, auÃŸerhalb des Verzeichnisses fÃ¼r Programme) auszufÃ¼hren, empfehlen wir anstelle dieses Installationsprogramms die Zip-Datei-Version zu nutzen.
 
 [CustomMessages]
-DotNetFrameworkNeededCaption=.NET Framework 4.8 required
-de.DotNetFrameworkNeededCaption=.NET Framework 4.8 benötigt
-DotNetFrameworkNeededDescription=To run {#AppName} the .NET Framework 4.8 is required.
-de.DotNetFrameworkNeededDescription=Um {#AppName} auszuführen wird .NET Framework 4.8 benötigt.
-DotNetFrameworkNeededSubCaption=Check the box below to download and install .NET Framework 4.8.
-de.DotNetFrameworkNeededSubCaption=Markieren Sie das folgende Kästchen, um .NET Framework 4.8 herunterzuladen und zu installieren.
-DotNetFrameworkInstall=Download and install .NET Framework 4.8
-de.DotNetFrameworkInstall=Herunterladen und Installation von .NET Framework 4.8
-IDP_DownloadFailed=Download of .NET Framework 4.8 failed. .NET Framework 4.8 is required to run {#AppName}.
-de.IDP_DownloadFailed=Herunterladen von .NET Framework 4.8 fehlgeschlagen. .NET Framework 4.8 wird benötigt um {#AppName} auszuführen.
+DotNetNeededCaption=.NET 10 Desktop Runtime required
+de.DotNetNeededCaption=.NET 10 Desktop Runtime benÃ¶tigt
+DotNetNeededDescription=To run {#AppName} the .NET 10 Desktop Runtime is required.
+de.DotNetNeededDescription=Um {#AppName} auszufÃ¼hren wird die .NET 10 Desktop Runtime benÃ¶tigt.
+DotNetNeededSubCaption=Check the box below to download and install the .NET 10 Desktop Runtime.
+de.DotNetNeededSubCaption=Markieren Sie das folgende KÃ¤stchen, um die .NET 10 Desktop Runtime herunterzuladen und zu installieren.
+DotNetInstall=Download and install .NET 10 Desktop Runtime
+de.DotNetInstall=Herunterladen und Installation der .NET 10 Desktop Runtime
+IDP_DownloadFailed=Download of .NET 10 Desktop Runtime failed. The .NET 10 Desktop Runtime is required to run {#AppName}.
+de.IDP_DownloadFailed=Herunterladen der .NET 10 Desktop Runtime fehlgeschlagen. Die .NET 10 Desktop Runtime wird benÃ¶tigt um {#AppName} auszufÃ¼hren.
 IDP_RetryCancel=Click 'Retry' to try downloading the files again, or click 'Cancel' to terminate setup.
 de.IDP_RetryCancel=Klicken Sie 'Wiederholen', um das Herunterladen der Dateien erneut zu versuchen, oder klicken Sie auf "Abbrechen", um die Installation abzubrechen.
-InstallingDotNetFramework=Installing .NET Framework 4.8. This might take a few minutes...
-de.InstallingDotNetFramework=Installiere .NET Framework 4.8. Das wird eine Weile dauern ...
-DotNetFrameworkFailedToLaunch=Failed to launch .NET Framework Installer with error "%1". Please fix the error then run this installer again.
-de.DotNetFrameworkFailedToLaunch=Starten des .NET Framework Installer fehlgeschlagen mit Fehler "%1". Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
-DotNetFrameworkFailed1602=.NET Framework installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET Framework installation is completed successfully.
-de.DotNetFrameworkFailed1602=Die .NET Framework Installation wurde abgebrochen. Diese Installation kann fortgesetzt werden. Beachten Sie jedoch, dass diese Anwendung möglicherweise nicht ausgeführt wird, bis die .NET Framework-Installation erfolgreich abgeschlossen wurde.
-DotNetFrameworkFailed1603=A fatal error occurred while installing the .NET Framework. Please fix the error, then run the installer again.
-de.DotNetFrameworkFailed1603=Ein schwerwiegender Fehler trat während der Installiion des .NET Frameworks auf. Bitte den Fehler beheben und dieses Installationsprogramm erneut ausführen.
-DotNetFrameworkFailed5100=Your computer does not meet the requirements of the .NET Framework.
-de.DotNetFrameworkFailed5100=Ihr Computer erfüllt nicht die Voraussetzungen für das .NET Framework.
-DotNetFrameworkFailedOther=The .NET Framework installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
-de.DotNetFrameworkFailedOther=Die .NET Framework Installation endete mit dem nicht erwarteten Statuscode "%1". Überprüfen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
+InstallingDotNet=Installing .NET 10 Desktop Runtime. This might take a few minutes...
+de.InstallingDotNet=Installiere .NET 10 Desktop Runtime. Das wird eine Weile dauern ...
+DotNetFailedToLaunch=Failed to launch .NET 10 Desktop Runtime installer with error "%1". Please fix the error then run this installer again.
+de.DotNetFailedToLaunch=Der Installer fÃ¼r das .NET 10 Desktop Runtime konnte nicht gestartet werden (Fehler "%1"). Bitte beheben Sie den Fehler und fÃ¼hren Sie den Installer erneut aus.
+DotNetFailed1602=.NET 10 Desktop Runtime installation was cancelled. This installation can continue, but be aware that this application may not run unless the .NET 10 Desktop Runtime installation is completed successfully.
+de.DotNetFailed1602=Die Installation der .NET 10 Desktop Runtime wurde abgebrochen. Diese Installation kann fortgesetzt werden. Beachten Sie jedoch, dass diese Anwendung mÃ¶glicherweise nicht ausgefÃ¼hrt wird, bis die Installation der .NET 10 Desktop Runtime erfolgreich abgeschlossen wurde.
+DotNetFailed1603=A fatal error occurred while installing the .NET 10 Desktop Runtime. Please fix the error, then run the installer again.
+de.DotNetFailed1603=Ein schwerwiegender Fehler trat wÃ¤hrend der Installation der .NET 10 Desktop Runtime auf. Bitte den Fehler beheben und dieses Installationsprogramm erneut ausfÃ¼hren.
+DotNetFailed5100=Your computer does not meet the requirements of the .NET 10 Desktop Runtime.
+de.DotNetFailed5100=Ihr Computer erfÃ¼llt nicht die Voraussetzungen fÃ¼r die .NET 10 Desktop Runtime.
+DotNetFailedOther=The .NET 10 Desktop Runtime installer exited with an unexpected status code "%1". Please review any other messages shown by the installer to determine whether the installation completed successfully, and abort this installation and fix the problem if it did not.
+de.DotNetFailedOther=Die Installation der .NET 10 Desktop Runtime endete mit dem nicht erwarteten Statuscode "%1". ÃœberprÃ¼fen Sie alle anderen vom Installationsprogramm angezeigten Meldungen, um festzustellen, ob die Installation erfolgreich abgeschlossen wurde, und falls nicht, brechen Sie die Installation ab und beheben Sie das Problem.
 
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
@@ -69,6 +68,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "{#ReleaseDir}\*"; DestDir: "{app}"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion
+Source: "{#ReleaseDir}\runtimes\*"; DestDir: "{app}\runtimes\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion recursesubdirs createallsubdirs skipifsourcedoesntexist
+
 Source: "{#ReleaseDir}\de\*"; DestDir: "{app}\de\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#ReleaseDir}\es\*"; DestDir: "{app}\es\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#ReleaseDir}\fr\*"; DestDir: "{app}\fr\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
@@ -86,7 +87,7 @@ Source: "{#ReleaseDir}\json\values\values.json"; DestDir: "{localappdata}\{#AppN
 Source: "{#ReleaseDir}\json\values\ASA-values.json"; DestDir: "{localappdata}\{#AppName}\json\values\"; Flags: ignoreversion
 Source: "{#ReleaseDir}\json\values\_manifest.json"; DestDir: "{localappdata}\{#AppName}\json\values\"; Flags: ignoreversion
 Source: "{#ReleaseDir}\json\ocr\*.json"; DestDir: "{localappdata}\{#AppName}\json\ocr\"; Flags: ignoreversion skipifsourcedoesntexist
-Source: "{#ReleaseDirUpdater}\asb-updater.exe"; DestDir: "{app}"; Flags: ignoreversion
+
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"
@@ -107,42 +108,51 @@ Type: filesandordirs; Name: "{app}\images"
 var
   requiresRestart: boolean;
   DotNetPage: TInputOptionWizardPage;
-  InstallDotNetFramework: Boolean; 
+  InstallDotNet: Boolean; 
   downloadFiles: Boolean;
   DownloadPage: TDownloadWizardPage;
 
-function DotNetFrameworkIsMissing(): Boolean;
+function DotNetIsMissing(): Boolean;
 var
-  bSuccess: Boolean;
-  regVersion: Cardinal;
+  ResultCode: Integer;
 begin
+  // Use dotnet --list-runtimes and check for Microsoft.WindowsDesktop.App 10.x
+  // If dotnet is not installed at all, Exec returns False and we need the runtime.
   Result := True;
-
-  // determine installed .NET version via
-  // https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#detect-net-framework-45-and-later-versions
-  bSuccess := RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', regVersion);
-  if (True = bSuccess) and (regVersion >= 528040) then begin
-    Result := False;
+  if Exec('dotnet', '--list-runtimes', '', SW_HIDE, ewWaitUntilTerminated, ResultCode) then
+  begin
+    if ResultCode = 0 then
+    begin
+      // dotnet exists; check for the desktop runtime via a more reliable registry key
+      // HKLM\SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App
+      if RegValueExists(HKLM, 'SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App', '10.0.3') then
+        Result := False
+      else if RegValueExists(HKLM, 'SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App', '10.0.2') then
+        Result := False
+      else if RegValueExists(HKLM, 'SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App', '10.0.1') then
+        Result := False
+      else if RegValueExists(HKLM, 'SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedfx\Microsoft.WindowsDesktop.App', '10.0.0') then
+        Result := False;
+    end;
   end;
 end;
 
 procedure InitializeWizard;
 begin
-  DotNetPage := CreateInputOptionPage(wpSelectTasks, ExpandConstant('{cm:DotNetFrameworkNeededCaption}'),
-    ExpandConstant('{cm:DotNetFrameworkNeededDescription}'), ExpandConstant('{cm:DotNetFrameworkNeededSubCaption}'), False, False);
-  DotNetPage.Add(ExpandConstant('{cm:DotNetFrameworkInstall}'));
+  DotNetPage := CreateInputOptionPage(wpSelectTasks, ExpandConstant('{cm:DotNetNeededCaption}'),
+    ExpandConstant('{cm:DotNetNeededDescription}'), ExpandConstant('{cm:DotNetNeededSubCaption}'), False, False);
+  DotNetPage.Add(ExpandConstant('{cm:DotNetInstall}'));
   DotNetPage.Values[0] := True;
 
   DownloadPage := CreateDownloadPage(SetupMessage(msgWizardPreparing), SetupMessage(msgPreparingDesc), nil);
   DownloadPage.Clear;
 
-  //WizardForm.WelcomeLabel2.Font.Style := [fsBold]; //Bold
-  WizardForm.WelcomeLabel2.Font.Color := clRed; // And red colour
+  WizardForm.WelcomeLabel2.Font.Color := clRed;
 end;
 
 function ShouldSkipPage(PageID: Integer): Boolean;
 begin
-  if (PageID = DotNetPage.ID) and not DotNetFrameworkIsMissing() then
+  if (PageID = DotNetPage.ID) and not DotNetIsMissing() then
     Result := True
   else
     Result := False;
@@ -150,10 +160,10 @@ end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
 begin
-  if (CurPageID = DotNetPage.ID) and DotNetFrameworkIsMissing() then begin
+  if (CurPageID = DotNetPage.ID) and DotNetIsMissing() then begin
     if DotNetPage.Values[0] then begin   
-      DownloadPage.Add('https://go.microsoft.com/fwlink/?LinkId=2085155', 'NetFrameworkInstaller.exe', '');
-      InstallDotNetFramework := True;
+      DownloadPage.Add('https://aka.ms/dotnet/10.0/windowsdesktop-runtime-win-x64.exe', 'DotNetRuntimeInstaller.exe', '');
+      InstallDotNet := True;
       downloadFiles := True;
     end;
   end;
@@ -161,7 +171,7 @@ begin
     DownloadPage.Show;
     try
       try
-        DownloadPage.Download; // This downloads the files to {tmp}
+        DownloadPage.Download;
         Result := True;
       except
         if DownloadPage.AbortedByUser then
@@ -177,31 +187,30 @@ begin
   Result := True;
 end;
 
-function InstallFramework(): String;
+function InstallRuntime(): String;
 var
   StatusText: string;
   ResultCode: Integer;
 begin
   StatusText := WizardForm.StatusLabel.Caption;
-  WizardForm.StatusLabel.Caption := CustomMessage('InstallingDotNetFramework');
+  WizardForm.StatusLabel.Caption := CustomMessage('InstallingDotNet');
   WizardForm.ProgressGauge.Style := npbstMarquee;
   try
-    if not Exec(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'), '/passive /norestart /showrmui /showfinalerror', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
+    if not Exec(ExpandConstant('{tmp}\DotNetRuntimeInstaller.exe'), '/install /passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ResultCode) then
     begin
-      Result := FmtMessage(CustomMessage('DotNetFrameworkFailedToLaunch'), [SysErrorMessage(resultCode)]);
+      Result := FmtMessage(CustomMessage('DotNetFailedToLaunch'), [SysErrorMessage(resultCode)]);
     end
     else
     begin
-      // See https://msdn.microsoft.com/en-us/library/ee942965(v=vs.110).aspx#return_codes
       case resultCode of
         0: begin
           // Successful
         end;
         1602 : begin
-          MsgBox(CustomMessage('DotNetFrameworkFailed1602'), mbInformation, MB_OK);
+          MsgBox(CustomMessage('DotNetFailed1602'), mbInformation, MB_OK);
         end;
         1603: begin
-          Result := CustomMessage('DotNetFrameworkFailed1603');
+          Result := CustomMessage('DotNetFailed1603');
         end;
         1641: begin
           requiresRestart := True;
@@ -210,10 +219,10 @@ begin
           requiresRestart := True;
         end;
         5100: begin
-          Result := CustomMessage('DotNetFrameworkFailed5100');
+          Result := CustomMessage('DotNetFailed5100');
         end;
         else begin
-          MsgBox(FmtMessage(CustomMessage('DotNetFrameworkFailedOther'), [IntToStr(resultCode)]), mbError, MB_OK);
+          MsgBox(FmtMessage(CustomMessage('DotNetFailedOther'), [IntToStr(resultCode)]), mbError, MB_OK);
         end;
       end;
     end;
@@ -221,19 +230,15 @@ begin
     WizardForm.StatusLabel.Caption := StatusText;
     WizardForm.ProgressGauge.Style := npbstNormal;
     
-    DeleteFile(ExpandConstant('{tmp}\NetFrameworkInstaller.exe'));
+    DeleteFile(ExpandConstant('{tmp}\DotNetRuntimeInstaller.exe'));
   end;
 end;
 
 function PrepareToInstall(var NeedsRestart: Boolean): String;
 begin
-  // 'NeedsRestart' only has an effect if we return a non-empty string, thus aborting the installation.
-  // If the installers indicate that they want a restart, this should be done at the end of installation.
-  // Therefore we set the global 'restartRequired' if a restart is needed, and return this from NeedRestart()
-
-  if InstallDotNetFramework then
+  if InstallDotNet then
   begin
-    Result := InstallFramework();
+    Result := InstallRuntime();
   end;
 end;
 

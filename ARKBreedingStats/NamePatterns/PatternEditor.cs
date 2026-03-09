@@ -11,6 +11,7 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.Updater;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.NamePatterns
 {
@@ -479,7 +480,7 @@ namespace ARKBreedingStats.NamePatterns
                     // create file with example dictionary entries to start with
                     File.WriteAllText(filePath, "{\n  \"Allosaurus\": \"Allo\",\n  \"Snow Owl\": \"Owl\"\n}");
                 }
-                Process.Start(filePath);
+                Utils.OpenUri(filePath);
             }
             catch (FileNotFoundException ex)
             {
@@ -684,6 +685,7 @@ namespace ARKBreedingStats.NamePatterns
             RepositoryInfo.OpenWikiPage("Name-Generator");
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int SplitterDistance
         {
             get => splitContainer1.SplitterDistance;

@@ -318,28 +318,18 @@ namespace ARKBreedingStats.Updater
             return false;
         }
 
-        //internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
-        //{
-        //    try
-        //    {
-        //        await DownloadAsync(ObeliskUrl + modValuesFileName,
-        //            FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBoxes.ExceptionMessageBox(ex, "Error while downloading values file");
-        //    }
-        //    return false;
-        //}
+        internal static async Task<bool> DownloadModValuesFileAsync(string modValuesFileName)
+        {
+            var (success, _) = await WebService.DownloadAsync(ObeliskUrl + modValuesFileName,
+                FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)));
+            return success;
+        }
 
         internal static bool DownloadModValuesFile(string modValuesFileName)
         {
             try
             {
-                Task.Run(() => WebService.DownloadAsync(ObeliskUrl + modValuesFileName,
-                     FileService.GetJsonPath(Path.Combine(FileService.ValuesFolder, modValuesFileName)))).Wait();
-                return true;
+                return Task.Run(() => DownloadModValuesFileAsync(modValuesFileName)).GetAwaiter().GetResult();
             }
             catch
             {

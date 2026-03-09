@@ -5,6 +5,7 @@ using ARKBreedingStats.uiControls;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -352,6 +353,7 @@ namespace ARKBreedingStats.multiplierTesting
             btUseMultipliersFromSettings.Visible = showWarning;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public CreatureCollection CreatureCollection
         {
             set

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
 using ARKBreedingStats.utils;
+using System.ComponentModel;
 
 namespace ARKBreedingStats.multiplierTesting
 {
@@ -173,6 +174,7 @@ namespace ARKBreedingStats.multiplierTesting
             _tt?.SetToolTip(lStatName, name);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// [tamingAdd, tamingMult, levelupDom, levelupWild]
         /// </summary>
@@ -242,29 +244,34 @@ namespace ARKBreedingStats.multiplierTesting
 
         public double MutationMultiplier => nudMm.ValueDouble;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double StatValue
         {
             set => nudStatValue.ValueSaveDouble = value * (_percent ? 100 : 1);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelWild
         {
             get => (int)nudLw.Value;
             set => nudLw.ValueSave = value > 0 ? value : 0;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelMutations
         {
             get => (int)nudLm.Value;
             set => nudLm.ValueSave = value > 0 ? value : 0;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LevelDom
         {
             get => (int)nudLd.Value;
             set => nudLd.ValueSave = value > 0 ? value : 0;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Wild
         {
             set
@@ -275,6 +282,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Domesticated
         {
             set
@@ -285,6 +293,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double IB
         {
             set
@@ -297,6 +306,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double IBM
         {
             set
@@ -309,6 +319,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double TE
         {
             set
@@ -321,6 +332,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Percent
         {
             set
@@ -330,6 +342,7 @@ namespace ARKBreedingStats.multiplierTesting
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Taming Bonus Health Multiplier
         /// </summary>
@@ -339,6 +352,7 @@ namespace ARKBreedingStats.multiplierTesting
             get => (float)nudTBHM.Value;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         /// <summary>
         /// Stat Imprint Bonus Multiplier, default is 0.2
         /// </summary>
