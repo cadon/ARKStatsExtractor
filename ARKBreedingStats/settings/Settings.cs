@@ -1732,6 +1732,7 @@ namespace ARKBreedingStats.settings
             if (bmp == null) return;
             PbInfoGraphicPreview.Size = bmp.Size;
             PbInfoGraphicPreview.SetImageAndDisposeOld(bmp);
+            HighlightBackgroundOpacityIssue();
         }
 
         private void BtNewRandomInfoGraphicCreature_Click(object sender, EventArgs e)
@@ -1793,6 +1794,16 @@ namespace ARKBreedingStats.settings
                 BtInfoGraphicBackgroundImagePath.Text = $"Background image{Environment.NewLine}{(string.IsNullOrEmpty(value) ? "<none>" : Path.GetFileName(value))}";
                 ShowInfoGraphicPreviewDebounced(50);
             }
+        }
+
+        /// <summary>
+        /// If an infographic background image is selected and the background color opacity is set to 255, highlight the info that this will hide the image.
+        /// </summary>
+        private void HighlightBackgroundOpacityIssue()
+        {
+            var highlight = NudInfoGraphicBgAlpha.Value > 254 && !string.IsNullOrEmpty(InfoGraphicBackgroundImagePath);
+            label57.BackColor = highlight ? Color.LightSalmon : Color.Transparent;
+            NudInfoGraphicBgAlpha.BackColor = highlight ? Color.LightSalmon : SystemColors.Window;
         }
 
         #endregion
