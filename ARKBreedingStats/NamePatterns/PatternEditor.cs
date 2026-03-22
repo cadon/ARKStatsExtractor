@@ -515,7 +515,9 @@ namespace ARKBreedingStats.NamePatterns
         {
             var text = (string)((Button)sender).Tag;
             // if javascript: remove curly brackets and make lowercase
-            if (JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
+            if (!string.IsNullOrEmpty(text)
+                && !string.IsNullOrEmpty(txtboxPattern.Text)
+                && JavaScriptNamePattern.JavaScriptShebang.IsMatch(txtboxPattern.Text))
             {
                 var m = SimpleKeyword.Match(text);
                 if (m.Success)
