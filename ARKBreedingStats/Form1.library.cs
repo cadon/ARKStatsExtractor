@@ -1204,41 +1204,44 @@ namespace ARKBreedingStats
                 };
             }
 
-            string[] subItems = new[] {
-                        (displayIndex ? cr.ListIndex + " - " : string.Empty) +
-                        cr.name,
-                        cr.owner,
-                        cr.note,
-                        cr.server,
-                        Utils.SexSymbol(cr.sex),
-                        cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? string.Empty,
-                        (cr.topness / 10).ToString(),
-                        cr.TopStatsConsideredCount.ToString(),
-                        cr.generation.ToString(),
-                        cr.levelFound.ToString(),
-                        cr.Mutations.ToString(),
-                        DisplayedCreatureCountdown(cr, out var cooldownForeColor, out var cooldownBackColor)
-                    }
-                    .Concat(cr.levelsWild.Select(l => l.ToString()))
-                    .Concat((cr.levelsMutated ?? new int[Stats.StatsCount]).Select(l => l.ToString()))
-                    .Concat(Properties.Settings.Default.showColorsInLibrary
-                        ? cr.colors.Select(cl => cl.ToString())
-                        : new string[Ark.ColorRegionCount]
-                        )
-                    .Concat(new[] {
-                        cr.Species.DescriptiveNameAndMod,
-                        cr.Status.ToString(),
-                        cr.tribe,
-                        Utils.StatusSymbol(cr.Status, string.Empty),
-                        (cr.flags & CreatureFlags.MutagenApplied) != 0 ? "M" : string.Empty,
-                        cr.Level.ToString(),
-                        (CreatureCollection.CurrentCreatureCollection.maxServerLevel>0
-                            ? Math.Min (cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel, CreatureCollection.CurrentCreatureCollection.maxServerLevel)
-                            : cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel
-                        ).ToString(),
-                        cr.TraitsString
-                    })
-                    .ToArray();
+            string[] subItems = new[]
+                {
+                    (displayIndex ? cr.ListIndex + " - " : string.Empty) +
+                    cr.name,
+                    cr.owner,
+                    cr.note,
+                    cr.server,
+                    Utils.SexSymbol(cr.sex),
+                    cr.domesticatedAt?.ToString("yyyy'-'MM'-'dd HH':'mm':'ss") ?? string.Empty,
+                    (cr.topness / 10).ToString(),
+                    cr.TopStatsConsideredCount.ToString(),
+                    cr.generation.ToString(),
+                    cr.levelFound.ToString(),
+                    cr.Mutations.ToString(),
+                    DisplayedCreatureCountdown(cr, out var cooldownForeColor, out var cooldownBackColor)
+                }
+                .Concat(cr.levelsWild.Select(l => l.ToString()))
+                .Concat((cr.levelsMutated ?? new int[Stats.StatsCount]).Select(l => l.ToString()))
+                .Concat(Properties.Settings.Default.showColorsInLibrary
+                    ? cr.colors.Select(cl => cl.ToString())
+                    : new string[Ark.ColorRegionCount]
+                )
+                .Concat(new[]
+                {
+                    cr.Species.DescriptiveNameAndMod,
+                    cr.Status.ToString(),
+                    cr.tribe,
+                    Utils.StatusSymbol(cr.Status, string.Empty),
+                    (cr.flags & CreatureFlags.MutagenApplied) != 0 ? "M" : string.Empty,
+                    cr.Level.ToString(),
+                    (CreatureCollection.CurrentCreatureCollection.maxServerLevel > 0
+                        ? Math.Min(cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel,
+                            CreatureCollection.CurrentCreatureCollection.maxServerLevel)
+                        : cr.LevelHatched + CreatureCollection.CurrentCreatureCollection.maxDomLevel
+                    ).ToString(),
+                    cr.TraitsString
+                })
+                .ToArray();
 
             // check if groups for species are displayed
             ListViewItem lvi = new ListViewItem(subItems) { Tag = cr };
@@ -1251,7 +1254,9 @@ namespace ARKBreedingStats
 
             for (int s = 0; s < Stats.StatsCount; s++)
             {
-                if (cr.valuesCurrent[s] == 0)
+                if (cr.valuesCurrent[s] == 0
+                    || (!Properties.Settings.Default.LibraryShowStatLevelsThatCannotLevelup
+                        && cr.Species?.CanLevelUpWildOrHaveMutations(s) == false))
                 {
                     // not used
                     lvi.SubItems[ColumnIndexFirstStat + s].ForeColor = Color.White;

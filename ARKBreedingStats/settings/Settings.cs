@@ -415,6 +415,7 @@ namespace ARKBreedingStats.settings
             CbNaturalSortIgnoreSpaces.Checked = Properties.Settings.Default.NaturalSortIgnoreSpaces;
             CbDisplayLibraryCreatureIndex.Checked = Properties.Settings.Default.DisplayLibraryCreatureIndex;
             CbLibraryDisplayZeroMutationLevels.Checked = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
+            CbLibraryShowStatLevelsThatCannotLevelup.Checked = Properties.Settings.Default.LibraryShowStatLevelsThatCannotLevelup;
             CbLibraryGenerateNameWarnTooLongName.Checked = Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated;
 
             #endregion
@@ -700,6 +701,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.NaturalSortIgnoreSpaces = CbNaturalSortIgnoreSpaces.Checked;
             Properties.Settings.Default.DisplayLibraryCreatureIndex = CbDisplayLibraryCreatureIndex.Checked;
             Properties.Settings.Default.LibraryDisplayZeroMutationLevels = CbLibraryDisplayZeroMutationLevels.Checked;
+            Properties.Settings.Default.LibraryShowStatLevelsThatCannotLevelup = CbLibraryShowStatLevelsThatCannotLevelup.Checked;
             Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated = CbLibraryGenerateNameWarnTooLongName.Checked;
 
             #endregion
