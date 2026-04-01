@@ -855,6 +855,7 @@ namespace ARKBreedingStats
 
         /// <summary>
         /// Some wild stat levels have no effect on the stat value, often that's speed or sometimes oxygen.
+        /// Some stats have a value limit (e.g. [11] Success rate for Helicoprion is limited to 90%) and mutation levels can still be added there, without changing the value.
         /// The wild levels of these ineffective stats can be calculated indirectly if there is only one of them.
         /// If return value is > 0, that many levels are impossible to distribute among the possible stats. Success is a return of 0.
         /// </summary>
@@ -871,10 +872,14 @@ namespace ARKBreedingStats
                     || !species.CanLevelUpWildOrHaveMutations(s))
                     continue;
 
-                if (_statIOs[s].LevelWild < 0 || species.stats[s].IncPerWildLevel == 0)
+                var levelCapped = Math.Abs(_statIOs[s].Input - species.stats[s].ValueCap) < 0.001;
+
+                if (_statIOs[s].LevelWild < 0 || species.stats[s].IncPerWildLevel == 0 || levelCapped)
                 {
                     unknownLevelIndices.Add(s);
-                    continue;
+                    // if stat is value capped, still remove the determined levels from the total, i.e. don't continue here
+                    if (!levelCapped)
+                        continue;
                 }
                 notDeterminedLevels -= _statIOs[s].LevelWild + _statIOs[s].LevelMut;
             }
@@ -887,14 +892,19 @@ namespace ARKBreedingStats
                 case 1:
                     // if all other stats are unique, set level
                     var statIndex = unknownLevelIndices[0];
-                    _statIOs[statIndex].LevelWild = Math.Max(0, notDeterminedLevels);
-                    _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, 0, 0, true, 1, 0);
+                    // if stat is capped, assume the additional, unknown levels are mutation levels, since the domestic levels are locked when reaching the limit
+                    if (Math.Abs(_statIOs[statIndex].Input - species.stats[statIndex].ValueCap) < 0.001)
+                        _statIOs[statIndex].LevelMut += Math.Max(0, notDeterminedLevels);
+                    else
+                        _statIOs[statIndex].LevelWild = Math.Max(0, notDeterminedLevels);
+                    _statIOs[statIndex].BreedingValue = StatValueCalculation.CalculateValue(speciesSelector1.SelectedSpecies, statIndex, _statIOs[statIndex].LevelWild, _statIOs[statIndex].LevelMut, 0, true, 1, 0);
                     return 0;
                 default:
                     // if not all other levels are unique, set the indifferent stats to unknown
                     foreach (var s in unknownLevelIndices)
                     {
-                        _statIOs[s].LevelWild = -1;
+                        if (Math.Abs(_statIOs[s].Input - species.stats[s].ValueCap) > 0.001)
+                            _statIOs[s].LevelWild = -1;
                     }
                     // not all levels are uniquely distributed, but still possible
                     return 0;
