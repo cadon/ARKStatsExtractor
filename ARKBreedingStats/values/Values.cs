@@ -386,7 +386,7 @@ namespace ARKBreedingStats.values
 
         public void OpenSpeciesNameSortingFile()
         {
-            string filePath = SpeciesNameSortFilePath;
+            var filePath = SpeciesNameSortFilePath;
             if (!File.Exists(filePath))
                 File.WriteAllText(filePath, string.Empty);
             if (File.Exists(filePath))
@@ -396,18 +396,13 @@ namespace ARKBreedingStats.values
         /// <summary>
         /// If the passed species is not yet set in the species order file an entry is added, if it's present it's removed.
         /// </summary>
-        /// <param name="species"></param>
-        /// <returns>If the species is a favorite now.</returns>
         public void ToggleSpeciesFavorite(Species species)
         {
-            string filePath = SpeciesNameSortFilePath;
-            List<string> lines;
-            if (!File.Exists(filePath))
-                lines = new List<string>();
-            else lines = File.ReadAllLines(filePath).ToList();
+            var filePath = SpeciesNameSortFilePath;
+            var lines = File.Exists(filePath) ? File.ReadAllLines(filePath).ToList() : [];
 
             // check if species is already a favorite
-            var favoriteOrderEntry = species.name + "@" + ARKBreedingStats.species.Species.FavoritePrefix + species.name;
+            var favoriteOrderEntry = $"^{species.name}$@{ARKBreedingStats.species.Species.FavoritePrefix}{species.name}";
             var i = lines.IndexOf(favoriteOrderEntry);
             if (i != -1) lines.RemoveAt(i);
             else
@@ -427,12 +422,12 @@ namespace ARKBreedingStats.values
                         else
                         {
                             // add fav prefix
-                            lines[lineIndex] = m.Groups[1].Value + "@" + ARKBreedingStats.species.Species.FavoritePrefix + m.Groups[3].Value;
+                            lines[lineIndex] = $"^{m.Groups[1].Value}$@{ARKBreedingStats.species.Species.FavoritePrefix}{m.Groups[3].Value}";
                         }
                     }
                     else
                     {
-                        Console.WriteLine($"unknown format for sort entry: {lines[lineIndex]}");
+                        Console.WriteLine($"unknown format for sort entry at line index {lineIndex}: {lines[lineIndex]}");
                     }
                 }
                 else
