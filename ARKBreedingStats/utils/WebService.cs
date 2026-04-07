@@ -107,7 +107,7 @@ Body:
                 if (showExceptionMessageBox)
                     MessageBoxes.ExceptionMessageBox(ex, $@"Error while trying to download the file
 {url}
-or while trying do write it to
+or while trying to write it to
 {outFilePath}", "Download error");
                 return (false, null);
             }
