@@ -445,6 +445,12 @@ namespace ARKBreedingStats
             return backColor.R * .3f + backColor.G * .59f + backColor.B * .11f < 110 ? Color.White : Color.Black;
         }
 
+        /// <summary>
+        /// Returns true if the current theme has a dark window background.
+        /// </summary>
+        public static bool IsDarkMode =>
+            SystemColors.Window.R * .3f + SystemColors.Window.G * .59f + SystemColors.Window.B * .11f < 110;
+
         public static bool ShowTextInput(string text, out string input, string title = null, string preInput = null, params string[] autoCompleteStrings)
         {
             Form inputForm = new Form

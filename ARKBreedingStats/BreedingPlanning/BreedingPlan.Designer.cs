@@ -350,7 +350,7 @@ namespace ARKBreedingStats.BreedingPlanning
             this.tabPageBreedableSpecies.Size = new System.Drawing.Size(230, 433);
             this.tabPageBreedableSpecies.TabIndex = 0;
             this.tabPageBreedableSpecies.Text = "Breedable Species";
-            this.tabPageBreedableSpecies.UseVisualStyleBackColor = true;
+            this.tabPageBreedableSpecies.UseVisualStyleBackColor = false;
             // 
             // listViewSpeciesBP
             // 
@@ -383,7 +383,7 @@ namespace ARKBreedingStats.BreedingPlanning
             this.tabPageTags.Size = new System.Drawing.Size(230, 433);
             this.tabPageTags.TabIndex = 1;
             this.tabPageTags.Text = "Filters / Tags";
-            this.tabPageTags.UseVisualStyleBackColor = true;
+            this.tabPageTags.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel3
             // 

@@ -83,13 +83,13 @@ namespace ARKBreedingStats
                 var levelsWildTooMany = sumW + sumM - _extractor.LevelWildMutSum;
                 if (levelsWildTooMany > 0)
                 {
-                    lbSumWild.ForeColor = Color.Red;
+                    lbSumWild.ForeColor = UiColors.Current.ErrorText;
                     lbSumWild.Text = "+" + levelsWildTooMany;
                     inbound = false;
                 }
                 else if (levelsImpossibleToDistribute > 0)
                 {
-                    lbSumWild.ForeColor = Color.Red;
+                    lbSumWild.ForeColor = UiColors.Current.ErrorText;
                     lbSumWild.Text = "-" + levelsImpossibleToDistribute;
                     inbound = false;
                 }
@@ -106,11 +106,11 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    lbSumDom.ForeColor = Color.Red;
+                    lbSumDom.ForeColor = UiColors.Current.ErrorText;
                     inbound = false;
                     // if there are no other combination options, the total level may be wrong
                     if (_extractor.UniqueResults)
-                        numericUpDownLevel.BackColor = Color.LightSalmon;
+                        numericUpDownLevel.BackColor = UiColors.Current.Warning;
                 }
             }
             else
@@ -118,12 +118,12 @@ namespace ARKBreedingStats
                 lbSumWild.Text = Loc.S("na");
                 lbSumDom.Text = Loc.S("na");
             }
-            panelSums.BackColor = inbound ? SystemColors.Control : Color.FromArgb(255, 200, 200);
+            panelSums.BackColor = inbound ? SystemColors.Control : UiColors.Current.MutationOverLimit;
 
             bool torporLevelValid = numericUpDownLevel.Value > _statIOs[Stats.Torpidity].LevelWild;
             if (!torporLevelValid)
             {
-                numericUpDownLevel.BackColor = Color.LightSalmon;
+                numericUpDownLevel.BackColor = UiColors.Current.Warning;
                 _statIOs[Stats.Torpidity].Status = StatIOStatus.Error;
             }
             else
@@ -620,26 +620,26 @@ namespace ARKBreedingStats
 
             // highlight controls which most likely need to be checked to solve the issue
             if (issues.HasFlag(IssueNotes.Issue.WildTamedBred))
-                panelWildTamedBred.BackColor = Color.LightSalmon;
+                panelWildTamedBred.BackColor = UiColors.Current.Warning;
             if (issues.HasFlag(IssueNotes.Issue.TamingEffectivenessRange))
             {
                 if (numericUpDownLowerTEffBound.Value > 0)
-                    numericUpDownLowerTEffBound.BackColor = Color.LightSalmon;
+                    numericUpDownLowerTEffBound.BackColor = UiColors.Current.Warning;
                 if (numericUpDownUpperTEffBound.Value < 100)
-                    numericUpDownUpperTEffBound.BackColor = Color.LightSalmon;
+                    numericUpDownUpperTEffBound.BackColor = UiColors.Current.Warning;
                 if (numericUpDownLowerTEffBound.Value == 0 && numericUpDownUpperTEffBound.Value == 100)
                     issues -= IssueNotes.Issue.TamingEffectivenessRange;
             }
             if (issues.HasFlag(IssueNotes.Issue.CreatureLevel))
             {
-                numericUpDownLevel.BackColor = Color.LightSalmon;
-                numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
+                numericUpDownLevel.BackColor = UiColors.Current.Warning;
+                numericUpDownImprintingBonusExtractor.BackColor = UiColors.Current.Warning;
                 _statIOs[Stats.Torpidity].Status = StatIOStatus.Error;
             }
             if (issues.HasFlag(IssueNotes.Issue.ImprintingLocked))
-                cbExactlyImprinting.BackColor = Color.LightSalmon;
+                cbExactlyImprinting.BackColor = UiColors.Current.Warning;
             if (issues.HasFlag(IssueNotes.Issue.ImprintingNotPossible))
-                numericUpDownImprintingBonusExtractor.BackColor = Color.LightSalmon;
+                numericUpDownImprintingBonusExtractor.BackColor = UiColors.Current.Warning;
 
             // don't show some issue notes if the input is not wrong
             if (issues.HasFlag(IssueNotes.Issue.LockedDom))

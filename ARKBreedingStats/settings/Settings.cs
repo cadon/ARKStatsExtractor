@@ -212,6 +212,10 @@ namespace ARKBreedingStats.settings
             foreach (var cm in Enum.GetNames(typeof(ColorModeColors.AsbColorMode)))
                 CbbColorMode.Items.Add(cm);
 
+            CbbAppTheme.Items.Add("System");
+            CbbAppTheme.Items.Add("Light");
+            CbbAppTheme.Items.Add("Dark");
+
             var availableFonts = FontFamily.Families.Select(f => f.Name).ToArray();
             CbbInfoGraphicFontName.Items.AddRange(availableFonts);
             CbbAppDefaultFontName.Items.AddRange(availableFonts);
@@ -514,6 +518,20 @@ namespace ARKBreedingStats.settings
             CbColorIdOnColorRegionButton.Checked = Properties.Settings.Default.ShowColorIdOnRegionButtons;
 
             CbbColorMode.SelectedIndex = Math.Min(CbbColorMode.Items.Count, Math.Max(0, Properties.Settings.Default.ColorMode));
+
+            CbbAppTheme.SelectedIndex = Math.Min(CbbAppTheme.Items.Count - 1, Math.Max(0, Properties.Settings.Default.AppTheme));
+
+            // Populate the palette key dropdown and select the current palette
+            CbbPaletteKey.Items.AddRange(UiColors.GetAllPaletteKeys());
+            var currentKey = UiColors.CurrentPaletteKey;
+            var keyIndex = CbbPaletteKey.Items.IndexOf(currentKey);
+            CbbPaletteKey.SelectedIndex = keyIndex >= 0 ? keyIndex : 0;
+            LoadPaletteForSelectedKey();
+
+            CbbPaletteKey.SelectedIndexChanged += (s, e) => LoadPaletteForSelectedKey();
+            BtnResetPalette.Click += BtnResetPalette_Click;
+            propertyGrid1.SelectedGridItemChanged += PropertyGrid1_SelectedGridItemChanged;
+            propertyGrid1.PropertyValueChanged += PropertyGrid1_PropertyValueChanged;
         }
 
         private void SaveSettings()
@@ -785,6 +803,23 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.ShowColorIdOnRegionButtons = CbColorIdOnColorRegionButton.Checked;
 
             Properties.Settings.Default.ColorMode = Math.Max(0, CbbColorMode.SelectedIndex);
+
+            Properties.Settings.Default.AppTheme = Math.Max(0, CbbAppTheme.SelectedIndex);
+
+            var colorMode = (ColorModeColors.AsbColorMode)Math.Max(0, CbbColorMode.SelectedIndex);
+            bool isDark = CbbAppTheme.SelectedIndex == 2
+                || (CbbAppTheme.SelectedIndex == 0 && UiColors.IsDark);
+
+            // Save the edited palette under the key selected in the palette dropdown
+            if (propertyGrid1.SelectedObject is UiPalette editedPalette
+                && CbbPaletteKey.SelectedItem is string selectedKey
+                && UiColors.TryParsePaletteKey(selectedKey, out var editColorMode, out var editIsDark))
+            {
+                UiColors.SaveUserPalette(editColorMode, editIsDark, editedPalette);
+            }
+
+            // Re-initialize the active palette from the current app theme/color mode settings
+            UiColors.Initialize(colorMode, Math.Max(0, CbbAppTheme.SelectedIndex));
 
             Properties.Settings.Default.Save();
         }
@@ -1406,12 +1441,13 @@ namespace ARKBreedingStats.settings
             Unknown = -1,
             Multipliers = 0,
             General = 1,
-            InfoGraphicPreview = 2,
-            SaveImport = 3,
-            ExportedImport = 4,
-            Timers = 5,
-            Overlay = 6,
-            Ocr = 7
+            Visuals = 2,
+            InfoGraphicPreview = 3,
+            SaveImport = 4,
+            ExportedImport = 5,
+            Timers = 6,
+            Overlay = 7,
+            Ocr = 8
         }
 
         private void cbCustomOverlayLocation_CheckedChanged(object sender, EventArgs e)
@@ -2003,5 +2039,89 @@ namespace ARKBreedingStats.settings
                 Properties.Settings.Default.PatternEditorSplitterDistance = pe.SplitterDistance;
             }
         }
+
+        private void propertyGrid1_Click(object sender, EventArgs e)
+        {
+            // PropertyGrid handles editing via its built-in color editor
+        }
+
+        private void LoadPaletteForSelectedKey()
+        {
+            if (CbbPaletteKey.SelectedItem is not string key) return;
+            propertyGrid1.SelectedObject = UiColors.LoadSavedOrDefault(key);
+            ApplyPreviewTheme();
+        }
+
+        private void BtnResetPalette_Click(object sender, EventArgs e)
+        {
+            if (CbbPaletteKey.SelectedItem is not string key) return;
+            if (!UiColors.TryParsePaletteKey(key, out var colorMode, out var isDark)) return;
+            propertyGrid1.SelectedObject = UiColors.GetDefaultPalette(colorMode, isDark);
+        }
+
+        private void PropertyGrid1_SelectedGridItemChanged(object sender, SelectedGridItemChangedEventArgs e)
+        {
+            UpdateColorPreview(e.NewSelection);
+        }
+
+        private void PropertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            UpdateColorPreview(propertyGrid1.SelectedGridItem);
+        }
+
+        private void UpdateColorPreview(GridItem item)
+        {
+            bool editingDark = CbbPaletteKey.SelectedItem is string pk && pk.EndsWith("_Dark", StringComparison.Ordinal);
+            var themeBg = editingDark ? Color.FromArgb(30, 30, 30) : Color.FromArgb(240, 240, 240);
+            var themeFg = editingDark ? Color.White : Color.Black;
+
+            if (item?.Value is not Color color)
+            {
+                LblPreviewName.Text = "(select a color)";
+                LblPreviewName.ForeColor = themeFg;
+                LblPreviewAsBackground.BackColor = themeBg;
+                LblPreviewAsBackground.ForeColor = themeFg;
+                LblPreviewAsForeground.BackColor = themeBg;
+                LblPreviewAsForeground.ForeColor = themeFg;
+                LblPreviewRgb.Text = string.Empty;
+                return;
+            }
+
+            LblPreviewName.Text = item.Label;
+            LblPreviewName.ForeColor = themeFg;
+            LblPreviewRgb.Text = $"R: {color.R}  G: {color.G}  B: {color.B}  (#{color.R:X2}{color.G:X2}{color.B:X2})";
+            LblPreviewRgb.ForeColor = themeFg;
+
+            // As background: auto-contrast text on the selected color
+            LblPreviewAsBackground.BackColor = color;
+            LblPreviewAsBackground.ForeColor = PerceivedBrightness(color) > 130 ? Color.Black : Color.White;
+            LblPreviewAsBackground.Text = $"\"{item.Label}\" as background";
+
+            // As foreground: the selected color as text on the target theme's background
+            LblPreviewAsForeground.BackColor = themeBg;
+            LblPreviewAsForeground.ForeColor = color;
+            LblPreviewAsForeground.Text = $"\"{item.Label}\" as text on {(editingDark ? "dark" : "light")} theme";
+        }
+
+        /// <summary>
+        /// Applies the theme (light/dark) derived from the selected palette key
+        /// to the entire preview GroupBox and its children.
+        /// </summary>
+        private void ApplyPreviewTheme()
+        {
+            bool editingDark = CbbPaletteKey.SelectedItem is string pk && pk.EndsWith("_Dark", StringComparison.Ordinal);
+            var themeBg = editingDark ? Color.FromArgb(30, 30, 30) : Color.FromArgb(240, 240, 240);
+            var themeFg = editingDark ? Color.White : Color.Black;
+
+            GbColorPreview.BackColor = themeBg;
+            GbColorPreview.ForeColor = themeFg;
+
+            // Re-apply the current grid selection so sample labels pick up the new theme
+            UpdateColorPreview(propertyGrid1.SelectedGridItem);
+        }
+
+        private static int PerceivedBrightness(Color c)
+            => (int)(c.R * 0.299 + c.G * 0.587 + c.B * 0.114);
+
     }
 }

@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.Windows.Forms.Button BtOpenLevelColorOptions;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             groupBoxMultiplier = new System.Windows.Forms.GroupBox();
             CbHighlightAdjustedMultipliers = new System.Windows.Forms.CheckBox();
             flowLayoutPanelStatMultipliers = new System.Windows.Forms.FlowLayoutPanel();
@@ -174,13 +174,6 @@
             cbDevTools = new System.Windows.Forms.CheckBox();
             groupBox26 = new System.Windows.Forms.GroupBox();
             cbAdminConsoleCommandWithCheat = new System.Windows.Forms.CheckBox();
-            groupBox25 = new System.Windows.Forms.GroupBox();
-            CbbAppDefaultFontName = new System.Windows.Forms.ComboBox();
-            label48 = new System.Windows.Forms.Label();
-            CbbColorMode = new System.Windows.Forms.ComboBox();
-            nudDefaultFontSize = new ARKBreedingStats.uiControls.Nud();
-            label33 = new System.Windows.Forms.Label();
-            label32 = new System.Windows.Forms.Label();
             groupBox20 = new System.Windows.Forms.GroupBox();
             cbPrettifyJSON = new System.Windows.Forms.CheckBox();
             groupBox17 = new System.Windows.Forms.GroupBox();
@@ -188,6 +181,7 @@
             CbbLanguage2 = new System.Windows.Forms.ComboBox();
             CbbLanguage = new System.Windows.Forms.ComboBox();
             groupBox9 = new System.Windows.Forms.GroupBox();
+            CbLibraryShowStatLevelsThatCannotLevelup = new System.Windows.Forms.CheckBox();
             CbLibraryGenerateNameWarnTooLongName = new System.Windows.Forms.CheckBox();
             CbLibraryDisplayZeroMutationLevels = new System.Windows.Forms.CheckBox();
             CbDisplayLibraryCreatureIndex = new System.Windows.Forms.CheckBox();
@@ -199,6 +193,17 @@
             cbLibraryHighlightTopCreatures = new System.Windows.Forms.CheckBox();
             cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
+            tabPageVisuals = new System.Windows.Forms.TabPage();
+            propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            groupBox25 = new System.Windows.Forms.GroupBox();
+            CbbAppDefaultFontName = new System.Windows.Forms.ComboBox();
+            label48 = new System.Windows.Forms.Label();
+            CbbColorMode = new System.Windows.Forms.ComboBox();
+            nudDefaultFontSize = new ARKBreedingStats.uiControls.Nud();
+            label33 = new System.Windows.Forms.Label();
+            label32 = new System.Windows.Forms.Label();
+            labelAppTheme = new System.Windows.Forms.Label();
+            CbbAppTheme = new System.Windows.Forms.ComboBox();
             tabPageInfoGraphic = new System.Windows.Forms.TabPage();
             BtNewRandomInfoGraphicCreature = new System.Windows.Forms.Button();
             label63 = new System.Windows.Forms.Label();
@@ -400,7 +405,14 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            CbLibraryShowStatLevelsThatCannotLevelup = new System.Windows.Forms.CheckBox();
+            groupBox33 = new System.Windows.Forms.GroupBox();
+            CbbPaletteKey = new System.Windows.Forms.ComboBox();
+            BtnResetPalette = new System.Windows.Forms.Button();
+            GbColorPreview = new System.Windows.Forms.GroupBox();
+            LblPreviewName = new System.Windows.Forms.Label();
+            LblPreviewAsBackground = new System.Windows.Forms.Label();
+            LblPreviewAsForeground = new System.Windows.Forms.Label();
+            LblPreviewRgb = new System.Windows.Forms.Label();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -456,11 +468,12 @@
             ((System.ComponentModel.ISupportInitialize)NudSpeciesSelectorCountLastUsed).BeginInit();
             groupBox16.SuspendLayout();
             groupBox26.SuspendLayout();
-            groupBox25.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).BeginInit();
             groupBox20.SuspendLayout();
             groupBox17.SuspendLayout();
             groupBox9.SuspendLayout();
+            tabPageVisuals.SuspendLayout();
+            groupBox25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).BeginInit();
             tabPageInfoGraphic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PbInfoGraphicPreview).BeginInit();
             groupBox32.SuspendLayout();
@@ -522,6 +535,7 @@
             ((System.ComponentModel.ISupportInitialize)nudWaitBeforeScreenCapture).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudWhiteThreshold).BeginInit();
             panel1.SuspendLayout();
+            groupBox33.SuspendLayout();
             SuspendLayout();
             // 
             // BtOpenLevelColorOptions
@@ -1533,6 +1547,7 @@
             // 
             tabControlSettings.Controls.Add(tabPageMultipliers);
             tabControlSettings.Controls.Add(tabPageGeneral);
+            tabControlSettings.Controls.Add(tabPageVisuals);
             tabControlSettings.Controls.Add(tabPageInfoGraphic);
             tabControlSettings.Controls.Add(tabPageImportSavegame);
             tabControlSettings.Controls.Add(tabPageImportExported);
@@ -1580,7 +1595,7 @@
             tabPageMultipliers.Size = new System.Drawing.Size(876, 860);
             tabPageMultipliers.TabIndex = 1;
             tabPageMultipliers.Text = "Multipliers";
-            tabPageMultipliers.UseVisualStyleBackColor = true;
+            tabPageMultipliers.UseVisualStyleBackColor = false;
             tabPageMultipliers.DragDrop += tabPage2_DragDrop;
             tabPageMultipliers.DragEnter += tabPage2_DragEnter;
             // 
@@ -1990,7 +2005,6 @@
             tabPageGeneral.Controls.Add(GbSpecies);
             tabPageGeneral.Controls.Add(groupBox16);
             tabPageGeneral.Controls.Add(groupBox26);
-            tabPageGeneral.Controls.Add(groupBox25);
             tabPageGeneral.Controls.Add(groupBox20);
             tabPageGeneral.Controls.Add(groupBox17);
             tabPageGeneral.Controls.Add(groupBox9);
@@ -2004,7 +2018,7 @@
             tabPageGeneral.Size = new System.Drawing.Size(876, 860);
             tabPageGeneral.TabIndex = 0;
             tabPageGeneral.Text = "General";
-            tabPageGeneral.UseVisualStyleBackColor = true;
+            tabPageGeneral.UseVisualStyleBackColor = false;
             // 
             // CbAskSaveSettingsOnClose
             // 
@@ -2245,84 +2259,6 @@
             cbAdminConsoleCommandWithCheat.Text = "Admin console commands with prefix \"cheat\"";
             cbAdminConsoleCommandWithCheat.UseVisualStyleBackColor = true;
             // 
-            // groupBox25
-            // 
-            groupBox25.Controls.Add(CbbAppDefaultFontName);
-            groupBox25.Controls.Add(label48);
-            groupBox25.Controls.Add(CbbColorMode);
-            groupBox25.Controls.Add(nudDefaultFontSize);
-            groupBox25.Controls.Add(label33);
-            groupBox25.Controls.Add(label32);
-            groupBox25.Location = new System.Drawing.Point(384, 7);
-            groupBox25.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox25.Name = "groupBox25";
-            groupBox25.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox25.Size = new System.Drawing.Size(482, 90);
-            groupBox25.TabIndex = 6;
-            groupBox25.TabStop = false;
-            groupBox25.Text = "Visuals (needs application restart)";
-            // 
-            // CbbAppDefaultFontName
-            // 
-            CbbAppDefaultFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            CbbAppDefaultFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            CbbAppDefaultFontName.FormattingEnabled = true;
-            CbbAppDefaultFontName.Location = new System.Drawing.Point(86, 20);
-            CbbAppDefaultFontName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            CbbAppDefaultFontName.Name = "CbbAppDefaultFontName";
-            CbbAppDefaultFontName.Size = new System.Drawing.Size(258, 23);
-            CbbAppDefaultFontName.TabIndex = 17;
-            // 
-            // label48
-            // 
-            label48.AutoSize = true;
-            label48.Location = new System.Drawing.Point(7, 55);
-            label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label48.Name = "label48";
-            label48.Size = new System.Drawing.Size(70, 15);
-            label48.TabIndex = 4;
-            label48.Text = "Color mode";
-            // 
-            // CbbColorMode
-            // 
-            CbbColorMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            CbbColorMode.FormattingEnabled = true;
-            CbbColorMode.Location = new System.Drawing.Point(86, 52);
-            CbbColorMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            CbbColorMode.Name = "CbbColorMode";
-            CbbColorMode.Size = new System.Drawing.Size(258, 23);
-            CbbColorMode.TabIndex = 5;
-            // 
-            // nudDefaultFontSize
-            // 
-            nudDefaultFontSize.DecimalPlaces = 2;
-            nudDefaultFontSize.ForeColor = System.Drawing.SystemColors.GrayText;
-            nudDefaultFontSize.Location = new System.Drawing.Point(391, 21);
-            nudDefaultFontSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudDefaultFontSize.Name = "nudDefaultFontSize";
-            nudDefaultFontSize.Size = new System.Drawing.Size(84, 23);
-            nudDefaultFontSize.TabIndex = 3;
-            // 
-            // label33
-            // 
-            label33.AutoSize = true;
-            label33.Location = new System.Drawing.Point(352, 23);
-            label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label33.Name = "label33";
-            label33.Size = new System.Drawing.Size(27, 15);
-            label33.TabIndex = 2;
-            label33.Text = "Size";
-            // 
-            // label32
-            // 
-            label32.AutoSize = true;
-            label32.Location = new System.Drawing.Point(7, 25);
-            label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label32.Name = "label32";
-            label32.Size = new System.Drawing.Size(70, 15);
-            label32.TabIndex = 0;
-            label32.Text = "Default font";
-            // 
             // groupBox20
             // 
             groupBox20.Controls.Add(cbPrettifyJSON);
@@ -2412,6 +2348,17 @@
             groupBox9.TabIndex = 4;
             groupBox9.TabStop = false;
             groupBox9.Text = "Library";
+            // 
+            // CbLibraryShowStatLevelsThatCannotLevelup
+            // 
+            CbLibraryShowStatLevelsThatCannotLevelup.AutoSize = true;
+            CbLibraryShowStatLevelsThatCannotLevelup.Location = new System.Drawing.Point(7, 258);
+            CbLibraryShowStatLevelsThatCannotLevelup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbLibraryShowStatLevelsThatCannotLevelup.Name = "CbLibraryShowStatLevelsThatCannotLevelup";
+            CbLibraryShowStatLevelsThatCannotLevelup.Size = new System.Drawing.Size(245, 19);
+            CbLibraryShowStatLevelsThatCannotLevelup.TabIndex = 11;
+            CbLibraryShowStatLevelsThatCannotLevelup.Text = "Display levels of stats that cannot level up";
+            CbLibraryShowStatLevelsThatCannotLevelup.UseVisualStyleBackColor = true;
             // 
             // CbLibraryGenerateNameWarnTooLongName
             // 
@@ -2535,6 +2482,131 @@
             cbCreatureColorsLibrary.Text = "Show Creature-Colors columns in library";
             cbCreatureColorsLibrary.UseVisualStyleBackColor = true;
             // 
+            // tabPageVisuals
+            // 
+            tabPageVisuals.AutoScroll = true;
+            tabPageVisuals.Controls.Add(GbColorPreview);
+            tabPageVisuals.Controls.Add(groupBox33);
+            tabPageVisuals.Controls.Add(groupBox25);
+            tabPageVisuals.Location = new System.Drawing.Point(4, 24);
+            tabPageVisuals.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageVisuals.Name = "tabPageVisuals";
+            tabPageVisuals.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageVisuals.Size = new System.Drawing.Size(876, 860);
+            tabPageVisuals.TabIndex = 8;
+            tabPageVisuals.Text = "Visuals";
+            tabPageVisuals.UseVisualStyleBackColor = false;
+            // 
+            // propertyGrid1
+            // 
+            propertyGrid1.BackColor = System.Drawing.SystemColors.Control;
+            propertyGrid1.HelpVisible = true;
+            propertyGrid1.Location = new System.Drawing.Point(6, 51);
+            propertyGrid1.Name = "propertyGrid1";
+            propertyGrid1.Size = new System.Drawing.Size(465, 668);
+            propertyGrid1.TabIndex = 1;
+            propertyGrid1.ToolbarVisible = true;
+            // 
+            // groupBox25
+            // 
+            groupBox25.Controls.Add(CbbAppDefaultFontName);
+            groupBox25.Controls.Add(label48);
+            groupBox25.Controls.Add(CbbColorMode);
+            groupBox25.Controls.Add(nudDefaultFontSize);
+            groupBox25.Controls.Add(label33);
+            groupBox25.Controls.Add(label32);
+            groupBox25.Controls.Add(labelAppTheme);
+            groupBox25.Controls.Add(CbbAppTheme);
+            groupBox25.Location = new System.Drawing.Point(7, 7);
+            groupBox25.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox25.Name = "groupBox25";
+            groupBox25.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox25.Size = new System.Drawing.Size(482, 91);
+            groupBox25.TabIndex = 0;
+            groupBox25.TabStop = false;
+            groupBox25.Text = "Visuals (needs application restart)";
+            // 
+            // CbbAppDefaultFontName
+            // 
+            CbbAppDefaultFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            CbbAppDefaultFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            CbbAppDefaultFontName.FormattingEnabled = true;
+            CbbAppDefaultFontName.Location = new System.Drawing.Point(86, 20);
+            CbbAppDefaultFontName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbbAppDefaultFontName.Name = "CbbAppDefaultFontName";
+            CbbAppDefaultFontName.Size = new System.Drawing.Size(239, 23);
+            CbbAppDefaultFontName.TabIndex = 17;
+            // 
+            // label48
+            // 
+            label48.AutoSize = true;
+            label48.Location = new System.Drawing.Point(7, 55);
+            label48.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label48.Name = "label48";
+            label48.Size = new System.Drawing.Size(70, 15);
+            label48.TabIndex = 4;
+            label48.Text = "Color mode";
+            // 
+            // CbbColorMode
+            // 
+            CbbColorMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbColorMode.FormattingEnabled = true;
+            CbbColorMode.Location = new System.Drawing.Point(86, 52);
+            CbbColorMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbbColorMode.Name = "CbbColorMode";
+            CbbColorMode.Size = new System.Drawing.Size(239, 23);
+            CbbColorMode.TabIndex = 5;
+            // 
+            // nudDefaultFontSize
+            // 
+            nudDefaultFontSize.DecimalPlaces = 2;
+            nudDefaultFontSize.ForeColor = System.Drawing.SystemColors.GrayText;
+            nudDefaultFontSize.Location = new System.Drawing.Point(391, 21);
+            nudDefaultFontSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudDefaultFontSize.Name = "nudDefaultFontSize";
+            nudDefaultFontSize.Size = new System.Drawing.Size(84, 23);
+            nudDefaultFontSize.TabIndex = 3;
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Location = new System.Drawing.Point(356, 23);
+            label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label33.Name = "label33";
+            label33.Size = new System.Drawing.Size(27, 15);
+            label33.TabIndex = 2;
+            label33.Text = "Size";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new System.Drawing.Point(7, 25);
+            label32.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label32.Name = "label32";
+            label32.Size = new System.Drawing.Size(70, 15);
+            label32.TabIndex = 0;
+            label32.Text = "Default font";
+            // 
+            // labelAppTheme
+            // 
+            labelAppTheme.AutoSize = true;
+            labelAppTheme.Location = new System.Drawing.Point(339, 55);
+            labelAppTheme.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelAppTheme.Name = "labelAppTheme";
+            labelAppTheme.Size = new System.Drawing.Size(44, 15);
+            labelAppTheme.TabIndex = 18;
+            labelAppTheme.Text = "Theme";
+            // 
+            // CbbAppTheme
+            // 
+            CbbAppTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbAppTheme.FormattingEnabled = true;
+            CbbAppTheme.Location = new System.Drawing.Point(391, 52);
+            CbbAppTheme.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbbAppTheme.Name = "CbbAppTheme";
+            CbbAppTheme.Size = new System.Drawing.Size(83, 23);
+            CbbAppTheme.TabIndex = 19;
+            // 
             // tabPageInfoGraphic
             // 
             tabPageInfoGraphic.Controls.Add(BtNewRandomInfoGraphicCreature);
@@ -2549,7 +2621,7 @@
             tabPageInfoGraphic.Size = new System.Drawing.Size(876, 860);
             tabPageInfoGraphic.TabIndex = 7;
             tabPageInfoGraphic.Text = "Info Graphic";
-            tabPageInfoGraphic.UseVisualStyleBackColor = true;
+            tabPageInfoGraphic.UseVisualStyleBackColor = false;
             // 
             // BtNewRandomInfoGraphicCreature
             // 
@@ -3166,7 +3238,7 @@
             tabPageImportSavegame.Size = new System.Drawing.Size(876, 860);
             tabPageImportSavegame.TabIndex = 2;
             tabPageImportSavegame.Text = "Import Savegame";
-            tabPageImportSavegame.UseVisualStyleBackColor = true;
+            tabPageImportSavegame.UseVisualStyleBackColor = false;
             // 
             // label68
             // 
@@ -3362,7 +3434,7 @@
             labelSavegameFileLocationHint.Location = new System.Drawing.Point(4, 19);
             labelSavegameFileLocationHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelSavegameFileLocationHint.Name = "labelSavegameFileLocationHint";
-            labelSavegameFileLocationHint.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            labelSavegameFileLocationHint.Padding = new System.Windows.Forms.Padding(6);
             labelSavegameFileLocationHint.Size = new System.Drawing.Size(658, 27);
             labelSavegameFileLocationHint.TabIndex = 0;
             labelSavegameFileLocationHint.Text = "Location example for The Island: ...\\Steam\\steamapps\\common\\ARK\\ShooterGame\\Saved\\SavedArksLocal\\TheIsland.ark";
@@ -3405,7 +3477,7 @@
             tabPageImportExported.Size = new System.Drawing.Size(876, 860);
             tabPageImportExported.TabIndex = 3;
             tabPageImportExported.Text = "Import Exported";
-            tabPageImportExported.UseVisualStyleBackColor = true;
+            tabPageImportExported.UseVisualStyleBackColor = false;
             // 
             // BtGetExportFolderAutomatically
             // 
@@ -4019,7 +4091,7 @@
             tabPageTimers.Size = new System.Drawing.Size(876, 860);
             tabPageTimers.TabIndex = 6;
             tabPageTimers.Text = "Timers";
-            tabPageTimers.UseVisualStyleBackColor = true;
+            tabPageTimers.UseVisualStyleBackColor = false;
             // 
             // groupBox24
             // 
@@ -4154,7 +4226,7 @@
             tabPageOverlay.Size = new System.Drawing.Size(876, 860);
             tabPageOverlay.TabIndex = 5;
             tabPageOverlay.Text = "Overlay";
-            tabPageOverlay.UseVisualStyleBackColor = true;
+            tabPageOverlay.UseVisualStyleBackColor = false;
             // 
             // groupBox10
             // 
@@ -4540,7 +4612,7 @@
             tabPageOCR.Size = new System.Drawing.Size(876, 860);
             tabPageOCR.TabIndex = 4;
             tabPageOCR.Text = "OCR";
-            tabPageOCR.UseVisualStyleBackColor = true;
+            tabPageOCR.UseVisualStyleBackColor = false;
             // 
             // groupBox1
             // 
@@ -4811,16 +4883,90 @@
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
-            // CbLibraryShowStatLevelsThatCannotLevelup
+            // groupBox33
             // 
-            CbLibraryShowStatLevelsThatCannotLevelup.AutoSize = true;
-            CbLibraryShowStatLevelsThatCannotLevelup.Location = new System.Drawing.Point(7, 258);
-            CbLibraryShowStatLevelsThatCannotLevelup.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            CbLibraryShowStatLevelsThatCannotLevelup.Name = "CbLibraryShowStatLevelsThatCannotLevelup";
-            CbLibraryShowStatLevelsThatCannotLevelup.Size = new System.Drawing.Size(245, 19);
-            CbLibraryShowStatLevelsThatCannotLevelup.TabIndex = 11;
-            CbLibraryShowStatLevelsThatCannotLevelup.Text = "Display levels of stats that cannot level up";
-            CbLibraryShowStatLevelsThatCannotLevelup.UseVisualStyleBackColor = true;
+            groupBox33.Controls.Add(BtnResetPalette);
+            groupBox33.Controls.Add(CbbPaletteKey);
+            groupBox33.Controls.Add(propertyGrid1);
+            groupBox33.Location = new System.Drawing.Point(8, 104);
+            groupBox33.Name = "groupBox33";
+            groupBox33.Size = new System.Drawing.Size(481, 750);
+            groupBox33.TabIndex = 2;
+            groupBox33.TabStop = false;
+            groupBox33.Text = "Color Palette";
+            // 
+            // GbColorPreview
+            // 
+            GbColorPreview.Controls.Add(LblPreviewName);
+            GbColorPreview.Controls.Add(LblPreviewAsBackground);
+            GbColorPreview.Controls.Add(LblPreviewAsForeground);
+            GbColorPreview.Controls.Add(LblPreviewRgb);
+            GbColorPreview.Location = new System.Drawing.Point(495, 104);
+            GbColorPreview.Name = "GbColorPreview";
+            GbColorPreview.Size = new System.Drawing.Size(370, 750);
+            GbColorPreview.TabIndex = 3;
+            GbColorPreview.TabStop = false;
+            GbColorPreview.Text = "Preview";
+            // 
+            // LblPreviewName
+            // 
+            LblPreviewName.AutoSize = false;
+            LblPreviewName.Font = new System.Drawing.Font(System.Drawing.SystemFonts.DefaultFont.FontFamily, 11F, System.Drawing.FontStyle.Bold);
+            LblPreviewName.Location = new System.Drawing.Point(10, 22);
+            LblPreviewName.Name = "LblPreviewName";
+            LblPreviewName.Size = new System.Drawing.Size(350, 22);
+            LblPreviewName.TabIndex = 0;
+            LblPreviewName.Text = "(select a color)";
+            // 
+            // LblPreviewAsBackground
+            // 
+            LblPreviewAsBackground.AutoSize = false;
+            LblPreviewAsBackground.Font = new System.Drawing.Font(System.Drawing.SystemFonts.DefaultFont.FontFamily, 10F);
+            LblPreviewAsBackground.Location = new System.Drawing.Point(10, 50);
+            LblPreviewAsBackground.Name = "LblPreviewAsBackground";
+            LblPreviewAsBackground.Size = new System.Drawing.Size(350, 36);
+            LblPreviewAsBackground.TabIndex = 1;
+            LblPreviewAsBackground.Text = "Sample text on this background";
+            LblPreviewAsBackground.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LblPreviewAsBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // LblPreviewAsForeground
+            // 
+            LblPreviewAsForeground.AutoSize = false;
+            LblPreviewAsForeground.Font = new System.Drawing.Font(System.Drawing.SystemFonts.DefaultFont.FontFamily, 10F);
+            LblPreviewAsForeground.Location = new System.Drawing.Point(10, 92);
+            LblPreviewAsForeground.Name = "LblPreviewAsForeground";
+            LblPreviewAsForeground.Size = new System.Drawing.Size(350, 36);
+            LblPreviewAsForeground.TabIndex = 2;
+            LblPreviewAsForeground.Text = "Sample text in this color";
+            LblPreviewAsForeground.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LblPreviewAsForeground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            // 
+            // LblPreviewRgb
+            // 
+            LblPreviewRgb.AutoSize = true;
+            LblPreviewRgb.Location = new System.Drawing.Point(10, 134);
+            LblPreviewRgb.Name = "LblPreviewRgb";
+            LblPreviewRgb.Size = new System.Drawing.Size(100, 15);
+            LblPreviewRgb.TabIndex = 3;
+            // 
+            // CbbPaletteKey
+            // 
+            CbbPaletteKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbPaletteKey.FormattingEnabled = true;
+            CbbPaletteKey.Location = new System.Drawing.Point(6, 22);
+            CbbPaletteKey.Name = "CbbPaletteKey";
+            CbbPaletteKey.Size = new System.Drawing.Size(250, 23);
+            CbbPaletteKey.TabIndex = 0;
+            // 
+            // BtnResetPalette
+            // 
+            BtnResetPalette.Location = new System.Drawing.Point(6, 725);
+            BtnResetPalette.Name = "BtnResetPalette";
+            BtnResetPalette.Size = new System.Drawing.Size(130, 23);
+            BtnResetPalette.TabIndex = 3;
+            BtnResetPalette.Text = "Reset to Default";
+            BtnResetPalette.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -4832,7 +4978,7 @@
             ClientSize = new System.Drawing.Size(884, 923);
             Controls.Add(tabControlSettings);
             Controls.Add(panel1);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "Settings";
             ShowInTaskbar = false;
@@ -4911,15 +5057,16 @@
             groupBox16.ResumeLayout(false);
             groupBox26.ResumeLayout(false);
             groupBox26.PerformLayout();
-            groupBox25.ResumeLayout(false);
-            groupBox25.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).EndInit();
             groupBox20.ResumeLayout(false);
             groupBox20.PerformLayout();
             groupBox17.ResumeLayout(false);
             groupBox17.PerformLayout();
             groupBox9.ResumeLayout(false);
             groupBox9.PerformLayout();
+            tabPageVisuals.ResumeLayout(false);
+            groupBox25.ResumeLayout(false);
+            groupBox25.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).EndInit();
             tabPageInfoGraphic.ResumeLayout(false);
             tabPageInfoGraphic.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)PbInfoGraphicPreview).EndInit();
@@ -4999,6 +5146,8 @@
             ((System.ComponentModel.ISupportInitialize)nudWaitBeforeScreenCapture).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudWhiteThreshold).EndInit();
             panel1.ResumeLayout(false);
+            groupBox33.ResumeLayout(false);
+            groupBox33.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -5051,6 +5200,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabControl tabControlSettings;
         private System.Windows.Forms.TabPage tabPageGeneral;
+        private System.Windows.Forms.TabPage tabPageVisuals;
         private System.Windows.Forms.TabPage tabPageMultipliers;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.CheckBox chkbSpeechRecognition;
@@ -5375,5 +5525,16 @@
         private System.Windows.Forms.Label label78;
         private uiControls.Nud NudInfoGraphicPaddingY;
         private System.Windows.Forms.CheckBox CbLibraryShowStatLevelsThatCannotLevelup;
+        private System.Windows.Forms.Label labelAppTheme;
+        private System.Windows.Forms.ComboBox CbbAppTheme;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.GroupBox groupBox33;
+        private System.Windows.Forms.ComboBox CbbPaletteKey;
+        private System.Windows.Forms.Button BtnResetPalette;
+        private System.Windows.Forms.GroupBox GbColorPreview;
+        private System.Windows.Forms.Label LblPreviewName;
+        private System.Windows.Forms.Label LblPreviewAsBackground;
+        private System.Windows.Forms.Label LblPreviewAsForeground;
+        private System.Windows.Forms.Label LblPreviewRgb;
     }
 }

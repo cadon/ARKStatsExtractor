@@ -203,7 +203,8 @@ namespace ARKBreedingStats.Pedigree
         {
             e.DrawBackground();
             e.DrawBorder();
-            e.Graphics.DrawString(e.ToolTipText, TooltipFont, Brushes.Black, 0, 0);
+            using var textBrush = new SolidBrush(SystemColors.InfoText);
+            e.Graphics.DrawString(e.ToolTipText, TooltipFont, textBrush, 0, 0);
         }
 
         public PedigreeCreature(Creature creature, bool[] enabledColorRegions, int comboId = -1, bool displayPedigreeLink = false, bool displaySpecies = false, bool cursorHand = true) : this()
@@ -293,21 +294,21 @@ namespace ARKBreedingStats.Pedigree
                     {
                         // stat not used
                         _labelsStats[s].Text = "-";
-                        _labelsStats[s].BackColor = Color.WhiteSmoke;
-                        _labelsStats[s].ForeColor = Color.LightGray;
+                        _labelsStats[s].BackColor = SystemColors.ControlLight;
+                        _labelsStats[s].ForeColor = SystemColors.GrayText;
                     }
                     else if (_creature.levelsWild == null || _creature.levelsWild[si] < 0)
                     {
                         _labelsStats[s].Text = "?";
-                        _labelsStats[s].BackColor = Color.WhiteSmoke;
-                        _labelsStats[s].ForeColor = Color.LightGray;
+                        _labelsStats[s].BackColor = SystemColors.ControlLight;
+                        _labelsStats[s].ForeColor = SystemColors.GrayText;
                     }
                     else if (_creature.levelsWild[si] == 0 && (_creature.Species?.stats[si].IncPerTamedLevel ?? -1) == 0)
                     {
                         // stat cannot be leveled, e.g. speed for flyers, and thus it's assumed there are no wild levels applied, i.e. irrelevant for breeding.
                         _labelsStats[s].Text = "0";
-                        _labelsStats[s].BackColor = Color.WhiteSmoke;
-                        _labelsStats[s].ForeColor = Color.LightGray;
+                        _labelsStats[s].BackColor = SystemColors.ControlLight;
+                        _labelsStats[s].ForeColor = SystemColors.GrayText;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
                             + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
                             + (Stats.IsPercentage(si) ? "%" : string.Empty);
@@ -321,7 +322,7 @@ namespace ARKBreedingStats.Pedigree
                             _labelsStats[s].BackColor = Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
                                 _creature.IsTopStat(si) ? 0.2 : 0.7);
 
-                        _labelsStats[s].ForeColor = Parent?.ForeColor ?? Color.Black; // needed so text is not transparent on overlay
+                        _labelsStats[s].ForeColor = Parent?.ForeColor ?? SystemColors.ControlText; // needed so text is not transparent on overlay
                         var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition?.StatIndex == si), Environment.NewLine);
                         if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "

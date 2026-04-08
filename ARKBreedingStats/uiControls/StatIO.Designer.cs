@@ -61,6 +61,7 @@
             this.groupBox1.Controls.Add(this.panelFinalValue);
             this.groupBox1.Controls.Add(this.inputPanel);
             this.groupBox1.Controls.Add(this.labelBValue);
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";

@@ -373,7 +373,7 @@ namespace ARKBreedingStats.uiControls
                 case ButtonState.OneNeeded: return Color.LightGreen;
                 case ButtonState.AllNeeded: return Color.LightSkyBlue;
                 case ButtonState.Exclude: return Color.LightSalmon;
-                default: return Color.LightGray;
+                default: return SystemColors.Control;
             }
         }
     }

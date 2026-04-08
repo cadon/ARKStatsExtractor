@@ -114,15 +114,15 @@ namespace ARKBreedingStats.uiControls
 
             // Draw the background of the ComboBox control for each item.
             e.DrawBackground();
-            // Define the default color of the brush as black.
-            Brush myBrush = Brushes.Black;
+            // Define the default color of the brush as the control text color.
+            Brush myBrush = new SolidBrush(SystemColors.ControlText);
 
             // colors of similarity, dependant on the equal stats
-            Brush[] brushes = { Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.Black, Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
+            Brush[] brushes = { new SolidBrush(SystemColors.ControlText), new SolidBrush(SystemColors.ControlText), new SolidBrush(SystemColors.ControlText), new SolidBrush(SystemColors.ControlText), new SolidBrush(SystemColors.ControlText), Brushes.DarkRed, Brushes.DarkOrange, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green, Brushes.Green };
 
             if (i == -1)
             {
-                myBrush = Brushes.DarkGray; // no parent selected
+                myBrush = new SolidBrush(SystemColors.GrayText); // no parent selected
             }
             else if (parentsSimilarity != null && parentsSimilarity.Count > i && parentsSimilarity[i] >= 0)
             {

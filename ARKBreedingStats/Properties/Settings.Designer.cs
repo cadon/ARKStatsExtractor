@@ -2605,5 +2605,29 @@ namespace ARKBreedingStats.Properties {
                 this["LibraryShowStatLevelsThatCannotLevelup"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int AppTheme {
+            get {
+                return ((int)(this["AppTheme"]));
+            }
+            set {
+                this["AppTheme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomPalettes {
+            get {
+                return ((string)(this["CustomPalettes"]));
+            }
+            set {
+                this["CustomPalettes"] = value;
+            }
+        }
     }
 }

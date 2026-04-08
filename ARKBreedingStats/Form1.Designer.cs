@@ -1759,7 +1759,7 @@ namespace ARKBreedingStats
             this.tabPageStatTesting.Size = new System.Drawing.Size(1870, 784);
             this.tabPageStatTesting.TabIndex = 1;
             this.tabPageStatTesting.Text = "Stat Testing";
-            this.tabPageStatTesting.UseVisualStyleBackColor = true;
+            this.tabPageStatTesting.UseVisualStyleBackColor = false;
             // 
             // CbLinkWildMutatedLevelsTester
             // 
@@ -2012,7 +2012,7 @@ namespace ARKBreedingStats
             this.tabPageExtractor.Size = new System.Drawing.Size(1870, 784);
             this.tabPageExtractor.TabIndex = 0;
             this.tabPageExtractor.Text = "Extractor";
-            this.tabPageExtractor.UseVisualStyleBackColor = true;
+            this.tabPageExtractor.UseVisualStyleBackColor = false;
             // 
             // pBondedTamingExtractor
             // 
@@ -2091,7 +2091,7 @@ namespace ARKBreedingStats
             // 
             this.LbAsa.AutoSize = true;
             this.LbAsa.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbAsa.ForeColor = System.Drawing.Color.DarkGray;
+            this.LbAsa.ForeColor = System.Drawing.SystemColors.GrayText;
             this.LbAsa.Location = new System.Drawing.Point(346, 66);
             this.LbAsa.Name = "LbAsa";
             this.LbAsa.Size = new System.Drawing.Size(20, 9);
@@ -2101,7 +2101,7 @@ namespace ARKBreedingStats
             // LbBlueprintPath
             // 
             this.LbBlueprintPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbBlueprintPath.ForeColor = System.Drawing.Color.DarkGray;
+            this.LbBlueprintPath.ForeColor = System.Drawing.SystemColors.GrayText;
             this.LbBlueprintPath.Location = new System.Drawing.Point(8, 34);
             this.LbBlueprintPath.Name = "LbBlueprintPath";
             this.LbBlueprintPath.Size = new System.Drawing.Size(338, 41);
@@ -2278,7 +2278,7 @@ namespace ARKBreedingStats
             this.tabPageLibrary.Size = new System.Drawing.Size(1870, 784);
             this.tabPageLibrary.TabIndex = 2;
             this.tabPageLibrary.Text = "Library";
-            this.tabPageLibrary.UseVisualStyleBackColor = true;
+            this.tabPageLibrary.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanelLibrary
             // 
@@ -3061,7 +3061,7 @@ namespace ARKBreedingStats
             this.tabPage1.Size = new System.Drawing.Size(181, 328);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Species";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.UseVisualStyleBackColor = false;
             // 
             // listBoxSpeciesLib
             // 
@@ -3083,7 +3083,7 @@ namespace ARKBreedingStats
             this.tabPage3.Size = new System.Drawing.Size(181, 328);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Stats";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel2
             // 
@@ -3141,7 +3141,7 @@ namespace ARKBreedingStats
             this.tabPageLibRadarChart.Size = new System.Drawing.Size(181, 328);
             this.tabPageLibRadarChart.TabIndex = 4;
             this.tabPageLibRadarChart.Text = "Chart";
-            this.tabPageLibRadarChart.UseVisualStyleBackColor = true;
+            this.tabPageLibRadarChart.UseVisualStyleBackColor = false;
             // 
             // tabPageLibraryInfo
             // 
@@ -3152,7 +3152,7 @@ namespace ARKBreedingStats
             this.tabPageLibraryInfo.Size = new System.Drawing.Size(1870, 784);
             this.tabPageLibraryInfo.TabIndex = 14;
             this.tabPageLibraryInfo.Text = "Library Info";
-            this.tabPageLibraryInfo.UseVisualStyleBackColor = true;
+            this.tabPageLibraryInfo.UseVisualStyleBackColor = false;
             // 
             // tlpLibraryInfo
             // 
@@ -3215,7 +3215,7 @@ namespace ARKBreedingStats
             this.tabPagePedigree.Size = new System.Drawing.Size(1870, 784);
             this.tabPagePedigree.TabIndex = 3;
             this.tabPagePedigree.Text = "Pedigree";
-            this.tabPagePedigree.UseVisualStyleBackColor = true;
+            this.tabPagePedigree.UseVisualStyleBackColor = false;
             // 
             // tabPageTaming
             // 
@@ -3226,7 +3226,7 @@ namespace ARKBreedingStats
             this.tabPageTaming.Size = new System.Drawing.Size(1870, 784);
             this.tabPageTaming.TabIndex = 8;
             this.tabPageTaming.Text = "Taming";
-            this.tabPageTaming.UseVisualStyleBackColor = true;
+            this.tabPageTaming.UseVisualStyleBackColor = false;
             // 
             // tabPageBreedingPlan
             // 
@@ -3237,7 +3237,7 @@ namespace ARKBreedingStats
             this.tabPageBreedingPlan.Size = new System.Drawing.Size(1870, 784);
             this.tabPageBreedingPlan.TabIndex = 4;
             this.tabPageBreedingPlan.Text = "Breeding Plan";
-            this.tabPageBreedingPlan.UseVisualStyleBackColor = true;
+            this.tabPageBreedingPlan.UseVisualStyleBackColor = false;
             // 
             // tabPageCurrentBreeds
             // 
@@ -3249,7 +3249,7 @@ namespace ARKBreedingStats
             this.tabPageCurrentBreeds.Size = new System.Drawing.Size(1870, 784);
             this.tabPageCurrentBreeds.TabIndex = 13;
             this.tabPageCurrentBreeds.Text = "Current Breeds";
-            this.tabPageCurrentBreeds.UseVisualStyleBackColor = true;
+            this.tabPageCurrentBreeds.UseVisualStyleBackColor = false;
             // 
             // tabPageRaising
             // 
@@ -3260,7 +3260,7 @@ namespace ARKBreedingStats
             this.tabPageRaising.Size = new System.Drawing.Size(1870, 784);
             this.tabPageRaising.TabIndex = 9;
             this.tabPageRaising.Text = "Raising";
-            this.tabPageRaising.UseVisualStyleBackColor = true;
+            this.tabPageRaising.UseVisualStyleBackColor = false;
             // 
             // tabPageTimer
             // 
@@ -3271,7 +3271,7 @@ namespace ARKBreedingStats
             this.tabPageTimer.Size = new System.Drawing.Size(1870, 784);
             this.tabPageTimer.TabIndex = 6;
             this.tabPageTimer.Text = "Timer";
-            this.tabPageTimer.UseVisualStyleBackColor = true;
+            this.tabPageTimer.UseVisualStyleBackColor = false;
             // 
             // tabPagePlayerTribes
             // 
@@ -3282,7 +3282,7 @@ namespace ARKBreedingStats
             this.tabPagePlayerTribes.Size = new System.Drawing.Size(1870, 784);
             this.tabPagePlayerTribes.TabIndex = 7;
             this.tabPagePlayerTribes.Text = "Player";
-            this.tabPagePlayerTribes.UseVisualStyleBackColor = true;
+            this.tabPagePlayerTribes.UseVisualStyleBackColor = false;
             // 
             // tabPageNotes
             // 
@@ -3293,7 +3293,7 @@ namespace ARKBreedingStats
             this.tabPageNotes.Size = new System.Drawing.Size(1870, 784);
             this.tabPageNotes.TabIndex = 10;
             this.tabPageNotes.Text = "Notes";
-            this.tabPageNotes.UseVisualStyleBackColor = true;
+            this.tabPageNotes.UseVisualStyleBackColor = false;
             // 
             // TabPageOCR
             // 
@@ -3304,7 +3304,7 @@ namespace ARKBreedingStats
             this.TabPageOCR.Size = new System.Drawing.Size(1870, 784);
             this.TabPageOCR.TabIndex = 5;
             this.TabPageOCR.Text = "Experimental OCR";
-            this.TabPageOCR.UseVisualStyleBackColor = true;
+            this.TabPageOCR.UseVisualStyleBackColor = false;
             // 
             // tabPageExtractionTests
             // 
@@ -3315,7 +3315,7 @@ namespace ARKBreedingStats
             this.tabPageExtractionTests.Size = new System.Drawing.Size(1870, 784);
             this.tabPageExtractionTests.TabIndex = 11;
             this.tabPageExtractionTests.Text = "Extraction Tests";
-            this.tabPageExtractionTests.UseVisualStyleBackColor = true;
+            this.tabPageExtractionTests.UseVisualStyleBackColor = false;
             // 
             // tabPageMultiplierTesting
             // 
@@ -3326,7 +3326,7 @@ namespace ARKBreedingStats
             this.tabPageMultiplierTesting.Size = new System.Drawing.Size(1870, 784);
             this.tabPageMultiplierTesting.TabIndex = 12;
             this.tabPageMultiplierTesting.Text = "Multiplier Testing";
-            this.tabPageMultiplierTesting.UseVisualStyleBackColor = true;
+            this.tabPageMultiplierTesting.UseVisualStyleBackColor = false;
             // 
             // btReadValuesFromArk
             // 
