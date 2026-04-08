@@ -265,7 +265,7 @@
             this.TabPageKeysFunctions.Size = new System.Drawing.Size(688, 452);
             this.TabPageKeysFunctions.TabIndex = 0;
             this.TabPageKeysFunctions.Text = "Keys and Functions";
-            this.TabPageKeysFunctions.UseVisualStyleBackColor = true;
+            this.TabPageKeysFunctions.UseVisualStyleBackColor = false;
             // 
             // TlpKeysFunctions
             // 
@@ -351,7 +351,7 @@
             this.TabPagePatternTemplates.Size = new System.Drawing.Size(688, 452);
             this.TabPagePatternTemplates.TabIndex = 1;
             this.TabPagePatternTemplates.Text = "Templates";
-            this.TabPagePatternTemplates.UseVisualStyleBackColor = true;
+            this.TabPagePatternTemplates.UseVisualStyleBackColor = false;
             // 
             // TabPageJavaScriptConsole
             // 
@@ -362,7 +362,7 @@
             this.TabPageJavaScriptConsole.Size = new System.Drawing.Size(688, 452);
             this.TabPageJavaScriptConsole.TabIndex = 2;
             this.TabPageJavaScriptConsole.Text = "JavaScript Console";
-            this.TabPageJavaScriptConsole.UseVisualStyleBackColor = true;
+            this.TabPageJavaScriptConsole.UseVisualStyleBackColor = false;
             // 
             // TextboxJavaScriptConsole
             // 

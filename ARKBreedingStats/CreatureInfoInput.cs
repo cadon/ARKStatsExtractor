@@ -742,7 +742,7 @@ namespace ARKBreedingStats
             set
             {
                 _lockOwner = value;
-                textBoxOwner.BackColor = value ? Color.LightGray : SystemColors.Window;
+                textBoxOwner.BackColor = value ? SystemColors.ControlLight : SystemColors.Window;
             }
         }
 
@@ -756,7 +756,7 @@ namespace ARKBreedingStats
             set
             {
                 _lockTribe = value;
-                textBoxTribe.BackColor = value ? Color.LightGray : SystemColors.Window;
+                textBoxTribe.BackColor = value ? SystemColors.ControlLight : SystemColors.Window;
             }
         }
 
@@ -770,7 +770,7 @@ namespace ARKBreedingStats
             set
             {
                 _lockServer = value;
-                cbServer.BackColor = value ? Color.LightGray : SystemColors.Window;
+                cbServer.BackColor = value ? SystemColors.ControlLight : SystemColors.Window;
             }
         }
 

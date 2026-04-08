@@ -72,7 +72,7 @@ namespace ARKBreedingStats
         private async Task<string> RunSavegameImport(string fileLocation, string convenientName = null, string serverName = null)
         {
             TsbQuickSaveGameImport.Enabled = false;
-            TsbQuickSaveGameImport.BackColor = Color.Yellow;
+            TsbQuickSaveGameImport.BackColor = UiColors.Current.Caution;
             ToolStripStatusLabelImport.Text = $"{Loc.S("ImportingSavegame")} {convenientName ?? fileLocation}";
             ToolStripStatusLabelImport.Visible = true;
 

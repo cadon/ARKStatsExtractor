@@ -183,7 +183,7 @@
             this.tabPage1.Size = new System.Drawing.Size(499, 327);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Contributors";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.UseVisualStyleBackColor = false;
             // 
             // tabPage2
             // 
@@ -194,7 +194,7 @@
             this.tabPage2.Size = new System.Drawing.Size(499, 327);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Dependencies";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.UseVisualStyleBackColor = false;
             // 
             // TbDependencies
             // 

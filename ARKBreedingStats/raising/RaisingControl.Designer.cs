@@ -324,7 +324,7 @@
             this.tabPageMaturationProgress.Size = new System.Drawing.Size(350, 133);
             this.tabPageMaturationProgress.TabIndex = 0;
             this.tabPageMaturationProgress.Text = "Maturation Progress";
-            this.tabPageMaturationProgress.UseVisualStyleBackColor = true;
+            this.tabPageMaturationProgress.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -364,7 +364,7 @@
             this.tabPageEditTimer.Size = new System.Drawing.Size(350, 133);
             this.tabPageEditTimer.TabIndex = 1;
             this.tabPageEditTimer.Text = "Edit Timer";
-            this.tabPageEditTimer.UseVisualStyleBackColor = true;
+            this.tabPageEditTimer.UseVisualStyleBackColor = false;
             // 
             // bSaveTimerEdit
             // 
@@ -436,7 +436,7 @@
             this.tabPage1.Size = new System.Drawing.Size(350, 133);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Edit all Timers";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.UseVisualStyleBackColor = false;
             // 
             // cbSubtractOffsetToAllTimers
             // 

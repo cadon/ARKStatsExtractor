@@ -136,7 +136,7 @@ namespace ARKBreedingStats.uiControls
         {
             if (status.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel))
             {
-                labelIcon.BackColor = Color.LightYellow;
+                labelIcon.BackColor = Utils.IsDarkMode ? Color.FromArgb(100, 90, 0) : Color.LightYellow;
                 labelIcon.ForeColor = Color.Gold;
                 labelIcon.Text = "★";
                 if (labelText != null)
@@ -144,16 +144,16 @@ namespace ARKBreedingStats.uiControls
             }
             else if (status.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel))
             {
-                labelIcon.BackColor = Color.LightGreen;
-                labelIcon.ForeColor = Color.DarkGreen;
+                labelIcon.BackColor = Utils.IsDarkMode ? Color.FromArgb(0, 80, 0) : Color.LightGreen;
+                labelIcon.ForeColor = Utils.IsDarkMode ? Color.LightGreen : Color.DarkGreen;
                 labelIcon.Text = "✓";
                 if (labelText != null)
                     labelText.Text = "Keep this creature!";
             }
             else
             {
-                labelIcon.BackColor = Color.LightGray;
-                labelIcon.ForeColor = Color.Gray;
+                labelIcon.BackColor = SystemColors.ControlDark;
+                labelIcon.ForeColor = SystemColors.GrayText;
                 labelIcon.Text = "-";
                 if (labelText != null)
                     labelText.Text = "This creature adds nothing new to your library.";

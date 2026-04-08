@@ -520,7 +520,7 @@ namespace ARKBreedingStats.BreedingPlanning
             var displaySpeciesOnCreatureControls = _currentSpecies.matesWith?.Any() == true && !Properties.Settings.Default.BreedingPlanOnlySameSpecies;
             // draw best parents
             var sb = new StringBuilder();
-            using (var brush = new SolidBrush(Color.Black))
+            using (var brush = new SolidBrush(SystemColors.ControlText))
             {
                 for (int i = 0; i < _breedingPairs.Count; i++)
                 {
@@ -615,7 +615,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             sb.AppendLine("The highest possible and fully leveled offspring is over the level limit!");
                         }
                         // breeding score text
-                        brush.Color = Color.Black;
+                        brush.Color = SystemColors.ControlText;
                         g.DrawString((_breedingPairs[i].BreedingScore.Primary + displayScoreOffset).ToString("N4"),
                             new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
                         pb.SetImageAndDisposeOld(bm);
@@ -1139,7 +1139,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 }
                 else
                 {
-                    lvi.ForeColor = Color.LightGray;
+                    lvi.ForeColor = SystemColors.GrayText;
                     unbreedableSpecies.Add(lvi);
                 }
             }

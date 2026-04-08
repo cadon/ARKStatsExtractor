@@ -208,7 +208,7 @@ namespace ARKBreedingStats.ocr
             this.tabPage1.Size = new System.Drawing.Size(346, 694);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "OCR Info";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.UseVisualStyleBackColor = false;
             // 
             // groupBox11
             // 
@@ -372,7 +372,7 @@ namespace ARKBreedingStats.ocr
             this.tabPage2.Size = new System.Drawing.Size(346, 694);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Output";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -587,7 +587,7 @@ namespace ARKBreedingStats.ocr
             this.tabPage4.Size = new System.Drawing.Size(346, 694);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Manage";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.UseVisualStyleBackColor = false;
             // 
             // groupBox7
             // 
@@ -826,7 +826,7 @@ namespace ARKBreedingStats.ocr
             this.tabPage3.Size = new System.Drawing.Size(346, 694);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Labels";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.UseVisualStyleBackColor = false;
             // 
             // groupBox12
             // 

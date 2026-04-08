@@ -116,6 +116,20 @@ namespace ARKBreedingStats
             //            Properties.Settings.Default.Reset();
             //#endif
 
+            // Apply theme setting: 0 = System, 1 = Light, 2 = Dark
+            var theme = Properties.Settings.Default.AppTheme;
+            Application.SetColorMode(theme switch
+            {
+                1 => SystemColorMode.Classic,
+                2 => SystemColorMode.Dark,
+                _ => SystemColorMode.System
+            });
+
+            // Initialize the central color palette
+            UiColors.Initialize(
+                (ColorModeColors.AsbColorMode)Properties.Settings.Default.ColorMode,
+                theme);
+
             _tt = new ToolTip();
             InitLocalization();
             InitializeComponent();
@@ -170,7 +184,7 @@ namespace ARKBreedingStats
             listViewLibrary.CacheVirtualItems += ListViewLibrary_CacheVirtualItems;
             listViewLibrary.OwnerDraw = true;
             listViewLibrary.DrawItem += ListViewLibrary_DrawItem;
-            listViewLibrary.DrawColumnHeader += (sender, args) => args.DrawDefault = true;
+            listViewLibrary.DrawColumnHeader += ListViewLibrary_DrawColumnHeader;
             listViewLibrary.DrawSubItem += ListViewLibrary_DrawSubItem;
 
             speciesSelector1.SetTextBox(tbSpeciesGlobal);
@@ -343,10 +357,6 @@ namespace ARKBreedingStats
             InitializeSpeechRecognition();
 
             // UI loaded
-
-            // set theme colors
-            //this.InitializeTabControls();
-            //this.SetColors(Color.FromArgb(20, 20, 20), Color.LightGray);
 
             //// initialize controls
             extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
@@ -1553,13 +1563,13 @@ namespace ARKBreedingStats
             switch (icon)
             {
                 case MessageBoxIcon.Information:
-                    TbMessageLabel.BackColor = Color.LightGreen;
+                    TbMessageLabel.BackColor = UiColors.Current.Success;
                     break;
                 case MessageBoxIcon.Warning:
-                    TbMessageLabel.BackColor = Color.Yellow;
+                    TbMessageLabel.BackColor = UiColors.Current.Caution;
                     break;
                 case MessageBoxIcon.Error:
-                    TbMessageLabel.BackColor = Color.LightSalmon;
+                    TbMessageLabel.BackColor = UiColors.Current.Warning;
                     break;
                 default:
                     TbMessageLabel.BackColor = SystemColors.Control;
