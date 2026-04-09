@@ -318,14 +318,14 @@ namespace ARKBreedingStats
 
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
 
-                using (var brushBlack = new SolidBrush(Color.Black))
+                using (var brushLabel = new SolidBrush(ForeColor))
                 {
                     for (var sdi = 0; sdi < _displayedStatIndices.Count; sdi++)
                     {
                         var s = _displayedStatIndices[sdi];
                         double angle = _anglePerStat * sdi - AngleOffset;
                         g.DrawString(Utils.StatName(s, true), font,
-                            brushBlack, _xm - 9 + (int)((_maxR + 10) * Math.Cos(angle)),
+                            brushLabel, _xm - 9 + (int)((_maxR + 10) * Math.Cos(angle)),
                             _ym - 5 + (int)((_maxR + 10) * Math.Sin(angle)));
                     }
                 }
