@@ -328,11 +328,11 @@ namespace ARKBreedingStats.uiControls
                         if (ColorsExistPerRegion[i].Contains((byte)ci))
                         {
                             subItem.Text = "✓";
-                            subItem.BackColor = Color.LightGreen;
+                            subItem.SetBackColorAndAccordingForeColor(UiColors.Current.Success);
                         }
                         else
                         {
-                            subItem.BackColor = Color.IndianRed;
+                            subItem.SetBackColorAndAccordingForeColor(UiColors.Current.Error);
                         }
                     }
                     rows.Add(row);

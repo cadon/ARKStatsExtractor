@@ -13,17 +13,17 @@ namespace ARKBreedingStats.uiControls
 {
     internal class LibraryInfoControl : TableLayoutPanel
     {
-        public readonly TableLayoutPanel TlpColorInfoText = new TableLayoutPanel { Dock = DockStyle.Fill, AutoScroll = true, MinimumSize = new Size(450, 300) };
-        public readonly ListView LvColors = new ListView();
+        public readonly TableLayoutPanel TlpColorInfoText = new() { Dock = DockStyle.Fill, AutoScroll = true, MinimumSize = new Size(450, 300) };
+        public readonly ListView LvColors = new();
         private Button[] _colorRegionButtons;
         private ColorPickerControl _colorPicker;
         private Species _species;
-        private readonly ColoredCreatureImageWithPose _coloredCreatureDisplay = new ColoredCreatureImageWithPose(ColoredCreatureSize)
+        private readonly ColoredCreatureImageWithPose _coloredCreatureDisplay = new(ColoredCreatureSize)
         {
             Margin = new Padding(10)
         };
         private Sex _sex = Sex.Male;
-        private readonly ToolTip _tt = new ToolTip();
+        private readonly ToolTip _tt = new();
         public byte[] SelectedColors { get; private set; }
         private int _selectedColorRegion;
         private const int ColoredCreatureSize = 384;
@@ -69,7 +69,7 @@ namespace ARKBreedingStats.uiControls
             }
             flpButtons.SetFlowBreak(_colorRegionButtons.Last(), true);
 
-            Button AllRegionButton(string text) => new Button
+            Button AllRegionButton(string text) => new()
             {
                 Text = text,
                 TextAlign = ContentAlignment.MiddleCenter,
@@ -139,7 +139,7 @@ namespace ARKBreedingStats.uiControls
             LvColors.Dock = DockStyle.Right;
         }
 
-        private static readonly Regex reConsoleColorCommand = new Regex(@"setTargetDinoColor (\d+) (\d+)");
+        private static readonly Regex reConsoleColorCommand = new(@"setTargetDinoColor (\d+) (\d+)");
 
         private void ParseClipboardColors()
         {
@@ -163,11 +163,21 @@ namespace ARKBreedingStats.uiControls
             // custom drawing is needed because the first column cannot be right aligned else
             e.DrawBackground();
             var flags = e.ColumnIndex == 0 ? TextFormatFlags.Right : TextFormatFlags.HorizontalCenter;
+            var textBounds = e.Bounds;
+            textBounds.Inflate(-2, -2);
             // e.DrawText() uses different bounds (too large), so use custom
-            TextRenderer.DrawText(e.Graphics, e.SubItem.Text, e.SubItem.Font, e.Bounds, e.SubItem.ForeColor, flags);
+            TextRenderer.DrawText(e.Graphics, e.SubItem.Text, e.SubItem.Font, textBounds, e.SubItem.ForeColor, flags);
         }
 
-        private void LvColors_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e) => e.DrawDefault = true;
+        private void LvColors_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            e.DrawBackground();
+            var stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+            using var foreBrush = new SolidBrush(Utils.ForeColor(e.BackColor));
+            e.Graphics.DrawString(e.Header?.Text, e.Font, foreBrush, e.Bounds, stringFormat);
+        }
 
         private void AddPictureBox()
         {

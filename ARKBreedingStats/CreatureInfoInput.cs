@@ -9,7 +9,6 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;
 using ARKBreedingStats.species;
-using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.Traits;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
@@ -116,6 +115,7 @@ namespace ARKBreedingStats
         public CreatureInfoInput()
         {
             InitializeComponent();
+            InitializeColors();
             _selectedSpecies = null;
             textBoxName.Text = string.Empty;
             parentComboBoxMother.naLabel = " - " + Loc.S("Mother") + " n/a";
@@ -991,6 +991,12 @@ namespace ARKBreedingStats
             LbColorNewInRegion.Visible = regionColorChooser1.ColorNewInRegion;
             LbColorNewInSpecies.Visible = regionColorChooser1.ColorNewInSpecies;
             return (regionColorChooser1.ColorNewInRegion, regionColorChooser1.ColorNewInSpecies);
+        }
+
+        internal void InitializeColors()
+        {
+            LbColorNewInRegion.SetBackColorAndAccordingForeColor(Color.DarkGreen);
+            LbColorNewInSpecies.SetBackColorAndAccordingForeColor(Color.Gold);
         }
     }
 }
