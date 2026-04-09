@@ -531,6 +531,12 @@ namespace ARKBreedingStats
             if (Values.V.Species.Any())
                 SetSpecies(Values.V.Species[0]);
         }
+
+        private void BtClearLastUsed_Click(object sender, EventArgs e)
+        {
+            _lastSpeciesBPs.Clear();
+            UpdateLastSpecies();
+        }
     }
 
     internal class SpeciesListEntry
