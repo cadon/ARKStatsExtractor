@@ -28,421 +28,451 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.CbMaturationAll = new System.Windows.Forms.CheckBox();
-            this.LbMaturation = new System.Windows.Forms.Label();
-            this.CbTagsAll = new System.Windows.Forms.CheckBox();
-            this.CbServersAll = new System.Windows.Forms.CheckBox();
-            this.CbTribesAll = new System.Windows.Forms.CheckBox();
-            this.LbStatus = new System.Windows.Forms.Label();
-            this.LbTags = new System.Windows.Forms.Label();
-            this.LbServers = new System.Windows.Forms.Label();
-            this.LbTribes = new System.Windows.Forms.Label();
-            this.ClbTags = new System.Windows.Forms.CheckedListBox();
-            this.ClbServers = new System.Windows.Forms.CheckedListBox();
-            this.ClbTribes = new System.Windows.Forms.CheckedListBox();
-            this.ClbOwners = new System.Windows.Forms.CheckedListBox();
-            this.LbOwners = new System.Windows.Forms.Label();
-            this.CbOwnersAll = new System.Windows.Forms.CheckBox();
-            this.FlpStatus = new System.Windows.Forms.FlowLayoutPanel();
-            this.LbColors = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.BtColorFilter = new System.Windows.Forms.Button();
-            this.BtClearColorFilters = new System.Windows.Forms.Button();
-            this.BtClearFlagFilter = new System.Windows.Forms.Button();
-            this.ClbMaturationFilters = new System.Windows.Forms.CheckedListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.CbLibraryGroupSpecies = new System.Windows.Forms.CheckBox();
-            this.CbUseFilterInTopStatCalculation = new System.Windows.Forms.CheckBox();
-            this.BtApply = new System.Windows.Forms.Button();
-            this.BtCancel = new System.Windows.Forms.Button();
-            this.CbLibraryCombineBreedingCompatibleSpecies = new System.Windows.Forms.CheckBox();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            CbMaturationAll = new System.Windows.Forms.CheckBox();
+            LbMaturation = new System.Windows.Forms.Label();
+            CbTagsAll = new System.Windows.Forms.CheckBox();
+            CbServersAll = new System.Windows.Forms.CheckBox();
+            CbTribesAll = new System.Windows.Forms.CheckBox();
+            LbStatus = new System.Windows.Forms.Label();
+            LbTags = new System.Windows.Forms.Label();
+            LbServers = new System.Windows.Forms.Label();
+            LbTribes = new System.Windows.Forms.Label();
+            ClbTags = new System.Windows.Forms.CheckedListBox();
+            ClbServers = new System.Windows.Forms.CheckedListBox();
+            ClbTribes = new System.Windows.Forms.CheckedListBox();
+            ClbOwners = new System.Windows.Forms.CheckedListBox();
+            LbOwners = new System.Windows.Forms.Label();
+            CbOwnersAll = new System.Windows.Forms.CheckBox();
+            FlpStatus = new System.Windows.Forms.FlowLayoutPanel();
+            LbColors = new System.Windows.Forms.Label();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            BtColorFilter = new System.Windows.Forms.Button();
+            BtClearColorFilters = new System.Windows.Forms.Button();
+            BtClearFlagFilter = new System.Windows.Forms.Button();
+            ClbMaturationFilters = new System.Windows.Forms.CheckedListBox();
+            panel1 = new System.Windows.Forms.Panel();
+            CbLibraryCombineBreedingCompatibleSpecies = new System.Windows.Forms.CheckBox();
+            CbLibraryGroupSpecies = new System.Windows.Forms.CheckBox();
+            CbUseFilterInTopStatCalculation = new System.Windows.Forms.CheckBox();
+            BtApply = new System.Windows.Forms.Button();
+            BtCancel = new System.Windows.Forms.Button();
+            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(874, 450);
-            this.tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel1, 0, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.Size = new System.Drawing.Size(1020, 519);
+            tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 7;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 112F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
-            this.tableLayoutPanel2.Controls.Add(this.CbMaturationAll, 6, 1);
-            this.tableLayoutPanel2.Controls.Add(this.LbMaturation, 6, 0);
-            this.tableLayoutPanel2.Controls.Add(this.CbTagsAll, 3, 1);
-            this.tableLayoutPanel2.Controls.Add(this.CbServersAll, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.CbTribesAll, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.LbStatus, 4, 0);
-            this.tableLayoutPanel2.Controls.Add(this.LbTags, 3, 0);
-            this.tableLayoutPanel2.Controls.Add(this.LbServers, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.LbTribes, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.ClbTags, 3, 2);
-            this.tableLayoutPanel2.Controls.Add(this.ClbServers, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.ClbTribes, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.ClbOwners, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.LbOwners, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.CbOwnersAll, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.FlpStatus, 4, 2);
-            this.tableLayoutPanel2.Controls.Add(this.LbColors, 5, 0);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 5, 2);
-            this.tableLayoutPanel2.Controls.Add(this.BtClearColorFilters, 5, 1);
-            this.tableLayoutPanel2.Controls.Add(this.BtClearFlagFilter, 4, 1);
-            this.tableLayoutPanel2.Controls.Add(this.ClbMaturationFilters, 6, 2);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(2, 2);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(3);
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(870, 408);
-            this.tableLayoutPanel2.TabIndex = 3;
+            tableLayoutPanel2.ColumnCount = 7;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 131F));
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 128F));
+            tableLayoutPanel2.Controls.Add(CbMaturationAll, 6, 1);
+            tableLayoutPanel2.Controls.Add(LbMaturation, 6, 0);
+            tableLayoutPanel2.Controls.Add(CbTagsAll, 3, 1);
+            tableLayoutPanel2.Controls.Add(CbServersAll, 2, 1);
+            tableLayoutPanel2.Controls.Add(CbTribesAll, 1, 1);
+            tableLayoutPanel2.Controls.Add(LbStatus, 4, 0);
+            tableLayoutPanel2.Controls.Add(LbTags, 3, 0);
+            tableLayoutPanel2.Controls.Add(LbServers, 2, 0);
+            tableLayoutPanel2.Controls.Add(LbTribes, 1, 0);
+            tableLayoutPanel2.Controls.Add(ClbTags, 3, 2);
+            tableLayoutPanel2.Controls.Add(ClbServers, 2, 2);
+            tableLayoutPanel2.Controls.Add(ClbTribes, 1, 2);
+            tableLayoutPanel2.Controls.Add(ClbOwners, 0, 2);
+            tableLayoutPanel2.Controls.Add(LbOwners, 0, 0);
+            tableLayoutPanel2.Controls.Add(CbOwnersAll, 0, 1);
+            tableLayoutPanel2.Controls.Add(FlpStatus, 4, 2);
+            tableLayoutPanel2.Controls.Add(LbColors, 5, 0);
+            tableLayoutPanel2.Controls.Add(flowLayoutPanel1, 5, 2);
+            tableLayoutPanel2.Controls.Add(BtClearColorFilters, 5, 1);
+            tableLayoutPanel2.Controls.Add(BtClearFlagFilter, 4, 1);
+            tableLayoutPanel2.Controls.Add(ClbMaturationFilters, 6, 2);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(2, 2);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel2.RowCount = 3;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(1016, 472);
+            tableLayoutPanel2.TabIndex = 3;
             // 
             // CbMaturationAll
             // 
-            this.CbMaturationAll.AutoSize = true;
-            this.CbMaturationAll.Location = new System.Drawing.Point(760, 19);
-            this.CbMaturationAll.Name = "CbMaturationAll";
-            this.CbMaturationAll.Size = new System.Drawing.Size(36, 17);
-            this.CbMaturationAll.TabIndex = 21;
-            this.CbMaturationAll.Text = "all";
-            this.CbMaturationAll.UseVisualStyleBackColor = true;
-            this.CbMaturationAll.CheckedChanged += new System.EventHandler(this.CbMaturationAll_CheckedChanged);
+            CbMaturationAll.AutoSize = true;
+            CbMaturationAll.Location = new System.Drawing.Point(887, 19);
+            CbMaturationAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbMaturationAll.Name = "CbMaturationAll";
+            CbMaturationAll.Size = new System.Drawing.Size(38, 19);
+            CbMaturationAll.TabIndex = 21;
+            CbMaturationAll.Text = "all";
+            CbMaturationAll.UseVisualStyleBackColor = true;
+            CbMaturationAll.CheckedChanged += CbMaturationAll_CheckedChanged;
             // 
             // LbMaturation
             // 
-            this.LbMaturation.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbMaturation.AutoSize = true;
-            this.LbMaturation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbMaturation.Location = new System.Drawing.Point(778, 3);
-            this.LbMaturation.Name = "LbMaturation";
-            this.LbMaturation.Size = new System.Drawing.Size(67, 13);
-            this.LbMaturation.TabIndex = 19;
-            this.LbMaturation.Text = "Maturation";
+            LbMaturation.Anchor = System.Windows.Forms.AnchorStyles.None;
+            LbMaturation.AutoSize = true;
+            LbMaturation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbMaturation.Location = new System.Drawing.Point(914, 3);
+            LbMaturation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbMaturation.Name = "LbMaturation";
+            LbMaturation.Size = new System.Drawing.Size(67, 13);
+            LbMaturation.TabIndex = 19;
+            LbMaturation.Text = "Maturation";
             // 
             // CbTagsAll
             // 
-            this.CbTagsAll.AutoSize = true;
-            this.CbTagsAll.Location = new System.Drawing.Point(405, 19);
-            this.CbTagsAll.Name = "CbTagsAll";
-            this.CbTagsAll.Size = new System.Drawing.Size(36, 17);
-            this.CbTagsAll.TabIndex = 12;
-            this.CbTagsAll.Text = "all";
-            this.CbTagsAll.UseVisualStyleBackColor = true;
-            this.CbTagsAll.CheckedChanged += new System.EventHandler(this.CbTagsAll_CheckedChanged);
+            CbTagsAll.AutoSize = true;
+            CbTagsAll.Location = new System.Drawing.Point(473, 19);
+            CbTagsAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbTagsAll.Name = "CbTagsAll";
+            CbTagsAll.Size = new System.Drawing.Size(38, 19);
+            CbTagsAll.TabIndex = 12;
+            CbTagsAll.Text = "all";
+            CbTagsAll.UseVisualStyleBackColor = true;
+            CbTagsAll.CheckedChanged += CbTagsAll_CheckedChanged;
             // 
             // CbServersAll
             // 
-            this.CbServersAll.AutoSize = true;
-            this.CbServersAll.Location = new System.Drawing.Point(272, 19);
-            this.CbServersAll.Name = "CbServersAll";
-            this.CbServersAll.Size = new System.Drawing.Size(36, 17);
-            this.CbServersAll.TabIndex = 11;
-            this.CbServersAll.Text = "all";
-            this.CbServersAll.UseVisualStyleBackColor = true;
-            this.CbServersAll.CheckedChanged += new System.EventHandler(this.CbServersAll_CheckedChanged);
+            CbServersAll.AutoSize = true;
+            CbServersAll.Location = new System.Drawing.Point(318, 19);
+            CbServersAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbServersAll.Name = "CbServersAll";
+            CbServersAll.Size = new System.Drawing.Size(38, 19);
+            CbServersAll.TabIndex = 11;
+            CbServersAll.Text = "all";
+            CbServersAll.UseVisualStyleBackColor = true;
+            CbServersAll.CheckedChanged += CbServersAll_CheckedChanged;
             // 
             // CbTribesAll
             // 
-            this.CbTribesAll.AutoSize = true;
-            this.CbTribesAll.Location = new System.Drawing.Point(139, 19);
-            this.CbTribesAll.Name = "CbTribesAll";
-            this.CbTribesAll.Size = new System.Drawing.Size(36, 17);
-            this.CbTribesAll.TabIndex = 10;
-            this.CbTribesAll.Text = "all";
-            this.CbTribesAll.UseVisualStyleBackColor = true;
-            this.CbTribesAll.CheckedChanged += new System.EventHandler(this.CbTribesAll_CheckedChanged);
+            CbTribesAll.AutoSize = true;
+            CbTribesAll.Location = new System.Drawing.Point(163, 19);
+            CbTribesAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbTribesAll.Name = "CbTribesAll";
+            CbTribesAll.Size = new System.Drawing.Size(38, 19);
+            CbTribesAll.TabIndex = 10;
+            CbTribesAll.Text = "all";
+            CbTribesAll.UseVisualStyleBackColor = true;
+            CbTribesAll.CheckedChanged += CbTribesAll_CheckedChanged;
             // 
             // LbStatus
             // 
-            this.LbStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbStatus.AutoSize = true;
-            this.LbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbStatus.Location = new System.Drawing.Point(580, 3);
-            this.LbStatus.Name = "LbStatus";
-            this.LbStatus.Size = new System.Drawing.Size(19, 13);
-            this.LbStatus.TabIndex = 8;
-            this.LbStatus.Text = "St";
+            LbStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
+            LbStatus.AutoSize = true;
+            LbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbStatus.Location = new System.Drawing.Point(678, 3);
+            LbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbStatus.Name = "LbStatus";
+            LbStatus.Size = new System.Drawing.Size(19, 13);
+            LbStatus.TabIndex = 8;
+            LbStatus.Text = "St";
             // 
             // LbTags
             // 
-            this.LbTags.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbTags.AutoSize = true;
-            this.LbTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTags.Location = new System.Drawing.Point(463, 3);
-            this.LbTags.Name = "LbTags";
-            this.LbTags.Size = new System.Drawing.Size(11, 13);
-            this.LbTags.TabIndex = 7;
-            this.LbTags.Text = "t";
+            LbTags.Anchor = System.Windows.Forms.AnchorStyles.None;
+            LbTags.AutoSize = true;
+            LbTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbTags.Location = new System.Drawing.Point(541, 3);
+            LbTags.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTags.Name = "LbTags";
+            LbTags.Size = new System.Drawing.Size(11, 13);
+            LbTags.TabIndex = 7;
+            LbTags.Text = "t";
             // 
             // LbServers
             // 
-            this.LbServers.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbServers.AutoSize = true;
-            this.LbServers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbServers.Location = new System.Drawing.Point(327, 3);
-            this.LbServers.Name = "LbServers";
-            this.LbServers.Size = new System.Drawing.Size(17, 13);
-            this.LbServers.TabIndex = 6;
-            this.LbServers.Text = "sr";
+            LbServers.Anchor = System.Windows.Forms.AnchorStyles.None;
+            LbServers.AutoSize = true;
+            LbServers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbServers.Location = new System.Drawing.Point(383, 3);
+            LbServers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbServers.Name = "LbServers";
+            LbServers.Size = new System.Drawing.Size(17, 13);
+            LbServers.TabIndex = 6;
+            LbServers.Text = "sr";
             // 
             // LbTribes
             // 
-            this.LbTribes.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbTribes.AutoSize = true;
-            this.LbTribes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTribes.Location = new System.Drawing.Point(195, 3);
-            this.LbTribes.Name = "LbTribes";
-            this.LbTribes.Size = new System.Drawing.Size(15, 13);
-            this.LbTribes.TabIndex = 5;
-            this.LbTribes.Text = "tr";
+            LbTribes.Anchor = System.Windows.Forms.AnchorStyles.None;
+            LbTribes.AutoSize = true;
+            LbTribes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbTribes.Location = new System.Drawing.Point(229, 3);
+            LbTribes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTribes.Name = "LbTribes";
+            LbTribes.Size = new System.Drawing.Size(15, 13);
+            LbTribes.TabIndex = 5;
+            LbTribes.Text = "tr";
             // 
             // ClbTags
             // 
-            this.ClbTags.CheckOnClick = true;
-            this.ClbTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClbTags.FormattingEnabled = true;
-            this.ClbTags.Location = new System.Drawing.Point(405, 48);
-            this.ClbTags.Name = "ClbTags";
-            this.ClbTags.Size = new System.Drawing.Size(127, 354);
-            this.ClbTags.TabIndex = 3;
+            ClbTags.CheckOnClick = true;
+            ClbTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            ClbTags.FormattingEnabled = true;
+            ClbTags.Location = new System.Drawing.Point(473, 52);
+            ClbTags.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ClbTags.Name = "ClbTags";
+            ClbTags.Size = new System.Drawing.Size(147, 414);
+            ClbTags.TabIndex = 3;
             // 
             // ClbServers
             // 
-            this.ClbServers.CheckOnClick = true;
-            this.ClbServers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClbServers.FormattingEnabled = true;
-            this.ClbServers.Location = new System.Drawing.Point(272, 48);
-            this.ClbServers.Name = "ClbServers";
-            this.ClbServers.Size = new System.Drawing.Size(127, 354);
-            this.ClbServers.TabIndex = 2;
+            ClbServers.CheckOnClick = true;
+            ClbServers.Dock = System.Windows.Forms.DockStyle.Fill;
+            ClbServers.FormattingEnabled = true;
+            ClbServers.Location = new System.Drawing.Point(318, 52);
+            ClbServers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ClbServers.Name = "ClbServers";
+            ClbServers.Size = new System.Drawing.Size(147, 414);
+            ClbServers.TabIndex = 2;
             // 
             // ClbTribes
             // 
-            this.ClbTribes.CheckOnClick = true;
-            this.ClbTribes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClbTribes.FormattingEnabled = true;
-            this.ClbTribes.Location = new System.Drawing.Point(139, 48);
-            this.ClbTribes.Name = "ClbTribes";
-            this.ClbTribes.Size = new System.Drawing.Size(127, 354);
-            this.ClbTribes.TabIndex = 1;
+            ClbTribes.CheckOnClick = true;
+            ClbTribes.Dock = System.Windows.Forms.DockStyle.Fill;
+            ClbTribes.FormattingEnabled = true;
+            ClbTribes.Location = new System.Drawing.Point(163, 52);
+            ClbTribes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ClbTribes.Name = "ClbTribes";
+            ClbTribes.Size = new System.Drawing.Size(147, 414);
+            ClbTribes.TabIndex = 1;
             // 
             // ClbOwners
             // 
-            this.ClbOwners.CheckOnClick = true;
-            this.ClbOwners.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClbOwners.FormattingEnabled = true;
-            this.ClbOwners.Location = new System.Drawing.Point(6, 48);
-            this.ClbOwners.Name = "ClbOwners";
-            this.ClbOwners.Size = new System.Drawing.Size(127, 354);
-            this.ClbOwners.TabIndex = 0;
+            ClbOwners.CheckOnClick = true;
+            ClbOwners.Dock = System.Windows.Forms.DockStyle.Fill;
+            ClbOwners.FormattingEnabled = true;
+            ClbOwners.Location = new System.Drawing.Point(8, 52);
+            ClbOwners.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ClbOwners.Name = "ClbOwners";
+            ClbOwners.Size = new System.Drawing.Size(147, 414);
+            ClbOwners.TabIndex = 0;
             // 
             // LbOwners
             // 
-            this.LbOwners.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbOwners.AutoSize = true;
-            this.LbOwners.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbOwners.Location = new System.Drawing.Point(46, 3);
-            this.LbOwners.Name = "LbOwners";
-            this.LbOwners.Size = new System.Drawing.Size(47, 13);
-            this.LbOwners.TabIndex = 4;
-            this.LbOwners.Text = "owners";
+            LbOwners.Anchor = System.Windows.Forms.AnchorStyles.None;
+            LbOwners.AutoSize = true;
+            LbOwners.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbOwners.Location = new System.Drawing.Point(58, 3);
+            LbOwners.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbOwners.Name = "LbOwners";
+            LbOwners.Size = new System.Drawing.Size(47, 13);
+            LbOwners.TabIndex = 4;
+            LbOwners.Text = "owners";
             // 
             // CbOwnersAll
             // 
-            this.CbOwnersAll.AutoSize = true;
-            this.CbOwnersAll.Location = new System.Drawing.Point(6, 19);
-            this.CbOwnersAll.Name = "CbOwnersAll";
-            this.CbOwnersAll.Size = new System.Drawing.Size(36, 17);
-            this.CbOwnersAll.TabIndex = 9;
-            this.CbOwnersAll.Text = "all";
-            this.CbOwnersAll.UseVisualStyleBackColor = true;
-            this.CbOwnersAll.CheckedChanged += new System.EventHandler(this.CbOwnersAll_CheckedChanged);
+            CbOwnersAll.AutoSize = true;
+            CbOwnersAll.Location = new System.Drawing.Point(8, 19);
+            CbOwnersAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbOwnersAll.Name = "CbOwnersAll";
+            CbOwnersAll.Size = new System.Drawing.Size(38, 19);
+            CbOwnersAll.TabIndex = 9;
+            CbOwnersAll.Text = "all";
+            CbOwnersAll.UseVisualStyleBackColor = true;
+            CbOwnersAll.CheckedChanged += CbOwnersAll_CheckedChanged;
             // 
             // FlpStatus
             // 
-            this.FlpStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FlpStatus.Location = new System.Drawing.Point(538, 48);
-            this.FlpStatus.Name = "FlpStatus";
-            this.FlpStatus.Size = new System.Drawing.Size(104, 354);
-            this.FlpStatus.TabIndex = 14;
+            FlpStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            FlpStatus.Location = new System.Drawing.Point(628, 52);
+            FlpStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            FlpStatus.Name = "FlpStatus";
+            FlpStatus.Size = new System.Drawing.Size(120, 414);
+            FlpStatus.TabIndex = 14;
             // 
             // LbColors
             // 
-            this.LbColors.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LbColors.AutoSize = true;
-            this.LbColors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbColors.Location = new System.Drawing.Point(692, 3);
-            this.LbColors.Name = "LbColors";
-            this.LbColors.Size = new System.Drawing.Size(18, 13);
-            this.LbColors.TabIndex = 15;
-            this.LbColors.Text = "Cl";
+            LbColors.Anchor = System.Windows.Forms.AnchorStyles.None;
+            LbColors.AutoSize = true;
+            LbColors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbColors.Location = new System.Drawing.Point(808, 3);
+            LbColors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbColors.Name = "LbColors";
+            LbColors.Size = new System.Drawing.Size(18, 13);
+            LbColors.TabIndex = 15;
+            LbColors.Text = "Cl";
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.BtColorFilter);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(648, 48);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(106, 354);
-            this.flowLayoutPanel1.TabIndex = 16;
+            flowLayoutPanel1.Controls.Add(BtColorFilter);
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel1.Location = new System.Drawing.Point(756, 52);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(123, 414);
+            flowLayoutPanel1.TabIndex = 16;
             // 
             // BtColorFilter
             // 
-            this.BtColorFilter.Location = new System.Drawing.Point(3, 3);
-            this.BtColorFilter.Name = "BtColorFilter";
-            this.BtColorFilter.Size = new System.Drawing.Size(99, 133);
-            this.BtColorFilter.TabIndex = 0;
-            this.BtColorFilter.Text = "color";
-            this.BtColorFilter.UseVisualStyleBackColor = true;
-            this.BtColorFilter.Click += new System.EventHandler(this.BtColorFilter_Click);
+            BtColorFilter.Location = new System.Drawing.Point(4, 3);
+            BtColorFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtColorFilter.Name = "BtColorFilter";
+            BtColorFilter.Size = new System.Drawing.Size(115, 153);
+            BtColorFilter.TabIndex = 0;
+            BtColorFilter.Text = "color";
+            BtColorFilter.UseVisualStyleBackColor = true;
+            BtColorFilter.Click += BtColorFilter_Click;
             // 
             // BtClearColorFilters
             // 
-            this.BtClearColorFilters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BtClearColorFilters.Location = new System.Drawing.Point(648, 19);
-            this.BtClearColorFilters.Name = "BtClearColorFilters";
-            this.BtClearColorFilters.Size = new System.Drawing.Size(106, 23);
-            this.BtClearColorFilters.TabIndex = 17;
-            this.BtClearColorFilters.Text = "ClearColorFilter";
-            this.BtClearColorFilters.UseVisualStyleBackColor = true;
-            this.BtClearColorFilters.Click += new System.EventHandler(this.BtClearColorFilters_Click);
+            BtClearColorFilters.Dock = System.Windows.Forms.DockStyle.Fill;
+            BtClearColorFilters.Location = new System.Drawing.Point(756, 19);
+            BtClearColorFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtClearColorFilters.Name = "BtClearColorFilters";
+            BtClearColorFilters.Size = new System.Drawing.Size(123, 27);
+            BtClearColorFilters.TabIndex = 17;
+            BtClearColorFilters.Text = "ClearColorFilter";
+            BtClearColorFilters.UseVisualStyleBackColor = true;
+            BtClearColorFilters.Click += BtClearColorFilters_Click;
             // 
             // BtClearFlagFilter
             // 
-            this.BtClearFlagFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BtClearFlagFilter.Location = new System.Drawing.Point(538, 19);
-            this.BtClearFlagFilter.Name = "BtClearFlagFilter";
-            this.BtClearFlagFilter.Size = new System.Drawing.Size(104, 23);
-            this.BtClearFlagFilter.TabIndex = 18;
-            this.BtClearFlagFilter.Text = "Clear";
-            this.BtClearFlagFilter.UseVisualStyleBackColor = true;
-            this.BtClearFlagFilter.Click += new System.EventHandler(this.BtClearFlagFilter_Click);
+            BtClearFlagFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            BtClearFlagFilter.Location = new System.Drawing.Point(628, 19);
+            BtClearFlagFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtClearFlagFilter.Name = "BtClearFlagFilter";
+            BtClearFlagFilter.Size = new System.Drawing.Size(120, 27);
+            BtClearFlagFilter.TabIndex = 18;
+            BtClearFlagFilter.Text = "Clear";
+            BtClearFlagFilter.UseVisualStyleBackColor = true;
+            BtClearFlagFilter.Click += BtClearFlagFilter_Click;
             // 
             // ClbMaturationFilters
             // 
-            this.ClbMaturationFilters.CheckOnClick = true;
-            this.ClbMaturationFilters.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClbMaturationFilters.FormattingEnabled = true;
-            this.ClbMaturationFilters.Location = new System.Drawing.Point(760, 48);
-            this.ClbMaturationFilters.Name = "ClbMaturationFilters";
-            this.ClbMaturationFilters.Size = new System.Drawing.Size(104, 354);
-            this.ClbMaturationFilters.TabIndex = 20;
+            ClbMaturationFilters.CheckOnClick = true;
+            ClbMaturationFilters.Dock = System.Windows.Forms.DockStyle.Fill;
+            ClbMaturationFilters.FormattingEnabled = true;
+            ClbMaturationFilters.Location = new System.Drawing.Point(887, 52);
+            ClbMaturationFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ClbMaturationFilters.Name = "ClbMaturationFilters";
+            ClbMaturationFilters.Size = new System.Drawing.Size(121, 414);
+            ClbMaturationFilters.TabIndex = 20;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.CbLibraryCombineBreedingCompatibleSpecies);
-            this.panel1.Controls.Add(this.CbLibraryGroupSpecies);
-            this.panel1.Controls.Add(this.CbUseFilterInTopStatCalculation);
-            this.panel1.Controls.Add(this.BtApply);
-            this.panel1.Controls.Add(this.BtCancel);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(5, 415);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(864, 30);
-            this.panel1.TabIndex = 4;
-            // 
-            // CbLibraryGroupSpecies
-            // 
-            this.CbLibraryGroupSpecies.AutoSize = true;
-            this.CbLibraryGroupSpecies.Dock = System.Windows.Forms.DockStyle.Left;
-            this.CbLibraryGroupSpecies.Location = new System.Drawing.Point(170, 0);
-            this.CbLibraryGroupSpecies.Name = "CbLibraryGroupSpecies";
-            this.CbLibraryGroupSpecies.Size = new System.Drawing.Size(138, 30);
-            this.CbLibraryGroupSpecies.TabIndex = 3;
-            this.CbLibraryGroupSpecies.Text = "Group library by species";
-            this.CbLibraryGroupSpecies.UseVisualStyleBackColor = true;
-            // 
-            // CbUseFilterInTopStatCalculation
-            // 
-            this.CbUseFilterInTopStatCalculation.AutoSize = true;
-            this.CbUseFilterInTopStatCalculation.Dock = System.Windows.Forms.DockStyle.Left;
-            this.CbUseFilterInTopStatCalculation.Location = new System.Drawing.Point(0, 0);
-            this.CbUseFilterInTopStatCalculation.Name = "CbUseFilterInTopStatCalculation";
-            this.CbUseFilterInTopStatCalculation.Size = new System.Drawing.Size(170, 30);
-            this.CbUseFilterInTopStatCalculation.TabIndex = 2;
-            this.CbUseFilterInTopStatCalculation.Text = "Use filter in top stat calculation";
-            this.CbUseFilterInTopStatCalculation.UseVisualStyleBackColor = true;
-            // 
-            // BtApply
-            // 
-            this.BtApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.BtApply.Location = new System.Drawing.Point(782, 0);
-            this.BtApply.Name = "BtApply";
-            this.BtApply.Size = new System.Drawing.Size(75, 23);
-            this.BtApply.TabIndex = 0;
-            this.BtApply.Text = "Apply";
-            this.BtApply.UseVisualStyleBackColor = true;
-            this.BtApply.Click += new System.EventHandler(this.BtApply_Click);
-            // 
-            // BtCancel
-            // 
-            this.BtCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.BtCancel.Location = new System.Drawing.Point(701, 0);
-            this.BtCancel.Name = "BtCancel";
-            this.BtCancel.Size = new System.Drawing.Size(75, 23);
-            this.BtCancel.TabIndex = 1;
-            this.BtCancel.Text = "Cancel";
-            this.BtCancel.UseVisualStyleBackColor = true;
+            panel1.Controls.Add(CbLibraryCombineBreedingCompatibleSpecies);
+            panel1.Controls.Add(CbLibraryGroupSpecies);
+            panel1.Controls.Add(CbUseFilterInTopStatCalculation);
+            panel1.Controls.Add(BtApply);
+            panel1.Controls.Add(BtCancel);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(6, 479);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(1008, 35);
+            panel1.TabIndex = 4;
             // 
             // CbLibraryCombineBreedingCompatibleSpecies
             // 
-            this.CbLibraryCombineBreedingCompatibleSpecies.AutoSize = true;
-            this.CbLibraryCombineBreedingCompatibleSpecies.Dock = System.Windows.Forms.DockStyle.Left;
-            this.CbLibraryCombineBreedingCompatibleSpecies.Location = new System.Drawing.Point(308, 0);
-            this.CbLibraryCombineBreedingCompatibleSpecies.Name = "CbLibraryCombineBreedingCompatibleSpecies";
-            this.CbLibraryCombineBreedingCompatibleSpecies.Size = new System.Drawing.Size(204, 30);
-            this.CbLibraryCombineBreedingCompatibleSpecies.TabIndex = 4;
-            this.CbLibraryCombineBreedingCompatibleSpecies.Text = "Combine breeding compatible species";
-            this.CbLibraryCombineBreedingCompatibleSpecies.UseVisualStyleBackColor = true;
+            CbLibraryCombineBreedingCompatibleSpecies.AutoSize = true;
+            CbLibraryCombineBreedingCompatibleSpecies.Dock = System.Windows.Forms.DockStyle.Left;
+            CbLibraryCombineBreedingCompatibleSpecies.Location = new System.Drawing.Point(341, 0);
+            CbLibraryCombineBreedingCompatibleSpecies.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbLibraryCombineBreedingCompatibleSpecies.Name = "CbLibraryCombineBreedingCompatibleSpecies";
+            CbLibraryCombineBreedingCompatibleSpecies.Size = new System.Drawing.Size(229, 35);
+            CbLibraryCombineBreedingCompatibleSpecies.TabIndex = 4;
+            CbLibraryCombineBreedingCompatibleSpecies.Text = "Combine breeding compatible species";
+            CbLibraryCombineBreedingCompatibleSpecies.UseVisualStyleBackColor = true;
+            // 
+            // CbLibraryGroupSpecies
+            // 
+            CbLibraryGroupSpecies.AutoSize = true;
+            CbLibraryGroupSpecies.Dock = System.Windows.Forms.DockStyle.Left;
+            CbLibraryGroupSpecies.Location = new System.Drawing.Point(189, 0);
+            CbLibraryGroupSpecies.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbLibraryGroupSpecies.Name = "CbLibraryGroupSpecies";
+            CbLibraryGroupSpecies.Size = new System.Drawing.Size(152, 35);
+            CbLibraryGroupSpecies.TabIndex = 3;
+            CbLibraryGroupSpecies.Text = "Group library by species";
+            CbLibraryGroupSpecies.UseVisualStyleBackColor = true;
+            // 
+            // CbUseFilterInTopStatCalculation
+            // 
+            CbUseFilterInTopStatCalculation.AutoSize = true;
+            CbUseFilterInTopStatCalculation.Dock = System.Windows.Forms.DockStyle.Left;
+            CbUseFilterInTopStatCalculation.Location = new System.Drawing.Point(0, 0);
+            CbUseFilterInTopStatCalculation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbUseFilterInTopStatCalculation.Name = "CbUseFilterInTopStatCalculation";
+            CbUseFilterInTopStatCalculation.Size = new System.Drawing.Size(189, 35);
+            CbUseFilterInTopStatCalculation.TabIndex = 2;
+            CbUseFilterInTopStatCalculation.Text = "Use filter in top stat calculation";
+            CbUseFilterInTopStatCalculation.UseVisualStyleBackColor = true;
+            // 
+            // BtApply
+            // 
+            BtApply.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            BtApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            BtApply.Location = new System.Drawing.Point(912, 0);
+            BtApply.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtApply.Name = "BtApply";
+            BtApply.Size = new System.Drawing.Size(88, 27);
+            BtApply.TabIndex = 0;
+            BtApply.Text = "Apply";
+            BtApply.UseVisualStyleBackColor = true;
+            BtApply.Click += BtApply_Click;
+            // 
+            // BtCancel
+            // 
+            BtCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            BtCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            BtCancel.Location = new System.Drawing.Point(818, 0);
+            BtCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtCancel.Name = "BtCancel";
+            BtCancel.Size = new System.Drawing.Size(88, 27);
+            BtCancel.TabIndex = 1;
+            BtCancel.Text = "Cancel";
+            BtCancel.UseVisualStyleBackColor = true;
             // 
             // LibraryFilter
             // 
-            this.AcceptButton = this.BtApply;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.CancelButton = this.BtCancel;
-            this.ClientSize = new System.Drawing.Size(874, 450);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "LibraryFilter";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
+            AcceptButton = BtApply;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScroll = true;
+            CancelButton = BtCancel;
+            ClientSize = new System.Drawing.Size(1020, 519);
+            Controls.Add(tableLayoutPanel1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "LibraryFilter";
+            ShowInTaskbar = false;
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            flowLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 

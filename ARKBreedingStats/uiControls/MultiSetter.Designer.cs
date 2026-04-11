@@ -28,504 +28,543 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonStatus = new System.Windows.Forms.Button();
-            this.buttonSex = new System.Windows.Forms.Button();
-            this.checkBoxOwner = new System.Windows.Forms.CheckBox();
-            this.checkBoxStatus = new System.Windows.Forms.CheckBox();
-            this.checkBoxSex = new System.Windows.Forms.CheckBox();
-            this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
-            this.checkBoxBred = new System.Windows.Forms.CheckBox();
-            this.checkBoxMother = new System.Windows.Forms.CheckBox();
-            this.checkBoxFather = new System.Windows.Forms.CheckBox();
-            this.buttonApply = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.checkBoxNote = new System.Windows.Forms.CheckBox();
-            this.textBoxNote = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.buttonColor6 = new System.Windows.Forms.Button();
-            this.buttonColor5 = new System.Windows.Forms.Button();
-            this.buttonColor4 = new System.Windows.Forms.Button();
-            this.buttonColor3 = new System.Windows.Forms.Button();
-            this.buttonColor2 = new System.Windows.Forms.Button();
-            this.buttonColor1 = new System.Windows.Forms.Button();
-            this.checkBoxColor1 = new System.Windows.Forms.CheckBox();
-            this.checkBoxColor2 = new System.Windows.Forms.CheckBox();
-            this.checkBoxColor3 = new System.Windows.Forms.CheckBox();
-            this.checkBoxColor4 = new System.Windows.Forms.CheckBox();
-            this.checkBoxColor5 = new System.Windows.Forms.CheckBox();
-            this.checkBoxColor6 = new System.Windows.Forms.CheckBox();
-            this.groupBoxTags = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanelTags = new System.Windows.Forms.FlowLayoutPanel();
-            this.tbNewTag = new System.Windows.Forms.TextBox();
-            this.bAddTag = new System.Windows.Forms.Button();
-            this.cbServer = new System.Windows.Forms.CheckBox();
-            this.cbbSpecies = new System.Windows.Forms.ComboBox();
-            this.checkBoxSpecies = new System.Windows.Forms.CheckBox();
-            this.cbbServer = new System.Windows.Forms.ComboBox();
-            this.cbbOwner = new System.Windows.Forms.ComboBox();
-            this.cbbTribe = new System.Windows.Forms.ComboBox();
-            this.cbTribe = new System.Windows.Forms.CheckBox();
-            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBoxTags.SuspendLayout();
-            this.SuspendLayout();
+            label1 = new System.Windows.Forms.Label();
+            buttonStatus = new System.Windows.Forms.Button();
+            buttonSex = new System.Windows.Forms.Button();
+            checkBoxOwner = new System.Windows.Forms.CheckBox();
+            checkBoxStatus = new System.Windows.Forms.CheckBox();
+            checkBoxSex = new System.Windows.Forms.CheckBox();
+            checkBoxIsBred = new System.Windows.Forms.CheckBox();
+            checkBoxBred = new System.Windows.Forms.CheckBox();
+            checkBoxMother = new System.Windows.Forms.CheckBox();
+            checkBoxFather = new System.Windows.Forms.CheckBox();
+            buttonApply = new System.Windows.Forms.Button();
+            buttonCancel = new System.Windows.Forms.Button();
+            checkBoxNote = new System.Windows.Forms.CheckBox();
+            textBoxNote = new System.Windows.Forms.TextBox();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            buttonColor6 = new System.Windows.Forms.Button();
+            buttonColor5 = new System.Windows.Forms.Button();
+            buttonColor4 = new System.Windows.Forms.Button();
+            buttonColor3 = new System.Windows.Forms.Button();
+            buttonColor2 = new System.Windows.Forms.Button();
+            buttonColor1 = new System.Windows.Forms.Button();
+            checkBoxColor1 = new System.Windows.Forms.CheckBox();
+            checkBoxColor2 = new System.Windows.Forms.CheckBox();
+            checkBoxColor3 = new System.Windows.Forms.CheckBox();
+            checkBoxColor4 = new System.Windows.Forms.CheckBox();
+            checkBoxColor5 = new System.Windows.Forms.CheckBox();
+            checkBoxColor6 = new System.Windows.Forms.CheckBox();
+            groupBoxTags = new System.Windows.Forms.GroupBox();
+            flowLayoutPanelTags = new System.Windows.Forms.FlowLayoutPanel();
+            tbNewTag = new System.Windows.Forms.TextBox();
+            bAddTag = new System.Windows.Forms.Button();
+            cbServer = new System.Windows.Forms.CheckBox();
+            cbbSpecies = new System.Windows.Forms.ComboBox();
+            checkBoxSpecies = new System.Windows.Forms.CheckBox();
+            cbbServer = new System.Windows.Forms.ComboBox();
+            cbbOwner = new System.Windows.Forms.ComboBox();
+            cbbTribe = new System.Windows.Forms.ComboBox();
+            cbTribe = new System.Windows.Forms.CheckBox();
+            parentComboBoxFather = new ParentComboBox();
+            parentComboBoxMother = new ParentComboBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            groupBoxTags.SuspendLayout();
+            SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(837, 39);
-            this.label1.TabIndex = 28;
-            this.label1.Text = "Checked properties will overwrite the current ones of all selected Creatures.";
+            label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            label1.Location = new System.Drawing.Point(14, 10);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(980, 45);
+            label1.TabIndex = 28;
+            label1.Text = "Checked properties will overwrite the current ones of all selected Creatures.";
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(291, 100);
-            this.buttonStatus.Name = "buttonStatus";
-            this.buttonStatus.Size = new System.Drawing.Size(31, 23);
-            this.buttonStatus.TabIndex = 1;
-            this.buttonStatus.Text = "?";
-            this.buttonStatus.UseVisualStyleBackColor = true;
-            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
+            buttonStatus.Location = new System.Drawing.Point(340, 115);
+            buttonStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonStatus.Name = "buttonStatus";
+            buttonStatus.Size = new System.Drawing.Size(36, 27);
+            buttonStatus.TabIndex = 1;
+            buttonStatus.Text = "?";
+            buttonStatus.UseVisualStyleBackColor = true;
+            buttonStatus.Click += buttonStatus_Click;
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(291, 129);
-            this.buttonSex.Name = "buttonSex";
-            this.buttonSex.Size = new System.Drawing.Size(31, 23);
-            this.buttonSex.TabIndex = 2;
-            this.buttonSex.Text = "?";
-            this.buttonSex.UseVisualStyleBackColor = true;
-            this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
+            buttonSex.Location = new System.Drawing.Point(340, 149);
+            buttonSex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonSex.Name = "buttonSex";
+            buttonSex.Size = new System.Drawing.Size(36, 27);
+            buttonSex.TabIndex = 2;
+            buttonSex.Text = "?";
+            buttonSex.UseVisualStyleBackColor = true;
+            buttonSex.Click += buttonSex_Click;
             // 
             // checkBoxOwner
             // 
-            this.checkBoxOwner.AutoSize = true;
-            this.checkBoxOwner.Location = new System.Drawing.Point(328, 52);
-            this.checkBoxOwner.Name = "checkBoxOwner";
-            this.checkBoxOwner.Size = new System.Drawing.Size(57, 17);
-            this.checkBoxOwner.TabIndex = 15;
-            this.checkBoxOwner.Text = "Owner";
-            this.checkBoxOwner.UseVisualStyleBackColor = true;
+            checkBoxOwner.AutoSize = true;
+            checkBoxOwner.Location = new System.Drawing.Point(383, 60);
+            checkBoxOwner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxOwner.Name = "checkBoxOwner";
+            checkBoxOwner.Size = new System.Drawing.Size(61, 19);
+            checkBoxOwner.TabIndex = 15;
+            checkBoxOwner.Text = "Owner";
+            checkBoxOwner.UseVisualStyleBackColor = true;
             // 
             // checkBoxStatus
             // 
-            this.checkBoxStatus.AutoSize = true;
-            this.checkBoxStatus.Location = new System.Drawing.Point(328, 104);
-            this.checkBoxStatus.Name = "checkBoxStatus";
-            this.checkBoxStatus.Size = new System.Drawing.Size(56, 17);
-            this.checkBoxStatus.TabIndex = 16;
-            this.checkBoxStatus.Text = "Status";
-            this.checkBoxStatus.UseVisualStyleBackColor = true;
+            checkBoxStatus.AutoSize = true;
+            checkBoxStatus.Location = new System.Drawing.Point(383, 120);
+            checkBoxStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxStatus.Name = "checkBoxStatus";
+            checkBoxStatus.Size = new System.Drawing.Size(58, 19);
+            checkBoxStatus.TabIndex = 16;
+            checkBoxStatus.Text = "Status";
+            checkBoxStatus.UseVisualStyleBackColor = true;
             // 
             // checkBoxSex
             // 
-            this.checkBoxSex.AutoSize = true;
-            this.checkBoxSex.Location = new System.Drawing.Point(328, 133);
-            this.checkBoxSex.Name = "checkBoxSex";
-            this.checkBoxSex.Size = new System.Drawing.Size(44, 17);
-            this.checkBoxSex.TabIndex = 17;
-            this.checkBoxSex.Text = "Sex";
-            this.checkBoxSex.UseVisualStyleBackColor = true;
+            checkBoxSex.AutoSize = true;
+            checkBoxSex.Location = new System.Drawing.Point(383, 153);
+            checkBoxSex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxSex.Name = "checkBoxSex";
+            checkBoxSex.Size = new System.Drawing.Size(43, 19);
+            checkBoxSex.TabIndex = 17;
+            checkBoxSex.Text = "Sex";
+            checkBoxSex.UseVisualStyleBackColor = true;
             // 
             // checkBoxIsBred
             // 
-            this.checkBoxIsBred.AutoSize = true;
-            this.checkBoxIsBred.Location = new System.Drawing.Point(307, 160);
-            this.checkBoxIsBred.Name = "checkBoxIsBred";
-            this.checkBoxIsBred.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxIsBred.TabIndex = 3;
-            this.checkBoxIsBred.UseVisualStyleBackColor = true;
-            this.checkBoxIsBred.CheckedChanged += new System.EventHandler(this.checkBoxIsBred_CheckedChanged);
+            checkBoxIsBred.AutoSize = true;
+            checkBoxIsBred.Location = new System.Drawing.Point(358, 185);
+            checkBoxIsBred.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxIsBred.Name = "checkBoxIsBred";
+            checkBoxIsBred.Size = new System.Drawing.Size(15, 14);
+            checkBoxIsBred.TabIndex = 3;
+            checkBoxIsBred.UseVisualStyleBackColor = true;
+            checkBoxIsBred.CheckedChanged += checkBoxIsBred_CheckedChanged;
             // 
             // checkBoxBred
             // 
-            this.checkBoxBred.AutoSize = true;
-            this.checkBoxBred.Location = new System.Drawing.Point(328, 160);
-            this.checkBoxBred.Name = "checkBoxBred";
-            this.checkBoxBred.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxBred.TabIndex = 18;
-            this.checkBoxBred.Text = "Bred";
-            this.checkBoxBred.UseVisualStyleBackColor = true;
+            checkBoxBred.AutoSize = true;
+            checkBoxBred.Location = new System.Drawing.Point(383, 185);
+            checkBoxBred.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxBred.Name = "checkBoxBred";
+            checkBoxBred.Size = new System.Drawing.Size(50, 19);
+            checkBoxBred.TabIndex = 18;
+            checkBoxBred.Text = "Bred";
+            checkBoxBred.UseVisualStyleBackColor = true;
             // 
             // checkBoxMother
             // 
-            this.checkBoxMother.AutoSize = true;
-            this.checkBoxMother.Location = new System.Drawing.Point(328, 186);
-            this.checkBoxMother.Name = "checkBoxMother";
-            this.checkBoxMother.Size = new System.Drawing.Size(59, 17);
-            this.checkBoxMother.TabIndex = 19;
-            this.checkBoxMother.Text = "Mother";
-            this.checkBoxMother.UseVisualStyleBackColor = true;
+            checkBoxMother.AutoSize = true;
+            checkBoxMother.Location = new System.Drawing.Point(383, 215);
+            checkBoxMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxMother.Name = "checkBoxMother";
+            checkBoxMother.Size = new System.Drawing.Size(65, 19);
+            checkBoxMother.TabIndex = 19;
+            checkBoxMother.Text = "Mother";
+            checkBoxMother.UseVisualStyleBackColor = true;
             // 
             // checkBoxFather
             // 
-            this.checkBoxFather.AutoSize = true;
-            this.checkBoxFather.Location = new System.Drawing.Point(328, 213);
-            this.checkBoxFather.Name = "checkBoxFather";
-            this.checkBoxFather.Size = new System.Drawing.Size(56, 17);
-            this.checkBoxFather.TabIndex = 20;
-            this.checkBoxFather.Text = "Father";
-            this.checkBoxFather.UseVisualStyleBackColor = true;
+            checkBoxFather.AutoSize = true;
+            checkBoxFather.Location = new System.Drawing.Point(383, 246);
+            checkBoxFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxFather.Name = "checkBoxFather";
+            checkBoxFather.Size = new System.Drawing.Size(59, 19);
+            checkBoxFather.TabIndex = 20;
+            checkBoxFather.Text = "Father";
+            checkBoxFather.UseVisualStyleBackColor = true;
             // 
             // buttonApply
             // 
-            this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApply.Location = new System.Drawing.Point(774, 403);
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(75, 23);
-            this.buttonApply.TabIndex = 13;
-            this.buttonApply.Text = "Apply";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+            buttonApply.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            buttonApply.DialogResult = System.Windows.Forms.DialogResult.OK;
+            buttonApply.Location = new System.Drawing.Point(907, 465);
+            buttonApply.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonApply.Name = "buttonApply";
+            buttonApply.Size = new System.Drawing.Size(88, 27);
+            buttonApply.TabIndex = 13;
+            buttonApply.Text = "Apply";
+            buttonApply.UseVisualStyleBackColor = true;
+            buttonApply.Click += buttonApply_Click;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(693, 403);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 14;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            buttonCancel.Location = new System.Drawing.Point(812, 465);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(88, 27);
+            buttonCancel.TabIndex = 14;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = true;
             // 
             // checkBoxNote
             // 
-            this.checkBoxNote.AutoSize = true;
-            this.checkBoxNote.Location = new System.Drawing.Point(328, 266);
-            this.checkBoxNote.Name = "checkBoxNote";
-            this.checkBoxNote.Size = new System.Drawing.Size(49, 17);
-            this.checkBoxNote.TabIndex = 21;
-            this.checkBoxNote.Text = "Note";
-            this.checkBoxNote.UseVisualStyleBackColor = true;
+            checkBoxNote.AutoSize = true;
+            checkBoxNote.Location = new System.Drawing.Point(383, 307);
+            checkBoxNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxNote.Name = "checkBoxNote";
+            checkBoxNote.Size = new System.Drawing.Size(52, 19);
+            checkBoxNote.TabIndex = 21;
+            checkBoxNote.Text = "Note";
+            checkBoxNote.UseVisualStyleBackColor = true;
             // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(15, 265);
-            this.textBoxNote.Multiline = true;
-            this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(307, 43);
-            this.textBoxNote.TabIndex = 6;
-            this.textBoxNote.TextChanged += new System.EventHandler(this.textBoxNote_TextChanged);
+            textBoxNote.Location = new System.Drawing.Point(18, 306);
+            textBoxNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxNote.Multiline = true;
+            textBoxNote.Name = "textBoxNote";
+            textBoxNote.Size = new System.Drawing.Size(358, 49);
+            textBoxNote.TabIndex = 6;
+            textBoxNote.TextChanged += textBoxNote_TextChanged;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(411, 50);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
+            pictureBox1.Location = new System.Drawing.Point(479, 58);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(149, 148);
+            pictureBox1.TabIndex = 19;
+            pictureBox1.TabStop = false;
             // 
             // buttonColor6
             // 
-            this.buttonColor6.Location = new System.Drawing.Point(545, 178);
-            this.buttonColor6.Name = "buttonColor6";
-            this.buttonColor6.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor6.TabIndex = 12;
-            this.buttonColor6.Text = "5";
-            this.buttonColor6.UseVisualStyleBackColor = true;
-            this.buttonColor6.Click += new System.EventHandler(this.buttonColor6_Click);
+            buttonColor6.Location = new System.Drawing.Point(636, 205);
+            buttonColor6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonColor6.Name = "buttonColor6";
+            buttonColor6.Size = new System.Drawing.Size(27, 27);
+            buttonColor6.TabIndex = 12;
+            buttonColor6.Text = "5";
+            buttonColor6.UseVisualStyleBackColor = true;
+            buttonColor6.Click += buttonColor6_Click;
             // 
             // buttonColor5
             // 
-            this.buttonColor5.Location = new System.Drawing.Point(545, 152);
-            this.buttonColor5.Name = "buttonColor5";
-            this.buttonColor5.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor5.TabIndex = 11;
-            this.buttonColor5.Text = "4";
-            this.buttonColor5.UseVisualStyleBackColor = true;
-            this.buttonColor5.Click += new System.EventHandler(this.buttonColor5_Click);
+            buttonColor5.Location = new System.Drawing.Point(636, 175);
+            buttonColor5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonColor5.Name = "buttonColor5";
+            buttonColor5.Size = new System.Drawing.Size(27, 27);
+            buttonColor5.TabIndex = 11;
+            buttonColor5.Text = "4";
+            buttonColor5.UseVisualStyleBackColor = true;
+            buttonColor5.Click += buttonColor5_Click;
             // 
             // buttonColor4
             // 
-            this.buttonColor4.Location = new System.Drawing.Point(545, 126);
-            this.buttonColor4.Name = "buttonColor4";
-            this.buttonColor4.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor4.TabIndex = 10;
-            this.buttonColor4.Text = "3";
-            this.buttonColor4.UseVisualStyleBackColor = true;
-            this.buttonColor4.Click += new System.EventHandler(this.buttonColor4_Click);
+            buttonColor4.Location = new System.Drawing.Point(636, 145);
+            buttonColor4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonColor4.Name = "buttonColor4";
+            buttonColor4.Size = new System.Drawing.Size(27, 27);
+            buttonColor4.TabIndex = 10;
+            buttonColor4.Text = "3";
+            buttonColor4.UseVisualStyleBackColor = true;
+            buttonColor4.Click += buttonColor4_Click;
             // 
             // buttonColor3
             // 
-            this.buttonColor3.Location = new System.Drawing.Point(545, 100);
-            this.buttonColor3.Name = "buttonColor3";
-            this.buttonColor3.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor3.TabIndex = 9;
-            this.buttonColor3.Text = "2";
-            this.buttonColor3.UseVisualStyleBackColor = true;
-            this.buttonColor3.Click += new System.EventHandler(this.buttonColor3_Click);
+            buttonColor3.Location = new System.Drawing.Point(636, 115);
+            buttonColor3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonColor3.Name = "buttonColor3";
+            buttonColor3.Size = new System.Drawing.Size(27, 27);
+            buttonColor3.TabIndex = 9;
+            buttonColor3.Text = "2";
+            buttonColor3.UseVisualStyleBackColor = true;
+            buttonColor3.Click += buttonColor3_Click;
             // 
             // buttonColor2
             // 
-            this.buttonColor2.Location = new System.Drawing.Point(545, 74);
-            this.buttonColor2.Name = "buttonColor2";
-            this.buttonColor2.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor2.TabIndex = 8;
-            this.buttonColor2.Text = "1";
-            this.buttonColor2.UseVisualStyleBackColor = true;
-            this.buttonColor2.Click += new System.EventHandler(this.buttonColor2_Click);
+            buttonColor2.Location = new System.Drawing.Point(636, 85);
+            buttonColor2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonColor2.Name = "buttonColor2";
+            buttonColor2.Size = new System.Drawing.Size(27, 27);
+            buttonColor2.TabIndex = 8;
+            buttonColor2.Text = "1";
+            buttonColor2.UseVisualStyleBackColor = true;
+            buttonColor2.Click += buttonColor2_Click;
             // 
             // buttonColor1
             // 
-            this.buttonColor1.Location = new System.Drawing.Point(545, 48);
-            this.buttonColor1.Name = "buttonColor1";
-            this.buttonColor1.Size = new System.Drawing.Size(23, 23);
-            this.buttonColor1.TabIndex = 7;
-            this.buttonColor1.Text = "0";
-            this.buttonColor1.UseVisualStyleBackColor = true;
-            this.buttonColor1.Click += new System.EventHandler(this.buttonColor1_Click);
+            buttonColor1.Location = new System.Drawing.Point(636, 55);
+            buttonColor1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonColor1.Name = "buttonColor1";
+            buttonColor1.Size = new System.Drawing.Size(27, 27);
+            buttonColor1.TabIndex = 7;
+            buttonColor1.Text = "0";
+            buttonColor1.UseVisualStyleBackColor = true;
+            buttonColor1.Click += buttonColor1_Click;
             // 
             // checkBoxColor1
             // 
-            this.checkBoxColor1.AutoSize = true;
-            this.checkBoxColor1.Location = new System.Drawing.Point(574, 53);
-            this.checkBoxColor1.Name = "checkBoxColor1";
-            this.checkBoxColor1.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxColor1.TabIndex = 22;
-            this.checkBoxColor1.UseVisualStyleBackColor = true;
+            checkBoxColor1.AutoSize = true;
+            checkBoxColor1.Location = new System.Drawing.Point(670, 61);
+            checkBoxColor1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxColor1.Name = "checkBoxColor1";
+            checkBoxColor1.Size = new System.Drawing.Size(15, 14);
+            checkBoxColor1.TabIndex = 22;
+            checkBoxColor1.UseVisualStyleBackColor = true;
             // 
             // checkBoxColor2
             // 
-            this.checkBoxColor2.AutoSize = true;
-            this.checkBoxColor2.Location = new System.Drawing.Point(574, 79);
-            this.checkBoxColor2.Name = "checkBoxColor2";
-            this.checkBoxColor2.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxColor2.TabIndex = 23;
-            this.checkBoxColor2.UseVisualStyleBackColor = true;
+            checkBoxColor2.AutoSize = true;
+            checkBoxColor2.Location = new System.Drawing.Point(670, 91);
+            checkBoxColor2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxColor2.Name = "checkBoxColor2";
+            checkBoxColor2.Size = new System.Drawing.Size(15, 14);
+            checkBoxColor2.TabIndex = 23;
+            checkBoxColor2.UseVisualStyleBackColor = true;
             // 
             // checkBoxColor3
             // 
-            this.checkBoxColor3.AutoSize = true;
-            this.checkBoxColor3.Location = new System.Drawing.Point(574, 105);
-            this.checkBoxColor3.Name = "checkBoxColor3";
-            this.checkBoxColor3.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxColor3.TabIndex = 24;
-            this.checkBoxColor3.UseVisualStyleBackColor = true;
+            checkBoxColor3.AutoSize = true;
+            checkBoxColor3.Location = new System.Drawing.Point(670, 121);
+            checkBoxColor3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxColor3.Name = "checkBoxColor3";
+            checkBoxColor3.Size = new System.Drawing.Size(15, 14);
+            checkBoxColor3.TabIndex = 24;
+            checkBoxColor3.UseVisualStyleBackColor = true;
             // 
             // checkBoxColor4
             // 
-            this.checkBoxColor4.AutoSize = true;
-            this.checkBoxColor4.Location = new System.Drawing.Point(574, 131);
-            this.checkBoxColor4.Name = "checkBoxColor4";
-            this.checkBoxColor4.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxColor4.TabIndex = 25;
-            this.checkBoxColor4.UseVisualStyleBackColor = true;
+            checkBoxColor4.AutoSize = true;
+            checkBoxColor4.Location = new System.Drawing.Point(670, 151);
+            checkBoxColor4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxColor4.Name = "checkBoxColor4";
+            checkBoxColor4.Size = new System.Drawing.Size(15, 14);
+            checkBoxColor4.TabIndex = 25;
+            checkBoxColor4.UseVisualStyleBackColor = true;
             // 
             // checkBoxColor5
             // 
-            this.checkBoxColor5.AutoSize = true;
-            this.checkBoxColor5.Location = new System.Drawing.Point(574, 157);
-            this.checkBoxColor5.Name = "checkBoxColor5";
-            this.checkBoxColor5.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxColor5.TabIndex = 26;
-            this.checkBoxColor5.UseVisualStyleBackColor = true;
+            checkBoxColor5.AutoSize = true;
+            checkBoxColor5.Location = new System.Drawing.Point(670, 181);
+            checkBoxColor5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxColor5.Name = "checkBoxColor5";
+            checkBoxColor5.Size = new System.Drawing.Size(15, 14);
+            checkBoxColor5.TabIndex = 26;
+            checkBoxColor5.UseVisualStyleBackColor = true;
             // 
             // checkBoxColor6
             // 
-            this.checkBoxColor6.AutoSize = true;
-            this.checkBoxColor6.Location = new System.Drawing.Point(574, 183);
-            this.checkBoxColor6.Name = "checkBoxColor6";
-            this.checkBoxColor6.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxColor6.TabIndex = 27;
-            this.checkBoxColor6.UseVisualStyleBackColor = true;
+            checkBoxColor6.AutoSize = true;
+            checkBoxColor6.Location = new System.Drawing.Point(670, 211);
+            checkBoxColor6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxColor6.Name = "checkBoxColor6";
+            checkBoxColor6.Size = new System.Drawing.Size(15, 14);
+            checkBoxColor6.TabIndex = 27;
+            checkBoxColor6.UseVisualStyleBackColor = true;
             // 
             // groupBoxTags
             // 
-            this.groupBoxTags.Controls.Add(this.flowLayoutPanelTags);
-            this.groupBoxTags.Location = new System.Drawing.Point(614, 11);
-            this.groupBoxTags.Name = "groupBoxTags";
-            this.groupBoxTags.Size = new System.Drawing.Size(236, 331);
-            this.groupBoxTags.TabIndex = 29;
-            this.groupBoxTags.TabStop = false;
-            this.groupBoxTags.Text = "Tags";
+            groupBoxTags.Controls.Add(flowLayoutPanelTags);
+            groupBoxTags.Location = new System.Drawing.Point(716, 13);
+            groupBoxTags.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBoxTags.Name = "groupBoxTags";
+            groupBoxTags.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBoxTags.Size = new System.Drawing.Size(275, 382);
+            groupBoxTags.TabIndex = 29;
+            groupBoxTags.TabStop = false;
+            groupBoxTags.Text = "Tags";
             // 
             // flowLayoutPanelTags
             // 
-            this.flowLayoutPanelTags.AutoScroll = true;
-            this.flowLayoutPanelTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelTags.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanelTags.Name = "flowLayoutPanelTags";
-            this.flowLayoutPanelTags.Size = new System.Drawing.Size(230, 312);
-            this.flowLayoutPanelTags.TabIndex = 37;
+            flowLayoutPanelTags.AutoScroll = true;
+            flowLayoutPanelTags.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanelTags.Location = new System.Drawing.Point(4, 19);
+            flowLayoutPanelTags.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanelTags.Name = "flowLayoutPanelTags";
+            flowLayoutPanelTags.Size = new System.Drawing.Size(267, 360);
+            flowLayoutPanelTags.TabIndex = 37;
             // 
             // tbNewTag
             // 
-            this.tbNewTag.Location = new System.Drawing.Point(614, 350);
-            this.tbNewTag.Name = "tbNewTag";
-            this.tbNewTag.Size = new System.Drawing.Size(199, 20);
-            this.tbNewTag.TabIndex = 30;
+            tbNewTag.Location = new System.Drawing.Point(716, 404);
+            tbNewTag.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbNewTag.Name = "tbNewTag";
+            tbNewTag.Size = new System.Drawing.Size(231, 23);
+            tbNewTag.TabIndex = 30;
             // 
             // bAddTag
             // 
-            this.bAddTag.Location = new System.Drawing.Point(819, 348);
-            this.bAddTag.Name = "bAddTag";
-            this.bAddTag.Size = new System.Drawing.Size(31, 23);
-            this.bAddTag.TabIndex = 31;
-            this.bAddTag.Text = "+";
-            this.bAddTag.UseVisualStyleBackColor = true;
-            this.bAddTag.Click += new System.EventHandler(this.bAddTag_Click);
+            bAddTag.Location = new System.Drawing.Point(955, 402);
+            bAddTag.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            bAddTag.Name = "bAddTag";
+            bAddTag.Size = new System.Drawing.Size(36, 27);
+            bAddTag.TabIndex = 31;
+            bAddTag.Text = "+";
+            bAddTag.UseVisualStyleBackColor = true;
+            bAddTag.Click += bAddTag_Click;
             // 
             // cbServer
             // 
-            this.cbServer.AutoSize = true;
-            this.cbServer.Location = new System.Drawing.Point(328, 240);
-            this.cbServer.Name = "cbServer";
-            this.cbServer.Size = new System.Drawing.Size(57, 17);
-            this.cbServer.TabIndex = 33;
-            this.cbServer.Text = "Server";
-            this.cbServer.UseVisualStyleBackColor = true;
+            cbServer.AutoSize = true;
+            cbServer.Location = new System.Drawing.Point(383, 277);
+            cbServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbServer.Name = "cbServer";
+            cbServer.Size = new System.Drawing.Size(58, 19);
+            cbServer.TabIndex = 33;
+            cbServer.Text = "Server";
+            cbServer.UseVisualStyleBackColor = true;
             // 
             // cbbSpecies
             // 
-            this.cbbSpecies.FormattingEnabled = true;
-            this.cbbSpecies.Location = new System.Drawing.Point(15, 314);
-            this.cbbSpecies.Name = "cbbSpecies";
-            this.cbbSpecies.Size = new System.Drawing.Size(307, 21);
-            this.cbbSpecies.TabIndex = 35;
-            this.cbbSpecies.SelectedIndexChanged += new System.EventHandler(this.cbbSpecies_SelectedIndexChanged);
+            cbbSpecies.FormattingEnabled = true;
+            cbbSpecies.Location = new System.Drawing.Point(18, 362);
+            cbbSpecies.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbbSpecies.Name = "cbbSpecies";
+            cbbSpecies.Size = new System.Drawing.Size(358, 23);
+            cbbSpecies.TabIndex = 35;
+            cbbSpecies.SelectedIndexChanged += cbbSpecies_SelectedIndexChanged;
             // 
             // checkBoxSpecies
             // 
-            this.checkBoxSpecies.AutoSize = true;
-            this.checkBoxSpecies.Location = new System.Drawing.Point(328, 315);
-            this.checkBoxSpecies.Name = "checkBoxSpecies";
-            this.checkBoxSpecies.Size = new System.Drawing.Size(64, 17);
-            this.checkBoxSpecies.TabIndex = 36;
-            this.checkBoxSpecies.Text = "Species";
-            this.checkBoxSpecies.UseVisualStyleBackColor = true;
-            this.checkBoxSpecies.CheckedChanged += new System.EventHandler(this.checkBoxSpecies_CheckedChanged);
+            checkBoxSpecies.AutoSize = true;
+            checkBoxSpecies.Location = new System.Drawing.Point(383, 363);
+            checkBoxSpecies.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxSpecies.Name = "checkBoxSpecies";
+            checkBoxSpecies.Size = new System.Drawing.Size(65, 19);
+            checkBoxSpecies.TabIndex = 36;
+            checkBoxSpecies.Text = "Species";
+            checkBoxSpecies.UseVisualStyleBackColor = true;
+            checkBoxSpecies.CheckedChanged += checkBoxSpecies_CheckedChanged;
             // 
             // cbbServer
             // 
-            this.cbbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cbbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cbbServer.FormattingEnabled = true;
-            this.cbbServer.Location = new System.Drawing.Point(15, 237);
-            this.cbbServer.Name = "cbbServer";
-            this.cbbServer.Size = new System.Drawing.Size(307, 21);
-            this.cbbServer.TabIndex = 37;
-            this.cbbServer.SelectedIndexChanged += new System.EventHandler(this.cbbServer_SelectedIndexChanged);
-            this.cbbServer.TextUpdate += new System.EventHandler(this.cbbServer_TextUpdate);
+            cbbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            cbbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            cbbServer.FormattingEnabled = true;
+            cbbServer.Location = new System.Drawing.Point(18, 273);
+            cbbServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbbServer.Name = "cbbServer";
+            cbbServer.Size = new System.Drawing.Size(358, 23);
+            cbbServer.TabIndex = 37;
+            cbbServer.SelectedIndexChanged += cbbServer_SelectedIndexChanged;
+            cbbServer.TextUpdate += cbbServer_TextUpdate;
             // 
             // cbbOwner
             // 
-            this.cbbOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cbbOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cbbOwner.FormattingEnabled = true;
-            this.cbbOwner.Location = new System.Drawing.Point(15, 50);
-            this.cbbOwner.Name = "cbbOwner";
-            this.cbbOwner.Size = new System.Drawing.Size(307, 21);
-            this.cbbOwner.TabIndex = 38;
-            this.cbbOwner.SelectedIndexChanged += new System.EventHandler(this.cbbOwner_SelectedIndexChanged);
-            this.cbbOwner.TextUpdate += new System.EventHandler(this.cbbOwner_TextUpdate);
+            cbbOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            cbbOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            cbbOwner.FormattingEnabled = true;
+            cbbOwner.Location = new System.Drawing.Point(18, 58);
+            cbbOwner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbbOwner.Name = "cbbOwner";
+            cbbOwner.Size = new System.Drawing.Size(358, 23);
+            cbbOwner.TabIndex = 38;
+            cbbOwner.SelectedIndexChanged += cbbOwner_SelectedIndexChanged;
+            cbbOwner.TextUpdate += cbbOwner_TextUpdate;
             // 
             // cbbTribe
             // 
-            this.cbbTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cbbTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cbbTribe.FormattingEnabled = true;
-            this.cbbTribe.Location = new System.Drawing.Point(15, 77);
-            this.cbbTribe.Name = "cbbTribe";
-            this.cbbTribe.Size = new System.Drawing.Size(307, 21);
-            this.cbbTribe.TabIndex = 40;
-            this.cbbTribe.SelectedIndexChanged += new System.EventHandler(this.cbbTribe_SelectedIndexChanged);
-            this.cbbTribe.TextUpdate += new System.EventHandler(this.cbbTribe_TextUpdate);
+            cbbTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            cbbTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            cbbTribe.FormattingEnabled = true;
+            cbbTribe.Location = new System.Drawing.Point(18, 89);
+            cbbTribe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbbTribe.Name = "cbbTribe";
+            cbbTribe.Size = new System.Drawing.Size(358, 23);
+            cbbTribe.TabIndex = 40;
+            cbbTribe.SelectedIndexChanged += cbbTribe_SelectedIndexChanged;
+            cbbTribe.TextUpdate += cbbTribe_TextUpdate;
             // 
             // cbTribe
             // 
-            this.cbTribe.AutoSize = true;
-            this.cbTribe.Location = new System.Drawing.Point(328, 79);
-            this.cbTribe.Name = "cbTribe";
-            this.cbTribe.Size = new System.Drawing.Size(50, 17);
-            this.cbTribe.TabIndex = 39;
-            this.cbTribe.Text = "Tribe";
-            this.cbTribe.UseVisualStyleBackColor = true;
+            cbTribe.AutoSize = true;
+            cbTribe.Location = new System.Drawing.Point(383, 91);
+            cbTribe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbTribe.Name = "cbTribe";
+            cbTribe.Size = new System.Drawing.Size(52, 19);
+            cbTribe.TabIndex = 39;
+            cbTribe.Text = "Tribe";
+            cbTribe.UseVisualStyleBackColor = true;
             // 
             // parentComboBoxFather
             // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(15, 212);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxFather.Size = new System.Drawing.Size(307, 21);
-            this.parentComboBoxFather.TabIndex = 5;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxFather_SelectedIndexChanged);
+            parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxFather.FormattingEnabled = true;
+            parentComboBoxFather.Location = new System.Drawing.Point(18, 245);
+            parentComboBoxFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            parentComboBoxFather.Name = "parentComboBoxFather";
+            parentComboBoxFather.Size = new System.Drawing.Size(358, 24);
+            parentComboBoxFather.TabIndex = 5;
+            parentComboBoxFather.SelectedIndexChanged += parentComboBoxFather_SelectedIndexChanged;
             // 
             // parentComboBoxMother
             // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(15, 185);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxMother.Size = new System.Drawing.Size(307, 21);
-            this.parentComboBoxMother.TabIndex = 4;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBoxMother_SelectedIndexChanged);
+            parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxMother.FormattingEnabled = true;
+            parentComboBoxMother.Location = new System.Drawing.Point(18, 213);
+            parentComboBoxMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            parentComboBoxMother.Name = "parentComboBoxMother";
+            parentComboBoxMother.Size = new System.Drawing.Size(358, 24);
+            parentComboBoxMother.TabIndex = 4;
+            parentComboBoxMother.SelectedIndexChanged += parentComboBoxMother_SelectedIndexChanged;
             // 
             // MultiSetter
             // 
-            this.AcceptButton = this.buttonApply;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(861, 438);
-            this.Controls.Add(this.cbbTribe);
-            this.Controls.Add(this.cbTribe);
-            this.Controls.Add(this.cbbOwner);
-            this.Controls.Add(this.cbbServer);
-            this.Controls.Add(this.checkBoxSpecies);
-            this.Controls.Add(this.cbbSpecies);
-            this.Controls.Add(this.cbServer);
-            this.Controls.Add(this.bAddTag);
-            this.Controls.Add(this.tbNewTag);
-            this.Controls.Add(this.groupBoxTags);
-            this.Controls.Add(this.checkBoxColor6);
-            this.Controls.Add(this.checkBoxColor5);
-            this.Controls.Add(this.checkBoxColor4);
-            this.Controls.Add(this.checkBoxColor3);
-            this.Controls.Add(this.checkBoxColor2);
-            this.Controls.Add(this.checkBoxColor1);
-            this.Controls.Add(this.buttonColor6);
-            this.Controls.Add(this.buttonColor5);
-            this.Controls.Add(this.buttonColor4);
-            this.Controls.Add(this.buttonColor3);
-            this.Controls.Add(this.buttonColor2);
-            this.Controls.Add(this.buttonColor1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.textBoxNote);
-            this.Controls.Add(this.checkBoxNote);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonApply);
-            this.Controls.Add(this.parentComboBoxFather);
-            this.Controls.Add(this.parentComboBoxMother);
-            this.Controls.Add(this.checkBoxFather);
-            this.Controls.Add(this.checkBoxMother);
-            this.Controls.Add(this.checkBoxBred);
-            this.Controls.Add(this.checkBoxIsBred);
-            this.Controls.Add(this.checkBoxSex);
-            this.Controls.Add(this.checkBoxStatus);
-            this.Controls.Add(this.checkBoxOwner);
-            this.Controls.Add(this.buttonSex);
-            this.Controls.Add(this.buttonStatus);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "MultiSetter";
-            this.ShowInTaskbar = false;
-            this.Text = "MultiSetter";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBoxTags.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AcceptButton = buttonApply;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            CancelButton = buttonCancel;
+            ClientSize = new System.Drawing.Size(1008, 505);
+            Controls.Add(cbbTribe);
+            Controls.Add(cbTribe);
+            Controls.Add(cbbOwner);
+            Controls.Add(cbbServer);
+            Controls.Add(checkBoxSpecies);
+            Controls.Add(cbbSpecies);
+            Controls.Add(cbServer);
+            Controls.Add(bAddTag);
+            Controls.Add(tbNewTag);
+            Controls.Add(groupBoxTags);
+            Controls.Add(checkBoxColor6);
+            Controls.Add(checkBoxColor5);
+            Controls.Add(checkBoxColor4);
+            Controls.Add(checkBoxColor3);
+            Controls.Add(checkBoxColor2);
+            Controls.Add(checkBoxColor1);
+            Controls.Add(buttonColor6);
+            Controls.Add(buttonColor5);
+            Controls.Add(buttonColor4);
+            Controls.Add(buttonColor3);
+            Controls.Add(buttonColor2);
+            Controls.Add(buttonColor1);
+            Controls.Add(pictureBox1);
+            Controls.Add(textBoxNote);
+            Controls.Add(checkBoxNote);
+            Controls.Add(buttonCancel);
+            Controls.Add(buttonApply);
+            Controls.Add(parentComboBoxFather);
+            Controls.Add(parentComboBoxMother);
+            Controls.Add(checkBoxFather);
+            Controls.Add(checkBoxMother);
+            Controls.Add(checkBoxBred);
+            Controls.Add(checkBoxIsBred);
+            Controls.Add(checkBoxSex);
+            Controls.Add(checkBoxStatus);
+            Controls.Add(checkBoxOwner);
+            Controls.Add(buttonSex);
+            Controls.Add(buttonStatus);
+            Controls.Add(label1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "MultiSetter";
+            ShowInTaskbar = false;
+            Text = "MultiSetter";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            groupBoxTags.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

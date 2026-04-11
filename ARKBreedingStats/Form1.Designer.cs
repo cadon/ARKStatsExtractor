@@ -2408,7 +2408,7 @@ namespace ARKBreedingStats
             tabPageLibrary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageLibrary.Name = "tabPageLibrary";
             tabPageLibrary.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageLibrary.Size = new System.Drawing.Size(2183, 918);
+            tabPageLibrary.Size = new System.Drawing.Size(192, 72);
             tabPageLibrary.TabIndex = 2;
             tabPageLibrary.Text = "Library";
             // 
@@ -2425,7 +2425,7 @@ namespace ARKBreedingStats
             tableLayoutPanelLibrary.Name = "tableLayoutPanelLibrary";
             tableLayoutPanelLibrary.RowCount = 1;
             tableLayoutPanelLibrary.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanelLibrary.Size = new System.Drawing.Size(2175, 912);
+            tableLayoutPanelLibrary.Size = new System.Drawing.Size(184, 66);
             tableLayoutPanelLibrary.TabIndex = 4;
             // 
             // listViewLibrary
@@ -2439,7 +2439,7 @@ namespace ARKBreedingStats
             listViewLibrary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             listViewLibrary.Name = "listViewLibrary";
             listViewLibrary.ShowItemToolTips = true;
-            listViewLibrary.Size = new System.Drawing.Size(1932, 906);
+            listViewLibrary.Size = new System.Drawing.Size(1, 60);
             listViewLibrary.TabIndex = 2;
             listViewLibrary.UseCompatibleStateImageBehavior = false;
             listViewLibrary.View = System.Windows.Forms.View.Details;
@@ -3079,7 +3079,7 @@ namespace ARKBreedingStats
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(227, 906);
+            tableLayoutPanel1.Size = new System.Drawing.Size(227, 60);
             tableLayoutPanel1.TabIndex = 6;
             // 
             // tabControlLibFilter
@@ -3092,7 +3092,7 @@ namespace ARKBreedingStats
             tabControlLibFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabControlLibFilter.Name = "tabControlLibFilter";
             tabControlLibFilter.SelectedIndex = 0;
-            tabControlLibFilter.Size = new System.Drawing.Size(219, 426);
+            tabControlLibFilter.Size = new System.Drawing.Size(219, 140);
             tabControlLibFilter.TabIndex = 5;
             // 
             // tabPage1
@@ -3102,7 +3102,7 @@ namespace ARKBreedingStats
             tabPage1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage1.Size = new System.Drawing.Size(211, 398);
+            tabPage1.Size = new System.Drawing.Size(211, 112);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Species";
             // 
@@ -3113,7 +3113,7 @@ namespace ARKBreedingStats
             listBoxSpeciesLib.Location = new System.Drawing.Point(4, 3);
             listBoxSpeciesLib.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             listBoxSpeciesLib.Name = "listBoxSpeciesLib";
-            listBoxSpeciesLib.Size = new System.Drawing.Size(203, 392);
+            listBoxSpeciesLib.Size = new System.Drawing.Size(203, 106);
             listBoxSpeciesLib.TabIndex = 0;
             listBoxSpeciesLib.Click += listBoxSpeciesLib_Click;
             listBoxSpeciesLib.SelectedIndexChanged += listBoxSpeciesLib_SelectedIndexChanged;
@@ -3125,7 +3125,7 @@ namespace ARKBreedingStats
             tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage3.Size = new System.Drawing.Size(211, 398);
+            tabPage3.Size = new System.Drawing.Size(211, 112);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Stats";
             // 
@@ -3144,7 +3144,7 @@ namespace ARKBreedingStats
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel2.Size = new System.Drawing.Size(203, 392);
+            tableLayoutPanel2.Size = new System.Drawing.Size(203, 106);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // BtRecalculateTopStatsAfterChange
@@ -3187,7 +3187,7 @@ namespace ARKBreedingStats
             tabPageLibRadarChart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageLibRadarChart.Name = "tabPageLibRadarChart";
             tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageLibRadarChart.Size = new System.Drawing.Size(211, 398);
+            tabPageLibRadarChart.Size = new System.Drawing.Size(211, 112);
             tabPageLibRadarChart.TabIndex = 4;
             tabPageLibRadarChart.Text = "Chart";
             // 
@@ -3221,7 +3221,7 @@ namespace ARKBreedingStats
             tabPageLibraryInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageLibraryInfo.Name = "tabPageLibraryInfo";
             tabPageLibraryInfo.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageLibraryInfo.Size = new System.Drawing.Size(192, 72);
+            tabPageLibraryInfo.Size = new System.Drawing.Size(2183, 918);
             tabPageLibraryInfo.TabIndex = 14;
             tabPageLibraryInfo.Text = "Library Info";
             // 
@@ -3239,7 +3239,7 @@ namespace ARKBreedingStats
             tlpLibraryInfo.RowCount = 2;
             tlpLibraryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tlpLibraryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tlpLibraryInfo.Size = new System.Drawing.Size(184, 66);
+            tlpLibraryInfo.Size = new System.Drawing.Size(2175, 912);
             tlpLibraryInfo.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -3255,7 +3255,7 @@ namespace ARKBreedingStats
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel3.Size = new System.Drawing.Size(176, 35);
+            tableLayoutPanel3.Size = new System.Drawing.Size(2167, 35);
             tableLayoutPanel3.TabIndex = 2;
             // 
             // CbLibraryInfoUseFilter
@@ -3289,14 +3289,6 @@ namespace ARKBreedingStats
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             libraryInfoControl1.Location = new System.Drawing.Point(4, 44);
             libraryInfoControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -3304,11 +3296,7 @@ namespace ARKBreedingStats
             libraryInfoControl1.RowCount = 2;
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            libraryInfoControl1.Size = new System.Drawing.Size(176, 19);
+            libraryInfoControl1.Size = new System.Drawing.Size(2167, 865);
             libraryInfoControl1.TabIndex = 3;
             // 
             // tabPagePedigree

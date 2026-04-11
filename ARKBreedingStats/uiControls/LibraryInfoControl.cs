@@ -51,7 +51,7 @@ namespace ARKBreedingStats.uiControls
             const int buttonsTotalWidth = 850;
             const int buttonMargins = 6;
             // color region buttons
-            var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, Height = 103 };
+            var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true};
             _colorRegionButtons = new Button[Ark.ColorRegionCount];
             for (var i = 0; i < Ark.ColorRegionCount; i++)
             {
@@ -74,7 +74,7 @@ namespace ARKBreedingStats.uiControls
                 Text = text,
                 TextAlign = ContentAlignment.MiddleCenter,
                 Width = buttonsTotalWidth / 7 - buttonMargins,
-                Height = 25
+                Height = 38
             };
 
             var colorsButton = AllRegionButton(Loc.S("Clear"));
@@ -135,7 +135,7 @@ namespace ARKBreedingStats.uiControls
                 LvColors.Columns.Add($"{ci}", 20);
             Controls.Add(LvColors, 3, 0);
             SetRowSpan(LvColors, 2);
-            LvColors.MinimumSize = new Size(152 + SystemInformation.VerticalScrollBarWidth, 0);
+            LvColors.MinimumSize = new Size(179 + SystemInformation.VerticalScrollBarWidth, 0);
             LvColors.Dock = DockStyle.Right;
         }
 

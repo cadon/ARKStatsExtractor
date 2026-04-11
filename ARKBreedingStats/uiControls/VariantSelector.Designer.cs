@@ -28,99 +28,106 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.ButtonCancel = new System.Windows.Forms.Button();
-            this.ButtonOk = new System.Windows.Forms.Button();
-            this.ClbVariants = new System.Windows.Forms.CheckedListBox();
-            this.CheckBoxAll = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            panel1 = new System.Windows.Forms.Panel();
+            ButtonCancel = new System.Windows.Forms.Button();
+            ButtonOk = new System.Windows.Forms.Button();
+            ClbVariants = new System.Windows.Forms.CheckedListBox();
+            CheckBoxAll = new System.Windows.Forms.CheckBox();
+            label1 = new System.Windows.Forms.Label();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.ButtonCancel);
-            this.panel1.Controls.Add(this.ButtonOk);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 524);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(3);
-            this.panel1.Size = new System.Drawing.Size(230, 31);
-            this.panel1.TabIndex = 2;
+            panel1.Controls.Add(ButtonCancel);
+            panel1.Controls.Add(ButtonOk);
+            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Location = new System.Drawing.Point(0, 604);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Size = new System.Drawing.Size(269, 36);
+            panel1.TabIndex = 2;
             // 
             // ButtonCancel
             // 
-            this.ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButtonCancel.Dock = System.Windows.Forms.DockStyle.Left;
-            this.ButtonCancel.Location = new System.Drawing.Point(3, 3);
-            this.ButtonCancel.Name = "ButtonCancel";
-            this.ButtonCancel.Size = new System.Drawing.Size(100, 25);
-            this.ButtonCancel.TabIndex = 1;
-            this.ButtonCancel.Text = "Cancel";
-            this.ButtonCancel.UseVisualStyleBackColor = true;
+            ButtonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            ButtonCancel.Dock = System.Windows.Forms.DockStyle.Left;
+            ButtonCancel.Location = new System.Drawing.Point(4, 3);
+            ButtonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ButtonCancel.Name = "ButtonCancel";
+            ButtonCancel.Size = new System.Drawing.Size(117, 30);
+            ButtonCancel.TabIndex = 1;
+            ButtonCancel.Text = "Cancel";
+            ButtonCancel.UseVisualStyleBackColor = true;
             // 
             // ButtonOk
             // 
-            this.ButtonOk.Dock = System.Windows.Forms.DockStyle.Right;
-            this.ButtonOk.Location = new System.Drawing.Point(127, 3);
-            this.ButtonOk.Name = "ButtonOk";
-            this.ButtonOk.Size = new System.Drawing.Size(100, 25);
-            this.ButtonOk.TabIndex = 0;
-            this.ButtonOk.Text = "OK";
-            this.ButtonOk.UseVisualStyleBackColor = true;
-            this.ButtonOk.Click += new System.EventHandler(this.ButtonOk_Click);
+            ButtonOk.Dock = System.Windows.Forms.DockStyle.Right;
+            ButtonOk.Location = new System.Drawing.Point(148, 3);
+            ButtonOk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ButtonOk.Name = "ButtonOk";
+            ButtonOk.Size = new System.Drawing.Size(117, 30);
+            ButtonOk.TabIndex = 0;
+            ButtonOk.Text = "OK";
+            ButtonOk.UseVisualStyleBackColor = true;
+            ButtonOk.Click += ButtonOk_Click;
             // 
             // ClbVariants
             // 
-            this.ClbVariants.CheckOnClick = true;
-            this.ClbVariants.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ClbVariants.FormattingEnabled = true;
-            this.ClbVariants.Location = new System.Drawing.Point(0, 57);
-            this.ClbVariants.Name = "ClbVariants";
-            this.ClbVariants.Size = new System.Drawing.Size(230, 467);
-            this.ClbVariants.TabIndex = 0;
+            ClbVariants.CheckOnClick = true;
+            ClbVariants.Dock = System.Windows.Forms.DockStyle.Fill;
+            ClbVariants.FormattingEnabled = true;
+            ClbVariants.Location = new System.Drawing.Point(0, 65);
+            ClbVariants.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ClbVariants.Name = "ClbVariants";
+            ClbVariants.Size = new System.Drawing.Size(269, 539);
+            ClbVariants.TabIndex = 0;
             // 
             // CheckBoxAll
             // 
-            this.CheckBoxAll.AutoSize = true;
-            this.CheckBoxAll.BackColor = System.Drawing.SystemColors.Window;
-            this.CheckBoxAll.Dock = System.Windows.Forms.DockStyle.Top;
-            this.CheckBoxAll.Location = new System.Drawing.Point(0, 40);
-            this.CheckBoxAll.Name = "CheckBoxAll";
-            this.CheckBoxAll.Size = new System.Drawing.Size(230, 17);
-            this.CheckBoxAll.TabIndex = 1;
-            this.CheckBoxAll.Text = "All";
-            this.CheckBoxAll.UseVisualStyleBackColor = false;
-            this.CheckBoxAll.CheckedChanged += new System.EventHandler(this.CheckBoxAll_CheckedChanged);
+            CheckBoxAll.AutoSize = true;
+            CheckBoxAll.BackColor = System.Drawing.SystemColors.Window;
+            CheckBoxAll.Dock = System.Windows.Forms.DockStyle.Top;
+            CheckBoxAll.Location = new System.Drawing.Point(0, 46);
+            CheckBoxAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CheckBoxAll.Name = "CheckBoxAll";
+            CheckBoxAll.Size = new System.Drawing.Size(269, 19);
+            CheckBoxAll.TabIndex = 1;
+            CheckBoxAll.Text = "All";
+            CheckBoxAll.UseVisualStyleBackColor = false;
+            CheckBoxAll.CheckedChanged += CheckBoxAll_CheckedChanged;
             // 
             // label1
             // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(5);
-            this.label1.Size = new System.Drawing.Size(230, 40);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Unchecked variants will be hidden.";
+            label1.Dock = System.Windows.Forms.DockStyle.Top;
+            label1.Location = new System.Drawing.Point(0, 0);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            label1.Size = new System.Drawing.Size(269, 46);
+            label1.TabIndex = 3;
+            label1.Text = "Unchecked variants will be hidden.";
             // 
             // VariantSelector
             // 
-            this.AcceptButton = this.ButtonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.ButtonCancel;
-            this.ClientSize = new System.Drawing.Size(230, 555);
-            this.Controls.Add(this.ClbVariants);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.CheckBoxAll);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "VariantSelector";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "VariantSelector";
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AcceptButton = ButtonOk;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            CancelButton = ButtonCancel;
+            ClientSize = new System.Drawing.Size(269, 640);
+            Controls.Add(ClbVariants);
+            Controls.Add(panel1);
+            Controls.Add(CheckBoxAll);
+            Controls.Add(label1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "VariantSelector";
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            Text = "VariantSelector";
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

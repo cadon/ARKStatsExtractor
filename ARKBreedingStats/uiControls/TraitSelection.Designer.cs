@@ -28,313 +28,337 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.LbTraitsAvailable = new System.Windows.Forms.ListBox();
-            this.LbTraitsAssigned = new System.Windows.Forms.ListBox();
-            this.GbTiers = new System.Windows.Forms.GroupBox();
-            this.RbTier3 = new System.Windows.Forms.RadioButton();
-            this.RbTier2 = new System.Windows.Forms.RadioButton();
-            this.RbTier1 = new System.Windows.Forms.RadioButton();
-            this.BtAddTrait = new System.Windows.Forms.Button();
-            this.BtRemoveTrait = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.BtCancel = new System.Windows.Forms.Button();
-            this.BtOk = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.PnTraitDescription = new System.Windows.Forms.Panel();
-            this.LbTraitDescription = new System.Windows.Forms.Label();
-            this.LbTraitName = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.TbTraitFilter = new System.Windows.Forms.TextBox();
-            this.BtClearFilter = new System.Windows.Forms.Button();
-            this.BtRemoveAll = new System.Windows.Forms.Button();
-            this.GbTiers.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.PnTraitDescription.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.SuspendLayout();
+            LbTraitsAvailable = new System.Windows.Forms.ListBox();
+            LbTraitsAssigned = new System.Windows.Forms.ListBox();
+            GbTiers = new System.Windows.Forms.GroupBox();
+            RbTier3 = new System.Windows.Forms.RadioButton();
+            RbTier2 = new System.Windows.Forms.RadioButton();
+            RbTier1 = new System.Windows.Forms.RadioButton();
+            BtAddTrait = new System.Windows.Forms.Button();
+            BtRemoveTrait = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            BtCancel = new System.Windows.Forms.Button();
+            BtOk = new System.Windows.Forms.Button();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            panel2 = new System.Windows.Forms.Panel();
+            BtRemoveAll = new System.Windows.Forms.Button();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            PnTraitDescription = new System.Windows.Forms.Panel();
+            LbTraitDescription = new System.Windows.Forms.Label();
+            LbTraitName = new System.Windows.Forms.Label();
+            panel3 = new System.Windows.Forms.Panel();
+            TbTraitFilter = new System.Windows.Forms.TextBox();
+            BtClearFilter = new System.Windows.Forms.Button();
+            GbTiers.SuspendLayout();
+            panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panel2.SuspendLayout();
+            PnTraitDescription.SuspendLayout();
+            panel3.SuspendLayout();
+            SuspendLayout();
             // 
             // LbTraitsAvailable
             // 
-            this.LbTraitsAvailable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LbTraitsAvailable.FormattingEnabled = true;
-            this.LbTraitsAvailable.Location = new System.Drawing.Point(3, 46);
-            this.LbTraitsAvailable.Name = "LbTraitsAvailable";
-            this.tableLayoutPanel1.SetRowSpan(this.LbTraitsAvailable, 2);
-            this.LbTraitsAvailable.Size = new System.Drawing.Size(206, 446);
-            this.LbTraitsAvailable.TabIndex = 0;
-            this.LbTraitsAvailable.SelectedIndexChanged += new System.EventHandler(this.LbTraitsAvailable_SelectedIndexChanged);
-            this.LbTraitsAvailable.DoubleClick += new System.EventHandler(this.LbTraitsAvailable_DoubleClick);
+            LbTraitsAvailable.Dock = System.Windows.Forms.DockStyle.Fill;
+            LbTraitsAvailable.FormattingEnabled = true;
+            LbTraitsAvailable.Location = new System.Drawing.Point(4, 52);
+            LbTraitsAvailable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LbTraitsAvailable.Name = "LbTraitsAvailable";
+            tableLayoutPanel1.SetRowSpan(LbTraitsAvailable, 2);
+            LbTraitsAvailable.Size = new System.Drawing.Size(239, 516);
+            LbTraitsAvailable.TabIndex = 0;
+            LbTraitsAvailable.SelectedIndexChanged += LbTraitsAvailable_SelectedIndexChanged;
+            LbTraitsAvailable.DoubleClick += LbTraitsAvailable_DoubleClick;
             // 
             // LbTraitsAssigned
             // 
-            this.LbTraitsAssigned.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LbTraitsAssigned.FormattingEnabled = true;
-            this.LbTraitsAssigned.Location = new System.Drawing.Point(266, 46);
-            this.LbTraitsAssigned.Name = "LbTraitsAssigned";
-            this.tableLayoutPanel1.SetRowSpan(this.LbTraitsAssigned, 2);
-            this.LbTraitsAssigned.Size = new System.Drawing.Size(206, 446);
-            this.LbTraitsAssigned.TabIndex = 1;
-            this.LbTraitsAssigned.SelectedIndexChanged += new System.EventHandler(this.LbTraitsAssigned_SelectedIndexChanged);
-            this.LbTraitsAssigned.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LbTraitsAssigned_MouseDoubleClick);
+            LbTraitsAssigned.Dock = System.Windows.Forms.DockStyle.Fill;
+            LbTraitsAssigned.FormattingEnabled = true;
+            LbTraitsAssigned.Location = new System.Drawing.Point(311, 52);
+            LbTraitsAssigned.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LbTraitsAssigned.Name = "LbTraitsAssigned";
+            tableLayoutPanel1.SetRowSpan(LbTraitsAssigned, 2);
+            LbTraitsAssigned.Size = new System.Drawing.Size(240, 516);
+            LbTraitsAssigned.TabIndex = 1;
+            LbTraitsAssigned.SelectedIndexChanged += LbTraitsAssigned_SelectedIndexChanged;
+            LbTraitsAssigned.MouseDoubleClick += LbTraitsAssigned_MouseDoubleClick;
             // 
             // GbTiers
             // 
-            this.GbTiers.Controls.Add(this.RbTier3);
-            this.GbTiers.Controls.Add(this.RbTier2);
-            this.GbTiers.Controls.Add(this.RbTier1);
-            this.GbTiers.Location = new System.Drawing.Point(478, 46);
-            this.GbTiers.Name = "GbTiers";
-            this.GbTiers.Size = new System.Drawing.Size(55, 94);
-            this.GbTiers.TabIndex = 2;
-            this.GbTiers.TabStop = false;
-            this.GbTiers.Text = "Tier";
+            GbTiers.Controls.Add(RbTier3);
+            GbTiers.Controls.Add(RbTier2);
+            GbTiers.Controls.Add(RbTier1);
+            GbTiers.Location = new System.Drawing.Point(559, 52);
+            GbTiers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GbTiers.Name = "GbTiers";
+            GbTiers.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GbTiers.Size = new System.Drawing.Size(64, 108);
+            GbTiers.TabIndex = 2;
+            GbTiers.TabStop = false;
+            GbTiers.Text = "Tier";
             // 
             // RbTier3
             // 
-            this.RbTier3.AutoSize = true;
-            this.RbTier3.Location = new System.Drawing.Point(6, 65);
-            this.RbTier3.Name = "RbTier3";
-            this.RbTier3.Size = new System.Drawing.Size(31, 17);
-            this.RbTier3.TabIndex = 2;
-            this.RbTier3.TabStop = true;
-            this.RbTier3.Text = "3";
-            this.RbTier3.UseVisualStyleBackColor = true;
-            this.RbTier3.Click += new System.EventHandler(this.RbTier3_Click);
+            RbTier3.AutoSize = true;
+            RbTier3.Location = new System.Drawing.Point(7, 75);
+            RbTier3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            RbTier3.Name = "RbTier3";
+            RbTier3.Size = new System.Drawing.Size(31, 19);
+            RbTier3.TabIndex = 2;
+            RbTier3.TabStop = true;
+            RbTier3.Text = "3";
+            RbTier3.UseVisualStyleBackColor = true;
+            RbTier3.Click += RbTier3_Click;
             // 
             // RbTier2
             // 
-            this.RbTier2.AutoSize = true;
-            this.RbTier2.Location = new System.Drawing.Point(6, 42);
-            this.RbTier2.Name = "RbTier2";
-            this.RbTier2.Size = new System.Drawing.Size(31, 17);
-            this.RbTier2.TabIndex = 1;
-            this.RbTier2.TabStop = true;
-            this.RbTier2.Text = "2";
-            this.RbTier2.UseVisualStyleBackColor = true;
-            this.RbTier2.Click += new System.EventHandler(this.RbTier2_Click);
+            RbTier2.AutoSize = true;
+            RbTier2.Location = new System.Drawing.Point(7, 48);
+            RbTier2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            RbTier2.Name = "RbTier2";
+            RbTier2.Size = new System.Drawing.Size(31, 19);
+            RbTier2.TabIndex = 1;
+            RbTier2.TabStop = true;
+            RbTier2.Text = "2";
+            RbTier2.UseVisualStyleBackColor = true;
+            RbTier2.Click += RbTier2_Click;
             // 
             // RbTier1
             // 
-            this.RbTier1.AutoSize = true;
-            this.RbTier1.Location = new System.Drawing.Point(6, 19);
-            this.RbTier1.Name = "RbTier1";
-            this.RbTier1.Size = new System.Drawing.Size(31, 17);
-            this.RbTier1.TabIndex = 0;
-            this.RbTier1.TabStop = true;
-            this.RbTier1.Text = "1";
-            this.RbTier1.UseVisualStyleBackColor = true;
-            this.RbTier1.Click += new System.EventHandler(this.RbTier1_Click);
+            RbTier1.AutoSize = true;
+            RbTier1.Location = new System.Drawing.Point(7, 22);
+            RbTier1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            RbTier1.Name = "RbTier1";
+            RbTier1.Size = new System.Drawing.Size(31, 19);
+            RbTier1.TabIndex = 0;
+            RbTier1.TabStop = true;
+            RbTier1.Text = "1";
+            RbTier1.UseVisualStyleBackColor = true;
+            RbTier1.Click += RbTier1_Click;
             // 
             // BtAddTrait
             // 
-            this.BtAddTrait.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(255)))), ((int)(((byte)(240)))));
-            this.BtAddTrait.Location = new System.Drawing.Point(3, 77);
-            this.BtAddTrait.Name = "BtAddTrait";
-            this.BtAddTrait.Size = new System.Drawing.Size(39, 69);
-            this.BtAddTrait.TabIndex = 4;
-            this.BtAddTrait.Text = "→";
-            this.BtAddTrait.UseVisualStyleBackColor = false;
-            this.BtAddTrait.Click += new System.EventHandler(this.BtAddTrait_Click);
+            BtAddTrait.BackColor = System.Drawing.Color.FromArgb(210, 255, 240);
+            BtAddTrait.Location = new System.Drawing.Point(4, 89);
+            BtAddTrait.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtAddTrait.Name = "BtAddTrait";
+            BtAddTrait.Size = new System.Drawing.Size(46, 80);
+            BtAddTrait.TabIndex = 4;
+            BtAddTrait.Text = "→";
+            BtAddTrait.UseVisualStyleBackColor = false;
+            BtAddTrait.Click += BtAddTrait_Click;
             // 
             // BtRemoveTrait
             // 
-            this.BtRemoveTrait.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.BtRemoveTrait.Location = new System.Drawing.Point(3, 152);
-            this.BtRemoveTrait.Name = "BtRemoveTrait";
-            this.BtRemoveTrait.Size = new System.Drawing.Size(39, 69);
-            this.BtRemoveTrait.TabIndex = 5;
-            this.BtRemoveTrait.Text = "←";
-            this.BtRemoveTrait.UseVisualStyleBackColor = false;
-            this.BtRemoveTrait.Click += new System.EventHandler(this.BtRemoveTrait_Click);
+            BtRemoveTrait.BackColor = System.Drawing.Color.FromArgb(255, 225, 225);
+            BtRemoveTrait.Location = new System.Drawing.Point(4, 175);
+            BtRemoveTrait.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtRemoveTrait.Name = "BtRemoveTrait";
+            BtRemoveTrait.Size = new System.Drawing.Size(46, 80);
+            BtRemoveTrait.TabIndex = 5;
+            BtRemoveTrait.Text = "←";
+            BtRemoveTrait.UseVisualStyleBackColor = false;
+            BtRemoveTrait.Click += BtRemoveTrait_Click;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.BtCancel);
-            this.panel1.Controls.Add(this.BtOk);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 495);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(3);
-            this.panel1.Size = new System.Drawing.Size(688, 41);
-            this.panel1.TabIndex = 6;
+            panel1.Controls.Add(BtCancel);
+            panel1.Controls.Add(BtOk);
+            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Location = new System.Drawing.Point(0, 571);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Size = new System.Drawing.Size(804, 47);
+            panel1.TabIndex = 6;
             // 
             // BtCancel
             // 
-            this.BtCancel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.BtCancel.Location = new System.Drawing.Point(479, 3);
-            this.BtCancel.Name = "BtCancel";
-            this.BtCancel.Size = new System.Drawing.Size(97, 35);
-            this.BtCancel.TabIndex = 1;
-            this.BtCancel.Text = "Cancel";
-            this.BtCancel.UseVisualStyleBackColor = true;
-            this.BtCancel.Click += new System.EventHandler(this.BtCancel_Click);
+            BtCancel.Dock = System.Windows.Forms.DockStyle.Right;
+            BtCancel.Location = new System.Drawing.Point(560, 3);
+            BtCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtCancel.Name = "BtCancel";
+            BtCancel.Size = new System.Drawing.Size(113, 41);
+            BtCancel.TabIndex = 1;
+            BtCancel.Text = "Cancel";
+            BtCancel.UseVisualStyleBackColor = true;
+            BtCancel.Click += BtCancel_Click;
             // 
             // BtOk
             // 
-            this.BtOk.Dock = System.Windows.Forms.DockStyle.Right;
-            this.BtOk.Location = new System.Drawing.Point(576, 3);
-            this.BtOk.Name = "BtOk";
-            this.BtOk.Size = new System.Drawing.Size(109, 35);
-            this.BtOk.TabIndex = 0;
-            this.BtOk.Text = "OK";
-            this.BtOk.UseVisualStyleBackColor = true;
-            this.BtOk.Click += new System.EventHandler(this.BtOk_Click);
+            BtOk.Dock = System.Windows.Forms.DockStyle.Right;
+            BtOk.Location = new System.Drawing.Point(673, 3);
+            BtOk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtOk.Name = "BtOk";
+            BtOk.Size = new System.Drawing.Size(127, 41);
+            BtOk.TabIndex = 0;
+            BtOk.Text = "OK";
+            BtOk.UseVisualStyleBackColor = true;
+            BtOk.Click += BtOk_Click;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel1.Controls.Add(this.LbTraitsAvailable, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.GbTiers, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.LbTraitsAssigned, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.PnTraitDescription, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(688, 495);
-            this.tableLayoutPanel1.TabIndex = 7;
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
+            tableLayoutPanel1.Controls.Add(LbTraitsAvailable, 0, 2);
+            tableLayoutPanel1.Controls.Add(GbTiers, 3, 2);
+            tableLayoutPanel1.Controls.Add(LbTraitsAssigned, 2, 2);
+            tableLayoutPanel1.Controls.Add(panel2, 1, 2);
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            tableLayoutPanel1.Controls.Add(label2, 2, 0);
+            tableLayoutPanel1.Controls.Add(PnTraitDescription, 3, 3);
+            tableLayoutPanel1.Controls.Add(panel3, 0, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(804, 571);
+            tableLayoutPanel1.TabIndex = 7;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.BtRemoveAll);
-            this.panel2.Controls.Add(this.BtAddTrait);
-            this.panel2.Controls.Add(this.BtRemoveTrait);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(215, 46);
-            this.panel2.Name = "panel2";
-            this.tableLayoutPanel1.SetRowSpan(this.panel2, 2);
-            this.panel2.Size = new System.Drawing.Size(45, 446);
-            this.panel2.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Available";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(266, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "Assigned";
-            // 
-            // PnTraitDescription
-            // 
-            this.PnTraitDescription.Controls.Add(this.LbTraitDescription);
-            this.PnTraitDescription.Controls.Add(this.LbTraitName);
-            this.PnTraitDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnTraitDescription.Location = new System.Drawing.Point(478, 146);
-            this.PnTraitDescription.Name = "PnTraitDescription";
-            this.PnTraitDescription.Size = new System.Drawing.Size(207, 346);
-            this.PnTraitDescription.TabIndex = 11;
-            // 
-            // LbTraitDescription
-            // 
-            this.LbTraitDescription.AutoSize = true;
-            this.LbTraitDescription.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LbTraitDescription.Location = new System.Drawing.Point(0, 13);
-            this.LbTraitDescription.Name = "LbTraitDescription";
-            this.LbTraitDescription.Size = new System.Drawing.Size(30, 13);
-            this.LbTraitDescription.TabIndex = 1;
-            this.LbTraitDescription.Text = "desc";
-            // 
-            // LbTraitName
-            // 
-            this.LbTraitName.AutoSize = true;
-            this.LbTraitName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LbTraitName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTraitName.Location = new System.Drawing.Point(0, 0);
-            this.LbTraitName.Name = "LbTraitName";
-            this.LbTraitName.Size = new System.Drawing.Size(37, 13);
-            this.LbTraitName.TabIndex = 0;
-            this.LbTraitName.Text = "name";
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.TbTraitFilter);
-            this.panel3.Controls.Add(this.BtClearFilter);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 16);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(206, 24);
-            this.panel3.TabIndex = 12;
-            // 
-            // TbTraitFilter
-            // 
-            this.TbTraitFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TbTraitFilter.Location = new System.Drawing.Point(0, 0);
-            this.TbTraitFilter.Name = "TbTraitFilter";
-            this.TbTraitFilter.Size = new System.Drawing.Size(182, 20);
-            this.TbTraitFilter.TabIndex = 0;
-            this.TbTraitFilter.TextChanged += new System.EventHandler(this.TbTraitFilter_TextChanged);
-            // 
-            // BtClearFilter
-            // 
-            this.BtClearFilter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.BtClearFilter.Location = new System.Drawing.Point(182, 0);
-            this.BtClearFilter.Name = "BtClearFilter";
-            this.BtClearFilter.Size = new System.Drawing.Size(24, 24);
-            this.BtClearFilter.TabIndex = 1;
-            this.BtClearFilter.Text = "×";
-            this.BtClearFilter.UseVisualStyleBackColor = true;
-            this.BtClearFilter.Click += new System.EventHandler(this.BtClearFilter_Click);
+            panel2.Controls.Add(BtRemoveAll);
+            panel2.Controls.Add(BtAddTrait);
+            panel2.Controls.Add(BtRemoveTrait);
+            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel2.Location = new System.Drawing.Point(251, 52);
+            panel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel2.Name = "panel2";
+            tableLayoutPanel1.SetRowSpan(panel2, 2);
+            panel2.Size = new System.Drawing.Size(52, 516);
+            panel2.TabIndex = 8;
             // 
             // BtRemoveAll
             // 
-            this.BtRemoveAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(225)))), ((int)(((byte)(225)))));
-            this.BtRemoveAll.Location = new System.Drawing.Point(3, 227);
-            this.BtRemoveAll.Name = "BtRemoveAll";
-            this.BtRemoveAll.Size = new System.Drawing.Size(39, 69);
-            this.BtRemoveAll.TabIndex = 6;
-            this.BtRemoveAll.Text = "⇇";
-            this.BtRemoveAll.UseVisualStyleBackColor = false;
-            this.BtRemoveAll.Click += new System.EventHandler(this.BtRemoveAll_Click);
+            BtRemoveAll.BackColor = System.Drawing.Color.FromArgb(255, 225, 225);
+            BtRemoveAll.Location = new System.Drawing.Point(4, 262);
+            BtRemoveAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtRemoveAll.Name = "BtRemoveAll";
+            BtRemoveAll.Size = new System.Drawing.Size(46, 80);
+            BtRemoveAll.TabIndex = 6;
+            BtRemoveAll.Text = "⇇";
+            BtRemoveAll.UseVisualStyleBackColor = false;
+            BtRemoveAll.Click += BtRemoveAll_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(4, 0);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(55, 15);
+            label1.TabIndex = 9;
+            label1.Text = "Available";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(311, 0);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(55, 15);
+            label2.TabIndex = 10;
+            label2.Text = "Assigned";
+            // 
+            // PnTraitDescription
+            // 
+            PnTraitDescription.Controls.Add(LbTraitDescription);
+            PnTraitDescription.Controls.Add(LbTraitName);
+            PnTraitDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            PnTraitDescription.Location = new System.Drawing.Point(559, 166);
+            PnTraitDescription.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            PnTraitDescription.Name = "PnTraitDescription";
+            PnTraitDescription.Size = new System.Drawing.Size(241, 402);
+            PnTraitDescription.TabIndex = 11;
+            // 
+            // LbTraitDescription
+            // 
+            LbTraitDescription.AutoSize = true;
+            LbTraitDescription.Dock = System.Windows.Forms.DockStyle.Top;
+            LbTraitDescription.Location = new System.Drawing.Point(0, 13);
+            LbTraitDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTraitDescription.Name = "LbTraitDescription";
+            LbTraitDescription.Size = new System.Drawing.Size(31, 15);
+            LbTraitDescription.TabIndex = 1;
+            LbTraitDescription.Text = "desc";
+            // 
+            // LbTraitName
+            // 
+            LbTraitName.AutoSize = true;
+            LbTraitName.Dock = System.Windows.Forms.DockStyle.Top;
+            LbTraitName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbTraitName.Location = new System.Drawing.Point(0, 0);
+            LbTraitName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTraitName.Name = "LbTraitName";
+            LbTraitName.Size = new System.Drawing.Size(37, 13);
+            LbTraitName.TabIndex = 0;
+            LbTraitName.Text = "name";
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(TbTraitFilter);
+            panel3.Controls.Add(BtClearFilter);
+            panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel3.Location = new System.Drawing.Point(4, 18);
+            panel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel3.Name = "panel3";
+            panel3.Size = new System.Drawing.Size(239, 28);
+            panel3.TabIndex = 12;
+            // 
+            // TbTraitFilter
+            // 
+            TbTraitFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            TbTraitFilter.Location = new System.Drawing.Point(0, 0);
+            TbTraitFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TbTraitFilter.Name = "TbTraitFilter";
+            TbTraitFilter.Size = new System.Drawing.Size(211, 23);
+            TbTraitFilter.TabIndex = 0;
+            TbTraitFilter.TextChanged += TbTraitFilter_TextChanged;
+            // 
+            // BtClearFilter
+            // 
+            BtClearFilter.Dock = System.Windows.Forms.DockStyle.Right;
+            BtClearFilter.Location = new System.Drawing.Point(211, 0);
+            BtClearFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtClearFilter.Name = "BtClearFilter";
+            BtClearFilter.Size = new System.Drawing.Size(28, 28);
+            BtClearFilter.TabIndex = 1;
+            BtClearFilter.Text = "×";
+            BtClearFilter.UseVisualStyleBackColor = true;
+            BtClearFilter.Click += BtClearFilter_Click;
             // 
             // TraitSelection
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(688, 536);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.Name = "TraitSelection";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Trait Selection";
-            this.GbTiers.ResumeLayout(false);
-            this.GbTiers.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.PnTraitDescription.ResumeLayout(false);
-            this.PnTraitDescription.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(804, 618);
+            Controls.Add(tableLayoutPanel1);
+            Controls.Add(panel1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "TraitSelection";
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            Text = "Trait Selection";
+            GbTiers.ResumeLayout(false);
+            GbTiers.PerformLayout();
+            panel1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            PnTraitDescription.ResumeLayout(false);
+            PnTraitDescription.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ResumeLayout(false);
 
         }
 

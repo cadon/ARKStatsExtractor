@@ -28,137 +28,145 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBoxOnlyNatural = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.BtNoColor = new ARKBreedingStats.uiControls.ColorPickerControl.NoPaddingButton();
-            this.LbAlternativeColor = new System.Windows.Forms.Label();
-            this.BtUndefinedColor = new ARKBreedingStats.uiControls.ColorPickerControl.NoPaddingButton();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
+            checkBoxOnlyNatural = new System.Windows.Forms.CheckBox();
+            label1 = new System.Windows.Forms.Label();
+            buttonCancel = new System.Windows.Forms.Button();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            BtNoColor = new NoPaddingButton();
+            LbAlternativeColor = new System.Windows.Forms.Label();
+            BtUndefinedColor = new NoPaddingButton();
+            tableLayoutPanel1.SuspendLayout();
+            SuspendLayout();
             // 
             // checkBoxOnlyNatural
             // 
-            this.checkBoxOnlyNatural.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxOnlyNatural.AutoSize = true;
-            this.checkBoxOnlyNatural.Checked = true;
-            this.checkBoxOnlyNatural.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxOnlyNatural.Location = new System.Drawing.Point(3, 392);
-            this.checkBoxOnlyNatural.Name = "checkBoxOnlyNatural";
-            this.checkBoxOnlyNatural.Size = new System.Drawing.Size(154, 17);
-            this.checkBoxOnlyNatural.TabIndex = 2;
-            this.checkBoxOnlyNatural.Text = "Show only natural occuring";
-            this.checkBoxOnlyNatural.UseVisualStyleBackColor = true;
-            this.checkBoxOnlyNatural.CheckedChanged += new System.EventHandler(this.checkBoxOnlyNatural_CheckedChanged);
+            checkBoxOnlyNatural.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            checkBoxOnlyNatural.AutoSize = true;
+            checkBoxOnlyNatural.Checked = true;
+            checkBoxOnlyNatural.CheckState = System.Windows.Forms.CheckState.Checked;
+            checkBoxOnlyNatural.Location = new System.Drawing.Point(4, 454);
+            checkBoxOnlyNatural.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxOnlyNatural.Name = "checkBoxOnlyNatural";
+            checkBoxOnlyNatural.Size = new System.Drawing.Size(171, 19);
+            checkBoxOnlyNatural.TabIndex = 2;
+            checkBoxOnlyNatural.Text = "Show only natural occuring";
+            checkBoxOnlyNatural.UseVisualStyleBackColor = true;
+            checkBoxOnlyNatural.CheckedChanged += checkBoxOnlyNatural_CheckedChanged;
             // 
             // label1
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.label1, 4);
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(459, 30);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "title";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            tableLayoutPanel1.SetColumnSpan(label1, 4);
+            label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label1.Location = new System.Drawing.Point(4, 0);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(535, 35);
+            label1.TabIndex = 1;
+            label1.Text = "title";
+            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(387, 386);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 0;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
+            buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            buttonCancel.Location = new System.Drawing.Point(451, 446);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(88, 27);
+            buttonCancel.TabIndex = 0;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += ButtonCancelClick;
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.flowLayoutPanel1, 31);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 30);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(465, 339);
-            this.flowLayoutPanel1.TabIndex = 3;
+            flowLayoutPanel1.AutoScroll = true;
+            tableLayoutPanel1.SetColumnSpan(flowLayoutPanel1, 31);
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel1.Location = new System.Drawing.Point(0, 35);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanel1.Size = new System.Drawing.Size(543, 391);
+            flowLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.checkBoxOnlyNatural, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.BtNoColor, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.buttonCancel, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.LbAlternativeColor, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.BtUndefinedColor, 1, 3);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 412);
-            this.tableLayoutPanel1.TabIndex = 1;
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 0, 1);
+            tableLayoutPanel1.Controls.Add(checkBoxOnlyNatural, 0, 3);
+            tableLayoutPanel1.Controls.Add(BtNoColor, 2, 3);
+            tableLayoutPanel1.Controls.Add(buttonCancel, 3, 3);
+            tableLayoutPanel1.Controls.Add(LbAlternativeColor, 0, 2);
+            tableLayoutPanel1.Controls.Add(BtUndefinedColor, 1, 3);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(1, 1);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(543, 476);
+            tableLayoutPanel1.TabIndex = 1;
             // 
             // BtNoColor
             // 
-            this.BtNoColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtNoColor.Location = new System.Drawing.Point(306, 386);
-            this.BtNoColor.Name = "BtNoColor";
-            this.BtNoColor.Size = new System.Drawing.Size(75, 23);
-            this.BtNoColor.TabIndex = 4;
-            this.BtNoColor.Text = "no color";
-            this.BtNoColor.UseVisualStyleBackColor = true;
-            this.BtNoColor.Click += new System.EventHandler(this.ColorChosen);
+            BtNoColor.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            BtNoColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtNoColor.Location = new System.Drawing.Point(355, 446);
+            BtNoColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtNoColor.Name = "BtNoColor";
+            BtNoColor.Size = new System.Drawing.Size(88, 27);
+            BtNoColor.TabIndex = 4;
+            BtNoColor.Text = "no color";
+            BtNoColor.UseVisualStyleBackColor = true;
+            BtNoColor.Click += ColorChosen;
             // 
             // LbAlternativeColor
             // 
-            this.LbAlternativeColor.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.LbAlternativeColor, 4);
-            this.LbAlternativeColor.Location = new System.Drawing.Point(3, 369);
-            this.LbAlternativeColor.Name = "LbAlternativeColor";
-            this.LbAlternativeColor.Size = new System.Drawing.Size(397, 13);
-            this.LbAlternativeColor.TabIndex = 5;
-            this.LbAlternativeColor.Text = "Hold Ctrl to select an alternative color id. Hold Ctrl and click on No Color to u" +
-    "nset it.";
+            LbAlternativeColor.AutoSize = true;
+            tableLayoutPanel1.SetColumnSpan(LbAlternativeColor, 4);
+            LbAlternativeColor.Location = new System.Drawing.Point(4, 426);
+            LbAlternativeColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbAlternativeColor.Name = "LbAlternativeColor";
+            LbAlternativeColor.Size = new System.Drawing.Size(450, 15);
+            LbAlternativeColor.TabIndex = 5;
+            LbAlternativeColor.Text = "Hold Ctrl to select an alternative color id. Hold Ctrl and click on No Color to unset it.";
             // 
             // BtUndefinedColor
             // 
-            this.BtUndefinedColor.Location = new System.Drawing.Point(225, 385);
-            this.BtUndefinedColor.Name = "BtUndefinedColor";
-            this.BtUndefinedColor.Size = new System.Drawing.Size(75, 23);
-            this.BtUndefinedColor.TabIndex = 6;
-            this.BtUndefinedColor.Text = "undefined";
-            this.BtUndefinedColor.UseVisualStyleBackColor = true;
-            this.BtUndefinedColor.Click += new System.EventHandler(this.ColorChosen);
+            BtUndefinedColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtUndefinedColor.Location = new System.Drawing.Point(259, 444);
+            BtUndefinedColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtUndefinedColor.Name = "BtUndefinedColor";
+            BtUndefinedColor.Size = new System.Drawing.Size(88, 27);
+            BtUndefinedColor.TabIndex = 6;
+            BtUndefinedColor.Text = "undefined";
+            BtUndefinedColor.UseVisualStyleBackColor = true;
+            BtUndefinedColor.Click += ColorChosen;
             // 
             // ColorPickerControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "ColorPickerControl";
-            this.Padding = new System.Windows.Forms.Padding(1);
-            this.Size = new System.Drawing.Size(467, 414);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            Controls.Add(tableLayoutPanel1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "ColorPickerControl";
+            Padding = new System.Windows.Forms.Padding(1);
+            Size = new System.Drawing.Size(545, 478);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            ResumeLayout(false);
 
         }
 

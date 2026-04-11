@@ -29,106 +29,114 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.LbStrings = new System.Windows.Forms.ListBox();
-            this.BtRemove = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.BtClose = new System.Windows.Forms.Button();
-            this.BtMoveDown = new System.Windows.Forms.Button();
-            this.BtMoveUp = new System.Windows.Forms.Button();
-            this.CbEdit = new System.Windows.Forms.CheckBox();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            LbStrings = new System.Windows.Forms.ListBox();
+            BtRemove = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            BtClose = new System.Windows.Forms.Button();
+            BtMoveDown = new System.Windows.Forms.Button();
+            BtMoveUp = new System.Windows.Forms.Button();
+            CbEdit = new System.Windows.Forms.CheckBox();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // LbStrings
             // 
-            this.LbStrings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LbStrings.FormattingEnabled = true;
-            this.LbStrings.Location = new System.Drawing.Point(3, 3);
-            this.LbStrings.Name = "LbStrings";
-            this.LbStrings.Size = new System.Drawing.Size(247, 288);
-            this.LbStrings.TabIndex = 0;
-            this.LbStrings.SelectedIndexChanged += new System.EventHandler(this.LbStrings_SelectedIndexChanged);
+            LbStrings.Dock = System.Windows.Forms.DockStyle.Fill;
+            LbStrings.FormattingEnabled = true;
+            LbStrings.Location = new System.Drawing.Point(4, 3);
+            LbStrings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LbStrings.Name = "LbStrings";
+            LbStrings.Size = new System.Drawing.Size(287, 334);
+            LbStrings.TabIndex = 0;
+            LbStrings.SelectedIndexChanged += LbStrings_SelectedIndexChanged;
             // 
             // BtRemove
             // 
-            this.BtRemove.Location = new System.Drawing.Point(66, 4);
-            this.BtRemove.Name = "BtRemove";
-            this.BtRemove.Size = new System.Drawing.Size(36, 23);
-            this.BtRemove.TabIndex = 1;
-            this.BtRemove.Text = "╳";
-            this.BtRemove.UseVisualStyleBackColor = true;
-            this.BtRemove.Click += new System.EventHandler(this.BtRemove_Click);
+            BtRemove.Location = new System.Drawing.Point(77, 5);
+            BtRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtRemove.Name = "BtRemove";
+            BtRemove.Size = new System.Drawing.Size(42, 27);
+            BtRemove.TabIndex = 1;
+            BtRemove.Text = "╳";
+            BtRemove.UseVisualStyleBackColor = true;
+            BtRemove.Click += BtRemove_Click;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.BtClose);
-            this.panel1.Controls.Add(this.BtMoveDown);
-            this.panel1.Controls.Add(this.BtMoveUp);
-            this.panel1.Controls.Add(this.CbEdit);
-            this.panel1.Controls.Add(this.BtRemove);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 291);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(247, 29);
-            this.panel1.TabIndex = 2;
+            panel1.Controls.Add(BtClose);
+            panel1.Controls.Add(BtMoveDown);
+            panel1.Controls.Add(BtMoveUp);
+            panel1.Controls.Add(CbEdit);
+            panel1.Controls.Add(BtRemove);
+            panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panel1.Location = new System.Drawing.Point(4, 337);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(287, 33);
+            panel1.TabIndex = 2;
             // 
             // BtClose
             // 
-            this.BtClose.BackColor = System.Drawing.Color.Salmon;
-            this.BtClose.Location = new System.Drawing.Point(217, 3);
-            this.BtClose.Name = "BtClose";
-            this.BtClose.Size = new System.Drawing.Size(27, 23);
-            this.BtClose.TabIndex = 5;
-            this.BtClose.Text = "×";
-            this.BtClose.UseVisualStyleBackColor = false;
-            this.BtClose.Click += new System.EventHandler(this.BtCloseClick);
+            BtClose.BackColor = System.Drawing.Color.Salmon;
+            BtClose.Location = new System.Drawing.Point(253, 3);
+            BtClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtClose.Name = "BtClose";
+            BtClose.Size = new System.Drawing.Size(31, 27);
+            BtClose.TabIndex = 5;
+            BtClose.Text = "×";
+            BtClose.UseVisualStyleBackColor = false;
+            BtClose.Click += BtCloseClick;
             // 
             // BtMoveDown
             // 
-            this.BtMoveDown.Location = new System.Drawing.Point(141, 4);
-            this.BtMoveDown.Name = "BtMoveDown";
-            this.BtMoveDown.Size = new System.Drawing.Size(27, 23);
-            this.BtMoveDown.TabIndex = 4;
-            this.BtMoveDown.Text = "▼";
-            this.BtMoveDown.UseVisualStyleBackColor = true;
-            this.BtMoveDown.Click += new System.EventHandler(this.BtMoveDown_Click);
+            BtMoveDown.Location = new System.Drawing.Point(164, 5);
+            BtMoveDown.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtMoveDown.Name = "BtMoveDown";
+            BtMoveDown.Size = new System.Drawing.Size(31, 27);
+            BtMoveDown.TabIndex = 4;
+            BtMoveDown.Text = "▼";
+            BtMoveDown.UseVisualStyleBackColor = true;
+            BtMoveDown.Click += BtMoveDown_Click;
             // 
             // BtMoveUp
             // 
-            this.BtMoveUp.Location = new System.Drawing.Point(108, 4);
-            this.BtMoveUp.Name = "BtMoveUp";
-            this.BtMoveUp.Size = new System.Drawing.Size(27, 23);
-            this.BtMoveUp.TabIndex = 3;
-            this.BtMoveUp.Text = "▲";
-            this.BtMoveUp.UseVisualStyleBackColor = true;
-            this.BtMoveUp.Click += new System.EventHandler(this.BtMoveUp_Click);
+            BtMoveUp.Location = new System.Drawing.Point(126, 5);
+            BtMoveUp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtMoveUp.Name = "BtMoveUp";
+            BtMoveUp.Size = new System.Drawing.Size(31, 27);
+            BtMoveUp.TabIndex = 3;
+            BtMoveUp.Text = "▲";
+            BtMoveUp.UseVisualStyleBackColor = true;
+            BtMoveUp.Click += BtMoveUp_Click;
             // 
             // CbEdit
             // 
-            this.CbEdit.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CbEdit.Location = new System.Drawing.Point(3, 3);
-            this.CbEdit.Name = "CbEdit";
-            this.CbEdit.Size = new System.Drawing.Size(57, 24);
-            this.CbEdit.TabIndex = 2;
-            this.CbEdit.Text = "✎";
-            this.CbEdit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.CbEdit.UseVisualStyleBackColor = true;
-            this.CbEdit.CheckedChanged += new System.EventHandler(this.CbEdit_CheckedChanged);
+            CbEdit.Appearance = System.Windows.Forms.Appearance.Button;
+            CbEdit.Location = new System.Drawing.Point(4, 3);
+            CbEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbEdit.Name = "CbEdit";
+            CbEdit.Size = new System.Drawing.Size(66, 28);
+            CbEdit.TabIndex = 2;
+            CbEdit.Text = "✎";
+            CbEdit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            CbEdit.UseVisualStyleBackColor = true;
+            CbEdit.CheckedChanged += CbEdit_CheckedChanged;
             // 
             // LibraryFilterTemplates
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(253, 323);
-            this.Controls.Add(this.LbStrings);
-            this.Controls.Add(this.panel1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "LibraryFilterTemplates";
-            this.Padding = new System.Windows.Forms.Padding(3);
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Library Filter Templates";
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(295, 373);
+            Controls.Add(LbStrings);
+            Controls.Add(panel1);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "LibraryFilterTemplates";
+            Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            Text = "Library Filter Templates";
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
