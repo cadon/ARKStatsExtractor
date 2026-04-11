@@ -30,349 +30,363 @@ namespace ARKBreedingStats
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonEdit = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonStatus = new System.Windows.Forms.Button();
-            this.checkBoxIsBred = new System.Windows.Forms.CheckBox();
-            this.textBoxNote = new System.Windows.Forms.TextBox();
-            this.panelParents = new System.Windows.Forms.Panel();
-            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.labelEditParents = new System.Windows.Forms.Label();
-            this.labelF = new System.Windows.Forms.Label();
-            this.labelM = new System.Windows.Forms.Label();
-            this.buttonSex = new System.Windows.Forms.Button();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxOwner = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.statsDisplay1 = new ARKBreedingStats.uiControls.StatsDisplay();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.LbFather = new System.Windows.Forms.Label();
-            this.LbMotherAndWildInfo = new System.Windows.Forms.Label();
-            this.labelNotes = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
-            this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panelParents.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            buttonEdit = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            buttonStatus = new System.Windows.Forms.Button();
+            checkBoxIsBred = new System.Windows.Forms.CheckBox();
+            textBoxNote = new System.Windows.Forms.TextBox();
+            panelParents = new System.Windows.Forms.Panel();
+            parentComboBoxFather = new ParentComboBox();
+            parentComboBoxMother = new ParentComboBox();
+            labelEditParents = new System.Windows.Forms.Label();
+            labelF = new System.Windows.Forms.Label();
+            labelM = new System.Windows.Forms.Label();
+            buttonSex = new System.Windows.Forms.Button();
+            textBoxName = new System.Windows.Forms.TextBox();
+            buttonCancel = new System.Windows.Forms.Button();
+            buttonSave = new System.Windows.Forms.Button();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            textBoxOwner = new System.Windows.Forms.TextBox();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            statsDisplay1 = new StatsDisplay();
+            panel2 = new System.Windows.Forms.Panel();
+            LbFather = new System.Windows.Forms.Label();
+            LbMotherAndWildInfo = new System.Windows.Forms.Label();
+            labelNotes = new System.Windows.Forms.Label();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            regionColorChooser1 = new RegionColorChooser();
+            groupBox1.SuspendLayout();
+            panel1.SuspendLayout();
+            panelParents.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.AutoSize = true;
-            this.groupBox1.Controls.Add(this.buttonEdit);
-            this.groupBox1.Controls.Add(this.panel1);
-            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(195, 406);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Creature";
+            groupBox1.AutoSize = true;
+            groupBox1.Controls.Add(buttonEdit);
+            groupBox1.Controls.Add(panel1);
+            groupBox1.Controls.Add(tableLayoutPanel1);
+            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Location = new System.Drawing.Point(0, 0);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Size = new System.Drawing.Size(227, 468);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Creature";
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonEdit.Image = global::ARKBreedingStats.Properties.Resources.pen;
-            this.buttonEdit.Location = new System.Drawing.Point(178, 0);
-            this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(18, 18);
-            this.buttonEdit.TabIndex = 0;
-            this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
+            buttonEdit.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonEdit.Image = Properties.Resources.pen;
+            buttonEdit.Location = new System.Drawing.Point(208, 0);
+            buttonEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonEdit.Name = "buttonEdit";
+            buttonEdit.Size = new System.Drawing.Size(21, 21);
+            buttonEdit.TabIndex = 0;
+            buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonStatus);
-            this.panel1.Controls.Add(this.checkBoxIsBred);
-            this.panel1.Controls.Add(this.textBoxNote);
-            this.panel1.Controls.Add(this.panelParents);
-            this.panel1.Controls.Add(this.buttonSex);
-            this.panel1.Controls.Add(this.textBoxName);
-            this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Controls.Add(this.buttonSave);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.textBoxOwner);
-            this.panel1.Location = new System.Drawing.Point(6, 18);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(183, 229);
-            this.panel1.TabIndex = 15;
-            this.panel1.Visible = false;
+            panel1.Controls.Add(buttonStatus);
+            panel1.Controls.Add(checkBoxIsBred);
+            panel1.Controls.Add(textBoxNote);
+            panel1.Controls.Add(panelParents);
+            panel1.Controls.Add(buttonSex);
+            panel1.Controls.Add(textBoxName);
+            panel1.Controls.Add(buttonCancel);
+            panel1.Controls.Add(buttonSave);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(textBoxOwner);
+            panel1.Location = new System.Drawing.Point(7, 21);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(214, 264);
+            panel1.TabIndex = 15;
+            panel1.Visible = false;
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(40, 205);
-            this.buttonStatus.Name = "buttonStatus";
-            this.buttonStatus.Size = new System.Drawing.Size(28, 19);
-            this.buttonStatus.TabIndex = 48;
-            this.buttonStatus.Text = "?";
-            this.buttonStatus.UseVisualStyleBackColor = true;
-            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
+            buttonStatus.Location = new System.Drawing.Point(47, 237);
+            buttonStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonStatus.Name = "buttonStatus";
+            buttonStatus.Size = new System.Drawing.Size(33, 22);
+            buttonStatus.TabIndex = 48;
+            buttonStatus.Text = "?";
+            buttonStatus.UseVisualStyleBackColor = true;
+            buttonStatus.Click += buttonStatus_Click;
             // 
             // checkBoxIsBred
             // 
-            this.checkBoxIsBred.AutoSize = true;
-            this.checkBoxIsBred.Location = new System.Drawing.Point(129, 57);
-            this.checkBoxIsBred.Name = "checkBoxIsBred";
-            this.checkBoxIsBred.Size = new System.Drawing.Size(48, 17);
-            this.checkBoxIsBred.TabIndex = 45;
-            this.checkBoxIsBred.Text = "Bred";
-            this.checkBoxIsBred.UseVisualStyleBackColor = true;
-            this.checkBoxIsBred.CheckedChanged += new System.EventHandler(this.checkBoxIsBred_CheckedChanged);
+            checkBoxIsBred.AutoSize = true;
+            checkBoxIsBred.Location = new System.Drawing.Point(150, 66);
+            checkBoxIsBred.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            checkBoxIsBred.Name = "checkBoxIsBred";
+            checkBoxIsBred.Size = new System.Drawing.Size(50, 19);
+            checkBoxIsBred.TabIndex = 45;
+            checkBoxIsBred.Text = "Bred";
+            checkBoxIsBred.UseVisualStyleBackColor = true;
+            checkBoxIsBred.CheckedChanged += checkBoxIsBred_CheckedChanged;
             // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(6, 123);
-            this.textBoxNote.Multiline = true;
-            this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(171, 73);
-            this.textBoxNote.TabIndex = 37;
+            textBoxNote.Location = new System.Drawing.Point(7, 142);
+            textBoxNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxNote.Multiline = true;
+            textBoxNote.Name = "textBoxNote";
+            textBoxNote.Size = new System.Drawing.Size(199, 84);
+            textBoxNote.TabIndex = 37;
             // 
             // panelParents
             // 
-            this.panelParents.Controls.Add(this.parentComboBoxFather);
-            this.panelParents.Controls.Add(this.parentComboBoxMother);
-            this.panelParents.Controls.Add(this.labelEditParents);
-            this.panelParents.Controls.Add(this.labelF);
-            this.panelParents.Controls.Add(this.labelM);
-            this.panelParents.Location = new System.Drawing.Point(6, 55);
-            this.panelParents.Name = "panelParents";
-            this.panelParents.Size = new System.Drawing.Size(174, 62);
-            this.panelParents.TabIndex = 36;
-            this.panelParents.Visible = false;
+            panelParents.Controls.Add(parentComboBoxFather);
+            panelParents.Controls.Add(parentComboBoxMother);
+            panelParents.Controls.Add(labelEditParents);
+            panelParents.Controls.Add(labelF);
+            panelParents.Controls.Add(labelM);
+            panelParents.Location = new System.Drawing.Point(7, 63);
+            panelParents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelParents.Name = "panelParents";
+            panelParents.Size = new System.Drawing.Size(203, 72);
+            panelParents.TabIndex = 36;
+            panelParents.Visible = false;
             // 
             // parentComboBoxFather
             // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(49, 41);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxFather.Size = new System.Drawing.Size(124, 21);
-            this.parentComboBoxFather.TabIndex = 39;
+            parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxFather.FormattingEnabled = true;
+            parentComboBoxFather.Location = new System.Drawing.Point(57, 47);
+            parentComboBoxFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            parentComboBoxFather.Name = "parentComboBoxFather";
+            parentComboBoxFather.Size = new System.Drawing.Size(144, 24);
+            parentComboBoxFather.TabIndex = 39;
             // 
             // parentComboBoxMother
             // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(49, 19);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxMother.Size = new System.Drawing.Size(124, 21);
-            this.parentComboBoxMother.TabIndex = 38;
+            parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxMother.FormattingEnabled = true;
+            parentComboBoxMother.Location = new System.Drawing.Point(57, 22);
+            parentComboBoxMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            parentComboBoxMother.Name = "parentComboBoxMother";
+            parentComboBoxMother.Size = new System.Drawing.Size(144, 24);
+            parentComboBoxMother.TabIndex = 38;
             // 
             // labelEditParents
             // 
-            this.labelEditParents.AutoSize = true;
-            this.labelEditParents.Location = new System.Drawing.Point(3, 3);
-            this.labelEditParents.Name = "labelEditParents";
-            this.labelEditParents.Size = new System.Drawing.Size(43, 13);
-            this.labelEditParents.TabIndex = 30;
-            this.labelEditParents.Text = "Parents";
+            labelEditParents.AutoSize = true;
+            labelEditParents.Location = new System.Drawing.Point(4, 3);
+            labelEditParents.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelEditParents.Name = "labelEditParents";
+            labelEditParents.Size = new System.Drawing.Size(46, 15);
+            labelEditParents.TabIndex = 30;
+            labelEditParents.Text = "Parents";
             // 
             // labelF
             // 
-            this.labelF.AutoSize = true;
-            this.labelF.Location = new System.Drawing.Point(1, 44);
-            this.labelF.Name = "labelF";
-            this.labelF.Size = new System.Drawing.Size(37, 13);
-            this.labelF.TabIndex = 35;
-            this.labelF.Text = "Father";
+            labelF.AutoSize = true;
+            labelF.Location = new System.Drawing.Point(1, 51);
+            labelF.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelF.Name = "labelF";
+            labelF.Size = new System.Drawing.Size(40, 15);
+            labelF.TabIndex = 35;
+            labelF.Text = "Father";
             // 
             // labelM
             // 
-            this.labelM.AutoSize = true;
-            this.labelM.Location = new System.Drawing.Point(1, 22);
-            this.labelM.Name = "labelM";
-            this.labelM.Size = new System.Drawing.Size(40, 13);
-            this.labelM.TabIndex = 34;
-            this.labelM.Text = "Mother";
+            labelM.AutoSize = true;
+            labelM.Location = new System.Drawing.Point(1, 25);
+            labelM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelM.Name = "labelM";
+            labelM.Size = new System.Drawing.Size(46, 15);
+            labelM.TabIndex = 34;
+            labelM.Text = "Mother";
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(6, 205);
-            this.buttonSex.Name = "buttonSex";
-            this.buttonSex.Size = new System.Drawing.Size(28, 19);
-            this.buttonSex.TabIndex = 33;
-            this.buttonSex.Text = "?";
-            this.buttonSex.UseVisualStyleBackColor = true;
-            this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
+            buttonSex.Location = new System.Drawing.Point(7, 237);
+            buttonSex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonSex.Name = "buttonSex";
+            buttonSex.Size = new System.Drawing.Size(33, 22);
+            buttonSex.TabIndex = 33;
+            buttonSex.Text = "?";
+            buttonSex.UseVisualStyleBackColor = true;
+            buttonSex.Click += buttonSex_Click;
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(44, 3);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(136, 20);
-            this.textBoxName.TabIndex = 1;
+            textBoxName.Location = new System.Drawing.Point(51, 3);
+            textBoxName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxName.Name = "textBoxName";
+            textBoxName.Size = new System.Drawing.Size(158, 23);
+            textBoxName.TabIndex = 1;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(74, 203);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(53, 23);
-            this.buttonCancel.TabIndex = 21;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            buttonCancel.Location = new System.Drawing.Point(86, 234);
+            buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new System.Drawing.Size(62, 27);
+            buttonCancel.TabIndex = 21;
+            buttonCancel.Text = "Cancel";
+            buttonCancel.UseVisualStyleBackColor = true;
+            buttonCancel.Click += buttonCancel_Click;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(133, 203);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(47, 23);
-            this.buttonSave.TabIndex = 20;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.button1_Click);
+            buttonSave.Location = new System.Drawing.Point(155, 234);
+            buttonSave.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new System.Drawing.Size(55, 27);
+            buttonSave.TabIndex = 20;
+            buttonSave.Text = "Save";
+            buttonSave.UseVisualStyleBackColor = true;
+            buttonSave.Click += button1_Click;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 6);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Name";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(4, 7);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(39, 15);
+            label2.TabIndex = 16;
+            label2.Text = "Name";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Owner";
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(4, 37);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(42, 15);
+            label1.TabIndex = 15;
+            label1.Text = "Owner";
             // 
             // textBoxOwner
             // 
-            this.textBoxOwner.Location = new System.Drawing.Point(44, 29);
-            this.textBoxOwner.Name = "textBoxOwner";
-            this.textBoxOwner.Size = new System.Drawing.Size(136, 20);
-            this.textBoxOwner.TabIndex = 14;
+            textBoxOwner.Location = new System.Drawing.Point(51, 33);
+            textBoxOwner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxOwner.Name = "textBoxOwner";
+            textBoxOwner.Size = new System.Drawing.Size(158, 23);
+            textBoxOwner.TabIndex = 14;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.statsDisplay1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(189, 387);
-            this.tableLayoutPanel1.TabIndex = 30;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(statsDisplay1, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel2, 0, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(4, 19);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.Size = new System.Drawing.Size(219, 446);
+            tableLayoutPanel1.TabIndex = 30;
             // 
             // statsDisplay1
             // 
-            this.statsDisplay1.AutoSize = true;
-            this.statsDisplay1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.statsDisplay1.Location = new System.Drawing.Point(0, 0);
-            this.statsDisplay1.Margin = new System.Windows.Forms.Padding(0);
-            this.statsDisplay1.Name = "statsDisplay1";
-            this.statsDisplay1.Size = new System.Drawing.Size(189, 106);
-            this.statsDisplay1.TabIndex = 28;
+            statsDisplay1.AutoSize = true;
+            statsDisplay1.Dock = System.Windows.Forms.DockStyle.Top;
+            statsDisplay1.Location = new System.Drawing.Point(0, 0);
+            statsDisplay1.Margin = new System.Windows.Forms.Padding(0);
+            statsDisplay1.Name = "statsDisplay1";
+            statsDisplay1.Size = new System.Drawing.Size(219, 21);
+            statsDisplay1.TabIndex = 28;
             // 
             // panel2
             // 
-            this.panel2.AutoSize = true;
-            this.panel2.Controls.Add(this.LbFather);
-            this.panel2.Controls.Add(this.LbMotherAndWildInfo);
-            this.panel2.Controls.Add(this.labelNotes);
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.regionColorChooser1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 106);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(189, 281);
-            this.panel2.TabIndex = 29;
+            panel2.AutoSize = true;
+            panel2.Controls.Add(labelNotes);
+            panel2.Controls.Add(LbFather);
+            panel2.Controls.Add(LbMotherAndWildInfo);
+            panel2.Controls.Add(pictureBox1);
+            panel2.Controls.Add(regionColorChooser1);
+            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel2.Location = new System.Drawing.Point(0, 21);
+            panel2.Margin = new System.Windows.Forms.Padding(0);
+            panel2.Name = "panel2";
+            panel2.Size = new System.Drawing.Size(219, 425);
+            panel2.TabIndex = 29;
             // 
             // LbFather
             // 
-            this.LbFather.AutoSize = true;
-            this.LbFather.Location = new System.Drawing.Point(0, 14);
-            this.LbFather.Name = "LbFather";
-            this.LbFather.Size = new System.Drawing.Size(0, 13);
-            this.LbFather.TabIndex = 29;
-            this.LbFather.Click += new System.EventHandler(this.LbFatherClick);
+            LbFather.AutoSize = true;
+            LbFather.Location = new System.Drawing.Point(0, 16);
+            LbFather.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbFather.Name = "LbFather";
+            LbFather.Size = new System.Drawing.Size(0, 15);
+            LbFather.TabIndex = 29;
+            LbFather.Click += LbFatherClick;
             // 
             // LbMotherAndWildInfo
             // 
-            this.LbMotherAndWildInfo.Location = new System.Drawing.Point(0, 0);
-            this.LbMotherAndWildInfo.Name = "LbMotherAndWildInfo";
-            this.LbMotherAndWildInfo.Size = new System.Drawing.Size(183, 35);
-            this.LbMotherAndWildInfo.TabIndex = 17;
-            this.LbMotherAndWildInfo.Click += new System.EventHandler(this.LbMotherClick);
+            LbMotherAndWildInfo.Location = new System.Drawing.Point(0, 0);
+            LbMotherAndWildInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbMotherAndWildInfo.Name = "LbMotherAndWildInfo";
+            LbMotherAndWildInfo.Size = new System.Drawing.Size(214, 40);
+            LbMotherAndWildInfo.TabIndex = 17;
+            LbMotherAndWildInfo.Click += LbMotherClick;
             // 
             // labelNotes
             // 
-            this.labelNotes.Location = new System.Drawing.Point(0, 26);
-            this.labelNotes.Margin = new System.Windows.Forms.Padding(0);
-            this.labelNotes.Name = "labelNotes";
-            this.labelNotes.Size = new System.Drawing.Size(183, 22);
-            this.labelNotes.TabIndex = 18;
-            this.labelNotes.Text = "Notes";
+            labelNotes.Location = new System.Drawing.Point(0, 30);
+            labelNotes.Margin = new System.Windows.Forms.Padding(0);
+            labelNotes.Name = "labelNotes";
+            labelNotes.Size = new System.Drawing.Size(214, 25);
+            labelNotes.TabIndex = 18;
+            labelNotes.Text = "Notes";
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 56);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.TabIndex = 19;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            pictureBox1.Location = new System.Drawing.Point(0, 65);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(149, 148);
+            pictureBox1.TabIndex = 19;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // regionColorChooser1
             // 
-            this.regionColorChooser1.ColorIdsAlsoPossible = new byte[] {
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0))};
-            this.regionColorChooser1.Location = new System.Drawing.Point(129, 96);
-            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
-            this.regionColorChooser1.Name = "regionColorChooser1";
-            this.regionColorChooser1.Size = new System.Drawing.Size(58, 88);
-            this.regionColorChooser1.TabIndex = 27;
-            this.regionColorChooser1.VerboseButtonTexts = false;
+            regionColorChooser1.Location = new System.Drawing.Point(150, 111);
+            regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
+            regionColorChooser1.Name = "regionColorChooser1";
+            regionColorChooser1.Size = new System.Drawing.Size(68, 102);
+            regionColorChooser1.TabIndex = 27;
             // 
             // CreatureBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
-            this.Name = "CreatureBox";
-            this.Size = new System.Drawing.Size(195, 406);
-            this.groupBox1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panelParents.ResumeLayout(false);
-            this.panelParents.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(groupBox1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "CreatureBox";
+            Size = new System.Drawing.Size(227, 468);
+            groupBox1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panelParents.ResumeLayout(false);
+            panelParents.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
