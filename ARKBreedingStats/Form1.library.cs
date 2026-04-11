@@ -17,7 +17,6 @@ using ARKBreedingStats.library;
 using ARKBreedingStats.settings;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using ARKBreedingStats.NamePatterns;
-using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
 
 namespace ARKBreedingStats
@@ -1402,6 +1401,8 @@ namespace ARKBreedingStats
 
             if (Properties.Settings.Default.showColorsInLibrary)
             {
+                var desiredColors = ColorOptionsWantedRegions.GetOptions(cr.Species);
+
                 // color for colors
                 for (int cl = 0; cl < Ark.ColorRegionCount; cl++)
                 {
@@ -1414,6 +1415,9 @@ namespace ARKBreedingStats
                     {
                         lvi.SubItems[ColumnIndexFirstColor + cl].ForeColor = cr.Species.EnabledColorRegions[cl] ? SystemColors.GrayText : SystemColors.Window;
                     }
+
+                    if (desiredColors.Options[cl].IsColorWanted(cr.colors[cl]))
+                        lvi.SubItems[ColumnIndexFirstColor + cl].Font = new Font(lvi.SubItems[ColumnIndexFirstColor + cl].Font, FontStyle.Bold);
                 }
             }
 
