@@ -1348,18 +1348,10 @@ namespace ARKBreedingStats
             {
                 if (Properties.Settings.Default.LibraryHighlightTopCreatures && cr.topBreedingCreature)
                 {
-                    if (cr.onlyTopConsideredStats)
-                    {
-                        lvi.BackColor = UiColors.Current.TopBreedingAll;
-                        lvi.ForeColor = Utils.ForeColor(lvi.BackColor);
-                    }
-                    else
-                    {
-                        lvi.BackColor = UiColors.Current.TopBreedingSome;
-                        lvi.ForeColor = Utils.ForeColor(lvi.BackColor);
-                    }
+                    lvi.BackColor = cr.onlyTopConsideredStats ? UiColors.Current.TopBreedingAll : UiColors.Current.TopBreedingSome;
+                    lvi.ForeColor = Utils.ForeColor(lvi.BackColor);
                 }
-                lvi.SubItems[ColumnIndexTopStats].BackColor = Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, 0.7);
+                lvi.SubItems[ColumnIndexTopStats].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, 0.7));
             }
             else
             {
@@ -1374,7 +1366,7 @@ namespace ARKBreedingStats
             }
 
             // color for topness
-            lvi.SubItems[ColumnIndexTopness].BackColor = Utils.GetColorFromPercent(cr.topness / 5 - 100, 0.8); // topness is in permille. gradient from 50-100
+            lvi.SubItems[ColumnIndexTopness].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.topness / 5 - 100, 0.8)); // topness is in permille. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
@@ -1388,9 +1380,9 @@ namespace ARKBreedingStats
             if (cr.Mutations > 0)
             {
                 if (cr.Mutations < Ark.MutationPossibleWithLessThan)
-                    lvi.SubItems[ColumnIndexMutations].BackColor = UiColors.Current.MutationLevel;
+                    lvi.SubItems[ColumnIndexMutations].SetBackColorAndAccordingForeColor(UiColors.Current.MutationLevel);
                 else
-                    lvi.SubItems[ColumnIndexMutations].BackColor = UiColors.Current.MutationOverLimit;
+                    lvi.SubItems[ColumnIndexMutations].SetBackColorAndAccordingForeColor(UiColors.Current.MutationOverLimit);
             }
             else
                 lvi.SubItems[ColumnIndexMutations].ForeColor = SystemColors.GrayText;
@@ -1407,14 +1399,9 @@ namespace ARKBreedingStats
                 for (int cl = 0; cl < Ark.ColorRegionCount; cl++)
                 {
                     if (cr.colors[cl] != 0)
-                    {
-                        lvi.SubItems[ColumnIndexFirstColor + cl].BackColor = CreatureColors.CreatureColor(cr.colors[cl]);
-                        lvi.SubItems[ColumnIndexFirstColor + cl].ForeColor = Utils.ForeColor(lvi.SubItems[ColumnIndexFirstColor + cl].BackColor);
-                    }
+                        lvi.SubItems[ColumnIndexFirstColor + cl].SetBackColorAndAccordingForeColor(CreatureColors.CreatureColor(cr.colors[cl]));
                     else
-                    {
                         lvi.SubItems[ColumnIndexFirstColor + cl].ForeColor = cr.Species.EnabledColorRegions[cl] ? SystemColors.GrayText : SystemColors.Window;
-                    }
 
                     if (desiredColors.Options[cl].IsColorWanted(cr.colors[cl]))
                         lvi.SubItems[ColumnIndexFirstColor + cl].Font = new Font(lvi.SubItems[ColumnIndexFirstColor + cl].Font, FontStyle.Bold);
