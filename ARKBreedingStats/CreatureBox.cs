@@ -258,6 +258,7 @@ namespace ARKBreedingStats
             if (colorsChanged)
             {
                 _creature.colors = regionColorChooser1.ColorIds;
+                _creature.ColorIdsAlsoPossible = regionColorChooser1.ColorIdsAlsoPossible;
                 Changed?.Invoke(_creature, false, false);
             }
 
