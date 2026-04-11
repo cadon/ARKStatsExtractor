@@ -126,7 +126,7 @@ namespace ARKBreedingStats.uiControls
                 float drawnBorderWidth = borderWidth;
                 if (highlight)
                 {
-                    borderColor = Color.DodgerBlue;
+                    borderColor = UiColors.Current.PedigreeSelected;
                     drawnBorderWidth = 1.5f;
                 }
                 else

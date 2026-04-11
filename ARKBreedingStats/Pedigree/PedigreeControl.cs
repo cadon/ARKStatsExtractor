@@ -483,7 +483,7 @@ namespace ARKBreedingStats.Pedigree
                 CircleExplanation(Color.DarkRed, "creature mutations ≥ limit", yText, 6);
                 yText += lineHeight;
                 // rectangles
-                RectangleExplanation(Color.DodgerBlue, "selected creature", yText, 10);
+                RectangleExplanation(UiColors.Current.PedigreeSelected, "selected creature", yText, 10);
                 yText += lineHeight;
                 RectangleExplanation(Utils.MutationMarkerColor, "creature with mutation", yText, 10);
                 yText += lineHeight;
