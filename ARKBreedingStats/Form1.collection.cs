@@ -381,7 +381,7 @@ namespace ARKBreedingStats
         /// <returns></returns>
         private bool LoadCollectionFile(string filePath, bool keepCurrentCreatures = false, bool keepCurrentSelections = false, bool triggeredByFileWatcher = false, bool ignoreDeletionList = false)
         {
-            Species selectedSpecies = speciesSelector1.SelectedSpecies;
+            Species selectedSpecies = Values.V.SpeciesByBlueprint(speciesSelector1.LastSpecies.FirstOrDefault());
             Species selectedLibrarySpecies = listBoxSpeciesLib.SelectedItem as Species;
 
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
