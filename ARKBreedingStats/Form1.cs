@@ -199,10 +199,7 @@ namespace ARKBreedingStats
 
             ColoredCreatureImageDisplayExtractor.SetClickEventInfographic(InfographicFromExtractorToClipboard);
             ColoredCreatureImageDisplayTester.SetClickEventInfographic(InfographicFromTesterToClipboard);
-
-            openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter()
-                .ConvertTo(Keys.Control, typeof(string))?.ToString().Replace("None", ",");
-
+            
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 var statIo = new StatIO

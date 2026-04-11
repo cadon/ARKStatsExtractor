@@ -1,4 +1,7 @@
-﻿namespace ARKBreedingStats
+﻿using System.Globalization;
+using System.Windows.Forms;
+
+namespace ARKBreedingStats
 {
     public partial class Form1
     {
@@ -61,6 +64,8 @@
             Loc.ControlText(tsBtAddAsExtractionTest);
             Loc.ControlText(copyToMultiplierTesterToolStripButton);
             Loc.ControlText(copyInfographicToClipboardToolStripMenuItem, "copyInfoGraphicToClipboard");
+            openSettingsToolStripMenuItem.ShortcutKeyDisplayString = new KeysConverter()
+                .ConvertToString(null, CultureInfo.CurrentUICulture, openSettingsToolStripMenuItem.ShortcutKeys)?.Replace("Oemcomma", ",");
 
             // top bar
             Loc.ControlText(cbEventMultipliers, "Event");
