@@ -107,7 +107,7 @@ namespace ARKBreedingStats.Pedigree
             {
                 DrawLines(e.Graphics, _lines, _pedigreeViewMode == PedigreeViewMode.Classic ? 1 : PedigreeCreatureCompact.PedigreeLineWidthFactor);
                 if (_creatureChildren.Any())
-                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(Color.Black), 50, _yBottomOfPedigree);
+                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(SystemColors.ControlText), 50, _yBottomOfPedigree);
             }
         }
 
@@ -183,11 +183,11 @@ namespace ARKBreedingStats.Pedigree
                     switch (style)
                     {
                         case 1:
-                            p.Color = Color.Black;
+                            p.Color = SystemColors.ControlText;
                             p.Width = fineLineWidth;
                             break;
                         case 2:
-                            p.Color = Color.Black;
+                            p.Color = SystemColors.ControlText;
                             p.Width = boldLineWidth;
                             break;
                         case 3:
@@ -401,8 +401,8 @@ namespace ARKBreedingStats.Pedigree
             using (Graphics g = Graphics.FromImage(bmp))
             using (var font = new Font("Microsoft Sans Serif", 8.25f))
             using (var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
-            using (var pen = new Pen(Color.Black))
-            using (var brush = new SolidBrush(Color.Black))
+            using (var pen = new Pen(SystemColors.ControlText))
+            using (var brush = new SolidBrush(SystemColors.ControlText))
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
@@ -417,9 +417,9 @@ namespace ARKBreedingStats.Pedigree
                 const int radiusInnerCircle = statRadius / 7;
                 var statLeftTopCoords = new Point(padding, padding);
                 var center = new Point(statLeftTopCoords.X + statRadius, statLeftTopCoords.Y + statRadius);
-                brush.Color = Color.White;
+                brush.Color = SystemColors.HighlightText;
                 g.FillEllipse(brush, statLeftTopCoords.X, statLeftTopCoords.Y, statRadius * 2, statRadius * 2);
-                brush.Color = Color.Black;
+                brush.Color = SystemColors.ControlText;
 
                 var usedStats = Enumerable.Range(0, Stats.StatsCount).Where(si => si != Stats.Torpidity && species.UsesStat(si)).ToArray();
                 var anglePerStat = 360f / usedStats.Length;
@@ -448,7 +448,7 @@ namespace ARKBreedingStats.Pedigree
                 void CircleExplanation(Color circleColor, string text, int y, int circleSize, int circleOffset = 0)
                 {
                     PedigreeCreatureCompact.DrawFilledCircle(g, brush, pen, circleColor, padding + circleOffset, y + lineHeight / 4 + circleOffset, circleSize);
-                    brush.Color = Color.Black;
+                    brush.Color = SystemColors.ControlText;
                     g.DrawString(text, font, brush, textX, y);
                 }
 
@@ -457,7 +457,7 @@ namespace ARKBreedingStats.Pedigree
                     pen.Color = rectangleColor;
                     pen.Width = 2;
                     g.DrawRectangle(pen, padding, y, size, size);
-                    brush.Color = Color.Black;
+                    brush.Color = SystemColors.ControlText;
                     g.DrawString(text, font, brush, textX, y);
                 }
 
@@ -465,7 +465,7 @@ namespace ARKBreedingStats.Pedigree
                 {
                     var yLine = y + lineHeight / 2;
                     linesList.Add(new[] { padding, yLine, padding + size, yLine, lineStyle });
-                    brush.Color = Color.Black;
+                    brush.Color = SystemColors.ControlText;
                     g.DrawString(text, font, brush, textX, y);
                 }
 

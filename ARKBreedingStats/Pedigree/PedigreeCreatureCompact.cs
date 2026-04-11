@@ -122,7 +122,7 @@ namespace ARKBreedingStats.uiControls
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 
-                var borderColor = Color.FromArgb(219, 219, 219);
+                var borderColor = UiColors.IsDark ? Color.FromArgb(80, 80, 80) : Color.FromArgb(219, 219, 219);
                 float drawnBorderWidth = borderWidth;
                 if (highlight)
                 {
@@ -133,7 +133,7 @@ namespace ARKBreedingStats.uiControls
                 {
                     Cursor = Cursors.Hand;
                     if (highlightStatIndex != -1)
-                        borderColor = Color.Black;
+                        borderColor = SystemColors.ControlText;
                 }
 
                 if (mutationOccurred)
@@ -190,16 +190,17 @@ namespace ARKBreedingStats.uiControls
                 pen.Width = 1;
                 g.DrawEllipse(pen, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
 
-                brush.Color = Color.Black;
                 using (var format = new StringFormat
                 {
                     Alignment = StringAlignment.Center,
                     LineAlignment = StringAlignment.Center
                 })
                 {
+                    brush.Color = Utils.ForeColor(brush.Color);
                     g.DrawString(Utils.SexSymbol(creature.sex), font, brush,
                         new RectangleF(centerCoord - radiusInnerCircle + 1, centerCoord - radiusInnerCircle + 2, 2 * radiusInnerCircle, 2 * radiusInnerCircle),
                         format);
+                    brush.Color = SystemColors.ControlText;
                     g.DrawString(creature.name, font, brush,
                         new RectangleF(borderWidth, _statSize + borderWidth - 2, ControlWidth - borderWidth, _colorSize),
                         format);

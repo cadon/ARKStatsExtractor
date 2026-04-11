@@ -317,12 +317,13 @@ namespace ARKBreedingStats.Pedigree
                     {
                         _labelsStats[s].Text = _creature.levelsWild[si].ToString();
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
-                            _labelsStats[s].BackColor = Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7);
+                            _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7));
                         else
-                            _labelsStats[s].BackColor = Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
-                                _creature.IsTopStat(si) ? 0.2 : 0.7);
+                            _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
+                                _creature.IsTopStat(si) ? 0.2 : 0.7));
 
-                        _labelsStats[s].ForeColor = Parent?.ForeColor ?? SystemColors.ControlText; // needed so text is not transparent on overlay
+                        if (Parent?.ForeColor != null)
+                            _labelsStats[s].ForeColor = Parent.ForeColor; // needed so text is not transparent on overlay
                         var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition?.StatIndex == si), Environment.NewLine);
                         if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
@@ -359,7 +360,7 @@ namespace ARKBreedingStats.Pedigree
                 {
                     labelSex.Visible = true;
                     labelSex.Text = Utils.SexSymbol(_creature.sex);
-                    labelSex.BackColor = _creature.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText : Utils.SexColor(_creature.sex);
+                    labelSex.SetBackColorAndAccordingForeColor(_creature.flags.HasFlag(CreatureFlags.Neutered) ? SystemColors.GrayText : Utils.SexColor(_creature.sex));
                     UpdateColors(_creature.colors);
                     _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors));
                     labelSex.Visible = true;
@@ -371,7 +372,7 @@ namespace ARKBreedingStats.Pedigree
                 {
                     var totalMutationsString = totalMutations.ToString();
                     labelMutations.Text = totalMutationsString.Length > 4 ? totalMutationsString.Substring(0, 4) + "…" : totalMutationsString;
-                    labelMutations.BackColor = totalMutations < Ark.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit;
+                    labelMutations.SetBackColorAndAccordingForeColor(totalMutations < Ark.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit);
                     _ttMonospaced.SetToolTip(labelMutations,
                         $"Mutation-Counter: {totalMutations,13:#,0}\nMaternal: {_creature.mutationsMaternal,21:#,0}\nPaternal: {_creature.mutationsPaternal,21:#,0}");
                 }

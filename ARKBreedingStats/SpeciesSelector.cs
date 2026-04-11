@@ -265,8 +265,8 @@ namespace ARKBreedingStats
                     newItems.Add(new ListViewItem(new[] { s.DisplayName, s.Species.VariantInfo, s.Species.IsDomesticable ? "✓" : string.Empty, s.ModName })
                     {
                         Tag = s.Species,
-                        BackColor = !s.Species.IsDomesticable ? Color.FromArgb(255, 245, 230)
-                            : !string.IsNullOrEmpty(s.ModName) && s.ModName != "Ark: Survival Ascended" ? Color.FromArgb(230, 245, 255)
+                        BackColor = !s.Species.IsDomesticable ? UiColors.Current.Warning
+                            : !string.IsNullOrEmpty(s.ModName) && s.ModName != "Ark: Survival Ascended" ? UiColors.Current.Info
                             : SystemColors.Window,
                         ToolTipText = s.Species.blueprintPath,
                     });
