@@ -355,6 +355,9 @@ namespace ARKBreedingStats
             // initialize speech recognition if enabled
             InitializeSpeechRecognition();
 
+            // library
+            radarChartLibrary.SetLevels(new int[Stats.StatsCount], species: Values.V.Species.FirstOrDefault());
+
             // UI loaded
 
             //// initialize controls

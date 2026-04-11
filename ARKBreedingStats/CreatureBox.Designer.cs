@@ -52,9 +52,9 @@ namespace ARKBreedingStats
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             statsDisplay1 = new StatsDisplay();
             panel2 = new System.Windows.Forms.Panel();
+            labelNotes = new System.Windows.Forms.Label();
             LbFather = new System.Windows.Forms.Label();
             LbMotherAndWildInfo = new System.Windows.Forms.Label();
-            labelNotes = new System.Windows.Forms.Label();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             regionColorChooser1 = new RegionColorChooser();
             groupBox1.SuspendLayout();
@@ -321,6 +321,15 @@ namespace ARKBreedingStats
             panel2.Size = new System.Drawing.Size(219, 425);
             panel2.TabIndex = 29;
             // 
+            // labelNotes
+            // 
+            labelNotes.Location = new System.Drawing.Point(0, 30);
+            labelNotes.Margin = new System.Windows.Forms.Padding(0);
+            labelNotes.Name = "labelNotes";
+            labelNotes.Size = new System.Drawing.Size(214, 25);
+            labelNotes.TabIndex = 18;
+            labelNotes.Text = "Notes";
+            // 
             // LbFather
             // 
             LbFather.AutoSize = true;
@@ -339,15 +348,6 @@ namespace ARKBreedingStats
             LbMotherAndWildInfo.Size = new System.Drawing.Size(214, 40);
             LbMotherAndWildInfo.TabIndex = 17;
             LbMotherAndWildInfo.Click += LbMotherClick;
-            // 
-            // labelNotes
-            // 
-            labelNotes.Location = new System.Drawing.Point(0, 30);
-            labelNotes.Margin = new System.Windows.Forms.Padding(0);
-            labelNotes.Name = "labelNotes";
-            labelNotes.Size = new System.Drawing.Size(214, 25);
-            labelNotes.TabIndex = 18;
-            labelNotes.Text = "Notes";
             // 
             // pictureBox1
             // 

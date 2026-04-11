@@ -118,43 +118,41 @@ namespace ARKBreedingStats
         public void UpdateLabel()
         {
             LbMotherAndWildInfo.Text = string.Empty;
-            if (_creature != null)
+            if (_creature == null) return;
+            groupBox1.Text = $"{_creature.name} (Lvl {_creature.Level}/{_creature.LevelHatched + _cc.maxDomLevel})";
+
+            void SetParentLabel(Label l, string lbText = null, bool clickable = false)
             {
-                groupBox1.Text = $"{_creature.name} (Lvl {_creature.Level}/{_creature.LevelHatched + _cc.maxDomLevel})";
-
-                void SetParentLabel(Label l, string lbText = null, bool clickable = false)
-                {
-                    l.Text = lbText;
-                    l.Cursor = clickable ? Cursors.Hand : null;
-                    _tt.SetToolTip(l, clickable ? lbText : null);
-                }
-
-                SetParentLabel(LbFather);
-
-                if (_creature.Mother != null || _creature.Father != null)
-                {
-                    SetParentLabel(LbMotherAndWildInfo, _creature.Mother != null ? $"{Loc.S("Mother")}: {_creature.Mother.name}" : null, _creature.Mother != null);
-                    SetParentLabel(LbFather, _creature.Father != null ? $"{Loc.S("Father")}: {_creature.Father.name}" : null, _creature.Father != null);
-                }
-                else if (_creature.isBred)
-                {
-                    SetParentLabel(LbMotherAndWildInfo, "bred, click 'edit' to add parents");
-                }
-                else if (_creature.isDomesticated)
-                {
-                    SetParentLabel(LbMotherAndWildInfo, _creature.tamingEff >= 0 ? "was level " + _creature.levelFound + " when wild, tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : "wild level and TE unknown.");
-                }
-                else
-                {
-                    SetParentLabel(LbMotherAndWildInfo, "is wild level " + _creature.levelFound);
-                }
-                statsDisplay1.SetCreatureValues(_creature);
-                labelNotes.Text = _creature.note;
-                _tt.SetToolTip(labelNotes, _creature.note);
-                pictureBox1.Visible = false;
-                CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
-                    _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
+                l.Text = lbText;
+                l.Cursor = clickable ? Cursors.Hand : null;
+                _tt.SetToolTip(l, clickable ? lbText : null);
             }
+
+            SetParentLabel(LbFather);
+
+            if (_creature.Mother != null || _creature.Father != null)
+            {
+                SetParentLabel(LbMotherAndWildInfo, _creature.Mother != null ? $"{Loc.S("Mother")}: {_creature.Mother.name}" : null, _creature.Mother != null);
+                SetParentLabel(LbFather, _creature.Father != null ? $"{Loc.S("Father")}: {_creature.Father.name}" : null, _creature.Father != null);
+            }
+            else if (_creature.isBred)
+            {
+                SetParentLabel(LbMotherAndWildInfo, "bred, click 'edit' to add parents");
+            }
+            else if (_creature.isDomesticated)
+            {
+                SetParentLabel(LbMotherAndWildInfo, _creature.tamingEff >= 0 ? "was level " + _creature.levelFound + " when wild, tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : "wild level and TE unknown.");
+            }
+            else
+            {
+                SetParentLabel(LbMotherAndWildInfo, "is wild level " + _creature.levelFound);
+            }
+            statsDisplay1.SetCreatureValues(_creature);
+            labelNotes.Text = _creature.note;
+            _tt.SetToolTip(labelNotes, _creature.note);
+            pictureBox1.Visible = false;
+            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
+                _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
         }
 
         private void UpdateCreatureImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist _)

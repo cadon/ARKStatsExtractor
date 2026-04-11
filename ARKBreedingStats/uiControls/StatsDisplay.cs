@@ -10,7 +10,7 @@ namespace ARKBreedingStats.uiControls
     internal class StatsDisplay : FlowLayoutPanel
     {
         private readonly StatDisplay[] _stats = new StatDisplay[Stats.StatsCount];
-        private readonly ToolTip _tt = new ToolTip();
+        private readonly ToolTip _tt = new();
         private readonly Label _lbSex;
         private Species _species;
         private StatLevelColors[] _levelColors;
@@ -24,13 +24,13 @@ namespace ARKBreedingStats.uiControls
             panelHeader.Controls.Add(_lbSex);
             var lbWildL = new Label { Text = "W", AutoSize = true, Left = 28 };
             panelHeader.Controls.Add(lbWildL);
-            var lbMutL = new Label { Text = "M", AutoSize = true, Left = 49 };
+            var lbMutL = new Label { Text = "M", AutoSize = true, Left = 51 };
             panelHeader.Controls.Add(lbMutL);
-            var lbDomL = new Label { Text = "D", AutoSize = true, Left = 72 };
+            var lbDomL = new Label { Text = "D", AutoSize = true, Left = 73 };
             panelHeader.Controls.Add(lbDomL);
-            var lbValueBreed = new Label { Text = "Breed", AutoSize = true, Left = 103 };
+            var lbValueBreed = new Label { Text = "Breed", AutoSize = true, Left = 106 };
             panelHeader.Controls.Add(lbValueBreed);
-            var lbValueCurrent = new Label { Text = "Current", AutoSize = true, Left = 140 };
+            var lbValueCurrent = new Label { Text = "Current", AutoSize = true, Left = 150 };
             panelHeader.Controls.Add(lbValueCurrent);
 
             // tooltips
