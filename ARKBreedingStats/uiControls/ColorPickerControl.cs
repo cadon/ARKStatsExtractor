@@ -243,6 +243,12 @@ namespace ARKBreedingStats.uiControls
         {
             public ColorStatus Status;
 
+            public NoPaddingButton()
+            {
+                FlatStyle = FlatStyle.Flat;
+                FlatAppearance.BorderSize = 0;
+            }
+
             protected override void OnPaint(PaintEventArgs pe)
             {
                 pe.Graphics.Clear(SystemColors.Control);

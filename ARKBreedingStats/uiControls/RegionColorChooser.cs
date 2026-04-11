@@ -242,10 +242,16 @@ namespace ARKBreedingStats.uiControls
 
         private class NoPaddingButton : Button
         {
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public LevelColorStatusFlags.ColorStatus ColorStatus { get; set; }
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public bool AlternativeColorPossible { get; set; }
+
+            public NoPaddingButton()
+            {
+                FlatStyle = FlatStyle.Flat;
+                FlatAppearance.BorderSize = 0;
+            }
 
             protected override void OnPaint(PaintEventArgs pe)
             {
