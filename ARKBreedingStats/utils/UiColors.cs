@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
-using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace ARKBreedingStats.utils
@@ -250,6 +249,12 @@ namespace ARKBreedingStats.utils
             var prop = typeof(UiPalette).GetProperty(slotName, BindingFlags.Public | BindingFlags.Instance);
             return prop != null ? (Color)prop.GetValue(palette) : Color.Empty;
         }
+
+        #endregion
+
+        #region fixed colors
+
+        internal static Color LinkLabelText() => IsDark ? Color.CornflowerBlue : Color.Blue;
 
         #endregion
 

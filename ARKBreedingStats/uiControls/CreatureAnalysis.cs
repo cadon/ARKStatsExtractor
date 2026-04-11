@@ -29,7 +29,7 @@ namespace ARKBreedingStats.uiControls
                 var lbColorId = new Label { AutoSize = true, TextAlign = ContentAlignment.MiddleRight, Dock = DockStyle.Fill, Padding = new Padding(3) };
                 var lbCreatureCount = new Label { AutoSize = true, TextAlign = ContentAlignment.MiddleRight, Anchor = AnchorStyles.Right, Padding = new Padding(3) };
                 var lbWantedColor = new Label { AutoSize = true, ForeColor = Color.White, BackColor = Color.DarkGreen, Padding = new Padding(3) };
-                var llbLibraryLink = new LinkLabel { AutoSize = true, Text = "view", Tag = ri };
+                var llbLibraryLink = new LinkLabel { AutoSize = true, Text = "view", Tag = ri, LinkColor = UiColors.LinkLabelText() };
                 llbLibraryLink.Click += (s, e) => ViewInLibrary((int)((LinkLabel)s).Tag);
 
                 _labelsRegionColors[3 * ri] = lbColorId;

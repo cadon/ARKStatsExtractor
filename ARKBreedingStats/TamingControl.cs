@@ -43,6 +43,7 @@ namespace ARKBreedingStats
             _rbBoneDamageAdjusters = new List<RadioButton> { rbBoneDamageDefault };
             flcBodyDamageMultipliers.SetFlowBreak(rbBoneDamageDefault, true);
             _rbBoneDamageAdjusterValues = new List<double> { 1 };
+            linkLabelWikiPage.LinkColor = UiColors.LinkLabelText();
         }
 
         public void SetLevel(int level, bool updateTamingData = true)

@@ -23,6 +23,7 @@ namespace ARKBreedingStats
             TbDependencies.Text = File.Exists(dependenciesFilePath)
                 ? File.ReadAllText(dependenciesFilePath)
                 : "see " + "https://raw.githubusercontent.com/cadon/ARKStatsExtractor/dev/ARKBreedingStats/" + noticeFileName;
+            linkLabel.LinkColor = UiColors.LinkLabelText();
         }
 
         #region Assemblyattributaccessoren

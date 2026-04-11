@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -23,6 +22,10 @@ namespace ARKBreedingStats.SpeciesImages
             DisplayInfo(null);
 
             FormClosing += ImagePackSelection_FormClosing;
+
+            var lColor = UiColors.LinkLabelText();
+            LLFolder.LinkColor = lColor;
+            LlImagePackManual.LinkColor = lColor;
         }
 
         private void ImagePackSelection_FormClosing(object sender, FormClosingEventArgs e)

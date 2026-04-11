@@ -41,6 +41,7 @@ namespace ARKBreedingStats.NamePatterns
         {
             InitializeComponent();
             txtboxPattern.KeyDown += HandleTextBoxIndentation;
+            linkLabel1.LinkColor = UiColors.LinkLabelText();
         }
 
         private void HandleTextBoxIndentation(object sender, KeyEventArgs e)

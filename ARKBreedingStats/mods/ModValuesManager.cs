@@ -33,6 +33,11 @@ namespace ARKBreedingStats.mods
                 new ListViewGroup("Unofficial")
             });
             LvAvailableModFiles.DoubleBuffered(true);
+
+            var lColor = UiColors.LinkLabelText();
+            LlModWebPage.LinkColor = lColor;
+            LlUnofficialModFiles.LinkColor = lColor;
+            linkLabelCustomModManual.LinkColor = lColor;
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

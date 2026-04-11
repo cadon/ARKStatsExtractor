@@ -199,7 +199,7 @@ namespace ARKBreedingStats
 
             ColoredCreatureImageDisplayExtractor.SetClickEventInfographic(InfographicFromExtractorToClipboard);
             ColoredCreatureImageDisplayTester.SetClickEventInfographic(InfographicFromTesterToClipboard);
-            
+
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 var statIo = new StatIO
@@ -291,6 +291,8 @@ namespace ARKBreedingStats
             editToolStripMenuItem.DropDownItems.Add(copyTopCreatureStatsToClipboardMenuItem);
 
             listBoxSpeciesLib.SupportSeparatorLines();
+
+            llOnlineHelpExtractionIssues.LinkColor = UiColors.LinkLabelText();
 
             _reactOnCreatureSelectionChange = true;
         }

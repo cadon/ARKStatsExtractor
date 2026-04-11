@@ -29,6 +29,7 @@ namespace ARKBreedingStats.settings
             {
                 AtImportFileLocation = fileLocation;
             }
+            LlFtpHelp.LinkColor = UiColors.LinkLabelText();
         }
 
         private void button_FileSelect_Click(object sender, EventArgs e)

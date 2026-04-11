@@ -34,6 +34,7 @@ namespace ARKBreedingStats.ocr
             _tt = new ToolTip();
             ocrLetterEditTemplate.drawingEnabled = true;
             ocrLetterEditTemplate.PatternChanged += OcrLetterEditTemplate_PatternChanged;
+            LlOcrManual.LinkColor = UiColors.LinkLabelText();
         }
 
         public void Initialize()
