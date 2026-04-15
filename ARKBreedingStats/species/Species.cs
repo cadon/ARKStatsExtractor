@@ -576,9 +576,9 @@ namespace ARKBreedingStats.species
             switch (creatureSex)
             {
                 case Sex.Female:
-                    return nameMale ?? name;
-                case Sex.Male:
                     return nameFemale ?? name;
+                case Sex.Male:
+                    return nameMale ?? name;
                 default:
                     return name;
             }
