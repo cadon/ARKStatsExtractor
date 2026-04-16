@@ -1728,7 +1728,7 @@ namespace ARKBreedingStats
             tabControlMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 1;
-            tabControlMain.Size = new System.Drawing.Size(2191, 946);
+            tabControlMain.Size = new System.Drawing.Size(2191, 944);
             tabControlMain.TabIndex = 3;
             tabControlMain.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
@@ -1748,7 +1748,7 @@ namespace ARKBreedingStats
             tabPageStatTesting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageStatTesting.Name = "tabPageStatTesting";
             tabPageStatTesting.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageStatTesting.Size = new System.Drawing.Size(2183, 918);
+            tabPageStatTesting.Size = new System.Drawing.Size(2183, 916);
             tabPageStatTesting.TabIndex = 1;
             tabPageStatTesting.Text = "Stat Testing";
             // 
@@ -3221,7 +3221,7 @@ namespace ARKBreedingStats
             tabPageLibraryInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageLibraryInfo.Name = "tabPageLibraryInfo";
             tabPageLibraryInfo.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageLibraryInfo.Size = new System.Drawing.Size(2183, 918);
+            tabPageLibraryInfo.Size = new System.Drawing.Size(192, 72);
             tabPageLibraryInfo.TabIndex = 14;
             tabPageLibraryInfo.Text = "Library Info";
             // 
@@ -3239,7 +3239,7 @@ namespace ARKBreedingStats
             tlpLibraryInfo.RowCount = 2;
             tlpLibraryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tlpLibraryInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tlpLibraryInfo.Size = new System.Drawing.Size(2175, 912);
+            tlpLibraryInfo.Size = new System.Drawing.Size(184, 66);
             tlpLibraryInfo.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -3255,7 +3255,7 @@ namespace ARKBreedingStats
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel3.Size = new System.Drawing.Size(2167, 35);
+            tableLayoutPanel3.Size = new System.Drawing.Size(176, 35);
             tableLayoutPanel3.TabIndex = 2;
             // 
             // CbLibraryInfoUseFilter
@@ -3296,7 +3296,7 @@ namespace ARKBreedingStats
             libraryInfoControl1.RowCount = 2;
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            libraryInfoControl1.Size = new System.Drawing.Size(2167, 865);
+            libraryInfoControl1.Size = new System.Drawing.Size(176, 19);
             libraryInfoControl1.TabIndex = 3;
             // 
             // tabPagePedigree
@@ -3558,10 +3558,10 @@ namespace ARKBreedingStats
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripProgressBar1, toolStripStatusLabel, ToolStripStatusLabelImport });
-            statusStrip1.Location = new System.Drawing.Point(0, 1057);
+            statusStrip1.Location = new System.Drawing.Point(0, 1055);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            statusStrip1.Size = new System.Drawing.Size(2191, 22);
+            statusStrip1.Size = new System.Drawing.Size(2191, 24);
             statusStrip1.TabIndex = 44;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -3574,14 +3574,15 @@ namespace ARKBreedingStats
             // toolStripStatusLabel
             // 
             toolStripStatusLabel.Name = "toolStripStatusLabel";
-            toolStripStatusLabel.Size = new System.Drawing.Size(120, 17);
+            toolStripStatusLabel.Size = new System.Drawing.Size(120, 19);
             toolStripStatusLabel.Text = "ToolStripStatusLabel1";
             // 
             // ToolStripStatusLabelImport
             // 
             ToolStripStatusLabelImport.BackColor = System.Drawing.Color.Yellow;
+            ToolStripStatusLabelImport.ForeColor = System.Drawing.Color.Black;
             ToolStripStatusLabelImport.Name = "ToolStripStatusLabelImport";
-            ToolStripStatusLabelImport.Size = new System.Drawing.Size(125, 17);
+            ToolStripStatusLabelImport.Size = new System.Drawing.Size(125, 19);
             ToolStripStatusLabelImport.Text = "Importing savegame…";
             ToolStripStatusLabelImport.Visible = false;
             // 
@@ -4008,7 +4009,7 @@ namespace ARKBreedingStats
             speciesSelector1.Location = new System.Drawing.Point(0, 111);
             speciesSelector1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             speciesSelector1.Name = "speciesSelector1";
-            speciesSelector1.Size = new System.Drawing.Size(2191, 946);
+            speciesSelector1.Size = new System.Drawing.Size(2191, 944);
             speciesSelector1.TabIndex = 0;
             // 
             // Form1
