@@ -61,7 +61,8 @@ namespace ARKBreedingStats.uiControls
                     TextAlign = ContentAlignment.MiddleCenter,
                     Tag = i,
                     Width = buttonsTotalWidth / 6 - buttonMargins,
-                    Height = 70
+                    Height = 70,
+                    FlatStyle = FlatStyle.Flat
                 };
                 _colorRegionButtons[i] = bt;
                 bt.Click += ButtonRegionClick;
