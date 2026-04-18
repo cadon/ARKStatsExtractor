@@ -30,714 +30,723 @@ namespace ARKBreedingStats
         /// </summary>
         private void InitializeComponent()
         {
-            this.gbCreatureInfo = new System.Windows.Forms.GroupBox();
-            this.BtTraits = new System.Windows.Forms.Button();
-            this.CbMutagen = new System.Windows.Forms.CheckBox();
-            this.LbColorNewInRegion = new System.Windows.Forms.Label();
-            this.LbColorNewInSpecies = new System.Windows.Forms.Label();
-            this.BtApplyOTSPreset = new System.Windows.Forms.Button();
-            this.BtSaveOTSPreset = new System.Windows.Forms.Button();
-            this.btNamingPattern6 = new System.Windows.Forms.Button();
-            this.btNamingPattern5 = new System.Windows.Forms.Button();
-            this.btNamingPattern4 = new System.Windows.Forms.Button();
-            this.btNamingPattern3 = new System.Windows.Forms.Button();
-            this.btNamingPattern2 = new System.Windows.Forms.Button();
-            this.btNamingPatternEditor = new System.Windows.Forms.Button();
-            this.btnGenerateUniqueName = new System.Windows.Forms.Button();
-            this.TbArkIdIngame = new System.Windows.Forms.TextBox();
-            this.TbArkId = new System.Windows.Forms.TextBox();
-            this.cbServer = new System.Windows.Forms.ComboBox();
-            this.textBoxTribe = new System.Windows.Forms.TextBox();
-            this.textBoxNote = new System.Windows.Forms.TextBox();
-            this.parentComboBoxFather = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.parentComboBoxMother = new ARKBreedingStats.uiControls.ParentComboBox();
-            this.textBoxOwner = new System.Windows.Forms.TextBox();
-            this.textBoxName = new System.Windows.Forms.TextBox();
-            this.nudMutationsFather = new ARKBreedingStats.uiControls.Nud();
-            this.nudMutationsMother = new ARKBreedingStats.uiControls.Nud();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.dhmsInputGrown = new ARKBreedingStats.uiControls.dhmsInput();
-            this.dhmsInputCooldown = new ARKBreedingStats.uiControls.dhmsInput();
-            this.nudMaturation = new ARKBreedingStats.uiControls.Nud();
-            this.cbNeutered = new System.Windows.Forms.CheckBox();
-            this.dateTimePickerDomesticatedAt = new System.Windows.Forms.DateTimePicker();
-            this.buttonStatus = new System.Windows.Forms.Button();
-            this.buttonSex = new System.Windows.Forms.Button();
-            this.lbNewMutations = new System.Windows.Forms.Label();
-            this.LbArkIdIngame = new System.Windows.Forms.Label();
-            this.LbArkId = new System.Windows.Forms.Label();
-            this.btClearColors = new System.Windows.Forms.Button();
-            this.regionColorChooser1 = new ARKBreedingStats.uiControls.RegionColorChooser();
-            this.lbServer = new System.Windows.Forms.Label();
-            this.lbTribe = new System.Windows.Forms.Label();
-            this.lbStatus = new System.Windows.Forms.Label();
-            this.lbSex = new System.Windows.Forms.Label();
-            this.lbMutations = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lbMaturationPerc = new System.Windows.Forms.Label();
-            this.lbCooldown = new System.Windows.Forms.Label();
-            this.lbGrownIn = new System.Windows.Forms.Label();
-            this.btSaveChanges = new System.Windows.Forms.Button();
-            this.lbNote = new System.Windows.Forms.Label();
-            this.lbFather = new System.Windows.Forms.Label();
-            this.lbMother = new System.Windows.Forms.Label();
-            this.lbOwner = new System.Windows.Forms.Label();
-            this.lbName = new System.Windows.Forms.Label();
-            this.btAdd2Library = new System.Windows.Forms.Button();
-            this.gbCreatureInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaturation)).BeginInit();
-            this.SuspendLayout();
+            gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            BtTraits = new System.Windows.Forms.Button();
+            CbMutagen = new System.Windows.Forms.CheckBox();
+            LbColorNewInRegion = new System.Windows.Forms.Label();
+            LbColorNewInSpecies = new System.Windows.Forms.Label();
+            BtApplyOTSPreset = new System.Windows.Forms.Button();
+            BtSaveOTSPreset = new System.Windows.Forms.Button();
+            btNamingPattern6 = new System.Windows.Forms.Button();
+            btNamingPattern5 = new System.Windows.Forms.Button();
+            btNamingPattern4 = new System.Windows.Forms.Button();
+            btNamingPattern3 = new System.Windows.Forms.Button();
+            btNamingPattern2 = new System.Windows.Forms.Button();
+            btNamingPatternEditor = new System.Windows.Forms.Button();
+            btnGenerateUniqueName = new System.Windows.Forms.Button();
+            TbArkIdIngame = new System.Windows.Forms.TextBox();
+            TbArkId = new System.Windows.Forms.TextBox();
+            cbServer = new System.Windows.Forms.ComboBox();
+            textBoxTribe = new System.Windows.Forms.TextBox();
+            textBoxNote = new System.Windows.Forms.TextBox();
+            parentComboBoxFather = new ParentComboBox();
+            parentComboBoxMother = new ParentComboBox();
+            textBoxOwner = new System.Windows.Forms.TextBox();
+            textBoxName = new System.Windows.Forms.TextBox();
+            nudMutationsFather = new Nud();
+            nudMutationsMother = new Nud();
+            label12 = new System.Windows.Forms.Label();
+            label11 = new System.Windows.Forms.Label();
+            dhmsInputGrown = new dhmsInput();
+            dhmsInputCooldown = new dhmsInput();
+            nudMaturation = new Nud();
+            cbNeutered = new System.Windows.Forms.CheckBox();
+            dateTimePickerDomesticatedAt = new System.Windows.Forms.DateTimePicker();
+            buttonStatus = new System.Windows.Forms.Button();
+            buttonSex = new System.Windows.Forms.Button();
+            lbNewMutations = new System.Windows.Forms.Label();
+            LbArkIdIngame = new System.Windows.Forms.Label();
+            LbArkId = new System.Windows.Forms.Label();
+            btClearColors = new System.Windows.Forms.Button();
+            regionColorChooser1 = new RegionColorChooser();
+            lbServer = new System.Windows.Forms.Label();
+            lbTribe = new System.Windows.Forms.Label();
+            lbStatus = new System.Windows.Forms.Label();
+            lbSex = new System.Windows.Forms.Label();
+            lbMutations = new System.Windows.Forms.Label();
+            label7 = new System.Windows.Forms.Label();
+            lbMaturationPerc = new System.Windows.Forms.Label();
+            lbCooldown = new System.Windows.Forms.Label();
+            lbGrownIn = new System.Windows.Forms.Label();
+            btSaveChanges = new System.Windows.Forms.Button();
+            lbNote = new System.Windows.Forms.Label();
+            lbFather = new System.Windows.Forms.Label();
+            lbMother = new System.Windows.Forms.Label();
+            lbOwner = new System.Windows.Forms.Label();
+            lbName = new System.Windows.Forms.Label();
+            btAdd2Library = new System.Windows.Forms.Button();
+            gbCreatureInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMutationsFather).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudMutationsMother).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudMaturation).BeginInit();
+            SuspendLayout();
             // 
             // gbCreatureInfo
             // 
-            this.gbCreatureInfo.Controls.Add(this.BtTraits);
-            this.gbCreatureInfo.Controls.Add(this.CbMutagen);
-            this.gbCreatureInfo.Controls.Add(this.LbColorNewInRegion);
-            this.gbCreatureInfo.Controls.Add(this.LbColorNewInSpecies);
-            this.gbCreatureInfo.Controls.Add(this.BtApplyOTSPreset);
-            this.gbCreatureInfo.Controls.Add(this.BtSaveOTSPreset);
-            this.gbCreatureInfo.Controls.Add(this.btNamingPattern6);
-            this.gbCreatureInfo.Controls.Add(this.btNamingPattern5);
-            this.gbCreatureInfo.Controls.Add(this.btNamingPattern4);
-            this.gbCreatureInfo.Controls.Add(this.btNamingPattern3);
-            this.gbCreatureInfo.Controls.Add(this.btNamingPattern2);
-            this.gbCreatureInfo.Controls.Add(this.btNamingPatternEditor);
-            this.gbCreatureInfo.Controls.Add(this.btnGenerateUniqueName);
-            this.gbCreatureInfo.Controls.Add(this.TbArkIdIngame);
-            this.gbCreatureInfo.Controls.Add(this.TbArkId);
-            this.gbCreatureInfo.Controls.Add(this.cbServer);
-            this.gbCreatureInfo.Controls.Add(this.textBoxTribe);
-            this.gbCreatureInfo.Controls.Add(this.textBoxNote);
-            this.gbCreatureInfo.Controls.Add(this.parentComboBoxFather);
-            this.gbCreatureInfo.Controls.Add(this.parentComboBoxMother);
-            this.gbCreatureInfo.Controls.Add(this.textBoxOwner);
-            this.gbCreatureInfo.Controls.Add(this.textBoxName);
-            this.gbCreatureInfo.Controls.Add(this.nudMutationsFather);
-            this.gbCreatureInfo.Controls.Add(this.nudMutationsMother);
-            this.gbCreatureInfo.Controls.Add(this.label12);
-            this.gbCreatureInfo.Controls.Add(this.label11);
-            this.gbCreatureInfo.Controls.Add(this.dhmsInputGrown);
-            this.gbCreatureInfo.Controls.Add(this.dhmsInputCooldown);
-            this.gbCreatureInfo.Controls.Add(this.nudMaturation);
-            this.gbCreatureInfo.Controls.Add(this.cbNeutered);
-            this.gbCreatureInfo.Controls.Add(this.dateTimePickerDomesticatedAt);
-            this.gbCreatureInfo.Controls.Add(this.buttonStatus);
-            this.gbCreatureInfo.Controls.Add(this.buttonSex);
-            this.gbCreatureInfo.Controls.Add(this.lbNewMutations);
-            this.gbCreatureInfo.Controls.Add(this.LbArkIdIngame);
-            this.gbCreatureInfo.Controls.Add(this.LbArkId);
-            this.gbCreatureInfo.Controls.Add(this.btClearColors);
-            this.gbCreatureInfo.Controls.Add(this.regionColorChooser1);
-            this.gbCreatureInfo.Controls.Add(this.lbServer);
-            this.gbCreatureInfo.Controls.Add(this.lbTribe);
-            this.gbCreatureInfo.Controls.Add(this.lbStatus);
-            this.gbCreatureInfo.Controls.Add(this.lbSex);
-            this.gbCreatureInfo.Controls.Add(this.lbMutations);
-            this.gbCreatureInfo.Controls.Add(this.label7);
-            this.gbCreatureInfo.Controls.Add(this.lbMaturationPerc);
-            this.gbCreatureInfo.Controls.Add(this.lbCooldown);
-            this.gbCreatureInfo.Controls.Add(this.lbGrownIn);
-            this.gbCreatureInfo.Controls.Add(this.btSaveChanges);
-            this.gbCreatureInfo.Controls.Add(this.lbNote);
-            this.gbCreatureInfo.Controls.Add(this.lbFather);
-            this.gbCreatureInfo.Controls.Add(this.lbMother);
-            this.gbCreatureInfo.Controls.Add(this.lbOwner);
-            this.gbCreatureInfo.Controls.Add(this.lbName);
-            this.gbCreatureInfo.Controls.Add(this.btAdd2Library);
-            this.gbCreatureInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbCreatureInfo.Location = new System.Drawing.Point(0, 0);
-            this.gbCreatureInfo.Name = "gbCreatureInfo";
-            this.gbCreatureInfo.Size = new System.Drawing.Size(262, 590);
-            this.gbCreatureInfo.TabIndex = 0;
-            this.gbCreatureInfo.TabStop = false;
-            this.gbCreatureInfo.Text = "Creature-info";
-            this.gbCreatureInfo.Enter += new System.EventHandler(this.groupBox1_Enter);
+            gbCreatureInfo.Controls.Add(BtTraits);
+            gbCreatureInfo.Controls.Add(CbMutagen);
+            gbCreatureInfo.Controls.Add(LbColorNewInRegion);
+            gbCreatureInfo.Controls.Add(LbColorNewInSpecies);
+            gbCreatureInfo.Controls.Add(BtApplyOTSPreset);
+            gbCreatureInfo.Controls.Add(BtSaveOTSPreset);
+            gbCreatureInfo.Controls.Add(btNamingPattern6);
+            gbCreatureInfo.Controls.Add(btNamingPattern5);
+            gbCreatureInfo.Controls.Add(btNamingPattern4);
+            gbCreatureInfo.Controls.Add(btNamingPattern3);
+            gbCreatureInfo.Controls.Add(btNamingPattern2);
+            gbCreatureInfo.Controls.Add(btNamingPatternEditor);
+            gbCreatureInfo.Controls.Add(btnGenerateUniqueName);
+            gbCreatureInfo.Controls.Add(TbArkIdIngame);
+            gbCreatureInfo.Controls.Add(TbArkId);
+            gbCreatureInfo.Controls.Add(cbServer);
+            gbCreatureInfo.Controls.Add(textBoxTribe);
+            gbCreatureInfo.Controls.Add(textBoxNote);
+            gbCreatureInfo.Controls.Add(parentComboBoxFather);
+            gbCreatureInfo.Controls.Add(parentComboBoxMother);
+            gbCreatureInfo.Controls.Add(textBoxOwner);
+            gbCreatureInfo.Controls.Add(textBoxName);
+            gbCreatureInfo.Controls.Add(nudMutationsFather);
+            gbCreatureInfo.Controls.Add(nudMutationsMother);
+            gbCreatureInfo.Controls.Add(label12);
+            gbCreatureInfo.Controls.Add(label11);
+            gbCreatureInfo.Controls.Add(dhmsInputGrown);
+            gbCreatureInfo.Controls.Add(dhmsInputCooldown);
+            gbCreatureInfo.Controls.Add(nudMaturation);
+            gbCreatureInfo.Controls.Add(cbNeutered);
+            gbCreatureInfo.Controls.Add(dateTimePickerDomesticatedAt);
+            gbCreatureInfo.Controls.Add(buttonStatus);
+            gbCreatureInfo.Controls.Add(buttonSex);
+            gbCreatureInfo.Controls.Add(lbNewMutations);
+            gbCreatureInfo.Controls.Add(LbArkIdIngame);
+            gbCreatureInfo.Controls.Add(LbArkId);
+            gbCreatureInfo.Controls.Add(btClearColors);
+            gbCreatureInfo.Controls.Add(regionColorChooser1);
+            gbCreatureInfo.Controls.Add(lbServer);
+            gbCreatureInfo.Controls.Add(lbTribe);
+            gbCreatureInfo.Controls.Add(lbStatus);
+            gbCreatureInfo.Controls.Add(lbSex);
+            gbCreatureInfo.Controls.Add(lbMutations);
+            gbCreatureInfo.Controls.Add(label7);
+            gbCreatureInfo.Controls.Add(lbMaturationPerc);
+            gbCreatureInfo.Controls.Add(lbCooldown);
+            gbCreatureInfo.Controls.Add(lbGrownIn);
+            gbCreatureInfo.Controls.Add(btSaveChanges);
+            gbCreatureInfo.Controls.Add(lbNote);
+            gbCreatureInfo.Controls.Add(lbFather);
+            gbCreatureInfo.Controls.Add(lbMother);
+            gbCreatureInfo.Controls.Add(lbOwner);
+            gbCreatureInfo.Controls.Add(lbName);
+            gbCreatureInfo.Controls.Add(btAdd2Library);
+            gbCreatureInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbCreatureInfo.Location = new System.Drawing.Point(0, 0);
+            gbCreatureInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCreatureInfo.Name = "gbCreatureInfo";
+            gbCreatureInfo.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbCreatureInfo.Size = new System.Drawing.Size(306, 681);
+            gbCreatureInfo.TabIndex = 0;
+            gbCreatureInfo.TabStop = false;
+            gbCreatureInfo.Text = "Creature-info";
+            gbCreatureInfo.Enter += groupBox1_Enter;
             // 
             // BtTraits
             // 
-            this.BtTraits.Location = new System.Drawing.Point(9, 412);
-            this.BtTraits.Name = "BtTraits";
-            this.BtTraits.Size = new System.Drawing.Size(53, 23);
-            this.BtTraits.TabIndex = 54;
-            this.BtTraits.Text = "Traits";
-            this.BtTraits.UseVisualStyleBackColor = true;
-            this.BtTraits.Click += new System.EventHandler(this.BtTraits_Click);
+            BtTraits.Location = new System.Drawing.Point(10, 475);
+            BtTraits.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtTraits.Name = "BtTraits";
+            BtTraits.Size = new System.Drawing.Size(62, 27);
+            BtTraits.TabIndex = 54;
+            BtTraits.Text = "Traits";
+            BtTraits.UseVisualStyleBackColor = true;
+            BtTraits.Click += BtTraits_Click;
             // 
             // CbMutagen
             // 
-            this.CbMutagen.Appearance = System.Windows.Forms.Appearance.Button;
-            this.CbMutagen.AutoSize = true;
-            this.CbMutagen.Location = new System.Drawing.Point(68, 412);
-            this.CbMutagen.Name = "CbMutagen";
-            this.CbMutagen.Size = new System.Drawing.Size(59, 23);
-            this.CbMutagen.TabIndex = 53;
-            this.CbMutagen.Text = "Mutagen";
-            this.CbMutagen.UseVisualStyleBackColor = true;
+            CbMutagen.Appearance = System.Windows.Forms.Appearance.Button;
+            CbMutagen.AutoSize = true;
+            CbMutagen.Location = new System.Drawing.Point(79, 475);
+            CbMutagen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbMutagen.Name = "CbMutagen";
+            CbMutagen.Size = new System.Drawing.Size(65, 25);
+            CbMutagen.TabIndex = 53;
+            CbMutagen.Text = "Mutagen";
+            CbMutagen.UseVisualStyleBackColor = true;
             // 
             // LbColorNewInRegion
             // 
-            this.LbColorNewInRegion.AutoSize = true;
-            this.LbColorNewInRegion.BackColor = System.Drawing.Color.DarkGreen;
-            this.LbColorNewInRegion.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.LbColorNewInRegion.Location = new System.Drawing.Point(65, 528);
-            this.LbColorNewInRegion.Name = "LbColorNewInRegion";
-            this.LbColorNewInRegion.Size = new System.Drawing.Size(89, 13);
-            this.LbColorNewInRegion.TabIndex = 52;
-            this.LbColorNewInRegion.Text = "new in this region";
+            LbColorNewInRegion.AutoSize = true;
+            LbColorNewInRegion.BackColor = System.Drawing.Color.DarkGreen;
+            LbColorNewInRegion.ForeColor = System.Drawing.SystemColors.HighlightText;
+            LbColorNewInRegion.Location = new System.Drawing.Point(76, 609);
+            LbColorNewInRegion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbColorNewInRegion.Name = "LbColorNewInRegion";
+            LbColorNewInRegion.Size = new System.Drawing.Size(101, 15);
+            LbColorNewInRegion.TabIndex = 52;
+            LbColorNewInRegion.Text = "new in this region";
             // 
             // LbColorNewInSpecies
             // 
-            this.LbColorNewInSpecies.AutoSize = true;
-            this.LbColorNewInSpecies.BackColor = System.Drawing.Color.Gold;
-            this.LbColorNewInSpecies.Location = new System.Drawing.Point(160, 528);
-            this.LbColorNewInSpecies.Name = "LbColorNewInSpecies";
-            this.LbColorNewInSpecies.Size = new System.Drawing.Size(96, 13);
-            this.LbColorNewInSpecies.TabIndex = 51;
-            this.LbColorNewInSpecies.Text = "new in this species";
+            LbColorNewInSpecies.AutoSize = true;
+            LbColorNewInSpecies.BackColor = System.Drawing.Color.Gold;
+            LbColorNewInSpecies.Location = new System.Drawing.Point(187, 609);
+            LbColorNewInSpecies.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbColorNewInSpecies.Name = "LbColorNewInSpecies";
+            LbColorNewInSpecies.Size = new System.Drawing.Size(105, 15);
+            LbColorNewInSpecies.TabIndex = 51;
+            LbColorNewInSpecies.Text = "new in this species";
             // 
             // BtApplyOTSPreset
             // 
-            this.BtApplyOTSPreset.Location = new System.Drawing.Point(50, 70);
-            this.BtApplyOTSPreset.Name = "BtApplyOTSPreset";
-            this.BtApplyOTSPreset.Size = new System.Drawing.Size(101, 20);
-            this.BtApplyOTSPreset.TabIndex = 50;
-            this.BtApplyOTSPreset.Text = "Preset OTS";
-            this.BtApplyOTSPreset.UseVisualStyleBackColor = true;
-            this.BtApplyOTSPreset.Click += new System.EventHandler(this.BtApplyOTSPreset_Click);
+            BtApplyOTSPreset.Location = new System.Drawing.Point(58, 81);
+            BtApplyOTSPreset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtApplyOTSPreset.Name = "BtApplyOTSPreset";
+            BtApplyOTSPreset.Size = new System.Drawing.Size(118, 23);
+            BtApplyOTSPreset.TabIndex = 50;
+            BtApplyOTSPreset.Text = "Preset OTS";
+            BtApplyOTSPreset.UseVisualStyleBackColor = true;
+            BtApplyOTSPreset.Click += BtApplyOTSPreset_Click;
             // 
             // BtSaveOTSPreset
             // 
-            this.BtSaveOTSPreset.Location = new System.Drawing.Point(157, 70);
-            this.BtSaveOTSPreset.Name = "BtSaveOTSPreset";
-            this.BtSaveOTSPreset.Size = new System.Drawing.Size(99, 20);
-            this.BtSaveOTSPreset.TabIndex = 49;
-            this.BtSaveOTSPreset.Text = "Save Preset";
-            this.BtSaveOTSPreset.UseVisualStyleBackColor = true;
-            this.BtSaveOTSPreset.Click += new System.EventHandler(this.BtSaveOTSPreset_Click);
+            BtSaveOTSPreset.Location = new System.Drawing.Point(183, 81);
+            BtSaveOTSPreset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtSaveOTSPreset.Name = "BtSaveOTSPreset";
+            BtSaveOTSPreset.Size = new System.Drawing.Size(115, 23);
+            BtSaveOTSPreset.TabIndex = 49;
+            BtSaveOTSPreset.Text = "Save Preset";
+            BtSaveOTSPreset.UseVisualStyleBackColor = true;
+            BtSaveOTSPreset.Click += BtSaveOTSPreset_Click;
             // 
             // btNamingPattern6
             // 
-            this.btNamingPattern6.Location = new System.Drawing.Point(220, 44);
-            this.btNamingPattern6.Name = "btNamingPattern6";
-            this.btNamingPattern6.Size = new System.Drawing.Size(36, 20);
-            this.btNamingPattern6.TabIndex = 48;
-            this.btNamingPattern6.TabStop = false;
-            this.btNamingPattern6.Text = "G6";
-            this.btNamingPattern6.UseVisualStyleBackColor = true;
+            btNamingPattern6.Location = new System.Drawing.Point(257, 51);
+            btNamingPattern6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern6.Name = "btNamingPattern6";
+            btNamingPattern6.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern6.TabIndex = 48;
+            btNamingPattern6.TabStop = false;
+            btNamingPattern6.Text = "G6";
+            btNamingPattern6.UseVisualStyleBackColor = true;
             // 
             // btNamingPattern5
             // 
-            this.btNamingPattern5.Location = new System.Drawing.Point(178, 44);
-            this.btNamingPattern5.Name = "btNamingPattern5";
-            this.btNamingPattern5.Size = new System.Drawing.Size(36, 20);
-            this.btNamingPattern5.TabIndex = 47;
-            this.btNamingPattern5.TabStop = false;
-            this.btNamingPattern5.Text = "G5";
-            this.btNamingPattern5.UseVisualStyleBackColor = true;
+            btNamingPattern5.Location = new System.Drawing.Point(208, 51);
+            btNamingPattern5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern5.Name = "btNamingPattern5";
+            btNamingPattern5.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern5.TabIndex = 47;
+            btNamingPattern5.TabStop = false;
+            btNamingPattern5.Text = "G5";
+            btNamingPattern5.UseVisualStyleBackColor = true;
             // 
             // btNamingPattern4
             // 
-            this.btNamingPattern4.Location = new System.Drawing.Point(136, 44);
-            this.btNamingPattern4.Name = "btNamingPattern4";
-            this.btNamingPattern4.Size = new System.Drawing.Size(36, 20);
-            this.btNamingPattern4.TabIndex = 46;
-            this.btNamingPattern4.TabStop = false;
-            this.btNamingPattern4.Text = "G4";
-            this.btNamingPattern4.UseVisualStyleBackColor = true;
+            btNamingPattern4.Location = new System.Drawing.Point(159, 51);
+            btNamingPattern4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern4.Name = "btNamingPattern4";
+            btNamingPattern4.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern4.TabIndex = 46;
+            btNamingPattern4.TabStop = false;
+            btNamingPattern4.Text = "G4";
+            btNamingPattern4.UseVisualStyleBackColor = true;
             // 
             // btNamingPattern3
             // 
-            this.btNamingPattern3.Location = new System.Drawing.Point(94, 44);
-            this.btNamingPattern3.Name = "btNamingPattern3";
-            this.btNamingPattern3.Size = new System.Drawing.Size(36, 20);
-            this.btNamingPattern3.TabIndex = 45;
-            this.btNamingPattern3.TabStop = false;
-            this.btNamingPattern3.Text = "G3";
-            this.btNamingPattern3.UseVisualStyleBackColor = true;
+            btNamingPattern3.Location = new System.Drawing.Point(110, 51);
+            btNamingPattern3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern3.Name = "btNamingPattern3";
+            btNamingPattern3.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern3.TabIndex = 45;
+            btNamingPattern3.TabStop = false;
+            btNamingPattern3.Text = "G3";
+            btNamingPattern3.UseVisualStyleBackColor = true;
             // 
             // btNamingPattern2
             // 
-            this.btNamingPattern2.Location = new System.Drawing.Point(52, 44);
-            this.btNamingPattern2.Name = "btNamingPattern2";
-            this.btNamingPattern2.Size = new System.Drawing.Size(36, 20);
-            this.btNamingPattern2.TabIndex = 44;
-            this.btNamingPattern2.TabStop = false;
-            this.btNamingPattern2.Text = "G2";
-            this.btNamingPattern2.UseVisualStyleBackColor = true;
+            btNamingPattern2.Location = new System.Drawing.Point(61, 51);
+            btNamingPattern2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern2.Name = "btNamingPattern2";
+            btNamingPattern2.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern2.TabIndex = 44;
+            btNamingPattern2.TabStop = false;
+            btNamingPattern2.Text = "G2";
+            btNamingPattern2.UseVisualStyleBackColor = true;
             // 
             // btNamingPatternEditor
             // 
-            this.btNamingPatternEditor.Location = new System.Drawing.Point(232, 19);
-            this.btNamingPatternEditor.Name = "btNamingPatternEditor";
-            this.btNamingPatternEditor.Size = new System.Drawing.Size(24, 20);
-            this.btNamingPatternEditor.TabIndex = 43;
-            this.btNamingPatternEditor.Text = "⚙";
-            this.btNamingPatternEditor.UseVisualStyleBackColor = true;
-            this.btNamingPatternEditor.Click += new System.EventHandler(this.btNamingPatternEditor_Click);
+            btNamingPatternEditor.Location = new System.Drawing.Point(271, 22);
+            btNamingPatternEditor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPatternEditor.Name = "btNamingPatternEditor";
+            btNamingPatternEditor.Size = new System.Drawing.Size(28, 23);
+            btNamingPatternEditor.TabIndex = 43;
+            btNamingPatternEditor.Text = "⚙";
+            btNamingPatternEditor.UseVisualStyleBackColor = true;
+            btNamingPatternEditor.Click += btNamingPatternEditor_Click;
             // 
             // btnGenerateUniqueName
             // 
-            this.btnGenerateUniqueName.Location = new System.Drawing.Point(202, 19);
-            this.btnGenerateUniqueName.Name = "btnGenerateUniqueName";
-            this.btnGenerateUniqueName.Size = new System.Drawing.Size(24, 20);
-            this.btnGenerateUniqueName.TabIndex = 1;
-            this.btnGenerateUniqueName.TabStop = false;
-            this.btnGenerateUniqueName.Text = "Generate";
-            this.btnGenerateUniqueName.UseVisualStyleBackColor = true;
+            btnGenerateUniqueName.Location = new System.Drawing.Point(236, 22);
+            btnGenerateUniqueName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnGenerateUniqueName.Name = "btnGenerateUniqueName";
+            btnGenerateUniqueName.Size = new System.Drawing.Size(30, 23);
+            btnGenerateUniqueName.TabIndex = 1;
+            btnGenerateUniqueName.TabStop = false;
+            btnGenerateUniqueName.Text = "G1";
+            btnGenerateUniqueName.UseVisualStyleBackColor = true;
             // 
             // TbArkIdIngame
             // 
-            this.TbArkIdIngame.Location = new System.Drawing.Point(82, 255);
-            this.TbArkIdIngame.Name = "TbArkIdIngame";
-            this.TbArkIdIngame.Size = new System.Drawing.Size(174, 20);
-            this.TbArkIdIngame.TabIndex = 40;
+            TbArkIdIngame.Location = new System.Drawing.Point(96, 294);
+            TbArkIdIngame.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TbArkIdIngame.Name = "TbArkIdIngame";
+            TbArkIdIngame.Size = new System.Drawing.Size(202, 23);
+            TbArkIdIngame.TabIndex = 40;
             // 
             // TbArkId
             // 
-            this.TbArkId.Location = new System.Drawing.Point(68, 281);
-            this.TbArkId.Name = "TbArkId";
-            this.TbArkId.ReadOnly = true;
-            this.TbArkId.Size = new System.Drawing.Size(188, 20);
-            this.TbArkId.TabIndex = 8;
+            TbArkId.Location = new System.Drawing.Point(79, 324);
+            TbArkId.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            TbArkId.Name = "TbArkId";
+            TbArkId.ReadOnly = true;
+            TbArkId.Size = new System.Drawing.Size(219, 23);
+            TbArkId.TabIndex = 8;
             // 
             // cbServer
             // 
-            this.cbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
-            this.cbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cbServer.FormattingEnabled = true;
-            this.cbServer.Location = new System.Drawing.Point(68, 148);
-            this.cbServer.Name = "cbServer";
-            this.cbServer.Size = new System.Drawing.Size(188, 21);
-            this.cbServer.TabIndex = 4;
+            cbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            cbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            cbServer.FormattingEnabled = true;
+            cbServer.Location = new System.Drawing.Point(79, 171);
+            cbServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbServer.Name = "cbServer";
+            cbServer.Size = new System.Drawing.Size(219, 23);
+            cbServer.TabIndex = 4;
             // 
             // textBoxTribe
             // 
-            this.textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxTribe.Location = new System.Drawing.Point(68, 122);
-            this.textBoxTribe.Name = "textBoxTribe";
-            this.textBoxTribe.Size = new System.Drawing.Size(188, 20);
-            this.textBoxTribe.TabIndex = 3;
+            textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            textBoxTribe.Location = new System.Drawing.Point(79, 141);
+            textBoxTribe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxTribe.Name = "textBoxTribe";
+            textBoxTribe.Size = new System.Drawing.Size(219, 23);
+            textBoxTribe.TabIndex = 3;
             // 
             // textBoxNote
             // 
-            this.textBoxNote.Location = new System.Drawing.Point(68, 229);
-            this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(188, 20);
-            this.textBoxNote.TabIndex = 7;
+            textBoxNote.Location = new System.Drawing.Point(79, 264);
+            textBoxNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxNote.Name = "textBoxNote";
+            textBoxNote.Size = new System.Drawing.Size(219, 23);
+            textBoxNote.TabIndex = 7;
             // 
             // parentComboBoxFather
             // 
-            this.parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxFather.FormattingEnabled = true;
-            this.parentComboBoxFather.Location = new System.Drawing.Point(68, 202);
-            this.parentComboBoxFather.Name = "parentComboBoxFather";
-            this.parentComboBoxFather.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxFather.Size = new System.Drawing.Size(188, 21);
-            this.parentComboBoxFather.TabIndex = 6;
-            this.parentComboBoxFather.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
+            parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxFather.FormattingEnabled = true;
+            parentComboBoxFather.Location = new System.Drawing.Point(79, 233);
+            parentComboBoxFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            parentComboBoxFather.Name = "parentComboBoxFather";
+            parentComboBoxFather.Size = new System.Drawing.Size(219, 24);
+            parentComboBoxFather.TabIndex = 6;
+            parentComboBoxFather.SelectedIndexChanged += parentComboBox_SelectedIndexChanged;
             // 
             // parentComboBoxMother
             // 
-            this.parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.parentComboBoxMother.FormattingEnabled = true;
-            this.parentComboBoxMother.Location = new System.Drawing.Point(68, 175);
-            this.parentComboBoxMother.Name = "parentComboBoxMother";
-            this.parentComboBoxMother.PreselectedCreatureGuid = new System.Guid("00000000-0000-0000-0000-000000000000");
-            this.parentComboBoxMother.Size = new System.Drawing.Size(188, 21);
-            this.parentComboBoxMother.TabIndex = 5;
-            this.parentComboBoxMother.SelectedIndexChanged += new System.EventHandler(this.parentComboBox_SelectedIndexChanged);
+            parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxMother.FormattingEnabled = true;
+            parentComboBoxMother.Location = new System.Drawing.Point(79, 202);
+            parentComboBoxMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            parentComboBoxMother.Name = "parentComboBoxMother";
+            parentComboBoxMother.Size = new System.Drawing.Size(219, 24);
+            parentComboBoxMother.TabIndex = 5;
+            parentComboBoxMother.SelectedIndexChanged += parentComboBox_SelectedIndexChanged;
             // 
             // textBoxOwner
             // 
-            this.textBoxOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textBoxOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBoxOwner.Location = new System.Drawing.Point(68, 96);
-            this.textBoxOwner.Name = "textBoxOwner";
-            this.textBoxOwner.Size = new System.Drawing.Size(188, 20);
-            this.textBoxOwner.TabIndex = 2;
-            this.textBoxOwner.Leave += new System.EventHandler(this.textBoxOwner_Leave);
+            textBoxOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            textBoxOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            textBoxOwner.Location = new System.Drawing.Point(79, 111);
+            textBoxOwner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxOwner.Name = "textBoxOwner";
+            textBoxOwner.Size = new System.Drawing.Size(219, 23);
+            textBoxOwner.TabIndex = 2;
+            textBoxOwner.Leave += textBoxOwner_Leave;
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(50, 19);
-            this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(146, 20);
-            this.textBoxName.TabIndex = 0;
-            this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+            textBoxName.Location = new System.Drawing.Point(58, 22);
+            textBoxName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            textBoxName.Name = "textBoxName";
+            textBoxName.Size = new System.Drawing.Size(170, 23);
+            textBoxName.TabIndex = 0;
+            textBoxName.TextChanged += textBoxName_TextChanged;
             // 
             // nudMutationsFather
             // 
-            this.nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsFather.Location = new System.Drawing.Point(107, 386);
-            this.nudMutationsFather.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nudMutationsFather.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.nudMutationsFather.Name = "nudMutationsFather";
-            this.nudMutationsFather.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudMutationsFather.Size = new System.Drawing.Size(60, 20);
-            this.nudMutationsFather.TabIndex = 12;
-            this.nudMutationsFather.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
+            nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
+            nudMutationsFather.Location = new System.Drawing.Point(125, 445);
+            nudMutationsFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudMutationsFather.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            nudMutationsFather.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            nudMutationsFather.Name = "nudMutationsFather";
+            nudMutationsFather.Size = new System.Drawing.Size(70, 23);
+            nudMutationsFather.TabIndex = 12;
+            nudMutationsFather.ValueChanged += NudMutations_ValueChanged;
             // 
             // nudMutationsMother
             // 
-            this.nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudMutationsMother.Location = new System.Drawing.Point(196, 386);
-            this.nudMutationsMother.Maximum = new decimal(new int[] {
-            2147483647,
-            0,
-            0,
-            0});
-            this.nudMutationsMother.Minimum = new decimal(new int[] {
-            -2147483648,
-            0,
-            0,
-            -2147483648});
-            this.nudMutationsMother.Name = "nudMutationsMother";
-            this.nudMutationsMother.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudMutationsMother.Size = new System.Drawing.Size(60, 20);
-            this.nudMutationsMother.TabIndex = 13;
-            this.nudMutationsMother.ValueChanged += new System.EventHandler(this.NudMutations_ValueChanged);
+            nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
+            nudMutationsMother.Location = new System.Drawing.Point(229, 445);
+            nudMutationsMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudMutationsMother.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
+            nudMutationsMother.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
+            nudMutationsMother.Name = "nudMutationsMother";
+            nudMutationsMother.Size = new System.Drawing.Size(70, 23);
+            nudMutationsMother.TabIndex = 13;
+            nudMutationsMother.ValueChanged += NudMutations_ValueChanged;
             // 
             // label12
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(85, 388);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(19, 13);
-            this.label12.TabIndex = 33;
-            this.label12.Text = "♂";
+            label12.AutoSize = true;
+            label12.Location = new System.Drawing.Point(99, 448);
+            label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label12.Name = "label12";
+            label12.Size = new System.Drawing.Size(19, 15);
+            label12.TabIndex = 33;
+            label12.Text = "♂";
             // 
             // label11
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(173, 388);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(19, 13);
-            this.label11.TabIndex = 34;
-            this.label11.Text = "♀";
+            label11.AutoSize = true;
+            label11.Location = new System.Drawing.Point(202, 448);
+            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label11.Name = "label11";
+            label11.Size = new System.Drawing.Size(19, 15);
+            label11.TabIndex = 34;
+            label11.Text = "♀";
             // 
             // dhmsInputGrown
             // 
-            this.dhmsInputGrown.Location = new System.Drawing.Point(120, 331);
-            this.dhmsInputGrown.Name = "dhmsInputGrown";
-            this.dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputGrown.TabIndex = 10;
-            this.dhmsInputGrown.Timespan = System.TimeSpan.Parse("00:00:00");
-            this.dhmsInputGrown.ValueChanged += new ARKBreedingStats.uiControls.dhmsInput.ValueChangedEventHandler(this.dhmsInputGrown_ValueChanged);
+            dhmsInputGrown.Location = new System.Drawing.Point(140, 382);
+            dhmsInputGrown.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            dhmsInputGrown.Name = "dhmsInputGrown";
+            dhmsInputGrown.Size = new System.Drawing.Size(159, 30);
+            dhmsInputGrown.TabIndex = 10;
+            dhmsInputGrown.ValueChanged += dhmsInputGrown_ValueChanged;
             // 
             // dhmsInputCooldown
             // 
-            this.dhmsInputCooldown.Location = new System.Drawing.Point(120, 304);
-            this.dhmsInputCooldown.Name = "dhmsInputCooldown";
-            this.dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
-            this.dhmsInputCooldown.TabIndex = 9;
-            this.dhmsInputCooldown.Timespan = System.TimeSpan.Parse("00:00:00");
+            dhmsInputCooldown.Location = new System.Drawing.Point(140, 351);
+            dhmsInputCooldown.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            dhmsInputCooldown.Name = "dhmsInputCooldown";
+            dhmsInputCooldown.Size = new System.Drawing.Size(159, 30);
+            dhmsInputCooldown.TabIndex = 9;
             // 
             // nudMaturation
             // 
-            this.nudMaturation.DecimalPlaces = 2;
-            this.nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudMaturation.Location = new System.Drawing.Point(180, 360);
-            this.nudMaturation.Name = "nudMaturation";
-            this.nudMaturation.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudMaturation.Size = new System.Drawing.Size(76, 20);
-            this.nudMaturation.TabIndex = 11;
-            this.nudMaturation.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.nudMaturation.ValueChanged += new System.EventHandler(this.nudMaturation_ValueChanged);
+            nudMaturation.DecimalPlaces = 2;
+            nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudMaturation.Location = new System.Drawing.Point(210, 415);
+            nudMaturation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudMaturation.Name = "nudMaturation";
+            nudMaturation.Size = new System.Drawing.Size(89, 23);
+            nudMaturation.TabIndex = 11;
+            nudMaturation.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            nudMaturation.ValueChanged += nudMaturation_ValueChanged;
             // 
             // cbNeutered
             // 
-            this.cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
-            this.cbNeutered.AutoSize = true;
-            this.cbNeutered.Location = new System.Drawing.Point(109, 441);
-            this.cbNeutered.Name = "cbNeutered";
-            this.cbNeutered.Size = new System.Drawing.Size(61, 23);
-            this.cbNeutered.TabIndex = 15;
-            this.cbNeutered.Text = "Neutered";
-            this.cbNeutered.UseVisualStyleBackColor = true;
+            cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
+            cbNeutered.AutoSize = true;
+            cbNeutered.Location = new System.Drawing.Point(127, 509);
+            cbNeutered.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbNeutered.Name = "cbNeutered";
+            cbNeutered.Size = new System.Drawing.Size(66, 25);
+            cbNeutered.TabIndex = 15;
+            cbNeutered.Text = "Neutered";
+            cbNeutered.UseVisualStyleBackColor = true;
             // 
             // dateTimePickerDomesticatedAt
             // 
-            this.dateTimePickerDomesticatedAt.Checked = false;
-            this.dateTimePickerDomesticatedAt.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerDomesticatedAt.Location = new System.Drawing.Point(180, 469);
-            this.dateTimePickerDomesticatedAt.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
-            this.dateTimePickerDomesticatedAt.Name = "dateTimePickerDomesticatedAt";
-            this.dateTimePickerDomesticatedAt.Size = new System.Drawing.Size(76, 20);
-            this.dateTimePickerDomesticatedAt.TabIndex = 18;
+            dateTimePickerDomesticatedAt.Checked = false;
+            dateTimePickerDomesticatedAt.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            dateTimePickerDomesticatedAt.Location = new System.Drawing.Point(210, 541);
+            dateTimePickerDomesticatedAt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            dateTimePickerDomesticatedAt.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
+            dateTimePickerDomesticatedAt.Name = "dateTimePickerDomesticatedAt";
+            dateTimePickerDomesticatedAt.Size = new System.Drawing.Size(88, 23);
+            dateTimePickerDomesticatedAt.TabIndex = 18;
             // 
             // buttonStatus
             // 
-            this.buttonStatus.Location = new System.Drawing.Point(68, 470);
-            this.buttonStatus.Name = "buttonStatus";
-            this.buttonStatus.Size = new System.Drawing.Size(35, 23);
-            this.buttonStatus.TabIndex = 16;
-            this.buttonStatus.UseVisualStyleBackColor = true;
-            this.buttonStatus.Click += new System.EventHandler(this.buttonStatus_Click);
+            buttonStatus.Location = new System.Drawing.Point(79, 542);
+            buttonStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonStatus.Name = "buttonStatus";
+            buttonStatus.Size = new System.Drawing.Size(41, 27);
+            buttonStatus.TabIndex = 16;
+            buttonStatus.UseVisualStyleBackColor = true;
+            buttonStatus.Click += buttonStatus_Click;
             // 
             // buttonSex
             // 
-            this.buttonSex.Location = new System.Drawing.Point(68, 441);
-            this.buttonSex.Name = "buttonSex";
-            this.buttonSex.Size = new System.Drawing.Size(35, 23);
-            this.buttonSex.TabIndex = 14;
-            this.buttonSex.Text = "?";
-            this.buttonSex.UseVisualStyleBackColor = true;
-            this.buttonSex.Click += new System.EventHandler(this.buttonSex_Click);
+            buttonSex.Location = new System.Drawing.Point(79, 509);
+            buttonSex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonSex.Name = "buttonSex";
+            buttonSex.Size = new System.Drawing.Size(41, 27);
+            buttonSex.TabIndex = 14;
+            buttonSex.Text = "?";
+            buttonSex.UseVisualStyleBackColor = true;
+            buttonSex.Click += buttonSex_Click;
             // 
             // lbNewMutations
             // 
-            this.lbNewMutations.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbNewMutations.Location = new System.Drawing.Point(157, 417);
-            this.lbNewMutations.Name = "lbNewMutations";
-            this.lbNewMutations.Size = new System.Drawing.Size(99, 13);
-            this.lbNewMutations.TabIndex = 42;
-            this.lbNewMutations.Text = "+mut";
-            this.lbNewMutations.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lbNewMutations.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            lbNewMutations.Location = new System.Drawing.Point(183, 481);
+            lbNewMutations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbNewMutations.Name = "lbNewMutations";
+            lbNewMutations.Size = new System.Drawing.Size(115, 15);
+            lbNewMutations.TabIndex = 42;
+            lbNewMutations.Text = "+mut";
+            lbNewMutations.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbArkIdIngame
             // 
-            this.LbArkIdIngame.AutoSize = true;
-            this.LbArkIdIngame.Location = new System.Drawing.Point(6, 258);
-            this.LbArkIdIngame.Name = "LbArkIdIngame";
-            this.LbArkIdIngame.Size = new System.Drawing.Size(72, 13);
-            this.LbArkIdIngame.TabIndex = 41;
-            this.LbArkIdIngame.Text = "Ark-Id ingame";
+            LbArkIdIngame.AutoSize = true;
+            LbArkIdIngame.Location = new System.Drawing.Point(7, 298);
+            LbArkIdIngame.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbArkIdIngame.Name = "LbArkIdIngame";
+            LbArkIdIngame.Size = new System.Drawing.Size(83, 15);
+            LbArkIdIngame.TabIndex = 41;
+            LbArkIdIngame.Text = "Ark-Id ingame";
             // 
             // LbArkId
             // 
-            this.LbArkId.AutoSize = true;
-            this.LbArkId.Location = new System.Drawing.Point(6, 284);
-            this.LbArkId.Name = "LbArkId";
-            this.LbArkId.Size = new System.Drawing.Size(35, 13);
-            this.LbArkId.TabIndex = 39;
-            this.LbArkId.Text = "Ark-Id";
+            LbArkId.AutoSize = true;
+            LbArkId.Location = new System.Drawing.Point(7, 328);
+            LbArkId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbArkId.Name = "LbArkId";
+            LbArkId.Size = new System.Drawing.Size(40, 15);
+            LbArkId.TabIndex = 39;
+            LbArkId.Text = "Ark-Id";
             // 
             // btClearColors
             // 
-            this.btClearColors.Location = new System.Drawing.Point(6, 499);
-            this.btClearColors.Name = "btClearColors";
-            this.btClearColors.Size = new System.Drawing.Size(73, 23);
-            this.btClearColors.TabIndex = 37;
-            this.btClearColors.Text = "Clear colors";
-            this.btClearColors.UseVisualStyleBackColor = true;
-            this.btClearColors.Click += new System.EventHandler(this.btClearColors_Click);
+            btClearColors.Location = new System.Drawing.Point(7, 576);
+            btClearColors.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btClearColors.Name = "btClearColors";
+            btClearColors.Size = new System.Drawing.Size(85, 27);
+            btClearColors.TabIndex = 37;
+            btClearColors.Text = "Clear colors";
+            btClearColors.UseVisualStyleBackColor = true;
+            btClearColors.Click += btClearColors_Click;
             // 
             // regionColorChooser1
             // 
-            this.regionColorChooser1.ColorIdsAlsoPossible = new byte[] {
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0)),
-        ((byte)(0))};
-            this.regionColorChooser1.Location = new System.Drawing.Point(82, 496);
-            this.regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
-            this.regionColorChooser1.Name = "regionColorChooser1";
-            this.regionColorChooser1.Size = new System.Drawing.Size(174, 29);
-            this.regionColorChooser1.TabIndex = 19;
-            this.regionColorChooser1.VerboseButtonTexts = false;
+            regionColorChooser1.Location = new System.Drawing.Point(96, 572);
+            regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
+            regionColorChooser1.Name = "regionColorChooser1";
+            regionColorChooser1.Size = new System.Drawing.Size(203, 33);
+            regionColorChooser1.TabIndex = 19;
             // 
             // lbServer
             // 
-            this.lbServer.AutoSize = true;
-            this.lbServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbServer.Location = new System.Drawing.Point(6, 151);
-            this.lbServer.Name = "lbServer";
-            this.lbServer.Size = new System.Drawing.Size(38, 13);
-            this.lbServer.TabIndex = 30;
-            this.lbServer.Text = "Server";
-            this.lbServer.Click += new System.EventHandler(this.lbServer_Click);
+            lbServer.AutoSize = true;
+            lbServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbServer.Location = new System.Drawing.Point(7, 174);
+            lbServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbServer.Name = "lbServer";
+            lbServer.Size = new System.Drawing.Size(38, 13);
+            lbServer.TabIndex = 30;
+            lbServer.Text = "Server";
+            lbServer.Click += lbServer_Click;
             // 
             // lbTribe
             // 
-            this.lbTribe.AutoSize = true;
-            this.lbTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTribe.Location = new System.Drawing.Point(6, 125);
-            this.lbTribe.Name = "lbTribe";
-            this.lbTribe.Size = new System.Drawing.Size(31, 13);
-            this.lbTribe.TabIndex = 29;
-            this.lbTribe.Text = "Tribe";
-            this.lbTribe.Click += new System.EventHandler(this.lblTribe_Click);
+            lbTribe.AutoSize = true;
+            lbTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbTribe.Location = new System.Drawing.Point(7, 144);
+            lbTribe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbTribe.Name = "lbTribe";
+            lbTribe.Size = new System.Drawing.Size(31, 13);
+            lbTribe.TabIndex = 29;
+            lbTribe.Text = "Tribe";
+            lbTribe.Click += lblTribe_Click;
             // 
             // lbStatus
             // 
-            this.lbStatus.AutoSize = true;
-            this.lbStatus.Location = new System.Drawing.Point(6, 475);
-            this.lbStatus.Name = "lbStatus";
-            this.lbStatus.Size = new System.Drawing.Size(37, 13);
-            this.lbStatus.TabIndex = 27;
-            this.lbStatus.Text = "Status";
+            lbStatus.AutoSize = true;
+            lbStatus.Location = new System.Drawing.Point(7, 548);
+            lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbStatus.Name = "lbStatus";
+            lbStatus.Size = new System.Drawing.Size(39, 15);
+            lbStatus.TabIndex = 27;
+            lbStatus.Text = "Status";
             // 
             // lbSex
             // 
-            this.lbSex.AutoSize = true;
-            this.lbSex.Location = new System.Drawing.Point(6, 446);
-            this.lbSex.Name = "lbSex";
-            this.lbSex.Size = new System.Drawing.Size(25, 13);
-            this.lbSex.TabIndex = 26;
-            this.lbSex.Text = "Sex";
+            lbSex.AutoSize = true;
+            lbSex.Location = new System.Drawing.Point(7, 515);
+            lbSex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbSex.Name = "lbSex";
+            lbSex.Size = new System.Drawing.Size(24, 15);
+            lbSex.TabIndex = 26;
+            lbSex.Text = "Sex";
             // 
             // lbMutations
             // 
-            this.lbMutations.AutoSize = true;
-            this.lbMutations.Location = new System.Drawing.Point(6, 388);
-            this.lbMutations.Name = "lbMutations";
-            this.lbMutations.Size = new System.Drawing.Size(53, 13);
-            this.lbMutations.TabIndex = 25;
-            this.lbMutations.Text = "Mutations";
+            lbMutations.AutoSize = true;
+            lbMutations.Location = new System.Drawing.Point(7, 448);
+            lbMutations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbMutations.Name = "lbMutations";
+            lbMutations.Size = new System.Drawing.Size(61, 15);
+            lbMutations.TabIndex = 25;
+            lbMutations.Text = "Mutations";
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(136, 475);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 13);
-            this.label7.TabIndex = 17;
-            this.label7.Text = "Dom at";
+            label7.AutoSize = true;
+            label7.Location = new System.Drawing.Point(159, 548);
+            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new System.Drawing.Size(46, 15);
+            label7.TabIndex = 17;
+            label7.Text = "Dom at";
             // 
             // lbMaturationPerc
             // 
-            this.lbMaturationPerc.AutoSize = true;
-            this.lbMaturationPerc.Location = new System.Drawing.Point(6, 362);
-            this.lbMaturationPerc.Name = "lbMaturationPerc";
-            this.lbMaturationPerc.Size = new System.Drawing.Size(74, 13);
-            this.lbMaturationPerc.TabIndex = 22;
-            this.lbMaturationPerc.Text = "Maturation [%]";
+            lbMaturationPerc.AutoSize = true;
+            lbMaturationPerc.Location = new System.Drawing.Point(7, 418);
+            lbMaturationPerc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbMaturationPerc.Name = "lbMaturationPerc";
+            lbMaturationPerc.Size = new System.Drawing.Size(87, 15);
+            lbMaturationPerc.TabIndex = 22;
+            lbMaturationPerc.Text = "Maturation [%]";
             // 
             // lbCooldown
             // 
-            this.lbCooldown.AutoSize = true;
-            this.lbCooldown.Location = new System.Drawing.Point(6, 311);
-            this.lbCooldown.Name = "lbCooldown";
-            this.lbCooldown.Size = new System.Drawing.Size(54, 13);
-            this.lbCooldown.TabIndex = 20;
-            this.lbCooldown.Text = "Cooldown";
+            lbCooldown.AutoSize = true;
+            lbCooldown.Location = new System.Drawing.Point(7, 359);
+            lbCooldown.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbCooldown.Name = "lbCooldown";
+            lbCooldown.Size = new System.Drawing.Size(62, 15);
+            lbCooldown.TabIndex = 20;
+            lbCooldown.Text = "Cooldown";
             // 
             // lbGrownIn
             // 
-            this.lbGrownIn.AutoSize = true;
-            this.lbGrownIn.Location = new System.Drawing.Point(6, 337);
-            this.lbGrownIn.Name = "lbGrownIn";
-            this.lbGrownIn.Size = new System.Drawing.Size(49, 13);
-            this.lbGrownIn.TabIndex = 21;
-            this.lbGrownIn.Text = "Grown in";
+            lbGrownIn.AutoSize = true;
+            lbGrownIn.Location = new System.Drawing.Point(7, 389);
+            lbGrownIn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbGrownIn.Name = "lbGrownIn";
+            lbGrownIn.Size = new System.Drawing.Size(55, 15);
+            lbGrownIn.TabIndex = 21;
+            lbGrownIn.Text = "Grown in";
             // 
             // btSaveChanges
             // 
-            this.btSaveChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSaveChanges.Location = new System.Drawing.Point(6, 547);
-            this.btSaveChanges.Name = "btSaveChanges";
-            this.btSaveChanges.Size = new System.Drawing.Size(124, 37);
-            this.btSaveChanges.TabIndex = 20;
-            this.btSaveChanges.Text = "Save Changes";
-            this.btSaveChanges.UseVisualStyleBackColor = true;
-            this.btSaveChanges.Visible = false;
-            this.btSaveChanges.Click += new System.EventHandler(this.buttonSaveChanges_Click);
+            btSaveChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btSaveChanges.Location = new System.Drawing.Point(7, 631);
+            btSaveChanges.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btSaveChanges.Name = "btSaveChanges";
+            btSaveChanges.Size = new System.Drawing.Size(145, 43);
+            btSaveChanges.TabIndex = 20;
+            btSaveChanges.Text = "Save Changes";
+            btSaveChanges.UseVisualStyleBackColor = true;
+            btSaveChanges.Visible = false;
+            btSaveChanges.Click += buttonSaveChanges_Click;
             // 
             // lbNote
             // 
-            this.lbNote.AutoSize = true;
-            this.lbNote.Location = new System.Drawing.Point(6, 232);
-            this.lbNote.Name = "lbNote";
-            this.lbNote.Size = new System.Drawing.Size(30, 13);
-            this.lbNote.TabIndex = 19;
-            this.lbNote.Text = "Note";
+            lbNote.AutoSize = true;
+            lbNote.Location = new System.Drawing.Point(7, 268);
+            lbNote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbNote.Name = "lbNote";
+            lbNote.Size = new System.Drawing.Size(33, 15);
+            lbNote.TabIndex = 19;
+            lbNote.Text = "Note";
             // 
             // lbFather
             // 
-            this.lbFather.AutoSize = true;
-            this.lbFather.Location = new System.Drawing.Point(6, 205);
-            this.lbFather.Name = "lbFather";
-            this.lbFather.Size = new System.Drawing.Size(37, 13);
-            this.lbFather.TabIndex = 18;
-            this.lbFather.Text = "Father";
+            lbFather.AutoSize = true;
+            lbFather.Location = new System.Drawing.Point(7, 237);
+            lbFather.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbFather.Name = "lbFather";
+            lbFather.Size = new System.Drawing.Size(40, 15);
+            lbFather.TabIndex = 18;
+            lbFather.Text = "Father";
             // 
             // lbMother
             // 
-            this.lbMother.AutoSize = true;
-            this.lbMother.Location = new System.Drawing.Point(6, 178);
-            this.lbMother.Name = "lbMother";
-            this.lbMother.Size = new System.Drawing.Size(40, 13);
-            this.lbMother.TabIndex = 17;
-            this.lbMother.Text = "Mother";
+            lbMother.AutoSize = true;
+            lbMother.Location = new System.Drawing.Point(7, 205);
+            lbMother.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbMother.Name = "lbMother";
+            lbMother.Size = new System.Drawing.Size(46, 15);
+            lbMother.TabIndex = 17;
+            lbMother.Text = "Mother";
             // 
             // lbOwner
             // 
-            this.lbOwner.AutoSize = true;
-            this.lbOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOwner.Location = new System.Drawing.Point(6, 99);
-            this.lbOwner.Name = "lbOwner";
-            this.lbOwner.Size = new System.Drawing.Size(38, 13);
-            this.lbOwner.TabIndex = 16;
-            this.lbOwner.Text = "Owner";
-            this.lbOwner.Click += new System.EventHandler(this.lblOwner_Click);
+            lbOwner.AutoSize = true;
+            lbOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbOwner.Location = new System.Drawing.Point(7, 114);
+            lbOwner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbOwner.Name = "lbOwner";
+            lbOwner.Size = new System.Drawing.Size(38, 13);
+            lbOwner.TabIndex = 16;
+            lbOwner.Text = "Owner";
+            lbOwner.Click += lblOwner_Click;
             // 
             // lbName
             // 
-            this.lbName.AutoSize = true;
-            this.lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbName.Location = new System.Drawing.Point(6, 22);
-            this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(35, 13);
-            this.lbName.TabIndex = 15;
-            this.lbName.Text = "Name";
-            this.lbName.Click += new System.EventHandler(this.lblName_Click);
+            lbName.AutoSize = true;
+            lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbName.Location = new System.Drawing.Point(7, 25);
+            lbName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbName.Name = "lbName";
+            lbName.Size = new System.Drawing.Size(35, 13);
+            lbName.TabIndex = 15;
+            lbName.Text = "Name";
+            lbName.Click += lblName_Click;
             // 
             // btAdd2Library
             // 
-            this.btAdd2Library.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAdd2Library.Location = new System.Drawing.Point(6, 547);
-            this.btAdd2Library.Name = "btAdd2Library";
-            this.btAdd2Library.Size = new System.Drawing.Size(250, 37);
-            this.btAdd2Library.TabIndex = 21;
-            this.btAdd2Library.Text = "Add new to Library";
-            this.btAdd2Library.UseVisualStyleBackColor = true;
-            this.btAdd2Library.Click += new System.EventHandler(this.buttonAdd2Library_Click);
+            btAdd2Library.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btAdd2Library.Location = new System.Drawing.Point(7, 631);
+            btAdd2Library.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btAdd2Library.Name = "btAdd2Library";
+            btAdd2Library.Size = new System.Drawing.Size(292, 43);
+            btAdd2Library.TabIndex = 21;
+            btAdd2Library.Text = "Add new to Library";
+            btAdd2Library.UseVisualStyleBackColor = true;
+            btAdd2Library.Click += buttonAdd2Library_Click;
             // 
             // CreatureInfoInput
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gbCreatureInfo);
-            this.Name = "CreatureInfoInput";
-            this.Size = new System.Drawing.Size(262, 590);
-            this.gbCreatureInfo.ResumeLayout(false);
-            this.gbCreatureInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMutationsFather)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMutationsMother)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaturation)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(gbCreatureInfo);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "CreatureInfoInput";
+            Size = new System.Drawing.Size(306, 681);
+            gbCreatureInfo.ResumeLayout(false);
+            gbCreatureInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudMutationsFather).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudMutationsMother).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudMaturation).EndInit();
+            ResumeLayout(false);
 
         }
 
