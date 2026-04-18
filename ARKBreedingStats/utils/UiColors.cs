@@ -274,6 +274,8 @@ namespace ARKBreedingStats.utils
             Caution = Color.Gold,
             Neutral = Color.White,
             NonUnique = Color.FromArgb(255, 255, 127),
+            SuccessText = Color.DarkGreen,
+            WarningText = Color.FromArgb(150, 142, 0),
             ErrorText = Color.Red,
 
             // Sex
@@ -349,6 +351,8 @@ namespace ARKBreedingStats.utils
             Caution = Color.FromArgb(130, 110, 0),
             Neutral = Color.FromArgb(30, 30, 30),
             NonUnique = Color.FromArgb(120, 110, 30),
+            SuccessText = Color.LightGreen,
+            WarningText = Color.FromArgb(255, 234, 64),
             ErrorText = Color.FromArgb(255, 100, 100),
 
             // Sex

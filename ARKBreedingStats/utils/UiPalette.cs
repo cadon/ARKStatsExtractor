@@ -53,10 +53,20 @@ namespace ARKBreedingStats.utils
         [PreviewHint(ColorRole.Background, ColorContext.Extractor)]
         public Color Success { get; set; }
 
+        [Category("Status"), DisplayName("Success Text")]
+        [Description("Foreground color for success text (green family).")]
+        [PreviewHint(ColorRole.Foreground, ColorContext.Extractor)]
+        public Color SuccessText { get; set; }
+
         [Category("Status"), DisplayName("Warning")]
         [Description("Ambiguous or attention-needed state (yellow/salmon family).")]
         [PreviewHint(ColorRole.Background, ColorContext.Extractor)]
         public Color Warning { get; set; }
+
+        [Category("Status"), DisplayName("Warning Text")]
+        [Description("Foreground color for warning text (yellow family).")]
+        [PreviewHint(ColorRole.Foreground, ColorContext.Extractor)]
+        public Color WarningText { get; set; }
 
         [Category("Status"), DisplayName("Error")]
         [Description("Failed validation, critical issue (red/coral family).")]

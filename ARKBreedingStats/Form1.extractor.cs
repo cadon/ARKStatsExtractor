@@ -668,7 +668,7 @@ namespace ARKBreedingStats
                 if (_creatureCollection.considerWildLevelSteps)
                     issues |= IssueNotes.Issue.WildLevelSteps;
                 issues |= IssueNotes.Issue.BondedTaming;
-                pBondedTamingExtractor.BackColor = Color.LightSalmon;
+                pBondedTamingExtractor.BackColor = UiColors.Current.Warning;
             }
 
             if (_extractor.ResultWasSortedOutBecauseOfImpossibleTe)

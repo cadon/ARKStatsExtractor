@@ -65,20 +65,20 @@ namespace ARKBreedingStats.importExported
             {
                 case ImportStatus.NotImported:
                     lbStatus.Text = "Not yet extracted";
-                    groupBox1.BackColor = Color.LemonChiffon;
+                    groupBox1.BackColor = UiColors.IsDark ? Color.FromArgb(124, 91, 0) : Color.LemonChiffon;
                     break;
                 case ImportStatus.JustImported:
                     // if extracted in this session
                     lbStatus.Text = "Values were just extracted and creature is added to library";
-                    groupBox1.BackColor = Color.LightGreen;
+                    groupBox1.BackColor = UiColors.Current.Success;
                     break;
                 case ImportStatus.OldImported:
                     lbStatus.Text = "Already imported on " + Utils.ShortTimeDate(addedToLibrary, false);
-                    groupBox1.BackColor = Color.YellowGreen;
+                    groupBox1.BackColor = UiColors.IsDark ? Color.DarkOliveGreen : Color.YellowGreen;
                     break;
                 case ImportStatus.NeedsLevelChoosing:
                     lbStatus.Text = "Cannot be extracted automatically, you need to choose from level combinations";
-                    groupBox1.BackColor = Color.Yellow;
+                    groupBox1.BackColor = UiColors.Current.Warning;
                     break;
             }
         }

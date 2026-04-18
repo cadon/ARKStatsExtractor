@@ -205,7 +205,7 @@ namespace ARKBreedingStats.uiControls
                         Cursor = Cursors.Hand;
                         break;
                     case StatIOStatus.Error:
-                        numericUpDownInput.BackColor = Color.FromArgb(255, 200, 200);
+                        numericUpDownInput.BackColor = UiColors.Current.Error;
                         BackColor = ColorModeColors.Error;
                         break;
                 }
