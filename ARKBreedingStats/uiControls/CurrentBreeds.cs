@@ -3,7 +3,6 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -36,7 +35,7 @@ namespace ARKBreedingStats.uiControls
             get
             {
                 if (!_currentBreedsBySpeciesBp.Any()) return null;
-                return _currentBreedsBySpeciesBp.SelectMany(kv => kv.Value).ToArray();
+                return _currentBreedsBySpeciesBp.SelectMany(kv => kv.Value).Distinct().ToArray();
             }
         }
 
@@ -80,8 +79,9 @@ namespace ARKBreedingStats.uiControls
         {
             interSpeciesMating = false;
             if (species == null) return null;
-            if (!_currentBreedsBySpeciesBp.TryGetValue(species.blueprintPath, out var pairsToDisplay))
-                pairsToDisplay = new List<CurrentBreedingPair>();
+            var pairsToDisplay = new List<CurrentBreedingPair>();
+            if (_currentBreedsBySpeciesBp.TryGetValue(species.blueprintPath, out var speciesPairsToDisplay))
+                pairsToDisplay.AddRange(speciesPairsToDisplay);
             if (species.matesWith?.Any() == true)
             {
                 foreach (var bp in species.matesWith)
@@ -95,7 +95,8 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            return pairsToDisplay.OrderBy(p => p.StartedBreedingAt).ToList();
+            // if there are many entries, prevent an app freezing by not displaying too many
+            return pairsToDisplay.OrderBy(p => p.StartedBreedingAt).Take(200).ToList();
         }
 
         private Control[] CreateControlsOfBreedingPairs(List<CurrentBreedingPair> pairsToDisplay, Species species, bool displaySpecies)
@@ -109,7 +110,7 @@ namespace ARKBreedingStats.uiControls
                     new PedigreeCreature(pair.Mother, enabledColorRegions, displaySpecies: displaySpecies, cursorHand: false);
                 var rightParentControl =
                     new PedigreeCreature(pair.Father, enabledColorRegions, displaySpecies: displaySpecies, cursorHand: false);
-                var delButton = new Button { Text = "×", BackColor = Color.LightSalmon, Width = 23, Height = PedigreeCreation.PedigreeElementHeight - 5, Tag = pair, Anchor = AnchorStyles.Bottom };
+                var delButton = new Button { Text = "×", BackColor = UiColors.Current.Error, Width = 23, Height = PedigreeCreation.PedigreeElementHeight - 5, Tag = pair, Anchor = AnchorStyles.Bottom };
                 FlpBreedingPairs.SetFlowBreak(delButton, true);
                 delButton.Click += (s, e) => RemovePair(((Button)s).Tag as CurrentBreedingPair);
                 controls.Add(leftParentControl);

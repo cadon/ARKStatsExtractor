@@ -1728,7 +1728,7 @@ namespace ARKBreedingStats
             tabControlMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabControlMain.Name = "tabControlMain";
             tabControlMain.SelectedIndex = 1;
-            tabControlMain.Size = new System.Drawing.Size(2191, 944);
+            tabControlMain.Size = new System.Drawing.Size(2191, 946);
             tabControlMain.TabIndex = 3;
             tabControlMain.SelectedIndexChanged += tabControl1_SelectedIndexChanged;
             // 
@@ -1748,7 +1748,7 @@ namespace ARKBreedingStats
             tabPageStatTesting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageStatTesting.Name = "tabPageStatTesting";
             tabPageStatTesting.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageStatTesting.Size = new System.Drawing.Size(2183, 916);
+            tabPageStatTesting.Size = new System.Drawing.Size(2183, 918);
             tabPageStatTesting.TabIndex = 1;
             tabPageStatTesting.Text = "Stat Testing";
             // 
@@ -3370,16 +3370,17 @@ namespace ARKBreedingStats
             tabPageCurrentBreeds.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageCurrentBreeds.Name = "tabPageCurrentBreeds";
             tabPageCurrentBreeds.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageCurrentBreeds.Size = new System.Drawing.Size(192, 72);
+            tabPageCurrentBreeds.Size = new System.Drawing.Size(2183, 918);
             tabPageCurrentBreeds.TabIndex = 13;
             tabPageCurrentBreeds.Text = "Current Breeds";
             // 
             // currentBreeds1
             // 
-            currentBreeds1.Location = new System.Drawing.Point(9, 7);
+            currentBreeds1.Dock = System.Windows.Forms.DockStyle.Left;
+            currentBreeds1.Location = new System.Drawing.Point(4, 3);
             currentBreeds1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             currentBreeds1.Name = "currentBreeds1";
-            currentBreeds1.Size = new System.Drawing.Size(929, 622);
+            currentBreeds1.Size = new System.Drawing.Size(929, 912);
             currentBreeds1.TabIndex = 1;
             // 
             // hatching1
@@ -3558,10 +3559,10 @@ namespace ARKBreedingStats
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripProgressBar1, toolStripStatusLabel, ToolStripStatusLabelImport });
-            statusStrip1.Location = new System.Drawing.Point(0, 1055);
+            statusStrip1.Location = new System.Drawing.Point(0, 1057);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            statusStrip1.Size = new System.Drawing.Size(2191, 24);
+            statusStrip1.Size = new System.Drawing.Size(2191, 22);
             statusStrip1.TabIndex = 44;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -3574,7 +3575,7 @@ namespace ARKBreedingStats
             // toolStripStatusLabel
             // 
             toolStripStatusLabel.Name = "toolStripStatusLabel";
-            toolStripStatusLabel.Size = new System.Drawing.Size(120, 19);
+            toolStripStatusLabel.Size = new System.Drawing.Size(120, 17);
             toolStripStatusLabel.Text = "ToolStripStatusLabel1";
             // 
             // ToolStripStatusLabelImport
@@ -3582,7 +3583,7 @@ namespace ARKBreedingStats
             ToolStripStatusLabelImport.BackColor = System.Drawing.Color.Yellow;
             ToolStripStatusLabelImport.ForeColor = System.Drawing.Color.Black;
             ToolStripStatusLabelImport.Name = "ToolStripStatusLabelImport";
-            ToolStripStatusLabelImport.Size = new System.Drawing.Size(125, 19);
+            ToolStripStatusLabelImport.Size = new System.Drawing.Size(125, 17);
             ToolStripStatusLabelImport.Text = "Importing savegame…";
             ToolStripStatusLabelImport.Visible = false;
             // 
@@ -4009,7 +4010,7 @@ namespace ARKBreedingStats
             speciesSelector1.Location = new System.Drawing.Point(0, 111);
             speciesSelector1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             speciesSelector1.Name = "speciesSelector1";
-            speciesSelector1.Size = new System.Drawing.Size(2191, 944);
+            speciesSelector1.Size = new System.Drawing.Size(2191, 946);
             speciesSelector1.TabIndex = 0;
             // 
             // Form1

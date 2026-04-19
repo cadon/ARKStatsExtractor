@@ -14,6 +14,8 @@ namespace ARKBreedingStats.BreedingPlanning
         private Creature _father;
         [JsonProperty] public Guid GuidMother;
         [JsonProperty] public Guid GuidFather;
+        [JsonProperty]
+        public DateTime StartedBreedingAt;
 
         public Creature Mother
         {
@@ -34,8 +36,6 @@ namespace ARKBreedingStats.BreedingPlanning
                 GuidFather = value?.guid ?? Guid.Empty;
             }
         }
-
-        public DateTime StartedBreedingAt;
 
         public CurrentBreedingPair(Creature mother, Creature father)
         {

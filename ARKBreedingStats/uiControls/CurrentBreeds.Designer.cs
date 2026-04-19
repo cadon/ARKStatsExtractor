@@ -28,40 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.FlpBreedingPairs = new System.Windows.Forms.FlowLayoutPanel();
-            this.LbTitle = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            FlpBreedingPairs = new System.Windows.Forms.FlowLayoutPanel();
+            LbTitle = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
             // FlpBreedingPairs
             // 
-            this.FlpBreedingPairs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FlpBreedingPairs.Location = new System.Drawing.Point(0, 30);
-            this.FlpBreedingPairs.Name = "FlpBreedingPairs";
-            this.FlpBreedingPairs.Size = new System.Drawing.Size(598, 305);
-            this.FlpBreedingPairs.TabIndex = 0;
+            FlpBreedingPairs.AutoScroll = true;
+            FlpBreedingPairs.Dock = System.Windows.Forms.DockStyle.Fill;
+            FlpBreedingPairs.Location = new System.Drawing.Point(0, 32);
+            FlpBreedingPairs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            FlpBreedingPairs.Name = "FlpBreedingPairs";
+            FlpBreedingPairs.Size = new System.Drawing.Size(698, 355);
+            FlpBreedingPairs.TabIndex = 0;
             // 
             // LbTitle
             // 
-            this.LbTitle.AutoSize = true;
-            this.LbTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.LbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTitle.Location = new System.Drawing.Point(0, 0);
-            this.LbTitle.Name = "LbTitle";
-            this.LbTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.LbTitle.Size = new System.Drawing.Size(188, 30);
-            this.LbTitle.TabIndex = 1;
-            this.LbTitle.Text = "Current breeding pairs";
+            LbTitle.AutoSize = true;
+            LbTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            LbTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbTitle.Location = new System.Drawing.Point(0, 0);
+            LbTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTitle.Name = "LbTitle";
+            LbTitle.Padding = new System.Windows.Forms.Padding(0, 0, 0, 12);
+            LbTitle.Size = new System.Drawing.Size(188, 32);
+            LbTitle.TabIndex = 1;
+            LbTitle.Text = "Current breeding pairs";
             // 
             // CurrentBreeds
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.FlpBreedingPairs);
-            this.Controls.Add(this.LbTitle);
-            this.Name = "CurrentBreeds";
-            this.Size = new System.Drawing.Size(598, 335);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(FlpBreedingPairs);
+            Controls.Add(LbTitle);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "CurrentBreeds";
+            Size = new System.Drawing.Size(698, 387);
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
