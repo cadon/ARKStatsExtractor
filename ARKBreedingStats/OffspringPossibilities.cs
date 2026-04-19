@@ -128,16 +128,16 @@ namespace ARKBreedingStats
                 int i = 0;
                 foreach (KeyValuePair<int, double> prob in levelProbabilities.OrderBy(l => l.Key))
                 {
-                    Panel p = new Panel
+                    var p = new Panel
                     {
                         Width = barWidth + 1,
-                        Height = (int)Math.Round(prob.Value * heightMultiplier) + 1
+                        Height = (int)Math.Round(prob.Value * heightMultiplier) + 1,
+                        Left = i * barWidth,
+                        BackColor = Utils.GetColorFromPercent(100 * (prob.Key - maxWildLevel / 2) / (2 * maxWildLevel)), // color range from maxWildLevel/2 up to 2*maxWildLevel
+                        BorderStyle = BorderStyle.FixedSingle
                     };
-                    tt.SetToolTip(p, $"Level {prob.Key} ({prob.Value:P})");
-                    p.Left = i * barWidth;
                     p.Top = totalHeight - p.Height + 1;
-                    p.BackColor = Utils.GetColorFromPercent(100 * (prob.Key - maxWildLevel / 2) / (2 * maxWildLevel)); // color range from maxWildLevel/2 up to 2*maxWildLevel
-                    p.BorderStyle = BorderStyle.FixedSingle;
+                    tt.SetToolTip(p, $"Level {prob.Key} ({prob.Value:P})");
                     Controls.Add(p);
                     barPanels.Add(p);
 
@@ -155,7 +155,8 @@ namespace ARKBreedingStats
         {
             const int bottomMargin = 14;
 
-            using (var p = new Pen(Color.Black))
+            using (var p = new Pen(SystemColors.ControlText))
+            using (var brushText = new SolidBrush(SystemColors.ControlText))
             {
                 var g = e.Graphics;
                 g.DrawLines(p, new Point[]
@@ -164,18 +165,18 @@ namespace ARKBreedingStats
                 });
                 using (var f = new Font(Font, FontStyle.Regular))
                 {
-                    g.DrawString(_graphMinLevel.ToString(), f, Brushes.Black, 0, Height - bottomMargin);
-                    g.DrawString(_graphMaxLevel.ToString(), f, Brushes.Black, Width - 30, Height - bottomMargin);
-                    g.DrawString(_graphMaxProbability.ToString("P"), f, Brushes.Black, 0, 0);
+                    g.DrawString(_graphMinLevel.ToString(), f, brushText, 0, Height - bottomMargin);
+                    g.DrawString(_graphMaxLevel.ToString(), f, brushText, Width - 30, Height - bottomMargin);
+                    g.DrawString(_graphMaxProbability.ToString("P"), f, brushText, 0, 0);
 
                     var stringLevel = Loc.S("Level");
                     var textSize = g.MeasureString(stringLevel, f);
-                    g.DrawString(stringLevel, f, Brushes.Black, (Width - textSize.Width) / 2, Height - 14);
+                    g.DrawString(stringLevel, f, brushText, (Width - textSize.Width) / 2, Height - 14);
 
                     var stringProb = Loc.S("Probability");
                     var drawFormat = new StringFormat(StringFormatFlags.DirectionVertical);
                     textSize = g.MeasureString(stringProb, f);
-                    g.DrawString(stringProb, f, Brushes.Black, 0, textSize.Height + 3, drawFormat);
+                    g.DrawString(stringProb, f, brushText, 0, textSize.Height + 3, drawFormat);
                 }
             }
         }

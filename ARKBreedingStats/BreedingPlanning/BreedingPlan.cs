@@ -615,7 +615,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             sb.AppendLine("The highest possible and fully leveled offspring is over the level limit!");
                         }
                         // breeding score text
-                        brush.Color = SystemColors.ControlText;
+                        brush.Color = Color.Black;
                         g.DrawString((_breedingPairs[i].BreedingScore.Primary + displayScoreOffset).ToString("N4"),
                             new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
                         pb.SetImageAndDisposeOld(bm);
