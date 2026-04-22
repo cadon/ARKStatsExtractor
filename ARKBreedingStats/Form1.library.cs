@@ -2424,6 +2424,7 @@ namespace ARKBreedingStats
             var creaturesToUpdate = new List<Creature>();
             Creature[] sameSpecies = null;
             var libraryCreatureCount = _creatureCollection.GetTotalCreatureCount();
+            string lastGeneratedName = null;
 
             foreach (int i in listViewLibrary.SelectedIndices)
             {
@@ -2434,9 +2435,10 @@ namespace ARKBreedingStats
                     sameSpecies = _creatureCollection.creatures.Where(c => c.Species == cr.Species).ToArray();
 
                 // set new name
-                cr.name = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
+                lastGeneratedName = NamePattern.GenerateCreatureName(cr, cr, sameSpecies, _creatureCollection.TopLevels.TryGetValue(cr.Species, out var tl) ? tl : null,
                     _customReplacingNamingPattern, false, namePatternIndex,
                     Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated, libraryCreatureCount: libraryCreatureCount);
+                cr.name = lastGeneratedName;
 
                 creaturesToUpdate.Add(cr);
             }
@@ -2446,6 +2448,8 @@ namespace ARKBreedingStats
                 UpdateDisplayedCreatureValues(cr, false, false);
 
             listViewLibrary.EndUpdate();
+            if (Properties.Settings.Default.CopyNameToClipboardWhenAppliedInLibrary)
+                ClipboardHandler.SetText(lastGeneratedName);
         }
         private void CopyGeneratedNamePatternToClipboard(object sender, EventArgs e) => CopyCreatureNamePatternToClipboard((int)((ToolStripMenuItem)sender).Tag);
 

@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.Windows.Forms.Button BtOpenLevelColorOptions;
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             groupBoxMultiplier = new System.Windows.Forms.GroupBox();
             CbHighlightAdjustedMultipliers = new System.Windows.Forms.CheckBox();
             flowLayoutPanelStatMultipliers = new System.Windows.Forms.FlowLayoutPanel();
@@ -181,6 +181,7 @@
             CbbLanguage2 = new System.Windows.Forms.ComboBox();
             CbbLanguage = new System.Windows.Forms.ComboBox();
             groupBox9 = new System.Windows.Forms.GroupBox();
+            CbCopyNameToClipboardWhenAppliedInLibrary = new System.Windows.Forms.CheckBox();
             CbLibraryShowStatLevelsThatCannotLevelup = new System.Windows.Forms.CheckBox();
             CbLibraryGenerateNameWarnTooLongName = new System.Windows.Forms.CheckBox();
             CbLibraryDisplayZeroMutationLevels = new System.Windows.Forms.CheckBox();
@@ -194,6 +195,14 @@
             cbApplyGlobalSpeciesToLibrary = new System.Windows.Forms.CheckBox();
             cbCreatureColorsLibrary = new System.Windows.Forms.CheckBox();
             tabPageVisuals = new System.Windows.Forms.TabPage();
+            GbColorPreview = new System.Windows.Forms.GroupBox();
+            LblPreviewName = new System.Windows.Forms.Label();
+            LblPreviewAsBackground = new System.Windows.Forms.Label();
+            LblPreviewAsForeground = new System.Windows.Forms.Label();
+            LblPreviewRgb = new System.Windows.Forms.Label();
+            groupBox33 = new System.Windows.Forms.GroupBox();
+            BtnResetPalette = new System.Windows.Forms.Button();
+            CbbPaletteKey = new System.Windows.Forms.ComboBox();
             propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             groupBox25 = new System.Windows.Forms.GroupBox();
             CbbAppDefaultFontName = new System.Windows.Forms.ComboBox();
@@ -405,14 +414,6 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            groupBox33 = new System.Windows.Forms.GroupBox();
-            CbbPaletteKey = new System.Windows.Forms.ComboBox();
-            BtnResetPalette = new System.Windows.Forms.Button();
-            GbColorPreview = new System.Windows.Forms.GroupBox();
-            LblPreviewName = new System.Windows.Forms.Label();
-            LblPreviewAsBackground = new System.Windows.Forms.Label();
-            LblPreviewAsForeground = new System.Windows.Forms.Label();
-            LblPreviewRgb = new System.Windows.Forms.Label();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -472,6 +473,8 @@
             groupBox17.SuspendLayout();
             groupBox9.SuspendLayout();
             tabPageVisuals.SuspendLayout();
+            GbColorPreview.SuspendLayout();
+            groupBox33.SuspendLayout();
             groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).BeginInit();
             tabPageInfoGraphic.SuspendLayout();
@@ -535,7 +538,6 @@
             ((System.ComponentModel.ISupportInitialize)nudWaitBeforeScreenCapture).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudWhiteThreshold).BeginInit();
             panel1.SuspendLayout();
-            groupBox33.SuspendLayout();
             SuspendLayout();
             // 
             // BtOpenLevelColorOptions
@@ -1501,11 +1503,11 @@
             groupBox7.Controls.Add(CbExtractorConvertWildTorporTotalLevel);
             groupBox7.Controls.Add(CbSetMutationLevelsExtractor);
             groupBox7.Controls.Add(checkBoxDisplayHiddenStats);
-            groupBox7.Location = new System.Drawing.Point(7, 442);
+            groupBox7.Location = new System.Drawing.Point(384, 7);
             groupBox7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox7.Name = "groupBox7";
             groupBox7.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox7.Size = new System.Drawing.Size(370, 102);
+            groupBox7.Size = new System.Drawing.Size(484, 102);
             groupBox7.TabIndex = 2;
             groupBox7.TabStop = false;
             groupBox7.Text = "Extractor";
@@ -1595,7 +1597,6 @@
             tabPageMultipliers.Size = new System.Drawing.Size(876, 860);
             tabPageMultipliers.TabIndex = 1;
             tabPageMultipliers.Text = "Multipliers";
-            tabPageMultipliers.UseVisualStyleBackColor = false;
             tabPageMultipliers.DragDrop += tabPage2_DragDrop;
             tabPageMultipliers.DragEnter += tabPage2_DragEnter;
             // 
@@ -2018,7 +2019,6 @@
             tabPageGeneral.Size = new System.Drawing.Size(876, 860);
             tabPageGeneral.TabIndex = 0;
             tabPageGeneral.Text = "General";
-            tabPageGeneral.UseVisualStyleBackColor = false;
             // 
             // CbAskSaveSettingsOnClose
             // 
@@ -2036,7 +2036,7 @@
             groupBox31.Controls.Add(CbColorIdOnColorRegionButton);
             groupBox31.Controls.Add(CbAlwaysShowAllColorRegions);
             groupBox31.Controls.Add(CbHideInvisibleColorRegions);
-            groupBox31.Location = new System.Drawing.Point(384, 393);
+            groupBox31.Location = new System.Drawing.Point(388, 402);
             groupBox31.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox31.Name = "groupBox31";
             groupBox31.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -2084,11 +2084,11 @@
             groupBox30.Controls.Add(BExportSpreadsheetMoveDown);
             groupBox30.Controls.Add(BExportSpreadsheetMoveUp);
             groupBox30.Controls.Add(ClbExportSpreadsheetFields);
-            groupBox30.Location = new System.Drawing.Point(384, 477);
+            groupBox30.Location = new System.Drawing.Point(384, 484);
             groupBox30.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox30.Name = "groupBox30";
             groupBox30.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox30.Size = new System.Drawing.Size(482, 227);
+            groupBox30.Size = new System.Drawing.Size(482, 220);
             groupBox30.TabIndex = 13;
             groupBox30.TabStop = false;
             groupBox30.Text = "Info to export for spreadsheet";
@@ -2140,7 +2140,7 @@
             // GbImgCacheLocalAppData
             // 
             GbImgCacheLocalAppData.Controls.Add(CbImgCacheUseLocalAppData);
-            GbImgCacheLocalAppData.Location = new System.Drawing.Point(384, 213);
+            GbImgCacheLocalAppData.Location = new System.Drawing.Point(384, 223);
             GbImgCacheLocalAppData.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             GbImgCacheLocalAppData.Name = "GbImgCacheLocalAppData";
             GbImgCacheLocalAppData.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -2197,7 +2197,7 @@
             groupBox16.Controls.Add(CbDisplayServerTokenPopup);
             groupBox16.Controls.Add(CbStreamerMode);
             groupBox16.Controls.Add(cbDevTools);
-            groupBox16.Location = new System.Drawing.Point(384, 270);
+            groupBox16.Location = new System.Drawing.Point(388, 279);
             groupBox16.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox16.Name = "groupBox16";
             groupBox16.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -2239,7 +2239,7 @@
             // groupBox26
             // 
             groupBox26.Controls.Add(cbAdminConsoleCommandWithCheat);
-            groupBox26.Location = new System.Drawing.Point(384, 104);
+            groupBox26.Location = new System.Drawing.Point(384, 115);
             groupBox26.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox26.Name = "groupBox26";
             groupBox26.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -2262,7 +2262,7 @@
             // groupBox20
             // 
             groupBox20.Controls.Add(cbPrettifyJSON);
-            groupBox20.Location = new System.Drawing.Point(384, 160);
+            groupBox20.Location = new System.Drawing.Point(384, 171);
             groupBox20.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox20.Name = "groupBox20";
             groupBox20.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -2328,6 +2328,7 @@
             // 
             // groupBox9
             // 
+            groupBox9.Controls.Add(CbCopyNameToClipboardWhenAppliedInLibrary);
             groupBox9.Controls.Add(CbLibraryShowStatLevelsThatCannotLevelup);
             groupBox9.Controls.Add(CbLibraryGenerateNameWarnTooLongName);
             groupBox9.Controls.Add(CbLibraryDisplayZeroMutationLevels);
@@ -2340,14 +2341,24 @@
             groupBox9.Controls.Add(cbLibraryHighlightTopCreatures);
             groupBox9.Controls.Add(cbApplyGlobalSpeciesToLibrary);
             groupBox9.Controls.Add(cbCreatureColorsLibrary);
-            groupBox9.Location = new System.Drawing.Point(7, 550);
+            groupBox9.Location = new System.Drawing.Point(8, 441);
             groupBox9.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox9.Name = "groupBox9";
             groupBox9.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox9.Size = new System.Drawing.Size(370, 307);
+            groupBox9.Size = new System.Drawing.Size(370, 341);
             groupBox9.TabIndex = 4;
             groupBox9.TabStop = false;
             groupBox9.Text = "Library";
+            // 
+            // CbCopyNameToClipboardWhenAppliedInLibrary
+            // 
+            CbCopyNameToClipboardWhenAppliedInLibrary.AutoSize = true;
+            CbCopyNameToClipboardWhenAppliedInLibrary.Location = new System.Drawing.Point(7, 307);
+            CbCopyNameToClipboardWhenAppliedInLibrary.Name = "CbCopyNameToClipboardWhenAppliedInLibrary";
+            CbCopyNameToClipboardWhenAppliedInLibrary.Size = new System.Drawing.Size(351, 19);
+            CbCopyNameToClipboardWhenAppliedInLibrary.TabIndex = 12;
+            CbCopyNameToClipboardWhenAppliedInLibrary.Text = "Copy name to clipboard when name pattern applied in library";
+            CbCopyNameToClipboardWhenAppliedInLibrary.UseVisualStyleBackColor = true;
             // 
             // CbLibraryShowStatLevelsThatCannotLevelup
             // 
@@ -2495,17 +2506,96 @@
             tabPageVisuals.Size = new System.Drawing.Size(876, 860);
             tabPageVisuals.TabIndex = 8;
             tabPageVisuals.Text = "Visuals";
-            tabPageVisuals.UseVisualStyleBackColor = false;
+            // 
+            // GbColorPreview
+            // 
+            GbColorPreview.Controls.Add(LblPreviewName);
+            GbColorPreview.Controls.Add(LblPreviewAsBackground);
+            GbColorPreview.Controls.Add(LblPreviewAsForeground);
+            GbColorPreview.Controls.Add(LblPreviewRgb);
+            GbColorPreview.Location = new System.Drawing.Point(495, 104);
+            GbColorPreview.Name = "GbColorPreview";
+            GbColorPreview.Size = new System.Drawing.Size(370, 750);
+            GbColorPreview.TabIndex = 3;
+            GbColorPreview.TabStop = false;
+            GbColorPreview.Text = "Preview";
+            // 
+            // LblPreviewName
+            // 
+            LblPreviewName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            LblPreviewName.Location = new System.Drawing.Point(10, 22);
+            LblPreviewName.Name = "LblPreviewName";
+            LblPreviewName.Size = new System.Drawing.Size(350, 22);
+            LblPreviewName.TabIndex = 0;
+            LblPreviewName.Text = "(select a color)";
+            // 
+            // LblPreviewAsBackground
+            // 
+            LblPreviewAsBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            LblPreviewAsBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            LblPreviewAsBackground.Location = new System.Drawing.Point(10, 50);
+            LblPreviewAsBackground.Name = "LblPreviewAsBackground";
+            LblPreviewAsBackground.Size = new System.Drawing.Size(350, 36);
+            LblPreviewAsBackground.TabIndex = 1;
+            LblPreviewAsBackground.Text = "Sample text on this background";
+            LblPreviewAsBackground.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LblPreviewAsForeground
+            // 
+            LblPreviewAsForeground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            LblPreviewAsForeground.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            LblPreviewAsForeground.Location = new System.Drawing.Point(10, 92);
+            LblPreviewAsForeground.Name = "LblPreviewAsForeground";
+            LblPreviewAsForeground.Size = new System.Drawing.Size(350, 36);
+            LblPreviewAsForeground.TabIndex = 2;
+            LblPreviewAsForeground.Text = "Sample text in this color";
+            LblPreviewAsForeground.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LblPreviewRgb
+            // 
+            LblPreviewRgb.AutoSize = true;
+            LblPreviewRgb.Location = new System.Drawing.Point(10, 134);
+            LblPreviewRgb.Name = "LblPreviewRgb";
+            LblPreviewRgb.Size = new System.Drawing.Size(0, 15);
+            LblPreviewRgb.TabIndex = 3;
+            // 
+            // groupBox33
+            // 
+            groupBox33.Controls.Add(BtnResetPalette);
+            groupBox33.Controls.Add(CbbPaletteKey);
+            groupBox33.Controls.Add(propertyGrid1);
+            groupBox33.Location = new System.Drawing.Point(8, 104);
+            groupBox33.Name = "groupBox33";
+            groupBox33.Size = new System.Drawing.Size(481, 750);
+            groupBox33.TabIndex = 2;
+            groupBox33.TabStop = false;
+            groupBox33.Text = "Color Palette";
+            // 
+            // BtnResetPalette
+            // 
+            BtnResetPalette.Location = new System.Drawing.Point(6, 725);
+            BtnResetPalette.Name = "BtnResetPalette";
+            BtnResetPalette.Size = new System.Drawing.Size(130, 23);
+            BtnResetPalette.TabIndex = 3;
+            BtnResetPalette.Text = "Reset to Default";
+            BtnResetPalette.UseVisualStyleBackColor = true;
+            // 
+            // CbbPaletteKey
+            // 
+            CbbPaletteKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbPaletteKey.FormattingEnabled = true;
+            CbbPaletteKey.Location = new System.Drawing.Point(6, 22);
+            CbbPaletteKey.Name = "CbbPaletteKey";
+            CbbPaletteKey.Size = new System.Drawing.Size(250, 23);
+            CbbPaletteKey.TabIndex = 0;
             // 
             // propertyGrid1
             // 
             propertyGrid1.BackColor = System.Drawing.SystemColors.Control;
-            propertyGrid1.HelpVisible = true;
             propertyGrid1.Location = new System.Drawing.Point(6, 51);
             propertyGrid1.Name = "propertyGrid1";
             propertyGrid1.Size = new System.Drawing.Size(465, 668);
             propertyGrid1.TabIndex = 1;
-            propertyGrid1.ToolbarVisible = true;
             // 
             // groupBox25
             // 
@@ -2621,7 +2711,6 @@
             tabPageInfoGraphic.Size = new System.Drawing.Size(876, 860);
             tabPageInfoGraphic.TabIndex = 7;
             tabPageInfoGraphic.Text = "Info Graphic";
-            tabPageInfoGraphic.UseVisualStyleBackColor = false;
             // 
             // BtNewRandomInfoGraphicCreature
             // 
@@ -3238,7 +3327,6 @@
             tabPageImportSavegame.Size = new System.Drawing.Size(876, 860);
             tabPageImportSavegame.TabIndex = 2;
             tabPageImportSavegame.Text = "Import Savegame";
-            tabPageImportSavegame.UseVisualStyleBackColor = false;
             // 
             // label68
             // 
@@ -3477,7 +3565,6 @@
             tabPageImportExported.Size = new System.Drawing.Size(876, 860);
             tabPageImportExported.TabIndex = 3;
             tabPageImportExported.Text = "Import Exported";
-            tabPageImportExported.UseVisualStyleBackColor = false;
             // 
             // BtGetExportFolderAutomatically
             // 
@@ -4091,7 +4178,6 @@
             tabPageTimers.Size = new System.Drawing.Size(876, 860);
             tabPageTimers.TabIndex = 6;
             tabPageTimers.Text = "Timers";
-            tabPageTimers.UseVisualStyleBackColor = false;
             // 
             // groupBox24
             // 
@@ -4226,7 +4312,6 @@
             tabPageOverlay.Size = new System.Drawing.Size(876, 860);
             tabPageOverlay.TabIndex = 5;
             tabPageOverlay.Text = "Overlay";
-            tabPageOverlay.UseVisualStyleBackColor = false;
             // 
             // groupBox10
             // 
@@ -4612,7 +4697,6 @@
             tabPageOCR.Size = new System.Drawing.Size(876, 860);
             tabPageOCR.TabIndex = 4;
             tabPageOCR.Text = "OCR";
-            tabPageOCR.UseVisualStyleBackColor = false;
             // 
             // groupBox1
             // 
@@ -4883,91 +4967,6 @@
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
-            // groupBox33
-            // 
-            groupBox33.Controls.Add(BtnResetPalette);
-            groupBox33.Controls.Add(CbbPaletteKey);
-            groupBox33.Controls.Add(propertyGrid1);
-            groupBox33.Location = new System.Drawing.Point(8, 104);
-            groupBox33.Name = "groupBox33";
-            groupBox33.Size = new System.Drawing.Size(481, 750);
-            groupBox33.TabIndex = 2;
-            groupBox33.TabStop = false;
-            groupBox33.Text = "Color Palette";
-            // 
-            // GbColorPreview
-            // 
-            GbColorPreview.Controls.Add(LblPreviewName);
-            GbColorPreview.Controls.Add(LblPreviewAsBackground);
-            GbColorPreview.Controls.Add(LblPreviewAsForeground);
-            GbColorPreview.Controls.Add(LblPreviewRgb);
-            GbColorPreview.Location = new System.Drawing.Point(495, 104);
-            GbColorPreview.Name = "GbColorPreview";
-            GbColorPreview.Size = new System.Drawing.Size(370, 750);
-            GbColorPreview.TabIndex = 3;
-            GbColorPreview.TabStop = false;
-            GbColorPreview.Text = "Preview";
-            // 
-            // LblPreviewName
-            // 
-            LblPreviewName.AutoSize = false;
-            LblPreviewName.Font = new System.Drawing.Font(System.Drawing.SystemFonts.DefaultFont.FontFamily, 11F, System.Drawing.FontStyle.Bold);
-            LblPreviewName.Location = new System.Drawing.Point(10, 22);
-            LblPreviewName.Name = "LblPreviewName";
-            LblPreviewName.Size = new System.Drawing.Size(350, 22);
-            LblPreviewName.TabIndex = 0;
-            LblPreviewName.Text = "(select a color)";
-            // 
-            // LblPreviewAsBackground
-            // 
-            LblPreviewAsBackground.AutoSize = false;
-            LblPreviewAsBackground.Font = new System.Drawing.Font(System.Drawing.SystemFonts.DefaultFont.FontFamily, 10F);
-            LblPreviewAsBackground.Location = new System.Drawing.Point(10, 50);
-            LblPreviewAsBackground.Name = "LblPreviewAsBackground";
-            LblPreviewAsBackground.Size = new System.Drawing.Size(350, 36);
-            LblPreviewAsBackground.TabIndex = 1;
-            LblPreviewAsBackground.Text = "Sample text on this background";
-            LblPreviewAsBackground.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            LblPreviewAsBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            // 
-            // LblPreviewAsForeground
-            // 
-            LblPreviewAsForeground.AutoSize = false;
-            LblPreviewAsForeground.Font = new System.Drawing.Font(System.Drawing.SystemFonts.DefaultFont.FontFamily, 10F);
-            LblPreviewAsForeground.Location = new System.Drawing.Point(10, 92);
-            LblPreviewAsForeground.Name = "LblPreviewAsForeground";
-            LblPreviewAsForeground.Size = new System.Drawing.Size(350, 36);
-            LblPreviewAsForeground.TabIndex = 2;
-            LblPreviewAsForeground.Text = "Sample text in this color";
-            LblPreviewAsForeground.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            LblPreviewAsForeground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            // 
-            // LblPreviewRgb
-            // 
-            LblPreviewRgb.AutoSize = true;
-            LblPreviewRgb.Location = new System.Drawing.Point(10, 134);
-            LblPreviewRgb.Name = "LblPreviewRgb";
-            LblPreviewRgb.Size = new System.Drawing.Size(100, 15);
-            LblPreviewRgb.TabIndex = 3;
-            // 
-            // CbbPaletteKey
-            // 
-            CbbPaletteKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            CbbPaletteKey.FormattingEnabled = true;
-            CbbPaletteKey.Location = new System.Drawing.Point(6, 22);
-            CbbPaletteKey.Name = "CbbPaletteKey";
-            CbbPaletteKey.Size = new System.Drawing.Size(250, 23);
-            CbbPaletteKey.TabIndex = 0;
-            // 
-            // BtnResetPalette
-            // 
-            BtnResetPalette.Location = new System.Drawing.Point(6, 725);
-            BtnResetPalette.Name = "BtnResetPalette";
-            BtnResetPalette.Size = new System.Drawing.Size(130, 23);
-            BtnResetPalette.TabIndex = 3;
-            BtnResetPalette.Text = "Reset to Default";
-            BtnResetPalette.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             AcceptButton = buttonOK;
@@ -5064,6 +5063,9 @@
             groupBox9.ResumeLayout(false);
             groupBox9.PerformLayout();
             tabPageVisuals.ResumeLayout(false);
+            GbColorPreview.ResumeLayout(false);
+            GbColorPreview.PerformLayout();
+            groupBox33.ResumeLayout(false);
             groupBox25.ResumeLayout(false);
             groupBox25.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).EndInit();
@@ -5146,8 +5148,6 @@
             ((System.ComponentModel.ISupportInitialize)nudWaitBeforeScreenCapture).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudWhiteThreshold).EndInit();
             panel1.ResumeLayout(false);
-            groupBox33.ResumeLayout(false);
-            groupBox33.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -5536,5 +5536,6 @@
         private System.Windows.Forms.Label LblPreviewAsBackground;
         private System.Windows.Forms.Label LblPreviewAsForeground;
         private System.Windows.Forms.Label LblPreviewRgb;
+        private System.Windows.Forms.CheckBox CbCopyNameToClipboardWhenAppliedInLibrary;
     }
 }

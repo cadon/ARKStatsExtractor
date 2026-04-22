@@ -421,6 +421,7 @@ namespace ARKBreedingStats.settings
             CbLibraryDisplayZeroMutationLevels.Checked = Properties.Settings.Default.LibraryDisplayZeroMutationLevels;
             CbLibraryShowStatLevelsThatCannotLevelup.Checked = Properties.Settings.Default.LibraryShowStatLevelsThatCannotLevelup;
             CbLibraryGenerateNameWarnTooLongName.Checked = Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated;
+            CbCopyNameToClipboardWhenAppliedInLibrary.Checked = Properties.Settings.Default.CopyNameToClipboardWhenAppliedInLibrary;
 
             #endregion
 
@@ -721,6 +722,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.LibraryDisplayZeroMutationLevels = CbLibraryDisplayZeroMutationLevels.Checked;
             Properties.Settings.Default.LibraryShowStatLevelsThatCannotLevelup = CbLibraryShowStatLevelsThatCannotLevelup.Checked;
             Properties.Settings.Default.DisplayWarningAboutTooLongNameGenerated = CbLibraryGenerateNameWarnTooLongName.Checked;
+            Properties.Settings.Default.CopyNameToClipboardWhenAppliedInLibrary = CbCopyNameToClipboardWhenAppliedInLibrary.Checked;
 
             #endregion
 
