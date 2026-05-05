@@ -1,8 +1,6 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
-using FluentFTP.Helpers;
-using Newtonsoft.Json;
 using Python.Runtime;
 using SavegameToolkit;
 using SavegameToolkit.Arrays;
