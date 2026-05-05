@@ -1,6 +1,7 @@
 ﻿using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
+using AsaSavegameToolkit.Porcelain;
 using SavegameToolkit;
 using SavegameToolkit.Arrays;
 using SavegameToolkit.Structs;
@@ -26,6 +27,44 @@ namespace ARKBreedingStats
         }
 
         public static async Task ImportCollectionFromSavegame(CreatureCollection creatureCollection, string filename, string serverName)
+        {
+            byte[] first16Bytes = new byte[16];
+            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                fs.ReadExactly(first16Bytes, 0, 16);
+            }
+            string checkString = System.Text.ASCIIEncoding.ASCII.GetString(first16Bytes);
+            bool isAsaSavegame = checkString.Contains("SQLite format");
+            var creatures = await (isAsaSavegame ? ImportCollectionFromAsaSavegame(creatureCollection, filename, serverName) : ImportCollectionFromAseSavegame(creatureCollection, filename, serverName));
+
+            ArkName.ClearCache();
+
+            // if there are creatures with unknown species, check if the according mod-file is available
+            var unknownSpeciesCreatures = creatures.Where(c => c.Species == null).ToArray();
+
+            if (!unknownSpeciesCreatures.Any()
+                || Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport
+                || MessageBox.Show("The species of " + unknownSpeciesCreatures.Length + " creature" + (unknownSpeciesCreatures.Length != 1 ? "s" : "") + " is not recognized, probably because they are from a mod that is not loaded.\n"
+                                  + "The unrecognized species-classes are as follows, all the according creatures cannot be imported:\n\n" + string.Join("\n", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray())
+                                  + "\n\nTo import the unrecognized creatures, you first need mod values-files, see Settings - Mod value manager… if the mod value is available\n\n"
+                                  + "Do you want to import the recognized creatures? If you click no, nothing is imported.",
+                                  "Unrecognized species while importing savegame", MessageBoxButtons.YesNo, MessageBoxIcon.Question
+                                 ) == DialogResult.Yes
+               )
+            {
+                ImportCollection(creatureCollection, creatures.Where(c => c.Species != null).ToList(), serverName);
+            }
+        }
+
+        private static async Task<Creature[]> ImportCollectionFromAsaSavegame(CreatureCollection creatureCollection, string filename, string serverName)
+        {
+            var importUnclaimedBabies = Properties.Settings.Default.SaveFileImportUnclaimedBabies;
+            var saveImportCryo = Properties.Settings.Default.SaveImportCryo;
+
+            throw new NotImplementedException();
+        }
+
+        private static async Task<Creature[]> ImportCollectionFromAseSavegame(CreatureCollection creatureCollection, string filename, string serverName)
         {
             (GameObjectContainer gameObjectContainer, float gameTime) = await Task.Run(() => ReadSavegameFile(filename));
             var ignoreClasses = Values.V.IgnoreSpeciesClassesOnImport;
@@ -56,25 +95,7 @@ namespace ARKBreedingStats
 
             ImportSavegame importSavegame = new ImportSavegame(gameTime);
             int? wildLevelStep = creatureCollection.getWildLevelStep();
-            var creatures = tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).Where(c => c != null).ToArray();
-
-            ArkName.ClearCache();
-
-            // if there are creatures with unknown species, check if the according mod-file is available
-            var unknownSpeciesCreatures = creatures.Where(c => c.Species == null).ToArray();
-
-            if (!unknownSpeciesCreatures.Any()
-                || Properties.Settings.Default.IgnoreUnknownBlueprintsOnSaveImport
-                || MessageBox.Show("The species of " + unknownSpeciesCreatures.Length + " creature" + (unknownSpeciesCreatures.Length != 1 ? "s" : "") + " is not recognized, probably because they are from a mod that is not loaded.\n"
-                                  + "The unrecognized species-classes are as follows, all the according creatures cannot be imported:\n\n" + string.Join("\n", unknownSpeciesCreatures.Select(c => c.name).Distinct().ToArray())
-                                  + "\n\nTo import the unrecognized creatures, you first need mod values-files, see Settings - Mod value manager… if the mod value is available\n\n"
-                                  + "Do you want to import the recognized creatures? If you click no, nothing is imported.",
-                                  "Unrecognized species while importing savegame", MessageBoxButtons.YesNo, MessageBoxIcon.Question
-                                 ) == DialogResult.Yes
-               )
-            {
-                ImportCollection(creatureCollection, creatures.Where(c => c.Species != null).ToList(), serverName);
-            }
+            return tamedCreatureObjects.Select(o => importSavegame.ConvertGameObject(o, wildLevelStep)).Where(c => c != null).ToArray();
         }
 
         private static (GameObjectContainer, float) ReadSavegameFile(string fileName)
