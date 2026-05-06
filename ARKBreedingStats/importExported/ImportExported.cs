@@ -216,12 +216,14 @@ namespace ARKBreedingStats.importExported
                         cv.statValues[Stats.CraftingSpeedMultiplier] = 1 + value;
                         break;
                     case "DinoAncestorsMale":
-                        Regex r = new Regex(@"MaleName=([^;]+);MaleDinoID1=([^;]+);MaleDinoID2=([^;]+);FemaleName=([^;]+);FemaleDinoID1=([^;]+);FemaleDinoID2=([^;]+)");
+                        Regex r = new Regex(@"MaleName=([^;]+) - Lvl \d+;MaleDinoID1=([^;]+);MaleDinoID2=([^;]+);FemaleName=([^;]+) - Lvl \d+;FemaleDinoID1=([^;]+);FemaleDinoID2=([^;]+)");
                         Match m = r.Match(text);
                         if (m.Success)
                         {
                             cv.motherArkId = BuildArkId(m.Groups[5].Value, m.Groups[6].Value);
                             cv.fatherArkId = BuildArkId(m.Groups[2].Value, m.Groups[3].Value);
+                            cv.motherName = m.Groups[4].Value;
+                            cv.fatherName = m.Groups[1].Value;
                             cv.isBred = true;
                         }
                         break;

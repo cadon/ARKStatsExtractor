@@ -728,8 +728,13 @@ namespace ARKBreedingStats.Library
         /// </summary>
         Divider = 4096,
         /// <summary>
+        /// When looking for parent stats, allow this creature to match by name.
+        /// This allows a single library creature to represent many in-game creatures.
+        /// </summary>
+        Archetype = 8192,
+        /// <summary>
         /// If applied to the flags with &, the status is removed.
         /// </summary>
-        StatusMask = Mutated | Neutered | Placeholder | Female | Male | MutagenApplied | Divider
+        StatusMask = Mutated | Neutered | Placeholder | Female | Male | MutagenApplied | Divider | Archetype
     }
 }

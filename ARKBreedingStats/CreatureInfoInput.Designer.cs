@@ -42,7 +42,7 @@ namespace ARKBreedingStats
             btNamingPattern4 = new System.Windows.Forms.Button();
             btNamingPattern3 = new System.Windows.Forms.Button();
             btNamingPattern2 = new System.Windows.Forms.Button();
-            btNamingPatternEditor = new System.Windows.Forms.Button();
+            cbArchetype = new System.Windows.Forms.CheckBox();
             btnGenerateUniqueName = new System.Windows.Forms.Button();
             TbArkIdIngame = new System.Windows.Forms.TextBox();
             TbArkId = new System.Windows.Forms.TextBox();
@@ -104,7 +104,7 @@ namespace ARKBreedingStats
             gbCreatureInfo.Controls.Add(btNamingPattern4);
             gbCreatureInfo.Controls.Add(btNamingPattern3);
             gbCreatureInfo.Controls.Add(btNamingPattern2);
-            gbCreatureInfo.Controls.Add(btNamingPatternEditor);
+            gbCreatureInfo.Controls.Add(cbArchetype);
             gbCreatureInfo.Controls.Add(btnGenerateUniqueName);
             gbCreatureInfo.Controls.Add(TbArkIdIngame);
             gbCreatureInfo.Controls.Add(TbArkId);
@@ -228,10 +228,10 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern6
             // 
-            btNamingPattern6.Location = new System.Drawing.Point(257, 51);
-            btNamingPattern6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern6.Location = new System.Drawing.Point(262, 51);
+            btNamingPattern6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern6.Name = "btNamingPattern6";
-            btNamingPattern6.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern6.Size = new System.Drawing.Size(36, 23);
             btNamingPattern6.TabIndex = 48;
             btNamingPattern6.TabStop = false;
             btNamingPattern6.Text = "G6";
@@ -239,10 +239,10 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern5
             // 
-            btNamingPattern5.Location = new System.Drawing.Point(208, 51);
-            btNamingPattern5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern5.Location = new System.Drawing.Point(222, 51);
+            btNamingPattern5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern5.Name = "btNamingPattern5";
-            btNamingPattern5.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern5.Size = new System.Drawing.Size(36, 23);
             btNamingPattern5.TabIndex = 47;
             btNamingPattern5.TabStop = false;
             btNamingPattern5.Text = "G5";
@@ -250,10 +250,10 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern4
             // 
-            btNamingPattern4.Location = new System.Drawing.Point(159, 51);
-            btNamingPattern4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern4.Location = new System.Drawing.Point(182, 51);
+            btNamingPattern4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern4.Name = "btNamingPattern4";
-            btNamingPattern4.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern4.Size = new System.Drawing.Size(36, 23);
             btNamingPattern4.TabIndex = 46;
             btNamingPattern4.TabStop = false;
             btNamingPattern4.Text = "G4";
@@ -261,10 +261,10 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern3
             // 
-            btNamingPattern3.Location = new System.Drawing.Point(110, 51);
-            btNamingPattern3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern3.Location = new System.Drawing.Point(141, 51);
+            btNamingPattern3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern3.Name = "btNamingPattern3";
-            btNamingPattern3.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern3.Size = new System.Drawing.Size(36, 23);
             btNamingPattern3.TabIndex = 45;
             btNamingPattern3.TabStop = false;
             btNamingPattern3.Text = "G3";
@@ -272,32 +272,34 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern2
             // 
-            btNamingPattern2.Location = new System.Drawing.Point(61, 51);
-            btNamingPattern2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btNamingPattern2.Location = new System.Drawing.Point(100, 51);
+            btNamingPattern2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern2.Name = "btNamingPattern2";
-            btNamingPattern2.Size = new System.Drawing.Size(42, 23);
+            btNamingPattern2.Size = new System.Drawing.Size(36, 23);
             btNamingPattern2.TabIndex = 44;
             btNamingPattern2.TabStop = false;
             btNamingPattern2.Text = "G2";
             btNamingPattern2.UseVisualStyleBackColor = true;
             // 
-            // btNamingPatternEditor
+            // cbArchetype
             // 
-            btNamingPatternEditor.Location = new System.Drawing.Point(271, 22);
-            btNamingPatternEditor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            btNamingPatternEditor.Name = "btNamingPatternEditor";
-            btNamingPatternEditor.Size = new System.Drawing.Size(28, 23);
-            btNamingPatternEditor.TabIndex = 43;
-            btNamingPatternEditor.Text = "⚙";
-            btNamingPatternEditor.UseVisualStyleBackColor = true;
-            btNamingPatternEditor.Click += btNamingPatternEditor_Click;
+            cbArchetype.Appearance = System.Windows.Forms.Appearance.Button;
+            cbArchetype.Location = new System.Drawing.Point(222, 20);
+            cbArchetype.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbArchetype.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
+            cbArchetype.Name = "cbArchetype";
+            cbArchetype.Size = new System.Drawing.Size(76, 25);
+            cbArchetype.TabIndex = 55;
+            cbArchetype.Text = "Archetype";
+            cbArchetype.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            cbArchetype.UseVisualStyleBackColor = true;
             // 
             // btnGenerateUniqueName
             // 
-            btnGenerateUniqueName.Location = new System.Drawing.Point(236, 22);
-            btnGenerateUniqueName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btnGenerateUniqueName.Location = new System.Drawing.Point(58, 51);
+            btnGenerateUniqueName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btnGenerateUniqueName.Name = "btnGenerateUniqueName";
-            btnGenerateUniqueName.Size = new System.Drawing.Size(30, 23);
+            btnGenerateUniqueName.Size = new System.Drawing.Size(36, 23);
             btnGenerateUniqueName.TabIndex = 1;
             btnGenerateUniqueName.TabStop = false;
             btnGenerateUniqueName.Text = "G1";
@@ -389,7 +391,7 @@ namespace ARKBreedingStats
             textBoxName.Location = new System.Drawing.Point(58, 22);
             textBoxName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             textBoxName.Name = "textBoxName";
-            textBoxName.Size = new System.Drawing.Size(170, 23);
+            textBoxName.Size = new System.Drawing.Size(159, 23);
             textBoxName.TabIndex = 0;
             textBoxName.TextChanged += textBoxName_TextChanged;
             // 
@@ -795,7 +797,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label LbArkIdIngame;
         private System.Windows.Forms.TextBox TbArkIdIngame;
         private System.Windows.Forms.Label lbNewMutations;
-        private System.Windows.Forms.Button btNamingPatternEditor;
+        private System.Windows.Forms.CheckBox cbArchetype;
         private System.Windows.Forms.Button btNamingPattern6;
         private System.Windows.Forms.Button btNamingPattern5;
         private System.Windows.Forms.Button btNamingPattern4;

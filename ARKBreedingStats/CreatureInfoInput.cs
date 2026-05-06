@@ -352,6 +352,7 @@ namespace ARKBreedingStats
                 btSaveChanges.Visible = value;
                 btAdd2Library.Size = new Size((value ? Width / 2 : Width) - 10, btAdd2Library.Size.Height);
                 btAdd2Library.Location = new Point(value ? Width / 2 + 6 : 6, btAdd2Library.Location.Y);
+                btAdd2Library.Update();
             }
         }
 
@@ -511,6 +512,9 @@ namespace ARKBreedingStats
                 if (CbMutagen.Checked)
                     _creatureFlags |= CreatureFlags.MutagenApplied;
                 else _creatureFlags &= ~CreatureFlags.MutagenApplied;
+                if (cbArchetype.Checked)
+                    _creatureFlags |= CreatureFlags.Archetype;
+                else _creatureFlags &= ~CreatureFlags.Archetype;
                 if (MutationCounterMother > 0 || MutationCounterFather > 0)
                     _creatureFlags |= CreatureFlags.Mutated;
                 else _creatureFlags &= ~CreatureFlags.Mutated;
@@ -522,6 +526,7 @@ namespace ARKBreedingStats
                 _creatureFlags = value;
                 cbNeutered.Checked = _creatureFlags.HasFlag(CreatureFlags.Neutered);
                 CbMutagen.Checked = _creatureFlags.HasFlag(CreatureFlags.MutagenApplied);
+                cbArchetype.Checked = _creatureFlags.HasFlag(CreatureFlags.Archetype);
             }
         }
 
@@ -954,6 +959,7 @@ namespace ARKBreedingStats
         {
             Loc.ControlText(gbCreatureInfo);
             Loc.ControlText(lbName, "Name", _tt);
+            Loc.ControlText(cbArchetype, _tt);
             Loc.ControlText(lbOwner, "Owner", _tt);
             Loc.ControlText(lbTribe, "Tribe", _tt);
             Loc.ControlText(lbServer, "Server", _tt);
