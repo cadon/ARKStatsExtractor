@@ -1377,6 +1377,21 @@ namespace ARKBreedingStats
                 {
                     cv.Mother = mother;
                 }
+                else if (!string.IsNullOrEmpty(cv.motherName))
+                {
+                    var archetype = _creatureCollection.creatures.FirstOrDefault(a =>
+                        a.flags.HasFlag(CreatureFlags.Archetype)
+                        && a.Species == cv.Species
+                        && a.name == cv.motherName
+                        && (a.sex == Sex.Female || a.sex == Sex.Unknown));
+                    if (archetype != null)
+                        cv.Mother = archetype;
+                    else if (cv.motherArkId != 0)
+                    {
+                        cv.Mother = new Creature(cv.motherArkId, cv.Species);
+                        _creatureCollection.creatures.Add(cv.Mother);
+                    }
+                }
                 else if (cv.motherArkId != 0)
                 {
                     cv.Mother = new Creature(cv.motherArkId, cv.Species);
@@ -1389,6 +1404,21 @@ namespace ARKBreedingStats
                 if (_creatureCollection.CreatureById(useGuid, cv.fatherArkId, out Creature father))
                 {
                     cv.Father = father;
+                }
+                else if (!string.IsNullOrEmpty(cv.fatherName))
+                {
+                    var archetype = _creatureCollection.creatures.FirstOrDefault(a =>
+                        a.flags.HasFlag(CreatureFlags.Archetype)
+                        && a.Species == cv.Species
+                        && a.name == cv.fatherName
+                        && (a.sex == Sex.Male || a.sex == Sex.Unknown));
+                    if (archetype != null)
+                        cv.Father = archetype;
+                    else if (cv.fatherArkId != 0)
+                    {
+                        cv.Father = new Creature(cv.fatherArkId, cv.Species);
+                        _creatureCollection.creatures.Add(cv.Father);
+                    }
                 }
                 else if (cv.fatherArkId != 0)
                 {
@@ -1440,9 +1470,24 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    c.Mother = new Creature(c.motherGuid, c.Species, c.Species.NoGender ? Sex.Unknown : Sex.Female);
-                    c.Mother.name = (c.Mother.sex == Sex.Female ? "Mother" : "Parent") + " of " + c.name;
-                    _creatureCollection.creatures.Add(c.Mother);
+                    // Check for an archetype creature matching by name, species, and sex
+                    var archetype = !string.IsNullOrEmpty(c.motherName)
+                        ? _creatureCollection.creatures.FirstOrDefault(a =>
+                            a.flags.HasFlag(CreatureFlags.Archetype)
+                            && a.Species == c.Species
+                            && a.name == c.motherName
+                            && (a.sex == Sex.Female || a.sex == Sex.Unknown))
+                        : null;
+                    if (archetype != null)
+                    {
+                        c.Mother = archetype;
+                    }
+                    else
+                    {
+                        c.Mother = new Creature(c.motherGuid, c.Species, c.Species.NoGender ? Sex.Unknown : Sex.Female);
+                        c.Mother.name = (c.Mother.sex == Sex.Female ? "Mother" : "Parent") + " of " + c.name;
+                        _creatureCollection.creatures.Add(c.Mother);
+                    }
                 }
             }
             if (c.Father == null && c.fatherGuid != Guid.Empty)
@@ -1453,9 +1498,24 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    c.Father = new Creature(c.fatherGuid, c.Species, c.Species.NoGender ? Sex.Unknown : Sex.Male);
-                    c.Father.name = (c.Father.sex == Sex.Male ? "Father" : "Parent") + " of " + c.name;
-                    _creatureCollection.creatures.Add(c.Father);
+                    // Check for an archetype creature matching by name, species, and sex
+                    var archetype = !string.IsNullOrEmpty(c.fatherName)
+                        ? _creatureCollection.creatures.FirstOrDefault(a =>
+                            a.flags.HasFlag(CreatureFlags.Archetype)
+                            && a.Species == c.Species
+                            && a.name == c.fatherName
+                            && (a.sex == Sex.Male || a.sex == Sex.Unknown))
+                        : null;
+                    if (archetype != null)
+                    {
+                        c.Father = archetype;
+                    }
+                    else
+                    {
+                        c.Father = new Creature(c.fatherGuid, c.Species, c.Species.NoGender ? Sex.Unknown : Sex.Male);
+                        c.Father.name = (c.Father.sex == Sex.Male ? "Father" : "Parent") + " of " + c.name;
+                        _creatureCollection.creatures.Add(c.Father);
+                    }
                 }
             }
         }

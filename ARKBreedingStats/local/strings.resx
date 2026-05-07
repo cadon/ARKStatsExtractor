@@ -1405,4 +1405,11 @@ It's also possible to filter for creatures with a color in one of multiple possi
   <data name="BtBeepNewRegionColor" xml:space="preserve">
     <value>new region color</value>
   </data>
+  <data name="cbArchetype" xml:space="preserve">
+    <value>Archetype</value>
+  </data>
+  <data name="cbArchetypeTT" xml:space="preserve">
+    <value>When looking for parent stats, allow this creature to match by name.
+This allows you to have a single library creature represent many in-game creatures, as long as they're named the same.</value>
+  </data>
 </root>

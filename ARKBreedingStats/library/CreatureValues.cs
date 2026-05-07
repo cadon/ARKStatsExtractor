@@ -70,6 +70,10 @@ namespace ARKBreedingStats.Library
         public Guid motherGuid;
         [JsonProperty]
         public Guid fatherGuid;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string motherName;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string fatherName;
         private Creature mother;
         private Creature father;
         [JsonProperty]

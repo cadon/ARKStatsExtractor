@@ -796,14 +796,36 @@ namespace ARKBreedingStats
                 if (c.motherGuid == Guid.Empty && c.fatherGuid == Guid.Empty) continue;
 
                 Creature mother = null;
-                if (c.motherGuid != Guid.Empty
-                    && !creatureGuids.TryGetValue(c.motherGuid, out mother))
-                    mother = EnsurePlaceholderCreature(placeholderAncestors, c, c.motherGuid, c.motherName, Sex.Female);
+                if (c.motherGuid != Guid.Empty && !creatureGuids.TryGetValue(c.motherGuid, out mother))
+                {
+                    // Check for an archetype creature matching by name, species, and sex
+                    if (!string.IsNullOrEmpty(c.motherName))
+                    {
+                        mother = _creatureCollection.creatures.FirstOrDefault(a =>
+                            a.flags.HasFlag(CreatureFlags.Archetype) &&
+                            a.Species == c.Species &&
+                            a.name == c.motherName &&
+                            (a.sex == Sex.Female || a.sex == Sex.Unknown));
+                    }
+
+                    mother ??= EnsurePlaceholderCreature(placeholderAncestors, c, c.motherGuid, c.motherName, Sex.Female);
+                }
 
                 Creature father = null;
-                if (c.fatherGuid != Guid.Empty
-                    && !creatureGuids.TryGetValue(c.fatherGuid, out father))
-                    father = EnsurePlaceholderCreature(placeholderAncestors, c, c.fatherGuid, c.fatherName, Sex.Male);
+                if (c.fatherGuid != Guid.Empty && !creatureGuids.TryGetValue(c.fatherGuid, out father))
+                {
+                    // Check for an archetype creature matching by name, species, and sex
+                    if (!string.IsNullOrEmpty(c.fatherName))
+                    {
+                        father = _creatureCollection.creatures.FirstOrDefault(a =>
+                            a.flags.HasFlag(CreatureFlags.Archetype) &&
+                            a.Species == c.Species &&
+                            a.name == c.fatherName &&
+                            (a.sex == Sex.Male || a.sex == Sex.Unknown));
+                    }
+
+                    father ??= EnsurePlaceholderCreature(placeholderAncestors, c, c.fatherGuid, c.fatherName, Sex.Male);
+                }
 
                 c.Mother = mother;
                 c.Father = father;
