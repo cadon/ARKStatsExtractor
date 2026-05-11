@@ -268,7 +268,7 @@ namespace ARKBreedingStats.AsbServer
                         var matchServerHash = RgServerHash.Match(received);
                         if (matchServerHash.Success)
                         {
-                            report = new ProgressReportAsbServer { ServerHash = matchServerHash.Groups[2].Value };
+                            report = new ProgressReportAsbServer { ServerHash = matchServerHash.Groups[1].Value };
 
                             while (true)
                             {
