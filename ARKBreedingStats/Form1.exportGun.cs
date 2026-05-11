@@ -176,18 +176,27 @@ namespace ARKBreedingStats
 
                 _creatureCollection.DetermineColorStatus(speciesSelector1.SelectedSpecies, creature.colors, out _, out _, out _);
                 DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport, Properties.Settings.Default.PlayColorSoundOnAutoImport);
-                SetNameOfImportedCreature(creature, null, out _,
-                        _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid));
+
+                var alreadyExistingCreature = _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid);
 
                 if (addCreature)
                 {
+                    // Merge first so parent linking sees the creature in the collection (consistent with file-import flow in Form1.collection.cs).
+                    _creatureCollection.MergeCreatureList(new[] { creature }, true);
+                    // Resolve parents and recompute the ancestor generation BEFORE applying the naming pattern,
+                    // otherwise tokens like {gena}/{generation} fall back to 0 because creature.Mother/Father are still null.
+                    UpdateParents(new[] { creature });
+                    creature.RecalculateAncestorGenerations();
+
+                    SetNameOfImportedCreature(creature, null, out _, alreadyExistingCreature);
+
                     data.TaskNameGenerated?.SetResult(new ServerSendName { CreatureName = creature.name, ConnectionToken = data.ServerToken, ExportId = data.SendId });
 
-                    _creatureCollection.MergeCreatureList(new[] { creature }, true);
                     UpdateCreatureParentLinkingSort(goToLibraryTab: gotoLibraryTab);
                 }
                 else
                 {
+                    SetNameOfImportedCreature(creature, null, out _, alreadyExistingCreature);
                     SetCreatureValuesLevelsAndInfoToExtractor(creature);
                 }
 
