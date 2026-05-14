@@ -39,8 +39,15 @@
   </ItemGroup>
 
 
+  <ItemGroup Condition="'$(Configuration)'!='Debug'">
+	<PackageReference Include="AsaSavegameToolkit" Version="0.5.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+	<ProjectReference Include="..\AsaSavegameToolkit\src\AsaSavegameToolkit.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="AsaSavegameToolkit" Version="0.5.0" />
     <PackageReference Include="System.Windows.Forms.DataVisualization" Version="1.0.0-prerelease.20110.1" />
     <PackageReference Include="System.Speech" Version="10.0.3" />
     <PackageReference Include="FluentFTP" Version="51.0.0" />
