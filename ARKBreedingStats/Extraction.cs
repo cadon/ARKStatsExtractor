@@ -390,8 +390,8 @@ namespace ARKBreedingStats
                                 {
                                     var effectiveIncPerDomLevel = (increaseStatAsPercentage ? valueWoDomRange : new MinMaxDouble(1)) * stats[s].IncPerTamedLevel;
 
-                                    var ldRange = new MinMaxInt(Math.Max(0, (statValue.Min - valueWoDomRange.Max) / effectiveIncPerDomLevel.Max),
-                                                                            (statValue.Max - valueWoDomRange.Min) / effectiveIncPerDomLevel.Min);
+                                    var ldRange = new MinMaxInt((statValue.Min - valueWoDomRange.Max) / effectiveIncPerDomLevel.Max,
+                                                                (statValue.Max - valueWoDomRange.Min) / effectiveIncPerDomLevel.Min);
                                     var ld = (int)Math.Round(ldRange.Mean);
                                     if (ldRange.Includes(ld) && ld >= 0 && ld <= maxLd)
                                         Results[s].Add(new StatResult(lw, ld, levelMut: lm));
