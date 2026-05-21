@@ -129,7 +129,7 @@ namespace ARKBreedingStats.library
                 using (var backgroundBrush = new SolidBrush(backColor))
                     g.FillRectangle(backgroundBrush, 0, yOffsetBox, widthBox, heightBox);
 
-                var headerText = creature.Species.DescriptiveNameAndMod +
+                var headerText = creature.Species.Name(creature.sex, true, true) +
                                  (displayCreatureName ? $" - {creature.name}" : string.Empty);
 
                 var fontSizeHeaderCalculated = CalculateFontSize(g, headerText, fontHeader, contentWidth);

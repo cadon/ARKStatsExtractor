@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using System.IO;
+using System.Windows.Documents;
 
 namespace ARKBreedingStats.species
 {
@@ -36,6 +37,17 @@ namespace ARKBreedingStats.species
         /// The name suffixed by possible additional infos like cave, minion, etc.
         /// </summary>
         public string DescriptiveName { get; private set; }
+
+        /// <summary>
+        /// Info about the species variant, or null.
+        /// </summary>
+        public string VariantSuffix { get; private set; }
+
+        /// <summary>
+        /// Info about the species mod, or null.
+        /// </summary>
+        public string ModSuffix { get; private set; }
+
         /// <summary>
         /// List of variant infos about that species.
         /// </summary>
@@ -334,9 +346,12 @@ namespace ARKBreedingStats.species
                 variantInfoForName = string.Join(", ", string.IsNullOrEmpty(name) ? variants : variants.Where(v => !name.Contains(v) && !ignoreVariants.Contains(v)));
             }
 
-            DescriptiveName = name + (string.IsNullOrEmpty(variantInfoForName) ? string.Empty : " (" + variantInfoForName + ")");
+            VariantInfo = string.IsNullOrEmpty(variantInfoForName) ? null : " (" + variantInfoForName + ")";
+            DescriptiveName = name + VariantInfo;
+
             string modSuffix = _mod?.ShortTitle ?? _mod?.Title;
-            DescriptiveNameAndMod = DescriptiveName + (string.IsNullOrEmpty(modSuffix) ? string.Empty : " (" + modSuffix + ")");
+            ModSuffix = string.IsNullOrEmpty(modSuffix) ? string.Empty : " (" + modSuffix + ")";
+            DescriptiveNameAndMod = DescriptiveName + ModSuffix;
             SortName = DescriptiveNameAndMod;
         }
 
@@ -571,17 +586,15 @@ namespace ARKBreedingStats.species
         /// </summary>
         /// <param name="creatureSex"></param>
         /// <returns></returns>
-        public string Name(Sex creatureSex)
+        public string Name(Sex creatureSex, bool variantInfo = false, bool modInfo = false)
         {
-            switch (creatureSex)
+            var suffix = (variantInfo ? VariantInfo : string.Empty) + (modInfo ? ModSuffix : string.Empty);
+            return creatureSex switch
             {
-                case Sex.Female:
-                    return nameFemale ?? name;
-                case Sex.Male:
-                    return nameMale ?? name;
-                default:
-                    return name;
-            }
+                Sex.Female => (nameFemale ?? name) + suffix,
+                Sex.Male => (nameMale ?? name) + suffix,
+                _ => name + suffix
+            };
         }
 
         private static string[] _getIgnoreVariantInName()

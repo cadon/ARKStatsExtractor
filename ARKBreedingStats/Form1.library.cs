@@ -1039,7 +1039,10 @@ namespace ARKBreedingStats
                     _creatureCollection.GetCreatureCountBySpecies()
                         .TryGetValue(creature.Species.blueprintPath, out count);
 
-                var displayedText = creature.Species.DescriptiveNameAndMod + " (" + count + ")";
+                var speciesName = creature.Species.DescriptiveNameAndMod;
+                if (!string.IsNullOrEmpty(creature.Species.nameMale) && creature.Species.nameMale != creature.Species.name) speciesName = creature.Species.nameMale + " / " + speciesName;
+                if (!string.IsNullOrEmpty(creature.Species.nameFemale) && creature.Species.nameFemale != creature.Species.name) speciesName = creature.Species.nameFemale + " / " + speciesName;
+                var displayedText = speciesName + " (" + count + ")";
 
                 if (Properties.Settings.Default.LibraryCombineBreedingCompatibleSpecies && creature.Species.matesWith?.Any() == true)
                 {
