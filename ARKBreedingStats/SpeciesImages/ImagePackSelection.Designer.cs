@@ -185,7 +185,7 @@
             // 
             // BtAdd
             // 
-            this.BtAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtAdd.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtAdd.Location = new System.Drawing.Point(3, 74);
             this.BtAdd.Name = "BtAdd";
             this.BtAdd.Size = new System.Drawing.Size(38, 39);
@@ -196,7 +196,7 @@
             // 
             // BtRemove
             // 
-            this.BtRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtRemove.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtRemove.Location = new System.Drawing.Point(3, 119);
             this.BtRemove.Name = "BtRemove";
             this.BtRemove.Size = new System.Drawing.Size(38, 39);
@@ -207,7 +207,7 @@
             // 
             // BtRemoveAll
             // 
-            this.BtRemoveAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtRemoveAll.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtRemoveAll.Location = new System.Drawing.Point(3, 164);
             this.BtRemoveAll.Name = "BtRemoveAll";
             this.BtRemoveAll.Size = new System.Drawing.Size(38, 39);
@@ -218,7 +218,7 @@
             // 
             // BtMoveUp
             // 
-            this.BtMoveUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtMoveUp.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtMoveUp.Location = new System.Drawing.Point(3, 209);
             this.BtMoveUp.Name = "BtMoveUp";
             this.BtMoveUp.Size = new System.Drawing.Size(38, 39);
@@ -229,7 +229,7 @@
             // 
             // BtMoveDown
             // 
-            this.BtMoveDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtMoveDown.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtMoveDown.Location = new System.Drawing.Point(3, 254);
             this.BtMoveDown.Name = "BtMoveDown";
             this.BtMoveDown.Size = new System.Drawing.Size(38, 39);
@@ -279,7 +279,7 @@
             // 
             this.LbPackName.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.LbPackName, true);
-            this.LbPackName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbPackName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbPackName.Location = new System.Drawing.Point(3, 30);
             this.LbPackName.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
             this.LbPackName.Name = "LbPackName";

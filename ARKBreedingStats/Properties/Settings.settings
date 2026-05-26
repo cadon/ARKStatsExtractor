@@ -213,10 +213,10 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="DefaultFontName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Microsoft Sans Serif</Value>
+      <Value Profile="(Default)">Segoe UI</Value>
     </Setting>
     <Setting Name="DefaultFontSize" Type="System.Single" Scope="User">
-      <Value Profile="(Default)">8.25</Value>
+      <Value Profile="(Default)">9</Value>
     </Setting>
     <Setting Name="SpeciesSelectorVerticalSplitterDistance" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>

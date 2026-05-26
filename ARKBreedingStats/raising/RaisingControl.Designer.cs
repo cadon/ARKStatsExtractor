@@ -284,7 +284,7 @@
             // btStartPauseTimer
             // 
             this.btStartPauseTimer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btStartPauseTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btStartPauseTimer.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btStartPauseTimer.Location = new System.Drawing.Point(3, 280);
             this.btStartPauseTimer.Name = "btStartPauseTimer";
             this.btStartPauseTimer.Size = new System.Drawing.Size(358, 34);

@@ -858,7 +858,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Microsoft Sans Serif")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI")]
         public string DefaultFontName {
             get {
                 return ((string)(this["DefaultFontName"]));
@@ -870,7 +870,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8.25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
         public float DefaultFontSize {
             get {
                 return ((float)(this["DefaultFontSize"]));

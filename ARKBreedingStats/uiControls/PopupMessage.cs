@@ -39,14 +39,14 @@ namespace ARKBreedingStats.uiControls
             _label.Click += CloseClick;
         }
 
-        public PopupMessage(string message, float fontSize = 8.25f) : this()
+        public PopupMessage(string message, float fontSize = 9f) : this()
         {
-            if (fontSize != 8.25f)
+            if (fontSize != 9f)
                 _label.Font = new Font(_label.Font.FontFamily, fontSize);
             _label.Text = message;
         }
 
-        public static void Show(Form parent, string message, float fontSize = 8.25f)
+        public static void Show(Form parent, string message, float fontSize = 9f)
         {
             new PopupMessage(message, fontSize).ShowDialog(parent);
         }

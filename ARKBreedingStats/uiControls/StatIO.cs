@@ -295,7 +295,7 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                Height = value ? 50 : 16;
+                Height = value ? 58 : 19;
                 Enabled = value;
             }
             get => Enabled;

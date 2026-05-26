@@ -399,7 +399,7 @@ namespace ARKBreedingStats.Pedigree
 
             Bitmap bmp = new Bitmap(w, h);
             using (Graphics g = Graphics.FromImage(bmp))
-            using (var font = new Font("Microsoft Sans Serif", 8.25f))
+            using (var font = new Font("Segoe UI", 9f))
             using (var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
             using (var pen = new Pen(SystemColors.ControlText))
             using (var brush = new SolidBrush(SystemColors.ControlText))

@@ -28,407 +28,416 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelMutations = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelCr = new System.Windows.Forms.Label();
-            this.labelSp = new System.Windows.Forms.Label();
-            this.labelDm = new System.Windows.Forms.Label();
-            this.labelWe = new System.Windows.Forms.Label();
-            this.labelFo = new System.Windows.Forms.Label();
-            this.labelOx = new System.Windows.Forms.Label();
-            this.labelSt = new System.Windows.Forms.Label();
-            this.labelHP = new System.Windows.Forms.Label();
-            this.labelSex = new System.Windows.Forms.Label();
-            this.LbCrMut = new System.Windows.Forms.Label();
-            this.LbHpMut = new System.Windows.Forms.Label();
-            this.LbSpMut = new System.Windows.Forms.Label();
-            this.LbStMut = new System.Windows.Forms.Label();
-            this.LbDmMut = new System.Windows.Forms.Label();
-            this.LbOxMut = new System.Windows.Forms.Label();
-            this.LbWeMut = new System.Windows.Forms.Label();
-            this.LbFoMut = new System.Windows.Forms.Label();
-            this.panelHighlight = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TsMiViewInPedigree = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyNameToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemCopyGeneratedNameToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyInfoGraphicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openWikipageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editTraitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panelHighlight.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            labelMutations = new System.Windows.Forms.Label();
+            pictureBox1 = new System.Windows.Forms.PictureBox();
+            labelCr = new System.Windows.Forms.Label();
+            labelSp = new System.Windows.Forms.Label();
+            labelDm = new System.Windows.Forms.Label();
+            labelWe = new System.Windows.Forms.Label();
+            labelFo = new System.Windows.Forms.Label();
+            labelOx = new System.Windows.Forms.Label();
+            labelSt = new System.Windows.Forms.Label();
+            labelHP = new System.Windows.Forms.Label();
+            labelSex = new System.Windows.Forms.Label();
+            LbCrMut = new System.Windows.Forms.Label();
+            LbHpMut = new System.Windows.Forms.Label();
+            LbSpMut = new System.Windows.Forms.Label();
+            LbStMut = new System.Windows.Forms.Label();
+            LbDmMut = new System.Windows.Forms.Label();
+            LbOxMut = new System.Windows.Forms.Label();
+            LbWeMut = new System.Windows.Forms.Label();
+            LbFoMut = new System.Windows.Forms.Label();
+            panelHighlight = new System.Windows.Forms.Panel();
+            panel1 = new System.Windows.Forms.Panel();
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            bestBreedingPartnersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            setCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            removeCooldownGrowingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            TsMiViewInPedigree = new System.Windows.Forms.ToolStripMenuItem();
+            editTraitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            copyNameToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripMenuItemCopyGeneratedNameToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            exportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            plainTextbreedingValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            plainTextcurrentValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            copyInfoGraphicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            openWikipageInBrowserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panelHighlight.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.labelMutations);
-            this.groupBox1.Controls.Add(this.pictureBox1);
-            this.groupBox1.Controls.Add(this.labelCr);
-            this.groupBox1.Controls.Add(this.labelSp);
-            this.groupBox1.Controls.Add(this.labelDm);
-            this.groupBox1.Controls.Add(this.labelWe);
-            this.groupBox1.Controls.Add(this.labelFo);
-            this.groupBox1.Controls.Add(this.labelOx);
-            this.groupBox1.Controls.Add(this.labelSt);
-            this.groupBox1.Controls.Add(this.labelHP);
-            this.groupBox1.Controls.Add(this.labelSex);
-            this.groupBox1.Controls.Add(this.LbCrMut);
-            this.groupBox1.Controls.Add(this.LbHpMut);
-            this.groupBox1.Controls.Add(this.LbSpMut);
-            this.groupBox1.Controls.Add(this.LbStMut);
-            this.groupBox1.Controls.Add(this.LbDmMut);
-            this.groupBox1.Controls.Add(this.LbOxMut);
-            this.groupBox1.Controls.Add(this.LbWeMut);
-            this.groupBox1.Controls.Add(this.LbFoMut);
-            this.groupBox1.Controls.Add(this.panelHighlight);
-            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(325, 48);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            groupBox1.Controls.Add(labelMutations);
+            groupBox1.Controls.Add(pictureBox1);
+            groupBox1.Controls.Add(labelCr);
+            groupBox1.Controls.Add(labelSp);
+            groupBox1.Controls.Add(labelDm);
+            groupBox1.Controls.Add(labelWe);
+            groupBox1.Controls.Add(labelFo);
+            groupBox1.Controls.Add(labelOx);
+            groupBox1.Controls.Add(labelSt);
+            groupBox1.Controls.Add(labelHP);
+            groupBox1.Controls.Add(labelSex);
+            groupBox1.Controls.Add(LbCrMut);
+            groupBox1.Controls.Add(LbHpMut);
+            groupBox1.Controls.Add(LbSpMut);
+            groupBox1.Controls.Add(LbStMut);
+            groupBox1.Controls.Add(LbDmMut);
+            groupBox1.Controls.Add(LbOxMut);
+            groupBox1.Controls.Add(LbWeMut);
+            groupBox1.Controls.Add(LbFoMut);
+            groupBox1.Controls.Add(panelHighlight);
+            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Location = new System.Drawing.Point(0, 0);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(0);
+            groupBox1.Size = new System.Drawing.Size(379, 58);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.MouseClick += element_MouseClick;
             // 
             // labelMutations
             // 
-            this.labelMutations.Location = new System.Drawing.Point(285, 16);
-            this.labelMutations.Name = "labelMutations";
-            this.labelMutations.Size = new System.Drawing.Size(37, 13);
-            this.labelMutations.TabIndex = 10;
-            this.labelMutations.Text = "Muta";
-            this.labelMutations.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelMutations.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            labelMutations.Location = new System.Drawing.Point(332, 18);
+            labelMutations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelMutations.Name = "labelMutations";
+            labelMutations.Size = new System.Drawing.Size(43, 15);
+            labelMutations.TabIndex = 10;
+            labelMutations.Text = "Muta";
+            labelMutations.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelMutations.MouseClick += element_MouseClick;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(256, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            pictureBox1.Location = new System.Drawing.Point(299, 9);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(28, 28);
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
+            pictureBox1.MouseClick += element_MouseClick;
             // 
             // labelCr
             // 
-            this.labelCr.Location = new System.Drawing.Point(225, 16);
-            this.labelCr.Name = "labelCr";
-            this.labelCr.Size = new System.Drawing.Size(28, 13);
-            this.labelCr.TabIndex = 11;
-            this.labelCr.Text = "Cr";
-            this.labelCr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelCr.Location = new System.Drawing.Point(262, 18);
+            labelCr.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelCr.Name = "labelCr";
+            labelCr.Size = new System.Drawing.Size(33, 15);
+            labelCr.TabIndex = 11;
+            labelCr.Text = "Cr";
+            labelCr.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelSp
             // 
-            this.labelSp.Location = new System.Drawing.Point(196, 16);
-            this.labelSp.Name = "labelSp";
-            this.labelSp.Size = new System.Drawing.Size(28, 13);
-            this.labelSp.TabIndex = 7;
-            this.labelSp.Text = "Sp";
-            this.labelSp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelSp.Location = new System.Drawing.Point(229, 18);
+            labelSp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelSp.Name = "labelSp";
+            labelSp.Size = new System.Drawing.Size(33, 15);
+            labelSp.TabIndex = 7;
+            labelSp.Text = "Sp";
+            labelSp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelDm
             // 
-            this.labelDm.Location = new System.Drawing.Point(167, 16);
-            this.labelDm.Name = "labelDm";
-            this.labelDm.Size = new System.Drawing.Size(28, 13);
-            this.labelDm.TabIndex = 6;
-            this.labelDm.Text = "Dm";
-            this.labelDm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelDm.Location = new System.Drawing.Point(195, 18);
+            labelDm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelDm.Name = "labelDm";
+            labelDm.Size = new System.Drawing.Size(33, 15);
+            labelDm.TabIndex = 6;
+            labelDm.Text = "Dm";
+            labelDm.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelWe
             // 
-            this.labelWe.Location = new System.Drawing.Point(138, 16);
-            this.labelWe.Name = "labelWe";
-            this.labelWe.Size = new System.Drawing.Size(28, 13);
-            this.labelWe.TabIndex = 5;
-            this.labelWe.Text = "We";
-            this.labelWe.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelWe.Location = new System.Drawing.Point(161, 18);
+            labelWe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelWe.Name = "labelWe";
+            labelWe.Size = new System.Drawing.Size(33, 15);
+            labelWe.TabIndex = 5;
+            labelWe.Text = "We";
+            labelWe.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelFo
             // 
-            this.labelFo.Location = new System.Drawing.Point(109, 16);
-            this.labelFo.Name = "labelFo";
-            this.labelFo.Size = new System.Drawing.Size(28, 13);
-            this.labelFo.TabIndex = 4;
-            this.labelFo.Text = "Fo";
-            this.labelFo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelFo.Location = new System.Drawing.Point(127, 18);
+            labelFo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelFo.Name = "labelFo";
+            labelFo.Size = new System.Drawing.Size(33, 15);
+            labelFo.TabIndex = 4;
+            labelFo.Text = "Fo";
+            labelFo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelOx
             // 
-            this.labelOx.Location = new System.Drawing.Point(80, 16);
-            this.labelOx.Name = "labelOx";
-            this.labelOx.Size = new System.Drawing.Size(28, 13);
-            this.labelOx.TabIndex = 3;
-            this.labelOx.Text = "Ox";
-            this.labelOx.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelOx.Location = new System.Drawing.Point(93, 18);
+            labelOx.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelOx.Name = "labelOx";
+            labelOx.Size = new System.Drawing.Size(33, 15);
+            labelOx.TabIndex = 3;
+            labelOx.Text = "Ox";
+            labelOx.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelSt
             // 
-            this.labelSt.Location = new System.Drawing.Point(51, 16);
-            this.labelSt.Name = "labelSt";
-            this.labelSt.Size = new System.Drawing.Size(28, 13);
-            this.labelSt.TabIndex = 2;
-            this.labelSt.Text = "St";
-            this.labelSt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelSt.Location = new System.Drawing.Point(59, 18);
+            labelSt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelSt.Name = "labelSt";
+            labelSt.Size = new System.Drawing.Size(33, 15);
+            labelSt.TabIndex = 2;
+            labelSt.Text = "St";
+            labelSt.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelHP
             // 
-            this.labelHP.Location = new System.Drawing.Point(22, 16);
-            this.labelHP.Name = "labelHP";
-            this.labelHP.Size = new System.Drawing.Size(28, 13);
-            this.labelHP.TabIndex = 1;
-            this.labelHP.Text = "HP";
-            this.labelHP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            labelHP.Location = new System.Drawing.Point(26, 18);
+            labelHP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelHP.Name = "labelHP";
+            labelHP.Size = new System.Drawing.Size(33, 15);
+            labelHP.TabIndex = 1;
+            labelHP.Text = "HP";
+            labelHP.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelSex
             // 
-            this.labelSex.Location = new System.Drawing.Point(6, 16);
-            this.labelSex.Name = "labelSex";
-            this.labelSex.Size = new System.Drawing.Size(13, 13);
-            this.labelSex.TabIndex = 0;
-            this.labelSex.Text = "S";
-            this.labelSex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelSex.MouseClick += new System.Windows.Forms.MouseEventHandler(this.element_MouseClick);
+            labelSex.Location = new System.Drawing.Point(7, 18);
+            labelSex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelSex.Name = "labelSex";
+            labelSex.Size = new System.Drawing.Size(15, 15);
+            labelSex.TabIndex = 0;
+            labelSex.Text = "S";
+            labelSex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelSex.MouseClick += element_MouseClick;
             // 
             // LbCrMut
             // 
-            this.LbCrMut.Location = new System.Drawing.Point(225, 30);
-            this.LbCrMut.Name = "LbCrMut";
-            this.LbCrMut.Size = new System.Drawing.Size(28, 13);
-            this.LbCrMut.TabIndex = 19;
-            this.LbCrMut.Text = "Cr";
-            this.LbCrMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbCrMut.Location = new System.Drawing.Point(262, 35);
+            LbCrMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbCrMut.Name = "LbCrMut";
+            LbCrMut.Size = new System.Drawing.Size(33, 15);
+            LbCrMut.TabIndex = 19;
+            LbCrMut.Text = "Cr";
+            LbCrMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbHpMut
             // 
-            this.LbHpMut.BackColor = System.Drawing.SystemColors.Control;
-            this.LbHpMut.Location = new System.Drawing.Point(22, 30);
-            this.LbHpMut.Name = "LbHpMut";
-            this.LbHpMut.Size = new System.Drawing.Size(28, 13);
-            this.LbHpMut.TabIndex = 12;
-            this.LbHpMut.Text = "HP";
-            this.LbHpMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbHpMut.BackColor = System.Drawing.SystemColors.Control;
+            LbHpMut.Location = new System.Drawing.Point(26, 35);
+            LbHpMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbHpMut.Name = "LbHpMut";
+            LbHpMut.Size = new System.Drawing.Size(33, 15);
+            LbHpMut.TabIndex = 12;
+            LbHpMut.Text = "HP";
+            LbHpMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbSpMut
             // 
-            this.LbSpMut.Location = new System.Drawing.Point(196, 30);
-            this.LbSpMut.Name = "LbSpMut";
-            this.LbSpMut.Size = new System.Drawing.Size(28, 13);
-            this.LbSpMut.TabIndex = 18;
-            this.LbSpMut.Text = "Sp";
-            this.LbSpMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbSpMut.Location = new System.Drawing.Point(229, 35);
+            LbSpMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbSpMut.Name = "LbSpMut";
+            LbSpMut.Size = new System.Drawing.Size(33, 15);
+            LbSpMut.TabIndex = 18;
+            LbSpMut.Text = "Sp";
+            LbSpMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbStMut
             // 
-            this.LbStMut.Location = new System.Drawing.Point(51, 30);
-            this.LbStMut.Name = "LbStMut";
-            this.LbStMut.Size = new System.Drawing.Size(28, 13);
-            this.LbStMut.TabIndex = 13;
-            this.LbStMut.Text = "St";
-            this.LbStMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbStMut.Location = new System.Drawing.Point(59, 35);
+            LbStMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbStMut.Name = "LbStMut";
+            LbStMut.Size = new System.Drawing.Size(33, 15);
+            LbStMut.TabIndex = 13;
+            LbStMut.Text = "St";
+            LbStMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbDmMut
             // 
-            this.LbDmMut.Location = new System.Drawing.Point(167, 30);
-            this.LbDmMut.Name = "LbDmMut";
-            this.LbDmMut.Size = new System.Drawing.Size(28, 13);
-            this.LbDmMut.TabIndex = 17;
-            this.LbDmMut.Text = "Dm";
-            this.LbDmMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbDmMut.Location = new System.Drawing.Point(195, 35);
+            LbDmMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbDmMut.Name = "LbDmMut";
+            LbDmMut.Size = new System.Drawing.Size(33, 15);
+            LbDmMut.TabIndex = 17;
+            LbDmMut.Text = "Dm";
+            LbDmMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbOxMut
             // 
-            this.LbOxMut.Location = new System.Drawing.Point(80, 30);
-            this.LbOxMut.Name = "LbOxMut";
-            this.LbOxMut.Size = new System.Drawing.Size(28, 13);
-            this.LbOxMut.TabIndex = 14;
-            this.LbOxMut.Text = "Ox";
-            this.LbOxMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbOxMut.Location = new System.Drawing.Point(93, 35);
+            LbOxMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbOxMut.Name = "LbOxMut";
+            LbOxMut.Size = new System.Drawing.Size(33, 15);
+            LbOxMut.TabIndex = 14;
+            LbOxMut.Text = "Ox";
+            LbOxMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbWeMut
             // 
-            this.LbWeMut.Location = new System.Drawing.Point(138, 30);
-            this.LbWeMut.Name = "LbWeMut";
-            this.LbWeMut.Size = new System.Drawing.Size(28, 13);
-            this.LbWeMut.TabIndex = 16;
-            this.LbWeMut.Text = "We";
-            this.LbWeMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbWeMut.Location = new System.Drawing.Point(161, 35);
+            LbWeMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbWeMut.Name = "LbWeMut";
+            LbWeMut.Size = new System.Drawing.Size(33, 15);
+            LbWeMut.TabIndex = 16;
+            LbWeMut.Text = "We";
+            LbWeMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // LbFoMut
             // 
-            this.LbFoMut.Location = new System.Drawing.Point(109, 30);
-            this.LbFoMut.Name = "LbFoMut";
-            this.LbFoMut.Size = new System.Drawing.Size(28, 13);
-            this.LbFoMut.TabIndex = 15;
-            this.LbFoMut.Text = "Fo";
-            this.LbFoMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            LbFoMut.Location = new System.Drawing.Point(127, 35);
+            LbFoMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbFoMut.Name = "LbFoMut";
+            LbFoMut.Size = new System.Drawing.Size(33, 15);
+            LbFoMut.TabIndex = 15;
+            LbFoMut.Text = "Fo";
+            LbFoMut.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panelHighlight
             // 
-            this.panelHighlight.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panelHighlight.Controls.Add(this.panel1);
-            this.panelHighlight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelHighlight.Location = new System.Drawing.Point(0, 13);
-            this.panelHighlight.Name = "panelHighlight";
-            this.panelHighlight.Padding = new System.Windows.Forms.Padding(3);
-            this.panelHighlight.Size = new System.Drawing.Size(325, 35);
-            this.panelHighlight.TabIndex = 8;
-            this.panelHighlight.Visible = false;
+            panelHighlight.BackColor = System.Drawing.SystemColors.Highlight;
+            panelHighlight.Controls.Add(panel1);
+            panelHighlight.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelHighlight.Location = new System.Drawing.Point(0, 16);
+            panelHighlight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelHighlight.Name = "panelHighlight";
+            panelHighlight.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelHighlight.Size = new System.Drawing.Size(379, 42);
+            panelHighlight.TabIndex = 8;
+            panelHighlight.Visible = false;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(319, 29);
-            this.panel1.TabIndex = 0;
+            panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(4, 3);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(371, 36);
+            panel1.TabIndex = 0;
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItem,
-            this.bestBreedingPartnersToolStripMenuItem,
-            this.setCooldownToolStripMenuItem,
-            this.removeCooldownGrowingToolStripMenuItem,
-            this.TsMiViewInPedigree,
-            this.editTraitsToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.copyNameToClipboardToolStripMenuItem,
-            this.toolStripMenuItemCopyGeneratedNameToClipboard,
-            this.exportToClipboardToolStripMenuItem,
-            this.copyInfoGraphicToClipboardToolStripMenuItem,
-            this.openWikipageInBrowserToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(259, 274);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { editToolStripMenuItem, bestBreedingPartnersToolStripMenuItem, setCooldownToolStripMenuItem, removeCooldownGrowingToolStripMenuItem, TsMiViewInPedigree, editTraitsToolStripMenuItem, toolStripSeparator1, copyNameToClipboardToolStripMenuItem, toolStripMenuItemCopyGeneratedNameToClipboard, exportToClipboardToolStripMenuItem, copyInfoGraphicToClipboardToolStripMenuItem, openWikipageInBrowserToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new System.Drawing.Size(259, 252);
+            contextMenuStrip1.Opening += contextMenuStrip1_Opening;
             // 
             // editToolStripMenuItem
             // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.editToolStripMenuItem.Text = "Edit...";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            editToolStripMenuItem.Text = "Edit...";
+            editToolStripMenuItem.Click += editToolStripMenuItem_Click;
             // 
             // bestBreedingPartnersToolStripMenuItem
             // 
-            this.bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
-            this.bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
-            this.bestBreedingPartnersToolStripMenuItem.Click += new System.EventHandler(this.bestBreedingPartnersToolStripMenuItem_Click);
+            bestBreedingPartnersToolStripMenuItem.Name = "bestBreedingPartnersToolStripMenuItem";
+            bestBreedingPartnersToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            bestBreedingPartnersToolStripMenuItem.Text = "Best Breeding Partners...";
+            bestBreedingPartnersToolStripMenuItem.Click += bestBreedingPartnersToolStripMenuItem_Click;
             // 
             // setCooldownToolStripMenuItem
             // 
-            this.setCooldownToolStripMenuItem.Name = "setCooldownToolStripMenuItem";
-            this.setCooldownToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.setCooldownToolStripMenuItem.Text = "Set Cooldown for next 2h";
-            this.setCooldownToolStripMenuItem.Click += new System.EventHandler(this.setCooldownToolStripMenuItem_Click);
+            setCooldownToolStripMenuItem.Name = "setCooldownToolStripMenuItem";
+            setCooldownToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            setCooldownToolStripMenuItem.Text = "Set Cooldown for next 2h";
+            setCooldownToolStripMenuItem.Click += setCooldownToolStripMenuItem_Click;
             // 
             // removeCooldownGrowingToolStripMenuItem
             // 
-            this.removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
-            this.removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.removeCooldownGrowingToolStripMenuItem.Text = "Remove Cooldown / Growing";
-            this.removeCooldownGrowingToolStripMenuItem.Click += new System.EventHandler(this.removeCooldownGrowingToolStripMenuItem_Click);
+            removeCooldownGrowingToolStripMenuItem.Name = "removeCooldownGrowingToolStripMenuItem";
+            removeCooldownGrowingToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            removeCooldownGrowingToolStripMenuItem.Text = "Remove Cooldown / Growing";
+            removeCooldownGrowingToolStripMenuItem.Click += removeCooldownGrowingToolStripMenuItem_Click;
             // 
             // TsMiViewInPedigree
             // 
-            this.TsMiViewInPedigree.Name = "TsMiViewInPedigree";
-            this.TsMiViewInPedigree.Size = new System.Drawing.Size(258, 22);
-            this.TsMiViewInPedigree.Text = "View in Pedigree";
-            this.TsMiViewInPedigree.Click += new System.EventHandler(this.TsMiViewInPedigree_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(255, 6);
-            // 
-            // copyNameToClipboardToolStripMenuItem
-            // 
-            this.copyNameToClipboardToolStripMenuItem.Name = "copyNameToClipboardToolStripMenuItem";
-            this.copyNameToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.copyNameToClipboardToolStripMenuItem.Text = "Copy Name to Clipboard";
-            this.copyNameToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyNameToClipboardToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItemCopyGeneratedNameToClipboard
-            // 
-            this.toolStripMenuItemCopyGeneratedNameToClipboard.Name = "toolStripMenuItemCopyGeneratedNameToClipboard";
-            this.toolStripMenuItemCopyGeneratedNameToClipboard.Size = new System.Drawing.Size(258, 22);
-            this.toolStripMenuItemCopyGeneratedNameToClipboard.Text = "Copy generated name to clipboard";
-            // 
-            // exportToClipboardToolStripMenuItem
-            // 
-            this.exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.plainTextbreedingValuesToolStripMenuItem,
-            this.plainTextcurrentValuesToolStripMenuItem});
-            this.exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
-            this.exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.exportToClipboardToolStripMenuItem.Text = "Export to Clipboard";
-            // 
-            // plainTextbreedingValuesToolStripMenuItem
-            // 
-            this.plainTextbreedingValuesToolStripMenuItem.Name = "plainTextbreedingValuesToolStripMenuItem";
-            this.plainTextbreedingValuesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.plainTextbreedingValuesToolStripMenuItem.Text = "Breeding Values";
-            this.plainTextbreedingValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextbreedingValuesToolStripMenuItem_Click);
-            // 
-            // plainTextcurrentValuesToolStripMenuItem
-            // 
-            this.plainTextcurrentValuesToolStripMenuItem.Name = "plainTextcurrentValuesToolStripMenuItem";
-            this.plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.plainTextcurrentValuesToolStripMenuItem.Text = "Current Values";
-            this.plainTextcurrentValuesToolStripMenuItem.Click += new System.EventHandler(this.plainTextcurrentValuesToolStripMenuItem_Click);
-            // 
-            // copyInfoGraphicToClipboardToolStripMenuItem
-            // 
-            this.copyInfoGraphicToClipboardToolStripMenuItem.Name = "copyInfoGraphicToClipboardToolStripMenuItem";
-            this.copyInfoGraphicToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.copyInfoGraphicToClipboardToolStripMenuItem.Text = "Copy InfoGraphic to Clipboard";
-            this.copyInfoGraphicToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInfoGraphicToClipboardToolStripMenuItem_Click);
-            // 
-            // openWikipageInBrowserToolStripMenuItem
-            // 
-            this.openWikipageInBrowserToolStripMenuItem.Name = "openWikipageInBrowserToolStripMenuItem";
-            this.openWikipageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.openWikipageInBrowserToolStripMenuItem.Text = "Open Wiki-page in Browser";
-            this.openWikipageInBrowserToolStripMenuItem.Click += new System.EventHandler(this.OpenWikipageInBrowserToolStripMenuItem_Click);
+            TsMiViewInPedigree.Name = "TsMiViewInPedigree";
+            TsMiViewInPedigree.Size = new System.Drawing.Size(258, 22);
+            TsMiViewInPedigree.Text = "View in Pedigree";
+            TsMiViewInPedigree.Click += TsMiViewInPedigree_Click;
             // 
             // editTraitsToolStripMenuItem
             // 
-            this.editTraitsToolStripMenuItem.Name = "editTraitsToolStripMenuItem";
-            this.editTraitsToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
-            this.editTraitsToolStripMenuItem.Text = "Edit Traits…";
-            this.editTraitsToolStripMenuItem.Click += new System.EventHandler(this.editTraitsToolStripMenuItem_Click);
+            editTraitsToolStripMenuItem.Name = "editTraitsToolStripMenuItem";
+            editTraitsToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            editTraitsToolStripMenuItem.Text = "Edit Traits…";
+            editTraitsToolStripMenuItem.Click += editTraitsToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(255, 6);
+            // 
+            // copyNameToClipboardToolStripMenuItem
+            // 
+            copyNameToClipboardToolStripMenuItem.Name = "copyNameToClipboardToolStripMenuItem";
+            copyNameToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            copyNameToClipboardToolStripMenuItem.Text = "Copy Name to Clipboard";
+            copyNameToClipboardToolStripMenuItem.Click += copyNameToClipboardToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItemCopyGeneratedNameToClipboard
+            // 
+            toolStripMenuItemCopyGeneratedNameToClipboard.Name = "toolStripMenuItemCopyGeneratedNameToClipboard";
+            toolStripMenuItemCopyGeneratedNameToClipboard.Size = new System.Drawing.Size(258, 22);
+            toolStripMenuItemCopyGeneratedNameToClipboard.Text = "Copy generated name to clipboard";
+            // 
+            // exportToClipboardToolStripMenuItem
+            // 
+            exportToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { plainTextbreedingValuesToolStripMenuItem, plainTextcurrentValuesToolStripMenuItem });
+            exportToClipboardToolStripMenuItem.Name = "exportToClipboardToolStripMenuItem";
+            exportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            exportToClipboardToolStripMenuItem.Text = "Export to Clipboard";
+            // 
+            // plainTextbreedingValuesToolStripMenuItem
+            // 
+            plainTextbreedingValuesToolStripMenuItem.Name = "plainTextbreedingValuesToolStripMenuItem";
+            plainTextbreedingValuesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            plainTextbreedingValuesToolStripMenuItem.Text = "Breeding Values";
+            plainTextbreedingValuesToolStripMenuItem.Click += plainTextbreedingValuesToolStripMenuItem_Click;
+            // 
+            // plainTextcurrentValuesToolStripMenuItem
+            // 
+            plainTextcurrentValuesToolStripMenuItem.Name = "plainTextcurrentValuesToolStripMenuItem";
+            plainTextcurrentValuesToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            plainTextcurrentValuesToolStripMenuItem.Text = "Current Values";
+            plainTextcurrentValuesToolStripMenuItem.Click += plainTextcurrentValuesToolStripMenuItem_Click;
+            // 
+            // copyInfoGraphicToClipboardToolStripMenuItem
+            // 
+            copyInfoGraphicToClipboardToolStripMenuItem.Name = "copyInfoGraphicToClipboardToolStripMenuItem";
+            copyInfoGraphicToClipboardToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            copyInfoGraphicToClipboardToolStripMenuItem.Text = "Copy InfoGraphic to Clipboard";
+            copyInfoGraphicToClipboardToolStripMenuItem.Click += copyInfoGraphicToClipboardToolStripMenuItem_Click;
+            // 
+            // openWikipageInBrowserToolStripMenuItem
+            // 
+            openWikipageInBrowserToolStripMenuItem.Name = "openWikipageInBrowserToolStripMenuItem";
+            openWikipageInBrowserToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
+            openWikipageInBrowserToolStripMenuItem.Text = "Open Wiki-page in Browser";
+            openWikipageInBrowserToolStripMenuItem.Click += OpenWikipageInBrowserToolStripMenuItem_Click;
             // 
             // PedigreeCreature
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ContextMenuStrip = this.contextMenuStrip1;
-            this.Controls.Add(this.groupBox1);
-            this.Name = "PedigreeCreature";
-            this.Size = new System.Drawing.Size(325, 48);
-            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PedigreeCreature_MouseClick);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panelHighlight.ResumeLayout(false);
-            this.contextMenuStrip1.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ContextMenuStrip = contextMenuStrip1;
+            Controls.Add(groupBox1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "PedigreeCreature";
+            Size = new System.Drawing.Size(379, 58);
+            MouseClick += PedigreeCreature_MouseClick;
+            groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panelHighlight.ResumeLayout(false);
+            contextMenuStrip1.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

@@ -565,7 +565,7 @@ namespace ARKBreedingStats
             // lbServer
             // 
             lbServer.AutoSize = true;
-            lbServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
             lbServer.Location = new System.Drawing.Point(7, 174);
             lbServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbServer.Name = "lbServer";
@@ -577,7 +577,7 @@ namespace ARKBreedingStats
             // lbTribe
             // 
             lbTribe.AutoSize = true;
-            lbTribe.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbTribe.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
             lbTribe.Location = new System.Drawing.Point(7, 144);
             lbTribe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbTribe.Name = "lbTribe";
@@ -702,7 +702,7 @@ namespace ARKBreedingStats
             // lbOwner
             // 
             lbOwner.AutoSize = true;
-            lbOwner.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbOwner.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
             lbOwner.Location = new System.Drawing.Point(7, 114);
             lbOwner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbOwner.Name = "lbOwner";
@@ -714,7 +714,7 @@ namespace ARKBreedingStats
             // lbName
             // 
             lbName.AutoSize = true;
-            lbName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
+            lbName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
             lbName.Location = new System.Drawing.Point(7, 25);
             lbName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbName.Name = "lbName";

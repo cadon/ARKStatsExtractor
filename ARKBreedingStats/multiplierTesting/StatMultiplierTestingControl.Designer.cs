@@ -178,7 +178,7 @@
             // lStatName
             // 
             this.lStatName.AutoSize = true;
-            this.lStatName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lStatName.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lStatName.Location = new System.Drawing.Point(3, 11);
             this.lStatName.Name = "lStatName";
             this.lStatName.Size = new System.Drawing.Size(41, 25);
@@ -354,7 +354,7 @@
             // 
             // btCalculateWildLevel
             // 
-            this.btCalculateWildLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateWildLevel.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateWildLevel.Location = new System.Drawing.Point(185, 26);
             this.btCalculateWildLevel.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateWildLevel.Name = "btCalculateWildLevel";
@@ -366,7 +366,7 @@
             // 
             // btCalculateIwM
             // 
-            this.btCalculateIwM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIwM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateIwM.Location = new System.Drawing.Point(307, 26);
             this.btCalculateIwM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIwM.Name = "btCalculateIwM";
@@ -378,7 +378,7 @@
             // 
             // btResetIwM
             // 
-            this.btResetIwM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetIwM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btResetIwM.Location = new System.Drawing.Point(337, 26);
             this.btResetIwM.Margin = new System.Windows.Forms.Padding(0);
             this.btResetIwM.Name = "btResetIwM";
@@ -390,7 +390,7 @@
             // 
             // btResetTaM
             // 
-            this.btResetTaM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetTaM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btResetTaM.Location = new System.Drawing.Point(651, 26);
             this.btResetTaM.Margin = new System.Windows.Forms.Padding(0);
             this.btResetTaM.Name = "btResetTaM";
@@ -402,7 +402,7 @@
             // 
             // btCalculateTaM
             // 
-            this.btCalculateTaM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateTaM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateTaM.Location = new System.Drawing.Point(621, 26);
             this.btCalculateTaM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateTaM.Name = "btCalculateTaM";
@@ -414,7 +414,7 @@
             // 
             // btResetTmM
             // 
-            this.btResetTmM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetTmM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btResetTmM.Location = new System.Drawing.Point(779, 26);
             this.btResetTmM.Margin = new System.Windows.Forms.Padding(0);
             this.btResetTmM.Name = "btResetTmM";
@@ -426,7 +426,7 @@
             // 
             // btCalculateTmM
             // 
-            this.btCalculateTmM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateTmM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateTmM.Location = new System.Drawing.Point(749, 26);
             this.btCalculateTmM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateTmM.Name = "btCalculateTmM";
@@ -438,7 +438,7 @@
             // 
             // btCalculateDomLevel
             // 
-            this.btCalculateDomLevel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateDomLevel.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateDomLevel.Location = new System.Drawing.Point(813, 26);
             this.btCalculateDomLevel.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateDomLevel.Name = "btCalculateDomLevel";
@@ -450,7 +450,7 @@
             // 
             // btResetIdM
             // 
-            this.btResetIdM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btResetIdM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btResetIdM.Location = new System.Drawing.Point(965, 26);
             this.btResetIdM.Margin = new System.Windows.Forms.Padding(0);
             this.btResetIdM.Name = "btResetIdM";
@@ -462,7 +462,7 @@
             // 
             // btCalculateIdM
             // 
-            this.btCalculateIdM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIdM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateIdM.Location = new System.Drawing.Point(935, 26);
             this.btCalculateIdM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIdM.Name = "btCalculateIdM";
@@ -482,7 +482,7 @@
             // 
             // btCalculateTE
             // 
-            this.btCalculateTE.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateTE.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateTE.Location = new System.Drawing.Point(1019, 26);
             this.btCalculateTE.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateTE.Name = "btCalculateTE";
@@ -494,7 +494,7 @@
             // 
             // btCalculateIB
             // 
-            this.btCalculateIB.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIB.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateIB.Location = new System.Drawing.Point(1062, 26);
             this.btCalculateIB.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIB.Name = "btCalculateIB";
@@ -506,7 +506,7 @@
             // 
             // btCalculateIBM
             // 
-            this.btCalculateIBM.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btCalculateIBM.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btCalculateIBM.Location = new System.Drawing.Point(1105, 26);
             this.btCalculateIBM.Margin = new System.Windows.Forms.Padding(0);
             this.btCalculateIBM.Name = "btCalculateIBM";

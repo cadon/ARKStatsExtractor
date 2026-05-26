@@ -59,7 +59,7 @@
             // btRemoveFile
             // 
             this.btRemoveFile.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btRemoveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btRemoveFile.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btRemoveFile.Location = new System.Drawing.Point(430, 16);
             this.btRemoveFile.Name = "btRemoveFile";
             this.btRemoveFile.Size = new System.Drawing.Size(30, 28);

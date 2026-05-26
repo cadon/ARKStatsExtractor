@@ -15,8 +15,8 @@ namespace ARKBreedingStats.Pedigree
 {
     public partial class PedigreeCreature : UserControl, IPedigreeCreature
     {
-        public const int ControlHeightWoMutations = 32;
-        public const int ControlHeightWMutations = 46;
+        public const int ControlHeightWoMutations = 40;
+        public const int ControlHeightWMutations = 54;
         public const int HorizontalStatDistance = 29;
         public const int XOffsetFirstStat = 38;
 
@@ -322,8 +322,8 @@ namespace ARKBreedingStats.Pedigree
                             _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
                                 _creature.IsTopStat(si) ? 0.2 : 0.7));
 
-                        if (Parent?.ForeColor != null)
-                            _labelsStats[s].ForeColor = Parent.ForeColor; // needed so text is not transparent on overlay
+                        //if (Parent?.ForeColor != null)
+                        //    _labelsStats[s].ForeColor = Parent.ForeColor; // needed so text is not transparent on overlay
                         var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition?.StatIndex == si), Environment.NewLine);
                         if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
@@ -347,7 +347,7 @@ namespace ARKBreedingStats.Pedigree
                     _ttMonospaced.SetToolTip(_labelsStatsMut[s], tooltipText);
 
                     // fonts are strange and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
-                    using (var font = new Font("Microsoft Sans Serif", 8.25F, _creature.IsTopStat(si) ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
+                    using (var font = new Font("Segoe UI", 9F, _creature.IsTopStat(si) ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
                         _labelsStats[s].Font = font;
                 }
                 if (OnlyLevels)

@@ -295,7 +295,7 @@
             // 
             LbTraitName.AutoSize = true;
             LbTraitName.Dock = System.Windows.Forms.DockStyle.Top;
-            LbTraitName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbTraitName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbTraitName.Location = new System.Drawing.Point(0, 0);
             LbTraitName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbTraitName.Name = "LbTraitName";

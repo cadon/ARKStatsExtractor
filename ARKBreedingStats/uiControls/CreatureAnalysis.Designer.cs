@@ -144,7 +144,7 @@ namespace ARKBreedingStats.uiControls
             // 
             this.LbColorStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LbColorStatus.AutoSize = true;
-            this.LbColorStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbColorStatus.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbColorStatus.Location = new System.Drawing.Point(232, 73);
             this.LbColorStatus.Margin = new System.Windows.Forms.Padding(2);
             this.LbColorStatus.Name = "LbColorStatus";
@@ -167,7 +167,7 @@ namespace ARKBreedingStats.uiControls
             // 
             this.LbStatsStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LbStatsStatus.AutoSize = true;
-            this.LbStatsStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbStatsStatus.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbStatsStatus.Location = new System.Drawing.Point(232, 52);
             this.LbStatsStatus.Margin = new System.Windows.Forms.Padding(2);
             this.LbStatsStatus.Name = "LbStatsStatus";
@@ -190,7 +190,7 @@ namespace ARKBreedingStats.uiControls
             // 
             this.LbIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LbIcon.AutoSize = true;
-            this.LbIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbIcon.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbIcon.Location = new System.Drawing.Point(204, 2);
             this.LbIcon.Margin = new System.Windows.Forms.Padding(2);
             this.LbIcon.Name = "LbIcon";

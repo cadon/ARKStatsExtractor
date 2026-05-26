@@ -2003,7 +2003,7 @@ namespace ARKBreedingStats
             // labelCurrentTesterCreature
             // 
             labelCurrentTesterCreature.AutoSize = true;
-            labelCurrentTesterCreature.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelCurrentTesterCreature.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             labelCurrentTesterCreature.Location = new System.Drawing.Point(7, 60);
             labelCurrentTesterCreature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelCurrentTesterCreature.Name = "labelCurrentTesterCreature";
@@ -2155,7 +2155,7 @@ namespace ARKBreedingStats
             // LbAsa
             // 
             LbAsa.AutoSize = true;
-            LbAsa.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbAsa.Font = new System.Drawing.Font("Segoe UI", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             LbAsa.ForeColor = System.Drawing.SystemColors.GrayText;
             LbAsa.Location = new System.Drawing.Point(404, 76);
             LbAsa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -2166,7 +2166,7 @@ namespace ARKBreedingStats
             // 
             // LbBlueprintPath
             // 
-            LbBlueprintPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbBlueprintPath.Font = new System.Drawing.Font("Segoe UI", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             LbBlueprintPath.ForeColor = System.Drawing.SystemColors.GrayText;
             LbBlueprintPath.Location = new System.Drawing.Point(9, 39);
             LbBlueprintPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -3922,7 +3922,7 @@ namespace ARKBreedingStats
             // 
             lbListening.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             lbListening.AutoSize = true;
-            lbListening.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lbListening.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             lbListening.ForeColor = System.Drawing.SystemColors.GrayText;
             lbListening.Location = new System.Drawing.Point(2152, 3);
             lbListening.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -3947,7 +3947,7 @@ namespace ARKBreedingStats
             // 
             TbMessageLabel.AcceptsReturn = true;
             TbMessageLabel.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            TbMessageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            TbMessageLabel.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             TbMessageLabel.Location = new System.Drawing.Point(548, 3);
             TbMessageLabel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             TbMessageLabel.Multiline = true;

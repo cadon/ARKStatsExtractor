@@ -136,7 +136,7 @@ namespace ARKBreedingStats.uiControls
                 LvColors.Columns.Add($"{ci}", 20);
             Controls.Add(LvColors, 3, 0);
             SetRowSpan(LvColors, 2);
-            LvColors.MinimumSize = new Size(179 + SystemInformation.VerticalScrollBarWidth, 0);
+            LvColors.MinimumSize = new Size(152 + SystemInformation.VerticalScrollBarWidth, 0);
             LvColors.Dock = DockStyle.Right;
         }
 

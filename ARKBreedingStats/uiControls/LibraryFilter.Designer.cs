@@ -140,7 +140,7 @@
             // 
             LbMaturation.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbMaturation.AutoSize = true;
-            LbMaturation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbMaturation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbMaturation.Location = new System.Drawing.Point(914, 3);
             LbMaturation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbMaturation.Name = "LbMaturation";
@@ -188,7 +188,7 @@
             // 
             LbStatus.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbStatus.AutoSize = true;
-            LbStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbStatus.Location = new System.Drawing.Point(678, 3);
             LbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbStatus.Name = "LbStatus";
@@ -200,7 +200,7 @@
             // 
             LbTags.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbTags.AutoSize = true;
-            LbTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbTags.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbTags.Location = new System.Drawing.Point(541, 3);
             LbTags.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbTags.Name = "LbTags";
@@ -212,7 +212,7 @@
             // 
             LbServers.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbServers.AutoSize = true;
-            LbServers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbServers.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbServers.Location = new System.Drawing.Point(383, 3);
             LbServers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbServers.Name = "LbServers";
@@ -224,7 +224,7 @@
             // 
             LbTribes.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbTribes.AutoSize = true;
-            LbTribes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbTribes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbTribes.Location = new System.Drawing.Point(229, 3);
             LbTribes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbTribes.Name = "LbTribes";
@@ -280,7 +280,7 @@
             // 
             LbOwners.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbOwners.AutoSize = true;
-            LbOwners.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbOwners.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbOwners.Location = new System.Drawing.Point(58, 3);
             LbOwners.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbOwners.Name = "LbOwners";
@@ -313,7 +313,7 @@
             // 
             LbColors.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbColors.AutoSize = true;
-            LbColors.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            LbColors.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             LbColors.Location = new System.Drawing.Point(808, 3);
             LbColors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbColors.Name = "LbColors";

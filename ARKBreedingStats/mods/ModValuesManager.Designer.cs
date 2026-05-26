@@ -393,7 +393,7 @@
             // lbModName
             // 
             this.lbModName.AutoSize = true;
-            this.lbModName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbModName.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbModName.Location = new System.Drawing.Point(106, 23);
             this.lbModName.Margin = new System.Windows.Forms.Padding(3);
             this.lbModName.Name = "lbModName";

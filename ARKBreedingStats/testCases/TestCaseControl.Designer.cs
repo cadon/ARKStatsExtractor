@@ -129,7 +129,7 @@
             // btDelete
             // 
             this.btDelete.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btDelete.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btDelete.Location = new System.Drawing.Point(537, 16);
             this.btDelete.Name = "btDelete";
             this.btDelete.Size = new System.Drawing.Size(24, 34);

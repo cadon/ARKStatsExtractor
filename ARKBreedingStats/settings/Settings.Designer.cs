@@ -1136,7 +1136,7 @@
             // label27
             // 
             label27.AutoSize = true;
-            label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label27.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             label27.Location = new System.Drawing.Point(336, 24);
             label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label27.Name = "label27";
@@ -2522,7 +2522,7 @@
             // 
             // LblPreviewName
             // 
-            LblPreviewName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            LblPreviewName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             LblPreviewName.Location = new System.Drawing.Point(10, 22);
             LblPreviewName.Name = "LblPreviewName";
             LblPreviewName.Size = new System.Drawing.Size(350, 22);
@@ -2532,7 +2532,7 @@
             // LblPreviewAsBackground
             // 
             LblPreviewAsBackground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            LblPreviewAsBackground.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            LblPreviewAsBackground.Font = new System.Drawing.Font("Segoe UI", 10F);
             LblPreviewAsBackground.Location = new System.Drawing.Point(10, 50);
             LblPreviewAsBackground.Name = "LblPreviewAsBackground";
             LblPreviewAsBackground.Size = new System.Drawing.Size(350, 36);
@@ -2543,7 +2543,7 @@
             // LblPreviewAsForeground
             // 
             LblPreviewAsForeground.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            LblPreviewAsForeground.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            LblPreviewAsForeground.Font = new System.Drawing.Font("Segoe UI", 10F);
             LblPreviewAsForeground.Location = new System.Drawing.Point(10, 92);
             LblPreviewAsForeground.Name = "LblPreviewAsForeground";
             LblPreviewAsForeground.Size = new System.Drawing.Size(350, 36);
@@ -3331,7 +3331,7 @@
             // label68
             // 
             label68.AutoSize = true;
-            label68.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            label68.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
             label68.Location = new System.Drawing.Point(9, 3);
             label68.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label68.Name = "label68";
@@ -4678,7 +4678,7 @@
             // label66
             // 
             label66.AutoSize = true;
-            label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            label66.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             label66.Location = new System.Drawing.Point(7, 18);
             label66.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label66.Name = "label66";

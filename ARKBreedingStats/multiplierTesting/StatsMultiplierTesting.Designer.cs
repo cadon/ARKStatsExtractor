@@ -321,7 +321,7 @@
             // 
             // BtTe0
             // 
-            this.BtTe0.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtTe0.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtTe0.Location = new System.Drawing.Point(98, 13);
             this.BtTe0.Name = "BtTe0";
             this.BtTe0.Size = new System.Drawing.Size(24, 15);
@@ -332,7 +332,7 @@
             // 
             // BtTe100
             // 
-            this.BtTe100.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtTe100.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtTe100.Location = new System.Drawing.Point(98, 27);
             this.BtTe100.Name = "BtTe100";
             this.BtTe100.Size = new System.Drawing.Size(24, 15);
@@ -376,7 +376,7 @@
             // 
             // BtIb0
             // 
-            this.BtIb0.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtIb0.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtIb0.Location = new System.Drawing.Point(107, 13);
             this.BtIb0.Name = "BtIb0";
             this.BtIb0.Size = new System.Drawing.Size(24, 15);
@@ -387,7 +387,7 @@
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(107, 27);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(24, 15);
@@ -470,7 +470,7 @@
             // 
             // LbFinalValue
             // 
-            this.LbFinalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbFinalValue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbFinalValue.Location = new System.Drawing.Point(1059, 5);
             this.LbFinalValue.Name = "LbFinalValue";
             this.LbFinalValue.Size = new System.Drawing.Size(70, 20);
@@ -480,7 +480,7 @@
             // 
             // LbIdM
             // 
-            this.LbIdM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbIdM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbIdM.Location = new System.Drawing.Point(936, 5);
             this.LbIdM.Name = "LbIdM";
             this.LbIdM.Size = new System.Drawing.Size(58, 20);
@@ -490,7 +490,7 @@
             // 
             // LbId
             // 
-            this.LbId.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbId.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbId.Location = new System.Drawing.Point(873, 5);
             this.LbId.Name = "LbId";
             this.LbId.Size = new System.Drawing.Size(58, 20);
@@ -500,7 +500,7 @@
             // 
             // LbLd
             // 
-            this.LbLd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbLd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbLd.Location = new System.Drawing.Point(812, 5);
             this.LbLd.Name = "LbLd";
             this.LbLd.Size = new System.Drawing.Size(58, 20);
@@ -510,7 +510,7 @@
             // 
             // LbTmM
             // 
-            this.LbTmM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbTmM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbTmM.Location = new System.Drawing.Point(751, 5);
             this.LbTmM.Name = "LbTmM";
             this.LbTmM.Size = new System.Drawing.Size(58, 20);
@@ -520,7 +520,7 @@
             // 
             // LbTm
             // 
-            this.LbTm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbTm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbTm.Location = new System.Drawing.Point(687, 5);
             this.LbTm.Name = "LbTm";
             this.LbTm.Size = new System.Drawing.Size(58, 20);
@@ -530,7 +530,7 @@
             // 
             // LbTaM
             // 
-            this.LbTaM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbTaM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbTaM.Location = new System.Drawing.Point(623, 5);
             this.LbTaM.Name = "LbTaM";
             this.LbTaM.Size = new System.Drawing.Size(58, 20);
@@ -540,7 +540,7 @@
             // 
             // LbTa
             // 
-            this.LbTa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbTa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbTa.Location = new System.Drawing.Point(560, 5);
             this.LbTa.Name = "LbTa";
             this.LbTa.Size = new System.Drawing.Size(58, 20);
@@ -550,7 +550,7 @@
             // 
             // LbTBHM
             // 
-            this.LbTBHM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbTBHM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbTBHM.Location = new System.Drawing.Point(495, 5);
             this.LbTBHM.Name = "LbTBHM";
             this.LbTBHM.Size = new System.Drawing.Size(58, 20);
@@ -560,7 +560,7 @@
             // 
             // LbIwM
             // 
-            this.LbIwM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbIwM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbIwM.Location = new System.Drawing.Point(307, 5);
             this.LbIwM.Name = "LbIwM";
             this.LbIwM.Size = new System.Drawing.Size(58, 20);
@@ -570,7 +570,7 @@
             // 
             // LbIw
             // 
-            this.LbIw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbIw.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbIw.Location = new System.Drawing.Point(243, 5);
             this.LbIw.Name = "LbIw";
             this.LbIw.Size = new System.Drawing.Size(58, 20);
@@ -580,7 +580,7 @@
             // 
             // LbLw
             // 
-            this.LbLw.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbLw.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbLw.Location = new System.Drawing.Point(182, 5);
             this.LbLw.Name = "LbLw";
             this.LbLw.Size = new System.Drawing.Size(58, 20);
@@ -590,7 +590,7 @@
             // 
             // LbBaseValue
             // 
-            this.LbBaseValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbBaseValue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbBaseValue.Location = new System.Drawing.Point(78, 5);
             this.LbBaseValue.Name = "LbBaseValue";
             this.LbBaseValue.Size = new System.Drawing.Size(105, 20);
@@ -828,7 +828,7 @@
             // 
             // LbMm
             // 
-            this.LbMm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbMm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbMm.Location = new System.Drawing.Point(430, 5);
             this.LbMm.Name = "LbMm";
             this.LbMm.Size = new System.Drawing.Size(58, 20);
@@ -838,7 +838,7 @@
             // 
             // LbLm
             // 
-            this.LbLm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbLm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbLm.Location = new System.Drawing.Point(369, 5);
             this.LbLm.Name = "LbLm";
             this.LbLm.Size = new System.Drawing.Size(58, 20);

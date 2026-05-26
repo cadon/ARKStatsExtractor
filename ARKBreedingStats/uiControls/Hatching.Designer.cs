@@ -47,7 +47,7 @@ namespace ARKBreedingStats.uiControls
             // 
             this.LbHeader.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.LbHeader, 6);
-            this.LbHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbHeader.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbHeader.Location = new System.Drawing.Point(3, 0);
             this.LbHeader.Name = "LbHeader";
             this.LbHeader.Padding = new System.Windows.Forms.Padding(10);
@@ -87,7 +87,7 @@ namespace ARKBreedingStats.uiControls
             // LbStatNames
             // 
             this.LbStatNames.AutoSize = true;
-            this.LbStatNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbStatNames.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbStatNames.Location = new System.Drawing.Point(3, 60);
             this.LbStatNames.Name = "LbStatNames";
             this.LbStatNames.Padding = new System.Windows.Forms.Padding(5);
@@ -97,7 +97,7 @@ namespace ARKBreedingStats.uiControls
             // LbStatValues
             // 
             this.LbStatValues.AutoSize = true;
-            this.LbStatValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbStatValues.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbStatValues.Location = new System.Drawing.Point(19, 60);
             this.LbStatValues.Name = "LbStatValues";
             this.LbStatValues.Padding = new System.Windows.Forms.Padding(5);
@@ -108,7 +108,7 @@ namespace ARKBreedingStats.uiControls
             // LbStatLevels
             // 
             this.LbStatLevels.AutoSize = true;
-            this.LbStatLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbStatLevels.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbStatLevels.Location = new System.Drawing.Point(68, 60);
             this.LbStatLevels.Name = "LbStatLevels";
             this.LbStatLevels.Padding = new System.Windows.Forms.Padding(5);
@@ -119,7 +119,7 @@ namespace ARKBreedingStats.uiControls
             // LbLowestLevels
             // 
             this.LbLowestLevels.AutoSize = true;
-            this.LbLowestLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbLowestLevels.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbLowestLevels.Location = new System.Drawing.Point(154, 60);
             this.LbLowestLevels.Name = "LbLowestLevels";
             this.LbLowestLevels.Padding = new System.Windows.Forms.Padding(5);
@@ -130,7 +130,7 @@ namespace ARKBreedingStats.uiControls
             // LbLowestValues
             // 
             this.LbLowestValues.AutoSize = true;
-            this.LbLowestValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbLowestValues.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LbLowestValues.Location = new System.Drawing.Point(107, 60);
             this.LbLowestValues.Name = "LbLowestValues";
             this.LbLowestValues.Padding = new System.Windows.Forms.Padding(5);

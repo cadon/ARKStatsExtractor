@@ -178,7 +178,7 @@
             // 
             textBoxContributors.AcceptsReturn = true;
             textBoxContributors.Dock = System.Windows.Forms.DockStyle.Fill;
-            textBoxContributors.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            textBoxContributors.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             textBoxContributors.Location = new System.Drawing.Point(4, 3);
             textBoxContributors.Margin = new System.Windows.Forms.Padding(7, 3, 4, 3);
             textBoxContributors.Multiline = true;
@@ -204,7 +204,7 @@
             // 
             TbDependencies.AcceptsReturn = true;
             TbDependencies.Dock = System.Windows.Forms.DockStyle.Fill;
-            TbDependencies.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            TbDependencies.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             TbDependencies.Location = new System.Drawing.Point(4, 3);
             TbDependencies.Margin = new System.Windows.Forms.Padding(7, 3, 4, 3);
             TbDependencies.Multiline = true;

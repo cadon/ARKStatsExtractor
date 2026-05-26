@@ -546,7 +546,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             this.lbBreedingPlanHeader.AutoSize = true;
             this.flowLayoutPanel1.SetFlowBreak(this.lbBreedingPlanHeader, true);
-            this.lbBreedingPlanHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBreedingPlanHeader.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbBreedingPlanHeader.Location = new System.Drawing.Point(3, 0);
             this.lbBreedingPlanHeader.MinimumSize = new System.Drawing.Size(700, 0);
             this.lbBreedingPlanHeader.Name = "lbBreedingPlanHeader";
@@ -722,7 +722,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // lbBPBreedingTimes
             // 
             this.lbBPBreedingTimes.AutoSize = true;
-            this.lbBPBreedingTimes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBPBreedingTimes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbBPBreedingTimes.Location = new System.Drawing.Point(3, 0);
             this.lbBPBreedingTimes.Name = "lbBPBreedingTimes";
             this.lbBPBreedingTimes.Size = new System.Drawing.Size(121, 17);
@@ -842,7 +842,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             // lbBreedingPlanInfo
             // 
-            this.lbBreedingPlanInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBreedingPlanInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbBreedingPlanInfo.Location = new System.Drawing.Point(10, 75);
             this.lbBreedingPlanInfo.Name = "lbBreedingPlanInfo";
             this.lbBreedingPlanInfo.Size = new System.Drawing.Size(683, 193);

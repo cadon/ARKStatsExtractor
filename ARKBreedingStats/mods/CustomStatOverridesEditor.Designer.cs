@@ -126,7 +126,7 @@
             // 
             // btClearFilter
             // 
-            this.btClearFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btClearFilter.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btClearFilter.Location = new System.Drawing.Point(385, 3);
             this.btClearFilter.Name = "btClearFilter";
             this.btClearFilter.Size = new System.Drawing.Size(24, 23);

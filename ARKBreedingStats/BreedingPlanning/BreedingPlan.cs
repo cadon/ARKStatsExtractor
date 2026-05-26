@@ -617,7 +617,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         // breeding score text
                         brush.Color = Color.Black;
                         g.DrawString((_breedingPairs[i].BreedingScore.Primary + displayScoreOffset).ToString("N4"),
-                            new Font("Microsoft Sans Serif", 8.25f), brush, 24, 12);
+                            new Font(Properties.Settings.Default.DefaultFontName, 9f), brush, 24, 9);
                         pb.SetImageAndDisposeOld(bm);
                     }
 
