@@ -1354,6 +1354,7 @@ namespace ARKBreedingStats
         /// <param name="species"></param>
         private void SetStatsActiveAccordingToUsage(Species species)
         {
+            if (species == null) return;
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 _activeStats[s] = species.UsesStat(s);
