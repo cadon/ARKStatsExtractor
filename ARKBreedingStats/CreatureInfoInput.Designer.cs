@@ -286,7 +286,6 @@ namespace ARKBreedingStats
             cbArchetype.Appearance = System.Windows.Forms.Appearance.Button;
             cbArchetype.Location = new System.Drawing.Point(222, 20);
             cbArchetype.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbArchetype.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             cbArchetype.Name = "cbArchetype";
             cbArchetype.Size = new System.Drawing.Size(76, 25);
             cbArchetype.TabIndex = 55;
@@ -397,7 +396,6 @@ namespace ARKBreedingStats
             // 
             // nudMutationsFather
             // 
-            nudMutationsFather.ForeColor = System.Drawing.SystemColors.GrayText;
             nudMutationsFather.Location = new System.Drawing.Point(125, 445);
             nudMutationsFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMutationsFather.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
@@ -409,7 +407,6 @@ namespace ARKBreedingStats
             // 
             // nudMutationsMother
             // 
-            nudMutationsMother.ForeColor = System.Drawing.SystemColors.GrayText;
             nudMutationsMother.Location = new System.Drawing.Point(229, 445);
             nudMutationsMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMutationsMother.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
@@ -459,7 +456,6 @@ namespace ARKBreedingStats
             // nudMaturation
             // 
             nudMaturation.DecimalPlaces = 2;
-            nudMaturation.ForeColor = System.Drawing.SystemColors.WindowText;
             nudMaturation.Location = new System.Drawing.Point(210, 415);
             nudMaturation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMaturation.Name = "nudMaturation";
@@ -569,7 +565,7 @@ namespace ARKBreedingStats
             lbServer.Location = new System.Drawing.Point(7, 174);
             lbServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbServer.Name = "lbServer";
-            lbServer.Size = new System.Drawing.Size(38, 13);
+            lbServer.Size = new System.Drawing.Size(39, 15);
             lbServer.TabIndex = 30;
             lbServer.Text = "Server";
             lbServer.Click += lbServer_Click;
@@ -581,7 +577,7 @@ namespace ARKBreedingStats
             lbTribe.Location = new System.Drawing.Point(7, 144);
             lbTribe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbTribe.Name = "lbTribe";
-            lbTribe.Size = new System.Drawing.Size(31, 13);
+            lbTribe.Size = new System.Drawing.Size(33, 15);
             lbTribe.TabIndex = 29;
             lbTribe.Text = "Tribe";
             lbTribe.Click += lblTribe_Click;
@@ -706,7 +702,7 @@ namespace ARKBreedingStats
             lbOwner.Location = new System.Drawing.Point(7, 114);
             lbOwner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbOwner.Name = "lbOwner";
-            lbOwner.Size = new System.Drawing.Size(38, 13);
+            lbOwner.Size = new System.Drawing.Size(42, 15);
             lbOwner.TabIndex = 16;
             lbOwner.Text = "Owner";
             lbOwner.Click += lblOwner_Click;
@@ -718,7 +714,7 @@ namespace ARKBreedingStats
             lbName.Location = new System.Drawing.Point(7, 25);
             lbName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbName.Name = "lbName";
-            lbName.Size = new System.Drawing.Size(35, 13);
+            lbName.Size = new System.Drawing.Size(39, 15);
             lbName.TabIndex = 15;
             lbName.Text = "Name";
             lbName.Click += lblName_Click;

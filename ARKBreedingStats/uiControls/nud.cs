@@ -5,10 +5,14 @@ using System.Windows.Forms;
 
 namespace ARKBreedingStats.uiControls
 {
-    class Nud : NumericUpDown
+    public class Nud : NumericUpDown
     {
         private bool _brightForeColor;
-        private decimal _NeutralNumber;
+
+        public Nud()
+        {
+            _brightForeColor = Utils.ForeColor(BackColor).GetBrightness() > 0.5;
+        }
 
         protected override void OnEnter(EventArgs e)
         {
@@ -17,7 +21,7 @@ namespace ARKBreedingStats.uiControls
         }
 
         /// <summary>
-        /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closest valid value is set
+        /// Sets the value after checking it is &lt; Maximum and &gt; Minimum. If it's out of range, the closest valid value is set
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public decimal ValueSave
@@ -31,7 +35,7 @@ namespace ARKBreedingStats.uiControls
         }
 
         /// <summary>
-        /// Sets the value after checking it's &lt; Maximum and > Minimum. If it's out of range, the closest valid value is set
+        /// Sets the value after checking it is &lt; Maximum and &gt; Minimum. If it is out of range, the closest valid value is set.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public double ValueSaveDouble
@@ -55,7 +59,7 @@ namespace ARKBreedingStats.uiControls
             set
             {
                 base.BackColor = value;
-                _brightForeColor = Utils.ForeColor(BackColor).GetBrightness() == 1;
+                _brightForeColor = Utils.ForeColor(BackColor).GetBrightness() > 0.5;
                 UpdateForeColor();
             }
         }
@@ -66,10 +70,10 @@ namespace ARKBreedingStats.uiControls
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public decimal NeutralNumber
         {
-            get => _NeutralNumber;
+            get;
             set
             {
-                _NeutralNumber = value;
+                field = value;
                 UpdateForeColor();
             }
         }
@@ -78,11 +82,11 @@ namespace ARKBreedingStats.uiControls
         {
             if (Value == NeutralNumber)
             {
-                ForeColor = _brightForeColor ? Color.LightGray : SystemColors.GrayText;
+                ForeColor = _brightForeColor ? Color.LightGray : Color.FromArgb(44, 44, 44);
             }
             else
             {
-                ForeColor = _brightForeColor ? Color.White : SystemColors.WindowText;
+                ForeColor = _brightForeColor ? Color.White : Color.Black;
             }
         }
 
@@ -92,7 +96,7 @@ namespace ARKBreedingStats.uiControls
         /// <param name="highlight"></param>
         public void SetExtraHighlightNonDefault(bool highlight)
         {
-            BackColor = highlight && Value != NeutralNumber ? Color.FromArgb(190, 40, 20) : SystemColors.Window;
+            BackColor = highlight && Value != NeutralNumber ? Color.FromArgb(220, 120, 20) : SystemColors.Window;
             UpdateForeColor();
         }
     }
