@@ -55,7 +55,7 @@
             // 
             // groupBox1
             // 
-            groupBox1.BackColor = System.Drawing.SystemColors.Control;
+            groupBox1.BackColor = System.Drawing.Color.Transparent;
             groupBox1.Controls.Add(panelBarDomLevels);
             groupBox1.Controls.Add(panelBarMutLevels);
             groupBox1.Controls.Add(panelBarWildLevels);
