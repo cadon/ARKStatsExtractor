@@ -127,7 +127,7 @@ namespace ARKBreedingStats
 
             // Initialize the central color palette
             UiColors.Initialize(
-                (ColorModeColors.AsbColorMode)Properties.Settings.Default.ColorMode,
+                (UiColors.ColorMode)Properties.Settings.Default.ColorMode,
                 theme);
 
             _tt = new ToolTip();
@@ -897,7 +897,6 @@ namespace ARKBreedingStats
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked);
             tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
 
-            ColorModeColors.SetColors((ColorModeColors.AsbColorMode)Properties.Settings.Default.ColorMode);
             RecalculateAllCreaturesValues();
 
             breedingPlan1.UpdateBreedingData();

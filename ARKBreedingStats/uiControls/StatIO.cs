@@ -195,18 +195,18 @@ namespace ARKBreedingStats.uiControls
                 switch (_status)
                 {
                     case StatIOStatus.Unique:
-                        BackColor = ColorModeColors.Success;
+                        BackColor = UiColors.Current.Success;
                         break;
                     case StatIOStatus.Neutral:
-                        BackColor = ColorModeColors.Neutral;
+                        BackColor = UiColors.Current.Neutral;
                         break;
                     case StatIOStatus.NonUnique:
-                        BackColor = ColorModeColors.NonUnique;
+                        BackColor = UiColors.Current.NonUnique;
                         Cursor = Cursors.Hand;
                         break;
                     case StatIOStatus.Error:
                         numericUpDownInput.BackColor = UiColors.Current.Error;
-                        BackColor = ColorModeColors.Error;
+                        BackColor = UiColors.Current.Error;
                         break;
                 }
             }
@@ -224,6 +224,8 @@ namespace ARKBreedingStats.uiControls
 
                 labelWildLevel.BackColor = Color.Transparent;
                 labelMutatedLevel.BackColor = Color.Transparent;
+                labelWildLevel.ForeColor = SystemColors.ControlText;
+                labelMutatedLevel.ForeColor = SystemColors.ControlText;
                 _tt.SetToolTip(labelWildLevel, null);
                 _tt.SetToolTip(labelMutatedLevel, null);
 
@@ -231,34 +233,34 @@ namespace ARKBreedingStats.uiControls
 
                 if (_topLevel.HasFlag(LevelColorStatusFlags.LevelStatus.TopLevel))
                 {
-                    labelWildLevel.BackColor = Color.LightGreen;
+                    labelWildLevel.SetBackColorAndAccordingForeColor(UiColors.Current.TopBreedingSome);
                     _tt.SetToolTip(labelWildLevel, Loc.S("topLevel"));
                 }
                 else if (_topLevel.HasFlag(LevelColorStatusFlags.LevelStatus.NewTopLevel))
                 {
-                    labelWildLevel.BackColor = Color.Gold;
+                    labelWildLevel.SetBackColorAndAccordingForeColor(UiColors.Current.TopBreedingAll);
                     _tt.SetToolTip(labelWildLevel, Loc.S("newTopLevel"));
                 }
 
                 if (_topLevel.HasFlag(LevelColorStatusFlags.LevelStatus.MaxLevelForLevelUp))
                 {
-                    labelWildLevel.BackColor = Color.DeepSkyBlue;
+                    labelWildLevel.SetBackColorAndAccordingForeColor(UiColors.Current.Level254);
                     _tt.SetToolTip(labelWildLevel, Loc.S("maxLevelForLevelUp"));
                 }
                 else if (_topLevel.HasFlag(LevelColorStatusFlags.LevelStatus.MaxLevel))
                 {
-                    labelWildLevel.BackColor = Color.Orange;
+                    labelWildLevel.SetBackColorAndAccordingForeColor(UiColors.Current.Level255);
                     _tt.SetToolTip(labelWildLevel, Loc.S("maxLevelSaved"));
                 }
                 else if (_topLevel.HasFlag(LevelColorStatusFlags.LevelStatus.UltraMaxLevel))
                 {
-                    labelWildLevel.BackColor = Color.LightCoral;
+                    labelWildLevel.SetBackColorAndAccordingForeColor(UiColors.Current.OverLevelWarning);
                     _tt.SetToolTip(labelWildLevel, Loc.S("ultraMaxLevel"));
                 }
 
                 if (_topLevel.HasFlag(LevelColorStatusFlags.LevelStatus.NewMutation))
                 {
-                    labelMutatedLevel.BackColor = Color.Gold;
+                    labelMutatedLevel.SetBackColorAndAccordingForeColor(UiColors.Current.TopBreedingAll);
                     _tt.SetToolTip(labelMutatedLevel, Loc.S("new mutation"));
                 }
             }

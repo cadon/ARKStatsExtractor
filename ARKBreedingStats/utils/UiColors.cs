@@ -32,10 +32,11 @@ namespace ARKBreedingStats.utils
         /// Initializes the palette for the given color mode and theme.
         /// Loads the user's saved palette from settings if one exists, otherwise uses the built-in default.
         /// </summary>
-        internal static void Initialize(ColorModeColors.AsbColorMode colorMode, int appTheme)
+        internal static void Initialize(ColorMode colorMode, int appTheme)
         {
             IsDark = appTheme == 2
-                || (appTheme == 0 && SystemColors.Window.R * .3f + SystemColors.Window.G * .59f + SystemColors.Window.B * .11f < 110);
+                     || (appTheme == 0 && SystemColors.Window.R * .3f + SystemColors.Window.G * .59f +
+                         SystemColors.Window.B * .11f < 110);
 
             Current = LoadUserPalette(colorMode, IsDark) ?? GetDefaultPalette(colorMode, IsDark);
         }
@@ -43,14 +44,22 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Returns the built-in (default) palette for the given mode and theme.
         /// </summary>
-        internal static UiPalette GetDefaultPalette(ColorModeColors.AsbColorMode colorMode, bool isDark)
+        internal static UiPalette GetDefaultPalette(ColorMode colorMode, bool isDark)
         {
             return colorMode switch
             {
-                ColorModeColors.AsbColorMode.Deuteranopia => isDark ? DeuteranopiaLight : DeuteranopiaLight, // TODO dark variants
-                ColorModeColors.AsbColorMode.Protanopia => isDark ? ProtanopiaLight : ProtanopiaLight,       // TODO dark variants
-                ColorModeColors.AsbColorMode.Tritanopia => isDark ? TritanopiaLight : TritanopiaLight,       // TODO dark variants
-                ColorModeColors.AsbColorMode.Monochromacy => isDark ? MonochromacyLight : MonochromacyLight, // TODO dark variants
+                ColorMode.Deuteranopia => isDark
+                    ? DeuteranopiaLight
+                    : DeuteranopiaLight, // TODO dark variants
+                ColorMode.Protanopia => isDark
+                    ? ProtanopiaLight
+                    : ProtanopiaLight, // TODO dark variants
+                ColorMode.Tritanopia => isDark
+                    ? TritanopiaLight
+                    : TritanopiaLight, // TODO dark variants
+                ColorMode.Monochromacy => isDark
+                    ? MonochromacyLight
+                    : MonochromacyLight, // TODO dark variants
                 _ => isDark ? RegularDark : RegularLight,
             };
         }
@@ -58,7 +67,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Saves the full palette to the user's settings.
         /// </summary>
-        internal static void SaveUserPalette(ColorModeColors.AsbColorMode colorMode, bool isDark, UiPalette palette)
+        internal static void SaveUserPalette(ColorMode colorMode, bool isDark, UiPalette palette)
         {
             var key = PaletteKey(colorMode, isDark);
             var allPalettes = LoadAllPalettes();
@@ -70,7 +79,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Resets the current palette to the built-in default and removes it from settings.
         /// </summary>
-        internal static void ResetToDefault(ColorModeColors.AsbColorMode colorMode, bool isDark)
+        internal static void ResetToDefault(ColorMode colorMode, bool isDark)
         {
             var key = PaletteKey(colorMode, isDark);
             var allPalettes = LoadAllPalettes();
@@ -86,7 +95,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Applies a full palette as the current one and saves it.
         /// </summary>
-        internal static void ApplyAndSave(ColorModeColors.AsbColorMode colorMode, bool isDark, UiPalette palette)
+        internal static void ApplyAndSave(ColorMode colorMode, bool isDark, UiPalette palette)
         {
             Current = palette;
             SaveUserPalette(colorMode, isDark, palette);
@@ -95,7 +104,7 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// Returns the user's saved palette for the given mode/theme, or the built-in default if none is saved.
         /// </summary>
-        internal static UiPalette LoadSavedOrDefault(ColorModeColors.AsbColorMode colorMode, bool isDark)
+        internal static UiPalette LoadSavedOrDefault(ColorMode colorMode, bool isDark)
         {
             return LoadUserPalette(colorMode, isDark) ?? GetDefaultPalette(colorMode, isDark);
         }
@@ -106,20 +115,20 @@ namespace ARKBreedingStats.utils
         internal static UiPalette LoadSavedOrDefault(string paletteKey)
         {
             if (!TryParsePaletteKey(paletteKey, out var colorMode, out var isDark))
-                return GetDefaultPalette(ColorModeColors.AsbColorMode.Regular, false);
+                return GetDefaultPalette(ColorMode.Regular, false);
             return LoadSavedOrDefault(colorMode, isDark);
         }
 
         #region Persistence helpers
 
-        private static string PaletteKey(ColorModeColors.AsbColorMode colorMode, bool isDark)
+        private static string PaletteKey(ColorMode colorMode, bool isDark)
             => $"{colorMode}_{(isDark ? "Dark" : "Light")}";
 
         /// <summary>
         /// Returns the palette key for the currently active palette.
         /// </summary>
         internal static string CurrentPaletteKey => PaletteKey(
-            (ColorModeColors.AsbColorMode)Properties.Settings.Default.ColorMode, IsDark);
+            (ColorMode)Properties.Settings.Default.ColorMode, IsDark);
 
         /// <summary>
         /// Returns all possible palette keys (one per colorMode × light/dark).
@@ -127,20 +136,21 @@ namespace ARKBreedingStats.utils
         internal static string[] GetAllPaletteKeys()
         {
             var keys = new List<string>();
-            foreach (ColorModeColors.AsbColorMode mode in Enum.GetValues(typeof(ColorModeColors.AsbColorMode)))
+            foreach (ColorMode mode in Enum.GetValues(typeof(ColorMode)))
             {
                 keys.Add(PaletteKey(mode, false));
                 keys.Add(PaletteKey(mode, true));
             }
+
             return keys.ToArray();
         }
 
         /// <summary>
         /// Parses a palette key back into its colorMode and isDark components.
         /// </summary>
-        internal static bool TryParsePaletteKey(string key, out ColorModeColors.AsbColorMode colorMode, out bool isDark)
+        internal static bool TryParsePaletteKey(string key, out ColorMode colorMode, out bool isDark)
         {
-            colorMode = ColorModeColors.AsbColorMode.Regular;
+            colorMode = ColorMode.Regular;
             isDark = false;
             if (string.IsNullOrEmpty(key)) return false;
 
@@ -172,7 +182,7 @@ namespace ARKBreedingStats.utils
             }
         }
 
-        private static UiPalette LoadUserPalette(ColorModeColors.AsbColorMode colorMode, bool isDark)
+        private static UiPalette LoadUserPalette(ColorMode colorMode, bool isDark)
         {
             var all = LoadAllPalettes();
             var key = PaletteKey(colorMode, isDark);
@@ -190,6 +200,7 @@ namespace ARKBreedingStats.utils
                 var c = (Color)prop.GetValue(palette);
                 dict[prop.Name] = $"{c.R},{c.G},{c.B}";
             }
+
             return dict;
         }
 
@@ -213,6 +224,7 @@ namespace ARKBreedingStats.utils
                         Math.Clamp(b, 0, 255)));
                 }
             }
+
             return palette;
         }
 
@@ -238,6 +250,7 @@ namespace ARKBreedingStats.utils
                 if (prop.PropertyType == typeof(Color))
                     names.Add(prop.Name);
             }
+
             return names.ToArray();
         }
 
@@ -462,5 +475,31 @@ namespace ARKBreedingStats.utils
         };
 
         #endregion
+
+        internal enum ColorMode
+        {
+            Regular,
+
+            /// <summary>
+            /// Deuteranopia — no green perception.
+            /// Greens are replaced with blues; reds with yellows/oranges.
+            /// </summary>
+            Deuteranopia,
+
+            /// <summary>
+            /// Protanopia — no red perception.
+            /// </summary>
+            Protanopia,
+
+            /// <summary>
+            /// Tritanopia — no blue perception.
+            /// </summary>
+            Tritanopia,
+
+            /// <summary>
+            /// Monochromacy — no color perception, only lightness.
+            /// </summary>
+            Monochromacy
+        }
     }
 }

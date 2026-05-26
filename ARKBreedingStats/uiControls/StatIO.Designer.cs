@@ -130,15 +130,16 @@
             // checkBoxFixDomZero
             // 
             checkBoxFixDomZero.Appearance = System.Windows.Forms.Appearance.Button;
+            checkBoxFixDomZero.BackColor = System.Drawing.SystemColors.Control;
             checkBoxFixDomZero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             checkBoxFixDomZero.Image = Properties.Resources.unlocked;
-            checkBoxFixDomZero.Location = new System.Drawing.Point(293, 9);
+            checkBoxFixDomZero.Location = new System.Drawing.Point(293, 6);
             checkBoxFixDomZero.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             checkBoxFixDomZero.Name = "checkBoxFixDomZero";
             checkBoxFixDomZero.Size = new System.Drawing.Size(16, 20);
             checkBoxFixDomZero.TabIndex = 12;
             checkBoxFixDomZero.TabStop = false;
-            checkBoxFixDomZero.UseVisualStyleBackColor = true;
+            checkBoxFixDomZero.UseVisualStyleBackColor = false;
             checkBoxFixDomZero.CheckedChanged += checkBoxFixDomZero_CheckedChanged;
             // 
             // labelDomLevel

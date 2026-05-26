@@ -209,7 +209,7 @@ namespace ARKBreedingStats.settings
 
             _languages[Loc.S("SystemLanguage")] = string.Empty;
 
-            foreach (var cm in Enum.GetNames(typeof(ColorModeColors.AsbColorMode)))
+            foreach (var cm in Enum.GetNames(typeof(UiColors.ColorMode)))
                 CbbColorMode.Items.Add(cm);
 
             CbbAppTheme.Items.Add("System");
@@ -519,7 +519,6 @@ namespace ARKBreedingStats.settings
             CbColorIdOnColorRegionButton.Checked = Properties.Settings.Default.ShowColorIdOnRegionButtons;
 
             CbbColorMode.SelectedIndex = Math.Min(CbbColorMode.Items.Count, Math.Max(0, Properties.Settings.Default.ColorMode));
-
             CbbAppTheme.SelectedIndex = Math.Min(CbbAppTheme.Items.Count - 1, Math.Max(0, Properties.Settings.Default.AppTheme));
 
             // Populate the palette key dropdown and select the current palette
@@ -805,12 +804,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.ShowColorIdOnRegionButtons = CbColorIdOnColorRegionButton.Checked;
 
             Properties.Settings.Default.ColorMode = Math.Max(0, CbbColorMode.SelectedIndex);
-
             Properties.Settings.Default.AppTheme = Math.Max(0, CbbAppTheme.SelectedIndex);
-
-            var colorMode = (ColorModeColors.AsbColorMode)Math.Max(0, CbbColorMode.SelectedIndex);
-            bool isDark = CbbAppTheme.SelectedIndex == 2
-                || (CbbAppTheme.SelectedIndex == 0 && UiColors.IsDark);
 
             // Save the edited palette under the key selected in the palette dropdown
             if (propertyGrid1.SelectedObject is UiPalette editedPalette
@@ -821,7 +815,7 @@ namespace ARKBreedingStats.settings
             }
 
             // Re-initialize the active palette from the current app theme/color mode settings
-            UiColors.Initialize(colorMode, Math.Max(0, CbbAppTheme.SelectedIndex));
+            UiColors.Initialize((UiColors.ColorMode)Math.Max(0, CbbColorMode.SelectedIndex), Math.Max(0, CbbAppTheme.SelectedIndex));
 
             Properties.Settings.Default.Save();
         }
