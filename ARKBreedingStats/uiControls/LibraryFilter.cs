@@ -64,12 +64,10 @@ namespace ARKBreedingStats.uiControls
                 CreatureFlags.Male,
             };
             _statusButtons = new List<Button>(statusList.Length);
-            int statusButtonWidth = FlpStatus.Width - 6;
-            ButtonState buttonState;
-            Button b;
+            var statusButtonWidth = FlpStatus.Width - 6;
             foreach (var s in statusList)
             {
-                buttonState = ButtonState.Neutral;
+                var buttonState = ButtonState.Neutral;
                 if ((Properties.Settings.Default.FilterFlagsOneNeeded & (int)s) != 0)
                     buttonState = ButtonState.OneNeeded;
                 else if ((Properties.Settings.Default.FilterFlagsAllNeeded & (int)s) != 0)
@@ -77,12 +75,13 @@ namespace ARKBreedingStats.uiControls
                 else if ((Properties.Settings.Default.FilterFlagsExclude & (int)s) != 0)
                     buttonState = ButtonState.Exclude;
 
-                b = new Button
+                var b = new Button
                 {
                     Text = s.ToString(),
                     Tag = (s, buttonState),
                     BackColor = ColorButtonState(buttonState),
-                    Width = statusButtonWidth
+                    Width = statusButtonWidth,
+                    FlatStyle = FlatStyle.Flat
                 };
                 FlpStatus.Controls.Add(b);
                 FlpStatus.SetFlowBreak(b, true);
@@ -191,7 +190,7 @@ namespace ARKBreedingStats.uiControls
 
             (var flag, var state) = ((CreatureFlags, ButtonState))b.Tag;
             state = NextState(state);
-            b.BackColor = ColorButtonState(state);
+            b.SetBackColorAndAccordingForeColor(ColorButtonState(state));
             b.Tag = (flag, state);
         }
 
@@ -229,11 +228,11 @@ namespace ARKBreedingStats.uiControls
 
         private void BtClearFlagFilter_Click(object sender, EventArgs e)
         {
-            ButtonState state = ButtonState.Neutral;
+            const ButtonState state = ButtonState.Neutral;
             foreach (var b in _statusButtons)
             {
                 b.Tag = ((((CreatureFlags, ButtonState))b.Tag).Item1, state);
-                b.BackColor = ColorButtonState(state);
+                b.SetBackColorAndAccordingForeColor(ColorButtonState(state));
             }
         }
 
@@ -345,9 +344,33 @@ namespace ARKBreedingStats.uiControls
             CbServersAll.Text = allString;
             CbTagsAll.Text = allString;
 
-            FlpStatus.Controls.Add(new Label { Text = Loc.S("filterOneNeededInfo"), BackColor = ColorButtonState(ButtonState.OneNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
-            FlpStatus.Controls.Add(new Label { Text = Loc.S("filterAllNeededInfo"), BackColor = ColorButtonState(ButtonState.AllNeeded), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
-            FlpStatus.Controls.Add(new Label { Text = Loc.S("filterExcludeInfo"), BackColor = ColorButtonState(ButtonState.Exclude), AutoSize = true, Padding = new Padding(5), Margin = new Padding(3) });
+            FlpStatus.Controls.Add(new Label
+            {
+                Text = Loc.S("filterOneNeededInfo"),
+                BackColor = ColorButtonState(ButtonState.OneNeeded),
+                ForeColor = Utils.ForeColor(ColorButtonState(ButtonState.OneNeeded)),
+                AutoSize = true,
+                Padding = new Padding(5),
+                Margin = new Padding(3)
+            });
+            FlpStatus.Controls.Add(new Label
+            {
+                Text = Loc.S("filterAllNeededInfo"),
+                BackColor = ColorButtonState(ButtonState.AllNeeded),
+                ForeColor = Utils.ForeColor(ColorButtonState(ButtonState.AllNeeded)),
+                AutoSize = true,
+                Padding = new Padding(5),
+                Margin = new Padding(3)
+            });
+            FlpStatus.Controls.Add(new Label
+            {
+                Text = Loc.S("filterExcludeInfo"),
+                BackColor = ColorButtonState(ButtonState.Exclude),
+                ForeColor = Utils.ForeColor(ColorButtonState(ButtonState.Exclude)),
+                AutoSize = true,
+                Padding = new Padding(5),
+                Margin = new Padding(3)
+            });
         }
 
         private enum ButtonState

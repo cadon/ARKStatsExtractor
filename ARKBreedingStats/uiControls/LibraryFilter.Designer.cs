@@ -78,7 +78,7 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(1020, 519);
+            tableLayoutPanel1.Size = new System.Drawing.Size(1020, 545);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -121,13 +121,13 @@
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(1016, 472);
+            tableLayoutPanel2.Size = new System.Drawing.Size(1016, 498);
             tableLayoutPanel2.TabIndex = 3;
             // 
             // CbMaturationAll
             // 
             CbMaturationAll.AutoSize = true;
-            CbMaturationAll.Location = new System.Drawing.Point(887, 19);
+            CbMaturationAll.Location = new System.Drawing.Point(887, 21);
             CbMaturationAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbMaturationAll.Name = "CbMaturationAll";
             CbMaturationAll.Size = new System.Drawing.Size(38, 19);
@@ -141,17 +141,17 @@
             LbMaturation.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbMaturation.AutoSize = true;
             LbMaturation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            LbMaturation.Location = new System.Drawing.Point(914, 3);
+            LbMaturation.Location = new System.Drawing.Point(913, 3);
             LbMaturation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbMaturation.Name = "LbMaturation";
-            LbMaturation.Size = new System.Drawing.Size(67, 13);
+            LbMaturation.Size = new System.Drawing.Size(69, 15);
             LbMaturation.TabIndex = 19;
             LbMaturation.Text = "Maturation";
             // 
             // CbTagsAll
             // 
             CbTagsAll.AutoSize = true;
-            CbTagsAll.Location = new System.Drawing.Point(473, 19);
+            CbTagsAll.Location = new System.Drawing.Point(473, 21);
             CbTagsAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbTagsAll.Name = "CbTagsAll";
             CbTagsAll.Size = new System.Drawing.Size(38, 19);
@@ -163,7 +163,7 @@
             // CbServersAll
             // 
             CbServersAll.AutoSize = true;
-            CbServersAll.Location = new System.Drawing.Point(318, 19);
+            CbServersAll.Location = new System.Drawing.Point(318, 21);
             CbServersAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbServersAll.Name = "CbServersAll";
             CbServersAll.Size = new System.Drawing.Size(38, 19);
@@ -175,7 +175,7 @@
             // CbTribesAll
             // 
             CbTribesAll.AutoSize = true;
-            CbTribesAll.Location = new System.Drawing.Point(163, 19);
+            CbTribesAll.Location = new System.Drawing.Point(163, 21);
             CbTribesAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbTribesAll.Name = "CbTribesAll";
             CbTribesAll.Size = new System.Drawing.Size(38, 19);
@@ -192,7 +192,7 @@
             LbStatus.Location = new System.Drawing.Point(678, 3);
             LbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbStatus.Name = "LbStatus";
-            LbStatus.Size = new System.Drawing.Size(19, 13);
+            LbStatus.Size = new System.Drawing.Size(19, 15);
             LbStatus.TabIndex = 8;
             LbStatus.Text = "St";
             // 
@@ -201,10 +201,10 @@
             LbTags.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbTags.AutoSize = true;
             LbTags.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            LbTags.Location = new System.Drawing.Point(541, 3);
+            LbTags.Location = new System.Drawing.Point(540, 3);
             LbTags.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbTags.Name = "LbTags";
-            LbTags.Size = new System.Drawing.Size(11, 13);
+            LbTags.Size = new System.Drawing.Size(12, 15);
             LbTags.TabIndex = 7;
             LbTags.Text = "t";
             // 
@@ -216,7 +216,7 @@
             LbServers.Location = new System.Drawing.Point(383, 3);
             LbServers.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbServers.Name = "LbServers";
-            LbServers.Size = new System.Drawing.Size(17, 13);
+            LbServers.Size = new System.Drawing.Size(17, 15);
             LbServers.TabIndex = 6;
             LbServers.Text = "sr";
             // 
@@ -225,10 +225,10 @@
             LbTribes.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbTribes.AutoSize = true;
             LbTribes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            LbTribes.Location = new System.Drawing.Point(229, 3);
+            LbTribes.Location = new System.Drawing.Point(228, 3);
             LbTribes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbTribes.Name = "LbTribes";
-            LbTribes.Size = new System.Drawing.Size(15, 13);
+            LbTribes.Size = new System.Drawing.Size(17, 15);
             LbTribes.TabIndex = 5;
             LbTribes.Text = "tr";
             // 
@@ -237,10 +237,10 @@
             ClbTags.CheckOnClick = true;
             ClbTags.Dock = System.Windows.Forms.DockStyle.Fill;
             ClbTags.FormattingEnabled = true;
-            ClbTags.Location = new System.Drawing.Point(473, 52);
+            ClbTags.Location = new System.Drawing.Point(473, 54);
             ClbTags.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ClbTags.Name = "ClbTags";
-            ClbTags.Size = new System.Drawing.Size(147, 414);
+            ClbTags.Size = new System.Drawing.Size(147, 438);
             ClbTags.TabIndex = 3;
             // 
             // ClbServers
@@ -248,10 +248,10 @@
             ClbServers.CheckOnClick = true;
             ClbServers.Dock = System.Windows.Forms.DockStyle.Fill;
             ClbServers.FormattingEnabled = true;
-            ClbServers.Location = new System.Drawing.Point(318, 52);
+            ClbServers.Location = new System.Drawing.Point(318, 54);
             ClbServers.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ClbServers.Name = "ClbServers";
-            ClbServers.Size = new System.Drawing.Size(147, 414);
+            ClbServers.Size = new System.Drawing.Size(147, 438);
             ClbServers.TabIndex = 2;
             // 
             // ClbTribes
@@ -259,10 +259,10 @@
             ClbTribes.CheckOnClick = true;
             ClbTribes.Dock = System.Windows.Forms.DockStyle.Fill;
             ClbTribes.FormattingEnabled = true;
-            ClbTribes.Location = new System.Drawing.Point(163, 52);
+            ClbTribes.Location = new System.Drawing.Point(163, 54);
             ClbTribes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ClbTribes.Name = "ClbTribes";
-            ClbTribes.Size = new System.Drawing.Size(147, 414);
+            ClbTribes.Size = new System.Drawing.Size(147, 438);
             ClbTribes.TabIndex = 1;
             // 
             // ClbOwners
@@ -270,10 +270,10 @@
             ClbOwners.CheckOnClick = true;
             ClbOwners.Dock = System.Windows.Forms.DockStyle.Fill;
             ClbOwners.FormattingEnabled = true;
-            ClbOwners.Location = new System.Drawing.Point(8, 52);
+            ClbOwners.Location = new System.Drawing.Point(8, 54);
             ClbOwners.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ClbOwners.Name = "ClbOwners";
-            ClbOwners.Size = new System.Drawing.Size(147, 414);
+            ClbOwners.Size = new System.Drawing.Size(147, 438);
             ClbOwners.TabIndex = 0;
             // 
             // LbOwners
@@ -281,17 +281,17 @@
             LbOwners.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbOwners.AutoSize = true;
             LbOwners.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            LbOwners.Location = new System.Drawing.Point(58, 3);
+            LbOwners.Location = new System.Drawing.Point(57, 3);
             LbOwners.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbOwners.Name = "LbOwners";
-            LbOwners.Size = new System.Drawing.Size(47, 13);
+            LbOwners.Size = new System.Drawing.Size(48, 15);
             LbOwners.TabIndex = 4;
             LbOwners.Text = "owners";
             // 
             // CbOwnersAll
             // 
             CbOwnersAll.AutoSize = true;
-            CbOwnersAll.Location = new System.Drawing.Point(8, 19);
+            CbOwnersAll.Location = new System.Drawing.Point(8, 21);
             CbOwnersAll.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbOwnersAll.Name = "CbOwnersAll";
             CbOwnersAll.Size = new System.Drawing.Size(38, 19);
@@ -303,10 +303,10 @@
             // FlpStatus
             // 
             FlpStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            FlpStatus.Location = new System.Drawing.Point(628, 52);
+            FlpStatus.Location = new System.Drawing.Point(628, 54);
             FlpStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             FlpStatus.Name = "FlpStatus";
-            FlpStatus.Size = new System.Drawing.Size(120, 414);
+            FlpStatus.Size = new System.Drawing.Size(120, 438);
             FlpStatus.TabIndex = 14;
             // 
             // LbColors
@@ -314,10 +314,10 @@
             LbColors.Anchor = System.Windows.Forms.AnchorStyles.None;
             LbColors.AutoSize = true;
             LbColors.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            LbColors.Location = new System.Drawing.Point(808, 3);
+            LbColors.Location = new System.Drawing.Point(809, 3);
             LbColors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbColors.Name = "LbColors";
-            LbColors.Size = new System.Drawing.Size(18, 13);
+            LbColors.Size = new System.Drawing.Size(17, 15);
             LbColors.TabIndex = 15;
             LbColors.Text = "Cl";
             // 
@@ -325,14 +325,15 @@
             // 
             flowLayoutPanel1.Controls.Add(BtColorFilter);
             flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            flowLayoutPanel1.Location = new System.Drawing.Point(756, 52);
+            flowLayoutPanel1.Location = new System.Drawing.Point(756, 54);
             flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new System.Drawing.Size(123, 414);
+            flowLayoutPanel1.Size = new System.Drawing.Size(123, 438);
             flowLayoutPanel1.TabIndex = 16;
             // 
             // BtColorFilter
             // 
+            BtColorFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             BtColorFilter.Location = new System.Drawing.Point(4, 3);
             BtColorFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtColorFilter.Name = "BtColorFilter";
@@ -345,7 +346,7 @@
             // BtClearColorFilters
             // 
             BtClearColorFilters.Dock = System.Windows.Forms.DockStyle.Fill;
-            BtClearColorFilters.Location = new System.Drawing.Point(756, 19);
+            BtClearColorFilters.Location = new System.Drawing.Point(756, 21);
             BtClearColorFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtClearColorFilters.Name = "BtClearColorFilters";
             BtClearColorFilters.Size = new System.Drawing.Size(123, 27);
@@ -357,7 +358,7 @@
             // BtClearFlagFilter
             // 
             BtClearFlagFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            BtClearFlagFilter.Location = new System.Drawing.Point(628, 19);
+            BtClearFlagFilter.Location = new System.Drawing.Point(628, 21);
             BtClearFlagFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtClearFlagFilter.Name = "BtClearFlagFilter";
             BtClearFlagFilter.Size = new System.Drawing.Size(120, 27);
@@ -371,10 +372,10 @@
             ClbMaturationFilters.CheckOnClick = true;
             ClbMaturationFilters.Dock = System.Windows.Forms.DockStyle.Fill;
             ClbMaturationFilters.FormattingEnabled = true;
-            ClbMaturationFilters.Location = new System.Drawing.Point(887, 52);
+            ClbMaturationFilters.Location = new System.Drawing.Point(887, 54);
             ClbMaturationFilters.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             ClbMaturationFilters.Name = "ClbMaturationFilters";
-            ClbMaturationFilters.Size = new System.Drawing.Size(121, 414);
+            ClbMaturationFilters.Size = new System.Drawing.Size(121, 438);
             ClbMaturationFilters.TabIndex = 20;
             // 
             // panel1
@@ -385,7 +386,7 @@
             panel1.Controls.Add(BtApply);
             panel1.Controls.Add(BtCancel);
             panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(6, 479);
+            panel1.Location = new System.Drawing.Point(6, 505);
             panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(1008, 35);
@@ -459,7 +460,7 @@
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoScroll = true;
             CancelButton = BtCancel;
-            ClientSize = new System.Drawing.Size(1020, 519);
+            ClientSize = new System.Drawing.Size(1020, 545);
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
