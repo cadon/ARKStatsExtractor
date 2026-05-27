@@ -113,7 +113,7 @@ namespace ARKBreedingStats
 * Warstone: Kibble recipes
 * tsebring: naming-generator
 * maxime-paquatte: custom timer sounds
-* hallipr: FTP save file import and Javascript name pattern support
+* hallipr: FTP save file import, Javascript name pattern support, upgrade of framework, dark-mode
 * EmkioA: Cryopod import, listView tweaks
 * dunger: fixes
 * Myrmecoleon: extra species color region images

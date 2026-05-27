@@ -18,12 +18,13 @@
     <Title>ARK Smart Breeding</Title>
     <Product>ARK Smart Breeding</Product>
     <Description>Extracts stats of creatures of the game ARK: Survival Evolved, saves them in a library, suggests breeding pairs and shows them in a list or pedigree.</Description>
-    <Copyright>Copyright © 2015 - 2025, main developer cadon</Copyright>
+    <Copyright>Copyright © 2015 - 2026, main developer cadon</Copyright>
     
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NeutralLanguage>en</NeutralLanguage>
     <Nullable>disable</Nullable>
     <LangVersion>latest</LangVersion>
+    <RepositoryUrl>https://github.com/cadon/ARKStatsExtractor</RepositoryUrl>
   </PropertyGroup>
 
   <!-- Non-standard framework references not covered by UseWindowsForms/UseWPF -->
