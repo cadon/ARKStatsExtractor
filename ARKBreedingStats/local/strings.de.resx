@@ -1283,7 +1283,11 @@ Server
 Tags
 Filter nach Stats mit {englische statAbkürzung} [==|&lt;|&gt;] {Wert}, z.B. hp &gt; 20, st == 35
 Filter nach Farben mit c{Regionen}: {FarbCode} {FarbCode2}, z.B. c0: 20, c5: 3 4 5 6, c1: 13 14
-Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu filtern. Z.B. um alle Tiere mit der Farb-Id 10 oder 20 in irgendeiner Region anzuzeigen nutze: c0 1 2 3 4 5: 10 20</value>
+Es ist auch möglich Tiere mit einer Farbe in mehreren möglichen Regionen zu filtern. Z.B. um alle Tiere mit der Farb-Id 10 oder 20 in irgendeiner Region anzuzeigen nutze: c0 1 2 3 4 5: 10 20
+
+RegEx: Mit dem prefix 're:' wird der Text danach als regulärer Ausdruck interpretiert, der Kreaturesn filtert, welche damit eine Übereinstimmung in einer der oben genannten Eigenschaften hat. Dies schließt das Filtern für Stats und Farben aus. Ein Leerzeichen nach dem Doppelpunkt wird bereits als Teil des regulären Ausdrucks interpretiert. Zum Beispiel filtert
+re:Stamm \d
+alle Kreaturen, die eine der folgenden Eigenschaften haben: Stamm 1, Stamm 2, … Stamm 9</value>
   </data>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>Klicken um Datei im Explorer anzuzeigen</value>

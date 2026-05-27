@@ -1657,111 +1657,172 @@ namespace ARKBreedingStats
             var filterString = ToolStripTextBoxLibraryFilter.Text.Trim();
             if (!string.IsNullOrEmpty(filterString))
             {
-                // filter parameter are separated by commas and all parameter must be found on an item to have it included
-                var filterStrings = filterString.Split(',').Select(f => f.Trim())
-                    .Where(f => !string.IsNullOrEmpty(f)).ToList();
-
-                // extract stat level filter
-                var statGreaterThan = new Dictionary<int, int>();
-                var statLessThan = new Dictionary<int, int>();
-                var statEqualTo = new Dictionary<int, int>();
-                var statFilterRegex = new Regex(@"(\w{2}) ?(<|>|==) ?(\d+)");
-
-                // color filter
-                var colorFilterOr = new Dictionary<int[], int[]>(); // includes creatures that have in one of the regions one of the colors
-                var colorFilterRegexOr = new Regex(@"c([0-5 ]+): ?([\d ]+)");
-
-                // mutation filter
-                var mutationFilterEqualTo = -1;
-                var mutationFilterGreaterThan = -1;
-                var mutationFilterLessThan = -1;
-
-                var removeFilterIndex = new List<int>(); // remove all filter entries that are added to specific filter properties
-                // start at the end, so the removed filter indices are also removed from the end
-                for (var i = filterStrings.Count - 1; i >= 0; i--)
+                if (filterString.StartsWith("re:"))
                 {
-                    var f = filterStrings[i];
-
-                    // color region filter
-                    var m = colorFilterRegexOr.Match(f);
-                    if (m.Success)
+                    var regexString = filterString.Substring(3);
+                    if (!string.IsNullOrEmpty(regexString))
                     {
-                        var colorIds = m.Groups[2].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                                .Select(int.Parse).Distinct().ToArray();
-                        if (!colorIds.Any()) continue;
-
-                        var colorRegions = m.Groups[1].Value.Where(r => r != ' ').Select(r => int.Parse(r.ToString())).ToArray();
-
-                        colorFilterOr[colorRegions] = colorIds;
-                        removeFilterIndex.Add(i);
-                        continue;
-                    }
-
-                    // stat filter
-                    m = statFilterRegex.Match(f);
-                    if (!m.Success) continue;
-                    if (!Utils.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
-                    {
-                        // mutations
-                        if (m.Groups[1].Value == "mu")
+                        try
                         {
-                            switch (m.Groups[2].Value)
-                            {
-                                case ">":
-                                    mutationFilterGreaterThan = int.Parse(m.Groups[3].Value);
-                                    break;
-                                case "<":
-                                    mutationFilterLessThan = int.Parse(m.Groups[3].Value);
-                                    break;
-                                case "==":
-                                    mutationFilterEqualTo = int.Parse(m.Groups[3].Value);
-                                    break;
-                            }
-                            removeFilterIndex.Add(i);
+                            SetMessageLabelText();
+                            // do regex filtering
+                            var re = new Regex(regexString);
+
+                            filteredList = filteredList.Where(c =>
+                                re.IsMatch(c.name)
+                                || re.IsMatch(c.SpeciesName)
+                                || (c.owner != null && re.IsMatch(c.owner))
+                                || (c.tribe != null && re.IsMatch(c.tribe))
+                                || (c.note != null && re.IsMatch(c.note))
+                                || (c.ArkIdInGame != null && re.IsMatch(c.ArkIdInGame))
+                                || (c.server != null && re.IsMatch(c.server))
+                                || c.tags?.Any(t => re.IsMatch(t)) == true
+                            );
                         }
-                        continue;
+                        catch (Exception ex)
+                        {
+                            SetMessageLabelText($"Error while doing regex filter in library using regex{Environment.NewLine}{regexString}{Environment.NewLine}{ex.Message}", MessageBoxIcon.Error, ignoreNextMessage: true);
+                        }
                     }
-
-                    switch (m.Groups[2].Value)
-                    {
-                        case ">":
-                            statGreaterThan[statIndex] = int.Parse(m.Groups[3].Value);
-                            break;
-                        case "<":
-                            statLessThan[statIndex] = int.Parse(m.Groups[3].Value);
-                            break;
-                        case "==":
-                            statEqualTo[statIndex] = int.Parse(m.Groups[3].Value);
-                            break;
-                    }
-                    removeFilterIndex.Add(i);
                 }
+                else
+                {
+                    // filter parameter are separated by commas and all parameter must be found on an item to have it included
+                    var filterStrings = filterString.Split(',').Select(f => f.Trim())
+                        .Where(f => !string.IsNullOrEmpty(f)).ToList();
 
-                if (!statGreaterThan.Any()) statGreaterThan = null;
-                if (!statLessThan.Any()) statLessThan = null;
-                if (!statEqualTo.Any()) statEqualTo = null;
-                if (!colorFilterOr.Any()) colorFilterOr = null;
-                foreach (var i in removeFilterIndex)
-                    filterStrings.RemoveAt(i);
+                    // extract stat level filter
+                    var statGreaterThan = new Dictionary<int, int>();
+                    var statLessThan = new Dictionary<int, int>();
+                    var statEqualTo = new Dictionary<int, int>();
+                    var statFilterRegex = new Regex(@"(\w{2}) ?(<|>|==) ?(\d+)");
 
-                filteredList = filteredList.Where(c => filterStrings.All(f =>
-                    c.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) != -1
-                    || (c.Species?.name.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.owner?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.tribe?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.note?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.ArkIdInGame?.StartsWith(f) ?? false)
-                    || (c.server?.IndexOf(f, StringComparison.InvariantCultureIgnoreCase) ?? -1) != -1
-                    || (c.tags?.Any(t => string.Equals(t, f, StringComparison.InvariantCultureIgnoreCase)) ?? false)
-                )
-                && (statGreaterThan?.All(si => c.levelsWild[si.Key] > si.Value) ?? true)
-                && (statLessThan?.All(si => c.levelsWild[si.Key] < si.Value) ?? true)
-                && (statEqualTo?.All(si => c.levelsWild[si.Key] == si.Value) ?? true)
-                && (colorFilterOr?.All(colorRegions => colorRegions.Key.Any(colorRegion => colorRegions.Value.Contains(c.colors[colorRegion]))) ?? true)
-                && (mutationFilterGreaterThan == -1 || mutationFilterGreaterThan < c.Mutations)
-                && (mutationFilterLessThan == -1 || mutationFilterLessThan > c.Mutations)
-                && (mutationFilterEqualTo == -1 || mutationFilterEqualTo == c.Mutations)
-                );
+                    // color filter
+                    var colorFilterOr =
+                        new Dictionary<int[], int[]>(); // includes creatures that have in one of the regions one of the colors
+                    var colorFilterRegexOr = new Regex(@"c([0-5 ]+): ?([\d ]+)");
+
+                    // mutation filter
+                    var mutationFilterEqualTo = -1;
+                    var mutationFilterGreaterThan = -1;
+                    var mutationFilterLessThan = -1;
+
+                    var removeFilterIndex =
+                        new List<int>(); // remove all filter entries that are added to specific filter properties
+                    // start at the end, so the removed filter indices are also removed from the end
+                    for (var i = filterStrings.Count - 1; i >= 0; i--)
+                    {
+                        var f = filterStrings[i];
+
+                        // color region filter
+                        var m = colorFilterRegexOr.Match(f);
+                        if (m.Success)
+                        {
+                            var colorIds = m.Groups[2].Value.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(int.Parse).Distinct().ToArray();
+                            if (!colorIds.Any()) continue;
+
+                            var colorRegions = m.Groups[1].Value.Where(r => r != ' ')
+                                .Select(r => int.Parse(r.ToString())).ToArray();
+
+                            colorFilterOr[colorRegions] = colorIds;
+                            removeFilterIndex.Add(i);
+                            continue;
+                        }
+
+                        // stat filter
+                        m = statFilterRegex.Match(f);
+                        if (!m.Success) continue;
+                        if (!Utils.StatAbbreviationToIndex.TryGetValue(m.Groups[1].Value, out var statIndex))
+                        {
+                            // mutations
+                            if (m.Groups[1].Value == "mu")
+                            {
+                                switch (m.Groups[2].Value)
+                                {
+                                    case ">":
+                                        mutationFilterGreaterThan = int.Parse(m.Groups[3].Value);
+                                        break;
+                                    case "<":
+                                        mutationFilterLessThan = int.Parse(m.Groups[3].Value);
+                                        break;
+                                    case "==":
+                                        mutationFilterEqualTo = int.Parse(m.Groups[3].Value);
+                                        break;
+                                }
+
+                                removeFilterIndex.Add(i);
+                            }
+
+                            continue;
+                        }
+
+                        switch (m.Groups[2].Value)
+                        {
+                            case ">":
+                                statGreaterThan[statIndex] = int.Parse(m.Groups[3].Value);
+                                break;
+                            case "<":
+                                statLessThan[statIndex] = int.Parse(m.Groups[3].Value);
+                                break;
+                            case "==":
+                                statEqualTo[statIndex] = int.Parse(m.Groups[3].Value);
+                                break;
+                        }
+
+                        removeFilterIndex.Add(i);
+                    }
+
+                    if (!statGreaterThan.Any()) statGreaterThan = null;
+                    if (!statLessThan.Any()) statLessThan = null;
+                    if (!statEqualTo.Any()) statEqualTo = null;
+                    if (!colorFilterOr.Any()) colorFilterOr = null;
+                    foreach (var i in removeFilterIndex)
+                        filterStrings.RemoveAt(i);
+
+                    filteredList = filteredList.Where(c => filterStrings.All(f =>
+                                                               c.name.IndexOf(f,
+                                                                   StringComparison.InvariantCultureIgnoreCase) != -1
+                                                               || (c.Species?.name.IndexOf(f,
+                                                                       StringComparison.InvariantCultureIgnoreCase) ??
+                                                                   -1) != -1
+                                                               || (c.owner?.IndexOf(f,
+                                                                       StringComparison.InvariantCultureIgnoreCase) ??
+                                                                   -1) != -1
+                                                               || (c.tribe?.IndexOf(f,
+                                                                       StringComparison.InvariantCultureIgnoreCase) ??
+                                                                   -1) != -1
+                                                               || (c.note?.IndexOf(f,
+                                                                       StringComparison.InvariantCultureIgnoreCase) ??
+                                                                   -1) != -1
+                                                               || (c.ArkIdInGame?.StartsWith(f) ?? false)
+                                                               || (c.server?.IndexOf(f,
+                                                                       StringComparison.InvariantCultureIgnoreCase) ??
+                                                                   -1) != -1
+                                                               || (c.tags?.Any(t =>
+                                                                       string.Equals(t, f,
+                                                                           StringComparison
+                                                                               .InvariantCultureIgnoreCase)) ??
+                                                                   false)
+                                                           )
+                                                           && (statGreaterThan?.All(si =>
+                                                               c.levelsWild[si.Key] > si.Value) ?? true)
+                                                           && (statLessThan?.All(si =>
+                                                               c.levelsWild[si.Key] < si.Value) ?? true)
+                                                           && (statEqualTo?.All(si =>
+                                                               c.levelsWild[si.Key] == si.Value) ?? true)
+                                                           && (colorFilterOr?.All(colorRegions =>
+                                                               colorRegions.Key.Any(colorRegion =>
+                                                                   colorRegions.Value.Contains(
+                                                                       c.colors[colorRegion]))) ?? true)
+                                                           && (mutationFilterGreaterThan == -1 ||
+                                                               mutationFilterGreaterThan < c.Mutations)
+                                                           && (mutationFilterLessThan == -1 ||
+                                                               mutationFilterLessThan > c.Mutations)
+                                                           && (mutationFilterEqualTo == -1 ||
+                                                               mutationFilterEqualTo == c.Mutations)
+                    );
+                }
             }
 
             // display new results

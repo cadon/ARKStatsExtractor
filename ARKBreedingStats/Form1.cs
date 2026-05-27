@@ -56,7 +56,7 @@ namespace ARKBreedingStats
                 bool triggeredByFileWatcher = false);
 
         public delegate void SetMessageLabelTextEventHandler(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null, string clipboardContent = null, bool displayPopup = false, string customPopupMessage = null);
+            string path = null, string clipboardContent = null, bool displayPopup = false, string customPopupMessage = null, bool ignoreNextMessage = false);
 
         private bool _updateTorporInTester;
         private bool _filterListAllowed;
@@ -1549,14 +1549,17 @@ namespace ARKBreedingStats
         /// <param name="icon">Back color of the message</param>
         /// <param name="path">If valid path to file or folder, the user can click on the message to display the path in the explorer</param>
         /// <param name="clipboardText">If not null, user can copy this text to the clipboard by clicking on the label</param>
+        /// <param name="ignoreNextMessage">If true, the next message label will not be shown. This can be used to avoid an error message to be overwritten by a status message.</param>
         private void SetMessageLabelText(string text = null, MessageBoxIcon icon = MessageBoxIcon.None,
-            string path = null, string clipboardText = null, bool displayPopup = false, string customPopupText = null)
+            string path = null, string clipboardText = null, bool displayPopup = false, string customPopupText = null, bool ignoreNextMessage = false)
         {
             if (_ignoreNextMessageLabel)
             {
                 _ignoreNextMessageLabel = false;
                 return;
             }
+
+            if (ignoreNextMessage) _ignoreNextMessageLabel = true;
             // a TextBox needs \r\n for a new line, only \n will not result in a line break.
             TbMessageLabel.Text = text;
             SetMessageLabelLink(path, clipboardText);

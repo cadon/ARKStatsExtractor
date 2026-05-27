@@ -1188,7 +1188,11 @@ Ark id в игре
 Теги
 Filter for a stats with {statAbb} [==|&lt;|&gt;] {value}, e.g. hp &gt; 20, st == 35
 Filter for colors with c{region}: {colorValue} {colorValue2}, e.g. c0: 20, c5: 3 4 5 6, c1: 13 14
-It's also possible to filter for creatures with a color in one of multiple possible regions. E.g. to display all creatures with the color 10 or 20 in any region use: c0 1 2 3 4 5: 10 20</value>
+It's also possible to filter for creatures with a color in one of multiple possible regions. E.g. to display all creatures with the color 10 or 20 in any region use: c0 1 2 3 4 5: 10 20
+
+RegEx: Using the prefix 're:' the string after that is interpreted as regular expression that filters creatures that have a match for that in the above listed properties. This does not support the filtering for stats or colors. A space after the colon is interpreted as part of the regex. For example use
+re:Tribe \d
+to display all creatures that have the property Tribe 1, or Tribe 2, … Tribe 9</value>
   </data>
   <data name="ClickDisplayFile" xml:space="preserve">
     <value>Нажмите, чтобы показать файл в проводнике</value>
