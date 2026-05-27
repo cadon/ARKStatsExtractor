@@ -85,7 +85,7 @@ namespace ARKBreedingStats
             // 
             buttonEdit.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             buttonEdit.Image = Properties.Resources.pen;
-            buttonEdit.Location = new System.Drawing.Point(208, 0);
+            buttonEdit.Location = new System.Drawing.Point(206, 0);
             buttonEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonEdit.Name = "buttonEdit";
             buttonEdit.Size = new System.Drawing.Size(21, 21);
