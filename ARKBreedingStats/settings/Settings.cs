@@ -1632,7 +1632,7 @@ namespace ARKBreedingStats.settings
 
             void HighlightCheckbox(CheckBox cb, bool defaultUnchecked = true)
             {
-                cb.SetBackColorAndAccordingForeColor(highlight && cb.Checked == defaultUnchecked ? Color.FromArgb(190, 40, 20) : Color.Transparent);
+                cb.SetBackColorAndAccordingForeColor(highlight && cb.Checked == defaultUnchecked ? Color.FromArgb(220, 120, 20) : Color.Transparent);
             }
         }
 
@@ -1686,8 +1686,8 @@ namespace ARKBreedingStats.settings
             }
         }
 
-        private readonly DataGridViewCellStyle _styleDefaultEntry = new DataGridViewCellStyle { BackColor = Color.FromArgb(211, 247, 211) };
-        private readonly DataGridViewCellStyle _styleFolderNotFound = new DataGridViewCellStyle { BackColor = Color.FromArgb(247, 215, 211) };
+        private readonly DataGridViewCellStyle _styleDefaultEntry = new DataGridViewCellStyle { BackColor = UiColors.Current.Success, ForeColor = Utils.ForeColor(UiColors.Current.Success) };
+        private readonly DataGridViewCellStyle _styleFolderNotFound = new DataGridViewCellStyle { BackColor = UiColors.Current.Error, ForeColor = Utils.ForeColor(UiColors.Current.Error) };
 
         private void HighlightDefaultImportExportFolderEntry()
         {
@@ -1836,8 +1836,8 @@ namespace ARKBreedingStats.settings
         private void HighlightBackgroundOpacityIssue()
         {
             var highlight = NudInfoGraphicBgAlpha.Value > 254 && !string.IsNullOrEmpty(InfoGraphicBackgroundImagePath);
-            label57.BackColor = highlight ? Color.LightSalmon : Color.Transparent;
-            NudInfoGraphicBgAlpha.BackColor = highlight ? Color.LightSalmon : SystemColors.Window;
+            label57.SetBackColorAndAccordingForeColor(highlight ? UiColors.Current.Error : Color.Transparent);
+            NudInfoGraphicBgAlpha.BackColor = highlight ? UiColors.Current.Error : SystemColors.Window;
         }
 
         #endregion
@@ -2089,8 +2089,7 @@ namespace ARKBreedingStats.settings
             LblPreviewRgb.ForeColor = themeFg;
 
             // As background: auto-contrast text on the selected color
-            LblPreviewAsBackground.BackColor = color;
-            LblPreviewAsBackground.ForeColor = PerceivedBrightness(color) > 130 ? Color.Black : Color.White;
+            LblPreviewAsBackground.SetBackColorAndAccordingForeColor(color);
             LblPreviewAsBackground.Text = $"\"{item.Label}\" as background";
 
             // As foreground: the selected color as text on the target theme's background
@@ -2115,9 +2114,5 @@ namespace ARKBreedingStats.settings
             // Re-apply the current grid selection so sample labels pick up the new theme
             UpdateColorPreview(propertyGrid1.SelectedGridItem);
         }
-
-        private static int PerceivedBrightness(Color c)
-            => (int)(c.R * 0.299 + c.G * 0.587 + c.B * 0.114);
-
     }
 }

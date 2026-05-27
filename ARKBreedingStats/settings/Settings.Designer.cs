@@ -332,12 +332,6 @@
             nudWarnImportMoreThan = new System.Windows.Forms.NumericUpDown();
             groupBox13 = new System.Windows.Forms.GroupBox();
             dataGridViewExportFolders = new System.Windows.Forms.DataGridView();
-            convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ownerSuffixDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            folderPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            dgvExportFolderChange = new System.Windows.Forms.DataGridViewButtonColumn();
-            dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-            dgvExportMakeDefault = new System.Windows.Forms.DataGridViewButtonColumn();
             aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(components);
             btAddExportFolder = new System.Windows.Forms.Button();
             label25 = new System.Windows.Forms.Label();
@@ -414,6 +408,12 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
+            convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ownerSuffixDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            folderPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dgvExportFolderChange = new System.Windows.Forms.DataGridViewButtonColumn();
+            dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            dgvExportMakeDefault = new System.Windows.Forms.DataGridViewButtonColumn();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -745,7 +745,7 @@
             // nudTamedDinoCharacterFoodDrain
             // 
             nudTamedDinoCharacterFoodDrain.DecimalPlaces = 6;
-            nudTamedDinoCharacterFoodDrain.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudTamedDinoCharacterFoodDrain.ForeColor = System.Drawing.Color.Black;
             nudTamedDinoCharacterFoodDrain.Location = new System.Drawing.Point(214, 262);
             nudTamedDinoCharacterFoodDrain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudTamedDinoCharacterFoodDrain.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -757,7 +757,7 @@
             // nudTamedDinoCharacterFoodDrainEvent
             // 
             nudTamedDinoCharacterFoodDrainEvent.DecimalPlaces = 6;
-            nudTamedDinoCharacterFoodDrainEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudTamedDinoCharacterFoodDrainEvent.ForeColor = System.Drawing.Color.Black;
             nudTamedDinoCharacterFoodDrainEvent.Location = new System.Drawing.Point(307, 262);
             nudTamedDinoCharacterFoodDrainEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudTamedDinoCharacterFoodDrainEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -779,7 +779,7 @@
             // nudBabyImprintAmountEvent
             // 
             nudBabyImprintAmountEvent.DecimalPlaces = 6;
-            nudBabyImprintAmountEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyImprintAmountEvent.ForeColor = System.Drawing.Color.Black;
             nudBabyImprintAmountEvent.Location = new System.Drawing.Point(307, 172);
             nudBabyImprintAmountEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyImprintAmountEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -801,7 +801,7 @@
             // nudBabyImprintAmount
             // 
             nudBabyImprintAmount.DecimalPlaces = 6;
-            nudBabyImprintAmount.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyImprintAmount.ForeColor = System.Drawing.Color.Black;
             nudBabyImprintAmount.Location = new System.Drawing.Point(214, 172);
             nudBabyImprintAmount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyImprintAmount.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -823,7 +823,7 @@
             // nudMatingSpeed
             // 
             nudMatingSpeed.DecimalPlaces = 6;
-            nudMatingSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudMatingSpeed.ForeColor = System.Drawing.Color.Black;
             nudMatingSpeed.Location = new System.Drawing.Point(214, 22);
             nudMatingSpeed.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMatingSpeed.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -835,7 +835,7 @@
             // nudBabyFoodConsumptionSpeedEvent
             // 
             nudBabyFoodConsumptionSpeedEvent.DecimalPlaces = 6;
-            nudBabyFoodConsumptionSpeedEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyFoodConsumptionSpeedEvent.ForeColor = System.Drawing.Color.Black;
             nudBabyFoodConsumptionSpeedEvent.Location = new System.Drawing.Point(307, 232);
             nudBabyFoodConsumptionSpeedEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyFoodConsumptionSpeedEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -847,7 +847,7 @@
             // nudMatingIntervalEvent
             // 
             nudMatingIntervalEvent.DecimalPlaces = 6;
-            nudMatingIntervalEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudMatingIntervalEvent.ForeColor = System.Drawing.Color.Black;
             nudMatingIntervalEvent.Location = new System.Drawing.Point(307, 52);
             nudMatingIntervalEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMatingIntervalEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -859,7 +859,7 @@
             // nudBabyCuddleIntervalEvent
             // 
             nudBabyCuddleIntervalEvent.DecimalPlaces = 6;
-            nudBabyCuddleIntervalEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyCuddleIntervalEvent.ForeColor = System.Drawing.Color.Black;
             nudBabyCuddleIntervalEvent.Location = new System.Drawing.Point(307, 142);
             nudBabyCuddleIntervalEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyCuddleIntervalEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -871,7 +871,7 @@
             // nudBabyMatureSpeedEvent
             // 
             nudBabyMatureSpeedEvent.DecimalPlaces = 6;
-            nudBabyMatureSpeedEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyMatureSpeedEvent.ForeColor = System.Drawing.Color.Black;
             nudBabyMatureSpeedEvent.Location = new System.Drawing.Point(307, 112);
             nudBabyMatureSpeedEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyMatureSpeedEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -883,7 +883,7 @@
             // nudEggHatchSpeedEvent
             // 
             nudEggHatchSpeedEvent.DecimalPlaces = 6;
-            nudEggHatchSpeedEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudEggHatchSpeedEvent.ForeColor = System.Drawing.Color.Black;
             nudEggHatchSpeedEvent.Location = new System.Drawing.Point(307, 82);
             nudEggHatchSpeedEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudEggHatchSpeedEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -905,7 +905,7 @@
             // nudBabyFoodConsumptionSpeed
             // 
             nudBabyFoodConsumptionSpeed.DecimalPlaces = 6;
-            nudBabyFoodConsumptionSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyFoodConsumptionSpeed.ForeColor = System.Drawing.Color.Black;
             nudBabyFoodConsumptionSpeed.Location = new System.Drawing.Point(214, 232);
             nudBabyFoodConsumptionSpeed.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyFoodConsumptionSpeed.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -927,7 +927,7 @@
             // nudMatingInterval
             // 
             nudMatingInterval.DecimalPlaces = 6;
-            nudMatingInterval.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudMatingInterval.ForeColor = System.Drawing.Color.Black;
             nudMatingInterval.Location = new System.Drawing.Point(214, 52);
             nudMatingInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMatingInterval.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -949,7 +949,7 @@
             // nudBabyCuddleInterval
             // 
             nudBabyCuddleInterval.DecimalPlaces = 6;
-            nudBabyCuddleInterval.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyCuddleInterval.ForeColor = System.Drawing.Color.Black;
             nudBabyCuddleInterval.Location = new System.Drawing.Point(214, 142);
             nudBabyCuddleInterval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyCuddleInterval.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -981,7 +981,7 @@
             // nudBabyMatureSpeed
             // 
             nudBabyMatureSpeed.DecimalPlaces = 6;
-            nudBabyMatureSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyMatureSpeed.ForeColor = System.Drawing.Color.Black;
             nudBabyMatureSpeed.Location = new System.Drawing.Point(214, 112);
             nudBabyMatureSpeed.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyMatureSpeed.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -993,7 +993,7 @@
             // nudBabyImprintingStatScale
             // 
             nudBabyImprintingStatScale.DecimalPlaces = 6;
-            nudBabyImprintingStatScale.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudBabyImprintingStatScale.ForeColor = System.Drawing.Color.Black;
             nudBabyImprintingStatScale.Location = new System.Drawing.Point(214, 202);
             nudBabyImprintingStatScale.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudBabyImprintingStatScale.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1015,7 +1015,7 @@
             // nudEggHatchSpeed
             // 
             nudEggHatchSpeed.DecimalPlaces = 6;
-            nudEggHatchSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudEggHatchSpeed.ForeColor = System.Drawing.Color.Black;
             nudEggHatchSpeed.Location = new System.Drawing.Point(214, 82);
             nudEggHatchSpeed.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudEggHatchSpeed.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1140,7 +1140,7 @@
             label27.Location = new System.Drawing.Point(336, 24);
             label27.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label27.Name = "label27";
-            label27.Size = new System.Drawing.Size(46, 31);
+            label27.Size = new System.Drawing.Size(54, 37);
             label27.TabIndex = 12;
             label27.Text = "💡";
             toolTip1.SetToolTip(label27, "If you have the files Game.ini or GameUserSettings.ini from your server, you can drag&&drop them on this window to insert their values.");
@@ -1264,7 +1264,7 @@
             // NudWildDinoCharacterFoodDrainMultiplier
             // 
             NudWildDinoCharacterFoodDrainMultiplier.DecimalPlaces = 6;
-            NudWildDinoCharacterFoodDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
+            NudWildDinoCharacterFoodDrainMultiplier.ForeColor = System.Drawing.Color.Black;
             NudWildDinoCharacterFoodDrainMultiplier.Location = new System.Drawing.Point(214, 82);
             NudWildDinoCharacterFoodDrainMultiplier.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             NudWildDinoCharacterFoodDrainMultiplier.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1296,7 +1296,7 @@
             // NudWildDinoTorporDrainMultiplier
             // 
             NudWildDinoTorporDrainMultiplier.DecimalPlaces = 6;
-            NudWildDinoTorporDrainMultiplier.ForeColor = System.Drawing.SystemColors.WindowText;
+            NudWildDinoTorporDrainMultiplier.ForeColor = System.Drawing.Color.Black;
             NudWildDinoTorporDrainMultiplier.Location = new System.Drawing.Point(214, 112);
             NudWildDinoTorporDrainMultiplier.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             NudWildDinoTorporDrainMultiplier.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1308,7 +1308,7 @@
             // nudDinoCharacterFoodDrainEvent
             // 
             nudDinoCharacterFoodDrainEvent.DecimalPlaces = 6;
-            nudDinoCharacterFoodDrainEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudDinoCharacterFoodDrainEvent.ForeColor = System.Drawing.Color.Black;
             nudDinoCharacterFoodDrainEvent.Location = new System.Drawing.Point(307, 52);
             nudDinoCharacterFoodDrainEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudDinoCharacterFoodDrainEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1320,7 +1320,7 @@
             // nudTamingSpeedEvent
             // 
             nudTamingSpeedEvent.DecimalPlaces = 6;
-            nudTamingSpeedEvent.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudTamingSpeedEvent.ForeColor = System.Drawing.Color.Black;
             nudTamingSpeedEvent.Location = new System.Drawing.Point(307, 22);
             nudTamingSpeedEvent.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudTamingSpeedEvent.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1352,7 +1352,7 @@
             // nudDinoCharacterFoodDrain
             // 
             nudDinoCharacterFoodDrain.DecimalPlaces = 6;
-            nudDinoCharacterFoodDrain.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudDinoCharacterFoodDrain.ForeColor = System.Drawing.Color.Black;
             nudDinoCharacterFoodDrain.Location = new System.Drawing.Point(214, 52);
             nudDinoCharacterFoodDrain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudDinoCharacterFoodDrain.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1364,7 +1364,7 @@
             // nudTamingSpeed
             // 
             nudTamingSpeed.DecimalPlaces = 6;
-            nudTamingSpeed.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudTamingSpeed.ForeColor = System.Drawing.Color.Black;
             nudTamingSpeed.Location = new System.Drawing.Point(214, 22);
             nudTamingSpeed.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudTamingSpeed.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
@@ -1954,7 +1954,7 @@
             // 
             // nudWildLevelStep
             // 
-            nudWildLevelStep.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudWildLevelStep.ForeColor = System.Drawing.Color.Black;
             nudWildLevelStep.Location = new System.Drawing.Point(372, 20);
             nudWildLevelStep.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudWildLevelStep.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
@@ -3091,7 +3091,7 @@
             // 
             // nudInfoGraphicHeight
             // 
-            nudInfoGraphicHeight.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudInfoGraphicHeight.ForeColor = System.Drawing.Color.Black;
             nudInfoGraphicHeight.Location = new System.Drawing.Point(147, 21);
             nudInfoGraphicHeight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudInfoGraphicHeight.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
@@ -3335,7 +3335,7 @@
             label68.Location = new System.Drawing.Point(9, 3);
             label68.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label68.Name = "label68";
-            label68.Size = new System.Drawing.Size(506, 20);
+            label68.Size = new System.Drawing.Size(480, 21);
             label68.TabIndex = 1;
             label68.Text = "Only ARK: Survival Evolved is support, no support for ASA yet.";
             // 
@@ -4071,7 +4071,7 @@
             groupBox13.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox13.Name = "groupBox13";
             groupBox13.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox13.Size = new System.Drawing.Size(985, 301);
+            groupBox13.Size = new System.Drawing.Size(861, 301);
             groupBox13.TabIndex = 2;
             groupBox13.TabStop = false;
             groupBox13.Text = "ARK export folders";
@@ -4086,59 +4086,9 @@
             dataGridViewExportFolders.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             dataGridViewExportFolders.Name = "dataGridViewExportFolders";
             dataGridViewExportFolders.RowHeadersVisible = false;
-            dataGridViewExportFolders.Size = new System.Drawing.Size(977, 252);
+            dataGridViewExportFolders.Size = new System.Drawing.Size(853, 252);
             dataGridViewExportFolders.TabIndex = 1;
             dataGridViewExportFolders.CellClick += dataGridViewExportFolders_CellClick;
-            // 
-            // convenientNameDataGridViewTextBoxColumn1
-            // 
-            convenientNameDataGridViewTextBoxColumn1.DataPropertyName = "ConvenientName";
-            convenientNameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            convenientNameDataGridViewTextBoxColumn1.Name = "convenientNameDataGridViewTextBoxColumn1";
-            // 
-            // ownerSuffixDataGridViewTextBoxColumn
-            // 
-            ownerSuffixDataGridViewTextBoxColumn.DataPropertyName = "OwnerSuffix";
-            ownerSuffixDataGridViewTextBoxColumn.HeaderText = "Owner suffix";
-            ownerSuffixDataGridViewTextBoxColumn.Name = "ownerSuffixDataGridViewTextBoxColumn";
-            // 
-            // folderPathDataGridViewTextBoxColumn
-            // 
-            folderPathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            folderPathDataGridViewTextBoxColumn.DataPropertyName = "FolderPath";
-            folderPathDataGridViewTextBoxColumn.HeaderText = "Folder";
-            folderPathDataGridViewTextBoxColumn.Name = "folderPathDataGridViewTextBoxColumn";
-            folderPathDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dgvExportFolderChange
-            // 
-            dgvExportFolderChange.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dgvExportFolderChange.HeaderText = "Change";
-            dgvExportFolderChange.MinimumWidth = 50;
-            dgvExportFolderChange.Name = "dgvExportFolderChange";
-            dgvExportFolderChange.ReadOnly = true;
-            dgvExportFolderChange.Text = "Change";
-            dgvExportFolderChange.UseColumnTextForButtonValue = true;
-            dgvExportFolderChange.Width = 50;
-            // 
-            // dgvExportFolderDelete
-            // 
-            dgvExportFolderDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dgvExportFolderDelete.HeaderText = "Delete";
-            dgvExportFolderDelete.MinimumWidth = 50;
-            dgvExportFolderDelete.Name = "dgvExportFolderDelete";
-            dgvExportFolderDelete.ReadOnly = true;
-            dgvExportFolderDelete.Text = "Delete";
-            dgvExportFolderDelete.UseColumnTextForButtonValue = true;
-            dgvExportFolderDelete.Width = 50;
-            // 
-            // dgvExportMakeDefault
-            // 
-            dgvExportMakeDefault.HeaderText = "Default";
-            dgvExportMakeDefault.Name = "dgvExportMakeDefault";
-            dgvExportMakeDefault.ReadOnly = true;
-            dgvExportMakeDefault.Text = "Make default";
-            dgvExportMakeDefault.UseColumnTextForButtonValue = true;
             // 
             // aTExportFolderLocationsBindingSource
             // 
@@ -4151,7 +4101,7 @@
             btAddExportFolder.Location = new System.Drawing.Point(4, 19);
             btAddExportFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btAddExportFolder.Name = "btAddExportFolder";
-            btAddExportFolder.Size = new System.Drawing.Size(977, 27);
+            btAddExportFolder.Size = new System.Drawing.Size(853, 27);
             btAddExportFolder.TabIndex = 0;
             btAddExportFolder.Text = "Add Export Folder…";
             btAddExportFolder.UseVisualStyleBackColor = true;
@@ -4417,7 +4367,7 @@
             // NudOverlayRelativeFontSize
             // 
             NudOverlayRelativeFontSize.DecimalPlaces = 2;
-            NudOverlayRelativeFontSize.ForeColor = System.Drawing.SystemColors.WindowText;
+            NudOverlayRelativeFontSize.ForeColor = System.Drawing.Color.Black;
             NudOverlayRelativeFontSize.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             NudOverlayRelativeFontSize.Location = new System.Drawing.Point(255, 288);
             NudOverlayRelativeFontSize.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -4655,7 +4605,7 @@
             // 
             // nudOverlayInfoDuration
             // 
-            nudOverlayInfoDuration.ForeColor = System.Drawing.SystemColors.WindowText;
+            nudOverlayInfoDuration.ForeColor = System.Drawing.Color.Black;
             nudOverlayInfoDuration.Location = new System.Drawing.Point(175, 95);
             nudOverlayInfoDuration.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudOverlayInfoDuration.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -4682,7 +4632,7 @@
             label66.Location = new System.Drawing.Point(7, 18);
             label66.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label66.Name = "label66";
-            label66.Size = new System.Drawing.Size(37, 26);
+            label66.Size = new System.Drawing.Size(43, 30);
             label66.TabIndex = 19;
             label66.Text = "💡";
             // 
@@ -4966,6 +4916,60 @@
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
+            // 
+            // convenientNameDataGridViewTextBoxColumn1
+            // 
+            convenientNameDataGridViewTextBoxColumn1.DataPropertyName = "ConvenientName";
+            convenientNameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            convenientNameDataGridViewTextBoxColumn1.Name = "convenientNameDataGridViewTextBoxColumn1";
+            convenientNameDataGridViewTextBoxColumn1.Width = 80;
+            // 
+            // ownerSuffixDataGridViewTextBoxColumn
+            // 
+            ownerSuffixDataGridViewTextBoxColumn.DataPropertyName = "OwnerSuffix";
+            ownerSuffixDataGridViewTextBoxColumn.HeaderText = "Owner suffix";
+            ownerSuffixDataGridViewTextBoxColumn.Name = "ownerSuffixDataGridViewTextBoxColumn";
+            ownerSuffixDataGridViewTextBoxColumn.Width = 70;
+            // 
+            // folderPathDataGridViewTextBoxColumn
+            // 
+            folderPathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            folderPathDataGridViewTextBoxColumn.DataPropertyName = "FolderPath";
+            folderPathDataGridViewTextBoxColumn.HeaderText = "Folder";
+            folderPathDataGridViewTextBoxColumn.Name = "folderPathDataGridViewTextBoxColumn";
+            folderPathDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dgvExportFolderChange
+            // 
+            dgvExportFolderChange.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dgvExportFolderChange.HeaderText = "Change";
+            dgvExportFolderChange.MinimumWidth = 20;
+            dgvExportFolderChange.Name = "dgvExportFolderChange";
+            dgvExportFolderChange.ReadOnly = true;
+            dgvExportFolderChange.Text = "Change";
+            dgvExportFolderChange.UseColumnTextForButtonValue = true;
+            dgvExportFolderChange.Width = 60;
+            // 
+            // dgvExportFolderDelete
+            // 
+            dgvExportFolderDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dgvExportFolderDelete.HeaderText = "Delete";
+            dgvExportFolderDelete.MinimumWidth = 20;
+            dgvExportFolderDelete.Name = "dgvExportFolderDelete";
+            dgvExportFolderDelete.ReadOnly = true;
+            dgvExportFolderDelete.Text = "Delete";
+            dgvExportFolderDelete.UseColumnTextForButtonValue = true;
+            dgvExportFolderDelete.Width = 55;
+            // 
+            // dgvExportMakeDefault
+            // 
+            dgvExportMakeDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dgvExportMakeDefault.HeaderText = "Default";
+            dgvExportMakeDefault.Name = "dgvExportMakeDefault";
+            dgvExportMakeDefault.ReadOnly = true;
+            dgvExportMakeDefault.Text = "Make default";
+            dgvExportMakeDefault.UseColumnTextForButtonValue = true;
+            dgvExportMakeDefault.Width = 85;
             // 
             // Settings
             // 
@@ -5373,12 +5377,6 @@
         private System.Windows.Forms.CheckBox CbImgCacheUseLocalAppData;
         private System.Windows.Forms.GroupBox groupBox29;
         private System.Windows.Forms.CheckBox CbAllowFlyerSpeedLeveling;
-        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ownerSuffixDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn folderPathDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderChange;
-        private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderDelete;
-        private System.Windows.Forms.DataGridViewButtonColumn dgvExportMakeDefault;
         private System.Windows.Forms.CheckBox CbExportFileRenameAfterImport;
         private System.Windows.Forms.TextBox TbExportFileRename;
         private System.Windows.Forms.CheckBox CbAutoImportSuccessGotoLibrary;
@@ -5537,5 +5535,11 @@
         private System.Windows.Forms.Label LblPreviewAsForeground;
         private System.Windows.Forms.Label LblPreviewRgb;
         private System.Windows.Forms.CheckBox CbCopyNameToClipboardWhenAppliedInLibrary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn convenientNameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ownerSuffixDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn folderPathDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderChange;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderDelete;
+        private System.Windows.Forms.DataGridViewButtonColumn dgvExportMakeDefault;
     }
 }
