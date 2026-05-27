@@ -27,10 +27,6 @@
     <RepositoryUrl>https://github.com/cadon/ARKStatsExtractor</RepositoryUrl>
   </PropertyGroup>
 
-  <!-- Non-standard framework references not covered by UseWindowsForms/UseWPF -->
-  <ItemGroup>
-    <Reference Include="System.Security" />
-  </ItemGroup>
 
   <!-- Files to copy to output directory -->
   <ItemGroup>
