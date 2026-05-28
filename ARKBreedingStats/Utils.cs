@@ -442,6 +442,7 @@ namespace ARKBreedingStats
         /// <returns>ForeColor</returns>
         public static Color ForeColor(Color backColor)
         {
+            if (backColor.A == 0) return SystemColors.ControlText;
             return backColor.R * .3f + backColor.G * .59f + backColor.B * .11f < 110 ? Color.White : Color.Black;
         }
 
