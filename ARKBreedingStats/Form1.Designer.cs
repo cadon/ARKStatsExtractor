@@ -699,7 +699,7 @@ namespace ARKBreedingStats
             // NumericUpDownTestingTE
             // 
             NumericUpDownTestingTE.DecimalPlaces = 2;
-            NumericUpDownTestingTE.ForeColor = System.Drawing.SystemColors.WindowText;
+            NumericUpDownTestingTE.ForeColor = System.Drawing.Color.Black;
             NumericUpDownTestingTE.Location = new System.Drawing.Point(7, 22);
             NumericUpDownTestingTE.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             NumericUpDownTestingTE.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
@@ -912,7 +912,7 @@ namespace ARKBreedingStats
             // 
             // numericUpDownUpperTEffBound
             // 
-            numericUpDownUpperTEffBound.ForeColor = System.Drawing.SystemColors.WindowText;
+            numericUpDownUpperTEffBound.ForeColor = System.Drawing.Color.Black;
             numericUpDownUpperTEffBound.Location = new System.Drawing.Point(172, 3);
             numericUpDownUpperTEffBound.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             numericUpDownUpperTEffBound.Name = "numericUpDownUpperTEffBound";
@@ -933,7 +933,7 @@ namespace ARKBreedingStats
             // 
             // numericUpDownLowerTEffBound
             // 
-            numericUpDownLowerTEffBound.ForeColor = System.Drawing.SystemColors.WindowText;
+            numericUpDownLowerTEffBound.ForeColor = System.Drawing.Color.Black;
             numericUpDownLowerTEffBound.Location = new System.Drawing.Point(93, 3);
             numericUpDownLowerTEffBound.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             numericUpDownLowerTEffBound.Name = "numericUpDownLowerTEffBound";
@@ -2007,7 +2007,7 @@ namespace ARKBreedingStats
             labelCurrentTesterCreature.Location = new System.Drawing.Point(7, 60);
             labelCurrentTesterCreature.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelCurrentTesterCreature.Name = "labelCurrentTesterCreature";
-            labelCurrentTesterCreature.Size = new System.Drawing.Size(87, 13);
+            labelCurrentTesterCreature.Size = new System.Drawing.Size(89, 15);
             labelCurrentTesterCreature.TabIndex = 38;
             labelCurrentTesterCreature.Text = "CreatureName";
             // 
@@ -2160,7 +2160,7 @@ namespace ARKBreedingStats
             LbAsa.Location = new System.Drawing.Point(404, 76);
             LbAsa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbAsa.Name = "LbAsa";
-            LbAsa.Size = new System.Drawing.Size(20, 9);
+            LbAsa.Size = new System.Drawing.Size(19, 11);
             LbAsa.TabIndex = 56;
             LbAsa.Text = "ASA";
             // 
@@ -2380,7 +2380,7 @@ namespace ARKBreedingStats
             // 
             // numericUpDownLevel
             // 
-            numericUpDownLevel.ForeColor = System.Drawing.SystemColors.WindowText;
+            numericUpDownLevel.ForeColor = System.Drawing.Color.Black;
             numericUpDownLevel.Location = new System.Drawing.Point(285, 10);
             numericUpDownLevel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             numericUpDownLevel.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
@@ -3289,11 +3289,17 @@ namespace ARKBreedingStats
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             libraryInfoControl1.Location = new System.Drawing.Point(4, 44);
             libraryInfoControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             libraryInfoControl1.Name = "libraryInfoControl1";
             libraryInfoControl1.RowCount = 2;
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.Size = new System.Drawing.Size(176, 19);
@@ -3370,7 +3376,7 @@ namespace ARKBreedingStats
             tabPageCurrentBreeds.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageCurrentBreeds.Name = "tabPageCurrentBreeds";
             tabPageCurrentBreeds.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageCurrentBreeds.Size = new System.Drawing.Size(2183, 918);
+            tabPageCurrentBreeds.Size = new System.Drawing.Size(192, 72);
             tabPageCurrentBreeds.TabIndex = 13;
             tabPageCurrentBreeds.Text = "Current Breeds";
             // 
@@ -3380,7 +3386,7 @@ namespace ARKBreedingStats
             currentBreeds1.Location = new System.Drawing.Point(4, 3);
             currentBreeds1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             currentBreeds1.Name = "currentBreeds1";
-            currentBreeds1.Size = new System.Drawing.Size(929, 912);
+            currentBreeds1.Size = new System.Drawing.Size(929, 66);
             currentBreeds1.TabIndex = 1;
             // 
             // hatching1
@@ -3439,7 +3445,7 @@ namespace ARKBreedingStats
             tabPagePlayerTribes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPagePlayerTribes.Name = "tabPagePlayerTribes";
             tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPagePlayerTribes.Size = new System.Drawing.Size(192, 72);
+            tabPagePlayerTribes.Size = new System.Drawing.Size(2183, 918);
             tabPagePlayerTribes.TabIndex = 7;
             tabPagePlayerTribes.Text = "Player";
             // 
@@ -3449,7 +3455,7 @@ namespace ARKBreedingStats
             tribesControl1.Location = new System.Drawing.Point(4, 3);
             tribesControl1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             tribesControl1.Name = "tribesControl1";
-            tribesControl1.Size = new System.Drawing.Size(184, 66);
+            tribesControl1.Size = new System.Drawing.Size(2175, 912);
             tribesControl1.TabIndex = 0;
             // 
             // tabPageNotes
@@ -3927,7 +3933,7 @@ namespace ARKBreedingStats
             lbListening.Location = new System.Drawing.Point(2152, 3);
             lbListening.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbListening.Name = "lbListening";
-            lbListening.Size = new System.Drawing.Size(25, 20);
+            lbListening.Size = new System.Drawing.Size(32, 21);
             lbListening.TabIndex = 6;
             lbListening.Text = "🎤";
             lbListening.TextAlign = System.Drawing.ContentAlignment.TopRight;

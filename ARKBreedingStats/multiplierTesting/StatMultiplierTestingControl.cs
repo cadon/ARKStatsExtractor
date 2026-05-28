@@ -115,6 +115,11 @@ namespace ARKBreedingStats.multiplierTesting
             nudTBHM.NeutralNumber = 1;
             SetSinglePlayerSettings();
             updateValues = true;
+            CbTrodB.ForeColor = Utils.ForeColor(CbTrodB.BackColor);
+            CbTrodId.ForeColor = Utils.ForeColor(CbTrodId.BackColor);
+            CbTrodIw.ForeColor = Utils.ForeColor(CbTrodIw.BackColor);
+            CbTrodTa.ForeColor = Utils.ForeColor(CbTrodTa.BackColor);
+            CbTrodTm.ForeColor = Utils.ForeColor(CbTrodTm.BackColor);
         }
 
         public StatMultiplierTestingControl(ToolTip tt) : this()
@@ -734,7 +739,7 @@ namespace ARKBreedingStats.multiplierTesting
         /// </summary>
         private void SetResetButtonColor(Nud nud, double defaultValue, Button resetButton)
         {
-            resetButton.BackColor = (double)nud.Value == defaultValue ? SystemColors.Control : Color.LightSalmon;
+            resetButton.SetBackColorAndAccordingForeColor((double)nud.Value == defaultValue ? SystemColors.Control : UiColors.Current.Error);
         }
 
         private void nudB_ValueChanged(object sender, EventArgs e)
@@ -956,7 +961,7 @@ namespace ARKBreedingStats.multiplierTesting
             _taTmSolver.SetFirstEquation(nudStatValue.ValueDouble * (_percent ? 0.01 : 1), nudB.ValueDouble, nudLw.ValueDouble, nudIw.ValueDouble,
                 nudIwM.ValueDouble * _spIw, nudLm.ValueDouble, nudMm.ValueDouble, nudTBHM.ValueDouble, _IB, _sIBM, _IBM, _TE, nudLd.ValueDouble, nudId.ValueDouble, nudIdM.ValueDouble * _spId);
             LbTaTmTeStored.Text = $"TE: {_TE:p0}";
-            LbTaTmTeStored.BackColor = Color.LightGreen;
+            LbTaTmTeStored.SetBackColorAndAccordingForeColor(UiColors.Current.Success);
         }
 
         #endregion

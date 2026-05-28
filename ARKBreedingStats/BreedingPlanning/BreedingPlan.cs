@@ -670,9 +670,9 @@ namespace ARKBreedingStats.BreedingPlanning
                        && c.Status == CreatureStatus.Cryopod
                        )
                 )
-                cbBPIncludeCryoCreatures.BackColor = Color.LightSalmon;
+                cbBPIncludeCryoCreatures.SetBackColorAndAccordingForeColor(UiColors.Current.Warning);
             if (creaturesMutationsFilteredOut)
-                nudBPMutationLimit.BackColor = Color.LightSalmon;
+                nudBPMutationLimit.SetBackColorAndAccordingForeColor(UiColors.Current.Warning);
         }
 
         /// <summary>
@@ -740,8 +740,8 @@ namespace ARKBreedingStats.BreedingPlanning
             lbMutationProbability.Text = string.Empty;
             offspringPossibilities1.Clear();
             SetMessageLabelText?.Invoke();
-            cbBPIncludeCryoCreatures.BackColor = Color.Transparent;
-            nudBPMutationLimit.BackColor = SystemColors.Window;
+            cbBPIncludeCryoCreatures.SetBackColorAndAccordingForeColor(Color.Transparent);
+            nudBPMutationLimit.SetBackColorAndAccordingForeColor(SystemColors.Window);
         }
 
         public void Clear()

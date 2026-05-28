@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.ComponentModel;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats
 {
@@ -81,7 +82,7 @@ namespace ARKBreedingStats
         private void UpdatePlayerList()
         {
             listViewPlayer.Items.Clear();
-            Dictionary<string, Color> tribeRelColors = new Dictionary<string, Color>();
+            var tribeRelColors = new Dictionary<string, Color>();
 
             var tribeGroups = new Dictionary<string, ListViewGroup>();
             var lviPlayers = new List<ListViewItem>();
@@ -120,13 +121,13 @@ namespace ARKBreedingStats
                         break;
                     }
                 }
-                ListViewItem lvi = new ListViewItem(new[] { p.Rank.ToString(), p.PlayerName, p.Level.ToString(), p.Tribe, rel, p.Note?.Substring(0, notesL) }, g)
+                var lvi = new ListViewItem([p.Rank.ToString(), p.PlayerName, p.Level.ToString(), p.Tribe, rel, p.Note?.Substring(0, notesL)], g)
                 {
                     UseItemStyleForSubItems = false,
                     Tag = p
                 };
                 if (!string.IsNullOrEmpty(p.Tribe))
-                    lvi.SubItems[3].BackColor = tribeRelColors[p.Tribe];
+                    lvi.SubItems[3].SetBackColorAndAccordingForeColor(tribeRelColors[p.Tribe]);
                 lviPlayers.Add(lvi);
             }
 
@@ -143,12 +144,12 @@ namespace ARKBreedingStats
             var tribeList = new List<ListViewItem>();
             foreach (Tribe t in _tribes)
             {
-                ListViewItem lvi = new ListViewItem(new[] { t.TribeName, t.TribeRelation.ToString() })
+                ListViewItem lvi = new ListViewItem([t.TribeName, t.TribeRelation.ToString()])
                 {
                     UseItemStyleForSubItems = false,
                     Tag = t
                 };
-                lvi.SubItems[1].BackColor = RelationColor(t.TribeRelation);
+                lvi.SubItems[1].SetBackColorAndAccordingForeColor(RelationColor(t.TribeRelation));
                 tribeList.Add(lvi);
             }
             listViewTribes.Items.AddRange(tribeList.ToArray());
@@ -409,7 +410,7 @@ namespace ARKBreedingStats
         private void UpdateTribeRowRelation(ListViewItem tribeRow, Tribe.Relation rel)
         {
             tribeRow.SubItems[1].Text = rel.ToString();
-            tribeRow.SubItems[1].BackColor = RelationColor(rel);
+            tribeRow.SubItems[1].SetBackColorAndAccordingForeColor(RelationColor(rel));
             UpdatePlayerList();
         }
 
