@@ -1,15 +1,16 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.SpeciesOptions.ColorSettings
 {
-    internal class WantedRegionColorsControl : SpeciesOptionsControl<WantedRegionColors, ColorOptions<WantedRegionColors>>
+    internal class WantedRegionColorsControl(
+        SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>> settings,
+        ToolTip tt)
+        : SpeciesOptionsControl<WantedRegionColors, ColorOptions<WantedRegionColors>>(settings, tt)
     {
         private readonly TextBox[] _controlsColorIds = new TextBox[Ark.ColorRegionCount];
         private readonly CheckBox[] _controlsOverrideParent = new CheckBox[Ark.ColorRegionCount];
-        private readonly CheckBox _cbOverrideAll = new CheckBox();
-
-        public WantedRegionColorsControl(SpeciesOptionsSettings<WantedRegionColors, ColorOptions<WantedRegionColors>> settings, ToolTip tt) : base(settings, tt) { }
+        private readonly CheckBox _cbOverrideAll = new();
 
         protected override void InitializeStatControls()
         {
@@ -17,7 +18,7 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
             OptionsContainer.Controls.Add(lb);
             OptionsContainer.SetFlowBreak(lb, true);
             _cbOverrideAll.Text = "override all";
-            _cbOverrideAll.Click += (s, e) =>
+            _cbOverrideAll.Click += (s, _) =>
             {
                 var isChecked = ((CheckBox)s).Checked;
                 for (var i = 0; i < _controlsOverrideParent.Length; i++)
@@ -29,12 +30,12 @@ namespace ARKBreedingStats.SpeciesOptions.ColorSettings
             OptionsContainer.Controls.Add(_cbOverrideAll);
             OptionsContainer.SetFlowBreak(_cbOverrideAll, true);
 
-            for (int ci = 0; ci < Ark.ColorRegionCount; ci++)
+            for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
             {
                 var locVar = ci;
                 lb = new Label { Text = Loc.S("Region") + " " + ci, Margin = new Padding(6) };
                 OptionsContainer.Controls.Add(lb);
-                var labelError = new Label { ForeColor = Color.DarkRed, Margin = new Padding(6) };
+                var labelError = new Label { ForeColor = UiColors.Current.ErrorText, Margin = new Padding(6) };
 
                 var c = new CheckBox { Text = "override" };
                 Tt.SetToolTip(c, "Override settings of parent setting. If this is unchecked, the setting here is ignored and the setting of the parent setting is used.");

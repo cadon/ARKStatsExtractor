@@ -30,115 +30,107 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         /// </summary>
         private void InitializeComponent()
         {
-            this.CbReverseGradient = new System.Windows.Forms.CheckBox();
-            this.PbColorGradient = new System.Windows.Forms.PictureBox();
-            this.BtColorHigh = new System.Windows.Forms.Button();
-            this.BtColorLow = new System.Windows.Forms.Button();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.NudLevelHigh = new ARKBreedingStats.uiControls.Nud();
-            this.NudLevelLow = new ARKBreedingStats.uiControls.Nud();
-            ((System.ComponentModel.ISupportInitialize)(this.PbColorGradient)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudLevelHigh)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudLevelLow)).BeginInit();
-            this.SuspendLayout();
+            CbReverseGradient = new System.Windows.Forms.CheckBox();
+            PbColorGradient = new System.Windows.Forms.PictureBox();
+            BtColorHigh = new System.Windows.Forms.Button();
+            BtColorLow = new System.Windows.Forms.Button();
+            colorDialog1 = new System.Windows.Forms.ColorDialog();
+            NudLevelHigh = new Nud();
+            NudLevelLow = new Nud();
+            ((System.ComponentModel.ISupportInitialize)PbColorGradient).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudLevelHigh).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudLevelLow).BeginInit();
+            SuspendLayout();
             // 
             // CbReverseGradient
             // 
-            this.CbReverseGradient.AutoSize = true;
-            this.CbReverseGradient.Location = new System.Drawing.Point(287, 4);
-            this.CbReverseGradient.Name = "CbReverseGradient";
-            this.CbReverseGradient.Size = new System.Drawing.Size(62, 17);
-            this.CbReverseGradient.TabIndex = 12;
-            this.CbReverseGradient.Text = "rev hue";
-            this.CbReverseGradient.UseVisualStyleBackColor = true;
-            this.CbReverseGradient.CheckedChanged += new System.EventHandler(this.CbReverseGradient_CheckedChanged);
+            CbReverseGradient.AutoSize = true;
+            CbReverseGradient.Location = new System.Drawing.Point(335, 5);
+            CbReverseGradient.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbReverseGradient.Name = "CbReverseGradient";
+            CbReverseGradient.Size = new System.Drawing.Size(65, 19);
+            CbReverseGradient.TabIndex = 12;
+            CbReverseGradient.Text = "rev hue";
+            CbReverseGradient.UseVisualStyleBackColor = true;
+            CbReverseGradient.CheckedChanged += CbReverseGradient_CheckedChanged;
             // 
             // PbColorGradient
             // 
-            this.PbColorGradient.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PbColorGradient.Location = new System.Drawing.Point(92, 0);
-            this.PbColorGradient.Margin = new System.Windows.Forms.Padding(0);
-            this.PbColorGradient.Name = "PbColorGradient";
-            this.PbColorGradient.Size = new System.Drawing.Size(100, 23);
-            this.PbColorGradient.TabIndex = 9;
-            this.PbColorGradient.TabStop = false;
-            this.PbColorGradient.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PbColorGradient_MouseDown);
+            PbColorGradient.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            PbColorGradient.Location = new System.Drawing.Point(107, 1);
+            PbColorGradient.Margin = new System.Windows.Forms.Padding(0);
+            PbColorGradient.Name = "PbColorGradient";
+            PbColorGradient.Size = new System.Drawing.Size(116, 26);
+            PbColorGradient.TabIndex = 9;
+            PbColorGradient.TabStop = false;
+            PbColorGradient.MouseDown += PbColorGradient_MouseDown;
             // 
             // BtColorHigh
             // 
-            this.BtColorHigh.Location = new System.Drawing.Point(192, 0);
-            this.BtColorHigh.Margin = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.BtColorHigh.Name = "BtColorHigh";
-            this.BtColorHigh.Size = new System.Drawing.Size(38, 23);
-            this.BtColorHigh.TabIndex = 8;
-            this.BtColorHigh.UseVisualStyleBackColor = true;
-            this.BtColorHigh.Click += new System.EventHandler(this.BtColorClick);
+            BtColorHigh.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowText;
+            BtColorHigh.FlatAppearance.BorderSize = 2;
+            BtColorHigh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtColorHigh.Location = new System.Drawing.Point(224, 1);
+            BtColorHigh.Margin = new System.Windows.Forms.Padding(4);
+            BtColorHigh.Name = "BtColorHigh";
+            BtColorHigh.Size = new System.Drawing.Size(44, 25);
+            BtColorHigh.TabIndex = 8;
+            BtColorHigh.UseVisualStyleBackColor = true;
+            BtColorHigh.Click += BtColorClick;
             // 
             // BtColorLow
             // 
-            this.BtColorLow.Location = new System.Drawing.Point(54, 0);
-            this.BtColorLow.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
-            this.BtColorLow.Name = "BtColorLow";
-            this.BtColorLow.Size = new System.Drawing.Size(38, 23);
-            this.BtColorLow.TabIndex = 7;
-            this.BtColorLow.UseVisualStyleBackColor = true;
-            this.BtColorLow.Click += new System.EventHandler(this.BtColorClick);
+            BtColorLow.FlatAppearance.BorderColor = System.Drawing.SystemColors.WindowText;
+            BtColorLow.FlatAppearance.BorderSize = 2;
+            BtColorLow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtColorLow.Location = new System.Drawing.Point(62, 1);
+            BtColorLow.Margin = new System.Windows.Forms.Padding(4);
+            BtColorLow.Name = "BtColorLow";
+            BtColorLow.Size = new System.Drawing.Size(44, 25);
+            BtColorLow.TabIndex = 7;
+            BtColorLow.UseVisualStyleBackColor = true;
+            BtColorLow.Click += BtColorClick;
             // 
             // NudLevelHigh
             // 
-            this.NudLevelHigh.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudLevelHigh.Location = new System.Drawing.Point(236, 3);
-            this.NudLevelHigh.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.NudLevelHigh.Name = "NudLevelHigh";
-            this.NudLevelHigh.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudLevelHigh.Size = new System.Drawing.Size(45, 20);
-            this.NudLevelHigh.TabIndex = 11;
-            this.NudLevelHigh.ValueChanged += new System.EventHandler(this.NudLevelValueChanged);
+            NudLevelHigh.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            NudLevelHigh.Location = new System.Drawing.Point(275, 3);
+            NudLevelHigh.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NudLevelHigh.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            NudLevelHigh.Name = "NudLevelHigh";
+            NudLevelHigh.Size = new System.Drawing.Size(52, 23);
+            NudLevelHigh.TabIndex = 11;
+            NudLevelHigh.ValueChanged += NudLevelValueChanged;
             // 
             // NudLevelLow
             // 
-            this.NudLevelLow.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.NudLevelLow.Location = new System.Drawing.Point(3, 3);
-            this.NudLevelLow.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.NudLevelLow.Name = "NudLevelLow";
-            this.NudLevelLow.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.NudLevelLow.Size = new System.Drawing.Size(45, 20);
-            this.NudLevelLow.TabIndex = 10;
-            this.NudLevelLow.ValueChanged += new System.EventHandler(this.NudLevelValueChanged);
+            NudLevelLow.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            NudLevelLow.Location = new System.Drawing.Point(4, 3);
+            NudLevelLow.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NudLevelLow.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            NudLevelLow.Name = "NudLevelLow";
+            NudLevelLow.Size = new System.Drawing.Size(52, 23);
+            NudLevelLow.TabIndex = 10;
+            NudLevelLow.ValueChanged += NudLevelValueChanged;
             // 
             // HueControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.CbReverseGradient);
-            this.Controls.Add(this.NudLevelHigh);
-            this.Controls.Add(this.NudLevelLow);
-            this.Controls.Add(this.PbColorGradient);
-            this.Controls.Add(this.BtColorHigh);
-            this.Controls.Add(this.BtColorLow);
-            this.Name = "HueControl";
-            this.Size = new System.Drawing.Size(351, 24);
-            ((System.ComponentModel.ISupportInitialize)(this.PbColorGradient)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudLevelHigh)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.NudLevelLow)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(CbReverseGradient);
+            Controls.Add(NudLevelHigh);
+            Controls.Add(NudLevelLow);
+            Controls.Add(PbColorGradient);
+            Controls.Add(BtColorHigh);
+            Controls.Add(BtColorLow);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "HueControl";
+            Size = new System.Drawing.Size(410, 28);
+            ((System.ComponentModel.ISupportInitialize)PbColorGradient).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudLevelHigh).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudLevelLow).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
