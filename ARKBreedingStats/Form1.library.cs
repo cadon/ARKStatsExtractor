@@ -1,24 +1,25 @@
-﻿using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.InfoGraphic;
+using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
+using ARKBreedingStats.NamePatterns;
+using ARKBreedingStats.settings;
 using ARKBreedingStats.species;
 using ARKBreedingStats.uiControls;
+using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using System.Windows.Threading;
-using ARKBreedingStats.utils;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
-using ARKBreedingStats.library;
-using ARKBreedingStats.settings;
-using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
-using ARKBreedingStats.NamePatterns;
+using System.Windows.Threading;
 using Color = System.Drawing.Color;
-using ARKBreedingStats.InfoGraphic;
+using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 
 namespace ARKBreedingStats
 {
@@ -2175,12 +2176,65 @@ namespace ARKBreedingStats
 
                 if (imagesCreated == 0) return;
 
-                var pluralS = (imagesCreated != 1 ? "s" : string.Empty);
+                var pluralS = imagesCreated != 1 ? "s" : string.Empty;
                 SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
             }
             catch (Exception ex)
             {
                 MessageBoxes.ExceptionMessageBox(ex);
+            }
+        }
+
+        private async void saveStitchedInfographicsToFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listViewLibrary.SelectedIndices.Count == 0) return;
+            if (listViewLibrary.SelectedIndices.Count > 100
+                && MessageBox.Show($"Creating {listViewLibrary.SelectedIndices.Count} images could take some time, do you want to start the process?", 
+                    "ARK Smart Breeding Infographic creation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+
+            try
+            {
+                var lastFilePath = Properties.Settings.Default.InfoGraphicStitchLastFilePath;
+                var initialFolder = !string.IsNullOrEmpty(lastFilePath) ? Path.GetDirectoryName(Properties.Settings.Default.InfoGraphicStitchLastFilePath) : Properties.Settings.Default.InfoGraphicExportFolder;
+                if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
+                    initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+                string filePathSaveTo = null;
+                using (var fs = new SaveFileDialog
+                {
+                    InitialDirectory = initialFolder,
+                    FileName = string.IsNullOrEmpty(lastFilePath) ? string.Empty : Path.GetFileName(lastFilePath),
+                    Filter = "Image Files|*.jpg;*.jpeg;*.png|All Files|*.*"
+                })
+                {
+                    if (fs.ShowDialog() != DialogResult.OK || string.IsNullOrEmpty(fs.FileName))
+                        return;
+                    filePathSaveTo = fs.FileName;
+                }
+
+                Properties.Settings.Default.InfoGraphicStitchLastFilePath = filePathSaveTo;
+
+                await InvokeAsync(() =>
+                {
+                    ToolStripStatusLabelImport.Text = "Creating infographics";
+                    ToolStripStatusLabelImport.Visible = true;
+                });
+                var creatures = (from int i in listViewLibrary.SelectedIndices select _creaturesDisplayed[i]).ToArray();
+                var imagesCreated = await Task.Run(() => InfoGraphic.Stitching.CreateStitchedImages(creatures, _creatureCollection,
+                    filePathSaveTo, Properties.Settings.Default.InfoGraphicStitchMaxWidth, Properties.Settings.Default.InfoGraphicStitchBackground, Properties.Settings.Default.InfoGraphicStitchGap));
+
+                var pluralS = imagesCreated != 1 ? "s" : string.Empty;
+                SetMessageLabelText(
+                    $"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{filePathSaveTo}",
+                    MessageBoxIcon.Information, filePathSaveTo);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxes.ExceptionMessageBox(ex, "Error while creating multiple infographics.");
+            }
+            finally
+            {
+                ToolStripStatusLabelImport.Visible = false;
             }
         }
 

@@ -2639,5 +2639,52 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicBackgroundSizing"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color InfoGraphicStitchBackground {
+            get {
+                return ((global::System.Drawing.Color)(this["InfoGraphicStitchBackground"]));
+            }
+            set {
+                this["InfoGraphicStitchBackground"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int InfoGraphicStitchGap {
+            get {
+                return ((int)(this["InfoGraphicStitchGap"]));
+            }
+            set {
+                this["InfoGraphicStitchGap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string InfoGraphicStitchLastFilePath {
+            get {
+                return ((string)(this["InfoGraphicStitchLastFilePath"]));
+            }
+            set {
+                this["InfoGraphicStitchLastFilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1500")]
+        public int InfoGraphicStitchMaxWidth {
+            get {
+                return ((int)(this["InfoGraphicStitchMaxWidth"]));
+            }
+            set {
+                this["InfoGraphicStitchMaxWidth"] = value;
+            }
+        }
     }
 }

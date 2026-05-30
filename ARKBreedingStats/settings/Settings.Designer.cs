@@ -214,10 +214,17 @@
             labelAppTheme = new System.Windows.Forms.Label();
             CbbAppTheme = new System.Windows.Forms.ComboBox();
             tabPageInfoGraphic = new System.Windows.Forms.TabPage();
+            groupBox34 = new System.Windows.Forms.GroupBox();
+            NudInfoGraphicStitchMaxWidth = new ARKBreedingStats.uiControls.Nud();
+            label79 = new System.Windows.Forms.Label();
+            NudInfoGraphicStitchBackgroundOpacity = new ARKBreedingStats.uiControls.Nud();
+            NudInfoGraphicStitchGap = new ARKBreedingStats.uiControls.Nud();
+            label78 = new System.Windows.Forms.Label();
+            BtInfoGraphicStitchBackgroundColor = new System.Windows.Forms.Button();
             BtNewRandomInfoGraphicCreature = new System.Windows.Forms.Button();
-            label63 = new System.Windows.Forms.Label();
             PbInfoGraphicPreview = new System.Windows.Forms.PictureBox();
             groupBox32 = new System.Windows.Forms.GroupBox();
+            BtInfoGraphicColorTextOutlineAuto = new System.Windows.Forms.Button();
             NudInfoGraphicPaddingLeft = new ARKBreedingStats.uiControls.Nud();
             NudInfoGraphicPaddingBottom = new ARKBreedingStats.uiControls.Nud();
             NudInfoGraphicPaddingRight = new ARKBreedingStats.uiControls.Nud();
@@ -416,7 +423,7 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            BtInfoGraphicColorTextOutlineAuto = new System.Windows.Forms.Button();
+            label80 = new System.Windows.Forms.Label();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -481,6 +488,10 @@
             groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).BeginInit();
             tabPageInfoGraphic.SuspendLayout();
+            groupBox34.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchMaxWidth).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchBackgroundOpacity).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchGap).BeginInit();
             ((System.ComponentModel.ISupportInitialize)PbInfoGraphicPreview).BeginInit();
             groupBox32.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingLeft).BeginInit();
@@ -2704,8 +2715,8 @@
             // 
             // tabPageInfoGraphic
             // 
+            tabPageInfoGraphic.Controls.Add(groupBox34);
             tabPageInfoGraphic.Controls.Add(BtNewRandomInfoGraphicCreature);
-            tabPageInfoGraphic.Controls.Add(label63);
             tabPageInfoGraphic.Controls.Add(PbInfoGraphicPreview);
             tabPageInfoGraphic.Controls.Add(groupBox32);
             tabPageInfoGraphic.Controls.Add(groupBox28);
@@ -2717,9 +2728,80 @@
             tabPageInfoGraphic.TabIndex = 7;
             tabPageInfoGraphic.Text = "Info Graphic";
             // 
+            // groupBox34
+            // 
+            groupBox34.Controls.Add(label80);
+            groupBox34.Controls.Add(NudInfoGraphicStitchMaxWidth);
+            groupBox34.Controls.Add(label79);
+            groupBox34.Controls.Add(NudInfoGraphicStitchBackgroundOpacity);
+            groupBox34.Controls.Add(NudInfoGraphicStitchGap);
+            groupBox34.Controls.Add(label78);
+            groupBox34.Controls.Add(BtInfoGraphicStitchBackgroundColor);
+            groupBox34.Location = new System.Drawing.Point(8, 362);
+            groupBox34.Name = "groupBox34";
+            groupBox34.Size = new System.Drawing.Size(449, 109);
+            groupBox34.TabIndex = 20;
+            groupBox34.TabStop = false;
+            groupBox34.Text = "Multiple images in one file (stitched)";
+            // 
+            // NudInfoGraphicStitchMaxWidth
+            // 
+            NudInfoGraphicStitchMaxWidth.Location = new System.Drawing.Point(192, 22);
+            NudInfoGraphicStitchMaxWidth.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            NudInfoGraphicStitchMaxWidth.Name = "NudInfoGraphicStitchMaxWidth";
+            NudInfoGraphicStitchMaxWidth.Size = new System.Drawing.Size(54, 23);
+            NudInfoGraphicStitchMaxWidth.TabIndex = 23;
+            // 
+            // label79
+            // 
+            label79.AutoSize = true;
+            label79.Location = new System.Drawing.Point(6, 24);
+            label79.Name = "label79";
+            label79.Size = new System.Drawing.Size(135, 15);
+            label79.TabIndex = 22;
+            label79.Text = "Max width of image [px]";
+            // 
+            // NudInfoGraphicStitchBackgroundOpacity
+            // 
+            NudInfoGraphicStitchBackgroundOpacity.ForeColor = System.Drawing.SystemColors.GrayText;
+            NudInfoGraphicStitchBackgroundOpacity.Location = new System.Drawing.Point(192, 80);
+            NudInfoGraphicStitchBackgroundOpacity.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NudInfoGraphicStitchBackgroundOpacity.Maximum = new decimal(new int[] { 255, 0, 0, 0 });
+            NudInfoGraphicStitchBackgroundOpacity.Name = "NudInfoGraphicStitchBackgroundOpacity";
+            NudInfoGraphicStitchBackgroundOpacity.Size = new System.Drawing.Size(54, 23);
+            NudInfoGraphicStitchBackgroundOpacity.TabIndex = 21;
+            // 
+            // NudInfoGraphicStitchGap
+            // 
+            NudInfoGraphicStitchGap.Location = new System.Drawing.Point(192, 51);
+            NudInfoGraphicStitchGap.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            NudInfoGraphicStitchGap.Name = "NudInfoGraphicStitchGap";
+            NudInfoGraphicStitchGap.Size = new System.Drawing.Size(54, 23);
+            NudInfoGraphicStitchGap.TabIndex = 2;
+            // 
+            // label78
+            // 
+            label78.AutoSize = true;
+            label78.Location = new System.Drawing.Point(6, 52);
+            label78.Name = "label78";
+            label78.Size = new System.Drawing.Size(186, 15);
+            label78.TabIndex = 1;
+            label78.Text = "Gap between creature images [px]";
+            // 
+            // BtInfoGraphicStitchBackgroundColor
+            // 
+            BtInfoGraphicStitchBackgroundColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicStitchBackgroundColor.Location = new System.Drawing.Point(6, 77);
+            BtInfoGraphicStitchBackgroundColor.Name = "BtInfoGraphicStitchBackgroundColor";
+            BtInfoGraphicStitchBackgroundColor.Size = new System.Drawing.Size(112, 25);
+            BtInfoGraphicStitchBackgroundColor.TabIndex = 0;
+            BtInfoGraphicStitchBackgroundColor.Text = "Background";
+            BtInfoGraphicStitchBackgroundColor.UseVisualStyleBackColor = true;
+            BtInfoGraphicStitchBackgroundColor.Click += BtInfoGraphicStitchBackgroundColor_Click;
+            // 
             // BtNewRandomInfoGraphicCreature
             // 
-            BtNewRandomInfoGraphicCreature.Location = new System.Drawing.Point(72, 365);
+            BtNewRandomInfoGraphicCreature.Location = new System.Drawing.Point(464, 438);
             BtNewRandomInfoGraphicCreature.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtNewRandomInfoGraphicCreature.Name = "BtNewRandomInfoGraphicCreature";
             BtNewRandomInfoGraphicCreature.Size = new System.Drawing.Size(233, 28);
@@ -2728,19 +2810,9 @@
             BtNewRandomInfoGraphicCreature.UseVisualStyleBackColor = true;
             BtNewRandomInfoGraphicCreature.Click += BtNewRandomInfoGraphicCreature_Click;
             // 
-            // label63
-            // 
-            label63.AutoSize = true;
-            label63.Location = new System.Drawing.Point(13, 372);
-            label63.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label63.Name = "label63";
-            label63.Size = new System.Drawing.Size(48, 15);
-            label63.TabIndex = 18;
-            label63.Text = "Preview";
-            // 
             // PbInfoGraphicPreview
             // 
-            PbInfoGraphicPreview.Location = new System.Drawing.Point(9, 434);
+            PbInfoGraphicPreview.Location = new System.Drawing.Point(9, 477);
             PbInfoGraphicPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             PbInfoGraphicPreview.Name = "PbInfoGraphicPreview";
             PbInfoGraphicPreview.Size = new System.Drawing.Size(388, 165);
@@ -2789,10 +2861,21 @@
             groupBox32.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox32.Name = "groupBox32";
             groupBox32.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox32.Size = new System.Drawing.Size(401, 375);
+            groupBox32.Size = new System.Drawing.Size(401, 378);
             groupBox32.TabIndex = 17;
             groupBox32.TabStop = false;
             groupBox32.Text = "Visuals";
+            // 
+            // BtInfoGraphicColorTextOutlineAuto
+            // 
+            BtInfoGraphicColorTextOutlineAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicColorTextOutlineAuto.Location = new System.Drawing.Point(92, 129);
+            BtInfoGraphicColorTextOutlineAuto.Name = "BtInfoGraphicColorTextOutlineAuto";
+            BtInfoGraphicColorTextOutlineAuto.Size = new System.Drawing.Size(23, 23);
+            BtInfoGraphicColorTextOutlineAuto.TabIndex = 48;
+            BtInfoGraphicColorTextOutlineAuto.Text = "A";
+            BtInfoGraphicColorTextOutlineAuto.UseVisualStyleBackColor = true;
+            BtInfoGraphicColorTextOutlineAuto.Click += BtInfoGraphicColorTextOutlineAuto_Click;
             // 
             // NudInfoGraphicPaddingLeft
             // 
@@ -5006,16 +5089,14 @@
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
-            // BtInfoGraphicColorTextOutlineAuto
+            // label80
             // 
-            BtInfoGraphicColorTextOutlineAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            BtInfoGraphicColorTextOutlineAuto.Location = new System.Drawing.Point(92, 129);
-            BtInfoGraphicColorTextOutlineAuto.Name = "BtInfoGraphicColorTextOutlineAuto";
-            BtInfoGraphicColorTextOutlineAuto.Size = new System.Drawing.Size(23, 23);
-            BtInfoGraphicColorTextOutlineAuto.TabIndex = 48;
-            BtInfoGraphicColorTextOutlineAuto.Text = "A";
-            BtInfoGraphicColorTextOutlineAuto.UseVisualStyleBackColor = true;
-            BtInfoGraphicColorTextOutlineAuto.Click += BtInfoGraphicColorTextOutlineAuto_Click;
+            label80.AutoSize = true;
+            label80.Location = new System.Drawing.Point(139, 82);
+            label80.Name = "label80";
+            label80.Size = new System.Drawing.Size(46, 15);
+            label80.TabIndex = 24;
+            label80.Text = "opacity";
             // 
             // Settings
             // 
@@ -5121,6 +5202,11 @@
             ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).EndInit();
             tabPageInfoGraphic.ResumeLayout(false);
             tabPageInfoGraphic.PerformLayout();
+            groupBox34.ResumeLayout(false);
+            groupBox34.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchMaxWidth).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchBackgroundOpacity).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchGap).EndInit();
             ((System.ComponentModel.ISupportInitialize)PbInfoGraphicPreview).EndInit();
             groupBox32.ResumeLayout(false);
             groupBox32.PerformLayout();
@@ -5592,5 +5678,13 @@
         private uiControls.Nud NudInfoGraphicPaddingBottom;
         private uiControls.Nud NudInfoGraphicPaddingRight;
         private System.Windows.Forms.Button BtInfoGraphicColorTextOutlineAuto;
+        private System.Windows.Forms.GroupBox groupBox34;
+        private uiControls.Nud NudInfoGraphicStitchBackgroundOpacity;
+        private System.Windows.Forms.Label label79;
+        private uiControls.Nud NudInfoGraphicStitchMaxWidth;
+        private uiControls.Nud NudInfoGraphicStitchGap;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.Button BtInfoGraphicStitchBackgroundColor;
+        private System.Windows.Forms.Label label80;
     }
 }

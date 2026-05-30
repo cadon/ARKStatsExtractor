@@ -409,7 +409,12 @@ namespace ARKBreedingStats.settings
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
             InfoGraphicBackgroundImagePath = Properties.Settings.Default.InfoGraphicBackgroundImagePath;
-            CbbInfoGraphicBackgroundResizing.SelectedItem = (InfoGraphicSettings.BackgroundImageResizings)Properties.Settings.Default.InfoGraphicBackgroundSizing;
+            CbbInfoGraphicBackgroundResizing.SelectedItem = Properties.Settings.Default.InfoGraphicBackgroundSizing;
+            // stitching
+            NudInfoGraphicStitchMaxWidth.ValueSave = Properties.Settings.Default.InfoGraphicStitchMaxWidth;
+            NudInfoGraphicStitchGap.ValueSave = Properties.Settings.Default.InfoGraphicStitchGap;
+            NudInfoGraphicStitchBackgroundOpacity.ValueSave = Properties.Settings.Default.InfoGraphicStitchBackground.A;
+            BtInfoGraphicStitchBackgroundColor.SetBackColorAndAccordingForeColor(Color.FromArgb(255, Properties.Settings.Default.InfoGraphicStitchBackground));
 
             #endregion
 
@@ -713,6 +718,10 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicBackgroundSizing =
                 (InfoGraphicSettings.BackgroundImageResizings)(CbbInfoGraphicBackgroundResizing.SelectedItem ??
                                                                InfoGraphicSettings.BackgroundImageResizings.Original);
+            // stitching
+            Properties.Settings.Default.InfoGraphicStitchMaxWidth = (int)NudInfoGraphicStitchMaxWidth.Value;
+            Properties.Settings.Default.InfoGraphicStitchGap = (int)NudInfoGraphicStitchGap.Value;
+            Properties.Settings.Default.InfoGraphicStitchBackground = Color.FromArgb((int)NudInfoGraphicStitchBackgroundOpacity.Value, BtInfoGraphicStitchBackgroundColor.BackColor);
 
             #endregion
 
@@ -1855,6 +1864,13 @@ namespace ARKBreedingStats.settings
             var highlight = NudInfoGraphicBgAlpha.Value > 254 && !string.IsNullOrEmpty(InfoGraphicBackgroundImagePath);
             label57.SetBackColorAndAccordingForeColor(highlight ? UiColors.Current.Error : Color.Transparent);
             NudInfoGraphicBgAlpha.BackColor = highlight ? UiColors.Current.Error : SystemColors.Window;
+        }
+
+        private void BtInfoGraphicStitchBackgroundColor_Click(object sender, EventArgs e)
+        {
+            colorDialog1.Color = BtInfoGraphicStitchBackgroundColor.BackColor;
+            if (colorDialog1.ShowDialog() != DialogResult.OK) return;
+            BtInfoGraphicStitchBackgroundColor.SetBackColorAndAccordingForeColor(colorDialog1.Color);
         }
 
         #endregion

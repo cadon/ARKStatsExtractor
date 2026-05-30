@@ -431,6 +431,7 @@ namespace ARKBreedingStats
             toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             speciesSelector1 = new SpeciesSelector();
+            saveStitchedInfographicsToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownImprintingBonusTester).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NumericUpDownTestingTE).BeginInit();
@@ -2769,9 +2770,9 @@ namespace ARKBreedingStats
             // 
             // contextMenuStripLibrary
             // 
-            contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemEdit, editAllSelectedToolStripMenuItem, toolStripSeparator17, toolStripMenuItemGenerateCreatureName, toolStripMenuItemCopyGeneratedCreatureName, toolStripMenuItemCopyCreatureName, toolStripSeparator9, copyValuesToExtractorToolStripMenuItem, exportToClipboardToolStripMenuItem1, copyInfographicToClipboardToolStripMenuItem, saveInfographicsToFolderToolStripMenuItem, viewColorsInLibraryInfoToolStripMenuItem, toolStripSeparator22, SetMaturityCooldownToolStripMenuItem, bestBreedingPartnersToolStripMenuItem, breedingPlanForSelectedCreaturesToolStripMenuItem, toolStripMenuItemStatus, applyMutagenToolStripMenuItem, editTraitsToolStripMenuItem, toolStripSeparator16, adminCommandToSetColorsToolStripMenuItem, adminCommandToSpawnExactDinoToolStripMenuItem, adminCommandToSpawnExactDinoDS2ToolStripMenuItem, adminCommandSetMutationLevelsToolStripMenuItem, fixColorsToolStripMenuItem, toolStripSeparator6, toolStripMenuItemOpenWiki, toolStripSeparator14, toolStripMenuItemRemove });
+            contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemEdit, editAllSelectedToolStripMenuItem, toolStripSeparator17, toolStripMenuItemGenerateCreatureName, toolStripMenuItemCopyGeneratedCreatureName, toolStripMenuItemCopyCreatureName, toolStripSeparator9, copyValuesToExtractorToolStripMenuItem, exportToClipboardToolStripMenuItem1, copyInfographicToClipboardToolStripMenuItem, saveInfographicsToFolderToolStripMenuItem, saveStitchedInfographicsToFileToolStripMenuItem, viewColorsInLibraryInfoToolStripMenuItem, toolStripSeparator22, SetMaturityCooldownToolStripMenuItem, bestBreedingPartnersToolStripMenuItem, breedingPlanForSelectedCreaturesToolStripMenuItem, toolStripMenuItemStatus, applyMutagenToolStripMenuItem, editTraitsToolStripMenuItem, toolStripSeparator16, adminCommandToSetColorsToolStripMenuItem, adminCommandToSpawnExactDinoToolStripMenuItem, adminCommandToSpawnExactDinoDS2ToolStripMenuItem, adminCommandSetMutationLevelsToolStripMenuItem, fixColorsToolStripMenuItem, toolStripSeparator6, toolStripMenuItemOpenWiki, toolStripSeparator14, toolStripMenuItemRemove });
             contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            contextMenuStripLibrary.Size = new System.Drawing.Size(302, 546);
+            contextMenuStripLibrary.Size = new System.Drawing.Size(302, 590);
             contextMenuStripLibrary.Opening += contextMenuStripLibrary_Opening;
             // 
             // toolStripMenuItemEdit
@@ -3293,11 +3294,17 @@ namespace ARKBreedingStats
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             libraryInfoControl1.Location = new System.Drawing.Point(4, 44);
             libraryInfoControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             libraryInfoControl1.Name = "libraryInfoControl1";
             libraryInfoControl1.RowCount = 2;
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -3445,7 +3452,7 @@ namespace ARKBreedingStats
             tabPagePlayerTribes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPagePlayerTribes.Name = "tabPagePlayerTribes";
             tabPagePlayerTribes.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPagePlayerTribes.Size = new System.Drawing.Size(2183, 918);
+            tabPagePlayerTribes.Size = new System.Drawing.Size(192, 72);
             tabPagePlayerTribes.TabIndex = 7;
             tabPagePlayerTribes.Text = "Player";
             // 
@@ -3455,7 +3462,7 @@ namespace ARKBreedingStats
             tribesControl1.Location = new System.Drawing.Point(4, 3);
             tribesControl1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             tribesControl1.Name = "tribesControl1";
-            tribesControl1.Size = new System.Drawing.Size(2175, 912);
+            tribesControl1.Size = new System.Drawing.Size(184, 66);
             tribesControl1.TabIndex = 0;
             // 
             // tabPageNotes
@@ -4019,6 +4026,13 @@ namespace ARKBreedingStats
             speciesSelector1.Size = new System.Drawing.Size(2191, 946);
             speciesSelector1.TabIndex = 0;
             // 
+            // saveStitchedInfographicsToFileToolStripMenuItem
+            // 
+            saveStitchedInfographicsToFileToolStripMenuItem.Name = "saveStitchedInfographicsToFileToolStripMenuItem";
+            saveStitchedInfographicsToFileToolStripMenuItem.Size = new System.Drawing.Size(301, 22);
+            saveStitchedInfographicsToFileToolStripMenuItem.Text = "Save stitched Infographics to file…";
+            saveStitchedInfographicsToFileToolStripMenuItem.Click += saveStitchedInfographicsToFileToolStripMenuItem_Click;
+            // 
             // Form1
             // 
             AcceptButton = btExtractLevels;
@@ -4527,5 +4541,6 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem uIScalingIssueFixToolStripMenuItem;
         private uiControls.ColoredCreatureImageWithPose ColoredCreatureImageDisplayTester;
         private uiControls.ColoredCreatureImageWithPose ColoredCreatureImageDisplayExtractor;
+        private System.Windows.Forms.ToolStripMenuItem saveStitchedInfographicsToFileToolStripMenuItem;
     }
 }

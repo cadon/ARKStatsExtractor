@@ -435,35 +435,32 @@ namespace ARKBreedingStats.InfoGraphic
             var rectCreature = Rectangle.Empty;
             var rectCreatureOutline = Rectangle.Empty;
             var imageSizeInBox = 0;
-            var imageSize = Math.Min(
-                    widthImage - widthOfNonImage,
-                    heightImage - heightOfNonImage);
-            if (imageSize <= 5) return (null, null, rectCreature, rectCreatureOutline, imageSizeInBox);
+            const int blurRadius = 1; // seems to result in good enough smoothing of the outline brush
+            var outlinePadding = widthOutlineCreature > 0 ? widthOutlineCreature + blurRadius : 0;
+            var creatureImageSize = Math.Min(
+                    widthImage - widthOfNonImage - 2 * outlinePadding,
+                    heightImage - heightOfNonImage - 2 * outlinePadding);
+            if (creatureImageSize <= 5) return (null, null, rectCreature, rectCreatureOutline, imageSizeInBox);
 
             var bmpCreature = (await CreatureColored.GetColoredCreatureAsync(creature.colors, creature.Species, creature.Species.EnabledColorRegions,
-                imageSize, onlyImage: true, creatureSex: creature.sex, game: game).ConfigureAwait(false)).Bmp;
+                creatureImageSize, onlyImage: true, creatureSex: creature.sex, game: game).ConfigureAwait(false)).Bmp;
 
             if (bmpCreature == null) return (null, null, rectCreature, rectCreatureOutline, imageSizeInBox);
-
-            var moveImageDown = creatureScaling > 1 ? (int)(Math.Min(1, creatureScaling - 1) * borderAndPaddings[2]) : 0;
-            imageSizeInBox = imageSize - widthImage + widthBox;
+            imageSizeInBox = creatureImageSize - widthImage + widthBox;
             Bitmap bmpCreatureOutline = null;
-            const int blurRadius = 1; // seems to result in good enough smoothing of the outline brush
+            var moveImageDown = creatureScaling > 1 ? (int)(Math.Min(1, creatureScaling - 1) * borderAndPaddings[0]) : 0;
+
+            rectCreature = new Rectangle(widthImage - creatureImageSize - outlinePadding - borderAndPaddings[1],
+                                        heightImage - creatureImageSize - outlinePadding + Math.Min(0, moveImageDown - borderAndPaddings[2]),
+                                        creatureImageSize, creatureImageSize);
 
             if (widthOutlineCreature > 0 && colorOutlineCreature.A != 0)
             {
                 bmpCreatureOutline = ImageTools.BlurImageAlpha(
                         ImageTools.OutlineOpacities(bmpCreature, colorOutlineCreature, widthOutlineCreature, creatureOutlineBlurring), blurRadius);
 
-                var outlinePadding = widthOutlineCreature + blurRadius;
-                rectCreatureOutline = new Rectangle(
-                    widthImage - imageSize - borderAndPaddings[1] - outlinePadding,
-                    heightImage - imageSize - borderAndPaddings[2] - outlinePadding + moveImageDown,
-                    imageSize + 2 * outlinePadding, imageSize + 2 * outlinePadding);
+                rectCreatureOutline = Rectangle.Inflate(rectCreature, outlinePadding, outlinePadding);
             }
-
-            rectCreature = new Rectangle(widthImage - imageSize - borderAndPaddings[1],
-                heightImage - imageSize - borderAndPaddings[2] + moveImageDown, imageSize, imageSize);
 
             return (bmpCreature, bmpCreatureOutline, rectCreature, rectCreatureOutline, imageSizeInBox);
         }
