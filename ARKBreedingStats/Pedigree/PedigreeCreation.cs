@@ -17,10 +17,10 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         internal const int Margin = 10;
         private const int MinXPosCreature = 440;
-        internal const int PedigreeElementWidth = 325;
+        internal const int PedigreeElementWidth = 379;
         internal const int LeftMargin = 40;
         internal const int TopMargin = 20;
-        private const int ControlDistance = 5;
+        private const int ControlDistance = 10;
         internal static int PedigreeElementHeight;
         private static int _yCenterOfCreatureParent;
 
@@ -450,7 +450,7 @@ namespace ARKBreedingStats.Pedigree
                     }
                 }
 
-                const int lineControlOverlap = 2;
+                const int lineControlOverlap = 1;
 
                 if (motherInheritancePossible)
                 {

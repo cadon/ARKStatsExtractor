@@ -16,8 +16,8 @@ namespace ARKBreedingStats.Pedigree
 {
     public partial class PedigreeCreature : UserControl, IPedigreeCreature
     {
-        public const int ControlHeightWoMutations = 40;
-        public const int ControlHeightWMutations = 54;
+        public const int ControlHeightWoMutations = 45;
+        public const int ControlHeightWMutations = 58;
         public const int HorizontalStatDistance = 29;
         public const int XOffsetFirstStat = 38;
 

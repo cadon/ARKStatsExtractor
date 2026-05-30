@@ -30,79 +30,74 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.ControlMother = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.GbParents = new System.Windows.Forms.GroupBox();
-            this.pedigreeCreatureHeaders = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.ControlFather = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.ControlOffspring = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.GbParents.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            ControlMother = new PedigreeCreature();
+            GbParents = new System.Windows.Forms.GroupBox();
+            pedigreeCreatureHeaders = new PedigreeCreature();
+            ControlFather = new PedigreeCreature();
+            ControlOffspring = new PedigreeCreature();
+            GbParents.SuspendLayout();
+            SuspendLayout();
             // 
             // ControlMother
             // 
-            this.ControlMother.Creature = null;
-            this.ControlMother.Location = new System.Drawing.Point(6, 53);
-            this.ControlMother.Name = "ControlMother";
-            this.ControlMother.OnlyLevels = false;
-            this.ControlMother.Size = new System.Drawing.Size(325, 48);
-            this.ControlMother.TabIndex = 1;
-            this.ControlMother.TotalLevelUnknown = false;
+            ControlMother.Location = new System.Drawing.Point(7, 61);
+            ControlMother.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            ControlMother.Name = "ControlMother";
+            ControlMother.Size = new System.Drawing.Size(379, 55);
+            ControlMother.TabIndex = 1;
             // 
             // GbParents
             // 
-            this.GbParents.BackColor = System.Drawing.Color.Transparent;
-            this.GbParents.Controls.Add(this.pedigreeCreatureHeaders);
-            this.GbParents.Controls.Add(this.ControlFather);
-            this.GbParents.Controls.Add(this.ControlOffspring);
-            this.GbParents.Controls.Add(this.ControlMother);
-            this.GbParents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.GbParents.Location = new System.Drawing.Point(0, 0);
-            this.GbParents.Name = "GbParents";
-            this.GbParents.Size = new System.Drawing.Size(337, 213);
-            this.GbParents.TabIndex = 2;
-            this.GbParents.TabStop = false;
-            this.GbParents.Text = "Parents";
+            GbParents.BackColor = System.Drawing.Color.Transparent;
+            GbParents.Controls.Add(pedigreeCreatureHeaders);
+            GbParents.Controls.Add(ControlFather);
+            GbParents.Controls.Add(ControlOffspring);
+            GbParents.Controls.Add(ControlMother);
+            GbParents.Dock = System.Windows.Forms.DockStyle.Fill;
+            GbParents.Location = new System.Drawing.Point(0, 0);
+            GbParents.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GbParents.Name = "GbParents";
+            GbParents.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GbParents.Size = new System.Drawing.Size(393, 254);
+            GbParents.TabIndex = 2;
+            GbParents.TabStop = false;
+            GbParents.Text = "Parents";
             // 
             // pedigreeCreatureHeaders
             // 
-            this.pedigreeCreatureHeaders.Creature = null;
-            this.pedigreeCreatureHeaders.Location = new System.Drawing.Point(6, 16);
-            this.pedigreeCreatureHeaders.Name = "pedigreeCreatureHeaders";
-            this.pedigreeCreatureHeaders.OnlyLevels = false;
-            this.pedigreeCreatureHeaders.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreatureHeaders.TabIndex = 4;
-            this.pedigreeCreatureHeaders.TotalLevelUnknown = false;
+            pedigreeCreatureHeaders.Location = new System.Drawing.Point(7, 17);
+            pedigreeCreatureHeaders.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            pedigreeCreatureHeaders.Name = "pedigreeCreatureHeaders";
+            pedigreeCreatureHeaders.Size = new System.Drawing.Size(379, 40);
+            pedigreeCreatureHeaders.TabIndex = 4;
             // 
             // ControlFather
             // 
-            this.ControlFather.Creature = null;
-            this.ControlFather.Location = new System.Drawing.Point(6, 159);
-            this.ControlFather.Name = "ControlFather";
-            this.ControlFather.OnlyLevels = false;
-            this.ControlFather.Size = new System.Drawing.Size(325, 48);
-            this.ControlFather.TabIndex = 3;
-            this.ControlFather.TotalLevelUnknown = false;
+            ControlFather.Location = new System.Drawing.Point(7, 192);
+            ControlFather.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            ControlFather.Name = "ControlFather";
+            ControlFather.Size = new System.Drawing.Size(379, 55);
+            ControlFather.TabIndex = 3;
             // 
             // ControlOffspring
             // 
-            this.ControlOffspring.Creature = null;
-            this.ControlOffspring.Location = new System.Drawing.Point(6, 106);
-            this.ControlOffspring.Name = "ControlOffspring";
-            this.ControlOffspring.OnlyLevels = false;
-            this.ControlOffspring.Size = new System.Drawing.Size(325, 48);
-            this.ControlOffspring.TabIndex = 2;
-            this.ControlOffspring.TotalLevelUnknown = false;
+            ControlOffspring.Location = new System.Drawing.Point(7, 126);
+            ControlOffspring.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            ControlOffspring.Name = "ControlOffspring";
+            ControlOffspring.Size = new System.Drawing.Size(379, 55);
+            ControlOffspring.TabIndex = 2;
             // 
             // ParentInheritance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.GbParents);
-            this.Name = "ParentInheritance";
-            this.Size = new System.Drawing.Size(337, 213);
-            this.GbParents.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(GbParents);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "ParentInheritance";
+            Size = new System.Drawing.Size(393, 254);
+            GbParents.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

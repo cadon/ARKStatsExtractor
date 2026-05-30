@@ -313,6 +313,7 @@ namespace ARKBreedingStats
             forSpreadsheetToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             copyInfographicToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             saveInfographicsToFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            saveStitchedInfographicsToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             viewColorsInLibraryInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
             SetMaturityCooldownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -431,7 +432,6 @@ namespace ARKBreedingStats
             toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             resetColumnOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             speciesSelector1 = new SpeciesSelector();
-            saveStitchedInfographicsToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownImprintingBonusTester).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NumericUpDownTestingTE).BeginInit();
@@ -2062,7 +2062,7 @@ namespace ARKBreedingStats
             tabPageExtractor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageExtractor.Name = "tabPageExtractor";
             tabPageExtractor.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageExtractor.Size = new System.Drawing.Size(192, 72);
+            tabPageExtractor.Size = new System.Drawing.Size(2183, 918);
             tabPageExtractor.TabIndex = 0;
             tabPageExtractor.Text = "Extractor";
             // 
@@ -2376,7 +2376,7 @@ namespace ARKBreedingStats
             parentInheritanceExtractor.Location = new System.Drawing.Point(1054, 615);
             parentInheritanceExtractor.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             parentInheritanceExtractor.Name = "parentInheritanceExtractor";
-            parentInheritanceExtractor.Size = new System.Drawing.Size(393, 245);
+            parentInheritanceExtractor.Size = new System.Drawing.Size(393, 254);
             parentInheritanceExtractor.TabIndex = 52;
             // 
             // numericUpDownLevel
@@ -2772,7 +2772,7 @@ namespace ARKBreedingStats
             // 
             contextMenuStripLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripMenuItemEdit, editAllSelectedToolStripMenuItem, toolStripSeparator17, toolStripMenuItemGenerateCreatureName, toolStripMenuItemCopyGeneratedCreatureName, toolStripMenuItemCopyCreatureName, toolStripSeparator9, copyValuesToExtractorToolStripMenuItem, exportToClipboardToolStripMenuItem1, copyInfographicToClipboardToolStripMenuItem, saveInfographicsToFolderToolStripMenuItem, saveStitchedInfographicsToFileToolStripMenuItem, viewColorsInLibraryInfoToolStripMenuItem, toolStripSeparator22, SetMaturityCooldownToolStripMenuItem, bestBreedingPartnersToolStripMenuItem, breedingPlanForSelectedCreaturesToolStripMenuItem, toolStripMenuItemStatus, applyMutagenToolStripMenuItem, editTraitsToolStripMenuItem, toolStripSeparator16, adminCommandToSetColorsToolStripMenuItem, adminCommandToSpawnExactDinoToolStripMenuItem, adminCommandToSpawnExactDinoDS2ToolStripMenuItem, adminCommandSetMutationLevelsToolStripMenuItem, fixColorsToolStripMenuItem, toolStripSeparator6, toolStripMenuItemOpenWiki, toolStripSeparator14, toolStripMenuItemRemove });
             contextMenuStripLibrary.Name = "contextMenuStripLibrary";
-            contextMenuStripLibrary.Size = new System.Drawing.Size(302, 590);
+            contextMenuStripLibrary.Size = new System.Drawing.Size(302, 568);
             contextMenuStripLibrary.Opening += contextMenuStripLibrary_Opening;
             // 
             // toolStripMenuItemEdit
@@ -2885,6 +2885,13 @@ namespace ARKBreedingStats
             saveInfographicsToFolderToolStripMenuItem.Size = new System.Drawing.Size(301, 22);
             saveInfographicsToFolderToolStripMenuItem.Text = "Save Infographics to folder…";
             saveInfographicsToFolderToolStripMenuItem.Click += saveInfographicsToFolderToolStripMenuItem_Click;
+            // 
+            // saveStitchedInfographicsToFileToolStripMenuItem
+            // 
+            saveStitchedInfographicsToFileToolStripMenuItem.Name = "saveStitchedInfographicsToFileToolStripMenuItem";
+            saveStitchedInfographicsToFileToolStripMenuItem.Size = new System.Drawing.Size(301, 22);
+            saveStitchedInfographicsToFileToolStripMenuItem.Text = "Save stitched Infographics to file…";
+            saveStitchedInfographicsToFileToolStripMenuItem.Click += saveStitchedInfographicsToFileToolStripMenuItem_Click;
             // 
             // viewColorsInLibraryInfoToolStripMenuItem
             // 
@@ -3298,11 +3305,29 @@ namespace ARKBreedingStats
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             libraryInfoControl1.Location = new System.Drawing.Point(4, 44);
             libraryInfoControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             libraryInfoControl1.Name = "libraryInfoControl1";
             libraryInfoControl1.RowCount = 2;
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -4025,13 +4050,6 @@ namespace ARKBreedingStats
             speciesSelector1.Name = "speciesSelector1";
             speciesSelector1.Size = new System.Drawing.Size(2191, 946);
             speciesSelector1.TabIndex = 0;
-            // 
-            // saveStitchedInfographicsToFileToolStripMenuItem
-            // 
-            saveStitchedInfographicsToFileToolStripMenuItem.Name = "saveStitchedInfographicsToFileToolStripMenuItem";
-            saveStitchedInfographicsToFileToolStripMenuItem.Size = new System.Drawing.Size(301, 22);
-            saveStitchedInfographicsToFileToolStripMenuItem.Text = "Save stitched Infographics to file…";
-            saveStitchedInfographicsToFileToolStripMenuItem.Click += saveStitchedInfographicsToFileToolStripMenuItem_Click;
             // 
             // Form1
             // 
