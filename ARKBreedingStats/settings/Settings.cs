@@ -16,6 +16,7 @@ using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.SpeciesOptions;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
+using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats.settings
 {
@@ -219,6 +220,8 @@ namespace ARKBreedingStats.settings
             var availableFonts = FontFamily.Families.Select(f => f.Name).ToArray();
             CbbInfoGraphicFontName.Items.AddRange(availableFonts);
             CbbAppDefaultFontName.Items.AddRange(availableFonts);
+
+            CbbInfoGraphicBackgroundResizing.DataSource = Enum.GetValues<InfoGraphicSettings.BackgroundImageResizings>();
         }
 
         private void LoadSettings(CreatureCollection cc)
@@ -397,12 +400,15 @@ namespace ARKBreedingStats.settings
             NudInfoGraphicCreatureOutlineWidth.ValueSave = Properties.Settings.Default.InfoGraphicCreatureOutlineWidth;
             NudInfoGraphicCreatureOutlineBlurring.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring;
             NudInfoGraphicCreatureScaling.ValueSave = (decimal)Properties.Settings.Default.InfoGraphicCreatureScaling;
-            NudInfoGraphicPaddingX.ValueSave = Properties.Settings.Default.InfoGraphicPaddingX;
-            NudInfoGraphicPaddingY.ValueSave = Properties.Settings.Default.InfoGraphicPaddingY;
+            NudInfoGraphicPaddingTop.ValueSave = Properties.Settings.Default.InfoGraphicPadding?[0] ?? 0;
+            NudInfoGraphicPaddingRight.ValueSave = Properties.Settings.Default.InfoGraphicPadding?[1] ?? 0;
+            NudInfoGraphicPaddingBottom.ValueSave = Properties.Settings.Default.InfoGraphicPadding?[2] ?? 0;
+            NudInfoGraphicPaddingLeft.ValueSave = Properties.Settings.Default.InfoGraphicPadding?[3] ?? 0;
             CbInfoGraphicAddRegionNames.Checked = Properties.Settings.Default.InfoGraphicExtraRegionNames;
             CbInfoGraphicColorRegionNamesIfNoImage.Checked = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage;
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
             InfoGraphicBackgroundImagePath = Properties.Settings.Default.InfoGraphicBackgroundImagePath;
+            CbbInfoGraphicBackgroundResizing.SelectedItem = (InfoGraphicSettings.BackgroundImageResizings)Properties.Settings.Default.InfoGraphicBackgroundSizing;
 
             #endregion
 
@@ -698,12 +704,14 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicCreatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
             Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
             Properties.Settings.Default.InfoGraphicCreatureScaling = (float)NudInfoGraphicCreatureScaling.Value;
-            Properties.Settings.Default.InfoGraphicPaddingX = (int)NudInfoGraphicPaddingX.Value;
-            Properties.Settings.Default.InfoGraphicPaddingY = (int)NudInfoGraphicPaddingY.Value;
+            Properties.Settings.Default.InfoGraphicPadding = [(int)NudInfoGraphicPaddingTop.Value, (int)NudInfoGraphicPaddingRight.Value, (int)NudInfoGraphicPaddingBottom.Value, (int)NudInfoGraphicPaddingLeft.Value];
             Properties.Settings.Default.InfoGraphicExtraRegionNames = CbInfoGraphicAddRegionNames.Checked;
             Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
             Properties.Settings.Default.InfoGraphicShowStatValues = CbInfoGraphicStatValues.Checked;
             Properties.Settings.Default.InfoGraphicBackgroundImagePath = InfoGraphicBackgroundImagePath;
+            Properties.Settings.Default.InfoGraphicBackgroundSizing =
+                (InfoGraphicSettings.BackgroundImageResizings)(CbbInfoGraphicBackgroundResizing.SelectedItem ??
+                                                               InfoGraphicSettings.BackgroundImageResizings.Original);
 
             #endregion
 
@@ -1721,6 +1729,8 @@ namespace ARKBreedingStats.settings
 
         private void CbInfoGraphicCheckBoxRadioButtonChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
+        private void CbbInfoGraphicBackgroundResizing_SelectedIndexChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
+
         private void ShowInfoGraphicPreviewDebounced(int debounceMs = 300) =>
             _infoGraphicPreviewDebouncer.Debounce(debounceMs, ShowInfoGraphicPreview, Dispatcher.CurrentDispatcher);
         private async Task ShowInfoGraphicPreview()
@@ -1729,39 +1739,36 @@ namespace ARKBreedingStats.settings
                 CreateInfoGraphicCreature();
             if (_infoGraphicPreviewCreature == null) return;
 
-            var height = (int)nudInfoGraphicHeight.Value;
-            var fontName = CbbInfoGraphicFontName.Text;
-            var foreColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor);
-            var backColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor);
-            var borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor);
-            var borderWidth = (int)NudInfoGraphicBorderWidth.Value;
-            var borderRadius = (float)NudInfoGraphicBorderRadius.Value;
-            var paddingX = (int)NudInfoGraphicPaddingX.Value;
-            var paddingY = (int)NudInfoGraphicPaddingY.Value;
-            var textOutlineColor = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor);
-            var creatureOutlineColor = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor);
-            var creatureOutlineWidth = (int)NudInfoGraphicCreatureOutlineWidth.Value;
-            var creatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value;
-            var creatureScaling = (float)NudInfoGraphicCreatureScaling.Value;
-            var textOutlineWidth = (float)NudInfoGraphicTextOutlineWidth.Value;
-            var displayCreatureName = CbInfoGraphicCreatureName.Checked;
-            var displayDomValues = RbInfoGraphicDomValues.Checked;
-            var sumWildMut = CbInfoGraphicSumWildMut.Checked;
-            var displayMutationCounter = CbInfoGraphicMutationCounter.Checked;
-            var displayGenerations = CbInfoGraphicGenerations.Checked;
-            var displayStatValues = CbInfoGraphicStatValues.Checked;
-            var displayMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked;
-            var addRegionNames = CbInfoGraphicAddRegionNames.Checked;
-            var colorRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked;
-            var backgroundImagePath = InfoGraphicBackgroundImagePath;
+            var infoGraphicSettings = new InfoGraphicSettings
+            {
+                infoGraphicHeight = (int)nudInfoGraphicHeight.Value,
+                fontName = CbbInfoGraphicFontName.Text,
+                foreColor = Color.FromArgb((int)NudInfoGraphicFgAlpha.Value, BtInfoGraphicForeColor.BackColor),
+                backColor = Color.FromArgb((int)NudInfoGraphicBgAlpha.Value, BtInfoGraphicBackColor.BackColor),
+                borderColor = Color.FromArgb((int)NudInfoGraphicBorderAlpha.Value, BtInfoGraphicBorderColor.BackColor),
+                borderWidth = (int)NudInfoGraphicBorderWidth.Value,
+                borderRadius = (float)NudInfoGraphicBorderRadius.Value,
+                Padding = [(int)NudInfoGraphicPaddingTop.Value, (int)NudInfoGraphicPaddingRight.Value, (int)NudInfoGraphicPaddingBottom.Value, (int)NudInfoGraphicPaddingLeft.Value],
+                colorOutlineText = Color.FromArgb((int)NudInfoGraphicTextOutlineAlpha.Value, BtInfoGraphicTextOutlineColor.BackColor),
+                colorOutlineCreature = Color.FromArgb((int)NudInfoGraphicCreatureOutlineAlpha.Value, BtInfoGraphicCreatureOutlineColor.BackColor),
+                widthOutlineCreature = (int)NudInfoGraphicCreatureOutlineWidth.Value,
+                creatureOutlineBlurring = (float)NudInfoGraphicCreatureOutlineBlurring.Value,
+                creatureScaling = (float)NudInfoGraphicCreatureScaling.Value,
+                widthOutlineText = (float)NudInfoGraphicTextOutlineWidth.Value,
+                displayCreatureName = CbInfoGraphicCreatureName.Checked,
+                displayWithDomLevels = RbInfoGraphicDomValues.Checked,
+                displaySumWildMutLevels = CbInfoGraphicSumWildMut.Checked,
+                displayMutations = CbInfoGraphicMutationCounter.Checked,
+                displayGenerations = CbInfoGraphicGenerations.Checked,
+                displayStatValues = CbInfoGraphicStatValues.Checked,
+                displayMaxWildLevel = CbInfoGraphicDisplayMaxWildLevel.Checked,
+                displayExtraRegionNames = CbInfoGraphicAddRegionNames.Checked,
+                displayRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked,
+                backgroundImagePath = InfoGraphicBackgroundImagePath,
+                BackgroundImageResizing = (InfoGraphicSettings.BackgroundImageResizings)(CbbInfoGraphicBackgroundResizing.SelectedItem ?? InfoGraphicSettings.BackgroundImageResizings.Original)
+            };
 
-            var bmp = await _infoGraphicPreviewCreature
-                    .InfoGraphicAsync(_cc,
-                        height, fontName, foreColor, backColor, borderColor, borderWidth, borderRadius, paddingX, paddingY, textOutlineColor,
-                        textOutlineWidth, displayCreatureName, displayDomValues,
-                        sumWildMut, displayMutationCounter, displayGenerations,
-                        displayStatValues, displayMaxWildLevel, addRegionNames, colorRegionNamesIfNoImage,
-                        creatureOutlineColor, backgroundImagePath, creatureOutlineWidth, creatureOutlineBlurring, creatureScaling);
+            var bmp = await _infoGraphicPreviewCreature.InfoGraphicAsync(_cc, infoGraphicSettings);
 
             if (bmp == null) return;
             PbInfoGraphicPreview.Size = bmp.Size;

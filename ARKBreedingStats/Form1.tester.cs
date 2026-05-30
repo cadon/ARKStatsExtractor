@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
+using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats
 {

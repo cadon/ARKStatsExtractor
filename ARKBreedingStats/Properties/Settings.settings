@@ -638,11 +638,8 @@
     <Setting Name="InfoGraphicCreatureScaling" Type="System.Single" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="InfoGraphicPaddingX" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
-    </Setting>
-    <Setting Name="InfoGraphicPaddingY" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">3</Value>
+    <Setting Name="InfoGraphicPadding" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LibraryCombineBreedingCompatibleSpecies" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -665,6 +662,9 @@
     </Setting>
     <Setting Name="CopyNameToClipboardWhenAppliedInLibrary" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InfoGraphicBackgroundSizing" Type="ARKBreedingStats.InfoGraphic.InfoGraphicSettings.BackgroundImageResizings" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

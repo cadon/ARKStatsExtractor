@@ -2544,25 +2544,12 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int InfoGraphicPaddingX {
+        public int[] InfoGraphicPadding {
             get {
-                return ((int)(this["InfoGraphicPaddingX"]));
+                return ((int[])(this["InfoGraphicPadding"]));
             }
             set {
-                this["InfoGraphicPaddingX"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public int InfoGraphicPaddingY {
-            get {
-                return ((int)(this["InfoGraphicPaddingY"]));
-            }
-            set {
-                this["InfoGraphicPaddingY"] = value;
+                this["InfoGraphicPadding"] = value;
             }
         }
         
@@ -2639,6 +2626,17 @@ namespace ARKBreedingStats.Properties {
             }
             set {
                 this["CopyNameToClipboardWhenAppliedInLibrary"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::ARKBreedingStats.InfoGraphic.InfoGraphicSettings.BackgroundImageResizings InfoGraphicBackgroundSizing {
+            get {
+                return ((global::ARKBreedingStats.InfoGraphic.InfoGraphicSettings.BackgroundImageResizings)(this["InfoGraphicBackgroundSizing"]));
+            }
+            set {
+                this["InfoGraphicBackgroundSizing"] = value;
             }
         }
     }

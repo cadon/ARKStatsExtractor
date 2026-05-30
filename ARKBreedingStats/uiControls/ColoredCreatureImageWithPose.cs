@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.library;
+﻿using ARKBreedingStats.InfoGraphic;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;

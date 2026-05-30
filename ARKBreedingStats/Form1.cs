@@ -30,6 +30,7 @@ using static ARKBreedingStats.Asb;
 using static ARKBreedingStats.settings.Settings;
 using static ARKBreedingStats.uiControls.StatWeighting;
 using Color = System.Drawing.Color;
+using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats
 {

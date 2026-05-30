@@ -1,5 +1,4 @@
-﻿using ARKBreedingStats.library;
-using ARKBreedingStats.Library;
+﻿using ARKBreedingStats.Library;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,6 +7,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
 using System.ComponentModel;
+using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats
 {

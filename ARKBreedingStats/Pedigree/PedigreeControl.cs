@@ -5,13 +5,13 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
 using System.ComponentModel;
+using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats.Pedigree
 {

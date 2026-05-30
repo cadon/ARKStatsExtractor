@@ -18,6 +18,7 @@ using ARKBreedingStats.settings;
 using KeyEventArgs = System.Windows.Forms.KeyEventArgs;
 using ARKBreedingStats.NamePatterns;
 using Color = System.Drawing.Color;
+using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats
 {

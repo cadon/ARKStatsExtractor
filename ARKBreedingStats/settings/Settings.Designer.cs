@@ -218,10 +218,12 @@
             label63 = new System.Windows.Forms.Label();
             PbInfoGraphicPreview = new System.Windows.Forms.PictureBox();
             groupBox32 = new System.Windows.Forms.GroupBox();
-            label78 = new System.Windows.Forms.Label();
-            NudInfoGraphicPaddingY = new ARKBreedingStats.uiControls.Nud();
+            NudInfoGraphicPaddingLeft = new ARKBreedingStats.uiControls.Nud();
+            NudInfoGraphicPaddingBottom = new ARKBreedingStats.uiControls.Nud();
+            NudInfoGraphicPaddingRight = new ARKBreedingStats.uiControls.Nud();
+            CbbInfoGraphicBackgroundResizing = new System.Windows.Forms.ComboBox();
             label77 = new System.Windows.Forms.Label();
-            NudInfoGraphicPaddingX = new ARKBreedingStats.uiControls.Nud();
+            NudInfoGraphicPaddingTop = new ARKBreedingStats.uiControls.Nud();
             label76 = new System.Windows.Forms.Label();
             NudInfoGraphicCreatureScaling = new ARKBreedingStats.uiControls.Nud();
             label75 = new System.Windows.Forms.Label();
@@ -332,6 +334,12 @@
             nudWarnImportMoreThan = new System.Windows.Forms.NumericUpDown();
             groupBox13 = new System.Windows.Forms.GroupBox();
             dataGridViewExportFolders = new System.Windows.Forms.DataGridView();
+            convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ownerSuffixDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            folderPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            dgvExportFolderChange = new System.Windows.Forms.DataGridViewButtonColumn();
+            dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+            dgvExportMakeDefault = new System.Windows.Forms.DataGridViewButtonColumn();
             aTExportFolderLocationsBindingSource = new System.Windows.Forms.BindingSource(components);
             btAddExportFolder = new System.Windows.Forms.Button();
             label25 = new System.Windows.Forms.Label();
@@ -408,12 +416,6 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            convenientNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ownerSuffixDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            folderPathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            dgvExportFolderChange = new System.Windows.Forms.DataGridViewButtonColumn();
-            dgvExportFolderDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-            dgvExportMakeDefault = new System.Windows.Forms.DataGridViewButtonColumn();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -480,8 +482,10 @@
             tabPageInfoGraphic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PbInfoGraphicPreview).BeginInit();
             groupBox32.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingY).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingX).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingLeft).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingBottom).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingRight).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingTop).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicCreatureScaling).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicBorderRadius).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicCreatureOutlineBlurring).BeginInit();
@@ -2744,10 +2748,12 @@
             // 
             // groupBox32
             // 
-            groupBox32.Controls.Add(label78);
-            groupBox32.Controls.Add(NudInfoGraphicPaddingY);
+            groupBox32.Controls.Add(NudInfoGraphicPaddingLeft);
+            groupBox32.Controls.Add(NudInfoGraphicPaddingBottom);
+            groupBox32.Controls.Add(NudInfoGraphicPaddingRight);
+            groupBox32.Controls.Add(CbbInfoGraphicBackgroundResizing);
             groupBox32.Controls.Add(label77);
-            groupBox32.Controls.Add(NudInfoGraphicPaddingX);
+            groupBox32.Controls.Add(NudInfoGraphicPaddingTop);
             groupBox32.Controls.Add(label76);
             groupBox32.Controls.Add(NudInfoGraphicCreatureScaling);
             groupBox32.Controls.Add(label75);
@@ -2786,26 +2792,48 @@
             groupBox32.TabStop = false;
             groupBox32.Text = "Visuals";
             // 
-            // label78
+            // NudInfoGraphicPaddingLeft
             // 
-            label78.AutoSize = true;
-            label78.Location = new System.Drawing.Point(194, 275);
-            label78.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label78.Name = "label78";
-            label78.Size = new System.Drawing.Size(61, 15);
-            label78.TabIndex = 42;
-            label78.Text = "Padding Y";
+            NudInfoGraphicPaddingLeft.ForeColor = System.Drawing.SystemColors.GrayText;
+            NudInfoGraphicPaddingLeft.Location = new System.Drawing.Point(341, 273);
+            NudInfoGraphicPaddingLeft.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NudInfoGraphicPaddingLeft.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            NudInfoGraphicPaddingLeft.Name = "NudInfoGraphicPaddingLeft";
+            NudInfoGraphicPaddingLeft.Size = new System.Drawing.Size(52, 23);
+            NudInfoGraphicPaddingLeft.TabIndex = 47;
+            NudInfoGraphicPaddingLeft.ValueChanged += NudInfoGraphicValueChanged;
             // 
-            // NudInfoGraphicPaddingY
+            // NudInfoGraphicPaddingBottom
             // 
-            NudInfoGraphicPaddingY.ForeColor = System.Drawing.SystemColors.GrayText;
-            NudInfoGraphicPaddingY.Location = new System.Drawing.Point(266, 272);
-            NudInfoGraphicPaddingY.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            NudInfoGraphicPaddingY.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-            NudInfoGraphicPaddingY.Name = "NudInfoGraphicPaddingY";
-            NudInfoGraphicPaddingY.Size = new System.Drawing.Size(68, 23);
-            NudInfoGraphicPaddingY.TabIndex = 41;
-            NudInfoGraphicPaddingY.ValueChanged += NudInfoGraphicValueChanged;
+            NudInfoGraphicPaddingBottom.ForeColor = System.Drawing.SystemColors.GrayText;
+            NudInfoGraphicPaddingBottom.Location = new System.Drawing.Point(281, 273);
+            NudInfoGraphicPaddingBottom.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NudInfoGraphicPaddingBottom.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            NudInfoGraphicPaddingBottom.Name = "NudInfoGraphicPaddingBottom";
+            NudInfoGraphicPaddingBottom.Size = new System.Drawing.Size(52, 23);
+            NudInfoGraphicPaddingBottom.TabIndex = 46;
+            NudInfoGraphicPaddingBottom.ValueChanged += NudInfoGraphicValueChanged;
+            // 
+            // NudInfoGraphicPaddingRight
+            // 
+            NudInfoGraphicPaddingRight.ForeColor = System.Drawing.SystemColors.GrayText;
+            NudInfoGraphicPaddingRight.Location = new System.Drawing.Point(221, 273);
+            NudInfoGraphicPaddingRight.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NudInfoGraphicPaddingRight.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            NudInfoGraphicPaddingRight.Name = "NudInfoGraphicPaddingRight";
+            NudInfoGraphicPaddingRight.Size = new System.Drawing.Size(52, 23);
+            NudInfoGraphicPaddingRight.TabIndex = 45;
+            NudInfoGraphicPaddingRight.ValueChanged += NudInfoGraphicValueChanged;
+            // 
+            // CbbInfoGraphicBackgroundResizing
+            // 
+            CbbInfoGraphicBackgroundResizing.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbInfoGraphicBackgroundResizing.FormattingEnabled = true;
+            CbbInfoGraphicBackgroundResizing.Location = new System.Drawing.Point(267, 112);
+            CbbInfoGraphicBackgroundResizing.Name = "CbbInfoGraphicBackgroundResizing";
+            CbbInfoGraphicBackgroundResizing.Size = new System.Drawing.Size(126, 23);
+            CbbInfoGraphicBackgroundResizing.TabIndex = 43;
+            CbbInfoGraphicBackgroundResizing.SelectedIndexChanged += CbbInfoGraphicBackgroundResizing_SelectedIndexChanged;
             // 
             // label77
             // 
@@ -2813,20 +2841,20 @@
             label77.Location = new System.Drawing.Point(10, 275);
             label77.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label77.Name = "label77";
-            label77.Size = new System.Drawing.Size(61, 15);
+            label77.Size = new System.Drawing.Size(147, 15);
             label77.TabIndex = 40;
-            label77.Text = "Padding X";
+            label77.Text = "Padding top-righ-bott-left";
             // 
-            // NudInfoGraphicPaddingX
+            // NudInfoGraphicPaddingTop
             // 
-            NudInfoGraphicPaddingX.ForeColor = System.Drawing.SystemColors.GrayText;
-            NudInfoGraphicPaddingX.Location = new System.Drawing.Point(119, 272);
-            NudInfoGraphicPaddingX.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            NudInfoGraphicPaddingX.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-            NudInfoGraphicPaddingX.Name = "NudInfoGraphicPaddingX";
-            NudInfoGraphicPaddingX.Size = new System.Drawing.Size(68, 23);
-            NudInfoGraphicPaddingX.TabIndex = 39;
-            NudInfoGraphicPaddingX.ValueChanged += NudInfoGraphicValueChanged;
+            NudInfoGraphicPaddingTop.ForeColor = System.Drawing.SystemColors.GrayText;
+            NudInfoGraphicPaddingTop.Location = new System.Drawing.Point(161, 273);
+            NudInfoGraphicPaddingTop.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            NudInfoGraphicPaddingTop.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            NudInfoGraphicPaddingTop.Name = "NudInfoGraphicPaddingTop";
+            NudInfoGraphicPaddingTop.Size = new System.Drawing.Size(52, 23);
+            NudInfoGraphicPaddingTop.TabIndex = 39;
+            NudInfoGraphicPaddingTop.ValueChanged += NudInfoGraphicValueChanged;
             // 
             // label76
             // 
@@ -3005,10 +3033,10 @@
             // 
             // BtInfoGraphicBackgroundImagePath
             // 
-            BtInfoGraphicBackgroundImagePath.Location = new System.Drawing.Point(267, 77);
+            BtInfoGraphicBackgroundImagePath.Location = new System.Drawing.Point(267, 66);
             BtInfoGraphicBackgroundImagePath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtInfoGraphicBackgroundImagePath.Name = "BtInfoGraphicBackgroundImagePath";
-            BtInfoGraphicBackgroundImagePath.Size = new System.Drawing.Size(127, 55);
+            BtInfoGraphicBackgroundImagePath.Size = new System.Drawing.Size(127, 40);
             BtInfoGraphicBackgroundImagePath.TabIndex = 23;
             BtInfoGraphicBackgroundImagePath.Text = "Background image";
             BtInfoGraphicBackgroundImagePath.UseVisualStyleBackColor = true;
@@ -3061,7 +3089,7 @@
             CbbInfoGraphicFontName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             CbbInfoGraphicFontName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             CbbInfoGraphicFontName.FormattingEnabled = true;
-            CbbInfoGraphicFontName.Location = new System.Drawing.Point(267, 46);
+            CbbInfoGraphicFontName.Location = new System.Drawing.Point(267, 37);
             CbbInfoGraphicFontName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbbInfoGraphicFontName.Name = "CbbInfoGraphicFontName";
             CbbInfoGraphicFontName.Size = new System.Drawing.Size(126, 23);
@@ -3071,7 +3099,7 @@
             // label51
             // 
             label51.AutoSize = true;
-            label51.Location = new System.Drawing.Point(268, 23);
+            label51.Location = new System.Drawing.Point(267, 19);
             label51.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label51.Name = "label51";
             label51.Size = new System.Drawing.Size(64, 15);
@@ -4090,6 +4118,60 @@
             dataGridViewExportFolders.TabIndex = 1;
             dataGridViewExportFolders.CellClick += dataGridViewExportFolders_CellClick;
             // 
+            // convenientNameDataGridViewTextBoxColumn1
+            // 
+            convenientNameDataGridViewTextBoxColumn1.DataPropertyName = "ConvenientName";
+            convenientNameDataGridViewTextBoxColumn1.HeaderText = "Name";
+            convenientNameDataGridViewTextBoxColumn1.Name = "convenientNameDataGridViewTextBoxColumn1";
+            convenientNameDataGridViewTextBoxColumn1.Width = 80;
+            // 
+            // ownerSuffixDataGridViewTextBoxColumn
+            // 
+            ownerSuffixDataGridViewTextBoxColumn.DataPropertyName = "OwnerSuffix";
+            ownerSuffixDataGridViewTextBoxColumn.HeaderText = "Owner suffix";
+            ownerSuffixDataGridViewTextBoxColumn.Name = "ownerSuffixDataGridViewTextBoxColumn";
+            ownerSuffixDataGridViewTextBoxColumn.Width = 70;
+            // 
+            // folderPathDataGridViewTextBoxColumn
+            // 
+            folderPathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            folderPathDataGridViewTextBoxColumn.DataPropertyName = "FolderPath";
+            folderPathDataGridViewTextBoxColumn.HeaderText = "Folder";
+            folderPathDataGridViewTextBoxColumn.Name = "folderPathDataGridViewTextBoxColumn";
+            folderPathDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dgvExportFolderChange
+            // 
+            dgvExportFolderChange.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dgvExportFolderChange.HeaderText = "Change";
+            dgvExportFolderChange.MinimumWidth = 20;
+            dgvExportFolderChange.Name = "dgvExportFolderChange";
+            dgvExportFolderChange.ReadOnly = true;
+            dgvExportFolderChange.Text = "Change";
+            dgvExportFolderChange.UseColumnTextForButtonValue = true;
+            dgvExportFolderChange.Width = 60;
+            // 
+            // dgvExportFolderDelete
+            // 
+            dgvExportFolderDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dgvExportFolderDelete.HeaderText = "Delete";
+            dgvExportFolderDelete.MinimumWidth = 20;
+            dgvExportFolderDelete.Name = "dgvExportFolderDelete";
+            dgvExportFolderDelete.ReadOnly = true;
+            dgvExportFolderDelete.Text = "Delete";
+            dgvExportFolderDelete.UseColumnTextForButtonValue = true;
+            dgvExportFolderDelete.Width = 55;
+            // 
+            // dgvExportMakeDefault
+            // 
+            dgvExportMakeDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dgvExportMakeDefault.HeaderText = "Default";
+            dgvExportMakeDefault.Name = "dgvExportMakeDefault";
+            dgvExportMakeDefault.ReadOnly = true;
+            dgvExportMakeDefault.Text = "Make default";
+            dgvExportMakeDefault.UseColumnTextForButtonValue = true;
+            dgvExportMakeDefault.Width = 85;
+            // 
             // aTExportFolderLocationsBindingSource
             // 
             aTExportFolderLocationsBindingSource.AllowNew = false;
@@ -4917,60 +4999,6 @@
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
-            // convenientNameDataGridViewTextBoxColumn1
-            // 
-            convenientNameDataGridViewTextBoxColumn1.DataPropertyName = "ConvenientName";
-            convenientNameDataGridViewTextBoxColumn1.HeaderText = "Name";
-            convenientNameDataGridViewTextBoxColumn1.Name = "convenientNameDataGridViewTextBoxColumn1";
-            convenientNameDataGridViewTextBoxColumn1.Width = 80;
-            // 
-            // ownerSuffixDataGridViewTextBoxColumn
-            // 
-            ownerSuffixDataGridViewTextBoxColumn.DataPropertyName = "OwnerSuffix";
-            ownerSuffixDataGridViewTextBoxColumn.HeaderText = "Owner suffix";
-            ownerSuffixDataGridViewTextBoxColumn.Name = "ownerSuffixDataGridViewTextBoxColumn";
-            ownerSuffixDataGridViewTextBoxColumn.Width = 70;
-            // 
-            // folderPathDataGridViewTextBoxColumn
-            // 
-            folderPathDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            folderPathDataGridViewTextBoxColumn.DataPropertyName = "FolderPath";
-            folderPathDataGridViewTextBoxColumn.HeaderText = "Folder";
-            folderPathDataGridViewTextBoxColumn.Name = "folderPathDataGridViewTextBoxColumn";
-            folderPathDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dgvExportFolderChange
-            // 
-            dgvExportFolderChange.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dgvExportFolderChange.HeaderText = "Change";
-            dgvExportFolderChange.MinimumWidth = 20;
-            dgvExportFolderChange.Name = "dgvExportFolderChange";
-            dgvExportFolderChange.ReadOnly = true;
-            dgvExportFolderChange.Text = "Change";
-            dgvExportFolderChange.UseColumnTextForButtonValue = true;
-            dgvExportFolderChange.Width = 60;
-            // 
-            // dgvExportFolderDelete
-            // 
-            dgvExportFolderDelete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dgvExportFolderDelete.HeaderText = "Delete";
-            dgvExportFolderDelete.MinimumWidth = 20;
-            dgvExportFolderDelete.Name = "dgvExportFolderDelete";
-            dgvExportFolderDelete.ReadOnly = true;
-            dgvExportFolderDelete.Text = "Delete";
-            dgvExportFolderDelete.UseColumnTextForButtonValue = true;
-            dgvExportFolderDelete.Width = 55;
-            // 
-            // dgvExportMakeDefault
-            // 
-            dgvExportMakeDefault.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dgvExportMakeDefault.HeaderText = "Default";
-            dgvExportMakeDefault.Name = "dgvExportMakeDefault";
-            dgvExportMakeDefault.ReadOnly = true;
-            dgvExportMakeDefault.Text = "Make default";
-            dgvExportMakeDefault.UseColumnTextForButtonValue = true;
-            dgvExportMakeDefault.Width = 85;
-            // 
             // Settings
             // 
             AcceptButton = buttonOK;
@@ -5078,8 +5106,10 @@
             ((System.ComponentModel.ISupportInitialize)PbInfoGraphicPreview).EndInit();
             groupBox32.ResumeLayout(false);
             groupBox32.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingY).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingX).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingLeft).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingBottom).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingRight).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicPaddingTop).EndInit();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicCreatureScaling).EndInit();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicBorderRadius).EndInit();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicCreatureOutlineBlurring).EndInit();
@@ -5519,9 +5549,7 @@
         private System.Windows.Forms.Label label76;
         private uiControls.Nud NudInfoGraphicCreatureScaling;
         private System.Windows.Forms.Label label77;
-        private uiControls.Nud NudInfoGraphicPaddingX;
-        private System.Windows.Forms.Label label78;
-        private uiControls.Nud NudInfoGraphicPaddingY;
+        private uiControls.Nud NudInfoGraphicPaddingTop;
         private System.Windows.Forms.CheckBox CbLibraryShowStatLevelsThatCannotLevelup;
         private System.Windows.Forms.Label labelAppTheme;
         private System.Windows.Forms.ComboBox CbbAppTheme;
@@ -5541,5 +5569,9 @@
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderChange;
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportFolderDelete;
         private System.Windows.Forms.DataGridViewButtonColumn dgvExportMakeDefault;
+        private System.Windows.Forms.ComboBox CbbInfoGraphicBackgroundResizing;
+        private uiControls.Nud NudInfoGraphicPaddingLeft;
+        private uiControls.Nud NudInfoGraphicPaddingBottom;
+        private uiControls.Nud NudInfoGraphicPaddingRight;
     }
 }
