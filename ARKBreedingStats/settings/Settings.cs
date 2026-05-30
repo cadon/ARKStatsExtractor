@@ -176,6 +176,7 @@ namespace ARKBreedingStats.settings
             _tt.SetToolTip(CbExportFileRenameAfterImport, "Use a pattern to create the new file name, a subset of the keywords and functions from the naming pattern work.");
             _tt.SetToolTip(CbHighlightAdjustedMultipliers, "Highlight multipliers that are set to non-official values.\nDoes not update on multiplier change, this button needs to be rechecked then.\nCan be used to share screenshots of these settings.");
             _tt.SetToolTip(LbLanguage2, "Here you can specify a different language for exported data, e.g. the info graphics.");
+            _tt.SetToolTip(BtInfoGraphicColorTextOutlineAuto, "Set outline color automatically based on the text color");
 
             // localizations / translations
             // for a new translation
@@ -1820,6 +1821,15 @@ namespace ARKBreedingStats.settings
                     InfoGraphicBackgroundImagePath = openFileDialog.FileName;
                 }
             }
+        }
+
+        private void BtInfoGraphicColorTextOutlineAuto_Click(object sender, EventArgs e)
+        {
+            var dark = Utils.ForeColor(BtInfoGraphicForeColor.BackColor).R < 100;
+            var outlineColor = Utils.AdjustColorLight(BtInfoGraphicForeColor.BackColor, dark ? -.8 : .8);
+            BtInfoGraphicTextOutlineColor.SetBackColorAndAccordingForeColor(outlineColor);
+            if (NudInfoGraphicTextOutlineWidth.Value == 0) NudInfoGraphicTextOutlineWidth.Value = 1;
+            else ShowInfoGraphicPreview();
         }
 
         private void BtInfoGraphicClearBgImg_Click(object sender, EventArgs e) => InfoGraphicBackgroundImagePath = null;

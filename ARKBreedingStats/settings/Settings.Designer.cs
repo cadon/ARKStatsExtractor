@@ -416,6 +416,7 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
+            BtInfoGraphicColorTextOutlineAuto = new System.Windows.Forms.Button();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -2748,6 +2749,7 @@
             // 
             // groupBox32
             // 
+            groupBox32.Controls.Add(BtInfoGraphicColorTextOutlineAuto);
             groupBox32.Controls.Add(NudInfoGraphicPaddingLeft);
             groupBox32.Controls.Add(NudInfoGraphicPaddingBottom);
             groupBox32.Controls.Add(NudInfoGraphicPaddingRight);
@@ -2957,10 +2959,11 @@
             // 
             // BtInfoGraphicCreatureOutlineColor
             // 
-            BtInfoGraphicCreatureOutlineColor.Location = new System.Drawing.Point(7, 209);
+            BtInfoGraphicCreatureOutlineColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicCreatureOutlineColor.Location = new System.Drawing.Point(7, 212);
             BtInfoGraphicCreatureOutlineColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtInfoGraphicCreatureOutlineColor.Name = "BtInfoGraphicCreatureOutlineColor";
-            BtInfoGraphicCreatureOutlineColor.Size = new System.Drawing.Size(108, 27);
+            BtInfoGraphicCreatureOutlineColor.Size = new System.Drawing.Size(108, 23);
             BtInfoGraphicCreatureOutlineColor.TabIndex = 30;
             BtInfoGraphicCreatureOutlineColor.Text = "Creature outline";
             BtInfoGraphicCreatureOutlineColor.UseVisualStyleBackColor = true;
@@ -3001,10 +3004,11 @@
             // 
             // BtInfoGraphicTextOutlineColor
             // 
-            BtInfoGraphicTextOutlineColor.Location = new System.Drawing.Point(7, 126);
+            BtInfoGraphicTextOutlineColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicTextOutlineColor.Location = new System.Drawing.Point(7, 129);
             BtInfoGraphicTextOutlineColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtInfoGraphicTextOutlineColor.Name = "BtInfoGraphicTextOutlineColor";
-            BtInfoGraphicTextOutlineColor.Size = new System.Drawing.Size(108, 27);
+            BtInfoGraphicTextOutlineColor.Size = new System.Drawing.Size(82, 23);
             BtInfoGraphicTextOutlineColor.TabIndex = 26;
             BtInfoGraphicTextOutlineColor.Text = "Text outline";
             BtInfoGraphicTextOutlineColor.UseVisualStyleBackColor = true;
@@ -3132,10 +3136,11 @@
             // 
             // BtInfoGraphicForeColor
             // 
-            BtInfoGraphicForeColor.Location = new System.Drawing.Point(7, 98);
+            BtInfoGraphicForeColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicForeColor.Location = new System.Drawing.Point(7, 102);
             BtInfoGraphicForeColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtInfoGraphicForeColor.Name = "BtInfoGraphicForeColor";
-            BtInfoGraphicForeColor.Size = new System.Drawing.Size(108, 27);
+            BtInfoGraphicForeColor.Size = new System.Drawing.Size(108, 23);
             BtInfoGraphicForeColor.TabIndex = 9;
             BtInfoGraphicForeColor.Text = "Text";
             BtInfoGraphicForeColor.UseVisualStyleBackColor = true;
@@ -3143,10 +3148,11 @@
             // 
             // BtInfoGraphicBackColor
             // 
-            BtInfoGraphicBackColor.Location = new System.Drawing.Point(7, 153);
+            BtInfoGraphicBackColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicBackColor.Location = new System.Drawing.Point(7, 157);
             BtInfoGraphicBackColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtInfoGraphicBackColor.Name = "BtInfoGraphicBackColor";
-            BtInfoGraphicBackColor.Size = new System.Drawing.Size(108, 27);
+            BtInfoGraphicBackColor.Size = new System.Drawing.Size(108, 23);
             BtInfoGraphicBackColor.TabIndex = 10;
             BtInfoGraphicBackColor.Text = "Background";
             BtInfoGraphicBackColor.UseVisualStyleBackColor = true;
@@ -3154,10 +3160,11 @@
             // 
             // BtInfoGraphicBorderColor
             // 
-            BtInfoGraphicBorderColor.Location = new System.Drawing.Point(7, 181);
+            BtInfoGraphicBorderColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicBorderColor.Location = new System.Drawing.Point(7, 185);
             BtInfoGraphicBorderColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtInfoGraphicBorderColor.Name = "BtInfoGraphicBorderColor";
-            BtInfoGraphicBorderColor.Size = new System.Drawing.Size(108, 27);
+            BtInfoGraphicBorderColor.Size = new System.Drawing.Size(108, 23);
             BtInfoGraphicBorderColor.TabIndex = 11;
             BtInfoGraphicBorderColor.Text = "Border";
             BtInfoGraphicBorderColor.UseVisualStyleBackColor = true;
@@ -4999,6 +5006,17 @@
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
+            // BtInfoGraphicColorTextOutlineAuto
+            // 
+            BtInfoGraphicColorTextOutlineAuto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicColorTextOutlineAuto.Location = new System.Drawing.Point(92, 129);
+            BtInfoGraphicColorTextOutlineAuto.Name = "BtInfoGraphicColorTextOutlineAuto";
+            BtInfoGraphicColorTextOutlineAuto.Size = new System.Drawing.Size(23, 23);
+            BtInfoGraphicColorTextOutlineAuto.TabIndex = 48;
+            BtInfoGraphicColorTextOutlineAuto.Text = "A";
+            BtInfoGraphicColorTextOutlineAuto.UseVisualStyleBackColor = true;
+            BtInfoGraphicColorTextOutlineAuto.Click += BtInfoGraphicColorTextOutlineAuto_Click;
+            // 
             // Settings
             // 
             AcceptButton = buttonOK;
@@ -5573,5 +5591,6 @@
         private uiControls.Nud NudInfoGraphicPaddingLeft;
         private uiControls.Nud NudInfoGraphicPaddingBottom;
         private uiControls.Nud NudInfoGraphicPaddingRight;
+        private System.Windows.Forms.Button BtInfoGraphicColorTextOutlineAuto;
     }
 }
