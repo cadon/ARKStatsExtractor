@@ -366,8 +366,8 @@ namespace ARKBreedingStats.utils
             DividerLine = Color.FromArgb(80, 120, 200),
 
             // Pedigree
-            PedigreeLineMaternal = Color.Green,
-            PedigreeLinePaternal = Color.DarkRed,
+            InheritanceLineBetter = Color.Green,
+            InheritanceLineWorse = Color.DarkRed,
             PedigreeSelected = Color.DodgerBlue,
         };
 
@@ -443,8 +443,8 @@ namespace ARKBreedingStats.utils
             DividerLine = Color.FromArgb(80, 120, 200),
 
             // Pedigree
-            PedigreeLineMaternal = Color.FromArgb(80, 200, 80),
-            PedigreeLinePaternal = Color.FromArgb(200, 80, 80),
+            InheritanceLineBetter = Color.FromArgb(80, 200, 80),
+            InheritanceLineWorse = Color.FromArgb(200, 80, 80),
             PedigreeSelected = Color.DodgerBlue,
         };
 

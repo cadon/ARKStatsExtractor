@@ -107,7 +107,7 @@ namespace ARKBreedingStats.Pedigree
             {
                 DrawLines(e.Graphics, _lines, _pedigreeViewMode == PedigreeViewMode.Classic ? 1 : PedigreeCreatureCompact.PedigreeLineWidthFactor);
                 if (_creatureChildren.Any())
-                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Arial", 14), new SolidBrush(SystemColors.ControlText), 50, _yBottomOfPedigree);
+                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Segoe UI", 14), new SolidBrush(SystemColors.ControlText), 50, _yBottomOfPedigree);
             }
         }
 
@@ -118,87 +118,85 @@ namespace ARKBreedingStats.Pedigree
         internal static void DrawLines(Graphics g, List<int[]>[] lines, float lineWidthFactor = 1)
         {
             // lines contains all the coordinates the arrows should be drawn: x1,y1,x2,y2,red/green,mutated/equal
-            using (Pen myPen = new Pen(Color.Green, 3))
+            using var myPen = new Pen(Color.Black, 3);
+            myPen.EndCap = LineCap.ArrowAnchor;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            // stat inheritance lines. index 4 contains info about the color.
+            if (lines[0] != null)
             {
-                myPen.EndCap = LineCap.ArrowAnchor;
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-
-                // stat inheritance lines. index 4 contains info about the color.
-                if (lines[0] != null)
+                foreach (int[] line in lines[0])
                 {
-                    foreach (int[] line in lines[0])
-                    {
-                        switch (line[4])
-                        {
-                            case 1:
-                                myPen.Color = Color.DarkRed;
-                                break;
-                            case 2:
-                                myPen.Color = Color.Green;
-                                break;
-                            default:
-                                myPen.Color = Color.LightGray;
-                                break;
-                        }
-
-                        if (line[5] > 0)
-                        {
-                            // if stat is mutated
-                            const int mutationBoxWidth = 14;
-                            g.FillEllipse(Brushes.LightGreen, (line[0] + line[2] - mutationBoxWidth) / 2,
-                                (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
-                        }
-
-                        g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
-                    }
-
-                }
-
-                var fineLineWidth = lineWidthFactor;
-                var boldLineWidth = lineWidthFactor * 3;
-
-                // simple arrow lines. index 4 contains info about the width: 0: default, 1: bold.
-                if (lines[1] != null)
-                {
-                    foreach (int[] line in lines[1])
-                    {
-                        SetPenProperty(myPen, line[4]);
-                        g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
-                    }
-                }
-
-                // simple lines (generation lines for the compact mode). index 4 contains info about the width: 0: default, 1: bold.
-                if (lines[2] != null)
-                {
-                    myPen.EndCap = LineCap.Flat;
-                    foreach (int[] line in lines[2])
-                    {
-                        SetPenProperty(myPen, line[4]);
-                        g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
-                    }
-                }
-
-                void SetPenProperty(Pen p, int style)
-                {
-                    switch (style)
+                    switch (line[4])
                     {
                         case 1:
-                            p.Color = SystemColors.ControlText;
-                            p.Width = fineLineWidth;
+                            myPen.Color = UiColors.Current.InheritanceLineWorse;
                             break;
                         case 2:
-                            p.Color = SystemColors.ControlText;
-                            p.Width = boldLineWidth;
-                            break;
-                        case 3:
-                            p.Color = UiColors.Current.MutationMarker;
-                            p.Width = boldLineWidth;
+                            myPen.Color = UiColors.Current.InheritanceLineBetter;
                             break;
                         default:
-                            p.Color = Color.DarkGray;
-                            p.Width = fineLineWidth;
+                            myPen.Color = SystemColors.GrayText;
                             break;
                     }
+
+                    if (line[5] > 0)
+                    {
+                        // if stat is mutated
+                        const int mutationBoxWidth = 14;
+                        using var b = new SolidBrush(UiColors.Current.Success);
+                        g.FillEllipse(b, (line[0] + line[2] - mutationBoxWidth) / 2,
+                            (line[1] + line[3] - mutationBoxWidth) / 2, mutationBoxWidth, mutationBoxWidth);
+                    }
+
+                    g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                }
+            }
+
+            var fineLineWidth = lineWidthFactor * 2;
+            var boldLineWidth = lineWidthFactor * 4;
+
+            // simple arrow lines. index 4 contains info about the width: 0: default, 1: bold.
+            if (lines[1] != null)
+            {
+                foreach (int[] line in lines[1])
+                {
+                    SetPenProperty(myPen, line[4]);
+                    g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                }
+            }
+
+            // simple lines (generation lines for the compact mode). index 4 contains info about the width: 0: default, 1: bold.
+            if (lines[2] != null)
+            {
+                myPen.EndCap = LineCap.Flat;
+                foreach (int[] line in lines[2])
+                {
+                    SetPenProperty(myPen, line[4]);
+                    g.DrawLine(myPen, line[0], line[1], line[2], line[3]);
+                }
+            }
+
+            void SetPenProperty(Pen p, int style)
+            {
+                switch (style)
+                {
+                    case 1:
+                        p.Color = SystemColors.ControlText;
+                        p.Width = fineLineWidth;
+                        break;
+                    case 2:
+                        p.Color = SystemColors.ControlText;
+                        p.Width = boldLineWidth;
+                        break;
+                    case 3:
+                        p.Color = UiColors.Current.MutationMarker;
+                        p.Width = boldLineWidth;
+                        break;
+                    default:
+                        p.Color = SystemColors.GrayText;
+                        p.Width = fineLineWidth;
+                        break;
                 }
             }
         }
@@ -315,7 +313,7 @@ namespace ARKBreedingStats.Pedigree
             if (_pedigreeViewMode == PedigreeViewMode.Classic)
             {
                 PedigreeCreation.CreateDetailedView(_selectedCreature, _lines, _pedigreeControls, _enabledColorRegions);
-                _yBottomOfPedigree = PedigreeCreation.TopMargin + 4 * PedigreeCreation.PedigreeElementHeight;
+                _yBottomOfPedigree = PedigreeCreation.TopMargin + 4 * PedigreeCreation.PedigreeElementHeight + 3 * PedigreeCreation.ControlDistance;
             }
             else
             {

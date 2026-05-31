@@ -20,7 +20,7 @@ namespace ARKBreedingStats.Pedigree
         internal const int PedigreeElementWidth = 379;
         internal const int LeftMargin = 40;
         internal const int TopMargin = 20;
-        private const int ControlDistance = 10;
+        internal const int ControlDistance = 10;
         internal static int PedigreeElementHeight;
         private static int _yCenterOfCreatureParent;
 
@@ -454,12 +454,11 @@ namespace ARKBreedingStats.Pedigree
 
                 if (motherInheritancePossible)
                 {
-                    lines[0].Add(new[]
-                    {
-                        PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + PedigreeElementHeight - lineControlOverlap,
-                        PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + PedigreeElementHeight + ControlDistance + lineControlOverlap, better == -1 ? 1 : 2,
+                    lines[0].Add([
+                        PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + PedigreeElementHeight - lineControlOverlap - 1,
+                        PedigreeCreature.XOffsetFirstStat + x + PedigreeCreature.HorizontalStatDistance * s, y + PedigreeElementHeight + ControlDistance + lineControlOverlap - 1, better == -1 ? 1 : 2,
                         motherInheritanceWithMutationPossible ? 1 : 0
-                    });
+                    ]);
                 }
 
                 if (fatherInheritancePossible)

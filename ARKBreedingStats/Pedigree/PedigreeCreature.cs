@@ -18,8 +18,8 @@ namespace ARKBreedingStats.Pedigree
     {
         public const int ControlHeightWoMutations = 45;
         public const int ControlHeightWMutations = 58;
-        public const int HorizontalStatDistance = 29;
-        public const int XOffsetFirstStat = 38;
+        public const int HorizontalStatDistance = 34;
+        public const int XOffsetFirstStat = 40;
 
         /// <summary>
         /// Display the species name after the creature name.

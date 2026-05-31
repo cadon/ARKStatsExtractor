@@ -128,7 +128,7 @@
             // 
             // labelCr
             // 
-            labelCr.Location = new System.Drawing.Point(262, 18);
+            labelCr.Location = new System.Drawing.Point(263, 18);
             labelCr.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelCr.Name = "labelCr";
             labelCr.Size = new System.Drawing.Size(33, 15);
@@ -198,7 +198,7 @@
             // 
             // labelHP
             // 
-            labelHP.Location = new System.Drawing.Point(26, 18);
+            labelHP.Location = new System.Drawing.Point(25, 18);
             labelHP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelHP.Name = "labelHP";
             labelHP.Size = new System.Drawing.Size(33, 15);
@@ -219,7 +219,7 @@
             // 
             // LbCrMut
             // 
-            LbCrMut.Location = new System.Drawing.Point(262, 35);
+            LbCrMut.Location = new System.Drawing.Point(263, 35);
             LbCrMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbCrMut.Name = "LbCrMut";
             LbCrMut.Size = new System.Drawing.Size(33, 15);
@@ -230,7 +230,7 @@
             // LbHpMut
             // 
             LbHpMut.BackColor = System.Drawing.SystemColors.Control;
-            LbHpMut.Location = new System.Drawing.Point(26, 35);
+            LbHpMut.Location = new System.Drawing.Point(25, 35);
             LbHpMut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbHpMut.Name = "LbHpMut";
             LbHpMut.Size = new System.Drawing.Size(33, 15);

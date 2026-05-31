@@ -274,15 +274,15 @@ namespace ARKBreedingStats.utils
 
         // --- Pedigree ---
 
-        [Category("Pedigree"), DisplayName("Maternal Line")]
-        [Description("Pen color for maternal ancestry lines.")]
+        [Category("Pedigree"), DisplayName("Inheritance Line Better")]
+        [Description("Pen color for ancestry lines of better stat inheritance.")]
         [PreviewHint(ColorRole.Line, ColorContext.Pedigree)]
-        public Color PedigreeLineMaternal { get; set; }
+        public Color InheritanceLineBetter { get; set; }
 
-        [Category("Pedigree"), DisplayName("Paternal Line")]
-        [Description("Pen color for paternal ancestry lines.")]
+        [Category("Pedigree"), DisplayName("Inheritance Line Worse")]
+        [Description("Pen color for ancestry lines of worse stat inheritance.")]
         [PreviewHint(ColorRole.Line, ColorContext.Pedigree)]
-        public Color PedigreeLinePaternal { get; set; }
+        public Color InheritanceLineWorse { get; set; }
 
         [Category("Pedigree"), DisplayName("Selected Creature")]
         [Description("Highlight color for the selected creature in the pedigree.")]

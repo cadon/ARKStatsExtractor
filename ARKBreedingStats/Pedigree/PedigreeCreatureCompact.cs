@@ -114,8 +114,8 @@ namespace ARKBreedingStats.uiControls
 
             var mutationOccurred = _mutationInColor != null;
 
-            Bitmap bmp = new Bitmap(Width, Height);
-            using (Graphics g = Graphics.FromImage(bmp))
+            var bmp = new Bitmap(Width, Height);
+            using (var g = Graphics.FromImage(bmp))
             using (var font = new Font("Segoe UI", _fontSize))
             using (var pen = new Pen(Color.Black))
             using (var brush = new SolidBrush(Color.Black))
@@ -145,11 +145,14 @@ namespace ARKBreedingStats.uiControls
                 pen.Color = borderColor;
                 pen.Width = drawnBorderWidth;
                 g.DrawRectangle(pen, drawnBorderWidth, drawnBorderWidth, Width - 2 * drawnBorderWidth, Height - 2 * drawnBorderWidth);
-
+                var borderWidthForLayout = (int)Math.Ceiling(drawnBorderWidth);
                 // stats
                 var chartMax = CreatureCollection.CurrentCreatureCollection?.maxChartLevel ?? 50;
-                int radiusInnerCircle = (_statSize - 2 * borderWidth) / 7;
-                int centerCoord = _statSize / 2 - 1;
+                var radiusInnerCircle = (_statSize - 2 * borderWidthForLayout) / 7;
+                var centerCoord = _statSize / 2 - 1;
+
+                const int widthPieStroke = 1;
+                const int widthPieHighlightedStroke = 2;
 
                 var i = 0;
                 if (creature.levelsWild != null)
@@ -160,13 +163,13 @@ namespace ARKBreedingStats.uiControls
                         var level = creature.levelsWild[si];
 
                         var statSize = Math.Min((double)level / chartMax, 1);
-                        var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle - borderWidth) * statSize);
-                        var leftTop = centerCoord - pieRadius;
+                        var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle - borderWidthForLayout) * statSize);
+                        var leftTop = centerCoord - pieRadius + widthPieStroke;
                         var angle = AngleOffset + anglePerStat * i++;
                         brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.IsTopStat(si) ? 0 : UiColors.DeltaLightnessConsideredStat);
                         g.FillPie(brush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
-                        pen.Width = highlightStatIndex == si ? 2 : 1;
+                        pen.Width = highlightStatIndex == si ? widthPieHighlightedStroke : widthPieStroke;
                         g.DrawPie(pen, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
                         var mutationStatus = _statInheritances[si];
@@ -202,7 +205,7 @@ namespace ARKBreedingStats.uiControls
                         format);
                     brush.Color = SystemColors.ControlText;
                     g.DrawString(creature.name, font, brush,
-                        new RectangleF(borderWidth, _statSize + borderWidth - 2, ControlWidth - borderWidth, _colorSize),
+                        new RectangleF(borderWidthForLayout, _statSize + borderWidthForLayout - 2, ControlWidth - borderWidthForLayout, _colorSize),
                         format);
                 }
 
@@ -216,8 +219,8 @@ namespace ARKBreedingStats.uiControls
                     if (usedColorRegionCount != 0)
                     {
                         const int margin = 1;
-                        var colorSize = new Size(_colorSize - 3 * margin - borderWidth,
-                            (_statSize - 2 * borderWidth) / usedColorRegionCount - 3 * margin);
+                        var colorSize = new Size(_colorSize - 3 * margin - borderWidthForLayout,
+                            (_statSize - 2 * borderWidthForLayout) / usedColorRegionCount - 3 * margin);
 
                         // only check for color mutations if the colors of both parents are available
                         mutationOccurred = mutationOccurred && creature.Mother?.colors != null &&
@@ -230,7 +233,7 @@ namespace ARKBreedingStats.uiControls
                             var color = CreatureColors.CreatureArkColor(creature.colors[ci]);
                             colors[ci] = color;
                             brush.Color = color.Color;
-                            var y = borderWidth + margin + i++ * (colorSize.Height + 2 * margin);
+                            var y = borderWidthForLayout + margin + i++ * (colorSize.Height + 2 * margin);
                             g.FillRectangle(brush, left, y, colorSize.Width,
                                 colorSize.Height);
                             g.DrawRectangle(pen, left, y, colorSize.Width,
@@ -256,12 +259,12 @@ namespace ARKBreedingStats.uiControls
                 // mutation indicator
                 if (!creature.flags.HasFlag(CreatureFlags.Placeholder))
                 {
-                    var yMarker = _statSize - _mutationIndicatorSize - 1 - borderWidth;
+                    var yMarker = _statSize - _mutationIndicatorSize - 1 - borderWidthForLayout;
                     var mutationColor = creature.Mutations == 0 ? UiColors.Current.Success
                         : creature.Mutations < Ark.MutationPossibleWithLessThan ? UiColors.Current.Mutation
                         : UiColors.Current.MutationOverLimit;
 
-                    DrawFilledCircle(g, brush, pen, mutationColor, borderWidth + 1, yMarker, _mutationIndicatorSize);
+                    DrawFilledCircle(g, brush, pen, mutationColor, borderWidthForLayout + 1, yMarker, _mutationIndicatorSize);
                 }
             }
 
