@@ -53,7 +53,7 @@ namespace ARKBreedingStats.utils
         }
 
         /// <summary>
-        /// Returns the value part of this color (HSV model).
+        /// Returns the value part of this color (HSV model) in the range 0...1.
         /// </summary>
         public static float GetValue(this Color c) => (float)Math.Max(c.R, Math.Max(c.G, c.B)) / byte.MaxValue;
 

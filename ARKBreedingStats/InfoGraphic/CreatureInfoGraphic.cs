@@ -53,7 +53,9 @@ namespace ARKBreedingStats.InfoGraphic
                     BackgroundImageResizing = Properties.Settings.Default.InfoGraphicBackgroundSizing,
                     widthOutlineCreature = Properties.Settings.Default.InfoGraphicCreatureOutlineWidth,
                     creatureOutlineBlurring = Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring,
-                    creatureScaling = Properties.Settings.Default.InfoGraphicCreatureScaling
+                    creatureScaling = Properties.Settings.Default.InfoGraphicCreatureScaling,
+                    ColorBasedOnCreature = Properties.Settings.Default.InfographicColorByCreature,
+                    TintBackgroundImage = Properties.Settings.Default.InfographicTintBackgroundImage
                 });
 
         /// <summary>
@@ -141,19 +143,22 @@ namespace ARKBreedingStats.InfoGraphic
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
-
                 var backgroundImageIsDrawn = false;
-                if (settings.backColor.A != 255)
+                if (backColor.A != 255)
                 {
                     backgroundImageIsDrawn = DrawBackgroundImage(g, settings.backgroundImagePath, 0, yOffsetBox,
                         widthBox, heightBox, settings.BackgroundImageResizing);
                     if (settings.TintBackgroundImage)
-                        ImageTools.TintImage(bmp, Utils.ColorFromHue(colorHue, settings.backColor.GetBrightness() - .5));
+                        //ImageTools.TintImage(bmp, backColor);
+                        ImageTools.TintImage(bmp, Utils.ColorFromHsv(colorHue, settings.backColor.GetSaturation(), settings.backColor.GetValue()));
                 }
 
                 var currentYPosition = borderAndPaddings[0] + yOffsetBox;
-                using (var backgroundBrush = new SolidBrush(backColor))
+                if (backColor.A != 0)
+                {
+                    using var backgroundBrush = new SolidBrush(backColor);
                     g.FillRectangle(backgroundBrush, 0, yOffsetBox, widthBox, heightBox);
+                }
 
                 var headerText = creature.Species.Name(creature.sex, true, true) +
                                  (settings.displayCreatureName ? $" - {creature.name}" : string.Empty);
@@ -623,7 +628,8 @@ namespace ARKBreedingStats.InfoGraphic
                     r => r?.name != null && r.name.Contains("body", StringComparison.InvariantCultureIgnoreCase));
             }
 
-            if (tintColorRegionId == -1) tintColorRegionId = 0;
+            if (tintColorRegionId == -1) tintColorRegionId = Array.FindIndex(c.Species.colors, r => r?.name != null);
+            if (tintColorRegionId == -1) return Values.V.Colors.ById(0).Color;
             return Values.V.Colors.ById(c.colors[tintColorRegionId]).Color;
         }
 

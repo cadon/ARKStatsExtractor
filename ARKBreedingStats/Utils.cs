@@ -128,7 +128,7 @@ namespace ARKBreedingStats
             var v = (byte)(value * 255);
             if (saturation < double.Epsilon)
             {
-                return Color.FromArgb(v, v, v);
+                return Color.FromArgb(alpha, v, v, v);
             }
 
             // there are six hue sections from 0 to 360 with each having 60 degrees
