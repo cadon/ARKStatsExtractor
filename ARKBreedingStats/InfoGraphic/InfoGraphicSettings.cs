@@ -35,6 +35,8 @@ namespace ARKBreedingStats.InfoGraphic
         public int widthOutlineCreature = 0;
         public float creatureOutlineBlurring = 1;
         public float creatureScaling = 1;
+        public bool ColorBasedOnCreature = true;
+        public bool TintBackgroundImage = true;
 
         public enum BackgroundImageResizings
         {

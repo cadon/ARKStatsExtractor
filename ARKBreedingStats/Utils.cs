@@ -99,7 +99,7 @@ namespace ARKBreedingStats
                 g = (byte)(g * lightDelta);
                 b = (byte)(b * lightDelta);
             }
-            return Color.FromArgb(r, g, b);
+            return Color.FromArgb(color.A, r, g, b);
         }
 
         /// <summary>
@@ -113,12 +113,12 @@ namespace ARKBreedingStats
         }
 
         /// <summary>
-        /// Returns a color from hsl values.
+        /// Returns a color from hsv values.
         /// </summary>
         /// <param name="hue">red: 0, green: 120, blue: 240</param>
         /// <param name="saturation">0…1 gray to colorful</param>
         /// <param name="value">0…1 black to full intensity / white</param>
-        public static Color ColorFromHsv(double hue, double saturation = 1, double value = 1, double alpha = 1)
+        public static Color ColorFromHsv(double hue, double saturation = 1, double value = 1, byte alpha = 255)
         {
             hue %= 360;
             if (hue < 0) hue += 360;
@@ -176,7 +176,7 @@ namespace ARKBreedingStats
                     b = q;
                     break;
             }
-            return Color.FromArgb((int)(255 * alpha), r, g, b);
+            return Color.FromArgb(alpha, r, g, b);
         }
 
         /// <summary>

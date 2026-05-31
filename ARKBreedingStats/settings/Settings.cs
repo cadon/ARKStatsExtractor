@@ -178,6 +178,8 @@ namespace ARKBreedingStats.settings
             _tt.SetToolTip(CbHighlightAdjustedMultipliers, "Highlight multipliers that are set to non-official values.\nDoes not update on multiplier change, this button needs to be rechecked then.\nCan be used to share screenshots of these settings.");
             _tt.SetToolTip(LbLanguage2, "Here you can specify a different language for exported data, e.g. the info graphics.");
             _tt.SetToolTip(BtInfoGraphicColorTextOutlineAuto, "Set outline color automatically based on the text color");
+            _tt.SetToolTip(CbInfoGraphicColorsByCreature, "Sets the colors of text, background and border based on the main color of the creature while using the lightness of the set colors");
+            _tt.SetToolTip(CbInfoGraphicTintBackgroundByCreature, "Tints the background image based on the main color of the creature while using the lightness of the background color");
 
             // localizations / translations
             // for a new translation
@@ -411,6 +413,8 @@ namespace ARKBreedingStats.settings
             CbInfoGraphicStatValues.Checked = Properties.Settings.Default.InfoGraphicShowStatValues;
             InfoGraphicBackgroundImagePath = Properties.Settings.Default.InfoGraphicBackgroundImagePath;
             CbbInfoGraphicBackgroundResizing.SelectedItem = Properties.Settings.Default.InfoGraphicBackgroundSizing;
+            CbInfoGraphicColorsByCreature.Checked = Properties.Settings.Default.InfographicColorByCreature;
+            CbInfoGraphicTintBackgroundByCreature.Checked = Properties.Settings.Default.InfographicTintBackgroundImage;
             // stitching
             NudInfoGraphicStitchMaxWidth.ValueSave = Properties.Settings.Default.InfoGraphicStitchMaxWidth;
             NudInfoGraphicStitchGap.ValueSave = Properties.Settings.Default.InfoGraphicStitchGap;
@@ -719,6 +723,8 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.InfoGraphicBackgroundSizing =
                 (InfoGraphicSettings.BackgroundImageResizings)(CbbInfoGraphicBackgroundResizing.SelectedItem ??
                                                                InfoGraphicSettings.BackgroundImageResizings.Original);
+            Properties.Settings.Default.InfographicColorByCreature = CbInfoGraphicColorsByCreature.Checked;
+            Properties.Settings.Default.InfographicTintBackgroundImage = CbInfoGraphicTintBackgroundByCreature.Checked;
             // stitching
             Properties.Settings.Default.InfoGraphicStitchMaxWidth = (int)NudInfoGraphicStitchMaxWidth.Value;
             Properties.Settings.Default.InfoGraphicStitchGap = (int)NudInfoGraphicStitchGap.Value;
@@ -1770,7 +1776,9 @@ namespace ARKBreedingStats.settings
                 displayExtraRegionNames = CbInfoGraphicAddRegionNames.Checked,
                 displayRegionNamesIfNoImage = CbInfoGraphicColorRegionNamesIfNoImage.Checked,
                 backgroundImagePath = InfoGraphicBackgroundImagePath,
-                BackgroundImageResizing = (InfoGraphicSettings.BackgroundImageResizings)(CbbInfoGraphicBackgroundResizing.SelectedItem ?? InfoGraphicSettings.BackgroundImageResizings.Original)
+                BackgroundImageResizing = (InfoGraphicSettings.BackgroundImageResizings)(CbbInfoGraphicBackgroundResizing.SelectedItem ?? InfoGraphicSettings.BackgroundImageResizings.Original),
+                ColorBasedOnCreature = CbInfoGraphicColorsByCreature.Checked,
+                TintBackgroundImage = CbInfoGraphicTintBackgroundByCreature.Checked
             };
 
             var bmp = await _infoGraphicPreviewCreature.InfoGraphicAsync(_cc, infoGraphicSettings);
@@ -1812,6 +1820,7 @@ namespace ARKBreedingStats.settings
         private void CbbInfoGraphicFontName_SelectedIndexChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
         private void NudInfoGraphicValueChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
+        private void NudInfoGraphicCheckedChanged(object sender, EventArgs e) => ShowInfoGraphicPreviewDebounced();
 
         private void BtInfoGraphicBackgroundImagePath_Click(object sender, EventArgs e)
         {

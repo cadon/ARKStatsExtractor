@@ -215,6 +215,7 @@
             CbbAppTheme = new System.Windows.Forms.ComboBox();
             tabPageInfoGraphic = new System.Windows.Forms.TabPage();
             groupBox34 = new System.Windows.Forms.GroupBox();
+            label80 = new System.Windows.Forms.Label();
             NudInfoGraphicStitchMaxWidth = new ARKBreedingStats.uiControls.Nud();
             label79 = new System.Windows.Forms.Label();
             NudInfoGraphicStitchBackgroundOpacity = new ARKBreedingStats.uiControls.Nud();
@@ -224,6 +225,8 @@
             BtNewRandomInfoGraphicCreature = new System.Windows.Forms.Button();
             PbInfoGraphicPreview = new System.Windows.Forms.PictureBox();
             groupBox32 = new System.Windows.Forms.GroupBox();
+            CbInfoGraphicTintBackgroundByCreature = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicColorsByCreature = new System.Windows.Forms.CheckBox();
             BtInfoGraphicColorTextOutlineAuto = new System.Windows.Forms.Button();
             NudInfoGraphicPaddingLeft = new ARKBreedingStats.uiControls.Nud();
             NudInfoGraphicPaddingBottom = new ARKBreedingStats.uiControls.Nud();
@@ -423,7 +426,6 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
-            label80 = new System.Windows.Forms.Label();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -2744,6 +2746,15 @@
             groupBox34.TabStop = false;
             groupBox34.Text = "Multiple images in one file (stitched)";
             // 
+            // label80
+            // 
+            label80.AutoSize = true;
+            label80.Location = new System.Drawing.Point(139, 82);
+            label80.Name = "label80";
+            label80.Size = new System.Drawing.Size(46, 15);
+            label80.TabIndex = 24;
+            label80.Text = "opacity";
+            // 
             // NudInfoGraphicStitchMaxWidth
             // 
             NudInfoGraphicStitchMaxWidth.Location = new System.Drawing.Point(192, 22);
@@ -2801,7 +2812,7 @@
             // 
             // BtNewRandomInfoGraphicCreature
             // 
-            BtNewRandomInfoGraphicCreature.Location = new System.Drawing.Point(464, 438);
+            BtNewRandomInfoGraphicCreature.Location = new System.Drawing.Point(8, 477);
             BtNewRandomInfoGraphicCreature.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtNewRandomInfoGraphicCreature.Name = "BtNewRandomInfoGraphicCreature";
             BtNewRandomInfoGraphicCreature.Size = new System.Drawing.Size(233, 28);
@@ -2812,7 +2823,7 @@
             // 
             // PbInfoGraphicPreview
             // 
-            PbInfoGraphicPreview.Location = new System.Drawing.Point(9, 477);
+            PbInfoGraphicPreview.Location = new System.Drawing.Point(9, 511);
             PbInfoGraphicPreview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             PbInfoGraphicPreview.Name = "PbInfoGraphicPreview";
             PbInfoGraphicPreview.Size = new System.Drawing.Size(388, 165);
@@ -2821,6 +2832,8 @@
             // 
             // groupBox32
             // 
+            groupBox32.Controls.Add(CbInfoGraphicTintBackgroundByCreature);
+            groupBox32.Controls.Add(CbInfoGraphicColorsByCreature);
             groupBox32.Controls.Add(BtInfoGraphicColorTextOutlineAuto);
             groupBox32.Controls.Add(NudInfoGraphicPaddingLeft);
             groupBox32.Controls.Add(NudInfoGraphicPaddingBottom);
@@ -2861,10 +2874,32 @@
             groupBox32.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox32.Name = "groupBox32";
             groupBox32.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox32.Size = new System.Drawing.Size(401, 378);
+            groupBox32.Size = new System.Drawing.Size(401, 417);
             groupBox32.TabIndex = 17;
             groupBox32.TabStop = false;
             groupBox32.Text = "Visuals";
+            // 
+            // CbInfoGraphicTintBackgroundByCreature
+            // 
+            CbInfoGraphicTintBackgroundByCreature.AutoSize = true;
+            CbInfoGraphicTintBackgroundByCreature.Location = new System.Drawing.Point(190, 302);
+            CbInfoGraphicTintBackgroundByCreature.Name = "CbInfoGraphicTintBackgroundByCreature";
+            CbInfoGraphicTintBackgroundByCreature.Size = new System.Drawing.Size(150, 19);
+            CbInfoGraphicTintBackgroundByCreature.TabIndex = 50;
+            CbInfoGraphicTintBackgroundByCreature.Text = "Tint background image";
+            CbInfoGraphicTintBackgroundByCreature.UseVisualStyleBackColor = true;
+            CbInfoGraphicTintBackgroundByCreature.CheckedChanged += NudInfoGraphicCheckedChanged;
+            // 
+            // CbInfoGraphicColorsByCreature
+            // 
+            CbInfoGraphicColorsByCreature.AutoSize = true;
+            CbInfoGraphicColorsByCreature.Location = new System.Drawing.Point(7, 302);
+            CbInfoGraphicColorsByCreature.Name = "CbInfoGraphicColorsByCreature";
+            CbInfoGraphicColorsByCreature.Size = new System.Drawing.Size(157, 19);
+            CbInfoGraphicColorsByCreature.TabIndex = 49;
+            CbInfoGraphicColorsByCreature.Text = "Colors based on creature";
+            CbInfoGraphicColorsByCreature.UseVisualStyleBackColor = true;
+            CbInfoGraphicColorsByCreature.CheckedChanged += NudInfoGraphicCheckedChanged;
             // 
             // BtInfoGraphicColorTextOutlineAuto
             // 
@@ -3153,10 +3188,10 @@
             // 
             // label57
             // 
-            label57.Location = new System.Drawing.Point(7, 302);
+            label57.Location = new System.Drawing.Point(8, 337);
             label57.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label57.Name = "label57";
-            label57.Size = new System.Drawing.Size(387, 73);
+            label57.Size = new System.Drawing.Size(385, 77);
             label57.TabIndex = 18;
             label57.Text = resources.GetString("label57.Text");
             // 
@@ -5089,15 +5124,6 @@
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
-            // label80
-            // 
-            label80.AutoSize = true;
-            label80.Location = new System.Drawing.Point(139, 82);
-            label80.Name = "label80";
-            label80.Size = new System.Drawing.Size(46, 15);
-            label80.TabIndex = 24;
-            label80.Text = "opacity";
-            // 
             // Settings
             // 
             AcceptButton = buttonOK;
@@ -5686,5 +5712,7 @@
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.Button BtInfoGraphicStitchBackgroundColor;
         private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.CheckBox CbInfoGraphicTintBackgroundByCreature;
+        private System.Windows.Forms.CheckBox CbInfoGraphicColorsByCreature;
     }
 }

@@ -2686,5 +2686,29 @@ namespace ARKBreedingStats.Properties {
                 this["InfoGraphicStitchMaxWidth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfographicColorByCreature {
+            get {
+                return ((bool)(this["InfographicColorByCreature"]));
+            }
+            set {
+                this["InfographicColorByCreature"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InfographicTintBackgroundImage {
+            get {
+                return ((bool)(this["InfographicTintBackgroundImage"]));
+            }
+            set {
+                this["InfographicTintBackgroundImage"] = value;
+            }
+        }
     }
 }

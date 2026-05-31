@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
+using ARKBreedingStats.SpeciesImages;
 
 namespace ARKBreedingStats.utils
 {
@@ -261,6 +263,19 @@ namespace ARKBreedingStats.utils
             if (disposeUntrimmedBmp) bmp.Dispose();
 
             return trimmedBitmap;
+        }
+
+        public static void TintImage(Bitmap bmp, Color color)
+        {
+            var colors = Enumerable.Repeat<byte[]>(null, Ark.ColorRegionCount - 1).Prepend([color.R, color.G, color.B]).ToArray();
+
+            var enabledRegions = Enumerable.Repeat(false, Ark.ColorRegionCount - 1).Prepend(true).ToArray();
+
+            using var bmpMask = new Bitmap(bmp.Width, bmp.Height);
+            using var g = Graphics.FromImage(bmpMask);
+
+            g.FillRectangle(Brushes.Red, 0, 0, bmpMask.Width, bmpMask.Height);
+            CreatureColored.ApplyColorsUnsafe(colors, enabledRegions, bmpMask, bmp);
         }
     }
 }

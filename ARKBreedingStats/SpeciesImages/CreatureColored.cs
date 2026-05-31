@@ -274,17 +274,17 @@ namespace ARKBreedingStats.SpeciesImages
                     {
                         var rgb = new byte[Ark.ColorRegionCount][];
                         var useColorRegions = new bool[Ark.ColorRegionCount];
-                        for (int c = 0; c < Ark.ColorRegionCount; c++)
+                        for (var c = 0; c < Ark.ColorRegionCount; c++)
                         {
                             useColorRegions[c] = enabledColorRegions[c] && colorIds[c] != 0;
                             if (useColorRegions[c])
                             {
-                                Color cl = CreatureColors.CreatureColor(colorIds[c]);
-                                rgb[c] = new[] { cl.R, cl.G, cl.B };
+                                var cl = CreatureColors.CreatureColor(colorIds[c]);
+                                rgb[c] = [cl.R, cl.G, cl.B];
                             }
                         }
-
-                        imageFine = ApplyColorsUnsafe(rgb, useColorRegions, speciesColorMaskFilePath, bmpBaseImage);
+                        using var bmpMaskOriginal = new Bitmap(speciesColorMaskFilePath);
+                        imageFine = ApplyColorsUnsafe(rgb, useColorRegions, bmpMaskOriginal, bmpBaseImage);
                     }
 
                     if (!imageFine) return false;
@@ -386,125 +386,122 @@ namespace ARKBreedingStats.SpeciesImages
         /// <summary>
         /// Applies the colors to the base image.
         /// </summary>
-        private static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, string speciesColorMaskFilePath, Bitmap bmpBaseImage)
+        internal static bool ApplyColorsUnsafe(byte[][] rgb, bool[] enabledColorRegions, Bitmap bmpMaskOriginal, Bitmap bmpBaseImage)
         {
             var imageFine = false;
-            using (Bitmap bmpMask = new Bitmap(bmpBaseImage.Width, bmpBaseImage.Height))
+            using Bitmap bmpMask = new Bitmap(bmpBaseImage.Width, bmpBaseImage.Height);
+            // get mask in correct size
+            using (var g = Graphics.FromImage(bmpMask))
             {
-                // get mask in correct size
-                using (var g = Graphics.FromImage(bmpMask))
-                using (var bmpMaskOriginal = new Bitmap(speciesColorMaskFilePath))
+                g.InterpolationMode = InterpolationMode.Bicubic;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.DrawImage(bmpMaskOriginal, 0, 0, bmpBaseImage.Width, bmpBaseImage.Height);
+            }
+
+            BitmapData bmpDataBaseImage = bmpBaseImage.LockBits(
+                new Rectangle(0, 0, bmpBaseImage.Width, bmpBaseImage.Height), ImageLockMode.ReadOnly,
+                bmpBaseImage.PixelFormat);
+            BitmapData bmpDataMask = bmpMask.LockBits(
+                new Rectangle(0, 0, bmpMask.Width, bmpMask.Height), ImageLockMode.ReadOnly,
+                bmpMask.PixelFormat);
+
+            var bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+            var msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
+            var bgHasTransparency = bgBytes > 3;
+
+            var usedRegions = Enumerable.Range(0, Ark.ColorRegionCount).Where(r => enabledColorRegions[r]).ToArray();
+
+            try
+            {
+                unsafe
                 {
-                    g.InterpolationMode = InterpolationMode.Bicubic;
-                    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    g.DrawImage(bmpMaskOriginal, 0, 0, bmpBaseImage.Width, bmpBaseImage.Height);
-                }
+                    byte* scan0Bg = (byte*)bmpDataBaseImage.Scan0.ToPointer();
+                    byte* scan0Ms = (byte*)bmpDataMask.Scan0.ToPointer();
 
-                BitmapData bmpDataBaseImage = bmpBaseImage.LockBits(
-                    new Rectangle(0, 0, bmpBaseImage.Width, bmpBaseImage.Height), ImageLockMode.ReadOnly,
-                    bmpBaseImage.PixelFormat);
-                BitmapData bmpDataMask = bmpMask.LockBits(
-                    new Rectangle(0, 0, bmpMask.Width, bmpMask.Height), ImageLockMode.ReadOnly,
-                    bmpMask.PixelFormat);
+                    var width = bmpDataBaseImage.Width;
+                    var height = bmpDataBaseImage.Height;
+                    var strideBaseImage = bmpDataBaseImage.Stride;
+                    var strideMask = bmpDataMask.Stride;
 
-                var bgBytes = bmpBaseImage.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
-                var msBytes = bmpDataMask.PixelFormat == PixelFormat.Format32bppArgb ? 4 : 3;
-                var bgHasTransparency = bgBytes > 3;
-
-                var usedRegions = Enumerable.Range(0, Ark.ColorRegionCount).Where(r => enabledColorRegions[r]).ToArray();
-
-                try
-                {
-                    unsafe
+                    for (int i = 0; i < width; i++)
                     {
-                        byte* scan0Bg = (byte*)bmpDataBaseImage.Scan0.ToPointer();
-                        byte* scan0Ms = (byte*)bmpDataMask.Scan0.ToPointer();
-
-                        var width = bmpDataBaseImage.Width;
-                        var height = bmpDataBaseImage.Height;
-                        var strideBaseImage = bmpDataBaseImage.Stride;
-                        var strideMask = bmpDataMask.Stride;
-
-                        for (int i = 0; i < width; i++)
+                        for (int j = 0; j < height; j++)
                         {
-                            for (int j = 0; j < height; j++)
+                            byte* dBg = scan0Bg + j * strideBaseImage + i * bgBytes;
+                            // continue if the pixel is transparent
+                            if (bgHasTransparency && dBg[3] == 0)
+                                continue;
+
+                            byte* dMs = scan0Ms + j * strideMask + i * msBytes;
+
+                            int r = dMs[2];
+                            int g = dMs[1];
+                            int b = dMs[0];
+                            byte finalR = dBg[2];
+                            byte finalG = dBg[1];
+                            byte finalB = dBg[0];
+
+                            foreach (var m in usedRegions)
                             {
-                                byte* dBg = scan0Bg + j * strideBaseImage + i * bgBytes;
-                                // continue if the pixel is transparent
-                                if (bgHasTransparency && dBg[3] == 0)
-                                    continue;
-
-                                byte* dMs = scan0Ms + j * strideMask + i * msBytes;
-
-                                int r = dMs[2];
-                                int g = dMs[1];
-                                int b = dMs[0];
-                                byte finalR = dBg[2];
-                                byte finalG = dBg[1];
-                                byte finalB = dBg[0];
-
-                                foreach (var m in usedRegions)
+                                float o;
+                                switch (m)
                                 {
-                                    float o;
-                                    switch (m)
-                                    {
-                                        case 0:
-                                            o = Math.Max(0, r - g - b) / 255f;
-                                            break;
-                                        case 1:
-                                            o = Math.Max(0, g - r - b) / 255f;
-                                            break;
-                                        case 2:
-                                            o = Math.Max(0, b - r - g) / 255f;
-                                            break;
-                                        case 3:
-                                            o = Math.Min(g, b) / 255f;
-                                            break;
-                                        case 4:
-                                            o = Math.Min(r, g) / 255f;
-                                            break;
-                                        case 5:
-                                            o = Math.Min(r, b) / 255f;
-                                            break;
-                                        default: continue;
-                                    }
-
-                                    if (o == 0) continue;
-
-                                    // using "grain merge", e.g. see https://docs.gimp.org/en/gimp-concepts-layer-modes.html
-                                    int rMix = finalR + rgb[m][0] - 128;
-                                    if (rMix < 0) rMix = 0;
-                                    else if (rMix > 255) rMix = 255;
-                                    int gMix = finalG + rgb[m][1] - 128;
-                                    if (gMix < 0) gMix = 0;
-                                    else if (gMix > 255) gMix = 255;
-                                    int bMix = finalB + rgb[m][2] - 128;
-                                    if (bMix < 0) bMix = 0;
-                                    else if (bMix > 255) bMix = 255;
-
-                                    finalR = (byte)(o * rMix + (1 - o) * finalR);
-                                    finalG = (byte)(o * gMix + (1 - o) * finalG);
-                                    finalB = (byte)(o * bMix + (1 - o) * finalB);
+                                    case 0:
+                                        o = Math.Max(0, r - g - b) / 255f;
+                                        break;
+                                    case 1:
+                                        o = Math.Max(0, g - r - b) / 255f;
+                                        break;
+                                    case 2:
+                                        o = Math.Max(0, b - r - g) / 255f;
+                                        break;
+                                    case 3:
+                                        o = Math.Min(g, b) / 255f;
+                                        break;
+                                    case 4:
+                                        o = Math.Min(r, g) / 255f;
+                                        break;
+                                    case 5:
+                                        o = Math.Min(r, b) / 255f;
+                                        break;
+                                    default: continue;
                                 }
 
-                                // set final color
-                                dBg[0] = finalB;
-                                dBg[1] = finalG;
-                                dBg[2] = finalR;
+                                if (o == 0) continue;
+
+                                // using "grain merge", e.g. see https://docs.gimp.org/en/gimp-concepts-layer-modes.html
+                                int rMix = finalR + rgb[m][0] - 128;
+                                if (rMix < 0) rMix = 0;
+                                else if (rMix > 255) rMix = 255;
+                                int gMix = finalG + rgb[m][1] - 128;
+                                if (gMix < 0) gMix = 0;
+                                else if (gMix > 255) gMix = 255;
+                                int bMix = finalB + rgb[m][2] - 128;
+                                if (bMix < 0) bMix = 0;
+                                else if (bMix > 255) bMix = 255;
+
+                                finalR = (byte)(o * rMix + (1 - o) * finalR);
+                                finalG = (byte)(o * gMix + (1 - o) * finalG);
+                                finalB = (byte)(o * bMix + (1 - o) * finalB);
                             }
+
+                            // set final color
+                            dBg[0] = finalB;
+                            dBg[1] = finalG;
+                            dBg[2] = finalR;
                         }
-
-                        imageFine = true;
                     }
-                }
-                catch
-                {
-                    // error during drawing, maybe mask is smaller than image
-                }
 
-                bmpBaseImage.UnlockBits(bmpDataBaseImage);
-                bmpMask.UnlockBits(bmpDataMask);
+                    imageFine = true;
+                }
             }
+            catch
+            {
+                // error during drawing, maybe mask is smaller than image
+            }
+
+            bmpBaseImage.UnlockBits(bmpDataBaseImage);
+            bmpMask.UnlockBits(bmpDataMask);
 
             return imageFine;
         }

@@ -9,6 +9,7 @@ using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ARKBreedingStats.values;
 using static ARKBreedingStats.InfoGraphic.InfoGraphicSettings;
 using Brush = System.Drawing.Brush;
 using Brushes = System.Drawing.Brushes;
@@ -107,14 +108,32 @@ namespace ARKBreedingStats.InfoGraphic
                 yOffsetBox = (int)(0.8 * enlargedBy);
             }
 
+            var mainColor = settings.TintBackgroundImage || settings.ColorBasedOnCreature ? GetMainColor(creature) : Color.Black;
+            var colorHue = (int)mainColor.GetHue();
+            Color foreColor, backColor, colorOutlineText, borderColor;
+            if (settings.ColorBasedOnCreature)
+            {
+                foreColor = Utils.AdjustColorLight(Utils.ColorFromHsv(colorHue, mainColor.GetSaturation(), settings.foreColor.GetValue(), settings.foreColor.A), 2 * settings.foreColor.GetBrightness() - 1);
+                colorOutlineText = Utils.AdjustColorLight(Utils.ColorFromHsv(colorHue, mainColor.GetSaturation(), settings.colorOutlineText.GetValue(), settings.colorOutlineText.A), 2 * settings.colorOutlineText.GetBrightness() - 1);
+                backColor = Utils.AdjustColorLight(Utils.ColorFromHsv(colorHue, mainColor.GetSaturation(), settings.backColor.GetValue(), settings.backColor.A), 2 * settings.backColor.GetBrightness() - 1);
+                borderColor = Utils.AdjustColorLight(Utils.ColorFromHsv(colorHue, mainColor.GetSaturation(), settings.borderColor.GetValue(), settings.borderColor.A), 2 * settings.borderColor.GetBrightness() - 1);
+            }
+            else
+            {
+                foreColor = settings.foreColor;
+                backColor = settings.backColor;
+                colorOutlineText = settings.colorOutlineText;
+                borderColor = settings.borderColor;
+            }
+
             var bmp = new Bitmap(widthImage, heightImage);
             using (var g = Graphics.FromImage(bmp))
             using (var font = new Font(settings.fontName, fontSize))
             using (var fontSmall = new Font(settings.fontName, fontSizeSmall))
             using (var fontHeader = new Font(settings.fontName, fontSizeHeader, FontStyle.Bold))
-            using (var fontBrush = new SolidBrush(settings.foreColor))
-            using (var penOutline = new Pen(settings.colorOutlineText, settings.widthOutlineText * 2 + 1) { LineJoin = LineJoin.Round })
-            using (var borderAroundColors = new Pen(Utils.ForeColor(settings.backColor), 1))
+            using (var fontBrush = new SolidBrush(foreColor))
+            using (var penOutline = new Pen(colorOutlineText, settings.widthOutlineText * 2 + 1) { LineJoin = LineJoin.Round })
+            using (var borderAroundColors = new Pen(Utils.ForeColor(backColor), 1))
             using (var stringFormatRight = new StringFormat { Alignment = StringAlignment.Far })
             using (var stringFormatRightUp = new StringFormat
             { Alignment = StringAlignment.Far, LineAlignment = StringAlignment.Far })
@@ -122,11 +141,18 @@ namespace ARKBreedingStats.InfoGraphic
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.TextRenderingHint = TextRenderingHint.AntiAlias;
 
+
+                var backgroundImageIsDrawn = false;
                 if (settings.backColor.A != 255)
-                    DrawBackgroundImage(g, settings.backgroundImagePath, 0, yOffsetBox, widthBox, heightBox, settings.BackgroundImageResizing);
+                {
+                    backgroundImageIsDrawn = DrawBackgroundImage(g, settings.backgroundImagePath, 0, yOffsetBox,
+                        widthBox, heightBox, settings.BackgroundImageResizing);
+                    if (settings.TintBackgroundImage)
+                        ImageTools.TintImage(bmp, Utils.ColorFromHue(colorHue, settings.backColor.GetBrightness() - .5));
+                }
 
                 var currentYPosition = borderAndPaddings[0] + yOffsetBox;
-                using (var backgroundBrush = new SolidBrush(settings.backColor))
+                using (var backgroundBrush = new SolidBrush(backColor))
                     g.FillRectangle(backgroundBrush, 0, yOffsetBox, widthBox, heightBox);
 
                 var headerText = creature.Species.Name(creature.sex, true, true) +
@@ -174,13 +200,18 @@ namespace ARKBreedingStats.InfoGraphic
                 currentYPosition += contentHeight * 17 / 180; //17
 
                 var lineWidth = Math.Max(1, heightBox / 180);
-                if (settings.widthOutlineText > 0)
+                if (!backgroundImageIsDrawn)
                 {
-                    using var outlineBrush = new SolidBrush(settings.colorOutlineText);
-                    g.FillRectangle(outlineBrush, 0, currentYPosition - lineWidth / 2 - settings.widthOutlineText, widthBox, lineWidth + settings.widthOutlineText * 2);
-                }
-                using (var p = new Pen(Color.FromArgb(50, settings.foreColor), lineWidth))
+                    if (settings.widthOutlineText > 0)
+                    {
+                        using var outlineBrush = new SolidBrush(colorOutlineText);
+                        g.FillRectangle(outlineBrush, 0, currentYPosition - lineWidth / 2 - settings.widthOutlineText,
+                            widthBox, lineWidth + settings.widthOutlineText * 2);
+                    }
+                    using var p = new Pen(Color.FromArgb(50, foreColor), lineWidth);
                     g.DrawLine(p, 0, currentYPosition - lineWidth / 2, widthBox, currentYPosition - lineWidth / 2);
+                }
+
                 currentYPosition += lineWidth;
 
                 // levels
@@ -353,14 +384,14 @@ namespace ARKBreedingStats.InfoGraphic
                 if (settings.creatureScaling > 1)
                 {
                     if (drawBorder)
-                        DrawBorder(settings.borderColor, settings.borderWidth, settings.borderRadius, widthBox, heightBox, g, yOffsetBox, widthImage, heightImage);
+                        DrawBorder(borderColor, settings.borderWidth, settings.borderRadius, widthBox, heightBox, g, yOffsetBox, widthImage, heightImage);
                     DrawCreature(g, bmpCreature, rectCreature, bmpCreatureOutline, rectCreatureOutline);
                 }
                 else
                 {
                     DrawCreature(g, bmpCreature, rectCreature, bmpCreatureOutline, rectCreatureOutline);
                     if (drawBorder)
-                        DrawBorder(settings.borderColor, settings.borderWidth, settings.borderRadius, widthBox, heightBox, g, yOffsetBox, widthImage, heightImage);
+                        DrawBorder(borderColor, settings.borderWidth, settings.borderRadius, widthBox, heightBox, g, yOffsetBox, widthImage, heightImage);
                 }
 
                 bmpCreature?.Dispose();
@@ -465,9 +496,9 @@ namespace ARKBreedingStats.InfoGraphic
             return (bmpCreature, bmpCreatureOutline, rectCreature, rectCreatureOutline, imageSizeInBox);
         }
 
-        private static void DrawBackgroundImage(Graphics g, string imagePath, int x, int y, int width, int height, BackgroundImageResizings backgroundSizeBehavior)
+        private static bool DrawBackgroundImage(Graphics g, string imagePath, int x, int y, int width, int height, BackgroundImageResizings backgroundSizeBehavior)
         {
-            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath)) return;
+            if (string.IsNullOrEmpty(imagePath) || !File.Exists(imagePath)) return false;
             try
             {
                 using var bgImg = new Bitmap(imagePath);
@@ -499,10 +530,12 @@ namespace ARKBreedingStats.InfoGraphic
                 }
 
                 g.DrawImage(bgImg, new Rectangle(x, y, width, height), new Rectangle(xSource, ySource, widthSource, heightSource), GraphicsUnit.Pixel);
+                return true;
             }
             catch (Exception ex)
             {
                 MessageBoxes.ExceptionMessageBox(ex, "Error when trying to draw the background image of the infographic with the path\n" + imagePath);
+                return false;
             }
         }
 
@@ -577,6 +610,21 @@ namespace ARKBreedingStats.InfoGraphic
                 if (l > max) max = l;
             }
             return max;
+        }
+
+        private static Color GetMainColor(Creature c)
+        {
+            // get main color
+            var tintColorRegionId = Array.FindIndex(c.Species.colors,
+                r => r?.name != null && r.name.Contains("main", StringComparison.InvariantCultureIgnoreCase));
+            if (tintColorRegionId == -1)
+            {
+                tintColorRegionId = Array.FindIndex(c.Species.colors,
+                    r => r?.name != null && r.name.Contains("body", StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (tintColorRegionId == -1) tintColorRegionId = 0;
+            return Values.V.Colors.ById(c.colors[tintColorRegionId]).Color;
         }
 
         /// <summary>
