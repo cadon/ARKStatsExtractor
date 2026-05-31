@@ -267,13 +267,11 @@ namespace ARKBreedingStats.utils
 
         public static void TintImage(Bitmap bmp, Color color)
         {
+            // use mask image with only region 0 (red) for the whole image
             var colors = Enumerable.Repeat<byte[]>(null, Ark.ColorRegionCount - 1).Prepend([color.R, color.G, color.B]).ToArray();
-
             var enabledRegions = Enumerable.Repeat(false, Ark.ColorRegionCount - 1).Prepend(true).ToArray();
-
             using var bmpMask = new Bitmap(bmp.Width, bmp.Height);
             using var g = Graphics.FromImage(bmpMask);
-
             g.FillRectangle(Brushes.Red, 0, 0, bmpMask.Width, bmpMask.Height);
             CreatureColored.ApplyColorsUnsafe(colors, enabledRegions, bmpMask, bmp);
         }
