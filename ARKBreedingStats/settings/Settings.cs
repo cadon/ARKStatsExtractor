@@ -30,6 +30,7 @@ namespace ARKBreedingStats.settings
         public bool LanguageChanged;
         public bool ColorRegionDisplayChanged;
         private CancellationTokenSource _cancellationTokenSource;
+        private string _lastInfoGraphicBackgroundFolder;
 
         public Settings(CreatureCollection cc, SettingsTabPages page)
         {
@@ -1365,22 +1366,18 @@ namespace ARKBreedingStats.settings
 
         private void btExportMultipliers_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog dlg = new SaveFileDialog
+            using var dlg = new SaveFileDialog();
+            dlg.Filter = "ARK Multiplier File (*.ini)|*.ini";
+            dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            dlg.FileName = "ASBMultipliers";
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+            try
             {
-                Filter = "ARK Multiplier File (*.ini)|*.ini",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
-                FileName = "ASBMultipliers"
-            })
+                File.WriteAllText(dlg.FileName, GetMultiplierSettings());
+            }
+            catch (Exception ex)
             {
-                if (dlg.ShowDialog() != DialogResult.OK) return;
-                try
-                {
-                    File.WriteAllText(dlg.FileName, GetMultiplierSettings());
-                }
-                catch (Exception ex)
-                {
-                    MessageBoxes.ExceptionMessageBox(ex, "Error while writing settings file:", "File writing error");
-                }
+                MessageBoxes.ExceptionMessageBox(ex, "Error while writing settings file:", "File writing error");
             }
         }
 
@@ -1539,15 +1536,13 @@ namespace ARKBreedingStats.settings
 
         private void SelectFolder(Button folderButton, string initialFolder = null, bool displayFullPathOnButton = false)
         {
-            using (var dlg = new FolderBrowserDialog())
+            using var dlg = new FolderBrowserDialog();
+            dlg.RootFolder = Environment.SpecialFolder.Desktop;
+            if (!string.IsNullOrEmpty(initialFolder) && Directory.Exists(initialFolder))
+                dlg.SelectedPath = initialFolder;
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                dlg.RootFolder = Environment.SpecialFolder.Desktop;
-                if (!string.IsNullOrEmpty(initialFolder) && Directory.Exists(initialFolder))
-                    dlg.SelectedPath = initialFolder;
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    SetFolderSelectionButton(folderButton, dlg.SelectedPath, displayFullPathOnButton);
-                }
+                SetFolderSelectionButton(folderButton, dlg.SelectedPath, displayFullPathOnButton);
             }
         }
 
@@ -1820,16 +1815,18 @@ namespace ARKBreedingStats.settings
 
         private void BtInfoGraphicBackgroundImagePath_Click(object sender, EventArgs e)
         {
-            using (var openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png|All Files|*.*";
-                openFileDialog.Title = "Select Background Image for InfoGraphic";
+            var initialFolder = string.IsNullOrEmpty(InfoGraphicBackgroundImagePath)
+                ? _lastInfoGraphicBackgroundFolder
+                : Path.GetDirectoryName(InfoGraphicBackgroundImagePath);
+            using var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png|All Files|*.*";
+            openFileDialog.Title = "Select Background Image for InfoGraphic";
+            if (!string.IsNullOrEmpty(initialFolder))
+                openFileDialog.InitialDirectory = initialFolder;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    InfoGraphicBackgroundImagePath = openFileDialog.FileName;
-                }
-            }
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            InfoGraphicBackgroundImagePath = openFileDialog.FileName;
         }
 
         private void BtInfoGraphicColorTextOutlineAuto_Click(object sender, EventArgs e)
@@ -1852,6 +1849,8 @@ namespace ARKBreedingStats.settings
             {
                 _infoGraphicBackgroundImagePath = value;
                 BtInfoGraphicBackgroundImagePath.Text = $"Background image{Environment.NewLine}{(string.IsNullOrEmpty(value) ? "<none>" : Path.GetFileName(value))}";
+                if (value != null)
+                    _lastInfoGraphicBackgroundFolder = Path.GetDirectoryName(value);
                 ShowInfoGraphicPreviewDebounced(50);
             }
         }
