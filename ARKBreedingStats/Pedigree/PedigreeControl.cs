@@ -191,7 +191,7 @@ namespace ARKBreedingStats.Pedigree
                             p.Width = boldLineWidth;
                             break;
                         case 3:
-                            p.Color = Utils.MutationMarkerColor;
+                            p.Color = UiColors.Current.MutationMarker;
                             p.Width = boldLineWidth;
                             break;
                         default:
@@ -464,28 +464,28 @@ namespace ARKBreedingStats.Pedigree
                 void ArrowExplanation(List<int[]> linesList, int lineStyle, string text, int y, int size)
                 {
                     var yLine = y + lineHeight / 2;
-                    linesList.Add(new[] { padding, yLine, padding + size, yLine, lineStyle });
+                    linesList.Add([padding, yLine, padding + size, yLine, lineStyle]);
                     brush.Color = SystemColors.ControlText;
                     g.DrawString(text, font, brush, textX, y);
                 }
 
                 int yText = statRadius * 2 + 4 * padding;
-                CircleExplanation(Utils.MutationMarkerColor, "mutation in stat", yText, 6);
+                CircleExplanation(UiColors.Current.MutationMarker, "mutation in stat", yText, 6);
                 yText += lineHeight;
-                CircleExplanation(Utils.MutationMarkerPossibleColor, "possible mutation in stat", yText, 6);
+                CircleExplanation(UiColors.Current.MutationMarkerPossible, "possible mutation in stat", yText, 6);
                 yText += lineHeight;
-                CircleExplanation(Color.Yellow, "mutation in color", yText, 4, 1);
+                CircleExplanation(UiColors.Current.NewColorInSpecies, "mutation in color", yText, 4, 1);
                 yText += lineHeight;
-                CircleExplanation(Color.GreenYellow, "creature without mutations", yText, 6);
+                CircleExplanation(UiColors.Current.Success, "creature without mutations", yText, 6);
                 yText += lineHeight;
-                CircleExplanation(Utils.MutationColor, "creature mutations < limit", yText, 6);
+                CircleExplanation(UiColors.Current.Mutation, "creature mutations < limit", yText, 6);
                 yText += lineHeight;
-                CircleExplanation(Color.DarkRed, "creature mutations ≥ limit", yText, 6);
+                CircleExplanation(UiColors.Current.MutationOverLimit, "creature mutations ≥ limit", yText, 6);
                 yText += lineHeight;
                 // rectangles
                 RectangleExplanation(UiColors.Current.PedigreeSelected, "selected creature", yText, 10);
                 yText += lineHeight;
-                RectangleExplanation(Utils.MutationMarkerColor, "creature with mutation", yText, 10);
+                RectangleExplanation(UiColors.Current.MutationMarker, "creature with mutation", yText, 10);
                 yText += lineHeight;
                 // arrows
                 var lines = new[] { null, new List<int[]>(), null };

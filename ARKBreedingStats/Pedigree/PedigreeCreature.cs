@@ -78,7 +78,8 @@ namespace ARKBreedingStats.Pedigree
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool TotalLevelUnknown { get; set; }
 
-        public static readonly int[] DisplayedStats = {
+        public static readonly int[] DisplayedStats =
+        [
             Stats.Health,
             Stats.Stamina,
             Stats.Oxygen,
@@ -87,7 +88,7 @@ namespace ARKBreedingStats.Pedigree
             Stats.MeleeDamageMultiplier,
             Stats.SpeedMultiplier,
             Stats.CraftingSpeedMultiplier
-            };
+        ];
         public static readonly int DisplayedStatsCount = DisplayedStats.Length;
 
         public PedigreeCreature()
@@ -318,10 +319,10 @@ namespace ARKBreedingStats.Pedigree
                     {
                         _labelsStats[s].Text = _creature.levelsWild[si].ToString();
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
-                            _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? Utils.Level254 : Utils.Level255, _creature.IsTopStat(si) ? 0.2 : 0.7));
+                            _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? UiColors.Current.Level254 : UiColors.Current.Level255, _creature.IsTopStat(si) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat));
                         else
                             _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
-                                _creature.IsTopStat(si) ? 0.2 : 0.7));
+                                _creature.IsTopStat(si) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat));
 
                         //if (Parent?.ForeColor != null)
                         //    _labelsStats[s].ForeColor = Parent.ForeColor; // needed so text is not transparent on overlay
@@ -340,7 +341,7 @@ namespace ARKBreedingStats.Pedigree
                     {
                         _labelsStatsMut[s].Text = _creature.levelsMutated[si].ToString();
                         _labelsStatsMut[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsMutated[si], mutationLevel: true),
-                            _creature.IsTopMutationStat(si) ? 0.2 : 0.7));
+                            _creature.IsTopMutationStat(si) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat));
                         _labelsStatsMut[s].Visible = true;
                     }
 
@@ -368,12 +369,12 @@ namespace ARKBreedingStats.Pedigree
                     pictureBox1.Visible = true;
                     plainTextcurrentValuesToolStripMenuItem.Visible = true;
                 }
-                int totalMutations = _creature.Mutations;
+                var totalMutations = _creature.Mutations;
                 if (totalMutations > 0)
                 {
                     var totalMutationsString = totalMutations.ToString();
                     labelMutations.Text = totalMutationsString.Length > 4 ? totalMutationsString.Substring(0, 4) + "…" : totalMutationsString;
-                    labelMutations.SetBackColorAndAccordingForeColor(totalMutations < Ark.MutationPossibleWithLessThan ? Utils.MutationColor : Utils.MutationColorOverLimit);
+                    labelMutations.SetBackColorAndAccordingForeColor(totalMutations < Ark.MutationPossibleWithLessThan ? UiColors.Current.Mutation : UiColors.Current.MutationOverLimit);
                     _ttMonospaced.SetToolTip(labelMutations,
                         $"Mutation-Counter: {totalMutations,13:#,0}\nMaternal: {_creature.mutationsMaternal,21:#,0}\nPaternal: {_creature.mutationsPaternal,21:#,0}");
                 }

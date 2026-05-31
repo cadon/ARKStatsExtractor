@@ -347,7 +347,7 @@ namespace ARKBreedingStats
             if (!tameable)
             {
                 labelResult.Text = Loc.S("speciesNotTameable");
-                labelResult.ForeColor = Color.Red;
+                labelResult.ForeColor = UiColors.Current.Caution;
             }
             else if (enoughFood)
             {
@@ -411,7 +411,7 @@ namespace ARKBreedingStats
             if ((double)nudTotalFood.Value < _neededHunger)
             {
                 lbTimeUntilStarving.Text += (lbTimeUntilStarving.Text.Length > 0 ? "\n" : string.Empty) + $"{Loc.S("WarningMoreStarvingThanFood")}";
-                lbTimeUntilStarving.ForeColor = Color.DarkRed;
+                lbTimeUntilStarving.ForeColor = UiColors.Current.Caution;
             }
             else lbTimeUntilStarving.ForeColor = SystemColors.ControlText;
 
@@ -453,9 +453,9 @@ namespace ARKBreedingStats
         {
             var duration = new TimeSpan(0, 0, Taming.SecondsUntilWakingUp(_selectedSpecies, _serverMultipliers, (int)nudLevel.Value, (double)numericUpDownCurrentTorpor.Value));
             lbTimeUntilWakingUp.Text = string.Format(Loc.S("lbTimeUntilWakingUp"), Utils.Duration(duration));
-            if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = Color.DarkRed;
-            else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = Color.DarkGoldenrod;
-            else lbTimeUntilWakingUp.ForeColor = Color.Black;
+            if (duration.TotalSeconds < 30) lbTimeUntilWakingUp.ForeColor = UiColors.Current.ErrorText;
+            else if (duration.TotalSeconds < 120) lbTimeUntilWakingUp.ForeColor = UiColors.Current.Caution;
+            else lbTimeUntilWakingUp.ForeColor = SystemColors.ControlText;
             _wakeUpTime = DateTime.Now.Add(duration);
         }
 

@@ -1301,10 +1301,6 @@ namespace ARKBreedingStats
             var statOptionsColors = StatsOptionsLevelColors.GetOptions(cr.Species).Options;
             var statOptionsTopStats = StatsOptionsConsiderTopStats.GetOptions(cr.Species).Options;
 
-            var deltaLightnessTopStat = UiColors.IsDark ? -0.4 : 0.2;
-            var deltaLightnessConsideredStat = UiColors.IsDark ? -0.75 : 0.75;
-            var deltaLightnessUnconsideredStat = UiColors.IsDark ? -0.88 : 0.93;
-
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (cr.valuesCurrent[s] == 0
@@ -1324,7 +1320,7 @@ namespace ARKBreedingStats
                 else
                 {
                     var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsWild[s]),
-                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopStat(s) ? deltaLightnessTopStat : deltaLightnessConsideredStat : deltaLightnessUnconsideredStat);
+                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopStat(s) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat : UiColors.DeltaLightnessUnconsideredStat);
                     lvi.SubItems[ColumnIndexFirstStat + s].SetBackColorAndAccordingForeColor(backColor);
                 }
 
@@ -1337,7 +1333,7 @@ namespace ARKBreedingStats
                 else
                 {
                     var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsMutated[s], false, true),
-                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopMutationStat(s) ? deltaLightnessTopStat : deltaLightnessConsideredStat : deltaLightnessUnconsideredStat);
+                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopMutationStat(s) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat : UiColors.DeltaLightnessUnconsideredStat);
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].SetBackColorAndAccordingForeColor(backColor);
                 }
             }
@@ -1380,7 +1376,7 @@ namespace ARKBreedingStats
                     lvi.BackColor = cr.onlyTopConsideredStats ? UiColors.Current.TopBreedingAll : UiColors.Current.TopBreedingSome;
                     lvi.ForeColor = Utils.ForeColor(lvi.BackColor);
                 }
-                lvi.SubItems[ColumnIndexTopStats].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, deltaLightnessConsideredStat));
+                lvi.SubItems[ColumnIndexTopStats].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, UiColors.DeltaLightnessConsideredStat));
             }
             else
             {
@@ -1395,7 +1391,7 @@ namespace ARKBreedingStats
             }
 
             // color for topness
-            lvi.SubItems[ColumnIndexTopness].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.topness / 5 - 100, deltaLightnessConsideredStat)); // topness is in permille. gradient from 50-100
+            lvi.SubItems[ColumnIndexTopness].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.topness / 5 - 100, UiColors.DeltaLightnessConsideredStat)); // topness is in permille. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
@@ -1409,7 +1405,7 @@ namespace ARKBreedingStats
             if (cr.Mutations > 0)
             {
                 if (cr.Mutations < Ark.MutationPossibleWithLessThan)
-                    lvi.SubItems[ColumnIndexMutations].SetBackColorAndAccordingForeColor(UiColors.Current.MutationLevel);
+                    lvi.SubItems[ColumnIndexMutations].SetBackColorAndAccordingForeColor(UiColors.Current.Mutation);
                 else
                     lvi.SubItems[ColumnIndexMutations].SetBackColorAndAccordingForeColor(UiColors.Current.MutationOverLimit);
             }

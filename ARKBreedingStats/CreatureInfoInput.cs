@@ -874,7 +874,7 @@ namespace ARKBreedingStats
             }
 
             lbNewMutations.Text = $"+{newMutations} mut";
-            lbNewMutations.SetBackColorAndAccordingForeColor(newMutations != 0 ? Utils.MutationColor : SystemColors.Control);
+            lbNewMutations.SetBackColorAndAccordingForeColor(newMutations != 0 ? UiColors.Current.Mutation : SystemColors.Control);
         }
 
         private void NudMutations_ValueChanged(object sender, EventArgs e)

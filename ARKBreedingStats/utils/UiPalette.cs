@@ -156,19 +156,23 @@ namespace ARKBreedingStats.utils
 
         // --- Mutations ---
 
-        [Category("Mutations"), DisplayName("Mutation Level")]
+        [Category("Mutations"), DisplayName("Mutation")]
+        [Description("Color representing a mutation counter unequal zero.")]
         [PreviewHint(ColorRole.Background, ColorContext.StatIO)]
-        public Color MutationLevel { get; set; }
+        public Color Mutation { get; set; }
 
         [Category("Mutations"), DisplayName("Mutation Over Limit")]
+        [Description("Color representing a mutation counter over the limit where more mutations can be produced.")]
         [PreviewHint(ColorRole.Background, ColorContext.StatIO)]
         public Color MutationOverLimit { get; set; }
 
         [Category("Mutations"), DisplayName("Mutation Marker")]
+        [Description("Color representing a mutation for a inheritage line or marker.")]
         [PreviewHint(ColorRole.Foreground, ColorContext.Pedigree)]
         public Color MutationMarker { get; set; }
 
         [Category("Mutations"), DisplayName("Mutation Marker (Possible)")]
+        [Description("Color representing a possible mutation for a inheritage line or marker.")]
         [PreviewHint(ColorRole.Foreground, ColorContext.Pedigree)]
         public Color MutationMarkerPossible { get; set; }
 

@@ -138,7 +138,7 @@ namespace ARKBreedingStats.uiControls
 
                 if (mutationOccurred)
                 {
-                    borderColor = Utils.MutationMarkerColor;
+                    borderColor = UiColors.Current.MutationMarker;
                     drawnBorderWidth = 1.5f;
                 }
 
@@ -163,7 +163,7 @@ namespace ARKBreedingStats.uiControls
                         var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle - borderWidth) * statSize);
                         var leftTop = centerCoord - pieRadius;
                         var angle = AngleOffset + anglePerStat * i++;
-                        brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.IsTopStat(si) ? 0 : 0.7);
+                        brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.IsTopStat(si) ? 0 : UiColors.DeltaLightnessConsideredStat);
                         g.FillPie(brush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
                         pen.Width = highlightStatIndex == si ? 2 : 1;
@@ -179,13 +179,13 @@ namespace ARKBreedingStats.uiControls
                         var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
                         var x = (int)Math.Round(pieRadius * Math.Cos(anglePosition) + centerCoord - _mutationMarkerRadius - 1);
                         var y = (int)Math.Round(pieRadius * Math.Sin(anglePosition) + centerCoord - _mutationMarkerRadius - 1);
-                        DrawFilledCircle(g, brush, pen, guaranteedMutation ? Utils.MutationMarkerColor : Utils.MutationMarkerPossibleColor, x, y, 2 * _mutationMarkerRadius);
+                        DrawFilledCircle(g, brush, pen, guaranteedMutation ? UiColors.Current.MutationMarker : UiColors.Current.MutationMarkerPossible, x, y, 2 * _mutationMarkerRadius);
                     }
                 }
 
                 // draw sex in the center
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                brush.Color = Utils.AdjustColorLight(Utils.SexColor(creature.sex), 0.2);
+                brush.Color = Utils.AdjustColorLight(Utils.SexColor(creature.sex), UiColors.DeltaLightnessTopStat);
                 g.FillEllipse(brush, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
                 pen.Width = 1;
                 g.DrawEllipse(pen, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
@@ -243,7 +243,7 @@ namespace ARKBreedingStats.uiControls
                             {
                                 var x = left - _colorMutationMarkerRadius - 2;
                                 y = y + colorSize.Height / 2 - _colorMutationMarkerRadius;
-                                DrawFilledCircle(g, brush, pen, Color.Yellow, x, y, 2 * _colorMutationMarkerRadius);
+                                DrawFilledCircle(g, brush, pen, UiColors.Current.NewColorInSpecies, x, y, 2 * _colorMutationMarkerRadius);
                                 _mutationInColor[ci] = true;
                             }
                         }
@@ -256,10 +256,10 @@ namespace ARKBreedingStats.uiControls
                 // mutation indicator
                 if (!creature.flags.HasFlag(CreatureFlags.Placeholder))
                 {
-                    int yMarker = _statSize - _mutationIndicatorSize - 1 - borderWidth;
-                    Color mutationColor = creature.Mutations == 0 ? Color.GreenYellow
-                        : creature.Mutations < Ark.MutationPossibleWithLessThan ? Utils.MutationColor
-                        : Color.DarkRed;
+                    var yMarker = _statSize - _mutationIndicatorSize - 1 - borderWidth;
+                    var mutationColor = creature.Mutations == 0 ? UiColors.Current.Success
+                        : creature.Mutations < Ark.MutationPossibleWithLessThan ? UiColors.Current.Mutation
+                        : UiColors.Current.MutationOverLimit;
 
                     DrawFilledCircle(g, brush, pen, mutationColor, borderWidth + 1, yMarker, _mutationIndicatorSize);
                 }

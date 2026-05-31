@@ -29,6 +29,19 @@ namespace ARKBreedingStats.utils
         internal static bool IsDark { get; private set; }
 
         /// <summary>
+        /// Light adjustment for the backcolor of controls that display a top stat level.
+        /// </summary>
+        internal static float DeltaLightnessTopStat { get; private set; }
+        /// <summary>
+        /// Light adjustment for the backcolor of controls that display a non top stat level of a considered stat.
+        /// </summary>
+        internal static float DeltaLightnessConsideredStat { get; private set; }
+        /// <summary>
+        /// Light adjustment for the backcolor of controls that display a stat level of a stat that is not considered.
+        /// </summary>
+        internal static float DeltaLightnessUnconsideredStat { get; private set; }
+
+        /// <summary>
         /// Initializes the palette for the given color mode and theme.
         /// Loads the user's saved palette from settings if one exists, otherwise uses the built-in default.
         /// </summary>
@@ -39,6 +52,10 @@ namespace ARKBreedingStats.utils
                          SystemColors.Window.B * .11f < 110);
 
             Current = LoadUserPalette(colorMode, IsDark) ?? GetDefaultPalette(colorMode, IsDark);
+
+            DeltaLightnessTopStat = IsDark ? -0.4f : 0.2f;
+            DeltaLightnessConsideredStat = IsDark ? -0.75f : 0.75f;
+            DeltaLightnessUnconsideredStat = IsDark ? -0.88f : 0.93f;
         }
 
         /// <summary>
@@ -307,7 +324,7 @@ namespace ARKBreedingStats.utils
             CreatureExisting = Color.Aquamarine,
 
             // Mutations
-            MutationLevel = Color.FromArgb(225, 192, 255),
+            Mutation = Color.FromArgb(225, 192, 255),
             MutationOverLimit = Color.FromArgb(255, 200, 200),
             MutationMarker = Color.Magenta,
             MutationMarkerPossible = Color.FromArgb(204, 123, 255),
@@ -384,7 +401,7 @@ namespace ARKBreedingStats.utils
             CreatureExisting = Color.FromArgb(0, 80, 70),
 
             // Mutations
-            MutationLevel = Color.FromArgb(90, 60, 120),
+            Mutation = Color.FromArgb(90, 60, 120),
             MutationOverLimit = Color.FromArgb(120, 50, 50),
             MutationMarker = Color.Magenta,
             MutationMarkerPossible = Color.FromArgb(140, 70, 170),

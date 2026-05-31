@@ -590,7 +590,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     using (Graphics g = Graphics.FromImage(bm))
                     {
                         g.TextRenderingHint = TextRenderingHint.AntiAlias;
-                        brush.Color = Utils.MutationColor;
+                        brush.Color = UiColors.Current.Mutation;
                         if (_breedingPairs[i].Mother.Mutations < Ark.MutationPossibleWithLessThan)
                         {
                             g.FillRectangle(brush, 0, 5, 10, 10);
