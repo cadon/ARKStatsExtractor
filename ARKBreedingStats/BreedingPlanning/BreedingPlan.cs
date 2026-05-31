@@ -518,6 +518,10 @@ namespace ARKBreedingStats.BreedingPlanning
             _breedingPairs = _breedingPairs.Take(CreatureCollection.maxBreedingSuggestions).ToList();
 
             var displaySpeciesOnCreatureControls = _currentSpecies.matesWith?.Any() == true && !Properties.Settings.Default.BreedingPlanOnlySameSpecies;
+
+            var deltaLightnessOutline = UiColors.IsDark ? -0.4 : -0.2;
+            var deltaLightnessFill = UiColors.IsDark ? -0.7 : 0.5;
+
             // draw best parents
             var sb = new StringBuilder();
             using (var brush = new SolidBrush(SystemColors.ControlText))
@@ -600,22 +604,22 @@ namespace ARKBreedingStats.BreedingPlanning
 
                         var colorPercent = (int)((_breedingPairs[i].BreedingScore.OneNumber + displayScoreOffset) * 12.5);
                         // outline
-                        brush.Color = Utils.GetColorFromPercent(colorPercent, -.2);
+                        brush.Color = Utils.GetColorFromPercent(colorPercent, deltaLightnessOutline);
                         g.FillRectangle(brush, 0, 15, 87, 5);
                         g.FillRectangle(brush, 20, 10, 47, 15);
                         // fill
-                        brush.Color =
-                            Utils.GetColorFromPercent(colorPercent, 0.5);
+                        var colorBackground = Utils.GetColorFromPercent(colorPercent, deltaLightnessFill);
+                        brush.Color = colorBackground;
                         g.FillRectangle(brush, 1, 16, 85, 3);
                         g.FillRectangle(brush, 21, 11, 45, 13);
                         if (_breedingPairs[i].HighestOffspringOverLevelLimit)
                         {
-                            brush.Color = Color.Red;
+                            brush.Color = UiColors.Current.OverLevelWarning;
                             g.FillRectangle(brush, 15, 26, 55, 3);
                             sb.AppendLine("The highest possible and fully leveled offspring is over the level limit!");
                         }
                         // breeding score text
-                        brush.Color = Color.Black;
+                        brush.Color = Utils.ForeColor(colorBackground);
                         g.DrawString((_breedingPairs[i].BreedingScore.Primary + displayScoreOffset).ToString("N4"),
                             new Font(Properties.Settings.Default.DefaultFontName, 9f), brush, 24, 9);
                         pb.SetImageAndDisposeOld(bm);
@@ -1021,7 +1025,7 @@ namespace ARKBreedingStats.BreedingPlanning
         private void listViewSpeciesBP_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewSpeciesBP.SelectedIndices.Count > 0
-                && !string.IsNullOrEmpty(listViewSpeciesBP.SelectedItems[0]?.Text)
+                && !string.IsNullOrEmpty(listViewSpeciesBP.SelectedItems[0].Text)
                 && (_currentSpecies == null
                     || listViewSpeciesBP.SelectedItems[0].Text != _currentSpecies.DescriptiveNameAndMod)
                 )

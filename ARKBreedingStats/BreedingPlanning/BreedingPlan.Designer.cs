@@ -32,877 +32,855 @@ namespace ARKBreedingStats.BreedingPlanning
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BreedingPlan));
-            this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.gbBPBreedingMode = new System.Windows.Forms.GroupBox();
-            this.CbOnlySameSpecies = new System.Windows.Forms.CheckBox();
-            this.CbConsiderMutationLevels = new System.Windows.Forms.CheckBox();
-            this.CbIgnoreSexInPlanning = new System.Windows.Forms.CheckBox();
-            this.CbDontSuggestOverLimitOffspring = new System.Windows.Forms.CheckBox();
-            this.cbBPMutationLimitOnlyOnePartner = new System.Windows.Forms.CheckBox();
-            this.cbBPOnlyOneSuggestionForFemales = new System.Windows.Forms.CheckBox();
-            this.cbBPIncludeCryoCreatures = new System.Windows.Forms.CheckBox();
-            this.nudBPMutationLimit = new ARKBreedingStats.uiControls.Nud();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cbBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
-            this.rbBPTopStatsCn = new System.Windows.Forms.RadioButton();
-            this.rbBPHighStats = new System.Windows.Forms.RadioButton();
-            this.rbBPTopStats = new System.Windows.Forms.RadioButton();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageBreedableSpecies = new System.Windows.Forms.TabPage();
-            this.listViewSpeciesBP = new System.Windows.Forms.ListView();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPageTags = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbTribeFilterLibrary = new System.Windows.Forms.CheckBox();
-            this.cbOwnerFilterLibrary = new System.Windows.Forms.CheckBox();
-            this.tagSelectorList1 = new ARKBreedingStats.uiControls.TagSelectorList();
-            this.cbBPTagExcludeDefault = new System.Windows.Forms.CheckBox();
-            this.cbServerFilterLibrary = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.statWeighting1 = new ARKBreedingStats.uiControls.StatWeighting();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.lbBreedingPlanHeader = new System.Windows.Forms.Label();
-            this.pedigreeCreatureBestPossibleInSpecies = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.btShowAllCreatures = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.pedigreeCreature1 = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.lbBPBreedingScore = new System.Windows.Forms.Label();
-            this.pedigreeCreature2 = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.gbBPOffspring = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelBreedingInfos = new System.Windows.Forms.Label();
-            this.listViewRaisingTimes = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lbBPBreedingTimes = new System.Windows.Forms.Label();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.lbBPProbabilityBest = new System.Windows.Forms.Label();
-            this.pedigreeCreatureBest = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.pedigreeCreatureWorst = new ARKBreedingStats.Pedigree.PedigreeCreature();
-            this.lbMutationProbability = new System.Windows.Forms.Label();
-            this.btBPJustMated = new System.Windows.Forms.Button();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.offspringPossibilities1 = new ARKBreedingStats.OffspringPossibilities();
-            this.LbMinTotalLevelTopStats = new System.Windows.Forms.Label();
-            this.panelCombinations = new System.Windows.Forms.Panel();
-            this.lbBreedingPlanInfo = new System.Windows.Forms.Label();
-            this.flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
-            this.BtRecalculatePlan = new System.Windows.Forms.Button();
-            this.tableLayoutMain.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.gbBPBreedingMode.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBPMutationLimit)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPageBreedableSpecies.SuspendLayout();
-            this.tabPageTags.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.gbBPOffspring.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.panelCombinations.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            gbBPBreedingMode = new System.Windows.Forms.GroupBox();
+            CbOnlySameSpecies = new System.Windows.Forms.CheckBox();
+            CbConsiderMutationLevels = new System.Windows.Forms.CheckBox();
+            CbIgnoreSexInPlanning = new System.Windows.Forms.CheckBox();
+            CbDontSuggestOverLimitOffspring = new System.Windows.Forms.CheckBox();
+            cbBPMutationLimitOnlyOnePartner = new System.Windows.Forms.CheckBox();
+            cbBPOnlyOneSuggestionForFemales = new System.Windows.Forms.CheckBox();
+            cbBPIncludeCryoCreatures = new System.Windows.Forms.CheckBox();
+            nudBPMutationLimit = new Nud();
+            label2 = new System.Windows.Forms.Label();
+            cbBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
+            rbBPTopStatsCn = new System.Windows.Forms.RadioButton();
+            rbBPHighStats = new System.Windows.Forms.RadioButton();
+            rbBPTopStats = new System.Windows.Forms.RadioButton();
+            tabControl1 = new System.Windows.Forms.TabControl();
+            tabPageBreedableSpecies = new System.Windows.Forms.TabPage();
+            listViewSpeciesBP = new System.Windows.Forms.ListView();
+            columnHeader5 = new System.Windows.Forms.ColumnHeader();
+            tabPageTags = new System.Windows.Forms.TabPage();
+            tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            cbTribeFilterLibrary = new System.Windows.Forms.CheckBox();
+            cbOwnerFilterLibrary = new System.Windows.Forms.CheckBox();
+            tagSelectorList1 = new TagSelectorList();
+            cbBPTagExcludeDefault = new System.Windows.Forms.CheckBox();
+            cbServerFilterLibrary = new System.Windows.Forms.CheckBox();
+            label1 = new System.Windows.Forms.Label();
+            statWeighting1 = new StatWeighting();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            lbBreedingPlanHeader = new System.Windows.Forms.Label();
+            pedigreeCreatureBestPossibleInSpecies = new PedigreeCreature();
+            btShowAllCreatures = new System.Windows.Forms.Button();
+            BtRecalculatePlan = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            pedigreeCreatureBestPossibleInSpeciesFiltered = new PedigreeCreature();
+            pedigreeCreature1 = new PedigreeCreature();
+            lbBPBreedingScore = new System.Windows.Forms.Label();
+            pedigreeCreature2 = new PedigreeCreature();
+            gbBPOffspring = new System.Windows.Forms.GroupBox();
+            tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            labelBreedingInfos = new System.Windows.Forms.Label();
+            listViewRaisingTimes = new System.Windows.Forms.ListView();
+            columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            lbBPBreedingTimes = new System.Windows.Forms.Label();
+            flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            lbBPProbabilityBest = new System.Windows.Forms.Label();
+            pedigreeCreatureBest = new PedigreeCreature();
+            pedigreeCreatureWorst = new PedigreeCreature();
+            lbMutationProbability = new System.Windows.Forms.Label();
+            btBPJustMated = new System.Windows.Forms.Button();
+            tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            offspringPossibilities1 = new OffspringPossibilities();
+            LbMinTotalLevelTopStats = new System.Windows.Forms.Label();
+            panelCombinations = new System.Windows.Forms.Panel();
+            lbBreedingPlanInfo = new System.Windows.Forms.Label();
+            flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
+            tableLayoutMain.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            gbBPBreedingMode.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudBPMutationLimit).BeginInit();
+            tabControl1.SuspendLayout();
+            tabPageBreedableSpecies.SuspendLayout();
+            tabPageTags.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            flowLayoutPanel1.SuspendLayout();
+            gbBPOffspring.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
+            tableLayoutPanel6.SuspendLayout();
+            panelCombinations.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutMain
             // 
-            this.tableLayoutMain.ColumnCount = 2;
-            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutMain.Controls.Add(this.tableLayoutPanel5, 0, 0);
-            this.tableLayoutMain.Controls.Add(this.tableLayoutPanel1, 1, 0);
-            this.tableLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutMain.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutMain.Name = "tableLayoutMain";
-            this.tableLayoutMain.RowCount = 1;
-            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutMain.Size = new System.Drawing.Size(1732, 1023);
-            this.tableLayoutMain.TabIndex = 5;
+            tableLayoutMain.ColumnCount = 2;
+            tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutMain.Controls.Add(tableLayoutPanel5, 0, 0);
+            tableLayoutMain.Controls.Add(tableLayoutPanel1, 1, 0);
+            tableLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutMain.Location = new System.Drawing.Point(0, 0);
+            tableLayoutMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutMain.Name = "tableLayoutMain";
+            tableLayoutMain.RowCount = 1;
+            tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutMain.Size = new System.Drawing.Size(2021, 1180);
+            tableLayoutMain.TabIndex = 5;
             // 
             // tableLayoutPanel5
             // 
-            this.tableLayoutPanel5.AutoScroll = true;
-            this.tableLayoutPanel5.AutoScrollMinSize = new System.Drawing.Size(0, 700);
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.gbBPBreedingMode, 0, 1);
-            this.tableLayoutPanel5.Controls.Add(this.tabControl1, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.statWeighting1, 0, 2);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 3;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(244, 1017);
-            this.tableLayoutPanel5.TabIndex = 0;
+            tableLayoutPanel5.AutoScroll = true;
+            tableLayoutPanel5.AutoScrollMinSize = new System.Drawing.Size(0, 700);
+            tableLayoutPanel5.ColumnCount = 1;
+            tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel5.Controls.Add(gbBPBreedingMode, 0, 1);
+            tableLayoutPanel5.Controls.Add(tabControl1, 0, 0);
+            tableLayoutPanel5.Controls.Add(statWeighting1, 0, 2);
+            tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel5.Location = new System.Drawing.Point(4, 3);
+            tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 3;
+            tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel5.Size = new System.Drawing.Size(285, 1174);
+            tableLayoutPanel5.TabIndex = 0;
             // 
             // gbBPBreedingMode
             // 
-            this.gbBPBreedingMode.Controls.Add(this.CbOnlySameSpecies);
-            this.gbBPBreedingMode.Controls.Add(this.CbConsiderMutationLevels);
-            this.gbBPBreedingMode.Controls.Add(this.CbIgnoreSexInPlanning);
-            this.gbBPBreedingMode.Controls.Add(this.CbDontSuggestOverLimitOffspring);
-            this.gbBPBreedingMode.Controls.Add(this.cbBPMutationLimitOnlyOnePartner);
-            this.gbBPBreedingMode.Controls.Add(this.cbBPOnlyOneSuggestionForFemales);
-            this.gbBPBreedingMode.Controls.Add(this.cbBPIncludeCryoCreatures);
-            this.gbBPBreedingMode.Controls.Add(this.nudBPMutationLimit);
-            this.gbBPBreedingMode.Controls.Add(this.label2);
-            this.gbBPBreedingMode.Controls.Add(this.cbBPIncludeCooldowneds);
-            this.gbBPBreedingMode.Controls.Add(this.rbBPTopStatsCn);
-            this.gbBPBreedingMode.Controls.Add(this.rbBPHighStats);
-            this.gbBPBreedingMode.Controls.Add(this.rbBPTopStats);
-            this.gbBPBreedingMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbBPBreedingMode.Location = new System.Drawing.Point(3, 468);
-            this.gbBPBreedingMode.Name = "gbBPBreedingMode";
-            this.gbBPBreedingMode.Size = new System.Drawing.Size(238, 281);
-            this.gbBPBreedingMode.TabIndex = 6;
-            this.gbBPBreedingMode.TabStop = false;
-            this.gbBPBreedingMode.Text = "Breeding-Mode";
+            gbBPBreedingMode.Controls.Add(CbOnlySameSpecies);
+            gbBPBreedingMode.Controls.Add(CbConsiderMutationLevels);
+            gbBPBreedingMode.Controls.Add(CbIgnoreSexInPlanning);
+            gbBPBreedingMode.Controls.Add(CbDontSuggestOverLimitOffspring);
+            gbBPBreedingMode.Controls.Add(cbBPMutationLimitOnlyOnePartner);
+            gbBPBreedingMode.Controls.Add(cbBPOnlyOneSuggestionForFemales);
+            gbBPBreedingMode.Controls.Add(cbBPIncludeCryoCreatures);
+            gbBPBreedingMode.Controls.Add(nudBPMutationLimit);
+            gbBPBreedingMode.Controls.Add(label2);
+            gbBPBreedingMode.Controls.Add(cbBPIncludeCooldowneds);
+            gbBPBreedingMode.Controls.Add(rbBPTopStatsCn);
+            gbBPBreedingMode.Controls.Add(rbBPHighStats);
+            gbBPBreedingMode.Controls.Add(rbBPTopStats);
+            gbBPBreedingMode.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbBPBreedingMode.Location = new System.Drawing.Point(4, 541);
+            gbBPBreedingMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbBPBreedingMode.Name = "gbBPBreedingMode";
+            gbBPBreedingMode.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbBPBreedingMode.Size = new System.Drawing.Size(277, 324);
+            gbBPBreedingMode.TabIndex = 6;
+            gbBPBreedingMode.TabStop = false;
+            gbBPBreedingMode.Text = "Breeding-Mode";
             // 
             // CbOnlySameSpecies
             // 
-            this.CbOnlySameSpecies.AutoSize = true;
-            this.CbOnlySameSpecies.Location = new System.Drawing.Point(6, 262);
-            this.CbOnlySameSpecies.Margin = new System.Windows.Forms.Padding(2);
-            this.CbOnlySameSpecies.Name = "CbOnlySameSpecies";
-            this.CbOnlySameSpecies.Size = new System.Drawing.Size(184, 17);
-            this.CbOnlySameSpecies.TabIndex = 13;
-            this.CbOnlySameSpecies.Text = "Exclude other compatible species";
-            this.CbOnlySameSpecies.UseVisualStyleBackColor = true;
-            this.CbOnlySameSpecies.CheckedChanged += new System.EventHandler(this.CbOnlySameSpecies_CheckedChanged);
+            CbOnlySameSpecies.AutoSize = true;
+            CbOnlySameSpecies.Location = new System.Drawing.Point(7, 302);
+            CbOnlySameSpecies.Margin = new System.Windows.Forms.Padding(2);
+            CbOnlySameSpecies.Name = "CbOnlySameSpecies";
+            CbOnlySameSpecies.Size = new System.Drawing.Size(201, 19);
+            CbOnlySameSpecies.TabIndex = 13;
+            CbOnlySameSpecies.Text = "Exclude other compatible species";
+            CbOnlySameSpecies.UseVisualStyleBackColor = true;
+            CbOnlySameSpecies.CheckedChanged += CbOnlySameSpecies_CheckedChanged;
             // 
             // CbConsiderMutationLevels
             // 
-            this.CbConsiderMutationLevels.AutoSize = true;
-            this.CbConsiderMutationLevels.Location = new System.Drawing.Point(6, 180);
-            this.CbConsiderMutationLevels.Margin = new System.Windows.Forms.Padding(2);
-            this.CbConsiderMutationLevels.Name = "CbConsiderMutationLevels";
-            this.CbConsiderMutationLevels.Size = new System.Drawing.Size(140, 17);
-            this.CbConsiderMutationLevels.TabIndex = 12;
-            this.CbConsiderMutationLevels.Text = "Consider mutation levels";
-            this.CbConsiderMutationLevels.UseVisualStyleBackColor = true;
-            this.CbConsiderMutationLevels.CheckedChanged += new System.EventHandler(this.CbConsiderMutationLevels_CheckedChanged);
+            CbConsiderMutationLevels.AutoSize = true;
+            CbConsiderMutationLevels.Location = new System.Drawing.Point(7, 208);
+            CbConsiderMutationLevels.Margin = new System.Windows.Forms.Padding(2);
+            CbConsiderMutationLevels.Name = "CbConsiderMutationLevels";
+            CbConsiderMutationLevels.Size = new System.Drawing.Size(157, 19);
+            CbConsiderMutationLevels.TabIndex = 12;
+            CbConsiderMutationLevels.Text = "Consider mutation levels";
+            CbConsiderMutationLevels.UseVisualStyleBackColor = true;
+            CbConsiderMutationLevels.CheckedChanged += CbConsiderMutationLevels_CheckedChanged;
             // 
             // CbIgnoreSexInPlanning
             // 
-            this.CbIgnoreSexInPlanning.AutoSize = true;
-            this.CbIgnoreSexInPlanning.Location = new System.Drawing.Point(6, 200);
-            this.CbIgnoreSexInPlanning.Name = "CbIgnoreSexInPlanning";
-            this.CbIgnoreSexInPlanning.Size = new System.Drawing.Size(142, 17);
-            this.CbIgnoreSexInPlanning.TabIndex = 11;
-            this.CbIgnoreSexInPlanning.Text = "Ignore sex for all species";
-            this.CbIgnoreSexInPlanning.UseVisualStyleBackColor = true;
-            this.CbIgnoreSexInPlanning.CheckedChanged += new System.EventHandler(this.CbIgnoreSexInPlanning_CheckedChanged);
+            CbIgnoreSexInPlanning.AutoSize = true;
+            CbIgnoreSexInPlanning.Location = new System.Drawing.Point(7, 231);
+            CbIgnoreSexInPlanning.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbIgnoreSexInPlanning.Name = "CbIgnoreSexInPlanning";
+            CbIgnoreSexInPlanning.Size = new System.Drawing.Size(153, 19);
+            CbIgnoreSexInPlanning.TabIndex = 11;
+            CbIgnoreSexInPlanning.Text = "Ignore sex for all species";
+            CbIgnoreSexInPlanning.UseVisualStyleBackColor = true;
+            CbIgnoreSexInPlanning.CheckedChanged += CbIgnoreSexInPlanning_CheckedChanged;
             // 
             // CbDontSuggestOverLimitOffspring
             // 
-            this.CbDontSuggestOverLimitOffspring.AutoSize = true;
-            this.CbDontSuggestOverLimitOffspring.Location = new System.Drawing.Point(6, 242);
-            this.CbDontSuggestOverLimitOffspring.Name = "CbDontSuggestOverLimitOffspring";
-            this.CbDontSuggestOverLimitOffspring.Size = new System.Drawing.Size(178, 17);
-            this.CbDontSuggestOverLimitOffspring.TabIndex = 10;
-            this.CbDontSuggestOverLimitOffspring.Text = "Don\'t suggest over limit offspring";
-            this.CbDontSuggestOverLimitOffspring.UseVisualStyleBackColor = true;
-            this.CbDontSuggestOverLimitOffspring.CheckedChanged += new System.EventHandler(this.CbDontSuggestOverLimitOffspring_CheckedChanged);
+            CbDontSuggestOverLimitOffspring.AutoSize = true;
+            CbDontSuggestOverLimitOffspring.Location = new System.Drawing.Point(7, 279);
+            CbDontSuggestOverLimitOffspring.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbDontSuggestOverLimitOffspring.Name = "CbDontSuggestOverLimitOffspring";
+            CbDontSuggestOverLimitOffspring.Size = new System.Drawing.Size(203, 19);
+            CbDontSuggestOverLimitOffspring.TabIndex = 10;
+            CbDontSuggestOverLimitOffspring.Text = "Don't suggest over limit offspring";
+            CbDontSuggestOverLimitOffspring.UseVisualStyleBackColor = true;
+            CbDontSuggestOverLimitOffspring.CheckedChanged += CbDontSuggestOverLimitOffspring_CheckedChanged;
             // 
             // cbBPMutationLimitOnlyOnePartner
             // 
-            this.cbBPMutationLimitOnlyOnePartner.AutoSize = true;
-            this.cbBPMutationLimitOnlyOnePartner.Location = new System.Drawing.Point(29, 160);
-            this.cbBPMutationLimitOnlyOnePartner.Name = "cbBPMutationLimitOnlyOnePartner";
-            this.cbBPMutationLimitOnlyOnePartner.Size = new System.Drawing.Size(205, 17);
-            this.cbBPMutationLimitOnlyOnePartner.TabIndex = 8;
-            this.cbBPMutationLimitOnlyOnePartner.Text = "One partner may have more mutations";
-            this.cbBPMutationLimitOnlyOnePartner.UseVisualStyleBackColor = true;
-            this.cbBPMutationLimitOnlyOnePartner.CheckedChanged += new System.EventHandler(this.cbMutationLimitOnlyOnePartner_CheckedChanged);
+            cbBPMutationLimitOnlyOnePartner.AutoSize = true;
+            cbBPMutationLimitOnlyOnePartner.Location = new System.Drawing.Point(34, 185);
+            cbBPMutationLimitOnlyOnePartner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbBPMutationLimitOnlyOnePartner.Name = "cbBPMutationLimitOnlyOnePartner";
+            cbBPMutationLimitOnlyOnePartner.Size = new System.Drawing.Size(231, 19);
+            cbBPMutationLimitOnlyOnePartner.TabIndex = 8;
+            cbBPMutationLimitOnlyOnePartner.Text = "One partner may have more mutations";
+            cbBPMutationLimitOnlyOnePartner.UseVisualStyleBackColor = true;
+            cbBPMutationLimitOnlyOnePartner.CheckedChanged += cbMutationLimitOnlyOnePartner_CheckedChanged;
             // 
             // cbBPOnlyOneSuggestionForFemales
             // 
-            this.cbBPOnlyOneSuggestionForFemales.AutoSize = true;
-            this.cbBPOnlyOneSuggestionForFemales.Location = new System.Drawing.Point(6, 221);
-            this.cbBPOnlyOneSuggestionForFemales.Name = "cbBPOnlyOneSuggestionForFemales";
-            this.cbBPOnlyOneSuggestionForFemales.Size = new System.Drawing.Size(178, 17);
-            this.cbBPOnlyOneSuggestionForFemales.TabIndex = 7;
-            this.cbBPOnlyOneSuggestionForFemales.Text = "Only best suggestion for females";
-            this.cbBPOnlyOneSuggestionForFemales.UseVisualStyleBackColor = true;
-            this.cbBPOnlyOneSuggestionForFemales.CheckedChanged += new System.EventHandler(this.cbOnlyOneSuggestionForFemales_CheckedChanged);
+            cbBPOnlyOneSuggestionForFemales.AutoSize = true;
+            cbBPOnlyOneSuggestionForFemales.Location = new System.Drawing.Point(7, 255);
+            cbBPOnlyOneSuggestionForFemales.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbBPOnlyOneSuggestionForFemales.Name = "cbBPOnlyOneSuggestionForFemales";
+            cbBPOnlyOneSuggestionForFemales.Size = new System.Drawing.Size(199, 19);
+            cbBPOnlyOneSuggestionForFemales.TabIndex = 7;
+            cbBPOnlyOneSuggestionForFemales.Text = "Only best suggestion for females";
+            cbBPOnlyOneSuggestionForFemales.UseVisualStyleBackColor = true;
+            cbBPOnlyOneSuggestionForFemales.CheckedChanged += cbOnlyOneSuggestionForFemales_CheckedChanged;
             // 
             // cbBPIncludeCryoCreatures
             // 
-            this.cbBPIncludeCryoCreatures.AutoSize = true;
-            this.cbBPIncludeCryoCreatures.Location = new System.Drawing.Point(6, 111);
-            this.cbBPIncludeCryoCreatures.Name = "cbBPIncludeCryoCreatures";
-            this.cbBPIncludeCryoCreatures.Size = new System.Drawing.Size(167, 17);
-            this.cbBPIncludeCryoCreatures.TabIndex = 6;
-            this.cbBPIncludeCryoCreatures.Text = "Include Creatures in Cryopods";
-            this.cbBPIncludeCryoCreatures.UseVisualStyleBackColor = true;
-            this.cbBPIncludeCryoCreatures.CheckedChanged += new System.EventHandler(this.cbBPIncludeCryoCreatures_CheckedChanged);
+            cbBPIncludeCryoCreatures.AutoSize = true;
+            cbBPIncludeCryoCreatures.Location = new System.Drawing.Point(7, 128);
+            cbBPIncludeCryoCreatures.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbBPIncludeCryoCreatures.Name = "cbBPIncludeCryoCreatures";
+            cbBPIncludeCryoCreatures.Size = new System.Drawing.Size(185, 19);
+            cbBPIncludeCryoCreatures.TabIndex = 6;
+            cbBPIncludeCryoCreatures.Text = "Include Creatures in Cryopods";
+            cbBPIncludeCryoCreatures.UseVisualStyleBackColor = true;
+            cbBPIncludeCryoCreatures.CheckedChanged += cbBPIncludeCryoCreatures_CheckedChanged;
             // 
             // nudBPMutationLimit
             // 
-            this.nudBPMutationLimit.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudBPMutationLimit.Location = new System.Drawing.Point(162, 134);
-            this.nudBPMutationLimit.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nudBPMutationLimit.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.nudBPMutationLimit.Name = "nudBPMutationLimit";
-            this.nudBPMutationLimit.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudBPMutationLimit.Size = new System.Drawing.Size(50, 20);
-            this.nudBPMutationLimit.TabIndex = 4;
-            this.nudBPMutationLimit.ValueChanged += new System.EventHandler(this.nudMutationLimit_ValueChanged);
+            nudBPMutationLimit.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            nudBPMutationLimit.Location = new System.Drawing.Point(189, 155);
+            nudBPMutationLimit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudBPMutationLimit.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            nudBPMutationLimit.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
+            nudBPMutationLimit.Name = "nudBPMutationLimit";
+            nudBPMutationLimit.Size = new System.Drawing.Size(58, 23);
+            nudBPMutationLimit.TabIndex = 4;
+            nudBPMutationLimit.ValueChanged += nudMutationLimit_ValueChanged;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 136);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(150, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Creatures with Mutations up to";
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(7, 157);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(171, 15);
+            label2.TabIndex = 5;
+            label2.Text = "Creatures with Mutations up to";
             // 
             // cbBPIncludeCooldowneds
             // 
-            this.cbBPIncludeCooldowneds.AutoSize = true;
-            this.cbBPIncludeCooldowneds.Location = new System.Drawing.Point(6, 88);
-            this.cbBPIncludeCooldowneds.Name = "cbBPIncludeCooldowneds";
-            this.cbBPIncludeCooldowneds.Size = new System.Drawing.Size(181, 17);
-            this.cbBPIncludeCooldowneds.TabIndex = 3;
-            this.cbBPIncludeCooldowneds.Text = "Include Creatures with Cooldown";
-            this.cbBPIncludeCooldowneds.UseVisualStyleBackColor = true;
-            this.cbBPIncludeCooldowneds.CheckedChanged += new System.EventHandler(this.checkBoxIncludeCooldowneds_CheckedChanged);
+            cbBPIncludeCooldowneds.AutoSize = true;
+            cbBPIncludeCooldowneds.Location = new System.Drawing.Point(7, 102);
+            cbBPIncludeCooldowneds.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbBPIncludeCooldowneds.Name = "cbBPIncludeCooldowneds";
+            cbBPIncludeCooldowneds.Size = new System.Drawing.Size(202, 19);
+            cbBPIncludeCooldowneds.TabIndex = 3;
+            cbBPIncludeCooldowneds.Text = "Include Creatures with Cooldown";
+            cbBPIncludeCooldowneds.UseVisualStyleBackColor = true;
+            cbBPIncludeCooldowneds.CheckedChanged += checkBoxIncludeCooldowneds_CheckedChanged;
             // 
             // rbBPTopStatsCn
             // 
-            this.rbBPTopStatsCn.AutoSize = true;
-            this.rbBPTopStatsCn.Checked = true;
-            this.rbBPTopStatsCn.Location = new System.Drawing.Point(6, 19);
-            this.rbBPTopStatsCn.Name = "rbBPTopStatsCn";
-            this.rbBPTopStatsCn.Size = new System.Drawing.Size(115, 17);
-            this.rbBPTopStatsCn.TabIndex = 2;
-            this.rbBPTopStatsCn.TabStop = true;
-            this.rbBPTopStatsCn.Text = "Combine Top Stats";
-            this.rbBPTopStatsCn.UseVisualStyleBackColor = true;
-            this.rbBPTopStatsCn.CheckedChanged += new System.EventHandler(this.radioButtonBPTopStatsCn_CheckedChanged);
+            rbBPTopStatsCn.AutoSize = true;
+            rbBPTopStatsCn.Checked = true;
+            rbBPTopStatsCn.Location = new System.Drawing.Point(7, 22);
+            rbBPTopStatsCn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbBPTopStatsCn.Name = "rbBPTopStatsCn";
+            rbBPTopStatsCn.Size = new System.Drawing.Size(125, 19);
+            rbBPTopStatsCn.TabIndex = 2;
+            rbBPTopStatsCn.TabStop = true;
+            rbBPTopStatsCn.Text = "Combine Top Stats";
+            rbBPTopStatsCn.UseVisualStyleBackColor = true;
+            rbBPTopStatsCn.CheckedChanged += radioButtonBPTopStatsCn_CheckedChanged;
             // 
             // rbBPHighStats
             // 
-            this.rbBPHighStats.AutoSize = true;
-            this.rbBPHighStats.Location = new System.Drawing.Point(6, 65);
-            this.rbBPHighStats.Name = "rbBPHighStats";
-            this.rbBPHighStats.Size = new System.Drawing.Size(126, 17);
-            this.rbBPHighStats.TabIndex = 1;
-            this.rbBPHighStats.Text = "Best Next Generation";
-            this.rbBPHighStats.UseVisualStyleBackColor = true;
-            this.rbBPHighStats.CheckedChanged += new System.EventHandler(this.radioButtonBPHighStats_CheckedChanged);
+            rbBPHighStats.AutoSize = true;
+            rbBPHighStats.Location = new System.Drawing.Point(7, 75);
+            rbBPHighStats.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbBPHighStats.Name = "rbBPHighStats";
+            rbBPHighStats.Size = new System.Drawing.Size(135, 19);
+            rbBPHighStats.TabIndex = 1;
+            rbBPHighStats.Text = "Best Next Generation";
+            rbBPHighStats.UseVisualStyleBackColor = true;
+            rbBPHighStats.CheckedChanged += radioButtonBPHighStats_CheckedChanged;
             // 
             // rbBPTopStats
             // 
-            this.rbBPTopStats.AutoSize = true;
-            this.rbBPTopStats.Location = new System.Drawing.Point(6, 42);
-            this.rbBPTopStats.Name = "rbBPTopStats";
-            this.rbBPTopStats.Size = new System.Drawing.Size(86, 17);
-            this.rbBPTopStats.TabIndex = 0;
-            this.rbBPTopStats.Text = "Top Stats Lc";
-            this.rbBPTopStats.UseVisualStyleBackColor = true;
-            this.rbBPTopStats.CheckedChanged += new System.EventHandler(this.radioButtonBPTopStats_CheckedChanged);
+            rbBPTopStats.AutoSize = true;
+            rbBPTopStats.Location = new System.Drawing.Point(7, 48);
+            rbBPTopStats.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbBPTopStats.Name = "rbBPTopStats";
+            rbBPTopStats.Size = new System.Drawing.Size(88, 19);
+            rbBPTopStats.TabIndex = 0;
+            rbBPTopStats.Text = "Top Stats Lc";
+            rbBPTopStats.UseVisualStyleBackColor = true;
+            rbBPTopStats.CheckedChanged += radioButtonBPTopStats_CheckedChanged;
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPageBreedableSpecies);
-            this.tabControl1.Controls.Add(this.tabPageTags);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 3);
-            this.tabControl1.MinimumSize = new System.Drawing.Size(0, 200);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(238, 459);
-            this.tabControl1.TabIndex = 8;
+            tabControl1.Controls.Add(tabPageBreedableSpecies);
+            tabControl1.Controls.Add(tabPageTags);
+            tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControl1.Location = new System.Drawing.Point(4, 3);
+            tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabControl1.MinimumSize = new System.Drawing.Size(0, 231);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new System.Drawing.Size(277, 532);
+            tabControl1.TabIndex = 8;
             // 
             // tabPageBreedableSpecies
             // 
-            this.tabPageBreedableSpecies.Controls.Add(this.listViewSpeciesBP);
-            this.tabPageBreedableSpecies.Location = new System.Drawing.Point(4, 22);
-            this.tabPageBreedableSpecies.Name = "tabPageBreedableSpecies";
-            this.tabPageBreedableSpecies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageBreedableSpecies.Size = new System.Drawing.Size(230, 433);
-            this.tabPageBreedableSpecies.TabIndex = 0;
-            this.tabPageBreedableSpecies.Text = "Breedable Species";
-            this.tabPageBreedableSpecies.UseVisualStyleBackColor = false;
+            tabPageBreedableSpecies.Controls.Add(listViewSpeciesBP);
+            tabPageBreedableSpecies.Location = new System.Drawing.Point(4, 24);
+            tabPageBreedableSpecies.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageBreedableSpecies.Name = "tabPageBreedableSpecies";
+            tabPageBreedableSpecies.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageBreedableSpecies.Size = new System.Drawing.Size(269, 504);
+            tabPageBreedableSpecies.TabIndex = 0;
+            tabPageBreedableSpecies.Text = "Breedable Species";
             // 
             // listViewSpeciesBP
             // 
-            this.listViewSpeciesBP.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5});
-            this.listViewSpeciesBP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewSpeciesBP.FullRowSelect = true;
-            this.listViewSpeciesBP.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.listViewSpeciesBP.HideSelection = false;
-            this.listViewSpeciesBP.Location = new System.Drawing.Point(3, 3);
-            this.listViewSpeciesBP.MultiSelect = false;
-            this.listViewSpeciesBP.Name = "listViewSpeciesBP";
-            this.listViewSpeciesBP.Size = new System.Drawing.Size(224, 427);
-            this.listViewSpeciesBP.TabIndex = 3;
-            this.listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
-            this.listViewSpeciesBP.View = System.Windows.Forms.View.Details;
-            this.listViewSpeciesBP.SelectedIndexChanged += new System.EventHandler(this.listViewSpeciesBP_SelectedIndexChanged);
+            listViewSpeciesBP.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader5 });
+            listViewSpeciesBP.Dock = System.Windows.Forms.DockStyle.Fill;
+            listViewSpeciesBP.FullRowSelect = true;
+            listViewSpeciesBP.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            listViewSpeciesBP.Location = new System.Drawing.Point(4, 3);
+            listViewSpeciesBP.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            listViewSpeciesBP.MultiSelect = false;
+            listViewSpeciesBP.Name = "listViewSpeciesBP";
+            listViewSpeciesBP.Size = new System.Drawing.Size(261, 498);
+            listViewSpeciesBP.TabIndex = 3;
+            listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
+            listViewSpeciesBP.View = System.Windows.Forms.View.Details;
+            listViewSpeciesBP.SelectedIndexChanged += listViewSpeciesBP_SelectedIndexChanged;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "Species";
-            this.columnHeader5.Width = 178;
+            columnHeader5.Text = "Species";
+            columnHeader5.Width = 240;
             // 
             // tabPageTags
             // 
-            this.tabPageTags.Controls.Add(this.tableLayoutPanel3);
-            this.tabPageTags.Location = new System.Drawing.Point(4, 22);
-            this.tabPageTags.Name = "tabPageTags";
-            this.tabPageTags.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTags.Size = new System.Drawing.Size(230, 433);
-            this.tabPageTags.TabIndex = 1;
-            this.tabPageTags.Text = "Filters / Tags";
-            this.tabPageTags.UseVisualStyleBackColor = false;
+            tabPageTags.Controls.Add(tableLayoutPanel3);
+            tabPageTags.Location = new System.Drawing.Point(4, 24);
+            tabPageTags.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageTags.Name = "tabPageTags";
+            tabPageTags.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageTags.Size = new System.Drawing.Size(269, 504);
+            tabPageTags.TabIndex = 1;
+            tabPageTags.Text = "Filters / Tags";
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.cbTribeFilterLibrary, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.cbOwnerFilterLibrary, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.tagSelectorList1, 0, 5);
-            this.tableLayoutPanel3.Controls.Add(this.cbBPTagExcludeDefault, 0, 4);
-            this.tableLayoutPanel3.Controls.Add(this.cbServerFilterLibrary, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.label1, 0, 3);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 6;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(224, 427);
-            this.tableLayoutPanel3.TabIndex = 7;
+            tableLayoutPanel3.ColumnCount = 1;
+            tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel3.Controls.Add(cbTribeFilterLibrary, 0, 1);
+            tableLayoutPanel3.Controls.Add(cbOwnerFilterLibrary, 0, 0);
+            tableLayoutPanel3.Controls.Add(tagSelectorList1, 0, 5);
+            tableLayoutPanel3.Controls.Add(cbBPTagExcludeDefault, 0, 4);
+            tableLayoutPanel3.Controls.Add(cbServerFilterLibrary, 0, 2);
+            tableLayoutPanel3.Controls.Add(label1, 0, 3);
+            tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel3.Location = new System.Drawing.Point(4, 3);
+            tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 6;
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new System.Drawing.Size(261, 498);
+            tableLayoutPanel3.TabIndex = 7;
             // 
             // cbTribeFilterLibrary
             // 
-            this.cbTribeFilterLibrary.AutoSize = true;
-            this.cbTribeFilterLibrary.Location = new System.Drawing.Point(3, 26);
-            this.cbTribeFilterLibrary.Name = "cbTribeFilterLibrary";
-            this.cbTribeFilterLibrary.Size = new System.Drawing.Size(129, 17);
-            this.cbTribeFilterLibrary.TabIndex = 7;
-            this.cbTribeFilterLibrary.Text = "Tribe filter from Library";
-            this.cbTribeFilterLibrary.UseVisualStyleBackColor = true;
-            this.cbTribeFilterLibrary.CheckedChanged += new System.EventHandler(this.cbTribeFilterLibrary_CheckedChanged);
+            cbTribeFilterLibrary.AutoSize = true;
+            cbTribeFilterLibrary.Location = new System.Drawing.Point(4, 28);
+            cbTribeFilterLibrary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbTribeFilterLibrary.Name = "cbTribeFilterLibrary";
+            cbTribeFilterLibrary.Size = new System.Drawing.Size(147, 19);
+            cbTribeFilterLibrary.TabIndex = 7;
+            cbTribeFilterLibrary.Text = "Tribe filter from Library";
+            cbTribeFilterLibrary.UseVisualStyleBackColor = true;
+            cbTribeFilterLibrary.CheckedChanged += cbTribeFilterLibrary_CheckedChanged;
             // 
             // cbOwnerFilterLibrary
             // 
-            this.cbOwnerFilterLibrary.AutoSize = true;
-            this.cbOwnerFilterLibrary.Location = new System.Drawing.Point(3, 3);
-            this.cbOwnerFilterLibrary.Name = "cbOwnerFilterLibrary";
-            this.cbOwnerFilterLibrary.Size = new System.Drawing.Size(136, 17);
-            this.cbOwnerFilterLibrary.TabIndex = 6;
-            this.cbOwnerFilterLibrary.Text = "Owner filter from Library";
-            this.cbOwnerFilterLibrary.UseVisualStyleBackColor = true;
-            this.cbOwnerFilterLibrary.CheckedChanged += new System.EventHandler(this.cbOwnerFilterLibrary_CheckedChanged);
+            cbOwnerFilterLibrary.AutoSize = true;
+            cbOwnerFilterLibrary.Location = new System.Drawing.Point(4, 3);
+            cbOwnerFilterLibrary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbOwnerFilterLibrary.Name = "cbOwnerFilterLibrary";
+            cbOwnerFilterLibrary.Size = new System.Drawing.Size(156, 19);
+            cbOwnerFilterLibrary.TabIndex = 6;
+            cbOwnerFilterLibrary.Text = "Owner filter from Library";
+            cbOwnerFilterLibrary.UseVisualStyleBackColor = true;
+            cbOwnerFilterLibrary.CheckedChanged += cbOwnerFilterLibrary_CheckedChanged;
             // 
             // tagSelectorList1
             // 
-            this.tagSelectorList1.AutoScroll = true;
-            this.tagSelectorList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tagSelectorList1.Location = new System.Drawing.Point(6, 167);
-            this.tagSelectorList1.Margin = new System.Windows.Forms.Padding(6);
-            this.tagSelectorList1.Name = "tagSelectorList1";
-            this.tagSelectorList1.Size = new System.Drawing.Size(212, 254);
-            this.tagSelectorList1.TabIndex = 3;
+            tagSelectorList1.AutoScroll = true;
+            tagSelectorList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tagSelectorList1.Location = new System.Drawing.Point(7, 187);
+            tagSelectorList1.Margin = new System.Windows.Forms.Padding(7);
+            tagSelectorList1.Name = "tagSelectorList1";
+            tagSelectorList1.Size = new System.Drawing.Size(247, 304);
+            tagSelectorList1.TabIndex = 3;
             // 
             // cbBPTagExcludeDefault
             // 
-            this.cbBPTagExcludeDefault.AutoSize = true;
-            this.cbBPTagExcludeDefault.Location = new System.Drawing.Point(3, 141);
-            this.cbBPTagExcludeDefault.Name = "cbBPTagExcludeDefault";
-            this.cbBPTagExcludeDefault.Size = new System.Drawing.Size(160, 17);
-            this.cbBPTagExcludeDefault.TabIndex = 4;
-            this.cbBPTagExcludeDefault.Text = "Exclude creatures by default";
-            this.cbBPTagExcludeDefault.UseVisualStyleBackColor = true;
-            this.cbBPTagExcludeDefault.CheckedChanged += new System.EventHandler(this.cbTagExcludeDefault_CheckedChanged);
+            cbBPTagExcludeDefault.AutoSize = true;
+            cbBPTagExcludeDefault.Location = new System.Drawing.Point(4, 158);
+            cbBPTagExcludeDefault.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbBPTagExcludeDefault.Name = "cbBPTagExcludeDefault";
+            cbBPTagExcludeDefault.Size = new System.Drawing.Size(173, 19);
+            cbBPTagExcludeDefault.TabIndex = 4;
+            cbBPTagExcludeDefault.Text = "Exclude creatures by default";
+            cbBPTagExcludeDefault.UseVisualStyleBackColor = true;
+            cbBPTagExcludeDefault.CheckedChanged += cbTagExcludeDefault_CheckedChanged;
             // 
             // cbServerFilterLibrary
             // 
-            this.cbServerFilterLibrary.AutoSize = true;
-            this.cbServerFilterLibrary.Location = new System.Drawing.Point(3, 49);
-            this.cbServerFilterLibrary.Name = "cbServerFilterLibrary";
-            this.cbServerFilterLibrary.Size = new System.Drawing.Size(136, 17);
-            this.cbServerFilterLibrary.TabIndex = 5;
-            this.cbServerFilterLibrary.Text = "Server filter from Library";
-            this.cbServerFilterLibrary.UseVisualStyleBackColor = true;
-            this.cbServerFilterLibrary.CheckedChanged += new System.EventHandler(this.cbServerFilterLibrary_CheckedChanged);
+            cbServerFilterLibrary.AutoSize = true;
+            cbServerFilterLibrary.Location = new System.Drawing.Point(4, 53);
+            cbServerFilterLibrary.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbServerFilterLibrary.Name = "cbServerFilterLibrary";
+            cbServerFilterLibrary.Size = new System.Drawing.Size(153, 19);
+            cbServerFilterLibrary.TabIndex = 5;
+            cbServerFilterLibrary.Text = "Server filter from Library";
+            cbServerFilterLibrary.UseVisualStyleBackColor = true;
+            cbServerFilterLibrary.CheckedChanged += cbServerFilterLibrary_CheckedChanged;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(3, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(174, 69);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Consider creatures by tag. \r\n✕ excludes creatures, ✓ includes creatures (even if " +
-    "they have an exclusive tag). Add tags in the library with F3.";
+            label1.Location = new System.Drawing.Point(4, 75);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(203, 80);
+            label1.TabIndex = 2;
+            label1.Text = "Consider creatures by tag. \r\n✕ excludes creatures, ✓ includes creatures (even if they have an exclusive tag). Add tags in the library with F3.";
             // 
             // statWeighting1
             // 
-            this.statWeighting1.AnyOddEven = new ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd[] {
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent,
-        ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd.Indifferent};
-            this.statWeighting1.CustomWeightings = ((System.Collections.Generic.Dictionary<string, System.ValueTuple<double[], ARKBreedingStats.uiControls.StatWeighting.StatValueEvenOdd[]>>)(resources.GetObject("statWeighting1.CustomWeightings")));
-            this.statWeighting1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statWeighting1.Location = new System.Drawing.Point(6, 758);
-            this.statWeighting1.Margin = new System.Windows.Forms.Padding(6);
-            this.statWeighting1.Name = "statWeighting1";
-            this.statWeighting1.Size = new System.Drawing.Size(232, 253);
-            this.statWeighting1.TabIndex = 7;
-            this.statWeighting1.WeightValues = new double[] {
-        1D,
-        1D,
-        0D,
-        1D,
-        1D,
-        0D,
-        0D,
-        1D,
-        1D,
-        1D,
-        0D,
-        1D};
+            statWeighting1.Dock = System.Windows.Forms.DockStyle.Fill;
+            statWeighting1.Location = new System.Drawing.Point(7, 875);
+            statWeighting1.Margin = new System.Windows.Forms.Padding(7);
+            statWeighting1.Name = "statWeighting1";
+            statWeighting1.Size = new System.Drawing.Size(271, 292);
+            statWeighting1.TabIndex = 7;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbBPOffspring, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panelCombinations, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(253, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 208F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1476, 1017);
-            this.tableLayoutPanel1.TabIndex = 4;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 0, 0);
+            tableLayoutPanel1.Controls.Add(gbBPOffspring, 0, 2);
+            tableLayoutPanel1.Controls.Add(panelCombinations, 0, 1);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(297, 3);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 240F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(1720, 1174);
+            tableLayoutPanel1.TabIndex = 4;
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.AutoSize = true;
-            this.flowLayoutPanel1.Controls.Add(this.lbBreedingPlanHeader);
-            this.flowLayoutPanel1.Controls.Add(this.pedigreeCreatureBestPossibleInSpecies);
-            this.flowLayoutPanel1.Controls.Add(this.btShowAllCreatures);
-            this.flowLayoutPanel1.Controls.Add(this.BtRecalculatePlan);
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Controls.Add(this.pedigreeCreatureBestPossibleInSpeciesFiltered);
-            this.flowLayoutPanel1.Controls.Add(this.pedigreeCreature1);
-            this.flowLayoutPanel1.Controls.Add(this.lbBPBreedingScore);
-            this.flowLayoutPanel1.Controls.Add(this.pedigreeCreature2);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1470, 179);
-            this.flowLayoutPanel1.TabIndex = 5;
+            flowLayoutPanel1.AutoSize = true;
+            flowLayoutPanel1.Controls.Add(lbBreedingPlanHeader);
+            flowLayoutPanel1.Controls.Add(pedigreeCreatureBestPossibleInSpecies);
+            flowLayoutPanel1.Controls.Add(btShowAllCreatures);
+            flowLayoutPanel1.Controls.Add(BtRecalculatePlan);
+            flowLayoutPanel1.Controls.Add(panel1);
+            flowLayoutPanel1.Controls.Add(pedigreeCreatureBestPossibleInSpeciesFiltered);
+            flowLayoutPanel1.Controls.Add(pedigreeCreature1);
+            flowLayoutPanel1.Controls.Add(lbBPBreedingScore);
+            flowLayoutPanel1.Controls.Add(pedigreeCreature2);
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel1.Location = new System.Drawing.Point(4, 3);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(1712, 205);
+            flowLayoutPanel1.TabIndex = 5;
             // 
             // lbBreedingPlanHeader
             // 
-            this.lbBreedingPlanHeader.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.lbBreedingPlanHeader, true);
-            this.lbBreedingPlanHeader.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBreedingPlanHeader.Location = new System.Drawing.Point(3, 0);
-            this.lbBreedingPlanHeader.MinimumSize = new System.Drawing.Size(700, 0);
-            this.lbBreedingPlanHeader.Name = "lbBreedingPlanHeader";
-            this.lbBreedingPlanHeader.Size = new System.Drawing.Size(700, 20);
-            this.lbBreedingPlanHeader.TabIndex = 1;
-            this.lbBreedingPlanHeader.Text = "Select a species and click on \"Determine Best Breeding\" to see suggestions";
-            this.lbBreedingPlanHeader.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            lbBreedingPlanHeader.AutoSize = true;
+            flowLayoutPanel1.SetFlowBreak(lbBreedingPlanHeader, true);
+            lbBreedingPlanHeader.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lbBreedingPlanHeader.Location = new System.Drawing.Point(4, 0);
+            lbBreedingPlanHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbBreedingPlanHeader.MinimumSize = new System.Drawing.Size(817, 0);
+            lbBreedingPlanHeader.Name = "lbBreedingPlanHeader";
+            lbBreedingPlanHeader.Size = new System.Drawing.Size(817, 21);
+            lbBreedingPlanHeader.TabIndex = 1;
+            lbBreedingPlanHeader.Text = "Select a species and click on \"Determine Best Breeding\" to see suggestions";
+            lbBreedingPlanHeader.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // pedigreeCreatureBestPossibleInSpecies
             // 
-            this.pedigreeCreatureBestPossibleInSpecies.Creature = null;
-            this.pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(6, 53);
-            this.pedigreeCreatureBestPossibleInSpecies.Margin = new System.Windows.Forms.Padding(6);
-            this.pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
-            this.pedigreeCreatureBestPossibleInSpecies.OnlyLevels = false;
-            this.pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
-            this.pedigreeCreatureBestPossibleInSpecies.TotalLevelUnknown = false;
+            pedigreeCreatureBestPossibleInSpecies.Location = new System.Drawing.Point(7, 61);
+            pedigreeCreatureBestPossibleInSpecies.Margin = new System.Windows.Forms.Padding(7);
+            pedigreeCreatureBestPossibleInSpecies.Name = "pedigreeCreatureBestPossibleInSpecies";
+            pedigreeCreatureBestPossibleInSpecies.Size = new System.Drawing.Size(379, 40);
+            pedigreeCreatureBestPossibleInSpecies.TabIndex = 5;
             // 
             // btShowAllCreatures
             // 
-            this.btShowAllCreatures.Location = new System.Drawing.Point(432, 50);
-            this.btShowAllCreatures.Margin = new System.Windows.Forms.Padding(95, 3, 3, 3);
-            this.btShowAllCreatures.Name = "btShowAllCreatures";
-            this.btShowAllCreatures.Size = new System.Drawing.Size(297, 35);
-            this.btShowAllCreatures.TabIndex = 6;
-            this.btShowAllCreatures.Text = "Unset restriction to …";
-            this.btShowAllCreatures.UseVisualStyleBackColor = true;
-            this.btShowAllCreatures.Click += new System.EventHandler(this.btShowAllCreatures_Click);
-            // 
-            // panel1
-            // 
-            this.flowLayoutPanel1.SetFlowBreak(this.panel1, true);
-            this.panel1.Location = new System.Drawing.Point(919, 50);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(10, 32);
-            this.panel1.TabIndex = 7;
-            // 
-            // pedigreeCreatureBestPossibleInSpeciesFiltered
-            // 
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.Creature = null;
-            this.flowLayoutPanel1.SetFlowBreak(this.pedigreeCreatureBestPossibleInSpeciesFiltered, true);
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.Location = new System.Drawing.Point(6, 100);
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.Margin = new System.Windows.Forms.Padding(6);
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.Name = "pedigreeCreatureBestPossibleInSpeciesFiltered";
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.OnlyLevels = false;
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.TabIndex = 8;
-            this.pedigreeCreatureBestPossibleInSpeciesFiltered.TotalLevelUnknown = false;
-            // 
-            // pedigreeCreature1
-            // 
-            this.pedigreeCreature1.Creature = null;
-            this.pedigreeCreature1.Location = new System.Drawing.Point(3, 141);
-            this.pedigreeCreature1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.pedigreeCreature1.Name = "pedigreeCreature1";
-            this.pedigreeCreature1.OnlyLevels = false;
-            this.pedigreeCreature1.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreature1.TabIndex = 2;
-            this.pedigreeCreature1.TotalLevelUnknown = false;
-            // 
-            // lbBPBreedingScore
-            // 
-            this.lbBPBreedingScore.Location = new System.Drawing.Point(334, 156);
-            this.lbBPBreedingScore.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
-            this.lbBPBreedingScore.Name = "lbBPBreedingScore";
-            this.lbBPBreedingScore.Size = new System.Drawing.Size(87, 20);
-            this.lbBPBreedingScore.TabIndex = 4;
-            this.lbBPBreedingScore.Text = "Breeding-Score";
-            // 
-            // pedigreeCreature2
-            // 
-            this.pedigreeCreature2.Creature = null;
-            this.pedigreeCreature2.Location = new System.Drawing.Point(427, 141);
-            this.pedigreeCreature2.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.pedigreeCreature2.Name = "pedigreeCreature2";
-            this.pedigreeCreature2.OnlyLevels = false;
-            this.pedigreeCreature2.Size = new System.Drawing.Size(325, 35);
-            this.pedigreeCreature2.TabIndex = 3;
-            this.pedigreeCreature2.TotalLevelUnknown = false;
-            // 
-            // gbBPOffspring
-            // 
-            this.gbBPOffspring.Controls.Add(this.tableLayoutPanel2);
-            this.gbBPOffspring.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbBPOffspring.Location = new System.Drawing.Point(3, 812);
-            this.gbBPOffspring.Name = "gbBPOffspring";
-            this.gbBPOffspring.Size = new System.Drawing.Size(1470, 202);
-            this.gbBPOffspring.TabIndex = 2;
-            this.gbBPOffspring.TabStop = false;
-            this.gbBPOffspring.Text = "Offspring";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel2, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel6, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1464, 183);
-            this.tableLayoutPanel2.TabIndex = 9;
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.labelBreedingInfos, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.listViewRaisingTimes, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.lbBPBreedingTimes, 0, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(626, 3);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(847, 177);
-            this.tableLayoutPanel4.TabIndex = 0;
-            // 
-            // labelBreedingInfos
-            // 
-            this.labelBreedingInfos.AutoSize = true;
-            this.labelBreedingInfos.Location = new System.Drawing.Point(3, 121);
-            this.labelBreedingInfos.Name = "labelBreedingInfos";
-            this.labelBreedingInfos.Size = new System.Drawing.Size(75, 13);
-            this.labelBreedingInfos.TabIndex = 7;
-            this.labelBreedingInfos.Text = "Breeding Infos";
-            // 
-            // listViewRaisingTimes
-            // 
-            this.listViewRaisingTimes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.listViewRaisingTimes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listViewRaisingTimes.HideSelection = false;
-            this.listViewRaisingTimes.Location = new System.Drawing.Point(3, 20);
-            this.listViewRaisingTimes.Name = "listViewRaisingTimes";
-            this.listViewRaisingTimes.ShowGroups = false;
-            this.listViewRaisingTimes.Size = new System.Drawing.Size(351, 98);
-            this.listViewRaisingTimes.TabIndex = 4;
-            this.listViewRaisingTimes.UseCompatibleStateImageBehavior = false;
-            this.listViewRaisingTimes.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "";
-            this.columnHeader1.Width = 70;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Time";
-            this.columnHeader2.Width = 70;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Total Time";
-            this.columnHeader3.Width = 70;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Finished at";
-            this.columnHeader4.Width = 103;
-            // 
-            // lbBPBreedingTimes
-            // 
-            this.lbBPBreedingTimes.AutoSize = true;
-            this.lbBPBreedingTimes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBPBreedingTimes.Location = new System.Drawing.Point(3, 0);
-            this.lbBPBreedingTimes.Name = "lbBPBreedingTimes";
-            this.lbBPBreedingTimes.Size = new System.Drawing.Size(121, 17);
-            this.lbBPBreedingTimes.TabIndex = 3;
-            this.lbBPBreedingTimes.Text = "Breeding Times";
-            // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Controls.Add(this.lbBPProbabilityBest);
-            this.flowLayoutPanel2.Controls.Add(this.pedigreeCreatureBest);
-            this.flowLayoutPanel2.Controls.Add(this.pedigreeCreatureWorst);
-            this.flowLayoutPanel2.Controls.Add(this.lbMutationProbability);
-            this.flowLayoutPanel2.Controls.Add(this.btBPJustMated);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(352, 177);
-            this.flowLayoutPanel2.TabIndex = 8;
-            // 
-            // lbBPProbabilityBest
-            // 
-            this.lbBPProbabilityBest.AutoSize = true;
-            this.flowLayoutPanel2.SetFlowBreak(this.lbBPProbabilityBest, true);
-            this.lbBPProbabilityBest.Location = new System.Drawing.Point(3, 0);
-            this.lbBPProbabilityBest.Name = "lbBPProbabilityBest";
-            this.lbBPProbabilityBest.Size = new System.Drawing.Size(202, 13);
-            this.lbBPProbabilityBest.TabIndex = 6;
-            this.lbBPProbabilityBest.Text = "Probability for this Best Possible outcome:";
-            // 
-            // pedigreeCreatureBest
-            // 
-            this.pedigreeCreatureBest.Creature = null;
-            this.pedigreeCreatureBest.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureBest, true);
-            this.pedigreeCreatureBest.Location = new System.Drawing.Point(6, 19);
-            this.pedigreeCreatureBest.Margin = new System.Windows.Forms.Padding(6);
-            this.pedigreeCreatureBest.Name = "pedigreeCreatureBest";
-            this.pedigreeCreatureBest.OnlyLevels = false;
-            this.pedigreeCreatureBest.Size = new System.Drawing.Size(325, 48);
-            this.pedigreeCreatureBest.TabIndex = 1;
-            this.pedigreeCreatureBest.TotalLevelUnknown = false;
-            // 
-            // pedigreeCreatureWorst
-            // 
-            this.pedigreeCreatureWorst.Creature = null;
-            this.pedigreeCreatureWorst.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.flowLayoutPanel2.SetFlowBreak(this.pedigreeCreatureWorst, true);
-            this.pedigreeCreatureWorst.Location = new System.Drawing.Point(6, 79);
-            this.pedigreeCreatureWorst.Margin = new System.Windows.Forms.Padding(6);
-            this.pedigreeCreatureWorst.Name = "pedigreeCreatureWorst";
-            this.pedigreeCreatureWorst.OnlyLevels = false;
-            this.pedigreeCreatureWorst.Size = new System.Drawing.Size(325, 48);
-            this.pedigreeCreatureWorst.TabIndex = 2;
-            this.pedigreeCreatureWorst.TotalLevelUnknown = false;
-            // 
-            // lbMutationProbability
-            // 
-            this.lbMutationProbability.AutoSize = true;
-            this.flowLayoutPanel2.SetFlowBreak(this.lbMutationProbability, true);
-            this.lbMutationProbability.Location = new System.Drawing.Point(3, 133);
-            this.lbMutationProbability.Name = "lbMutationProbability";
-            this.lbMutationProbability.Size = new System.Drawing.Size(115, 13);
-            this.lbMutationProbability.TabIndex = 7;
-            this.lbMutationProbability.Text = "Probability of mutations";
-            // 
-            // btBPJustMated
-            // 
-            this.btBPJustMated.Location = new System.Drawing.Point(3, 149);
-            this.btBPJustMated.Name = "btBPJustMated";
-            this.btBPJustMated.Size = new System.Drawing.Size(325, 29);
-            this.btBPJustMated.TabIndex = 0;
-            this.btBPJustMated.Text = "These Parents just mated";
-            this.btBPJustMated.UseVisualStyleBackColor = true;
-            this.btBPJustMated.Click += new System.EventHandler(this.buttonJustMated_Click);
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.AutoSize = true;
-            this.tableLayoutPanel6.ColumnCount = 1;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel6.Controls.Add(this.offspringPossibilities1, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.LbMinTotalLevelTopStats, 0, 1);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(361, 3);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 2;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(259, 177);
-            this.tableLayoutPanel6.TabIndex = 8;
-            // 
-            // offspringPossibilities1
-            // 
-            this.offspringPossibilities1.Location = new System.Drawing.Point(6, 6);
-            this.offspringPossibilities1.Margin = new System.Windows.Forms.Padding(6);
-            this.offspringPossibilities1.Name = "offspringPossibilities1";
-            this.offspringPossibilities1.Size = new System.Drawing.Size(247, 134);
-            this.offspringPossibilities1.TabIndex = 1;
-            // 
-            // LbMinTotalLevelTopStats
-            // 
-            this.LbMinTotalLevelTopStats.AutoSize = true;
-            this.LbMinTotalLevelTopStats.Location = new System.Drawing.Point(3, 146);
-            this.LbMinTotalLevelTopStats.Name = "LbMinTotalLevelTopStats";
-            this.LbMinTotalLevelTopStats.Size = new System.Drawing.Size(0, 13);
-            this.LbMinTotalLevelTopStats.TabIndex = 2;
-            // 
-            // panelCombinations
-            // 
-            this.panelCombinations.Controls.Add(this.lbBreedingPlanInfo);
-            this.panelCombinations.Controls.Add(this.flowLayoutPanelPairs);
-            this.panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCombinations.Location = new System.Drawing.Point(3, 188);
-            this.panelCombinations.Name = "panelCombinations";
-            this.panelCombinations.Size = new System.Drawing.Size(1470, 618);
-            this.panelCombinations.TabIndex = 3;
-            // 
-            // lbBreedingPlanInfo
-            // 
-            this.lbBreedingPlanInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBreedingPlanInfo.Location = new System.Drawing.Point(10, 75);
-            this.lbBreedingPlanInfo.Name = "lbBreedingPlanInfo";
-            this.lbBreedingPlanInfo.Size = new System.Drawing.Size(683, 193);
-            this.lbBreedingPlanInfo.TabIndex = 0;
-            this.lbBreedingPlanInfo.Text = "Infotext";
-            this.lbBreedingPlanInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbBreedingPlanInfo.Visible = false;
-            // 
-            // flowLayoutPanelPairs
-            // 
-            this.flowLayoutPanelPairs.AutoScroll = true;
-            this.flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
-            this.flowLayoutPanelPairs.Size = new System.Drawing.Size(1470, 618);
-            this.flowLayoutPanelPairs.TabIndex = 1;
+            btShowAllCreatures.Location = new System.Drawing.Point(504, 57);
+            btShowAllCreatures.Margin = new System.Windows.Forms.Padding(111, 3, 4, 3);
+            btShowAllCreatures.Name = "btShowAllCreatures";
+            btShowAllCreatures.Size = new System.Drawing.Size(346, 40);
+            btShowAllCreatures.TabIndex = 6;
+            btShowAllCreatures.Text = "Unset restriction to …";
+            btShowAllCreatures.UseVisualStyleBackColor = true;
+            btShowAllCreatures.Click += btShowAllCreatures_Click;
             // 
             // BtRecalculatePlan
             // 
-            this.BtRecalculatePlan.Location = new System.Drawing.Point(735, 50);
-            this.BtRecalculatePlan.Name = "BtRecalculatePlan";
-            this.BtRecalculatePlan.Size = new System.Drawing.Size(178, 35);
-            this.BtRecalculatePlan.TabIndex = 9;
-            this.BtRecalculatePlan.Text = "Library changed, recalculate plan";
-            this.BtRecalculatePlan.UseVisualStyleBackColor = true;
-            this.BtRecalculatePlan.Click += new System.EventHandler(this.BtRecalculatePlan_Click);
+            BtRecalculatePlan.Location = new System.Drawing.Point(858, 57);
+            BtRecalculatePlan.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtRecalculatePlan.Name = "BtRecalculatePlan";
+            BtRecalculatePlan.Size = new System.Drawing.Size(208, 40);
+            BtRecalculatePlan.TabIndex = 9;
+            BtRecalculatePlan.Text = "Library changed, recalculate plan";
+            BtRecalculatePlan.UseVisualStyleBackColor = true;
+            BtRecalculatePlan.Click += BtRecalculatePlan_Click;
+            // 
+            // panel1
+            // 
+            flowLayoutPanel1.SetFlowBreak(panel1, true);
+            panel1.Location = new System.Drawing.Point(1074, 57);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(12, 37);
+            panel1.TabIndex = 7;
+            // 
+            // pedigreeCreatureBestPossibleInSpeciesFiltered
+            // 
+            flowLayoutPanel1.SetFlowBreak(pedigreeCreatureBestPossibleInSpeciesFiltered, true);
+            pedigreeCreatureBestPossibleInSpeciesFiltered.Location = new System.Drawing.Point(7, 115);
+            pedigreeCreatureBestPossibleInSpeciesFiltered.Margin = new System.Windows.Forms.Padding(7);
+            pedigreeCreatureBestPossibleInSpeciesFiltered.Name = "pedigreeCreatureBestPossibleInSpeciesFiltered";
+            pedigreeCreatureBestPossibleInSpeciesFiltered.Size = new System.Drawing.Size(379, 40);
+            pedigreeCreatureBestPossibleInSpeciesFiltered.TabIndex = 8;
+            // 
+            // pedigreeCreature1
+            // 
+            pedigreeCreature1.Location = new System.Drawing.Point(4, 162);
+            pedigreeCreature1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 3);
+            pedigreeCreature1.Name = "pedigreeCreature1";
+            pedigreeCreature1.Size = new System.Drawing.Size(379, 40);
+            pedigreeCreature1.TabIndex = 2;
+            // 
+            // lbBPBreedingScore
+            // 
+            lbBPBreedingScore.Location = new System.Drawing.Point(391, 179);
+            lbBPBreedingScore.Margin = new System.Windows.Forms.Padding(4, 17, 4, 0);
+            lbBPBreedingScore.Name = "lbBPBreedingScore";
+            lbBPBreedingScore.Size = new System.Drawing.Size(102, 23);
+            lbBPBreedingScore.TabIndex = 4;
+            lbBPBreedingScore.Text = "Breeding-Score";
+            // 
+            // pedigreeCreature2
+            // 
+            pedigreeCreature2.Location = new System.Drawing.Point(501, 162);
+            pedigreeCreature2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 3);
+            pedigreeCreature2.Name = "pedigreeCreature2";
+            pedigreeCreature2.Size = new System.Drawing.Size(379, 40);
+            pedigreeCreature2.TabIndex = 3;
+            // 
+            // gbBPOffspring
+            // 
+            gbBPOffspring.Controls.Add(tableLayoutPanel2);
+            gbBPOffspring.Dock = System.Windows.Forms.DockStyle.Fill;
+            gbBPOffspring.Location = new System.Drawing.Point(4, 937);
+            gbBPOffspring.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbBPOffspring.Name = "gbBPOffspring";
+            gbBPOffspring.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbBPOffspring.Size = new System.Drawing.Size(1712, 234);
+            gbBPOffspring.TabIndex = 2;
+            gbBPOffspring.TabStop = false;
+            gbBPOffspring.Text = "Offspring";
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel4, 2, 0);
+            tableLayoutPanel2.Controls.Add(flowLayoutPanel2, 0, 0);
+            tableLayoutPanel2.Controls.Add(tableLayoutPanel6, 1, 0);
+            tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel2.Location = new System.Drawing.Point(4, 19);
+            tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new System.Drawing.Size(1704, 212);
+            tableLayoutPanel2.TabIndex = 9;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 1;
+            tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel4.Controls.Add(labelBreedingInfos, 0, 2);
+            tableLayoutPanel4.Controls.Add(listViewRaisingTimes, 0, 1);
+            tableLayoutPanel4.Controls.Add(lbBPBreedingTimes, 0, 0);
+            tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel4.Location = new System.Drawing.Point(733, 3);
+            tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 3;
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel4.Size = new System.Drawing.Size(988, 206);
+            tableLayoutPanel4.TabIndex = 0;
+            // 
+            // labelBreedingInfos
+            // 
+            labelBreedingInfos.AutoSize = true;
+            labelBreedingInfos.Location = new System.Drawing.Point(4, 137);
+            labelBreedingInfos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            labelBreedingInfos.Name = "labelBreedingInfos";
+            labelBreedingInfos.Size = new System.Drawing.Size(83, 15);
+            labelBreedingInfos.TabIndex = 7;
+            labelBreedingInfos.Text = "Breeding Infos";
+            // 
+            // listViewRaisingTimes
+            // 
+            listViewRaisingTimes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
+            listViewRaisingTimes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            listViewRaisingTimes.Location = new System.Drawing.Point(4, 22);
+            listViewRaisingTimes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            listViewRaisingTimes.Name = "listViewRaisingTimes";
+            listViewRaisingTimes.ShowGroups = false;
+            listViewRaisingTimes.Size = new System.Drawing.Size(409, 112);
+            listViewRaisingTimes.TabIndex = 4;
+            listViewRaisingTimes.UseCompatibleStateImageBehavior = false;
+            listViewRaisingTimes.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "";
+            columnHeader1.Width = 70;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Time";
+            columnHeader2.Width = 70;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Total Time";
+            columnHeader3.Width = 70;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Finished at";
+            columnHeader4.Width = 103;
+            // 
+            // lbBPBreedingTimes
+            // 
+            lbBPBreedingTimes.AutoSize = true;
+            lbBPBreedingTimes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            lbBPBreedingTimes.Location = new System.Drawing.Point(4, 0);
+            lbBPBreedingTimes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbBPBreedingTimes.Name = "lbBPBreedingTimes";
+            lbBPBreedingTimes.Size = new System.Drawing.Size(113, 19);
+            lbBPBreedingTimes.TabIndex = 3;
+            lbBPBreedingTimes.Text = "Breeding Times";
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Controls.Add(lbBPProbabilityBest);
+            flowLayoutPanel2.Controls.Add(pedigreeCreatureBest);
+            flowLayoutPanel2.Controls.Add(pedigreeCreatureWorst);
+            flowLayoutPanel2.Controls.Add(lbMutationProbability);
+            flowLayoutPanel2.Controls.Add(btBPJustMated);
+            flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel2.Location = new System.Drawing.Point(4, 3);
+            flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new System.Drawing.Size(411, 206);
+            flowLayoutPanel2.TabIndex = 8;
+            // 
+            // lbBPProbabilityBest
+            // 
+            lbBPProbabilityBest.AutoSize = true;
+            flowLayoutPanel2.SetFlowBreak(lbBPProbabilityBest, true);
+            lbBPProbabilityBest.Location = new System.Drawing.Point(4, 0);
+            lbBPProbabilityBest.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbBPProbabilityBest.Name = "lbBPProbabilityBest";
+            lbBPProbabilityBest.Size = new System.Drawing.Size(229, 15);
+            lbBPProbabilityBest.TabIndex = 6;
+            lbBPProbabilityBest.Text = "Probability for this Best Possible outcome:";
+            // 
+            // pedigreeCreatureBest
+            // 
+            pedigreeCreatureBest.Cursor = System.Windows.Forms.Cursors.Hand;
+            flowLayoutPanel2.SetFlowBreak(pedigreeCreatureBest, true);
+            pedigreeCreatureBest.Location = new System.Drawing.Point(7, 22);
+            pedigreeCreatureBest.Margin = new System.Windows.Forms.Padding(7);
+            pedigreeCreatureBest.Name = "pedigreeCreatureBest";
+            pedigreeCreatureBest.Size = new System.Drawing.Size(379, 55);
+            pedigreeCreatureBest.TabIndex = 1;
+            // 
+            // pedigreeCreatureWorst
+            // 
+            pedigreeCreatureWorst.Cursor = System.Windows.Forms.Cursors.Hand;
+            flowLayoutPanel2.SetFlowBreak(pedigreeCreatureWorst, true);
+            pedigreeCreatureWorst.Location = new System.Drawing.Point(7, 91);
+            pedigreeCreatureWorst.Margin = new System.Windows.Forms.Padding(7);
+            pedigreeCreatureWorst.Name = "pedigreeCreatureWorst";
+            pedigreeCreatureWorst.Size = new System.Drawing.Size(379, 55);
+            pedigreeCreatureWorst.TabIndex = 2;
+            // 
+            // lbMutationProbability
+            // 
+            lbMutationProbability.AutoSize = true;
+            flowLayoutPanel2.SetFlowBreak(lbMutationProbability, true);
+            lbMutationProbability.Location = new System.Drawing.Point(4, 153);
+            lbMutationProbability.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbMutationProbability.Name = "lbMutationProbability";
+            lbMutationProbability.Size = new System.Drawing.Size(135, 15);
+            lbMutationProbability.TabIndex = 7;
+            lbMutationProbability.Text = "Probability of mutations";
+            // 
+            // btBPJustMated
+            // 
+            btBPJustMated.Location = new System.Drawing.Point(4, 171);
+            btBPJustMated.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btBPJustMated.Name = "btBPJustMated";
+            btBPJustMated.Size = new System.Drawing.Size(379, 33);
+            btBPJustMated.TabIndex = 0;
+            btBPJustMated.Text = "These Parents just mated";
+            btBPJustMated.UseVisualStyleBackColor = true;
+            btBPJustMated.Click += buttonJustMated_Click;
+            // 
+            // tableLayoutPanel6
+            // 
+            tableLayoutPanel6.AutoSize = true;
+            tableLayoutPanel6.ColumnCount = 1;
+            tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel6.Controls.Add(offspringPossibilities1, 0, 0);
+            tableLayoutPanel6.Controls.Add(LbMinTotalLevelTopStats, 0, 1);
+            tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel6.Location = new System.Drawing.Point(423, 3);
+            tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel6.Name = "tableLayoutPanel6";
+            tableLayoutPanel6.RowCount = 2;
+            tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            tableLayoutPanel6.Size = new System.Drawing.Size(302, 206);
+            tableLayoutPanel6.TabIndex = 8;
+            // 
+            // offspringPossibilities1
+            // 
+            offspringPossibilities1.Location = new System.Drawing.Point(7, 7);
+            offspringPossibilities1.Margin = new System.Windows.Forms.Padding(7);
+            offspringPossibilities1.Name = "offspringPossibilities1";
+            offspringPossibilities1.Size = new System.Drawing.Size(288, 155);
+            offspringPossibilities1.TabIndex = 1;
+            // 
+            // LbMinTotalLevelTopStats
+            // 
+            LbMinTotalLevelTopStats.AutoSize = true;
+            LbMinTotalLevelTopStats.Location = new System.Drawing.Point(4, 169);
+            LbMinTotalLevelTopStats.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbMinTotalLevelTopStats.Name = "LbMinTotalLevelTopStats";
+            LbMinTotalLevelTopStats.Size = new System.Drawing.Size(0, 15);
+            LbMinTotalLevelTopStats.TabIndex = 2;
+            // 
+            // panelCombinations
+            // 
+            panelCombinations.Controls.Add(lbBreedingPlanInfo);
+            panelCombinations.Controls.Add(flowLayoutPanelPairs);
+            panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelCombinations.Location = new System.Drawing.Point(4, 214);
+            panelCombinations.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelCombinations.Name = "panelCombinations";
+            panelCombinations.Size = new System.Drawing.Size(1712, 717);
+            panelCombinations.TabIndex = 3;
+            // 
+            // lbBreedingPlanInfo
+            // 
+            lbBreedingPlanInfo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            lbBreedingPlanInfo.Location = new System.Drawing.Point(12, 87);
+            lbBreedingPlanInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbBreedingPlanInfo.Name = "lbBreedingPlanInfo";
+            lbBreedingPlanInfo.Size = new System.Drawing.Size(797, 223);
+            lbBreedingPlanInfo.TabIndex = 0;
+            lbBreedingPlanInfo.Text = "Infotext";
+            lbBreedingPlanInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lbBreedingPlanInfo.Visible = false;
+            // 
+            // flowLayoutPanelPairs
+            // 
+            flowLayoutPanelPairs.AutoScroll = true;
+            flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
+            flowLayoutPanelPairs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
+            flowLayoutPanelPairs.Size = new System.Drawing.Size(1712, 717);
+            flowLayoutPanelPairs.TabIndex = 1;
             // 
             // BreedingPlan
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.Controls.Add(this.tableLayoutMain);
-            this.Name = "BreedingPlan";
-            this.Size = new System.Drawing.Size(1732, 1023);
-            this.tableLayoutMain.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.gbBPBreedingMode.ResumeLayout(false);
-            this.gbBPBreedingMode.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudBPMutationLimit)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageBreedableSpecies.ResumeLayout(false);
-            this.tabPageTags.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            this.gbBPOffspring.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.panelCombinations.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScroll = true;
+            Controls.Add(tableLayoutMain);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "BreedingPlan";
+            Size = new System.Drawing.Size(2021, 1180);
+            tableLayoutMain.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            gbBPBreedingMode.ResumeLayout(false);
+            gbBPBreedingMode.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudBPMutationLimit).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabPageBreedableSpecies.ResumeLayout(false);
+            tabPageTags.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            gbBPOffspring.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
+            flowLayoutPanel2.ResumeLayout(false);
+            flowLayoutPanel2.PerformLayout();
+            tableLayoutPanel6.ResumeLayout(false);
+            tableLayoutPanel6.PerformLayout();
+            panelCombinations.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 

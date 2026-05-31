@@ -139,7 +139,7 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         /// <summary>
         /// Default color range from red to green.
         /// </summary>
-        public static LevelGraphRepresentation GetDefault => new LevelGraphRepresentation
+        public static LevelGraphRepresentation GetDefault => new()
         {
             LowerBound = 0,
             UpperBound = 50,
@@ -150,7 +150,7 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
         /// <summary>
         /// Inverted color range from green over yellow to red.
         /// </summary>
-        public static LevelGraphRepresentation GetDefaultInverted => new LevelGraphRepresentation
+        public static LevelGraphRepresentation GetDefaultInverted => new()
         {
             ColorGradientReversed = true,
             LowerBound = 0,
@@ -159,7 +159,7 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             UpperColor = Color.Red
         };
 
-        public static LevelGraphRepresentation GetDefaultMutationLevel => new LevelGraphRepresentation
+        public static LevelGraphRepresentation GetDefaultMutationLevel => new()
         {
             LowerBound = 0,
             UpperBound = 255,
@@ -167,7 +167,7 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             UpperColor = Color.DeepPink
         };
 
-        public static LevelGraphRepresentation GetDefaultMutationLevelInverted => new LevelGraphRepresentation
+        public static LevelGraphRepresentation GetDefaultMutationLevelInverted => new()
         {
             ColorGradientReversed = true,
             LowerBound = 0,
@@ -176,15 +176,14 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             UpperColor = Color.Cyan
         };
 
-        public LevelGraphRepresentation Copy() =>
-            new LevelGraphRepresentation
-            {
-                LowerBound = LowerBound,
-                UpperBound = UpperBound,
-                LowerColor = LowerColor,
-                UpperColor = UpperColor,
-                ColorGradientReversed = ColorGradientReversed
-            };
+        public LevelGraphRepresentation Copy() => new()
+        {
+            LowerBound = LowerBound,
+            UpperBound = UpperBound,
+            LowerColor = LowerColor,
+            UpperColor = UpperColor,
+            ColorGradientReversed = ColorGradientReversed
+        };
 
         public static bool operator ==(LevelGraphRepresentation a, LevelGraphRepresentation b)
         {

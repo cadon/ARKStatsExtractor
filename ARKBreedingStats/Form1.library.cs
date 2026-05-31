@@ -1301,6 +1301,10 @@ namespace ARKBreedingStats
             var statOptionsColors = StatsOptionsLevelColors.GetOptions(cr.Species).Options;
             var statOptionsTopStats = StatsOptionsConsiderTopStats.GetOptions(cr.Species).Options;
 
+            var deltaLightnessTopStat = UiColors.IsDark ? -0.4 : 0.2;
+            var deltaLightnessConsideredStat = UiColors.IsDark ? -0.75 : 0.75;
+            var deltaLightnessUnconsideredStat = UiColors.IsDark ? -0.88 : 0.93;
+
             for (int s = 0; s < Stats.StatsCount; s++)
             {
                 if (cr.valuesCurrent[s] == 0
@@ -1320,7 +1324,7 @@ namespace ARKBreedingStats
                 else
                 {
                     var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsWild[s]),
-                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopStat(s) ? 0.2 : 0.75 : 0.93);
+                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopStat(s) ? deltaLightnessTopStat : deltaLightnessConsideredStat : deltaLightnessUnconsideredStat);
                     lvi.SubItems[ColumnIndexFirstStat + s].SetBackColorAndAccordingForeColor(backColor);
                 }
 
@@ -1333,7 +1337,7 @@ namespace ARKBreedingStats
                 else
                 {
                     var backColor = Utils.AdjustColorLight(statOptionsColors[s].GetLevelColor(cr.levelsMutated[s], false, true),
-                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopMutationStat(s) ? 0.2 : 0.75 : 0.93);
+                        statOptionsTopStats[s].ConsiderStat ? cr.IsTopMutationStat(s) ? deltaLightnessTopStat : deltaLightnessConsideredStat : deltaLightnessUnconsideredStat);
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].SetBackColorAndAccordingForeColor(backColor);
                 }
             }
@@ -1358,14 +1362,12 @@ namespace ARKBreedingStats
                     lvi.SubItems[ColumnIndexName].ForeColor = UiColors.Current.ObeliskText;
                     break;
                 default:
-                    {
-                        if (_creatureCollection.maxServerLevel > 0
+                    if (_creatureCollection.maxServerLevel > 0
                             && cr.levelsWild[Stats.Torpidity] + 1 + _creatureCollection.maxDomLevel > _creatureCollection.maxServerLevel + (cr.Species.name.StartsWith("X-") || cr.Species.name.StartsWith("R-") ? 50 : 0))
-                        {
-                            lvi.SubItems[ColumnIndexName].ForeColor = UiColors.Current.OverLevelWarning; // this creature may pass the max server level and could be deleted by the game
-                        }
-                        break;
+                    {
+                        lvi.SubItems[ColumnIndexName].ForeColor = UiColors.Current.OverLevelWarning; // this creature may pass the max server level and could be deleted by the game
                     }
+                    break;
             }
 
             lvi.UseItemStyleForSubItems = false;
@@ -1378,7 +1380,7 @@ namespace ARKBreedingStats
                     lvi.BackColor = cr.onlyTopConsideredStats ? UiColors.Current.TopBreedingAll : UiColors.Current.TopBreedingSome;
                     lvi.ForeColor = Utils.ForeColor(lvi.BackColor);
                 }
-                lvi.SubItems[ColumnIndexTopStats].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, 0.7));
+                lvi.SubItems[ColumnIndexTopStats].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.TopStatsConsideredCount * 8 + 44, deltaLightnessConsideredStat));
             }
             else
             {
@@ -1393,7 +1395,7 @@ namespace ARKBreedingStats
             }
 
             // color for topness
-            lvi.SubItems[ColumnIndexTopness].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.topness / 5 - 100, 0.8)); // topness is in permille. gradient from 50-100
+            lvi.SubItems[ColumnIndexTopness].SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(cr.topness / 5 - 100, deltaLightnessConsideredStat)); // topness is in permille. gradient from 50-100
 
             // color for generation
             if (cr.generation == 0)
@@ -2189,7 +2191,7 @@ namespace ARKBreedingStats
         {
             if (listViewLibrary.SelectedIndices.Count == 0) return;
             if (listViewLibrary.SelectedIndices.Count > 100
-                && MessageBox.Show($"Creating {listViewLibrary.SelectedIndices.Count} images could take some time, do you want to start the process?", 
+                && MessageBox.Show($"Creating {listViewLibrary.SelectedIndices.Count} images could take some time, do you want to start the process?",
                     "ARK Smart Breeding Infographic creation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
 
             try
