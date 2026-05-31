@@ -40,7 +40,7 @@ namespace ARKBreedingStats
         private bool _updateMaturation;
         private Creature[] _sameSpecies;
         public int LibraryCreatureCount;
-        public List<string> NamesOfAllCreatures;
+        public HashSet<string> NamesOfAllCreatures;
         private string[] _ownersTribes;
         private byte[] _regionColorIDs;
         private byte[] _colorIdsAlsoPossible;
@@ -110,7 +110,7 @@ namespace ARKBreedingStats
 
         internal LevelColorStatusFlags.ColorStatus[] ColorAlreadyExistingInformation;
 
-        private Button[] ButtonsNamingPattern => new[] { btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6 };
+        private Button[] ButtonsNamingPattern => [btnGenerateUniqueName, btNamingPattern2, btNamingPattern3, btNamingPattern4, btNamingPattern5, btNamingPattern6];
 
         public CreatureInfoInput()
         {
@@ -126,7 +126,6 @@ namespace ARKBreedingStats
             parentComboBoxFather.SelectedIndex = 0;
             _updateMaturation = true;
             _regionColorIDs = new byte[Ark.ColorRegionCount];
-            NamesOfAllCreatures = new List<string>();
 
             var namingPatternButtons = ButtonsNamingPattern;
             for (int bi = 0; bi < namingPatternButtons.Length; bi++)
@@ -186,8 +185,12 @@ namespace ARKBreedingStats
         private void buttonAdd2Library_Click(object sender, EventArgs e)
         {
             // keep selected parents
+            var motherId = MotherArkId;
+            var fatherId = FatherArkId;
             Mother = Mother;
             Father = Father;
+            if (MotherArkId == 0 && motherId != 0) MotherArkId = motherId;
+            if (FatherArkId == 0 && fatherId != 0) FatherArkId = fatherId;
 
             Add2LibraryClicked?.Invoke(this);
         }
@@ -805,7 +808,7 @@ namespace ARKBreedingStats
 
         private void SetAdd2LibColor(bool buttonEnabled)
         {
-            btAdd2Library.SetBackColorAndAccordingForeColor(!buttonEnabled ? SystemColors.Control : IsTester || _alreadyExistingCreature == null ? Color.LightGreen : Color.LightSkyBlue);
+            btAdd2Library.SetBackColorAndAccordingForeColor(!buttonEnabled ? SystemColors.Control : IsTester || _alreadyExistingCreature == null ? UiColors.Current.Success : UiColors.Current.Info);
         }
 
         private void lblOwner_Click(object sender, EventArgs e) => LockOwner = !IsTester && !LockOwner;
@@ -845,7 +848,7 @@ namespace ARKBreedingStats
         private void CheckIfNameAlreadyExists()
         {
             // feedback if name already exists
-            if (!string.IsNullOrEmpty(textBoxName.Text) && NamesOfAllCreatures != null && NamesOfAllCreatures.Contains(textBoxName.Text))
+            if (!string.IsNullOrEmpty(textBoxName.Text) && NamesOfAllCreatures?.Contains(textBoxName.Text) == true)
             {
                 textBoxName.SetBackColorAndAccordingForeColor(Color.Khaki);
                 _tt.SetToolTip(textBoxName, Loc.S("nameAlreadyExistsInLibrary"));

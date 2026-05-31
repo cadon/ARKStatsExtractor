@@ -1348,7 +1348,7 @@ namespace ARKBreedingStats
             input.CreaturesOfSameSpecies = _creatureCollection.creatures
                 .Where(c => c.Species == speciesSelector1.SelectedSpecies).ToArray();
             input.parentListValid = true;
-            input.NamesOfAllCreatures = _creatureCollection.creatures.Select(c => c.name).ToList();
+            input.NamesOfAllCreatures = _creatureCollection.creatures.Select(c => c.name).Where(n => !string.IsNullOrEmpty(n)).ToHashSet();
             input.LibraryCreatureCount = _creatureCollection.creatures.Count;
         }
 
