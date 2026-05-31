@@ -29,938 +29,942 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatsMultiplierTesting));
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.BtResetSpeciesValues = new System.Windows.Forms.Button();
-            this.cbUpdateOnSpeciesChange = new System.Windows.Forms.CheckBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.CbAllowSpeedLeveling = new System.Windows.Forms.CheckBox();
-            this.CbAtlas = new System.Windows.Forms.CheckBox();
-            this.CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
-            this.cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
-            this.btUseMultipliersFromSettings = new System.Windows.Forms.Button();
-            this.LbSpeciesValuesExtractor = new System.Windows.Forms.Label();
-            this.LbBlueprintPath = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbDomesticated = new System.Windows.Forms.RadioButton();
-            this.rbWild = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.BtTe0 = new System.Windows.Forms.Button();
-            this.BtTe100 = new System.Windows.Forms.Button();
-            this.LbCalculatedWildLevel = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.BtIb0 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.gbFineAdjustment = new System.Windows.Forms.GroupBox();
-            this.tbFineAdjustments = new System.Windows.Forms.TrackBar();
-            this.lBDummyEmptyFlowBreak = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.LbFinalValue = new System.Windows.Forms.Label();
-            this.LbIdM = new System.Windows.Forms.Label();
-            this.LbId = new System.Windows.Forms.Label();
-            this.LbLd = new System.Windows.Forms.Label();
-            this.LbTmM = new System.Windows.Forms.Label();
-            this.LbTm = new System.Windows.Forms.Label();
-            this.LbTaM = new System.Windows.Forms.Label();
-            this.LbTa = new System.Windows.Forms.Label();
-            this.LbTBHM = new System.Windows.Forms.Label();
-            this.LbIwM = new System.Windows.Forms.Label();
-            this.LbIw = new System.Windows.Forms.Label();
-            this.LbLw = new System.Windows.Forms.Label();
-            this.LbBaseValue = new System.Windows.Forms.Label();
-            this.gbLevel = new System.Windows.Forms.GroupBox();
-            this.lbLevelSumDom = new System.Windows.Forms.Label();
-            this.lbLevelSumWild = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.LbAbbreviations = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.statMultipliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.useStatMultipliersOfSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.useDefaultStatMultipliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyStatMultipliersToSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calculateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.idMToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.idMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.taMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.allIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setAllLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allWildLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allDomLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyStatValuesToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openWikiPageOnStatCalculationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setAllMutLevelsToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.LbMm = new System.Windows.Forms.Label();
-            this.LbLm = new System.Windows.Forms.Label();
-            this.nudTE = new ARKBreedingStats.uiControls.Nud();
-            this.nudIBM = new ARKBreedingStats.uiControls.Nud();
-            this.nudIB = new ARKBreedingStats.uiControls.Nud();
-            this.nudCreatureLevel = new ARKBreedingStats.uiControls.Nud();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.gbFineAdjustment.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbFineAdjustments)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.gbLevel.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).BeginInit();
-            this.SuspendLayout();
+            flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            groupBox4 = new System.Windows.Forms.GroupBox();
+            BtResetSpeciesValues = new System.Windows.Forms.Button();
+            cbUpdateOnSpeciesChange = new System.Windows.Forms.CheckBox();
+            groupBox5 = new System.Windows.Forms.GroupBox();
+            CbAllowSpeedLeveling = new System.Windows.Forms.CheckBox();
+            CbAtlas = new System.Windows.Forms.CheckBox();
+            CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
+            cbSingleplayerSettings = new System.Windows.Forms.CheckBox();
+            btUseMultipliersFromSettings = new System.Windows.Forms.Button();
+            LbSpeciesValuesExtractor = new System.Windows.Forms.Label();
+            LbBlueprintPath = new System.Windows.Forms.Label();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            rbDomesticated = new System.Windows.Forms.RadioButton();
+            rbWild = new System.Windows.Forms.RadioButton();
+            groupBox2 = new System.Windows.Forms.GroupBox();
+            BtTe0 = new System.Windows.Forms.Button();
+            BtTe100 = new System.Windows.Forms.Button();
+            LbCalculatedWildLevel = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            nudTE = new ARKBreedingStats.uiControls.Nud();
+            groupBox3 = new System.Windows.Forms.GroupBox();
+            BtIb0 = new System.Windows.Forms.Button();
+            button2 = new System.Windows.Forms.Button();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            nudIBM = new ARKBreedingStats.uiControls.Nud();
+            nudIB = new ARKBreedingStats.uiControls.Nud();
+            gbFineAdjustment = new System.Windows.Forms.GroupBox();
+            tbFineAdjustments = new System.Windows.Forms.TrackBar();
+            lBDummyEmptyFlowBreak = new System.Windows.Forms.Label();
+            panel1 = new System.Windows.Forms.Panel();
+            LbMm = new System.Windows.Forms.Label();
+            LbLm = new System.Windows.Forms.Label();
+            LbFinalValue = new System.Windows.Forms.Label();
+            LbIdM = new System.Windows.Forms.Label();
+            LbId = new System.Windows.Forms.Label();
+            LbLd = new System.Windows.Forms.Label();
+            LbTmM = new System.Windows.Forms.Label();
+            LbTm = new System.Windows.Forms.Label();
+            LbTaM = new System.Windows.Forms.Label();
+            LbTa = new System.Windows.Forms.Label();
+            LbTBHM = new System.Windows.Forms.Label();
+            LbIwM = new System.Windows.Forms.Label();
+            LbIw = new System.Windows.Forms.Label();
+            LbLw = new System.Windows.Forms.Label();
+            LbBaseValue = new System.Windows.Forms.Label();
+            gbLevel = new System.Windows.Forms.GroupBox();
+            lbLevelSumDom = new System.Windows.Forms.Label();
+            lbLevelSumWild = new System.Windows.Forms.Label();
+            label16 = new System.Windows.Forms.Label();
+            nudCreatureLevel = new ARKBreedingStats.uiControls.Nud();
+            LbAbbreviations = new System.Windows.Forms.Label();
+            menuStrip1 = new System.Windows.Forms.MenuStrip();
+            statMultipliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            useStatMultipliersOfSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            useDefaultStatMultipliersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            copyStatMultipliersToSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            calculateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            idMToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            idMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            taMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            tmMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            allIwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            allIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            setAllLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            allWildLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            setAllMutLevelsToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            allDomLvlToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            setAllWildLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            setAllDomLevelsToTheClosestValueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            copyStatValuesToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            openWikiPageOnStatCalculationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            flowLayoutPanel1.SuspendLayout();
+            groupBox4.SuspendLayout();
+            groupBox5.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudTE).BeginInit();
+            groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudIBM).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudIB).BeginInit();
+            gbFineAdjustment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tbFineAdjustments).BeginInit();
+            panel1.SuspendLayout();
+            gbLevel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreatureLevel).BeginInit();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.groupBox4);
-            this.flowLayoutPanel1.Controls.Add(this.groupBox5);
-            this.flowLayoutPanel1.Controls.Add(this.btUseMultipliersFromSettings);
-            this.flowLayoutPanel1.Controls.Add(this.LbSpeciesValuesExtractor);
-            this.flowLayoutPanel1.Controls.Add(this.LbBlueprintPath);
-            this.flowLayoutPanel1.Controls.Add(this.groupBox1);
-            this.flowLayoutPanel1.Controls.Add(this.groupBox2);
-            this.flowLayoutPanel1.Controls.Add(this.groupBox3);
-            this.flowLayoutPanel1.Controls.Add(this.gbFineAdjustment);
-            this.flowLayoutPanel1.Controls.Add(this.lBDummyEmptyFlowBreak);
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Controls.Add(this.gbLevel);
-            this.flowLayoutPanel1.Controls.Add(this.LbAbbreviations);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1213, 508);
-            this.flowLayoutPanel1.TabIndex = 1;
+            flowLayoutPanel1.AutoScroll = true;
+            flowLayoutPanel1.Controls.Add(groupBox4);
+            flowLayoutPanel1.Controls.Add(groupBox5);
+            flowLayoutPanel1.Controls.Add(btUseMultipliersFromSettings);
+            flowLayoutPanel1.Controls.Add(LbSpeciesValuesExtractor);
+            flowLayoutPanel1.Controls.Add(LbBlueprintPath);
+            flowLayoutPanel1.Controls.Add(groupBox1);
+            flowLayoutPanel1.Controls.Add(groupBox2);
+            flowLayoutPanel1.Controls.Add(groupBox3);
+            flowLayoutPanel1.Controls.Add(gbFineAdjustment);
+            flowLayoutPanel1.Controls.Add(lBDummyEmptyFlowBreak);
+            flowLayoutPanel1.Controls.Add(panel1);
+            flowLayoutPanel1.Controls.Add(gbLevel);
+            flowLayoutPanel1.Controls.Add(LbAbbreviations);
+            flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            flowLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new System.Drawing.Size(1415, 590);
+            flowLayoutPanel1.TabIndex = 1;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.BtResetSpeciesValues);
-            this.groupBox4.Controls.Add(this.cbUpdateOnSpeciesChange);
-            this.groupBox4.Location = new System.Drawing.Point(3, 3);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(296, 71);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Species Values";
+            groupBox4.Controls.Add(BtResetSpeciesValues);
+            groupBox4.Controls.Add(cbUpdateOnSpeciesChange);
+            groupBox4.Location = new System.Drawing.Point(4, 3);
+            groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox4.Size = new System.Drawing.Size(345, 82);
+            groupBox4.TabIndex = 0;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Species Values";
             // 
             // BtResetSpeciesValues
             // 
-            this.BtResetSpeciesValues.Location = new System.Drawing.Point(6, 42);
-            this.BtResetSpeciesValues.Name = "BtResetSpeciesValues";
-            this.BtResetSpeciesValues.Size = new System.Drawing.Size(284, 23);
-            this.BtResetSpeciesValues.TabIndex = 1;
-            this.BtResetSpeciesValues.Text = "Reset species values";
-            this.BtResetSpeciesValues.UseVisualStyleBackColor = true;
-            this.BtResetSpeciesValues.Click += new System.EventHandler(this.btUpdateSpecies_Click);
+            BtResetSpeciesValues.Location = new System.Drawing.Point(7, 48);
+            BtResetSpeciesValues.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtResetSpeciesValues.Name = "BtResetSpeciesValues";
+            BtResetSpeciesValues.Size = new System.Drawing.Size(331, 27);
+            BtResetSpeciesValues.TabIndex = 1;
+            BtResetSpeciesValues.Text = "Reset species values";
+            BtResetSpeciesValues.UseVisualStyleBackColor = true;
+            BtResetSpeciesValues.Click += btUpdateSpecies_Click;
             // 
             // cbUpdateOnSpeciesChange
             // 
-            this.cbUpdateOnSpeciesChange.AutoSize = true;
-            this.cbUpdateOnSpeciesChange.Checked = true;
-            this.cbUpdateOnSpeciesChange.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbUpdateOnSpeciesChange.Location = new System.Drawing.Point(6, 19);
-            this.cbUpdateOnSpeciesChange.Name = "cbUpdateOnSpeciesChange";
-            this.cbUpdateOnSpeciesChange.Size = new System.Drawing.Size(152, 17);
-            this.cbUpdateOnSpeciesChange.TabIndex = 0;
-            this.cbUpdateOnSpeciesChange.Text = "update on species-change";
-            this.cbUpdateOnSpeciesChange.UseVisualStyleBackColor = true;
+            cbUpdateOnSpeciesChange.AutoSize = true;
+            cbUpdateOnSpeciesChange.Checked = true;
+            cbUpdateOnSpeciesChange.CheckState = System.Windows.Forms.CheckState.Checked;
+            cbUpdateOnSpeciesChange.Location = new System.Drawing.Point(7, 22);
+            cbUpdateOnSpeciesChange.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbUpdateOnSpeciesChange.Name = "cbUpdateOnSpeciesChange";
+            cbUpdateOnSpeciesChange.Size = new System.Drawing.Size(165, 19);
+            cbUpdateOnSpeciesChange.TabIndex = 0;
+            cbUpdateOnSpeciesChange.Text = "update on species-change";
+            cbUpdateOnSpeciesChange.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.CbAllowSpeedLeveling);
-            this.groupBox5.Controls.Add(this.CbAtlas);
-            this.groupBox5.Controls.Add(this.CbAllowFlyerSpeedLeveling);
-            this.groupBox5.Controls.Add(this.cbSingleplayerSettings);
-            this.groupBox5.Location = new System.Drawing.Point(305, 3);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(262, 71);
-            this.groupBox5.TabIndex = 10;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Settings";
+            groupBox5.Controls.Add(CbAllowSpeedLeveling);
+            groupBox5.Controls.Add(CbAtlas);
+            groupBox5.Controls.Add(CbAllowFlyerSpeedLeveling);
+            groupBox5.Controls.Add(cbSingleplayerSettings);
+            groupBox5.Location = new System.Drawing.Point(357, 3);
+            groupBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox5.Size = new System.Drawing.Size(306, 82);
+            groupBox5.TabIndex = 10;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Settings";
             // 
             // CbAllowSpeedLeveling
             // 
-            this.CbAllowSpeedLeveling.AutoSize = true;
-            this.CbAllowSpeedLeveling.Location = new System.Drawing.Point(6, 42);
-            this.CbAllowSpeedLeveling.Name = "CbAllowSpeedLeveling";
-            this.CbAllowSpeedLeveling.Size = new System.Drawing.Size(122, 17);
-            this.CbAllowSpeedLeveling.TabIndex = 3;
-            this.CbAllowSpeedLeveling.Text = "AllowSpeedLeveling";
-            this.CbAllowSpeedLeveling.UseVisualStyleBackColor = true;
-            this.CbAllowSpeedLeveling.CheckedChanged += new System.EventHandler(this.CbAllowSpeedLeveling_CheckedChanged);
+            CbAllowSpeedLeveling.AutoSize = true;
+            CbAllowSpeedLeveling.Location = new System.Drawing.Point(7, 48);
+            CbAllowSpeedLeveling.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbAllowSpeedLeveling.Name = "CbAllowSpeedLeveling";
+            CbAllowSpeedLeveling.Size = new System.Drawing.Size(132, 19);
+            CbAllowSpeedLeveling.TabIndex = 3;
+            CbAllowSpeedLeveling.Text = "AllowSpeedLeveling";
+            CbAllowSpeedLeveling.UseVisualStyleBackColor = true;
+            CbAllowSpeedLeveling.CheckedChanged += CbAllowSpeedLeveling_CheckedChanged;
             // 
             // CbAtlas
             // 
-            this.CbAtlas.AutoSize = true;
-            this.CbAtlas.Location = new System.Drawing.Point(134, 19);
-            this.CbAtlas.Name = "CbAtlas";
-            this.CbAtlas.Size = new System.Drawing.Size(60, 17);
-            this.CbAtlas.TabIndex = 2;
-            this.CbAtlas.Text = "ATLAS";
-            this.CbAtlas.UseVisualStyleBackColor = true;
-            this.CbAtlas.CheckedChanged += new System.EventHandler(this.CbAtlas_CheckedChanged);
+            CbAtlas.AutoSize = true;
+            CbAtlas.Location = new System.Drawing.Point(156, 22);
+            CbAtlas.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbAtlas.Name = "CbAtlas";
+            CbAtlas.Size = new System.Drawing.Size(60, 19);
+            CbAtlas.TabIndex = 2;
+            CbAtlas.Text = "ATLAS";
+            CbAtlas.UseVisualStyleBackColor = true;
+            CbAtlas.CheckedChanged += CbAtlas_CheckedChanged;
             // 
             // CbAllowFlyerSpeedLeveling
             // 
-            this.CbAllowFlyerSpeedLeveling.AutoSize = true;
-            this.CbAllowFlyerSpeedLeveling.Location = new System.Drawing.Point(134, 42);
-            this.CbAllowFlyerSpeedLeveling.Name = "CbAllowFlyerSpeedLeveling";
-            this.CbAllowFlyerSpeedLeveling.Size = new System.Drawing.Size(119, 17);
-            this.CbAllowFlyerSpeedLeveling.TabIndex = 1;
-            this.CbAllowFlyerSpeedLeveling.Text = "FlyerSpeedLeveling";
-            this.CbAllowFlyerSpeedLeveling.UseVisualStyleBackColor = true;
-            this.CbAllowFlyerSpeedLeveling.CheckedChanged += new System.EventHandler(this.CbAllowFlyerSpeedLeveling_CheckedChanged);
+            CbAllowFlyerSpeedLeveling.AutoSize = true;
+            CbAllowFlyerSpeedLeveling.Location = new System.Drawing.Point(156, 48);
+            CbAllowFlyerSpeedLeveling.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbAllowFlyerSpeedLeveling.Name = "CbAllowFlyerSpeedLeveling";
+            CbAllowFlyerSpeedLeveling.Size = new System.Drawing.Size(127, 19);
+            CbAllowFlyerSpeedLeveling.TabIndex = 1;
+            CbAllowFlyerSpeedLeveling.Text = "FlyerSpeedLeveling";
+            CbAllowFlyerSpeedLeveling.UseVisualStyleBackColor = true;
+            CbAllowFlyerSpeedLeveling.CheckedChanged += CbAllowFlyerSpeedLeveling_CheckedChanged;
             // 
             // cbSingleplayerSettings
             // 
-            this.cbSingleplayerSettings.AutoSize = true;
-            this.cbSingleplayerSettings.Location = new System.Drawing.Point(6, 19);
-            this.cbSingleplayerSettings.Name = "cbSingleplayerSettings";
-            this.cbSingleplayerSettings.Size = new System.Drawing.Size(124, 17);
-            this.cbSingleplayerSettings.TabIndex = 0;
-            this.cbSingleplayerSettings.Text = "Singleplayer-Settings";
-            this.cbSingleplayerSettings.UseVisualStyleBackColor = true;
-            this.cbSingleplayerSettings.CheckedChanged += new System.EventHandler(this.cbSingleplayerSettings_CheckedChanged);
+            cbSingleplayerSettings.AutoSize = true;
+            cbSingleplayerSettings.Location = new System.Drawing.Point(7, 22);
+            cbSingleplayerSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbSingleplayerSettings.Name = "cbSingleplayerSettings";
+            cbSingleplayerSettings.Size = new System.Drawing.Size(137, 19);
+            cbSingleplayerSettings.TabIndex = 0;
+            cbSingleplayerSettings.Text = "Singleplayer-Settings";
+            cbSingleplayerSettings.UseVisualStyleBackColor = true;
+            cbSingleplayerSettings.CheckedChanged += cbSingleplayerSettings_CheckedChanged;
             // 
             // btUseMultipliersFromSettings
             // 
-            this.btUseMultipliersFromSettings.BackColor = System.Drawing.Color.LightSalmon;
-            this.btUseMultipliersFromSettings.Location = new System.Drawing.Point(573, 3);
-            this.btUseMultipliersFromSettings.Name = "btUseMultipliersFromSettings";
-            this.btUseMultipliersFromSettings.Size = new System.Drawing.Size(256, 44);
-            this.btUseMultipliersFromSettings.TabIndex = 12;
-            this.btUseMultipliersFromSettings.Text = "The current multipliers here are different from the settings. Click to use the on" +
-    "es of the settings.";
-            this.btUseMultipliersFromSettings.UseVisualStyleBackColor = false;
-            this.btUseMultipliersFromSettings.Click += new System.EventHandler(this.btUseMultipliersFromSettings_Click);
+            btUseMultipliersFromSettings.BackColor = System.Drawing.Color.LightSalmon;
+            btUseMultipliersFromSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            btUseMultipliersFromSettings.Location = new System.Drawing.Point(671, 3);
+            btUseMultipliersFromSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            btUseMultipliersFromSettings.Name = "btUseMultipliersFromSettings";
+            btUseMultipliersFromSettings.Size = new System.Drawing.Size(299, 51);
+            btUseMultipliersFromSettings.TabIndex = 12;
+            btUseMultipliersFromSettings.Text = "The current multipliers here are different from the settings. Click to use the ones of the settings.";
+            btUseMultipliersFromSettings.UseVisualStyleBackColor = false;
+            btUseMultipliersFromSettings.Click += btUseMultipliersFromSettings_Click;
             // 
             // LbSpeciesValuesExtractor
             // 
-            this.LbSpeciesValuesExtractor.AllowDrop = true;
-            this.LbSpeciesValuesExtractor.AutoSize = true;
-            this.LbSpeciesValuesExtractor.BackColor = System.Drawing.Color.White;
-            this.flowLayoutPanel1.SetFlowBreak(this.LbSpeciesValuesExtractor, true);
-            this.LbSpeciesValuesExtractor.Location = new System.Drawing.Point(835, 0);
-            this.LbSpeciesValuesExtractor.Name = "LbSpeciesValuesExtractor";
-            this.LbSpeciesValuesExtractor.Padding = new System.Windows.Forms.Padding(3, 12, 3, 12);
-            this.LbSpeciesValuesExtractor.Size = new System.Drawing.Size(243, 37);
-            this.LbSpeciesValuesExtractor.TabIndex = 15;
-            this.LbSpeciesValuesExtractor.Text = "Drop exportGun files to determine species values";
-            this.LbSpeciesValuesExtractor.DragDrop += new System.Windows.Forms.DragEventHandler(this.LbSpeciesValuesExtractor_DragDrop);
-            this.LbSpeciesValuesExtractor.DragEnter += new System.Windows.Forms.DragEventHandler(this.LbSpeciesValuesExtractor_DragEnter);
-            this.LbSpeciesValuesExtractor.DragLeave += new System.EventHandler(this.LbSpeciesValuesExtractor_DragLeave);
+            LbSpeciesValuesExtractor.AllowDrop = true;
+            LbSpeciesValuesExtractor.AutoSize = true;
+            LbSpeciesValuesExtractor.BackColor = System.Drawing.SystemColors.Window;
+            flowLayoutPanel1.SetFlowBreak(LbSpeciesValuesExtractor, true);
+            LbSpeciesValuesExtractor.Location = new System.Drawing.Point(978, 0);
+            LbSpeciesValuesExtractor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbSpeciesValuesExtractor.Name = "LbSpeciesValuesExtractor";
+            LbSpeciesValuesExtractor.Padding = new System.Windows.Forms.Padding(4, 14, 4, 14);
+            LbSpeciesValuesExtractor.Size = new System.Drawing.Size(271, 43);
+            LbSpeciesValuesExtractor.TabIndex = 15;
+            LbSpeciesValuesExtractor.Text = "Drop exportGun files to determine species values";
+            LbSpeciesValuesExtractor.DragDrop += LbSpeciesValuesExtractor_DragDrop;
+            LbSpeciesValuesExtractor.DragEnter += LbSpeciesValuesExtractor_DragEnter;
+            LbSpeciesValuesExtractor.DragLeave += LbSpeciesValuesExtractor_DragLeave;
             // 
             // LbBlueprintPath
             // 
-            this.flowLayoutPanel1.SetFlowBreak(this.LbBlueprintPath, true);
-            this.LbBlueprintPath.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.LbBlueprintPath.Location = new System.Drawing.Point(3, 77);
-            this.LbBlueprintPath.Name = "LbBlueprintPath";
-            this.LbBlueprintPath.Size = new System.Drawing.Size(901, 21);
-            this.LbBlueprintPath.TabIndex = 14;
-            this.LbBlueprintPath.Text = "blueprintPath";
+            flowLayoutPanel1.SetFlowBreak(LbBlueprintPath, true);
+            LbBlueprintPath.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            LbBlueprintPath.Location = new System.Drawing.Point(4, 88);
+            LbBlueprintPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbBlueprintPath.Name = "LbBlueprintPath";
+            LbBlueprintPath.Size = new System.Drawing.Size(1051, 24);
+            LbBlueprintPath.TabIndex = 14;
+            LbBlueprintPath.Text = "blueprintPath";
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbDomesticated);
-            this.groupBox1.Controls.Add(this.rbWild);
-            this.groupBox1.Location = new System.Drawing.Point(3, 135);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(167, 49);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Status";
+            groupBox1.Controls.Add(rbDomesticated);
+            groupBox1.Controls.Add(rbWild);
+            groupBox1.Location = new System.Drawing.Point(4, 154);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Size = new System.Drawing.Size(195, 57);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Status";
             // 
             // rbDomesticated
             // 
-            this.rbDomesticated.AutoSize = true;
-            this.rbDomesticated.Location = new System.Drawing.Point(55, 19);
-            this.rbDomesticated.Name = "rbDomesticated";
-            this.rbDomesticated.Size = new System.Drawing.Size(88, 17);
-            this.rbDomesticated.TabIndex = 1;
-            this.rbDomesticated.Text = "domesticated";
-            this.rbDomesticated.UseVisualStyleBackColor = true;
-            this.rbDomesticated.CheckedChanged += new System.EventHandler(this.rbDomesticated_CheckedChanged);
+            rbDomesticated.AutoSize = true;
+            rbDomesticated.Location = new System.Drawing.Point(64, 22);
+            rbDomesticated.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbDomesticated.Name = "rbDomesticated";
+            rbDomesticated.Size = new System.Drawing.Size(97, 19);
+            rbDomesticated.TabIndex = 1;
+            rbDomesticated.Text = "domesticated";
+            rbDomesticated.UseVisualStyleBackColor = true;
+            rbDomesticated.CheckedChanged += rbDomesticated_CheckedChanged;
             // 
             // rbWild
             // 
-            this.rbWild.AutoSize = true;
-            this.rbWild.Location = new System.Drawing.Point(6, 19);
-            this.rbWild.Name = "rbWild";
-            this.rbWild.Size = new System.Drawing.Size(43, 17);
-            this.rbWild.TabIndex = 0;
-            this.rbWild.Text = "wild";
-            this.rbWild.UseVisualStyleBackColor = true;
-            this.rbWild.CheckedChanged += new System.EventHandler(this.rbWild_CheckedChanged);
+            rbWild.AutoSize = true;
+            rbWild.Location = new System.Drawing.Point(7, 22);
+            rbWild.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            rbWild.Name = "rbWild";
+            rbWild.Size = new System.Drawing.Size(47, 19);
+            rbWild.TabIndex = 0;
+            rbWild.Text = "wild";
+            rbWild.UseVisualStyleBackColor = true;
+            rbWild.CheckedChanged += rbWild_CheckedChanged;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.BtTe0);
-            this.groupBox2.Controls.Add(this.BtTe100);
-            this.groupBox2.Controls.Add(this.LbCalculatedWildLevel);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.nudTE);
-            this.groupBox2.Location = new System.Drawing.Point(176, 135);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(187, 49);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "TamingEffectiveness";
+            groupBox2.Controls.Add(BtTe0);
+            groupBox2.Controls.Add(BtTe100);
+            groupBox2.Controls.Add(LbCalculatedWildLevel);
+            groupBox2.Controls.Add(label1);
+            groupBox2.Controls.Add(nudTE);
+            groupBox2.Location = new System.Drawing.Point(207, 154);
+            groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox2.Size = new System.Drawing.Size(218, 57);
+            groupBox2.TabIndex = 5;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "TamingEffectiveness";
             // 
             // BtTe0
             // 
-            this.BtTe0.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtTe0.Location = new System.Drawing.Point(98, 13);
-            this.BtTe0.Name = "BtTe0";
-            this.BtTe0.Size = new System.Drawing.Size(24, 15);
-            this.BtTe0.TabIndex = 5;
-            this.BtTe0.Text = "0";
-            this.BtTe0.UseVisualStyleBackColor = true;
-            this.BtTe0.Click += new System.EventHandler(this.BtTe0_Click);
+            BtTe0.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            BtTe0.Location = new System.Drawing.Point(114, 15);
+            BtTe0.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtTe0.Name = "BtTe0";
+            BtTe0.Size = new System.Drawing.Size(28, 17);
+            BtTe0.TabIndex = 5;
+            BtTe0.Text = "0";
+            BtTe0.UseVisualStyleBackColor = true;
+            BtTe0.Click += BtTe0_Click;
             // 
             // BtTe100
             // 
-            this.BtTe100.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtTe100.Location = new System.Drawing.Point(98, 27);
-            this.BtTe100.Name = "BtTe100";
-            this.BtTe100.Size = new System.Drawing.Size(24, 15);
-            this.BtTe100.TabIndex = 4;
-            this.BtTe100.Text = "100";
-            this.BtTe100.UseVisualStyleBackColor = true;
-            this.BtTe100.Click += new System.EventHandler(this.BtTe100_Click);
+            BtTe100.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            BtTe100.Location = new System.Drawing.Point(114, 31);
+            BtTe100.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtTe100.Name = "BtTe100";
+            BtTe100.Size = new System.Drawing.Size(28, 17);
+            BtTe100.TabIndex = 4;
+            BtTe100.Text = "100";
+            BtTe100.UseVisualStyleBackColor = true;
+            BtTe100.Click += BtTe100_Click;
             // 
             // LbCalculatedWildLevel
             // 
-            this.LbCalculatedWildLevel.AutoSize = true;
-            this.LbCalculatedWildLevel.Location = new System.Drawing.Point(128, 21);
-            this.LbCalculatedWildLevel.Name = "LbCalculatedWildLevel";
-            this.LbCalculatedWildLevel.Size = new System.Drawing.Size(13, 13);
-            this.LbCalculatedWildLevel.TabIndex = 3;
-            this.LbCalculatedWildLevel.Text = "0";
+            LbCalculatedWildLevel.AutoSize = true;
+            LbCalculatedWildLevel.Location = new System.Drawing.Point(149, 24);
+            LbCalculatedWildLevel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbCalculatedWildLevel.Name = "LbCalculatedWildLevel";
+            LbCalculatedWildLevel.Size = new System.Drawing.Size(13, 15);
+            LbCalculatedWildLevel.TabIndex = 3;
+            LbCalculatedWildLevel.Text = "0";
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(83, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(15, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "%";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.BtIb0);
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.nudIBM);
-            this.groupBox3.Controls.Add(this.nudIB);
-            this.groupBox3.Location = new System.Drawing.Point(369, 135);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(238, 49);
-            this.groupBox3.TabIndex = 6;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Imprinting";
-            // 
-            // BtIb0
-            // 
-            this.BtIb0.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtIb0.Location = new System.Drawing.Point(107, 13);
-            this.BtIb0.Name = "BtIb0";
-            this.BtIb0.Size = new System.Drawing.Size(24, 15);
-            this.BtIb0.TabIndex = 7;
-            this.BtIb0.Text = "0";
-            this.BtIb0.UseVisualStyleBackColor = true;
-            this.BtIb0.Click += new System.EventHandler(this.BtIb0_Click);
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(107, 27);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(24, 15);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "100";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(92, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(15, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "%";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(133, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "IBM";
-            // 
-            // gbFineAdjustment
-            // 
-            this.gbFineAdjustment.Controls.Add(this.tbFineAdjustments);
-            this.gbFineAdjustment.Location = new System.Drawing.Point(613, 135);
-            this.gbFineAdjustment.Name = "gbFineAdjustment";
-            this.gbFineAdjustment.Size = new System.Drawing.Size(376, 49);
-            this.gbFineAdjustment.TabIndex = 7;
-            this.gbFineAdjustment.TabStop = false;
-            this.gbFineAdjustment.Text = "Fine-Adjustment";
-            // 
-            // tbFineAdjustments
-            // 
-            this.tbFineAdjustments.AutoSize = false;
-            this.tbFineAdjustments.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbFineAdjustments.Location = new System.Drawing.Point(3, 16);
-            this.tbFineAdjustments.Maximum = 100;
-            this.tbFineAdjustments.Name = "tbFineAdjustments";
-            this.tbFineAdjustments.Size = new System.Drawing.Size(370, 31);
-            this.tbFineAdjustments.TabIndex = 0;
-            this.tbFineAdjustments.Value = 5;
-            this.tbFineAdjustments.Scroll += new System.EventHandler(this.tbFineAdjustments_Scroll);
-            // 
-            // lBDummyEmptyFlowBreak
-            // 
-            this.lBDummyEmptyFlowBreak.AutoSize = true;
-            this.flowLayoutPanel1.SetFlowBreak(this.lBDummyEmptyFlowBreak, true);
-            this.lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(995, 132);
-            this.lBDummyEmptyFlowBreak.Name = "lBDummyEmptyFlowBreak";
-            this.lBDummyEmptyFlowBreak.Size = new System.Drawing.Size(0, 13);
-            this.lBDummyEmptyFlowBreak.TabIndex = 11;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.LbMm);
-            this.panel1.Controls.Add(this.LbLm);
-            this.panel1.Controls.Add(this.LbFinalValue);
-            this.panel1.Controls.Add(this.LbIdM);
-            this.panel1.Controls.Add(this.LbId);
-            this.panel1.Controls.Add(this.LbLd);
-            this.panel1.Controls.Add(this.LbTmM);
-            this.panel1.Controls.Add(this.LbTm);
-            this.panel1.Controls.Add(this.LbTaM);
-            this.panel1.Controls.Add(this.LbTa);
-            this.panel1.Controls.Add(this.LbTBHM);
-            this.panel1.Controls.Add(this.LbIwM);
-            this.panel1.Controls.Add(this.LbIw);
-            this.panel1.Controls.Add(this.LbLw);
-            this.panel1.Controls.Add(this.LbBaseValue);
-            this.flowLayoutPanel1.SetFlowBreak(this.panel1, true);
-            this.panel1.Location = new System.Drawing.Point(3, 190);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1139, 29);
-            this.panel1.TabIndex = 8;
-            // 
-            // LbFinalValue
-            // 
-            this.LbFinalValue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbFinalValue.Location = new System.Drawing.Point(1059, 5);
-            this.LbFinalValue.Name = "LbFinalValue";
-            this.LbFinalValue.Size = new System.Drawing.Size(70, 20);
-            this.LbFinalValue.TabIndex = 40;
-            this.LbFinalValue.Text = "V";
-            this.LbFinalValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbIdM
-            // 
-            this.LbIdM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbIdM.Location = new System.Drawing.Point(936, 5);
-            this.LbIdM.Name = "LbIdM";
-            this.LbIdM.Size = new System.Drawing.Size(58, 20);
-            this.LbIdM.TabIndex = 39;
-            this.LbIdM.Text = "IdM";
-            this.LbIdM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbId
-            // 
-            this.LbId.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbId.Location = new System.Drawing.Point(873, 5);
-            this.LbId.Name = "LbId";
-            this.LbId.Size = new System.Drawing.Size(58, 20);
-            this.LbId.TabIndex = 38;
-            this.LbId.Text = "Id";
-            this.LbId.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbLd
-            // 
-            this.LbLd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbLd.Location = new System.Drawing.Point(812, 5);
-            this.LbLd.Name = "LbLd";
-            this.LbLd.Size = new System.Drawing.Size(58, 20);
-            this.LbLd.TabIndex = 37;
-            this.LbLd.Text = "Ld";
-            this.LbLd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbTmM
-            // 
-            this.LbTmM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTmM.Location = new System.Drawing.Point(751, 5);
-            this.LbTmM.Name = "LbTmM";
-            this.LbTmM.Size = new System.Drawing.Size(58, 20);
-            this.LbTmM.TabIndex = 36;
-            this.LbTmM.Text = "TmM";
-            this.LbTmM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbTm
-            // 
-            this.LbTm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTm.Location = new System.Drawing.Point(687, 5);
-            this.LbTm.Name = "LbTm";
-            this.LbTm.Size = new System.Drawing.Size(58, 20);
-            this.LbTm.TabIndex = 35;
-            this.LbTm.Text = "Tm";
-            this.LbTm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbTaM
-            // 
-            this.LbTaM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTaM.Location = new System.Drawing.Point(623, 5);
-            this.LbTaM.Name = "LbTaM";
-            this.LbTaM.Size = new System.Drawing.Size(58, 20);
-            this.LbTaM.TabIndex = 34;
-            this.LbTaM.Text = "TaM";
-            this.LbTaM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbTa
-            // 
-            this.LbTa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTa.Location = new System.Drawing.Point(560, 5);
-            this.LbTa.Name = "LbTa";
-            this.LbTa.Size = new System.Drawing.Size(58, 20);
-            this.LbTa.TabIndex = 33;
-            this.LbTa.Text = "Ta";
-            this.LbTa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbTBHM
-            // 
-            this.LbTBHM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbTBHM.Location = new System.Drawing.Point(495, 5);
-            this.LbTBHM.Name = "LbTBHM";
-            this.LbTBHM.Size = new System.Drawing.Size(58, 20);
-            this.LbTBHM.TabIndex = 32;
-            this.LbTBHM.Text = "TBHM";
-            this.LbTBHM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbIwM
-            // 
-            this.LbIwM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbIwM.Location = new System.Drawing.Point(307, 5);
-            this.LbIwM.Name = "LbIwM";
-            this.LbIwM.Size = new System.Drawing.Size(58, 20);
-            this.LbIwM.TabIndex = 31;
-            this.LbIwM.Text = "IwM";
-            this.LbIwM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbIw
-            // 
-            this.LbIw.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbIw.Location = new System.Drawing.Point(243, 5);
-            this.LbIw.Name = "LbIw";
-            this.LbIw.Size = new System.Drawing.Size(58, 20);
-            this.LbIw.TabIndex = 30;
-            this.LbIw.Text = "Iw";
-            this.LbIw.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbLw
-            // 
-            this.LbLw.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbLw.Location = new System.Drawing.Point(182, 5);
-            this.LbLw.Name = "LbLw";
-            this.LbLw.Size = new System.Drawing.Size(58, 20);
-            this.LbLw.TabIndex = 29;
-            this.LbLw.Text = "Lw";
-            this.LbLw.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbBaseValue
-            // 
-            this.LbBaseValue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbBaseValue.Location = new System.Drawing.Point(78, 5);
-            this.LbBaseValue.Name = "LbBaseValue";
-            this.LbBaseValue.Size = new System.Drawing.Size(105, 20);
-            this.LbBaseValue.TabIndex = 28;
-            this.LbBaseValue.Text = "B";
-            this.LbBaseValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // gbLevel
-            // 
-            this.gbLevel.Controls.Add(this.lbLevelSumDom);
-            this.gbLevel.Controls.Add(this.lbLevelSumWild);
-            this.gbLevel.Controls.Add(this.label16);
-            this.gbLevel.Controls.Add(this.nudCreatureLevel);
-            this.gbLevel.Location = new System.Drawing.Point(3, 225);
-            this.gbLevel.Name = "gbLevel";
-            this.gbLevel.Size = new System.Drawing.Size(200, 81);
-            this.gbLevel.TabIndex = 9;
-            this.gbLevel.TabStop = false;
-            this.gbLevel.Text = "Level";
-            // 
-            // lbLevelSumDom
-            // 
-            this.lbLevelSumDom.AutoSize = true;
-            this.lbLevelSumDom.Location = new System.Drawing.Point(6, 60);
-            this.lbLevelSumDom.Name = "lbLevelSumDom";
-            this.lbLevelSumDom.Size = new System.Drawing.Size(100, 13);
-            this.lbLevelSumDom.TabIndex = 16;
-            this.lbLevelSumDom.Text = "Sum Ld = 100 (+10)";
-            // 
-            // lbLevelSumWild
-            // 
-            this.lbLevelSumWild.AutoSize = true;
-            this.lbLevelSumWild.Location = new System.Drawing.Point(6, 42);
-            this.lbLevelSumWild.Name = "lbLevelSumWild";
-            this.lbLevelSumWild.Size = new System.Drawing.Size(102, 13);
-            this.lbLevelSumWild.TabIndex = 15;
-            this.lbLevelSumWild.Text = "Sum Lw = 100 (+10)";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 21);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(76, 13);
-            this.label16.TabIndex = 14;
-            this.label16.Text = "Creature-Level";
-            // 
-            // LbAbbreviations
-            // 
-            this.LbAbbreviations.AutoSize = true;
-            this.LbAbbreviations.Location = new System.Drawing.Point(209, 222);
-            this.LbAbbreviations.Name = "LbAbbreviations";
-            this.LbAbbreviations.Size = new System.Drawing.Size(780, 39);
-            this.LbAbbreviations.TabIndex = 13;
-            this.LbAbbreviations.Text = resources.GetString("LbAbbreviations.Text");
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statMultipliersToolStripMenuItem,
-            this.calculateToolStripMenuItem,
-            this.setAllLvlToToolStripMenuItem,
-            this.copyStatValuesToClipboardToolStripMenuItem,
-            this.openWikiPageOnStatCalculationToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1213, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // statMultipliersToolStripMenuItem
-            // 
-            this.statMultipliersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.useStatMultipliersOfSettingsToolStripMenuItem,
-            this.useDefaultStatMultipliersToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.copyStatMultipliersToSettingsToolStripMenuItem});
-            this.statMultipliersToolStripMenuItem.Name = "statMultipliersToolStripMenuItem";
-            this.statMultipliersToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
-            this.statMultipliersToolStripMenuItem.Text = "Stat Multipliers";
-            // 
-            // useStatMultipliersOfSettingsToolStripMenuItem
-            // 
-            this.useStatMultipliersOfSettingsToolStripMenuItem.Name = "useStatMultipliersOfSettingsToolStripMenuItem";
-            this.useStatMultipliersOfSettingsToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.useStatMultipliersOfSettingsToolStripMenuItem.Text = "Use Stat Multipliers of Settings";
-            this.useStatMultipliersOfSettingsToolStripMenuItem.Click += new System.EventHandler(this.useStatMultipliersOfSettingsToolStripMenuItem_Click);
-            // 
-            // useDefaultStatMultipliersToolStripMenuItem
-            // 
-            this.useDefaultStatMultipliersToolStripMenuItem.Name = "useDefaultStatMultipliersToolStripMenuItem";
-            this.useDefaultStatMultipliersToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.useDefaultStatMultipliersToolStripMenuItem.Text = "Use Default Stat Multipliers";
-            this.useDefaultStatMultipliersToolStripMenuItem.Click += new System.EventHandler(this.useDefaultStatMultipliersToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(240, 6);
-            // 
-            // copyStatMultipliersToSettingsToolStripMenuItem
-            // 
-            this.copyStatMultipliersToSettingsToolStripMenuItem.Name = "copyStatMultipliersToSettingsToolStripMenuItem";
-            this.copyStatMultipliersToSettingsToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
-            this.copyStatMultipliersToSettingsToolStripMenuItem.Text = "Copy Stat Multipliers to Settings";
-            this.copyStatMultipliersToSettingsToolStripMenuItem.Click += new System.EventHandler(this.copyStatMultipliersToSettingsToolStripMenuItem_Click);
-            // 
-            // calculateToolStripMenuItem
-            // 
-            this.calculateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.idMToolStripMenuItem1,
-            this.idMToolStripMenuItem,
-            this.taMToolStripMenuItem,
-            this.tmMToolStripMenuItem,
-            this.toolStripSeparator3,
-            this.allIwToolStripMenuItem,
-            this.allIdToolStripMenuItem});
-            this.calculateToolStripMenuItem.Name = "calculateToolStripMenuItem";
-            this.calculateToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
-            this.calculateToolStripMenuItem.Text = "Calculate all";
-            // 
-            // idMToolStripMenuItem1
-            // 
-            this.idMToolStripMenuItem1.Name = "idMToolStripMenuItem1";
-            this.idMToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
-            this.idMToolStripMenuItem1.Text = "all IwM";
-            this.idMToolStripMenuItem1.Click += new System.EventHandler(this.iwMToolStripMenuItem_Click);
-            // 
-            // idMToolStripMenuItem
-            // 
-            this.idMToolStripMenuItem.Name = "idMToolStripMenuItem";
-            this.idMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.idMToolStripMenuItem.Text = "all IdM";
-            this.idMToolStripMenuItem.Click += new System.EventHandler(this.idMToolStripMenuItem_Click);
-            // 
-            // taMToolStripMenuItem
-            // 
-            this.taMToolStripMenuItem.Name = "taMToolStripMenuItem";
-            this.taMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.taMToolStripMenuItem.Text = "all TaM";
-            this.taMToolStripMenuItem.Click += new System.EventHandler(this.taMToolStripMenuItem_Click);
-            // 
-            // tmMToolStripMenuItem
-            // 
-            this.tmMToolStripMenuItem.Name = "tmMToolStripMenuItem";
-            this.tmMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.tmMToolStripMenuItem.Text = "all TmM";
-            this.tmMToolStripMenuItem.Click += new System.EventHandler(this.tmMToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(114, 6);
-            // 
-            // allIwToolStripMenuItem
-            // 
-            this.allIwToolStripMenuItem.Name = "allIwToolStripMenuItem";
-            this.allIwToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.allIwToolStripMenuItem.Text = "all Iw";
-            this.allIwToolStripMenuItem.Click += new System.EventHandler(this.allIwToolStripMenuItem_Click);
-            // 
-            // allIdToolStripMenuItem
-            // 
-            this.allIdToolStripMenuItem.Name = "allIdToolStripMenuItem";
-            this.allIdToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.allIdToolStripMenuItem.Text = "all Id";
-            this.allIdToolStripMenuItem.Click += new System.EventHandler(this.allIdToolStripMenuItem_Click);
-            // 
-            // setAllLvlToToolStripMenuItem
-            // 
-            this.setAllLvlToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.allWildLvlToToolStripMenuItem,
-            this.setAllMutLevelsToToolStripMenuItem,
-            this.allDomLvlToToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.setAllWildLevelsToTheClosestValueToolStripMenuItem,
-            this.setAllDomLevelsToTheClosestValueToolStripMenuItem});
-            this.setAllLvlToToolStripMenuItem.Name = "setAllLvlToToolStripMenuItem";
-            this.setAllLvlToToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.setAllLvlToToolStripMenuItem.Text = "Set all Lvl to";
-            // 
-            // allWildLvlToToolStripMenuItem
-            // 
-            this.allWildLvlToToolStripMenuItem.Name = "allWildLvlToToolStripMenuItem";
-            this.allWildLvlToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.allWildLvlToToolStripMenuItem.Text = "Set all Wild levels to…";
-            this.allWildLvlToToolStripMenuItem.Click += new System.EventHandler(this.allWildLvlToToolStripMenuItem_Click);
-            // 
-            // allDomLvlToToolStripMenuItem
-            // 
-            this.allDomLvlToToolStripMenuItem.Name = "allDomLvlToToolStripMenuItem";
-            this.allDomLvlToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.allDomLvlToToolStripMenuItem.Text = "Set all Dom levels to…";
-            this.allDomLvlToToolStripMenuItem.Click += new System.EventHandler(this.allDomLvlToToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(267, 6);
-            // 
-            // setAllWildLevelsToTheClosestValueToolStripMenuItem
-            // 
-            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Name = "setAllWildLevelsToTheClosestValueToolStripMenuItem";
-            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Wild levels to the closest value";
-            this.setAllWildLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllWildLevelsToTheClosestValueToolStripMenuItem_Click);
-            // 
-            // setAllDomLevelsToTheClosestValueToolStripMenuItem
-            // 
-            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Name = "setAllDomLevelsToTheClosestValueToolStripMenuItem";
-            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
-            this.setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += new System.EventHandler(this.setAllDomLevelsToTheClosestValueToolStripMenuItem_Click);
-            // 
-            // copyStatValuesToClipboardToolStripMenuItem
-            // 
-            this.copyStatValuesToClipboardToolStripMenuItem.Name = "copyStatValuesToClipboardToolStripMenuItem";
-            this.copyStatValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(235, 20);
-            this.copyStatValuesToClipboardToolStripMenuItem.Text = "Copy raw species stat values to clipboard";
-            this.copyStatValuesToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyStatValuesToClipboardToolStripMenuItem_Click);
-            // 
-            // openWikiPageOnStatCalculationToolStripMenuItem
-            // 
-            this.openWikiPageOnStatCalculationToolStripMenuItem.Name = "openWikiPageOnStatCalculationToolStripMenuItem";
-            this.openWikiPageOnStatCalculationToolStripMenuItem.Size = new System.Drawing.Size(201, 20);
-            this.openWikiPageOnStatCalculationToolStripMenuItem.Text = "Open wiki page on stat calculation";
-            this.openWikiPageOnStatCalculationToolStripMenuItem.Click += new System.EventHandler(this.openWikiPageOnStatCalculationToolStripMenuItem_Click);
-            // 
-            // setAllMutLevelsToToolStripMenuItem
-            // 
-            this.setAllMutLevelsToToolStripMenuItem.Name = "setAllMutLevelsToToolStripMenuItem";
-            this.setAllMutLevelsToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.setAllMutLevelsToToolStripMenuItem.Text = "Set all Mut levels to…";
-            this.setAllMutLevelsToToolStripMenuItem.Click += new System.EventHandler(this.setAllMutLevelsToToolStripMenuItem_Click);
-            // 
-            // LbMm
-            // 
-            this.LbMm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbMm.Location = new System.Drawing.Point(430, 5);
-            this.LbMm.Name = "LbMm";
-            this.LbMm.Size = new System.Drawing.Size(58, 20);
-            this.LbMm.TabIndex = 42;
-            this.LbMm.Text = "Mm";
-            this.LbMm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // LbLm
-            // 
-            this.LbLm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbLm.Location = new System.Drawing.Point(369, 5);
-            this.LbLm.Name = "LbLm";
-            this.LbLm.Size = new System.Drawing.Size(58, 20);
-            this.LbLm.TabIndex = 41;
-            this.LbLm.Text = "Lm";
-            this.LbLm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(97, 24);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(17, 15);
+            label1.TabIndex = 2;
+            label1.Text = "%";
             // 
             // nudTE
             // 
-            this.nudTE.DecimalPlaces = 3;
-            this.nudTE.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudTE.Location = new System.Drawing.Point(6, 19);
-            this.nudTE.Name = "nudTE";
-            this.nudTE.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudTE.Size = new System.Drawing.Size(71, 20);
-            this.nudTE.TabIndex = 1;
-            this.nudTE.ValueChanged += new System.EventHandler(this.nudTE_ValueChanged);
+            nudTE.DecimalPlaces = 3;
+            nudTE.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            nudTE.Location = new System.Drawing.Point(7, 22);
+            nudTE.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudTE.Name = "nudTE";
+            nudTE.Size = new System.Drawing.Size(83, 23);
+            nudTE.TabIndex = 1;
+            nudTE.ValueChanged += nudTE_ValueChanged;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(BtIb0);
+            groupBox3.Controls.Add(button2);
+            groupBox3.Controls.Add(label3);
+            groupBox3.Controls.Add(label2);
+            groupBox3.Controls.Add(nudIBM);
+            groupBox3.Controls.Add(nudIB);
+            groupBox3.Location = new System.Drawing.Point(433, 154);
+            groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox3.Size = new System.Drawing.Size(278, 57);
+            groupBox3.TabIndex = 6;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Imprinting";
+            // 
+            // BtIb0
+            // 
+            BtIb0.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            BtIb0.Location = new System.Drawing.Point(125, 15);
+            BtIb0.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BtIb0.Name = "BtIb0";
+            BtIb0.Size = new System.Drawing.Size(28, 17);
+            BtIb0.TabIndex = 7;
+            BtIb0.Text = "0";
+            BtIb0.UseVisualStyleBackColor = true;
+            BtIb0.Click += BtIb0_Click;
+            // 
+            // button2
+            // 
+            button2.Font = new System.Drawing.Font("Segoe UI", 5.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            button2.Location = new System.Drawing.Point(125, 31);
+            button2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            button2.Name = "button2";
+            button2.Size = new System.Drawing.Size(28, 17);
+            button2.TabIndex = 6;
+            button2.Text = "100";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(107, 24);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(17, 15);
+            label3.TabIndex = 4;
+            label3.Text = "%";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(155, 24);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(28, 15);
+            label2.TabIndex = 3;
+            label2.Text = "IBM";
             // 
             // nudIBM
             // 
-            this.nudIBM.DecimalPlaces = 4;
-            this.nudIBM.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.nudIBM.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nudIBM.Location = new System.Drawing.Point(161, 19);
-            this.nudIBM.Name = "nudIBM";
-            this.nudIBM.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudIBM.Size = new System.Drawing.Size(71, 20);
-            this.nudIBM.TabIndex = 2;
-            this.nudIBM.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudIBM.ValueChanged += new System.EventHandler(this.nudIBM_ValueChanged);
+            nudIBM.DecimalPlaces = 4;
+            nudIBM.ForeColor = System.Drawing.Color.Black;
+            nudIBM.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            nudIBM.Location = new System.Drawing.Point(188, 22);
+            nudIBM.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudIBM.Name = "nudIBM";
+            nudIBM.Size = new System.Drawing.Size(83, 23);
+            nudIBM.TabIndex = 2;
+            nudIBM.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nudIBM.ValueChanged += nudIBM_ValueChanged;
             // 
             // nudIB
             // 
-            this.nudIB.DecimalPlaces = 6;
-            this.nudIB.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudIB.Location = new System.Drawing.Point(6, 19);
-            this.nudIB.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nudIB.Name = "nudIB";
-            this.nudIB.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudIB.Size = new System.Drawing.Size(80, 20);
-            this.nudIB.TabIndex = 1;
-            this.nudIB.ValueChanged += new System.EventHandler(this.nudIB_ValueChanged);
+            nudIB.DecimalPlaces = 6;
+            nudIB.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            nudIB.Location = new System.Drawing.Point(7, 22);
+            nudIB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudIB.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+            nudIB.Name = "nudIB";
+            nudIB.Size = new System.Drawing.Size(93, 23);
+            nudIB.TabIndex = 1;
+            nudIB.ValueChanged += nudIB_ValueChanged;
+            // 
+            // gbFineAdjustment
+            // 
+            gbFineAdjustment.Controls.Add(tbFineAdjustments);
+            gbFineAdjustment.Location = new System.Drawing.Point(719, 154);
+            gbFineAdjustment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbFineAdjustment.Name = "gbFineAdjustment";
+            gbFineAdjustment.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbFineAdjustment.Size = new System.Drawing.Size(439, 57);
+            gbFineAdjustment.TabIndex = 7;
+            gbFineAdjustment.TabStop = false;
+            gbFineAdjustment.Text = "Fine-Adjustment";
+            // 
+            // tbFineAdjustments
+            // 
+            tbFineAdjustments.AutoSize = false;
+            tbFineAdjustments.Dock = System.Windows.Forms.DockStyle.Top;
+            tbFineAdjustments.Location = new System.Drawing.Point(4, 19);
+            tbFineAdjustments.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tbFineAdjustments.Maximum = 100;
+            tbFineAdjustments.Name = "tbFineAdjustments";
+            tbFineAdjustments.Size = new System.Drawing.Size(431, 36);
+            tbFineAdjustments.TabIndex = 0;
+            tbFineAdjustments.Value = 5;
+            tbFineAdjustments.Scroll += tbFineAdjustments_Scroll;
+            // 
+            // lBDummyEmptyFlowBreak
+            // 
+            lBDummyEmptyFlowBreak.AutoSize = true;
+            flowLayoutPanel1.SetFlowBreak(lBDummyEmptyFlowBreak, true);
+            lBDummyEmptyFlowBreak.Location = new System.Drawing.Point(1166, 151);
+            lBDummyEmptyFlowBreak.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lBDummyEmptyFlowBreak.Name = "lBDummyEmptyFlowBreak";
+            lBDummyEmptyFlowBreak.Size = new System.Drawing.Size(0, 15);
+            lBDummyEmptyFlowBreak.TabIndex = 11;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(LbMm);
+            panel1.Controls.Add(LbLm);
+            panel1.Controls.Add(LbFinalValue);
+            panel1.Controls.Add(LbIdM);
+            panel1.Controls.Add(LbId);
+            panel1.Controls.Add(LbLd);
+            panel1.Controls.Add(LbTmM);
+            panel1.Controls.Add(LbTm);
+            panel1.Controls.Add(LbTaM);
+            panel1.Controls.Add(LbTa);
+            panel1.Controls.Add(LbTBHM);
+            panel1.Controls.Add(LbIwM);
+            panel1.Controls.Add(LbIw);
+            panel1.Controls.Add(LbLw);
+            panel1.Controls.Add(LbBaseValue);
+            flowLayoutPanel1.SetFlowBreak(panel1, true);
+            panel1.Location = new System.Drawing.Point(4, 217);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(1329, 33);
+            panel1.TabIndex = 8;
+            // 
+            // LbMm
+            // 
+            LbMm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbMm.Location = new System.Drawing.Point(502, 6);
+            LbMm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbMm.Name = "LbMm";
+            LbMm.Size = new System.Drawing.Size(68, 23);
+            LbMm.TabIndex = 42;
+            LbMm.Text = "Mm";
+            LbMm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbLm
+            // 
+            LbLm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbLm.Location = new System.Drawing.Point(430, 6);
+            LbLm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbLm.Name = "LbLm";
+            LbLm.Size = new System.Drawing.Size(68, 23);
+            LbLm.TabIndex = 41;
+            LbLm.Text = "Lm";
+            LbLm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbFinalValue
+            // 
+            LbFinalValue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbFinalValue.Location = new System.Drawing.Point(1236, 6);
+            LbFinalValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbFinalValue.Name = "LbFinalValue";
+            LbFinalValue.Size = new System.Drawing.Size(82, 23);
+            LbFinalValue.TabIndex = 40;
+            LbFinalValue.Text = "V";
+            LbFinalValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbIdM
+            // 
+            LbIdM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbIdM.Location = new System.Drawing.Point(1092, 6);
+            LbIdM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbIdM.Name = "LbIdM";
+            LbIdM.Size = new System.Drawing.Size(68, 23);
+            LbIdM.TabIndex = 39;
+            LbIdM.Text = "IdM";
+            LbIdM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbId
+            // 
+            LbId.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbId.Location = new System.Drawing.Point(1018, 6);
+            LbId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbId.Name = "LbId";
+            LbId.Size = new System.Drawing.Size(68, 23);
+            LbId.TabIndex = 38;
+            LbId.Text = "Id";
+            LbId.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbLd
+            // 
+            LbLd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbLd.Location = new System.Drawing.Point(947, 6);
+            LbLd.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbLd.Name = "LbLd";
+            LbLd.Size = new System.Drawing.Size(68, 23);
+            LbLd.TabIndex = 37;
+            LbLd.Text = "Ld";
+            LbLd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbTmM
+            // 
+            LbTmM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbTmM.Location = new System.Drawing.Point(876, 6);
+            LbTmM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTmM.Name = "LbTmM";
+            LbTmM.Size = new System.Drawing.Size(68, 23);
+            LbTmM.TabIndex = 36;
+            LbTmM.Text = "TmM";
+            LbTmM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbTm
+            // 
+            LbTm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbTm.Location = new System.Drawing.Point(802, 6);
+            LbTm.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTm.Name = "LbTm";
+            LbTm.Size = new System.Drawing.Size(68, 23);
+            LbTm.TabIndex = 35;
+            LbTm.Text = "Tm";
+            LbTm.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbTaM
+            // 
+            LbTaM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbTaM.Location = new System.Drawing.Point(727, 6);
+            LbTaM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTaM.Name = "LbTaM";
+            LbTaM.Size = new System.Drawing.Size(68, 23);
+            LbTaM.TabIndex = 34;
+            LbTaM.Text = "TaM";
+            LbTaM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbTa
+            // 
+            LbTa.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbTa.Location = new System.Drawing.Point(653, 6);
+            LbTa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTa.Name = "LbTa";
+            LbTa.Size = new System.Drawing.Size(68, 23);
+            LbTa.TabIndex = 33;
+            LbTa.Text = "Ta";
+            LbTa.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbTBHM
+            // 
+            LbTBHM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbTBHM.Location = new System.Drawing.Point(578, 6);
+            LbTBHM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbTBHM.Name = "LbTBHM";
+            LbTBHM.Size = new System.Drawing.Size(68, 23);
+            LbTBHM.TabIndex = 32;
+            LbTBHM.Text = "TBHM";
+            LbTBHM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbIwM
+            // 
+            LbIwM.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbIwM.Location = new System.Drawing.Point(358, 6);
+            LbIwM.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbIwM.Name = "LbIwM";
+            LbIwM.Size = new System.Drawing.Size(68, 23);
+            LbIwM.TabIndex = 31;
+            LbIwM.Text = "IwM";
+            LbIwM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbIw
+            // 
+            LbIw.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbIw.Location = new System.Drawing.Point(284, 6);
+            LbIw.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbIw.Name = "LbIw";
+            LbIw.Size = new System.Drawing.Size(68, 23);
+            LbIw.TabIndex = 30;
+            LbIw.Text = "Iw";
+            LbIw.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbLw
+            // 
+            LbLw.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbLw.Location = new System.Drawing.Point(212, 6);
+            LbLw.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbLw.Name = "LbLw";
+            LbLw.Size = new System.Drawing.Size(68, 23);
+            LbLw.TabIndex = 29;
+            LbLw.Text = "Lw";
+            LbLw.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // LbBaseValue
+            // 
+            LbBaseValue.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+            LbBaseValue.Location = new System.Drawing.Point(91, 6);
+            LbBaseValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbBaseValue.Name = "LbBaseValue";
+            LbBaseValue.Size = new System.Drawing.Size(122, 23);
+            LbBaseValue.TabIndex = 28;
+            LbBaseValue.Text = "B";
+            LbBaseValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gbLevel
+            // 
+            gbLevel.Controls.Add(lbLevelSumDom);
+            gbLevel.Controls.Add(lbLevelSumWild);
+            gbLevel.Controls.Add(label16);
+            gbLevel.Controls.Add(nudCreatureLevel);
+            gbLevel.Location = new System.Drawing.Point(4, 256);
+            gbLevel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbLevel.Name = "gbLevel";
+            gbLevel.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            gbLevel.Size = new System.Drawing.Size(233, 93);
+            gbLevel.TabIndex = 9;
+            gbLevel.TabStop = false;
+            gbLevel.Text = "Level";
+            // 
+            // lbLevelSumDom
+            // 
+            lbLevelSumDom.AutoSize = true;
+            lbLevelSumDom.Location = new System.Drawing.Point(7, 69);
+            lbLevelSumDom.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbLevelSumDom.Name = "lbLevelSumDom";
+            lbLevelSumDom.Size = new System.Drawing.Size(110, 15);
+            lbLevelSumDom.TabIndex = 16;
+            lbLevelSumDom.Text = "Sum Ld = 100 (+10)";
+            // 
+            // lbLevelSumWild
+            // 
+            lbLevelSumWild.AutoSize = true;
+            lbLevelSumWild.Location = new System.Drawing.Point(7, 48);
+            lbLevelSumWild.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lbLevelSumWild.Name = "lbLevelSumWild";
+            lbLevelSumWild.Size = new System.Drawing.Size(111, 15);
+            lbLevelSumWild.TabIndex = 15;
+            lbLevelSumWild.Text = "Sum Lw = 100 (+10)";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new System.Drawing.Point(7, 24);
+            label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label16.Name = "label16";
+            label16.Size = new System.Drawing.Size(84, 15);
+            label16.TabIndex = 14;
+            label16.Text = "Creature-Level";
             // 
             // nudCreatureLevel
             // 
-            this.nudCreatureLevel.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.nudCreatureLevel.Location = new System.Drawing.Point(87, 19);
-            this.nudCreatureLevel.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudCreatureLevel.Name = "nudCreatureLevel";
-            this.nudCreatureLevel.NeutralNumber = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nudCreatureLevel.Size = new System.Drawing.Size(107, 20);
-            this.nudCreatureLevel.TabIndex = 13;
-            this.nudCreatureLevel.ValueChanged += new System.EventHandler(this.nudCreatureLevel_ValueChanged);
+            nudCreatureLevel.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            nudCreatureLevel.Location = new System.Drawing.Point(102, 22);
+            nudCreatureLevel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            nudCreatureLevel.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
+            nudCreatureLevel.Name = "nudCreatureLevel";
+            nudCreatureLevel.Size = new System.Drawing.Size(125, 23);
+            nudCreatureLevel.TabIndex = 13;
+            nudCreatureLevel.ValueChanged += nudCreatureLevel_ValueChanged;
+            // 
+            // LbAbbreviations
+            // 
+            LbAbbreviations.AutoSize = true;
+            LbAbbreviations.Location = new System.Drawing.Point(245, 253);
+            LbAbbreviations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbAbbreviations.Name = "LbAbbreviations";
+            LbAbbreviations.Size = new System.Drawing.Size(872, 45);
+            LbAbbreviations.TabIndex = 13;
+            LbAbbreviations.Text = resources.GetString("LbAbbreviations.Text");
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { statMultipliersToolStripMenuItem, calculateToolStripMenuItem, setAllLvlToToolStripMenuItem, copyStatValuesToClipboardToolStripMenuItem, openWikiPageOnStatCalculationToolStripMenuItem });
+            menuStrip1.Location = new System.Drawing.Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            menuStrip1.Size = new System.Drawing.Size(1415, 24);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // statMultipliersToolStripMenuItem
+            // 
+            statMultipliersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { useStatMultipliersOfSettingsToolStripMenuItem, useDefaultStatMultipliersToolStripMenuItem, toolStripSeparator1, copyStatMultipliersToSettingsToolStripMenuItem });
+            statMultipliersToolStripMenuItem.Name = "statMultipliersToolStripMenuItem";
+            statMultipliersToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            statMultipliersToolStripMenuItem.Text = "Stat Multipliers";
+            // 
+            // useStatMultipliersOfSettingsToolStripMenuItem
+            // 
+            useStatMultipliersOfSettingsToolStripMenuItem.Name = "useStatMultipliersOfSettingsToolStripMenuItem";
+            useStatMultipliersOfSettingsToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            useStatMultipliersOfSettingsToolStripMenuItem.Text = "Use Stat Multipliers of Settings";
+            useStatMultipliersOfSettingsToolStripMenuItem.Click += useStatMultipliersOfSettingsToolStripMenuItem_Click;
+            // 
+            // useDefaultStatMultipliersToolStripMenuItem
+            // 
+            useDefaultStatMultipliersToolStripMenuItem.Name = "useDefaultStatMultipliersToolStripMenuItem";
+            useDefaultStatMultipliersToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            useDefaultStatMultipliersToolStripMenuItem.Text = "Use Default Stat Multipliers";
+            useDefaultStatMultipliersToolStripMenuItem.Click += useDefaultStatMultipliersToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(240, 6);
+            // 
+            // copyStatMultipliersToSettingsToolStripMenuItem
+            // 
+            copyStatMultipliersToSettingsToolStripMenuItem.Name = "copyStatMultipliersToSettingsToolStripMenuItem";
+            copyStatMultipliersToSettingsToolStripMenuItem.Size = new System.Drawing.Size(243, 22);
+            copyStatMultipliersToSettingsToolStripMenuItem.Text = "Copy Stat Multipliers to Settings";
+            copyStatMultipliersToSettingsToolStripMenuItem.Click += copyStatMultipliersToSettingsToolStripMenuItem_Click;
+            // 
+            // calculateToolStripMenuItem
+            // 
+            calculateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { idMToolStripMenuItem1, idMToolStripMenuItem, taMToolStripMenuItem, tmMToolStripMenuItem, toolStripSeparator3, allIwToolStripMenuItem, allIdToolStripMenuItem });
+            calculateToolStripMenuItem.Name = "calculateToolStripMenuItem";
+            calculateToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            calculateToolStripMenuItem.Text = "Calculate all";
+            // 
+            // idMToolStripMenuItem1
+            // 
+            idMToolStripMenuItem1.Name = "idMToolStripMenuItem1";
+            idMToolStripMenuItem1.Size = new System.Drawing.Size(117, 22);
+            idMToolStripMenuItem1.Text = "all IwM";
+            idMToolStripMenuItem1.Click += iwMToolStripMenuItem_Click;
+            // 
+            // idMToolStripMenuItem
+            // 
+            idMToolStripMenuItem.Name = "idMToolStripMenuItem";
+            idMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            idMToolStripMenuItem.Text = "all IdM";
+            idMToolStripMenuItem.Click += idMToolStripMenuItem_Click;
+            // 
+            // taMToolStripMenuItem
+            // 
+            taMToolStripMenuItem.Name = "taMToolStripMenuItem";
+            taMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            taMToolStripMenuItem.Text = "all TaM";
+            taMToolStripMenuItem.Click += taMToolStripMenuItem_Click;
+            // 
+            // tmMToolStripMenuItem
+            // 
+            tmMToolStripMenuItem.Name = "tmMToolStripMenuItem";
+            tmMToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            tmMToolStripMenuItem.Text = "all TmM";
+            tmMToolStripMenuItem.Click += tmMToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new System.Drawing.Size(114, 6);
+            // 
+            // allIwToolStripMenuItem
+            // 
+            allIwToolStripMenuItem.Name = "allIwToolStripMenuItem";
+            allIwToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            allIwToolStripMenuItem.Text = "all Iw";
+            allIwToolStripMenuItem.Click += allIwToolStripMenuItem_Click;
+            // 
+            // allIdToolStripMenuItem
+            // 
+            allIdToolStripMenuItem.Name = "allIdToolStripMenuItem";
+            allIdToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            allIdToolStripMenuItem.Text = "all Id";
+            allIdToolStripMenuItem.Click += allIdToolStripMenuItem_Click;
+            // 
+            // setAllLvlToToolStripMenuItem
+            // 
+            setAllLvlToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { allWildLvlToToolStripMenuItem, setAllMutLevelsToToolStripMenuItem, allDomLvlToToolStripMenuItem, toolStripSeparator2, setAllWildLevelsToTheClosestValueToolStripMenuItem, setAllDomLevelsToTheClosestValueToolStripMenuItem });
+            setAllLvlToToolStripMenuItem.Name = "setAllLvlToToolStripMenuItem";
+            setAllLvlToToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            setAllLvlToToolStripMenuItem.Text = "Set all Lvl to";
+            // 
+            // allWildLvlToToolStripMenuItem
+            // 
+            allWildLvlToToolStripMenuItem.Name = "allWildLvlToToolStripMenuItem";
+            allWildLvlToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            allWildLvlToToolStripMenuItem.Text = "Set all Wild levels to…";
+            allWildLvlToToolStripMenuItem.Click += allWildLvlToToolStripMenuItem_Click;
+            // 
+            // setAllMutLevelsToToolStripMenuItem
+            // 
+            setAllMutLevelsToToolStripMenuItem.Name = "setAllMutLevelsToToolStripMenuItem";
+            setAllMutLevelsToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            setAllMutLevelsToToolStripMenuItem.Text = "Set all Mut levels to…";
+            setAllMutLevelsToToolStripMenuItem.Click += setAllMutLevelsToToolStripMenuItem_Click;
+            // 
+            // allDomLvlToToolStripMenuItem
+            // 
+            allDomLvlToToolStripMenuItem.Name = "allDomLvlToToolStripMenuItem";
+            allDomLvlToToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            allDomLvlToToolStripMenuItem.Text = "Set all Dom levels to…";
+            allDomLvlToToolStripMenuItem.Click += allDomLvlToToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(267, 6);
+            // 
+            // setAllWildLevelsToTheClosestValueToolStripMenuItem
+            // 
+            setAllWildLevelsToTheClosestValueToolStripMenuItem.Name = "setAllWildLevelsToTheClosestValueToolStripMenuItem";
+            setAllWildLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            setAllWildLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Wild levels to the closest value";
+            setAllWildLevelsToTheClosestValueToolStripMenuItem.Click += setAllWildLevelsToTheClosestValueToolStripMenuItem_Click;
+            // 
+            // setAllDomLevelsToTheClosestValueToolStripMenuItem
+            // 
+            setAllDomLevelsToTheClosestValueToolStripMenuItem.Name = "setAllDomLevelsToTheClosestValueToolStripMenuItem";
+            setAllDomLevelsToTheClosestValueToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            setAllDomLevelsToTheClosestValueToolStripMenuItem.Text = "Set all Dom levels to the closest value";
+            setAllDomLevelsToTheClosestValueToolStripMenuItem.Click += setAllDomLevelsToTheClosestValueToolStripMenuItem_Click;
+            // 
+            // copyStatValuesToClipboardToolStripMenuItem
+            // 
+            copyStatValuesToClipboardToolStripMenuItem.Name = "copyStatValuesToClipboardToolStripMenuItem";
+            copyStatValuesToClipboardToolStripMenuItem.Size = new System.Drawing.Size(235, 20);
+            copyStatValuesToClipboardToolStripMenuItem.Text = "Copy raw species stat values to clipboard";
+            copyStatValuesToClipboardToolStripMenuItem.Click += copyStatValuesToClipboardToolStripMenuItem_Click;
+            // 
+            // openWikiPageOnStatCalculationToolStripMenuItem
+            // 
+            openWikiPageOnStatCalculationToolStripMenuItem.Name = "openWikiPageOnStatCalculationToolStripMenuItem";
+            openWikiPageOnStatCalculationToolStripMenuItem.Size = new System.Drawing.Size(201, 20);
+            openWikiPageOnStatCalculationToolStripMenuItem.Text = "Open wiki page on stat calculation";
+            openWikiPageOnStatCalculationToolStripMenuItem.Click += openWikiPageOnStatCalculationToolStripMenuItem_Click;
             // 
             // StatsMultiplierTesting
             // 
-            this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.menuStrip1);
-            this.Name = "StatsMultiplierTesting";
-            this.Size = new System.Drawing.Size(1213, 532);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.StatsMultiplierTesting_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.StatsMultiplierTesting_DragEnter);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.gbFineAdjustment.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.tbFineAdjustments)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.gbLevel.ResumeLayout(false);
-            this.gbLevel.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTE)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIBM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudIB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCreatureLevel)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AllowDrop = true;
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(flowLayoutPanel1);
+            Controls.Add(menuStrip1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "StatsMultiplierTesting";
+            Size = new System.Drawing.Size(1415, 614);
+            DragDrop += StatsMultiplierTesting_DragDrop;
+            DragEnter += StatsMultiplierTesting_DragEnter;
+            flowLayoutPanel1.ResumeLayout(false);
+            flowLayoutPanel1.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudTE).EndInit();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudIBM).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudIB).EndInit();
+            gbFineAdjustment.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)tbFineAdjustments).EndInit();
+            panel1.ResumeLayout(false);
+            gbLevel.ResumeLayout(false);
+            gbLevel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudCreatureLevel).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

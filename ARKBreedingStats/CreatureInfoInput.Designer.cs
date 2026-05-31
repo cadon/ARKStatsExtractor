@@ -160,6 +160,7 @@ namespace ARKBreedingStats
             // 
             // BtTraits
             // 
+            BtTraits.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             BtTraits.Location = new System.Drawing.Point(10, 475);
             BtTraits.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtTraits.Name = "BtTraits";
@@ -173,6 +174,7 @@ namespace ARKBreedingStats
             // 
             CbMutagen.Appearance = System.Windows.Forms.Appearance.Button;
             CbMutagen.AutoSize = true;
+            CbMutagen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             CbMutagen.Location = new System.Drawing.Point(79, 475);
             CbMutagen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbMutagen.Name = "CbMutagen";
@@ -180,6 +182,7 @@ namespace ARKBreedingStats
             CbMutagen.TabIndex = 53;
             CbMutagen.Text = "Mutagen";
             CbMutagen.UseVisualStyleBackColor = true;
+            CbMutagen.CheckedChanged += CbMutagen_CheckedChanged;
             // 
             // LbColorNewInRegion
             // 
@@ -228,6 +231,7 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern6
             // 
+            btNamingPattern6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btNamingPattern6.Location = new System.Drawing.Point(262, 51);
             btNamingPattern6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern6.Name = "btNamingPattern6";
@@ -239,6 +243,7 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern5
             // 
+            btNamingPattern5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btNamingPattern5.Location = new System.Drawing.Point(222, 51);
             btNamingPattern5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern5.Name = "btNamingPattern5";
@@ -250,6 +255,7 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern4
             // 
+            btNamingPattern4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btNamingPattern4.Location = new System.Drawing.Point(182, 51);
             btNamingPattern4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern4.Name = "btNamingPattern4";
@@ -261,6 +267,7 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern3
             // 
+            btNamingPattern3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btNamingPattern3.Location = new System.Drawing.Point(141, 51);
             btNamingPattern3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern3.Name = "btNamingPattern3";
@@ -272,6 +279,7 @@ namespace ARKBreedingStats
             // 
             // btNamingPattern2
             // 
+            btNamingPattern2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btNamingPattern2.Location = new System.Drawing.Point(100, 51);
             btNamingPattern2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btNamingPattern2.Name = "btNamingPattern2";
@@ -284,6 +292,7 @@ namespace ARKBreedingStats
             // cbArchetype
             // 
             cbArchetype.Appearance = System.Windows.Forms.Appearance.Button;
+            cbArchetype.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             cbArchetype.Location = new System.Drawing.Point(222, 20);
             cbArchetype.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbArchetype.Name = "cbArchetype";
@@ -295,6 +304,7 @@ namespace ARKBreedingStats
             // 
             // btnGenerateUniqueName
             // 
+            btnGenerateUniqueName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnGenerateUniqueName.Location = new System.Drawing.Point(58, 51);
             btnGenerateUniqueName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             btnGenerateUniqueName.Name = "btnGenerateUniqueName";
@@ -456,6 +466,7 @@ namespace ARKBreedingStats
             // nudMaturation
             // 
             nudMaturation.DecimalPlaces = 2;
+            nudMaturation.ForeColor = System.Drawing.Color.Black;
             nudMaturation.Location = new System.Drawing.Point(210, 415);
             nudMaturation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMaturation.Name = "nudMaturation";
@@ -468,6 +479,7 @@ namespace ARKBreedingStats
             // 
             cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
             cbNeutered.AutoSize = true;
+            cbNeutered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             cbNeutered.Location = new System.Drawing.Point(127, 509);
             cbNeutered.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbNeutered.Name = "cbNeutered";
@@ -475,6 +487,7 @@ namespace ARKBreedingStats
             cbNeutered.TabIndex = 15;
             cbNeutered.Text = "Neutered";
             cbNeutered.UseVisualStyleBackColor = true;
+            cbNeutered.CheckedChanged += cbNeutered_CheckedChanged;
             // 
             // dateTimePickerDomesticatedAt
             // 
@@ -489,6 +502,7 @@ namespace ARKBreedingStats
             // 
             // buttonStatus
             // 
+            buttonStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonStatus.Location = new System.Drawing.Point(79, 542);
             buttonStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonStatus.Name = "buttonStatus";
@@ -499,6 +513,7 @@ namespace ARKBreedingStats
             // 
             // buttonSex
             // 
+            buttonSex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             buttonSex.Location = new System.Drawing.Point(79, 509);
             buttonSex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonSex.Name = "buttonSex";
@@ -541,6 +556,7 @@ namespace ARKBreedingStats
             // 
             // btClearColors
             // 
+            btClearColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btClearColors.Location = new System.Drawing.Point(7, 576);
             btClearColors.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btClearColors.Name = "btClearColors";
@@ -655,6 +671,7 @@ namespace ARKBreedingStats
             // btSaveChanges
             // 
             btSaveChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btSaveChanges.Location = new System.Drawing.Point(7, 631);
             btSaveChanges.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btSaveChanges.Name = "btSaveChanges";
@@ -722,6 +739,7 @@ namespace ARKBreedingStats
             // btAdd2Library
             // 
             btAdd2Library.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btAdd2Library.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btAdd2Library.Location = new System.Drawing.Point(7, 631);
             btAdd2Library.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btAdd2Library.Name = "btAdd2Library";

@@ -59,6 +59,7 @@ namespace ARKBreedingStats.multiplierTesting
 
             _fineAdjustmentRange = new MinMaxDouble(0);
             rbDomesticated.Checked = true;
+            btUseMultipliersFromSettings.SetBackColorAndAccordingForeColor(UiColors.Current.Warning);
             gbFineAdjustment.Hide();
             SetToolTips();
         }
@@ -137,9 +138,9 @@ namespace ARKBreedingStats.multiplierTesting
                 lbLevelSumWild.Text += $" ({(positive ? "+" : "")}{(sumW - _statControls[Stats.Torpidity].LevelWild)})";
 
                 if (diff > 50) diff = 50;
-                lbLevelSumWild.BackColor = Utils.GetColorFromPercent(50 - diff, 0.6, !positive);
+                lbLevelSumWild.SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(50 - diff, 0.6, !positive));
             }
-            else { lbLevelSumWild.BackColor = SystemColors.Window; }
+            else lbLevelSumWild.SetBackColorAndAccordingForeColor(SystemColors.Window);
 
             lbLevelSumDom.Text = $"Sum LevelDom = {sumD}";
             diff = sumW + sumD + 1 - (int)nudCreatureLevel.Value;
@@ -150,9 +151,9 @@ namespace ARKBreedingStats.multiplierTesting
                 lbLevelSumDom.Text += $" ({(positive ? "+" : "")}{sumW + sumD + 1 - (int)nudCreatureLevel.Value})";
 
                 if (diff > 50) diff = 50;
-                lbLevelSumDom.BackColor = Utils.GetColorFromPercent(50 - diff, 0.6, !positive);
+                lbLevelSumDom.SetBackColorAndAccordingForeColor(Utils.GetColorFromPercent(50 - diff, 0.6, !positive));
             }
-            else { lbLevelSumDom.BackColor = SystemColors.Window; }
+            else lbLevelSumDom.SetBackColorAndAccordingForeColor(SystemColors.Window);
         }
 
         private void nudTE_ValueChanged(object sender, EventArgs e)
@@ -812,17 +813,17 @@ To determine all species values, the files with the following creature combinati
         {
             if (!e.Data.GetDataPresent(DataFormats.FileDrop)) return;
             e.Effect = DragDropEffects.Copy;
-            LbSpeciesValuesExtractor.BackColor = Color.LightGreen;
+            LbSpeciesValuesExtractor.SetBackColorAndAccordingForeColor(UiColors.Current.Success);
         }
 
         private void LbSpeciesValuesExtractor_DragLeave(object sender, EventArgs e)
         {
-            LbSpeciesValuesExtractor.BackColor = Color.White;
+            LbSpeciesValuesExtractor.SetBackColorAndAccordingForeColor(SystemColors.Window);
         }
 
         private void LbSpeciesValuesExtractor_DragDrop(object sender, DragEventArgs e)
         {
-            LbSpeciesValuesExtractor.BackColor = Color.White;
+            LbSpeciesValuesExtractor.SetBackColorAndAccordingForeColor(SystemColors.Window);
             if (!(e.Data.GetData(DataFormats.FileDrop) is string[] files && files.Any()))
                 return;
             ExtractSpeciesValuesFromExportFiles(files);
