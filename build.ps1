@@ -70,7 +70,7 @@ function Invoke-GenerateManifest {
 
     $projectDir   = Join-Path $PSScriptRoot 'ARKBreedingStats'
     $project      = Join-Path $projectDir 'ARKBreedingStats.csproj'
-    $asbVersion   = (dotnet msbuild $project -getProperty:FileVersion).Trim()
+    $asbVersion   = (dotnet msbuild $project -getProperty:Version).Trim()
 
     $namePatterns = Get-Content (Join-Path $projectDir 'json\namePatternTemplates.json') -Raw
     $npVersion    = [regex]::Match($namePatterns, '"version"\s*:\s*"([\d.]+)"').Groups[1].Value
