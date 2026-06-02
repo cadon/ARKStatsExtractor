@@ -664,7 +664,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="InfoGraphicBackgroundSizing" Type="ARKBreedingStats.InfoGraphic.InfoGraphicSettings.BackgroundImageResizings" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="InfoGraphicStitchBackground" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)" />

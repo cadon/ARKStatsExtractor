@@ -2631,6 +2631,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public global::ARKBreedingStats.InfoGraphic.InfoGraphicSettings.BackgroundImageResizings InfoGraphicBackgroundSizing {
             get {
                 return ((global::ARKBreedingStats.InfoGraphic.InfoGraphicSettings.BackgroundImageResizings)(this["InfoGraphicBackgroundSizing"]));
