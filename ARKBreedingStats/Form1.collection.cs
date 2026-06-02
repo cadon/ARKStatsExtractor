@@ -75,7 +75,7 @@ namespace ARKBreedingStats
                     asaMode = _creatureCollection?.Game != Ark.Ase;
                     break;
                 default:
-                    var gameVersionDialog = new ArkVersionDialog(this);
+                    var gameVersionDialog = new ArkGameDialog(this);
                     gameVersionDialog.ShowDialog();
                     if (gameVersionDialog.UseSelectionAsDefault)
                         Properties.Settings.Default.NewLibraryGame = gameVersionDialog.GameVersion;
@@ -102,8 +102,10 @@ namespace ARKBreedingStats
             }
             else
             {
+                _creatureCollection.Game = Ark.Ase;
                 UpdateAsaIndicator();
             }
+
 
             pedigree1.Clear();
             breedingPlan1.Clear();
