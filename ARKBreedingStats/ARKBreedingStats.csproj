@@ -11,7 +11,7 @@
     <ApplicationIcon>ARKSmartBreeding.ico</ApplicationIcon>
     
     <!-- Version is the single source of truth -->
-    <Version>0.73.1.0</Version>
+    <Version>0.73.1.1</Version>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 
     <!-- Assembly metadata -->
