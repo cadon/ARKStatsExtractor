@@ -12,16 +12,18 @@ namespace ARKBreedingStats.uiControls
         public int MaxDomLevel;
         public int LevelGraphMax;
         private readonly bool _percent;
-        private readonly ToolTip _tt = new ToolTip();
+        private readonly ToolTip _tt = new();
 
         public StatPotential()
         {
             InitializeComponent();
             Disposed += (s, e) => _tt.RemoveAllAndDispose();
+            labelWildLevels.SetBackColorAndAccordingForeColor(UiColors.Current.SimilarityGood);
+            labelImprinting.SetBackColorAndAccordingForeColor(UiColors.Current.SimilarityOk);
+            labelDomLevels.SetBackColorAndAccordingForeColor(UiColors.Current.SimilarityPoor);
         }
-        public StatPotential(int stat, bool percent)
+        public StatPotential(int stat, bool percent) : this()
         {
-            InitializeComponent();
             _statIndex = stat;
             _percent = percent;
             label1.Text = Utils.StatName(_statIndex, true);
@@ -30,13 +32,12 @@ namespace ARKBreedingStats.uiControls
         public void SetLevel(Species species, int wildLevel, int mutationLevels)
         {
             if (LevelGraphMax <= 0) return;
-            const int controlWidth = 60;
-            var wildMutSumLevel = Math.Max(0, wildLevel + mutationLevels);
-            labelWildLevels.Width = controlWidth + controlWidth * (wildMutSumLevel > LevelGraphMax ? LevelGraphMax : wildMutSumLevel) / LevelGraphMax;
-            labelImprinting.Width = controlWidth;
-            labelDomLevels.Width = controlWidth;
-            labelImprinting.Location = new Point(33 + labelWildLevels.Width, 0);
-            labelDomLevels.Location = new Point(35 + labelWildLevels.Width + labelImprinting.Width, 0);
+            var wildMutSumLevel = Math.Min(Math.Max(0, wildLevel + mutationLevels), LevelGraphMax);
+            if (_statIndex == Stats.Torpidity) wildMutSumLevel /= 7;
+            var widthForLevelsBase = (Width - label1.Width) / 4;
+            labelWildLevels.Width = widthForLevelsBase + widthForLevelsBase * wildMutSumLevel / LevelGraphMax;
+            labelImprinting.Width = widthForLevelsBase;
+            labelDomLevels.Width = widthForLevelsBase;
             if (wildLevel < 0 || mutationLevels < 0)
             {
                 labelWildLevels.Text = "?";
@@ -46,9 +47,9 @@ namespace ARKBreedingStats.uiControls
             else
             {
                 var suffix = _percent ? "%" : string.Empty;
-                labelWildLevels.Text = StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, mutationLevels, 0, true, 1, 0) * (_percent ? 100 : 1) + suffix;
-                labelImprinting.Text = StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, mutationLevels, 0, true, 1, 1) * (_percent ? 100 : 1) + suffix;
-                labelDomLevels.Text = StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, mutationLevels, MaxDomLevel, true, 1, 1) * (_percent ? 100 : 1) + suffix;
+                labelWildLevels.Text = Math.Round(StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, mutationLevels, 0, true, 1, 0) * (_percent ? 100 : 1), 2) + suffix;
+                labelImprinting.Text = Math.Round(StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, mutationLevels, 0, true, 1, 1) * (_percent ? 100 : 1), 2) + suffix;
+                labelDomLevels.Text = Math.Round(StatValueCalculation.CalculateValue(species, _statIndex, wildLevel, mutationLevels, MaxDomLevel, true, 1, 1) * (_percent ? 100 : 1), 2) + suffix;
             }
             _tt.SetToolTip(labelWildLevels, labelWildLevels.Text);
             _tt.SetToolTip(labelImprinting, labelImprinting.Text);

@@ -27,6 +27,9 @@ namespace ARKBreedingStats.uiControls
                 flpStats.Controls.Add(_stats[si]);
                 flpStats.SetFlowBreak(_stats[si], true);
             }
+            LbWildLevels.SetBackColorAndAccordingForeColor(UiColors.Current.SimilarityGood);
+            LbDomLevels.SetBackColorAndAccordingForeColor(UiColors.Current.SimilarityOk);
+            LbImprinting.SetBackColorAndAccordingForeColor(UiColors.Current.SimilarityPoor);
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

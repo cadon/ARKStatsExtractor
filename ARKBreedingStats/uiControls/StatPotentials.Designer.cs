@@ -29,127 +29,137 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatPotentials));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flpStats = new System.Windows.Forms.FlowLayoutPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            groupBox1 = new System.Windows.Forms.GroupBox();
+            tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            flpStats = new System.Windows.Forms.FlowLayoutPanel();
+            label4 = new System.Windows.Forms.Label();
+            panel1 = new System.Windows.Forms.Panel();
+            LbWildLevels = new System.Windows.Forms.Label();
+            LbDomLevels = new System.Windows.Forms.Label();
+            LbImprinting = new System.Windows.Forms.Label();
+            groupBox1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(383, 478);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Potentials of the genes of the current creature";
+            groupBox1.Controls.Add(tableLayoutPanel1);
+            groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            groupBox1.Location = new System.Drawing.Point(0, 0);
+            groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            groupBox1.Size = new System.Drawing.Size(342, 552);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Potentials of the genes of the current creature";
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.flpStats, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(377, 459);
-            this.tableLayoutPanel1.TabIndex = 5;
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(flpStats, 0, 1);
+            tableLayoutPanel1.Controls.Add(label4, 0, 2);
+            tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(4, 19);
+            tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 3;
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 92F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(334, 530);
+            tableLayoutPanel1.TabIndex = 5;
             // 
             // flpStats
             // 
-            this.flpStats.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpStats.Location = new System.Drawing.Point(3, 41);
-            this.flpStats.Name = "flpStats";
-            this.flpStats.Size = new System.Drawing.Size(371, 335);
-            this.flpStats.TabIndex = 4;
+            flpStats.Dock = System.Windows.Forms.DockStyle.Fill;
+            flpStats.Location = new System.Drawing.Point(4, 47);
+            flpStats.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            flpStats.Name = "flpStats";
+            flpStats.Size = new System.Drawing.Size(326, 388);
+            flpStats.TabIndex = 4;
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(3, 379);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(295, 56);
-            this.label4.TabIndex = 4;
-            this.label4.Text = resources.GetString("label4.Text");
+            label4.Location = new System.Drawing.Point(4, 438);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(326, 65);
+            label4.TabIndex = 4;
+            label4.Text = resources.GetString("label4.Text");
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(371, 32);
-            this.panel1.TabIndex = 5;
+            panel1.Controls.Add(LbWildLevels);
+            panel1.Controls.Add(LbDomLevels);
+            panel1.Controls.Add(LbImprinting);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(4, 3);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(326, 38);
+            panel1.TabIndex = 5;
             // 
-            // label1
+            // LbWildLevels
             // 
-            this.label1.BackColor = System.Drawing.Color.LightCoral;
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 23);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Wild-Levels";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LbWildLevels.BackColor = System.Drawing.Color.LightCoral;
+            LbWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            LbWildLevels.Location = new System.Drawing.Point(4, 0);
+            LbWildLevels.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbWildLevels.Name = "LbWildLevels";
+            LbWildLevels.Size = new System.Drawing.Size(93, 26);
+            LbWildLevels.TabIndex = 1;
+            LbWildLevels.Text = "Wild-Levels";
+            LbWildLevels.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // LbDomLevels
             // 
-            this.label3.BackColor = System.Drawing.Color.Gold;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(175, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 23);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Dom-Leveling";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LbDomLevels.BackColor = System.Drawing.Color.Gold;
+            LbDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            LbDomLevels.Location = new System.Drawing.Point(204, 0);
+            LbDomLevels.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbDomLevels.Name = "LbDomLevels";
+            LbDomLevels.Size = new System.Drawing.Size(93, 26);
+            LbDomLevels.TabIndex = 3;
+            LbDomLevels.Text = "Dom-Leveling";
+            LbDomLevels.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // LbImprinting
             // 
-            this.label2.BackColor = System.Drawing.Color.SkyBlue;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Location = new System.Drawing.Point(89, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 23);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Imprinting";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            LbImprinting.BackColor = System.Drawing.Color.SkyBlue;
+            LbImprinting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            LbImprinting.Location = new System.Drawing.Point(104, 0);
+            LbImprinting.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbImprinting.Name = "LbImprinting";
+            LbImprinting.Size = new System.Drawing.Size(93, 26);
+            LbImprinting.TabIndex = 2;
+            LbImprinting.Text = "Imprinting";
+            LbImprinting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // StatPotentials
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox1);
-            this.Name = "StatPotentials";
-            this.Size = new System.Drawing.Size(383, 478);
-            this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(groupBox1);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "StatPotentials";
+            Size = new System.Drawing.Size(342, 552);
+            groupBox1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LbDomLevels;
+        private System.Windows.Forms.Label LbImprinting;
+        private System.Windows.Forms.Label LbWildLevels;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flpStats;
