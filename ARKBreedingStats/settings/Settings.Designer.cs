@@ -426,6 +426,7 @@
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
+            CbIgnoreIngameNameIfAlreadyImported = new System.Windows.Forms.CheckBox();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -4103,6 +4104,7 @@
             // 
             // groupBox21
             // 
+            groupBox21.Controls.Add(CbIgnoreIngameNameIfAlreadyImported);
             groupBox21.Controls.Add(CbCopyNameToClipboardOnImport);
             groupBox21.Controls.Add(CbApplyNamingPatternOnImportAlways);
             groupBox21.Controls.Add(cbApplyNamePatternOnImportOnNewCreatures);
@@ -4113,7 +4115,7 @@
             groupBox21.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox21.Name = "groupBox21";
             groupBox21.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox21.Size = new System.Drawing.Size(371, 205);
+            groupBox21.Size = new System.Drawing.Size(371, 220);
             groupBox21.TabIndex = 5;
             groupBox21.TabStop = false;
             groupBox21.Text = "Auto naming on import";
@@ -4121,7 +4123,7 @@
             // CbCopyNameToClipboardOnImport
             // 
             CbCopyNameToClipboardOnImport.AutoSize = true;
-            CbCopyNameToClipboardOnImport.Location = new System.Drawing.Point(7, 170);
+            CbCopyNameToClipboardOnImport.Location = new System.Drawing.Point(8, 195);
             CbCopyNameToClipboardOnImport.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbCopyNameToClipboardOnImport.Name = "CbCopyNameToClipboardOnImport";
             CbCopyNameToClipboardOnImport.Size = new System.Drawing.Size(248, 19);
@@ -4164,7 +4166,7 @@
             // cbCopyPatternNameToClipboard
             // 
             cbCopyPatternNameToClipboard.AutoSize = true;
-            cbCopyPatternNameToClipboard.Location = new System.Drawing.Point(7, 143);
+            cbCopyPatternNameToClipboard.Location = new System.Drawing.Point(8, 168);
             cbCopyPatternNameToClipboard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbCopyPatternNameToClipboard.Name = "cbCopyPatternNameToClipboard";
             cbCopyPatternNameToClipboard.Size = new System.Drawing.Size(231, 19);
@@ -5124,6 +5126,17 @@
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
+            // CbIgnoreIngameNameIfAlreadyImported
+            // 
+            CbIgnoreIngameNameIfAlreadyImported.AutoSize = true;
+            CbIgnoreIngameNameIfAlreadyImported.Location = new System.Drawing.Point(8, 123);
+            CbIgnoreIngameNameIfAlreadyImported.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            CbIgnoreIngameNameIfAlreadyImported.Name = "CbIgnoreIngameNameIfAlreadyImported";
+            CbIgnoreIngameNameIfAlreadyImported.Size = new System.Drawing.Size(322, 19);
+            CbIgnoreIngameNameIfAlreadyImported.TabIndex = 6;
+            CbIgnoreIngameNameIfAlreadyImported.Text = "keep ASB name if already imported (ignore game name)";
+            CbIgnoreIngameNameIfAlreadyImported.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             AcceptButton = buttonOK;
@@ -5714,5 +5727,6 @@
         private System.Windows.Forms.Label label80;
         private System.Windows.Forms.CheckBox CbInfoGraphicTintBackgroundByCreature;
         private System.Windows.Forms.CheckBox CbInfoGraphicColorsByCreature;
+        private System.Windows.Forms.CheckBox CbIgnoreIngameNameIfAlreadyImported;
     }
 }

@@ -948,7 +948,7 @@ namespace ARKBreedingStats
             var persistentCreaturesAndOldName = newCreatures.Select(c => (creature:
                 IsCreatureAlreadyInLibrary(c.guid, c.ArkId, out alreadyExistingCreature)
                     ? alreadyExistingCreature
-                    : c, oldName: alreadyExistingCreature?.name)).ToArray();
+                    : c, oldName: alreadyExistingCreature?.name, newCreature: c)).ToArray();
 
             lastImportedCreature = newCreatures.LastOrDefault();
             var importCreatureExists = lastImportedCreature != null;
@@ -960,6 +960,14 @@ namespace ARKBreedingStats
                     // calculate level status of last added creature
                     _creatureCollection.DetermineColorStatus(speciesSelector1.SelectedSpecies, lastImportedCreature.colors, out _, out _, out _);
                     DetermineLevelStatusAndSoundFeedback(lastImportedCreature, playImportSound, playColorSound);
+
+                    if (alreadyExistingCreature != null &&
+                        Properties.Settings.Default.IgnoreIngameNameIfAlreadyImported)
+                    {
+                        foreach (var c in persistentCreaturesAndOldName)
+                            if (c.oldName != null)
+                                c.newCreature.name = c.oldName;
+                    }
 
                     _creatureCollection.MergeCreatureList(newCreatures, true);
                     UpdateCreatureParentLinkingSort(false);

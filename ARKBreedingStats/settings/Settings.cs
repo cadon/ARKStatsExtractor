@@ -457,6 +457,7 @@ namespace ARKBreedingStats.settings
             CbApplyNamingPatternOnImportAlways.Checked = Properties.Settings.Default.applyNamePatternOnAutoImportAlways;
             cbApplyNamePatternOnImportOnEmptyNames.Checked = Properties.Settings.Default.applyNamePatternOnImportIfEmptyName;
             cbApplyNamePatternOnImportOnNewCreatures.Checked = Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures;
+            CbIgnoreIngameNameIfAlreadyImported.Checked = Properties.Settings.Default.IgnoreIngameNameIfAlreadyImported;
             cbCopyPatternNameToClipboard.Checked = Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied;
             CbCopyNameToClipboardOnImport.Checked = Properties.Settings.Default.CopyNameToClipboardOnImport;
             cbAutoImportExported.Checked = Properties.Settings.Default.AutoImportExportedCreatures;
@@ -759,6 +760,7 @@ namespace ARKBreedingStats.settings
             Properties.Settings.Default.applyNamePatternOnAutoImportAlways = CbApplyNamingPatternOnImportAlways.Checked;
             Properties.Settings.Default.applyNamePatternOnImportIfEmptyName = cbApplyNamePatternOnImportOnEmptyNames.Checked;
             Properties.Settings.Default.applyNamePatternOnAutoImportForNewCreatures = cbApplyNamePatternOnImportOnNewCreatures.Checked;
+            Properties.Settings.Default.IgnoreIngameNameIfAlreadyImported = CbIgnoreIngameNameIfAlreadyImported.Checked;
             Properties.Settings.Default.copyNameToClipboardOnImportWhenAutoNameApplied = cbCopyPatternNameToClipboard.Checked;
             Properties.Settings.Default.CopyNameToClipboardOnImport = CbCopyNameToClipboardOnImport.Checked;
             Properties.Settings.Default.AutoImportExportedCreatures = cbAutoImportExported.Checked;

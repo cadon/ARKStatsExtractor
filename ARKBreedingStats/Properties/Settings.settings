@@ -684,5 +684,8 @@
     <Setting Name="InfographicTintBackgroundImage" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="IgnoreIngameNameIfAlreadyImported" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
