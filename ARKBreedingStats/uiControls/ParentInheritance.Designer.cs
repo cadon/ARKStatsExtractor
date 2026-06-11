@@ -32,7 +32,7 @@ namespace ARKBreedingStats.uiControls
         {
             components = new System.ComponentModel.Container();
             ControlMother = new PedigreeCreature();
-            GbParents = new System.Windows.Forms.GroupBox();
+            GbParents = new GroupBoxC();
             pedigreeCreatureHeaders = new PedigreeCreature();
             ControlFather = new PedigreeCreature();
             ControlOffspring = new PedigreeCreature();
@@ -104,7 +104,7 @@ namespace ARKBreedingStats.uiControls
         #endregion
 
         private PedigreeCreature ControlMother;
-        private System.Windows.Forms.GroupBox GbParents;
+        private GroupBoxC GbParents;
         private PedigreeCreature ControlFather;
         private PedigreeCreature ControlOffspring;
         private PedigreeCreature pedigreeCreatureHeaders;

@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.multiplierTesting
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.multiplierTesting
 {
     partial class StatMultiplierTestingControl
     {
@@ -77,7 +79,7 @@
             CbTrodTa = new System.Windows.Forms.CheckBox();
             CbTrodTm = new System.Windows.Forms.CheckBox();
             CbTrodId = new System.Windows.Forms.CheckBox();
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new GroupBoxC();
             BtSolveTaTbhm = new System.Windows.Forms.Button();
             LbTaTmTeStored = new System.Windows.Forms.Label();
             BtSolveTaTm = new System.Windows.Forms.Button();
@@ -986,7 +988,7 @@
         private System.Windows.Forms.CheckBox CbTrodTa;
         private System.Windows.Forms.CheckBox CbTrodTm;
         private System.Windows.Forms.CheckBox CbTrodId;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Button BtStoreTaTm;
         private System.Windows.Forms.Button BtSolveTaTm;
         private System.Windows.Forms.Button BtSolveTaMTmM;

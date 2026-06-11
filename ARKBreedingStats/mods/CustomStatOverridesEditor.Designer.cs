@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.mods
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.mods
 {
     partial class CustomStatOverridesEditor
     {
@@ -31,12 +33,12 @@
             this.lvSpecies = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tbFilterSpecies = new System.Windows.Forms.TextBox();
             this.btClearFilter = new System.Windows.Forms.Button();
             this.cbOnlyDisplayOverriddenSpecies = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new GroupBoxC();
             this.flowLayoutPanelOverrideEdits = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
@@ -357,8 +359,8 @@
         #endregion
 
         private System.Windows.Forms.ListView lvSpecies;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox1;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelOverrideEdits;
         private System.Windows.Forms.Button btSaveOverride;
         private System.Windows.Forms.Button btRemoveOverride;

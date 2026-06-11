@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class TamingControl
     {
@@ -33,13 +35,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lbMax = new System.Windows.Forms.Label();
             this.lbUsed = new System.Windows.Forms.Label();
-            this.gpTorporTime = new System.Windows.Forms.GroupBox();
+            this.gpTorporTime = new GroupBoxC();
             this.numericUpDownCurrentTorpor = new ARKBreedingStats.uiControls.Nud();
             this.btAddWakeUpTimer = new System.Windows.Forms.Button();
             this.lbTimeUntilWakingUp = new System.Windows.Forms.Label();
             this.lbCurrentTorpor = new System.Windows.Forms.Label();
             this.lbTamingTime = new System.Windows.Forms.Label();
-            this.gbWeaponDamage = new System.Windows.Forms.GroupBox();
+            this.gbWeaponDamage = new GroupBoxC();
             this.flcBodyDamageMultipliers = new System.Windows.Forms.FlowLayoutPanel();
             this.rbBoneDamageDefault = new System.Windows.Forms.RadioButton();
             this.nudWDmHarpoon = new ARKBreedingStats.uiControls.Nud();
@@ -56,11 +58,11 @@
             this.nudWDmBow = new ARKBreedingStats.uiControls.Nud();
             this.nudWDmCrossbow = new ARKBreedingStats.uiControls.Nud();
             this.nudWDmLongneck = new ARKBreedingStats.uiControls.Nud();
-            this.gbKOInfo = new System.Windows.Forms.GroupBox();
+            this.gbKOInfo = new GroupBoxC();
             this.lbKOInfo = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new GroupBoxC();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.gpStarvingTime = new System.Windows.Forms.GroupBox();
+            this.gpStarvingTime = new GroupBoxC();
             this.nudTotalFood = new ARKBreedingStats.uiControls.Nud();
             this.label3 = new System.Windows.Forms.Label();
             this.nudCurrentFood = new ARKBreedingStats.uiControls.Nud();
@@ -714,17 +716,17 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lbMax;
         private System.Windows.Forms.Label lbUsed;
-        private System.Windows.Forms.GroupBox gpTorporTime;
+        private GroupBoxC gpTorporTime;
         private System.Windows.Forms.Label lbTimeUntilWakingUp;
         private System.Windows.Forms.Label lbCurrentTorpor;
         private uiControls.Nud numericUpDownCurrentTorpor;
         private System.Windows.Forms.Label lbTamingTime;
         private uiControls.Nud nudWDmLongneck;
-        private System.Windows.Forms.GroupBox gbWeaponDamage;
+        private GroupBoxC gbWeaponDamage;
         private uiControls.Nud nudWDmClub;
         private uiControls.Nud nudWDmBow;
         private uiControls.Nud nudWDmCrossbow;
-        private System.Windows.Forms.GroupBox gbKOInfo;
+        private GroupBoxC gbKOInfo;
         private uiControls.Nud nudWDmSlingshot;
         private System.Windows.Forms.Button btAddWakeUpTimer;
         private uiControls.Nud nudWDmProd;
@@ -734,8 +736,8 @@
         private System.Windows.Forms.CheckBox chkbDmClub;
         private System.Windows.Forms.CheckBox chkbDmProd;
         private System.Windows.Forms.CheckBox chkbDmLongneck;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox gpStarvingTime;
+        private GroupBoxC groupBox3;
+        private GroupBoxC gpStarvingTime;
         private System.Windows.Forms.Button btnAddStarvingTimer;
         private System.Windows.Forms.Label lbTimeUntilStarving;
         private System.Windows.Forms.RadioButton rbBoneDamageDefault;

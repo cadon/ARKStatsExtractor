@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class TribesControl
     {
@@ -48,7 +50,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panelTribeSettings = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.radioButtonFriendly = new System.Windows.Forms.RadioButton();
             this.radioButtonHostile = new System.Windows.Forms.RadioButton();
             this.radioButtonNeutral = new System.Windows.Forms.RadioButton();
@@ -57,7 +59,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxTribeName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new GroupBoxC();
             this.listViewTribes = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderRelation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -485,7 +487,7 @@
         private System.Windows.Forms.ColumnHeader columnHeaderTribe;
         private System.Windows.Forms.ColumnHeader columnHeaderRel;
         private System.Windows.Forms.ColumnHeader columnHeaderNotes;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.ListView listViewTribes;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderRelation;
@@ -502,7 +504,7 @@
         private uiControls.Nud nudPlayerLevel;
         private System.Windows.Forms.Panel panelTribeSettings;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.RadioButton radioButtonFriendly;
         private System.Windows.Forms.RadioButton radioButtonHostile;
         private System.Windows.Forms.RadioButton radioButtonNeutral;

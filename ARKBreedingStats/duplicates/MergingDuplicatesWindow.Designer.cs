@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.duplicates
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.duplicates
 {
     partial class MergingDuplicatesWindow
     {
@@ -30,11 +32,11 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btUseRight = new System.Windows.Forms.Button();
-            this.gbLeftCreature = new System.Windows.Forms.GroupBox();
+            this.gbLeftCreature = new GroupBoxC();
             this.lbCreatureInfosLeft = new System.Windows.Forms.Label();
             this.statsDisplay2 = new ARKBreedingStats.uiControls.StatsDisplay();
             this.label1 = new System.Windows.Forms.Label();
-            this.gbRightCreature = new System.Windows.Forms.GroupBox();
+            this.gbRightCreature = new GroupBoxC();
             this.lbCreatureInfosRight = new System.Windows.Forms.Label();
             this.statsDisplay1 = new ARKBreedingStats.uiControls.StatsDisplay();
             this.btUseLeft = new System.Windows.Forms.Button();
@@ -207,11 +209,11 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btUseRight;
-        private System.Windows.Forms.GroupBox gbLeftCreature;
+        private GroupBoxC gbLeftCreature;
         private System.Windows.Forms.Label lbCreatureInfosLeft;
         private uiControls.StatsDisplay statsDisplay2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox gbRightCreature;
+        private GroupBoxC gbRightCreature;
         private System.Windows.Forms.Label lbCreatureInfosRight;
         private uiControls.StatsDisplay statsDisplay1;
         private System.Windows.Forms.Button btUseLeft;

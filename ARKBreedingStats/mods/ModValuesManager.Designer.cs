@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.mods
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.mods
 {
     partial class ModValuesManager
     {
@@ -32,7 +34,7 @@
             this.lbModList = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btRemoveMod = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new GroupBoxC();
             this.LvAvailableModFiles = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -42,7 +44,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.RbAse = new System.Windows.Forms.RadioButton();
             this.RbAsa = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.LbGameLabel = new System.Windows.Forms.Label();
             this.LbGame = new System.Windows.Forms.Label();
             this.LbAuthorLabel = new System.Windows.Forms.Label();
@@ -66,7 +68,7 @@
             this.btMoveDown = new System.Windows.Forms.Button();
             this.btMoveUp = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new GroupBoxC();
             this.btAddMod = new System.Windows.Forms.Button();
             this.BtRemoveAllMods = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
@@ -573,10 +575,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Button btRemoveMod;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox3;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.Button btAddMod;
         private System.Windows.Forms.Label lbAvailableForDownload;
         private System.Windows.Forms.Button btOpenValuesFolder;

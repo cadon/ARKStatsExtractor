@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.SpeciesImages
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.SpeciesImages
 {
     partial class ImagePackSelection
     {
@@ -51,7 +53,7 @@
             this.LbDescription = new System.Windows.Forms.Label();
             this.TbUrl = new System.Windows.Forms.TextBox();
             this.LLFolder = new System.Windows.Forms.LinkLabel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.LbCustomPackInfo = new System.Windows.Forms.Label();
             this.BtOpenPackPreferenceFile = new System.Windows.Forms.Button();
             this.LlImagePackManual = new System.Windows.Forms.LinkLabel();
@@ -423,7 +425,7 @@
         private System.Windows.Forms.Button BtMoveDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel LLFolder;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Label LbCustomPackInfo;
         private System.Windows.Forms.Button BtOpenPackPreferenceFile;
         private System.Windows.Forms.TextBox TbUrl;

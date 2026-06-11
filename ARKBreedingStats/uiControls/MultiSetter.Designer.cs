@@ -55,7 +55,7 @@
             checkBoxColor4 = new System.Windows.Forms.CheckBox();
             checkBoxColor5 = new System.Windows.Forms.CheckBox();
             checkBoxColor6 = new System.Windows.Forms.CheckBox();
-            groupBoxTags = new System.Windows.Forms.GroupBox();
+            groupBoxTags = new GroupBoxC();
             flowLayoutPanelTags = new System.Windows.Forms.FlowLayoutPanel();
             tbNewTag = new System.Windows.Forms.TextBox();
             bAddTag = new System.Windows.Forms.Button();
@@ -599,7 +599,7 @@
         private System.Windows.Forms.CheckBox checkBoxColor4;
         private System.Windows.Forms.CheckBox checkBoxColor5;
         private System.Windows.Forms.CheckBox checkBoxColor6;
-        private System.Windows.Forms.GroupBox groupBoxTags;
+        private GroupBoxC groupBoxTags;
         private System.Windows.Forms.TextBox tbNewTag;
         private System.Windows.Forms.Button bAddTag;
         private System.Windows.Forms.CheckBox cbServer;

@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.Pedigree
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.Pedigree
 {
     partial class PedigreeCreature
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new GroupBoxC();
             labelMutations = new System.Windows.Forms.Label();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             labelCr = new System.Windows.Forms.Label();
@@ -443,7 +445,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Label labelCr;
         private System.Windows.Forms.Label labelSp;
         private System.Windows.Forms.Label labelDm;

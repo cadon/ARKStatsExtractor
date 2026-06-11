@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class TimerControl
     {
@@ -41,7 +43,7 @@
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeAllExpiredTimersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBoxAddTimer = new System.Windows.Forms.GroupBox();
+            this.groupBoxAddTimer = new GroupBoxC();
             this.BtRemovePreset = new System.Windows.Forms.Button();
             this.BtAddPreset = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,7 +51,7 @@
             this.btOpenSoundFolder = new System.Windows.Forms.Button();
             this.SoundListBox = new System.Windows.Forms.ComboBox();
             this.SoundLabel = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.bSetTimerNow = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,7 +64,7 @@
             this.contextMenuStripTimerHeader = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemResetTimerColumnWidths = new System.Windows.Forms.ToolStripMenuItem();
             this.dhmsInputTimer = new ARKBreedingStats.uiControls.dhmsInput();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new GroupBoxC();
             this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -440,7 +442,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox groupBoxAddTimer;
+        private GroupBoxC groupBoxAddTimer;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePickerTimerFinish;
@@ -448,7 +450,7 @@
         private System.Windows.Forms.Button buttonAddTimer;
         private System.Windows.Forms.ToolStripMenuItem addToOverlayToolStripMenuItem;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private uiControls.dhmsInput dhmsInputTimer;
         private System.Windows.Forms.Button bSetTimerNow;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -466,7 +468,7 @@
         private System.Windows.Forms.Button BtRemovePreset;
         private System.Windows.Forms.Button BtAddPreset;
         private System.Windows.Forms.ListBox LbTimerPresets;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.Panel panel1;
     }
 }

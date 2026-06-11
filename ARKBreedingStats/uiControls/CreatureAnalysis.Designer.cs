@@ -29,7 +29,7 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TlpRegionInfo = new System.Windows.Forms.TableLayoutPanel();
             this.LbCreatureCountHeader = new System.Windows.Forms.Label();
@@ -227,7 +227,7 @@ namespace ARKBreedingStats.uiControls
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Label LbColorAnalysis;
         private System.Windows.Forms.Label LbStatAnalysis;
         private System.Windows.Forms.Label LbConclusion;

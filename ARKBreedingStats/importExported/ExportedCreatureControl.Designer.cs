@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.importExported
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.importExported
 {
     partial class ExportedCreatureControl
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.lbStatus = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.btRemoveFile = new System.Windows.Forms.Button();
             this.btLoadValues = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -94,7 +96,7 @@
         #endregion
 
         private System.Windows.Forms.Label lbStatus;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Button btLoadValues;
         private System.Windows.Forms.Button btRemoveFile;
     }

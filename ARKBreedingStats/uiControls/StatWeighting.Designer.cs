@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new GroupBoxC();
             this.btAllToOne = new System.Windows.Forms.Button();
             this.BtSavePreset = new System.Windows.Forms.Button();
             this.btSavePresetAs = new System.Windows.Forms.Button();
@@ -194,12 +194,12 @@
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btSavePresetAs;
         private System.Windows.Forms.ComboBox cbbPresets;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.Button btDelete;
         private System.Windows.Forms.Button btAllToOne;
         private System.Windows.Forms.Label label1;

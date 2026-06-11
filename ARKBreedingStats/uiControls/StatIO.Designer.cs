@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new GroupBoxC();
             panelBarDomLevels = new System.Windows.Forms.Panel();
             panelBarMutLevels = new System.Windows.Forms.Panel();
             panelBarWildLevels = new System.Windows.Forms.Panel();
@@ -269,7 +269,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Label labelBValue;
         private uiControls.Nud numericUpDownInput;
         private System.Windows.Forms.Panel panelBarWildLevels;

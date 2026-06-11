@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatPotentials));
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new GroupBoxC();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             flpStats = new System.Windows.Forms.FlowLayoutPanel();
             label4 = new System.Windows.Forms.Label();
@@ -156,7 +156,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Label LbDomLevels;
         private System.Windows.Forms.Label LbImprinting;
         private System.Windows.Forms.Label LbWildLevels;

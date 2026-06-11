@@ -30,7 +30,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new GroupBoxC();
             buttonEdit = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
             buttonStatus = new System.Windows.Forms.Button();
@@ -392,7 +392,7 @@ namespace ARKBreedingStats
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.Panel panel1;

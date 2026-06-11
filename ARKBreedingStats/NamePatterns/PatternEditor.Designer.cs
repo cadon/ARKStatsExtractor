@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.NamePatterns
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.NamePatterns
 {
     partial class PatternEditor
     {
@@ -37,7 +39,7 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.StopwatchLabel = new System.Windows.Forms.Label();
             this.cbPreview = new System.Windows.Forms.CheckBox();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -454,7 +456,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.CheckBox cbPreview;
         private System.Windows.Forms.CheckBox CbPatternNameToClipboardAfterManualApplication;
         private System.Windows.Forms.TabControl tabControl1;

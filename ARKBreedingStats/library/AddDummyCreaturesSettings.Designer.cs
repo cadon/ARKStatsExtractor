@@ -1,4 +1,6 @@
 ﻿
+using ARKBreedingStats.uiControls;
+
 namespace ARKBreedingStats.library
 {
     partial class AddDummyCreaturesSettings
@@ -33,16 +35,16 @@ namespace ARKBreedingStats.library
             this.BtCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.label2 = new System.Windows.Forms.Label();
             this.nudMaxWildLevel = new ARKBreedingStats.uiControls.Nud();
             this.NudAmount = new ARKBreedingStats.uiControls.Nud();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new GroupBoxC();
             this.RbMultipleRandomSpecies = new System.Windows.Forms.RadioButton();
             this.RbOnlySelectedSpecies = new System.Windows.Forms.RadioButton();
             this.NudSpeciesAmount = new ARKBreedingStats.uiControls.Nud();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new GroupBoxC();
             this.NudMutationChance = new ARKBreedingStats.uiControls.Nud();
             this.label6 = new System.Windows.Forms.Label();
             this.NudProbabilityInheritingHigherStat = new ARKBreedingStats.uiControls.Nud();
@@ -50,7 +52,7 @@ namespace ARKBreedingStats.library
             this.NudUsePairsPerGeneration = new ARKBreedingStats.uiControls.Nud();
             this.label4 = new System.Windows.Forms.Label();
             this.NudBreedForGenerations = new ARKBreedingStats.uiControls.Nud();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new GroupBoxC();
             this.CbSetTribe = new System.Windows.Forms.CheckBox();
             this.CbSetServer = new System.Windows.Forms.CheckBox();
             this.CbSetOwner = new System.Windows.Forms.CheckBox();
@@ -458,10 +460,10 @@ namespace ARKBreedingStats.library
         private uiControls.Nud NudSpeciesAmount;
         private uiControls.Nud NudBreedForGenerations;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox1;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.FontDialog fontDialog1;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private GroupBoxC groupBox3;
         private uiControls.Nud NudMutationChance;
         private System.Windows.Forms.Label label6;
         private uiControls.Nud NudProbabilityInheritingHigherStat;
@@ -472,7 +474,7 @@ namespace ARKBreedingStats.library
         private System.Windows.Forms.RadioButton RbOnlySelectedSpecies;
         private System.Windows.Forms.Label label2;
         private uiControls.Nud nudMaxWildLevel;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private GroupBoxC groupBox4;
         private System.Windows.Forms.CheckBox CbSetServer;
         private System.Windows.Forms.CheckBox CbSetOwner;
         private System.Windows.Forms.CheckBox CbSetTribe;

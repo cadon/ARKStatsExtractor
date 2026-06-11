@@ -2,6 +2,7 @@
 using ARKBreedingStats.multiplierTesting;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.raising;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats
 {
@@ -56,21 +57,21 @@ namespace ARKBreedingStats
             copyLibrarydumpToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new GroupBoxC();
             lbImprintedCount = new System.Windows.Forms.Label();
             BtSetImprinting100Tester = new System.Windows.Forms.Button();
             labelImprintingTester = new System.Windows.Forms.Label();
             numericUpDownImprintingBonusTester = new ARKBreedingStats.uiControls.Nud();
             NumericUpDownTestingTE = new ARKBreedingStats.uiControls.Nud();
             labelTesterTE = new System.Windows.Forms.Label();
-            groupBoxPossibilities = new System.Windows.Forms.GroupBox();
+            groupBoxPossibilities = new GroupBoxC();
             listViewPossibilities = new System.Windows.Forms.ListView();
             columnHeaderWild = new System.Windows.Forms.ColumnHeader();
             columnHeaderMutated = new System.Windows.Forms.ColumnHeader();
             columnHeaderDom = new System.Windows.Forms.ColumnHeader();
             columnHeaderTE = new System.Windows.Forms.ColumnHeader();
             columnHeaderLW = new System.Windows.Forms.ColumnHeader();
-            groupBoxDetailsExtractor = new System.Windows.Forms.GroupBox();
+            groupBoxDetailsExtractor = new GroupBoxC();
             panelExtrImpr = new System.Windows.Forms.Panel();
             BtSetImprinting0Extractor = new System.Windows.Forms.Button();
             BtSetImprinting100Extractor = new System.Windows.Forms.Button();
@@ -191,13 +192,13 @@ namespace ARKBreedingStats
             ColoredCreatureImageDisplayTester = new ARKBreedingStats.uiControls.ColoredCreatureImageWithPose();
             CbLinkWildMutatedLevelsTester = new System.Windows.Forms.CheckBox();
             statPotentials1 = new ARKBreedingStats.uiControls.StatPotentials();
-            gbStatChart = new System.Windows.Forms.GroupBox();
+            gbStatChart = new GroupBoxC();
             radarChart1 = new RadarChart();
             panelWildTamedBredTester = new System.Windows.Forms.Panel();
             rbBredTester = new System.Windows.Forms.RadioButton();
             rbTamedTester = new System.Windows.Forms.RadioButton();
             rbWildTester = new System.Windows.Forms.RadioButton();
-            groupBox2 = new System.Windows.Forms.GroupBox();
+            groupBox2 = new GroupBoxC();
             flowLayoutPanelStatIOsTester = new System.Windows.Forms.FlowLayoutPanel();
             panel2 = new System.Windows.Forms.Panel();
             label4 = new System.Windows.Forms.Label();
@@ -208,7 +209,7 @@ namespace ARKBreedingStats
             labelDomLevelSum = new System.Windows.Forms.Label();
             labelTesterTotalLevel = new System.Windows.Forms.Label();
             lbNotYetTamed = new System.Windows.Forms.Label();
-            gpPreviewEdit = new System.Windows.Forms.GroupBox();
+            gpPreviewEdit = new GroupBoxC();
             lbCurrentCreature = new System.Windows.Forms.Label();
             labelCurrentTesterCreature = new System.Windows.Forms.Label();
             lbTestingInfo = new System.Windows.Forms.Label();
@@ -225,13 +226,13 @@ namespace ARKBreedingStats
             LbBlueprintPath = new System.Windows.Forms.Label();
             BtCopyIssueDumpToClipboard = new System.Windows.Forms.Button();
             llOnlineHelpExtractionIssues = new System.Windows.Forms.LinkLabel();
-            groupBoxRadarChartExtractor = new System.Windows.Forms.GroupBox();
+            groupBoxRadarChartExtractor = new GroupBoxC();
             radarChartExtractor = new RadarChart();
             lbImprintingFailInfo = new System.Windows.Forms.Label();
-            groupBoxTamingInfo = new System.Windows.Forms.GroupBox();
+            groupBoxTamingInfo = new GroupBoxC();
             labelTamingInfo = new System.Windows.Forms.Label();
             button2TamingCalc = new System.Windows.Forms.Button();
-            gbStatsExtractor = new System.Windows.Forms.GroupBox();
+            gbStatsExtractor = new GroupBoxC();
             flowLayoutPanelStatIOsExtractor = new System.Windows.Forms.FlowLayoutPanel();
             panel1 = new System.Windows.Forms.Panel();
             label5 = new System.Windows.Forms.Label();
@@ -4136,11 +4137,11 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Label lbExtractorWildLevel;
         private System.Windows.Forms.Label lbExtractorDomLevel;
         private uiControls.Nud numericUpDownLowerTEffBound;
-        private System.Windows.Forms.GroupBox groupBoxDetailsExtractor;
+        private GroupBoxC groupBoxDetailsExtractor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelHBV;
         private uiControls.Nud numericUpDownLevel;
-        private System.Windows.Forms.GroupBox groupBoxPossibilities;
+        private GroupBoxC groupBoxPossibilities;
         private System.Windows.Forms.Label lbInfoYellowStats;
         private System.Windows.Forms.Label labelFootnote;
         private System.Windows.Forms.Label label3;
@@ -4153,7 +4154,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.Panel panelSums;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageStatTesting;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private uiControls.Nud NumericUpDownTestingTE;
         private System.Windows.Forms.Label labelTesterTE;
         private System.Windows.Forms.Label lbBreedingValueTester;
@@ -4224,7 +4225,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ColumnHeader columnHeaderFound;
         private System.Windows.Forms.TabPage tabPageBreedingPlan;
         private System.Windows.Forms.ToolStripMenuItem multiSetterToolStripMenuItem;
-        private System.Windows.Forms.GroupBox gpPreviewEdit;
+        private GroupBoxC gpPreviewEdit;
         private System.Windows.Forms.ListBox listBoxSpeciesLib;
         private System.Windows.Forms.Label labelDomLevelSum;
         private System.Windows.Forms.Label labelTesterTotalLevel;
@@ -4256,8 +4257,8 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripButton toolStripButtonClear;
         private System.Windows.Forms.ToolStripButton toolStripButtonCopy2Extractor;
         private System.Windows.Forms.Button btExtractLevels;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox gbStatsExtractor;
+        private GroupBoxC groupBox2;
+        private GroupBoxC gbStatsExtractor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelErrorHelp;
         private System.Windows.Forms.Button btReadValuesFromArk;
@@ -4284,7 +4285,7 @@ namespace ARKBreedingStats
         private TamingControl tamingControl1;
         private System.Windows.Forms.Button button2TamingCalc;
         private System.Windows.Forms.Label labelTamingInfo;
-        private System.Windows.Forms.GroupBox groupBoxTamingInfo;
+        private GroupBoxC groupBoxTamingInfo;
         private System.Windows.Forms.ColumnHeader columnHeaderDomesticated;
         private System.Windows.Forms.Label lbImprintingFailInfo;
         private System.Windows.Forms.Label lbImprintedCount;
@@ -4307,10 +4308,10 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem pasteCreatureToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private RadarChart radarChart1;
-        private System.Windows.Forms.GroupBox gbStatChart;
+        private GroupBoxC gbStatChart;
         private uiControls.StatPotentials statPotentials1;
         private System.Windows.Forms.ColumnHeader columnHeaderCooldown;
-        private System.Windows.Forms.GroupBox groupBoxRadarChartExtractor;
+        private GroupBoxC groupBoxRadarChartExtractor;
         private RadarChart radarChartExtractor;
         private System.Windows.Forms.CheckBox cbEventMultipliers;
         private System.Windows.Forms.TabPage tabPageRaising;

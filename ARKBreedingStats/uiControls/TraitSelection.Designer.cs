@@ -30,7 +30,7 @@
         {
             LbTraitsAvailable = new System.Windows.Forms.ListBox();
             LbTraitsAssigned = new System.Windows.Forms.ListBox();
-            GbTiers = new System.Windows.Forms.GroupBox();
+            GbTiers = new GroupBoxC();
             RbTier3 = new System.Windows.Forms.RadioButton();
             RbTier2 = new System.Windows.Forms.RadioButton();
             RbTier1 = new System.Windows.Forms.RadioButton();
@@ -366,7 +366,7 @@
 
         private System.Windows.Forms.ListBox LbTraitsAvailable;
         private System.Windows.Forms.ListBox LbTraitsAssigned;
-        private System.Windows.Forms.GroupBox GbTiers;
+        private GroupBoxC GbTiers;
         private System.Windows.Forms.RadioButton RbTier3;
         private System.Windows.Forms.RadioButton RbTier2;
         private System.Windows.Forms.RadioButton RbTier1;

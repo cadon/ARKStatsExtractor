@@ -35,7 +35,7 @@ namespace ARKBreedingStats.BreedingPlanning
             components = new System.ComponentModel.Container();
             tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            gbBPBreedingMode = new System.Windows.Forms.GroupBox();
+            gbBPBreedingMode = new GroupBoxC();
             CbOnlySameSpecies = new System.Windows.Forms.CheckBox();
             CbConsiderMutationLevels = new System.Windows.Forms.CheckBox();
             CbIgnoreSexInPlanning = new System.Windows.Forms.CheckBox();
@@ -73,7 +73,7 @@ namespace ARKBreedingStats.BreedingPlanning
             pedigreeCreature1 = new PedigreeCreature();
             lbBPBreedingScore = new System.Windows.Forms.Label();
             pedigreeCreature2 = new PedigreeCreature();
-            gbBPOffspring = new System.Windows.Forms.GroupBox();
+            gbBPOffspring = new GroupBoxC();
             tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             labelBreedingInfos = new System.Windows.Forms.Label();
@@ -888,7 +888,7 @@ namespace ARKBreedingStats.BreedingPlanning
         private System.Windows.Forms.TableLayoutPanel tableLayoutMain;
         private System.Windows.Forms.ListView listViewSpeciesBP;
         private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.GroupBox gbBPBreedingMode;
+        private GroupBoxC gbBPBreedingMode;
         private System.Windows.Forms.CheckBox cbBPIncludeCooldowneds;
         private System.Windows.Forms.RadioButton rbBPTopStatsCn;
         private System.Windows.Forms.RadioButton rbBPHighStats;
@@ -913,7 +913,7 @@ namespace ARKBreedingStats.BreedingPlanning
         private PedigreeCreature pedigreeCreature1;
         private System.Windows.Forms.Label lbBPBreedingScore;
         private PedigreeCreature pedigreeCreature2;
-        private System.Windows.Forms.GroupBox gbBPOffspring;
+        private GroupBoxC gbBPOffspring;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label labelBreedingInfos;

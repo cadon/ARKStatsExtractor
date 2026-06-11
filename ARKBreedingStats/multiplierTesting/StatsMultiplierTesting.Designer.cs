@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.multiplierTesting
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.multiplierTesting
 {
     partial class StatsMultiplierTesting
     {
@@ -30,10 +32,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StatsMultiplierTesting));
             flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            groupBox4 = new System.Windows.Forms.GroupBox();
+            groupBox4 = new GroupBoxC();
             BtResetSpeciesValues = new System.Windows.Forms.Button();
             cbUpdateOnSpeciesChange = new System.Windows.Forms.CheckBox();
-            groupBox5 = new System.Windows.Forms.GroupBox();
+            groupBox5 = new GroupBoxC();
             CbAllowSpeedLeveling = new System.Windows.Forms.CheckBox();
             CbAtlas = new System.Windows.Forms.CheckBox();
             CbAllowFlyerSpeedLeveling = new System.Windows.Forms.CheckBox();
@@ -41,23 +43,23 @@
             btUseMultipliersFromSettings = new System.Windows.Forms.Button();
             LbSpeciesValuesExtractor = new System.Windows.Forms.Label();
             LbBlueprintPath = new System.Windows.Forms.Label();
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new GroupBoxC();
             rbDomesticated = new System.Windows.Forms.RadioButton();
             rbWild = new System.Windows.Forms.RadioButton();
-            groupBox2 = new System.Windows.Forms.GroupBox();
+            groupBox2 = new GroupBoxC();
             BtTe0 = new System.Windows.Forms.Button();
             BtTe100 = new System.Windows.Forms.Button();
             LbCalculatedWildLevel = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             nudTE = new ARKBreedingStats.uiControls.Nud();
-            groupBox3 = new System.Windows.Forms.GroupBox();
+            groupBox3 = new GroupBoxC();
             BtIb0 = new System.Windows.Forms.Button();
             button2 = new System.Windows.Forms.Button();
             label3 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             nudIBM = new ARKBreedingStats.uiControls.Nud();
             nudIB = new ARKBreedingStats.uiControls.Nud();
-            gbFineAdjustment = new System.Windows.Forms.GroupBox();
+            gbFineAdjustment = new GroupBoxC();
             tbFineAdjustments = new System.Windows.Forms.TrackBar();
             lBDummyEmptyFlowBreak = new System.Windows.Forms.Label();
             panel1 = new System.Windows.Forms.Panel();
@@ -76,7 +78,7 @@
             LbIw = new System.Windows.Forms.Label();
             LbLw = new System.Windows.Forms.Label();
             LbBaseValue = new System.Windows.Forms.Label();
-            gbLevel = new System.Windows.Forms.GroupBox();
+            gbLevel = new GroupBoxC();
             lbLevelSumDom = new System.Windows.Forms.Label();
             lbLevelSumWild = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
@@ -972,13 +974,13 @@
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private uiControls.Nud nudTE;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private GroupBoxC groupBox3;
         private System.Windows.Forms.Label label2;
         private uiControls.Nud nudIBM;
         private uiControls.Nud nudIB;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private GroupBoxC groupBox4;
         private System.Windows.Forms.Button BtResetSpeciesValues;
         private System.Windows.Forms.CheckBox cbUpdateOnSpeciesChange;
         private System.Windows.Forms.Panel panel1;
@@ -995,10 +997,10 @@
         private System.Windows.Forms.Label LbIw;
         private System.Windows.Forms.Label LbLw;
         private System.Windows.Forms.Label LbBaseValue;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.RadioButton rbDomesticated;
         private System.Windows.Forms.RadioButton rbWild;
-        private System.Windows.Forms.GroupBox gbLevel;
+        private GroupBoxC gbLevel;
         private System.Windows.Forms.Label lbLevelSumDom;
         private System.Windows.Forms.Label lbLevelSumWild;
         private System.Windows.Forms.Label label16;
@@ -1014,9 +1016,9 @@
         private System.Windows.Forms.ToolStripMenuItem idMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem taMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tmMToolStripMenuItem;
-        private System.Windows.Forms.GroupBox gbFineAdjustment;
+        private GroupBoxC gbFineAdjustment;
         private System.Windows.Forms.TrackBar tbFineAdjustments;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private GroupBoxC groupBox5;
         private System.Windows.Forms.CheckBox cbSingleplayerSettings;
         private System.Windows.Forms.Label lBDummyEmptyFlowBreak;
         private System.Windows.Forms.ToolStripMenuItem setAllLvlToToolStripMenuItem;

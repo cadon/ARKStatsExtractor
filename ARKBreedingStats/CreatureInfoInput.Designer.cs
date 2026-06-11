@@ -30,7 +30,7 @@ namespace ARKBreedingStats
         /// </summary>
         private void InitializeComponent()
         {
-            gbCreatureInfo = new System.Windows.Forms.GroupBox();
+            gbCreatureInfo = new GroupBoxC();
             BtTraits = new System.Windows.Forms.Button();
             CbMutagen = new System.Windows.Forms.CheckBox();
             LbColorNewInRegion = new System.Windows.Forms.Label();
@@ -768,7 +768,7 @@ namespace ARKBreedingStats
 
         #endregion
 
-        private System.Windows.Forms.GroupBox gbCreatureInfo;
+        private GroupBoxC gbCreatureInfo;
         private System.Windows.Forms.Label lbFather;
         private System.Windows.Forms.Label lbMother;
         private System.Windows.Forms.Button buttonSex;

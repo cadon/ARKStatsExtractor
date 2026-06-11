@@ -364,7 +364,7 @@
     <value>gpTorporTime</value>
   </data>
   <data name="&gt;&gt;gpTorporTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>GroupBoxC, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gpTorporTime.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -868,7 +868,7 @@
     <value>gbKOInfo</value>
   </data>
   <data name="&gt;&gt;gbKOInfo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>GroupBoxC, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gbKOInfo.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -922,7 +922,7 @@
     <value>groupBox3</value>
   </data>
   <data name="&gt;&gt;groupBox3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>GroupBoxC, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBox3.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -1102,7 +1102,7 @@
     <value>gpStarvingTime</value>
   </data>
   <data name="&gt;&gt;gpStarvingTime.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>GroupBoxC, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gpStarvingTime.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -1153,7 +1153,7 @@
     <value>gbWeaponDamage</value>
   </data>
   <data name="&gt;&gt;gbWeaponDamage.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>GroupBoxC, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gbWeaponDamage.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>

@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class TamingFoodControl
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.PanelColorIndicator = new System.Windows.Forms.Panel();
             this.labelDuration = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -124,7 +126,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private uiControls.Nud numericUpDown1;
         private System.Windows.Forms.Label labelFoodUsed;
         private System.Windows.Forms.Button button1;

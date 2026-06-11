@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.raising
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.raising
 {
     partial class ParentStats
     {
@@ -30,7 +32,7 @@
         {
             this.labelMother = new System.Windows.Forms.Label();
             this.labelFather = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -123,7 +125,7 @@
 
         private System.Windows.Forms.Label labelMother;
         private System.Windows.Forms.Label labelFather;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;

@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.testCases
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.testCases
 {
     partial class ExtractionTestControl
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new GroupBoxC();
             this.contextMenuStripFile = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newTestfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadTestfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,7 +153,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox3;
+        private GroupBoxC groupBox3;
         private System.Windows.Forms.Label lbTestFile;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTestCases;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripFile;
