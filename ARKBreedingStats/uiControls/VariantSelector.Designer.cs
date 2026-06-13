@@ -112,8 +112,6 @@
             // VariantSelector
             // 
             AcceptButton = ButtonOk;
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = ButtonCancel;
             ClientSize = new System.Drawing.Size(269, 640);
             Controls.Add(ClbVariants);

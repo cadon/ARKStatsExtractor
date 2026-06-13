@@ -136,7 +136,7 @@
             okButton.Name = "okButton";
             okButton.Size = new System.Drawing.Size(88, 27);
             okButton.TabIndex = 24;
-            okButton.Text = "&OK";
+            okButton.Text = "Close";
             okButton.Click += okButton_Click;
             // 
             // labelDescription
@@ -218,8 +218,6 @@
             // AboutBox1
             // 
             AcceptButton = okButton;
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(620, 654);
             Controls.Add(tableLayoutPanel);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;

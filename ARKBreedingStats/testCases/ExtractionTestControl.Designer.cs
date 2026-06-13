@@ -138,8 +138,6 @@ namespace ARKBreedingStats.testCases
             // 
             // ExtractionTestControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.flowLayoutPanelTestCases);
             this.Controls.Add(this.btRunAllTests);
             this.Controls.Add(this.groupBox3);

@@ -856,8 +856,6 @@ namespace ARKBreedingStats.multiplierTesting
             // 
             // StatMultiplierTestingControl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ContextMenuStrip = contextMenuStrip1;
             Controls.Add(nudMm);
             Controls.Add(nudLm);

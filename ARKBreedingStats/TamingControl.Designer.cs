@@ -673,7 +673,6 @@ namespace ARKBreedingStats
             // TamingControl
             // 
             resources.ApplyResources(this, "$this");
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "TamingControl";
             this.gpTorporTime.ResumeLayout(false);

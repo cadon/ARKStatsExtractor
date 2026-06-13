@@ -211,8 +211,6 @@ namespace ARKBreedingStats.uiControls
             // 
             // CreatureAnalysis
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "CreatureAnalysis";
             this.Size = new System.Drawing.Size(261, 271);

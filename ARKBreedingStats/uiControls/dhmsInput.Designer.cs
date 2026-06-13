@@ -124,8 +124,6 @@
             // 
             // dhmsInput
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.mTBS);
             this.Controls.Add(this.mTBM);
             this.Controls.Add(this.mTBH);

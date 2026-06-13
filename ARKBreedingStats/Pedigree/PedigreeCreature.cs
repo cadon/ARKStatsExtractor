@@ -16,10 +16,19 @@ namespace ARKBreedingStats.Pedigree
 {
     public partial class PedigreeCreature : UserControl, IPedigreeCreature
     {
-        public const int ControlHeightWoMutations = 45;
-        public const int ControlHeightWMutations = 58;
-        public const int HorizontalStatDistance = 34;
-        public const int XOffsetFirstStat = 40;
+        public static int ControlHeightWoMutations;
+        public static int ControlHeightWMutations;
+        public static int HorizontalStatDistance;
+        public static int XOffsetFirstStat;
+
+        /// <param name="scale">Should be DeviceDpi/96f</param>
+        public static void InitializeScaling(float scale)
+        {
+            ControlHeightWoMutations = (int)(45 * scale);
+            ControlHeightWMutations = (int)(58 * scale);
+            HorizontalStatDistance = (int)(34 * scale);
+            XOffsetFirstStat = (int)(40 * scale);
+        }
 
         /// <summary>
         /// Display the species name after the creature name.
@@ -148,42 +157,40 @@ namespace ARKBreedingStats.Pedigree
             var g = e.Graphics;
             var statIndex = (int)((Control)sender).Tag;
             var i = 0;
-            using (var p = new Pen(Color.Black))
-            using (var b = new SolidBrush(Color.White))
+            using var p = new Pen(Color.Black);
+            using var b = new SolidBrush(Color.White);
+            foreach (var t in Creature.Traits)
             {
-                foreach (var t in Creature.Traits)
+                if (t.TraitDefinition?.StatIndex != statIndex) continue;
+                if (t.MutationProbability > 0)
                 {
-                    if (t.TraitDefinition?.StatIndex != statIndex) continue;
-                    if (t.MutationProbability > 0)
-                    {
-                        p.Color = Color.DeepPink;
-                        b.Color = Color.Pink;
-                    }
-                    else if (t.MutationProbability < 0)
-                    {
-                        p.Color = Color.DarkGreen;
-                        b.Color = Color.GreenYellow;
-                    }
-                    else if (t.InheritHigherProbability > 0)
-                    {
-                        p.Color = Color.DarkBlue;
-                        b.Color = Color.DeepSkyBlue;
-                    }
-                    else if (t.InheritHigherProbability < 0)
-                    {
-                        p.Color = Color.DarkGoldenrod;
-                        b.Color = Color.Yellow;
-                    }
-                    else continue;
-
-                    const int circleWidth = 3;
-                    const int markersPerColumn = 3;
-                    var y = (i % markersPerColumn) * (circleWidth + 1);
-                    var x = (i / markersPerColumn) * (circleWidth + 1);
-                    g.FillEllipse(b, x, y, circleWidth, circleWidth);
-                    g.DrawEllipse(p, x, y, circleWidth, circleWidth);
-                    i++;
+                    p.Color = Color.DeepPink;
+                    b.Color = Color.Pink;
                 }
+                else if (t.MutationProbability < 0)
+                {
+                    p.Color = Color.DarkGreen;
+                    b.Color = Color.GreenYellow;
+                }
+                else if (t.InheritHigherProbability > 0)
+                {
+                    p.Color = Color.DarkBlue;
+                    b.Color = Color.DeepSkyBlue;
+                }
+                else if (t.InheritHigherProbability < 0)
+                {
+                    p.Color = Color.DarkGoldenrod;
+                    b.Color = Color.Yellow;
+                }
+                else continue;
+
+                const int circleWidth = 3;
+                const int markersPerColumn = 3;
+                var y = (i % markersPerColumn) * (circleWidth + 1);
+                var x = (i / markersPerColumn) * (circleWidth + 1);
+                g.FillEllipse(b, x, y, circleWidth, circleWidth);
+                g.DrawEllipse(p, x, y, circleWidth, circleWidth);
+                i++;
             }
         }
 
@@ -227,7 +234,7 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         public void SetCustomStatNames(Dictionary<string, string> customStatNames = null)
         {
-            for (int s = 0; s < DisplayedStatsCount; s++)
+            for (var s = 0; s < DisplayedStatsCount; s++)
             {
                 _labelsStats[s].Text = Utils.StatName(DisplayedStats[s], true, customStatNames);
                 _ttMonospaced.SetToolTip(_labelsStats[s], Utils.StatName(DisplayedStats[s], customStatNames: customStatNames));
@@ -312,7 +319,7 @@ namespace ARKBreedingStats.Pedigree
                         _labelsStats[s].BackColor = SystemColors.ControlLight;
                         _labelsStats[s].ForeColor = SystemColors.GrayText;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
-                            + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
+                            + $"{(_creature.valuesBreeding?[si] ?? 0) * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
                             + (Stats.IsPercentage(si) ? "%" : string.Empty);
                     }
                     else
@@ -329,7 +336,7 @@ namespace ARKBreedingStats.Pedigree
                         var traitList = CreatureTrait.StringList(Creature.Traits?.Where(t => t.TraitDefinition?.StatIndex == si), Environment.NewLine);
                         if (!string.IsNullOrEmpty(traitList)) traitList = Environment.NewLine + "Traits:" + Environment.NewLine + traitList;
                         tooltipText = Utils.StatName(si, false, _creature.Species?.statNames) + ": "
-                            + $"{_creature.valuesBreeding[si] * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
+                            + $"{(_creature.valuesBreeding?[si] ?? 0) * (Stats.IsPercentage(si) ? 100 : 1),7:#,0.0}"
                             + (Stats.IsPercentage(si) ? "%" : string.Empty)
                             + (_creature.levelsMutated == null ? string.Empty
                                 : Environment.NewLine + Loc.S("Mutation levels") + ": " + _creature.levelsMutated[si]
@@ -349,8 +356,8 @@ namespace ARKBreedingStats.Pedigree
                     _ttMonospaced.SetToolTip(_labelsStatsMut[s], tooltipText);
 
                     // fonts are strange and this seems to work. The assigned font-object is probably only used to read out the properties and then not used anymore.
-                    using (var font = new Font("Segoe UI", 9F, _creature.IsTopStat(si) ? FontStyle.Bold : FontStyle.Regular, GraphicsUnit.Point, 0))
-                        _labelsStats[s].Font = font;
+                    using var font = new Font(Font, _creature.IsTopStat(si) ? FontStyle.Bold : FontStyle.Regular);
+                    _labelsStats[s].Font = font;
                 }
                 if (OnlyLevels)
                 {
@@ -436,7 +443,7 @@ namespace ARKBreedingStats.Pedigree
         /// </summary>
         public void Clear()
         {
-            for (int s = 0; s < DisplayedStatsCount; s++)
+            for (var s = 0; s < DisplayedStatsCount; s++)
             {
                 _labelsStats[s].Text = string.Empty;
                 _labelsStats[s].BackColor = SystemColors.Control;

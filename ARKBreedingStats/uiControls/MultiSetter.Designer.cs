@@ -513,8 +513,6 @@
             // MultiSetter
             // 
             AcceptButton = buttonApply;
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = buttonCancel;
             ClientSize = new System.Drawing.Size(1008, 505);
             Controls.Add(cbbTribe);

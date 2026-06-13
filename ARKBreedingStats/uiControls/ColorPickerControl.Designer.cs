@@ -156,8 +156,6 @@
             // 
             // ColorPickerControl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             Controls.Add(tableLayoutPanel1);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

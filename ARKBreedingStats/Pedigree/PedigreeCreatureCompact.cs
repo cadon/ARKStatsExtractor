@@ -4,18 +4,52 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
-using ARKBreedingStats.values;
 
-namespace ARKBreedingStats.uiControls
+namespace ARKBreedingStats.Pedigree
 {
     /// <summary>
     /// Compact representation of a creature with its stats, used for compact display in a pedigree.
     /// </summary>
     public class PedigreeCreatureCompact : PictureBox, IPedigreeCreature
     {
+        private static int DefaultColorSize;
+        public static int DefaultStatSize;
+        private static int DefaultMutationIndicatorSize;
+
+        private static int _statSize;
+        private static int _colorSize;
+        private static int _mutationIndicatorSize;
+        private static float _fontSize;
+        private static int _mutationMarkerRadius;
+        private static int _colorMutationMarkerRadius;
+        public static float PedigreeLineWidthFactor;
+        public static int ControlWidth;
+        public static int ControlHeight;
+
+        public const int AngleOffset = -90; // start at 12 o'clock
+        private ToolTip _tt;
+        private readonly Creature _creature;
+
+        /// <param name="scale">Should be DeviceDpi/96f</param>
+        public static void InitializeScaling(float scale)
+        {
+            DefaultColorSize = (int)(10 * scale);
+            DefaultStatSize = 5 * DefaultColorSize;
+            DefaultMutationIndicatorSize = DefaultColorSize * 6 / 10;
+
+            _statSize = DefaultStatSize;
+            _colorSize = DefaultColorSize;
+            _mutationIndicatorSize = DefaultMutationIndicatorSize;
+            _fontSize = DefaultColorSize * 0.7f;
+            _mutationMarkerRadius = DefaultColorSize * 3 / 10;
+            _colorMutationMarkerRadius = DefaultColorSize * 2 / 10;
+            PedigreeLineWidthFactor = scale;
+            ControlWidth = _statSize + _colorSize;
+            ControlHeight = _statSize + _colorSize;
+        }
+
         public static void SetSizeFactor(double factor = 1)
         {
             _statSize = (int)Math.Round(DefaultStatSize * factor);
@@ -28,24 +62,6 @@ namespace ARKBreedingStats.uiControls
             ControlHeight = _statSize + _colorSize;
             PedigreeLineWidthFactor = Math.Max(1, (float)(1 * factor));
         }
-
-        private const int DefaultColorSize = 10;
-        public const int DefaultStatSize = 5 * DefaultColorSize;
-        private const int DefaultMutationIndicatorSize = DefaultColorSize * 6 / 10;
-
-        private static int _statSize = DefaultStatSize;
-        private static int _colorSize = DefaultColorSize;
-        private static int _mutationIndicatorSize = DefaultMutationIndicatorSize;
-        private static float _fontSize = DefaultColorSize * 0.7f;
-        private static int _mutationMarkerRadius = DefaultColorSize * 3 / 10;
-        private static int _colorMutationMarkerRadius = DefaultColorSize * 2 / 10;
-        public static float PedigreeLineWidthFactor = 1;
-        public static int ControlWidth = _statSize + _colorSize;
-        public static int ControlHeight = _statSize + _colorSize;
-
-        public const int AngleOffset = -90; // start at 12 o'clock
-        private ToolTip _tt;
-        private readonly Creature _creature;
 
         public event PedigreeCreature.CreatureChangedEventHandler CreatureClicked;
 

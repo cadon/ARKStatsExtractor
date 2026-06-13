@@ -338,8 +338,6 @@
             // 
             // TraitSelection
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(804, 618);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);

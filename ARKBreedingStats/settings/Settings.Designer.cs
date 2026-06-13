@@ -5143,8 +5143,6 @@ namespace ARKBreedingStats.settings
             // 
             AcceptButton = buttonOK;
             AllowDrop = true;
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             CancelButton = buttonCancel;
             ClientSize = new System.Drawing.Size(884, 923);
             Controls.Add(tabControlSettings);

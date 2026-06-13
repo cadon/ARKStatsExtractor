@@ -115,8 +115,6 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
             // 
             // HueControl
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(CbReverseGradient);
             Controls.Add(NudLevelHigh);
             Controls.Add(NudLevelLow);

@@ -106,8 +106,8 @@ namespace ARKBreedingStats.Pedigree
             if (_selectedCreature != null)
             {
                 DrawLines(e.Graphics, _lines, _pedigreeViewMode == PedigreeViewMode.Classic ? 1 : PedigreeCreatureCompact.PedigreeLineWidthFactor);
-                if (_creatureChildren.Any())
-                    e.Graphics.DrawString(Loc.S("Descendants"), new Font("Segoe UI", 14), new SolidBrush(SystemColors.ControlText), 50, _yBottomOfPedigree);
+                if (_creatureChildren.Length != 0)
+                    e.Graphics.DrawString(Loc.S("Descendants"), new Font(Font.FontFamily, Font.Size * 1.5f, FontStyle.Bold), new SolidBrush(SystemColors.ControlText), 50, _yBottomOfPedigree);
             }
         }
 
@@ -327,7 +327,7 @@ namespace ARKBreedingStats.Pedigree
                 LbCreatureName.Text = _selectedCreature.name;
 
                 if (PbKeyExplanations.Image == null)
-                    DrawKey(PbKeyExplanations, _selectedSpecies);
+                    DrawKey(PbKeyExplanations, _selectedSpecies, Font, DeviceDpi / 96f);
 
                 _pedigreeControls.Add(new PedigreeCreature(_selectedCreature, _enabledColorRegions)
                 {
@@ -388,16 +388,15 @@ namespace ARKBreedingStats.Pedigree
             PbRegionColors.Visible = true;
         }
 
-        private static void DrawKey(PictureBox pb, Species species)
+        private static void DrawKey(PictureBox pb, Species species, Font font, float uiScaling)
         {
             if (species == null) return;
 
             var w = pb.Width;
             var h = pb.Height;
 
-            Bitmap bmp = new Bitmap(w, h);
-            using (Graphics g = Graphics.FromImage(bmp))
-            using (var font = new Font("Segoe UI", 9f))
+            var bmp = new Bitmap(w, h);
+            using (var g = Graphics.FromImage(bmp))
             using (var format = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
             using (var pen = new Pen(SystemColors.ControlText))
             using (var brush = new SolidBrush(SystemColors.ControlText))
@@ -409,10 +408,10 @@ namespace ARKBreedingStats.Pedigree
                 g.DrawRectangle(pen, 0, 0, w - 1, h - 1);
 
                 // stats
-                const int padding = 4;
-                const int statCircleSize = PedigreeCreatureCompact.DefaultStatSize * 3 / 2;
-                const int statRadius = statCircleSize / 2;
-                const int radiusInnerCircle = statRadius / 7;
+                var padding = (int)(4 * uiScaling);
+                var statCircleSize = PedigreeCreatureCompact.DefaultStatSize * 3 / 2;
+                var statRadius = statCircleSize / 2;
+                var radiusInnerCircle = statRadius / 7;
                 var statLeftTopCoords = new Point(padding, padding);
                 var center = new Point(statLeftTopCoords.X + statRadius, statLeftTopCoords.Y + statRadius);
                 brush.Color = SystemColors.HighlightText;
@@ -428,7 +427,7 @@ namespace ARKBreedingStats.Pedigree
                     g.DrawPie(pen, statLeftTopCoords.X, statLeftTopCoords.Y, statCircleSize, statCircleSize, angle, anglePerStat);
 
                     // text
-                    const int radiusPosition = statRadius * 7 / 10;
+                    var radiusPosition = statRadius * 7 / 10;
                     var anglePosition = Math.PI * 2 / 360 * (angle + anglePerStat / 2);
                     const int statTexSizeHalf = 15;
                     var x = (int)Math.Round(radiusPosition * Math.Cos(anglePosition) + center.X - statTexSizeHalf);
@@ -441,8 +440,8 @@ namespace ARKBreedingStats.Pedigree
                 g.FillEllipse(brush, center.X - radiusInnerCircle, center.Y - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
 
                 // circles
-                const int textX = 3 * padding + 6;
-                const int lineHeight = 15;
+                var textX = 3 * padding + 6;
+                var lineHeight = (int)(15 * uiScaling);
                 void CircleExplanation(Color circleColor, string text, int y, int circleSize, int circleOffset = 0)
                 {
                     PedigreeCreatureCompact.DrawFilledCircle(g, brush, pen, circleColor, padding + circleOffset, y + lineHeight / 4 + circleOffset, circleSize);
@@ -550,8 +549,8 @@ namespace ARKBreedingStats.Pedigree
             // select creature in listView
             if (listViewCreatures.SelectedItems.Count == 0 || (Creature)listViewCreatures.SelectedItems[0].Tag != centralCreature)
             {
-                int index = -1;
-                for (int i = 0; i < listViewCreatures.Items.Count; i++)
+                var index = -1;
+                for (var i = 0; i < listViewCreatures.Items.Count; i++)
                 {
                     if ((Creature)listViewCreatures.Items[i].Tag == centralCreature)
                     {
@@ -634,11 +633,11 @@ namespace ARKBreedingStats.Pedigree
             listViewCreatures.BeginUpdate();
             var filterStrings = TextBoxFilter.Text.Split(',').Select(f => f.Trim())
                 .Where(f => !string.IsNullOrEmpty(f)).ToArray();
-            if (!filterStrings.Any()) filterStrings = null;
+            if (filterStrings.Length == 0) filterStrings = null;
 
             var items = new List<ListViewItem>();
 
-            foreach (Creature cr in _creaturesOfSpecies)
+            foreach (var cr in _creaturesOfSpecies)
             {
                 if (filterStrings != null
                    && !filterStrings.All(f =>
@@ -652,16 +651,16 @@ namespace ARKBreedingStats.Pedigree
                    ))
                     continue;
 
-                string crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";
-                ListViewItem lvi = new ListViewItem(new[] { cr.name, crLevel })
+                var crLevel = cr.LevelHatched > 0 ? cr.LevelHatched.ToString() : "?";
+                var lvi = new ListViewItem([cr.name, crLevel])
                 {
                     Tag = cr,
                     UseItemStyleForSubItems = false
                 };
                 if (cr.flags.HasFlag(CreatureFlags.Placeholder))
-                    lvi.SubItems[0].ForeColor = Color.LightGray;
+                    lvi.SubItems[0].ForeColor = SystemColors.ControlLight;
                 if (crLevel == "?")
-                    lvi.SubItems[1].ForeColor = Color.LightGray;
+                    lvi.SubItems[1].ForeColor = SystemColors.ControlLight;
                 items.Add(lvi);
             }
 
@@ -710,8 +709,8 @@ namespace ARKBreedingStats.Pedigree
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int LeftColumnWidth
         {
-            set => splitContainer1.SplitterDistance = value;
             get => splitContainer1.SplitterDistance;
+            set => splitContainer1.SplitterDistance = value;
         }
 
         private void RbViewClassic_CheckedChanged(object sender, EventArgs e)
@@ -741,7 +740,7 @@ namespace ARKBreedingStats.Pedigree
             /// H-shaped fractal arrangement, most compact.
             /// </summary>
             HView
-        };
+        }
 
         private void TbZoom_Scroll(object sender, EventArgs e)
         {

@@ -456,8 +456,6 @@
             // LibraryFilter
             // 
             AcceptButton = BtApply;
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoScroll = true;
             CancelButton = BtCancel;
             ClientSize = new System.Drawing.Size(1020, 545);

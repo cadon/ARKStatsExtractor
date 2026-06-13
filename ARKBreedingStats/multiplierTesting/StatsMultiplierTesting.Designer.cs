@@ -933,8 +933,6 @@ namespace ARKBreedingStats.multiplierTesting
             // StatsMultiplierTesting
             // 
             AllowDrop = true;
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(flowLayoutPanel1);
             Controls.Add(menuStrip1);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);

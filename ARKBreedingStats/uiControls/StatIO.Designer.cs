@@ -250,8 +250,6 @@
             // 
             // StatIO
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(groupBox1);
             Margin = new System.Windows.Forms.Padding(2);
             Name = "StatIO";
