@@ -67,7 +67,7 @@
             groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(405, 58);
+            groupBox1.Size = new System.Drawing.Size(405, 53);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
@@ -75,7 +75,7 @@
             // 
             panelBarDomLevels.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
             panelBarDomLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelBarDomLevels.Location = new System.Drawing.Point(7, 51);
+            panelBarDomLevels.Location = new System.Drawing.Point(4, 47);
             panelBarDomLevels.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelBarDomLevels.Name = "panelBarDomLevels";
             panelBarDomLevels.Size = new System.Drawing.Size(2, 3);
@@ -85,7 +85,7 @@
             // 
             panelBarMutLevels.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
             panelBarMutLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelBarMutLevels.Location = new System.Drawing.Point(7, 47);
+            panelBarMutLevels.Location = new System.Drawing.Point(4, 43);
             panelBarMutLevels.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelBarMutLevels.Name = "panelBarMutLevels";
             panelBarMutLevels.Size = new System.Drawing.Size(2, 4);
@@ -95,7 +95,7 @@
             // 
             panelBarWildLevels.BackColor = System.Drawing.Color.FromArgb(255, 192, 128);
             panelBarWildLevels.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelBarWildLevels.Location = new System.Drawing.Point(7, 44);
+            panelBarWildLevels.Location = new System.Drawing.Point(4, 40);
             panelBarWildLevels.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelBarWildLevels.Name = "panelBarWildLevels";
             panelBarWildLevels.Size = new System.Drawing.Size(2, 7);
@@ -109,8 +109,7 @@
             panelFinalValue.Controls.Add(labelDomLevel);
             panelFinalValue.Controls.Add(labelWildLevel);
             panelFinalValue.Controls.Add(numericUpDownInput);
-            panelFinalValue.Location = new System.Drawing.Point(7, 16);
-            panelFinalValue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelFinalValue.Location = new System.Drawing.Point(0, 12);
             panelFinalValue.Name = "panelFinalValue";
             panelFinalValue.Size = new System.Drawing.Size(314, 29);
             panelFinalValue.TabIndex = 9;
@@ -167,7 +166,7 @@
             // numericUpDownInput
             // 
             numericUpDownInput.DecimalPlaces = 1;
-            numericUpDownInput.ForeColor = System.Drawing.SystemColors.WindowText;
+            numericUpDownInput.ForeColor = System.Drawing.Color.Black;
             numericUpDownInput.Location = new System.Drawing.Point(4, 3);
             numericUpDownInput.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             numericUpDownInput.Maximum = new decimal(new int[] { 1661992959, 1808227885, 5, 0 });
@@ -184,8 +183,7 @@
             inputPanel.Controls.Add(labelFinalValue);
             inputPanel.Controls.Add(nudLvD);
             inputPanel.Controls.Add(nudLvW);
-            inputPanel.Location = new System.Drawing.Point(7, 16);
-            inputPanel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            inputPanel.Location = new System.Drawing.Point(0, 12);
             inputPanel.Name = "inputPanel";
             inputPanel.Size = new System.Drawing.Size(314, 29);
             inputPanel.TabIndex = 8;
@@ -239,7 +237,7 @@
             // 
             // labelBValue
             // 
-            labelBValue.Location = new System.Drawing.Point(317, 22);
+            labelBValue.Location = new System.Drawing.Point(317, 18);
             labelBValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             labelBValue.Name = "labelBValue";
             labelBValue.Size = new System.Drawing.Size(82, 15);
@@ -253,7 +251,7 @@
             Controls.Add(groupBox1);
             Margin = new System.Windows.Forms.Padding(2);
             Name = "StatIO";
-            Size = new System.Drawing.Size(405, 58);
+            Size = new System.Drawing.Size(405, 53);
             groupBox1.ResumeLayout(false);
             panelFinalValue.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numericUpDownInput).EndInit();

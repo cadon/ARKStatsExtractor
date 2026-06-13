@@ -2027,7 +2027,7 @@ namespace ARKBreedingStats
             creatureInfoInputTester.Location = new System.Drawing.Point(435, 212);
             creatureInfoInputTester.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             creatureInfoInputTester.Name = "creatureInfoInputTester";
-            creatureInfoInputTester.Size = new System.Drawing.Size(306, 681);
+            creatureInfoInputTester.Size = new System.Drawing.Size(306, 645);
             creatureInfoInputTester.TabIndex = 4;
             creatureInfoInputTester.Add2LibraryClicked += creatureInfoInputTester_Add2Library_Clicked;
             creatureInfoInputTester.Save2LibraryClicked += creatureInfoInputTester_Save2Library_Clicked;
@@ -2398,7 +2398,7 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.Location = new System.Drawing.Point(435, 212);
             creatureInfoInputExtractor.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             creatureInfoInputExtractor.Name = "creatureInfoInputExtractor";
-            creatureInfoInputExtractor.Size = new System.Drawing.Size(306, 681);
+            creatureInfoInputExtractor.Size = new System.Drawing.Size(306, 645);
             creatureInfoInputExtractor.TabIndex = 7;
             creatureInfoInputExtractor.Add2LibraryClicked += creatureInfoInputExtractor_Add2Library_Clicked;
             creatureInfoInputExtractor.ParentListRequested += CreatureInfoInput_ParentListRequested;

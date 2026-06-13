@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARKBreedingStats.utils;
 
 namespace ARKBreedingStats.uiControls
 {
@@ -20,7 +21,7 @@ namespace ARKBreedingStats.uiControls
             var bottom = rect.Height - 2;
             var right = rect.Width - 1;
 
-            using var pen = new Pen(SystemColors.ControlLight);
+            using var pen = new Pen(UiColors.Current?.ControlBorder ?? SystemColors.ControlDark);
             e.Graphics.DrawLine(pen, 0, top, 6, top);
             e.Graphics.DrawLine(pen, textSize.Width + 4, top, right, top);
 

@@ -266,9 +266,13 @@ namespace ARKBreedingStats.utils
         [PreviewHint(ColorRole.Border, ColorContext.Generic)]
         public Color NewColorInSpecies { get; set; }
 
-        // --- Divider ---
+        // --- Controls ---
 
-        [Category("Divider"), DisplayName("Divider Line")]
+        [Category("Controls"), DisplayName("Border around controls")]
+        [PreviewHint(ColorRole.Line, ColorContext.Generic)]
+        public Color ControlBorder { get; set; }
+
+        [Category("Controls"), DisplayName("Divider Line")]
         [PreviewHint(ColorRole.Line, ColorContext.Generic)]
         public Color DividerLine { get; set; }
 

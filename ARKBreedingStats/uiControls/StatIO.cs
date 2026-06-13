@@ -27,8 +27,10 @@ namespace ARKBreedingStats.uiControls
         public int StatIndex;
         private bool _domZeroFixed;
         private readonly ToolTip _tt;
-        public int BarMaxLevel = 45;
-        private const int MaxBarLength = 335;
+        public int BarMaxLevel = 50;
+        private readonly int _maxBarLength;
+        private static int _heightControl;
+        private static int _heightControlCollapsed;
         private bool _linkWildMutated;
         private int _wildMutatedSum;
         private readonly Debouncer _levelChangedDebouncer = new Debouncer();
@@ -49,6 +51,12 @@ namespace ARKBreedingStats.uiControls
             _breedingValue = 0;
             groupBox1.Click += groupBox1_Click;
             InputType = _inputType;
+            _maxBarLength = Width - 2 * panelBarWildLevels.Margin.Left;
+            if (_heightControl == 0)
+            {
+                _heightControl = Height;
+                _heightControlCollapsed = 16 * DeviceDpi / 96;
+            }
 
             _tt = new ToolTip { InitialDelay = 300 };
             _tt.SetToolTip(checkBoxFixDomZero, "Check to lock to zero (if you never leveled up this stat)");
@@ -295,8 +303,9 @@ namespace ARKBreedingStats.uiControls
         {
             set
             {
-                Height = value ? 58 : 19;
+                Height = value ? _heightControl : _heightControlCollapsed;
                 Enabled = value;
+                panelFinalValue.Visible = value;
             }
             get => Enabled;
         }
@@ -351,7 +360,7 @@ namespace ARKBreedingStats.uiControls
         }
 
         private void SetLevelBar(Panel panel, int level, bool useCustomOdd = true, bool mutationLevel = false) =>
-            LevelColorBar.SetLevelBar(panel, _statLevelColors, MaxBarLength, level, useCustomOdd, mutationLevel);
+            LevelColorBar.SetLevelBar(panel, _statLevelColors, _maxBarLength, level, useCustomOdd, mutationLevel);
 
         private void LevelChangedDebouncer() => _levelChangedDebouncer.Debounce(200, () => LevelChanged?.Invoke(this), Dispatcher.CurrentDispatcher);
 

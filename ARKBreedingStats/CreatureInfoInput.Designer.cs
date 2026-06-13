@@ -152,7 +152,7 @@ namespace ARKBreedingStats
             gbCreatureInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbCreatureInfo.Name = "gbCreatureInfo";
             gbCreatureInfo.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbCreatureInfo.Size = new System.Drawing.Size(306, 681);
+            gbCreatureInfo.Size = new System.Drawing.Size(306, 645);
             gbCreatureInfo.TabIndex = 0;
             gbCreatureInfo.TabStop = false;
             gbCreatureInfo.Text = "Creature-info";
@@ -161,10 +161,10 @@ namespace ARKBreedingStats
             // BtTraits
             // 
             BtTraits.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            BtTraits.Location = new System.Drawing.Point(10, 475);
+            BtTraits.Location = new System.Drawing.Point(17, 459);
             BtTraits.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtTraits.Name = "BtTraits";
-            BtTraits.Size = new System.Drawing.Size(62, 27);
+            BtTraits.Size = new System.Drawing.Size(62, 23);
             BtTraits.TabIndex = 54;
             BtTraits.Text = "Traits";
             BtTraits.UseVisualStyleBackColor = true;
@@ -173,12 +173,11 @@ namespace ARKBreedingStats
             // CbMutagen
             // 
             CbMutagen.Appearance = System.Windows.Forms.Appearance.Button;
-            CbMutagen.AutoSize = true;
             CbMutagen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            CbMutagen.Location = new System.Drawing.Point(79, 475);
+            CbMutagen.Location = new System.Drawing.Point(87, 459);
             CbMutagen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbMutagen.Name = "CbMutagen";
-            CbMutagen.Size = new System.Drawing.Size(65, 25);
+            CbMutagen.Size = new System.Drawing.Size(65, 23);
             CbMutagen.TabIndex = 53;
             CbMutagen.Text = "Mutagen";
             CbMutagen.UseVisualStyleBackColor = true;
@@ -189,7 +188,7 @@ namespace ARKBreedingStats
             LbColorNewInRegion.AutoSize = true;
             LbColorNewInRegion.BackColor = System.Drawing.Color.DarkGreen;
             LbColorNewInRegion.ForeColor = System.Drawing.SystemColors.HighlightText;
-            LbColorNewInRegion.Location = new System.Drawing.Point(76, 609);
+            LbColorNewInRegion.Location = new System.Drawing.Point(83, 576);
             LbColorNewInRegion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbColorNewInRegion.Name = "LbColorNewInRegion";
             LbColorNewInRegion.Size = new System.Drawing.Size(101, 15);
@@ -200,7 +199,7 @@ namespace ARKBreedingStats
             // 
             LbColorNewInSpecies.AutoSize = true;
             LbColorNewInSpecies.BackColor = System.Drawing.Color.Gold;
-            LbColorNewInSpecies.Location = new System.Drawing.Point(187, 609);
+            LbColorNewInSpecies.Location = new System.Drawing.Point(192, 576);
             LbColorNewInSpecies.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbColorNewInSpecies.Name = "LbColorNewInSpecies";
             LbColorNewInSpecies.Size = new System.Drawing.Size(105, 15);
@@ -209,10 +208,10 @@ namespace ARKBreedingStats
             // 
             // BtApplyOTSPreset
             // 
-            BtApplyOTSPreset.Location = new System.Drawing.Point(58, 81);
+            BtApplyOTSPreset.Location = new System.Drawing.Point(51, 74);
             BtApplyOTSPreset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtApplyOTSPreset.Name = "BtApplyOTSPreset";
-            BtApplyOTSPreset.Size = new System.Drawing.Size(118, 23);
+            BtApplyOTSPreset.Size = new System.Drawing.Size(120, 23);
             BtApplyOTSPreset.TabIndex = 50;
             BtApplyOTSPreset.Text = "Preset OTS";
             BtApplyOTSPreset.UseVisualStyleBackColor = true;
@@ -220,10 +219,10 @@ namespace ARKBreedingStats
             // 
             // BtSaveOTSPreset
             // 
-            BtSaveOTSPreset.Location = new System.Drawing.Point(183, 81);
+            BtSaveOTSPreset.Location = new System.Drawing.Point(177, 74);
             BtSaveOTSPreset.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtSaveOTSPreset.Name = "BtSaveOTSPreset";
-            BtSaveOTSPreset.Size = new System.Drawing.Size(115, 23);
+            BtSaveOTSPreset.Size = new System.Drawing.Size(120, 23);
             BtSaveOTSPreset.TabIndex = 49;
             BtSaveOTSPreset.Text = "Save Preset";
             BtSaveOTSPreset.UseVisualStyleBackColor = true;
@@ -232,10 +231,9 @@ namespace ARKBreedingStats
             // btNamingPattern6
             // 
             btNamingPattern6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btNamingPattern6.Location = new System.Drawing.Point(262, 51);
-            btNamingPattern6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btNamingPattern6.Location = new System.Drawing.Point(261, 46);
             btNamingPattern6.Name = "btNamingPattern6";
-            btNamingPattern6.Size = new System.Drawing.Size(36, 23);
+            btNamingPattern6.Size = new System.Drawing.Size(36, 22);
             btNamingPattern6.TabIndex = 48;
             btNamingPattern6.TabStop = false;
             btNamingPattern6.Text = "G6";
@@ -244,10 +242,9 @@ namespace ARKBreedingStats
             // btNamingPattern5
             // 
             btNamingPattern5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btNamingPattern5.Location = new System.Drawing.Point(222, 51);
-            btNamingPattern5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btNamingPattern5.Location = new System.Drawing.Point(219, 46);
             btNamingPattern5.Name = "btNamingPattern5";
-            btNamingPattern5.Size = new System.Drawing.Size(36, 23);
+            btNamingPattern5.Size = new System.Drawing.Size(36, 22);
             btNamingPattern5.TabIndex = 47;
             btNamingPattern5.TabStop = false;
             btNamingPattern5.Text = "G5";
@@ -256,10 +253,9 @@ namespace ARKBreedingStats
             // btNamingPattern4
             // 
             btNamingPattern4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btNamingPattern4.Location = new System.Drawing.Point(182, 51);
-            btNamingPattern4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btNamingPattern4.Location = new System.Drawing.Point(177, 46);
             btNamingPattern4.Name = "btNamingPattern4";
-            btNamingPattern4.Size = new System.Drawing.Size(36, 23);
+            btNamingPattern4.Size = new System.Drawing.Size(36, 22);
             btNamingPattern4.TabIndex = 46;
             btNamingPattern4.TabStop = false;
             btNamingPattern4.Text = "G4";
@@ -268,10 +264,9 @@ namespace ARKBreedingStats
             // btNamingPattern3
             // 
             btNamingPattern3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btNamingPattern3.Location = new System.Drawing.Point(141, 51);
-            btNamingPattern3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btNamingPattern3.Location = new System.Drawing.Point(135, 46);
             btNamingPattern3.Name = "btNamingPattern3";
-            btNamingPattern3.Size = new System.Drawing.Size(36, 23);
+            btNamingPattern3.Size = new System.Drawing.Size(36, 22);
             btNamingPattern3.TabIndex = 45;
             btNamingPattern3.TabStop = false;
             btNamingPattern3.Text = "G3";
@@ -280,10 +275,9 @@ namespace ARKBreedingStats
             // btNamingPattern2
             // 
             btNamingPattern2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btNamingPattern2.Location = new System.Drawing.Point(100, 51);
-            btNamingPattern2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btNamingPattern2.Location = new System.Drawing.Point(93, 46);
             btNamingPattern2.Name = "btNamingPattern2";
-            btNamingPattern2.Size = new System.Drawing.Size(36, 23);
+            btNamingPattern2.Size = new System.Drawing.Size(36, 22);
             btNamingPattern2.TabIndex = 44;
             btNamingPattern2.TabStop = false;
             btNamingPattern2.Text = "G2";
@@ -293,10 +287,10 @@ namespace ARKBreedingStats
             // 
             cbArchetype.Appearance = System.Windows.Forms.Appearance.Button;
             cbArchetype.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            cbArchetype.Location = new System.Drawing.Point(222, 20);
+            cbArchetype.Location = new System.Drawing.Point(222, 17);
             cbArchetype.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbArchetype.Name = "cbArchetype";
-            cbArchetype.Size = new System.Drawing.Size(76, 25);
+            cbArchetype.Size = new System.Drawing.Size(76, 23);
             cbArchetype.TabIndex = 55;
             cbArchetype.Text = "Archetype";
             cbArchetype.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -305,10 +299,9 @@ namespace ARKBreedingStats
             // btnGenerateUniqueName
             // 
             btnGenerateUniqueName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btnGenerateUniqueName.Location = new System.Drawing.Point(58, 51);
-            btnGenerateUniqueName.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            btnGenerateUniqueName.Location = new System.Drawing.Point(51, 46);
             btnGenerateUniqueName.Name = "btnGenerateUniqueName";
-            btnGenerateUniqueName.Size = new System.Drawing.Size(36, 23);
+            btnGenerateUniqueName.Size = new System.Drawing.Size(36, 22);
             btnGenerateUniqueName.TabIndex = 1;
             btnGenerateUniqueName.TabStop = false;
             btnGenerateUniqueName.Text = "G1";
@@ -316,7 +309,8 @@ namespace ARKBreedingStats
             // 
             // TbArkIdIngame
             // 
-            TbArkIdIngame.Location = new System.Drawing.Point(96, 294);
+            TbArkIdIngame.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            TbArkIdIngame.Location = new System.Drawing.Point(96, 279);
             TbArkIdIngame.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             TbArkIdIngame.Name = "TbArkIdIngame";
             TbArkIdIngame.Size = new System.Drawing.Size(202, 23);
@@ -324,7 +318,8 @@ namespace ARKBreedingStats
             // 
             // TbArkId
             // 
-            TbArkId.Location = new System.Drawing.Point(79, 324);
+            TbArkId.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            TbArkId.Location = new System.Drawing.Point(79, 308);
             TbArkId.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             TbArkId.Name = "TbArkId";
             TbArkId.ReadOnly = true;
@@ -336,7 +331,7 @@ namespace ARKBreedingStats
             cbServer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             cbServer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             cbServer.FormattingEnabled = true;
-            cbServer.Location = new System.Drawing.Point(79, 171);
+            cbServer.Location = new System.Drawing.Point(79, 161);
             cbServer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbServer.Name = "cbServer";
             cbServer.Size = new System.Drawing.Size(219, 23);
@@ -346,7 +341,8 @@ namespace ARKBreedingStats
             // 
             textBoxTribe.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             textBoxTribe.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            textBoxTribe.Location = new System.Drawing.Point(79, 141);
+            textBoxTribe.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            textBoxTribe.Location = new System.Drawing.Point(79, 132);
             textBoxTribe.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             textBoxTribe.Name = "textBoxTribe";
             textBoxTribe.Size = new System.Drawing.Size(219, 23);
@@ -354,7 +350,8 @@ namespace ARKBreedingStats
             // 
             // textBoxNote
             // 
-            textBoxNote.Location = new System.Drawing.Point(79, 264);
+            textBoxNote.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            textBoxNote.Location = new System.Drawing.Point(79, 250);
             textBoxNote.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             textBoxNote.Name = "textBoxNote";
             textBoxNote.Size = new System.Drawing.Size(219, 23);
@@ -364,8 +361,9 @@ namespace ARKBreedingStats
             // 
             parentComboBoxFather.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             parentComboBoxFather.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxFather.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             parentComboBoxFather.FormattingEnabled = true;
-            parentComboBoxFather.Location = new System.Drawing.Point(79, 233);
+            parentComboBoxFather.Location = new System.Drawing.Point(79, 220);
             parentComboBoxFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             parentComboBoxFather.Name = "parentComboBoxFather";
             parentComboBoxFather.Size = new System.Drawing.Size(219, 24);
@@ -376,8 +374,9 @@ namespace ARKBreedingStats
             // 
             parentComboBoxMother.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             parentComboBoxMother.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            parentComboBoxMother.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             parentComboBoxMother.FormattingEnabled = true;
-            parentComboBoxMother.Location = new System.Drawing.Point(79, 202);
+            parentComboBoxMother.Location = new System.Drawing.Point(79, 190);
             parentComboBoxMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             parentComboBoxMother.Name = "parentComboBoxMother";
             parentComboBoxMother.Size = new System.Drawing.Size(219, 24);
@@ -388,7 +387,8 @@ namespace ARKBreedingStats
             // 
             textBoxOwner.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             textBoxOwner.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            textBoxOwner.Location = new System.Drawing.Point(79, 111);
+            textBoxOwner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            textBoxOwner.Location = new System.Drawing.Point(79, 103);
             textBoxOwner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             textBoxOwner.Name = "textBoxOwner";
             textBoxOwner.Size = new System.Drawing.Size(219, 23);
@@ -397,16 +397,17 @@ namespace ARKBreedingStats
             // 
             // textBoxName
             // 
-            textBoxName.Location = new System.Drawing.Point(58, 22);
+            textBoxName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            textBoxName.Location = new System.Drawing.Point(51, 17);
             textBoxName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             textBoxName.Name = "textBoxName";
-            textBoxName.Size = new System.Drawing.Size(159, 23);
+            textBoxName.Size = new System.Drawing.Size(163, 23);
             textBoxName.TabIndex = 0;
             textBoxName.TextChanged += textBoxName_TextChanged;
             // 
             // nudMutationsFather
             // 
-            nudMutationsFather.Location = new System.Drawing.Point(125, 445);
+            nudMutationsFather.Location = new System.Drawing.Point(123, 430);
             nudMutationsFather.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMutationsFather.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             nudMutationsFather.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
@@ -417,7 +418,7 @@ namespace ARKBreedingStats
             // 
             // nudMutationsMother
             // 
-            nudMutationsMother.Location = new System.Drawing.Point(229, 445);
+            nudMutationsMother.Location = new System.Drawing.Point(228, 430);
             nudMutationsMother.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMutationsMother.Maximum = new decimal(new int[] { int.MaxValue, 0, 0, 0 });
             nudMutationsMother.Minimum = new decimal(new int[] { int.MinValue, 0, 0, int.MinValue });
@@ -429,7 +430,7 @@ namespace ARKBreedingStats
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(99, 448);
+            label12.Location = new System.Drawing.Point(96, 432);
             label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label12.Name = "label12";
             label12.Size = new System.Drawing.Size(19, 15);
@@ -439,7 +440,7 @@ namespace ARKBreedingStats
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(202, 448);
+            label11.Location = new System.Drawing.Point(201, 432);
             label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(19, 15);
@@ -448,26 +449,26 @@ namespace ARKBreedingStats
             // 
             // dhmsInputGrown
             // 
-            dhmsInputGrown.Location = new System.Drawing.Point(140, 382);
+            dhmsInputGrown.Location = new System.Drawing.Point(161, 369);
             dhmsInputGrown.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             dhmsInputGrown.Name = "dhmsInputGrown";
-            dhmsInputGrown.Size = new System.Drawing.Size(159, 30);
+            dhmsInputGrown.Size = new System.Drawing.Size(136, 26);
             dhmsInputGrown.TabIndex = 10;
             dhmsInputGrown.ValueChanged += dhmsInputGrown_ValueChanged;
             // 
             // dhmsInputCooldown
             // 
-            dhmsInputCooldown.Location = new System.Drawing.Point(140, 351);
+            dhmsInputCooldown.Location = new System.Drawing.Point(161, 337);
             dhmsInputCooldown.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             dhmsInputCooldown.Name = "dhmsInputCooldown";
-            dhmsInputCooldown.Size = new System.Drawing.Size(159, 30);
+            dhmsInputCooldown.Size = new System.Drawing.Size(136, 26);
             dhmsInputCooldown.TabIndex = 9;
             // 
             // nudMaturation
             // 
             nudMaturation.DecimalPlaces = 2;
             nudMaturation.ForeColor = System.Drawing.Color.Black;
-            nudMaturation.Location = new System.Drawing.Point(210, 415);
+            nudMaturation.Location = new System.Drawing.Point(211, 401);
             nudMaturation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             nudMaturation.Name = "nudMaturation";
             nudMaturation.Size = new System.Drawing.Size(89, 23);
@@ -478,12 +479,11 @@ namespace ARKBreedingStats
             // cbNeutered
             // 
             cbNeutered.Appearance = System.Windows.Forms.Appearance.Button;
-            cbNeutered.AutoSize = true;
             cbNeutered.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            cbNeutered.Location = new System.Drawing.Point(127, 509);
+            cbNeutered.Location = new System.Drawing.Point(136, 488);
             cbNeutered.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbNeutered.Name = "cbNeutered";
-            cbNeutered.Size = new System.Drawing.Size(66, 25);
+            cbNeutered.Size = new System.Drawing.Size(66, 23);
             cbNeutered.TabIndex = 15;
             cbNeutered.Text = "Neutered";
             cbNeutered.UseVisualStyleBackColor = true;
@@ -493,7 +493,7 @@ namespace ARKBreedingStats
             // 
             dateTimePickerDomesticatedAt.Checked = false;
             dateTimePickerDomesticatedAt.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            dateTimePickerDomesticatedAt.Location = new System.Drawing.Point(210, 541);
+            dateTimePickerDomesticatedAt.Location = new System.Drawing.Point(210, 515);
             dateTimePickerDomesticatedAt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             dateTimePickerDomesticatedAt.MinDate = new System.DateTime(2014, 12, 31, 0, 0, 0, 0);
             dateTimePickerDomesticatedAt.Name = "dateTimePickerDomesticatedAt";
@@ -503,10 +503,10 @@ namespace ARKBreedingStats
             // buttonStatus
             // 
             buttonStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonStatus.Location = new System.Drawing.Point(79, 542);
+            buttonStatus.Location = new System.Drawing.Point(87, 517);
             buttonStatus.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonStatus.Name = "buttonStatus";
-            buttonStatus.Size = new System.Drawing.Size(41, 27);
+            buttonStatus.Size = new System.Drawing.Size(41, 23);
             buttonStatus.TabIndex = 16;
             buttonStatus.UseVisualStyleBackColor = true;
             buttonStatus.Click += buttonStatus_Click;
@@ -514,10 +514,10 @@ namespace ARKBreedingStats
             // buttonSex
             // 
             buttonSex.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonSex.Location = new System.Drawing.Point(79, 509);
+            buttonSex.Location = new System.Drawing.Point(87, 488);
             buttonSex.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonSex.Name = "buttonSex";
-            buttonSex.Size = new System.Drawing.Size(41, 27);
+            buttonSex.Size = new System.Drawing.Size(41, 23);
             buttonSex.TabIndex = 14;
             buttonSex.Text = "?";
             buttonSex.UseVisualStyleBackColor = true;
@@ -526,7 +526,7 @@ namespace ARKBreedingStats
             // lbNewMutations
             // 
             lbNewMutations.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            lbNewMutations.Location = new System.Drawing.Point(183, 481);
+            lbNewMutations.Location = new System.Drawing.Point(182, 463);
             lbNewMutations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbNewMutations.Name = "lbNewMutations";
             lbNewMutations.Size = new System.Drawing.Size(115, 15);
@@ -537,7 +537,7 @@ namespace ARKBreedingStats
             // LbArkIdIngame
             // 
             LbArkIdIngame.AutoSize = true;
-            LbArkIdIngame.Location = new System.Drawing.Point(7, 298);
+            LbArkIdIngame.Location = new System.Drawing.Point(8, 282);
             LbArkIdIngame.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbArkIdIngame.Name = "LbArkIdIngame";
             LbArkIdIngame.Size = new System.Drawing.Size(83, 15);
@@ -547,7 +547,7 @@ namespace ARKBreedingStats
             // LbArkId
             // 
             LbArkId.AutoSize = true;
-            LbArkId.Location = new System.Drawing.Point(7, 328);
+            LbArkId.Location = new System.Drawing.Point(8, 311);
             LbArkId.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbArkId.Name = "LbArkId";
             LbArkId.Size = new System.Drawing.Size(40, 15);
@@ -557,10 +557,10 @@ namespace ARKBreedingStats
             // btClearColors
             // 
             btClearColors.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btClearColors.Location = new System.Drawing.Point(7, 576);
+            btClearColors.Location = new System.Drawing.Point(8, 545);
             btClearColors.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btClearColors.Name = "btClearColors";
-            btClearColors.Size = new System.Drawing.Size(85, 27);
+            btClearColors.Size = new System.Drawing.Size(85, 23);
             btClearColors.TabIndex = 37;
             btClearColors.Text = "Clear colors";
             btClearColors.UseVisualStyleBackColor = true;
@@ -568,7 +568,7 @@ namespace ARKBreedingStats
             // 
             // regionColorChooser1
             // 
-            regionColorChooser1.Location = new System.Drawing.Point(96, 572);
+            regionColorChooser1.Location = new System.Drawing.Point(95, 543);
             regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             regionColorChooser1.Name = "regionColorChooser1";
             regionColorChooser1.Size = new System.Drawing.Size(203, 33);
@@ -578,7 +578,7 @@ namespace ARKBreedingStats
             // 
             lbServer.AutoSize = true;
             lbServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
-            lbServer.Location = new System.Drawing.Point(7, 174);
+            lbServer.Location = new System.Drawing.Point(8, 164);
             lbServer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbServer.Name = "lbServer";
             lbServer.Size = new System.Drawing.Size(39, 15);
@@ -590,7 +590,7 @@ namespace ARKBreedingStats
             // 
             lbTribe.AutoSize = true;
             lbTribe.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
-            lbTribe.Location = new System.Drawing.Point(7, 144);
+            lbTribe.Location = new System.Drawing.Point(8, 135);
             lbTribe.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbTribe.Name = "lbTribe";
             lbTribe.Size = new System.Drawing.Size(33, 15);
@@ -601,7 +601,7 @@ namespace ARKBreedingStats
             // lbStatus
             // 
             lbStatus.AutoSize = true;
-            lbStatus.Location = new System.Drawing.Point(7, 548);
+            lbStatus.Location = new System.Drawing.Point(8, 521);
             lbStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbStatus.Name = "lbStatus";
             lbStatus.Size = new System.Drawing.Size(39, 15);
@@ -611,7 +611,7 @@ namespace ARKBreedingStats
             // lbSex
             // 
             lbSex.AutoSize = true;
-            lbSex.Location = new System.Drawing.Point(7, 515);
+            lbSex.Location = new System.Drawing.Point(8, 492);
             lbSex.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbSex.Name = "lbSex";
             lbSex.Size = new System.Drawing.Size(24, 15);
@@ -621,7 +621,7 @@ namespace ARKBreedingStats
             // lbMutations
             // 
             lbMutations.AutoSize = true;
-            lbMutations.Location = new System.Drawing.Point(7, 448);
+            lbMutations.Location = new System.Drawing.Point(8, 432);
             lbMutations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbMutations.Name = "lbMutations";
             lbMutations.Size = new System.Drawing.Size(61, 15);
@@ -631,7 +631,7 @@ namespace ARKBreedingStats
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(159, 548);
+            label7.Location = new System.Drawing.Point(156, 521);
             label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(46, 15);
@@ -641,7 +641,7 @@ namespace ARKBreedingStats
             // lbMaturationPerc
             // 
             lbMaturationPerc.AutoSize = true;
-            lbMaturationPerc.Location = new System.Drawing.Point(7, 418);
+            lbMaturationPerc.Location = new System.Drawing.Point(8, 403);
             lbMaturationPerc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbMaturationPerc.Name = "lbMaturationPerc";
             lbMaturationPerc.Size = new System.Drawing.Size(87, 15);
@@ -651,7 +651,7 @@ namespace ARKBreedingStats
             // lbCooldown
             // 
             lbCooldown.AutoSize = true;
-            lbCooldown.Location = new System.Drawing.Point(7, 359);
+            lbCooldown.Location = new System.Drawing.Point(8, 343);
             lbCooldown.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbCooldown.Name = "lbCooldown";
             lbCooldown.Size = new System.Drawing.Size(62, 15);
@@ -661,7 +661,7 @@ namespace ARKBreedingStats
             // lbGrownIn
             // 
             lbGrownIn.AutoSize = true;
-            lbGrownIn.Location = new System.Drawing.Point(7, 389);
+            lbGrownIn.Location = new System.Drawing.Point(8, 379);
             lbGrownIn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbGrownIn.Name = "lbGrownIn";
             lbGrownIn.Size = new System.Drawing.Size(55, 15);
@@ -670,9 +670,9 @@ namespace ARKBreedingStats
             // 
             // btSaveChanges
             // 
-            btSaveChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            btSaveChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
             btSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btSaveChanges.Location = new System.Drawing.Point(7, 631);
+            btSaveChanges.Location = new System.Drawing.Point(8, 596);
             btSaveChanges.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btSaveChanges.Name = "btSaveChanges";
             btSaveChanges.Size = new System.Drawing.Size(145, 43);
@@ -685,7 +685,7 @@ namespace ARKBreedingStats
             // lbNote
             // 
             lbNote.AutoSize = true;
-            lbNote.Location = new System.Drawing.Point(7, 268);
+            lbNote.Location = new System.Drawing.Point(8, 253);
             lbNote.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbNote.Name = "lbNote";
             lbNote.Size = new System.Drawing.Size(33, 15);
@@ -695,7 +695,7 @@ namespace ARKBreedingStats
             // lbFather
             // 
             lbFather.AutoSize = true;
-            lbFather.Location = new System.Drawing.Point(7, 237);
+            lbFather.Location = new System.Drawing.Point(8, 223);
             lbFather.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbFather.Name = "lbFather";
             lbFather.Size = new System.Drawing.Size(40, 15);
@@ -705,7 +705,7 @@ namespace ARKBreedingStats
             // lbMother
             // 
             lbMother.AutoSize = true;
-            lbMother.Location = new System.Drawing.Point(7, 205);
+            lbMother.Location = new System.Drawing.Point(8, 193);
             lbMother.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbMother.Name = "lbMother";
             lbMother.Size = new System.Drawing.Size(46, 15);
@@ -716,7 +716,7 @@ namespace ARKBreedingStats
             // 
             lbOwner.AutoSize = true;
             lbOwner.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
-            lbOwner.Location = new System.Drawing.Point(7, 114);
+            lbOwner.Location = new System.Drawing.Point(8, 106);
             lbOwner.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbOwner.Name = "lbOwner";
             lbOwner.Size = new System.Drawing.Size(42, 15);
@@ -728,7 +728,7 @@ namespace ARKBreedingStats
             // 
             lbName.AutoSize = true;
             lbName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, 0);
-            lbName.Location = new System.Drawing.Point(7, 25);
+            lbName.Location = new System.Drawing.Point(4, 20);
             lbName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lbName.Name = "lbName";
             lbName.Size = new System.Drawing.Size(39, 15);
@@ -740,7 +740,7 @@ namespace ARKBreedingStats
             // 
             btAdd2Library.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             btAdd2Library.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btAdd2Library.Location = new System.Drawing.Point(7, 631);
+            btAdd2Library.Location = new System.Drawing.Point(8, 596);
             btAdd2Library.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btAdd2Library.Name = "btAdd2Library";
             btAdd2Library.Size = new System.Drawing.Size(292, 43);
@@ -754,7 +754,7 @@ namespace ARKBreedingStats
             Controls.Add(gbCreatureInfo);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CreatureInfoInput";
-            Size = new System.Drawing.Size(306, 681);
+            Size = new System.Drawing.Size(306, 645);
             gbCreatureInfo.ResumeLayout(false);
             gbCreatureInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudMutationsFather).EndInit();

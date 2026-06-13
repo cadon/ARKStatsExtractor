@@ -2239,12 +2239,12 @@ namespace ARKBreedingStats
             if (page == SettingsTabPages.Unknown)
                 page = _settingsLastTabPage;
 
-            bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
-            bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+            var libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
+            var considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             var gameSettingBefore = _creatureCollection.Game;
             var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
-            using (Settings settingsForm = new Settings(_creatureCollection, page))
+            using (var settingsForm = new Settings(_creatureCollection, page))
             {
                 var settingsSaved = settingsForm.ShowDialog() == DialogResult.OK;
                 _settingsLastTabPage = settingsForm.LastTabPageIndex;
