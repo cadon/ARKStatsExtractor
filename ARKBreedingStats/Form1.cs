@@ -4018,7 +4018,7 @@ namespace ARKBreedingStats
 
         private void editSortingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Values.V.OpenSpeciesNameSortingFile();
+            Values.OpenSpeciesNameSortingFile();
         }
 
         private void helpAboutSpeciesSortingToolStripMenuItem_Click(object sender, EventArgs e)

@@ -26,7 +26,7 @@ namespace ARKBreedingStats.species
         {
             Id = 0;
             Name = Loc.S("noColor");
-            Color = Color.LightGray;
+            Color = Color.FromArgb(127, 127, 127);
             LinearRgba = null;
         }
 

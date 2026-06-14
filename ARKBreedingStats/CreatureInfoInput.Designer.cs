@@ -560,7 +560,7 @@ namespace ARKBreedingStats
             btClearColors.Location = new System.Drawing.Point(8, 545);
             btClearColors.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btClearColors.Name = "btClearColors";
-            btClearColors.Size = new System.Drawing.Size(85, 23);
+            btClearColors.Size = new System.Drawing.Size(79, 23);
             btClearColors.TabIndex = 37;
             btClearColors.Text = "Clear colors";
             btClearColors.UseVisualStyleBackColor = true;
@@ -568,10 +568,10 @@ namespace ARKBreedingStats
             // 
             // regionColorChooser1
             // 
-            regionColorChooser1.Location = new System.Drawing.Point(95, 543);
+            regionColorChooser1.Location = new System.Drawing.Point(91, 543);
             regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             regionColorChooser1.Name = "regionColorChooser1";
-            regionColorChooser1.Size = new System.Drawing.Size(203, 33);
+            regionColorChooser1.Size = new System.Drawing.Size(207, 33);
             regionColorChooser1.TabIndex = 19;
             // 
             // lbServer

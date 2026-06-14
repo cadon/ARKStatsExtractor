@@ -8,7 +8,7 @@ namespace ARKBreedingStats.species
     /// <summary>
     /// Loaded color definitions used by the library.
     /// </summary>
-    public class ArkColors
+    public class ArkColors(List<ArkColor> baseColorList)
     {
         public ArkColor[] ColorsList;
         private Dictionary<string, ArkColor> _colorsByName;
@@ -21,17 +21,12 @@ namespace ARKBreedingStats.species
         /// <summary>
         /// Color definitions of the base game.
         /// </summary>
-        private readonly List<ArkColor> _baseColors;
+        private readonly List<ArkColor> _baseColors = baseColorList;
 
         /// <summary>
         /// If mods are loaded, each mod has its colors (or null if no color definitions are given) in the according order.
         /// </summary>
         private List<(List<ArkColor> colors, int dyeStartIndex)> _modColors;
-
-        public ArkColors(List<ArkColor> baseColorList)
-        {
-            _baseColors = baseColorList;
-        }
 
         /// <summary>
         /// Adds Ark colors of a mod value file to the base values. Should be called even if the mod has no color definitions (ARK can then add missing colors that where left out before due to mod-overwriting).
@@ -61,7 +56,7 @@ namespace ARKBreedingStats.species
             _colorsById = new Dictionary<byte, ArkColor> { { 0, new ArkColor() } };
             var nextFreeColorId = Ark.ColorFirstId;
             var nextFreeDyeId = Ark.DyeFirstIdASE;
-            var colorIdMax = Ark.DyeFirstIdASE - 1;
+            const int colorIdMax = Ark.DyeFirstIdASE - 1;
             var noMoreAvailableColorId = false;
             var noMoreAvailableDyeId = false;
 
@@ -150,9 +145,9 @@ namespace ARKBreedingStats.species
             _equalColorIds = CalculateEqualColorIds(ColorsList);
         }
 
-        public ArkColor ById(byte id) => _colorsById.TryGetValue(id, out var color) ? color : UndefinedColor;
+        public ArkColor ById(byte id) => _colorsById.GetValueOrDefault(id, UndefinedColor);
 
-        public ArkColor ByName(string name) => _colorsByName.TryGetValue(name, out var color) ? color : UndefinedColor;
+        public ArkColor ByName(string name) => _colorsByName.GetValueOrDefault(name, UndefinedColor);
 
         /// <summary>
         /// Returns the ARK-id of the color that is closest to the sRGB values.
