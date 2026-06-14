@@ -354,7 +354,6 @@ namespace ARKBreedingStats
             {
                 btSaveChanges.Visible = value;
                 btAdd2Library.Size = btAdd2Library.Size with { Width = (value ? Width / 2 : Width) - 2 * btAdd2Library.Margin.Left };
-                btAdd2Library.Location = btAdd2Library.Location with { X = value ? Width / 2 + btAdd2Library.Margin.Left : btAdd2Library.Margin.Left };
                 btAdd2Library.Update();
             }
         }

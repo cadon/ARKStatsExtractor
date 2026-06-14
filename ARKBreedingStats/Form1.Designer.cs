@@ -2333,6 +2333,7 @@ namespace ARKBreedingStats
             // 
             // btExtractLevels
             // 
+            btExtractLevels.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btExtractLevels.Location = new System.Drawing.Point(435, 127);
             btExtractLevels.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btExtractLevels.Name = "btExtractLevels";
