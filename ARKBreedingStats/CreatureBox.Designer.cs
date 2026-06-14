@@ -31,7 +31,6 @@ namespace ARKBreedingStats
         private void InitializeComponent()
         {
             groupBox1 = new GroupBoxC();
-            buttonEdit = new System.Windows.Forms.Button();
             panel1 = new System.Windows.Forms.Panel();
             buttonStatus = new System.Windows.Forms.Button();
             checkBoxIsBred = new System.Windows.Forms.CheckBox();
@@ -50,48 +49,39 @@ namespace ARKBreedingStats
             label1 = new System.Windows.Forms.Label();
             textBoxOwner = new System.Windows.Forms.TextBox();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            statsDisplay1 = new StatsDisplay();
-            panel2 = new System.Windows.Forms.Panel();
-            labelNotes = new System.Windows.Forms.Label();
-            LbFather = new System.Windows.Forms.Label();
-            LbMotherAndWildInfo = new System.Windows.Forms.Label();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             regionColorChooser1 = new RegionColorChooser();
+            labelNotes = new System.Windows.Forms.Label();
+            buttonEdit = new System.Windows.Forms.Button();
+            LbFather = new System.Windows.Forms.Label();
+            LbMotherAndWildInfo = new System.Windows.Forms.Label();
+            statsDisplay1 = new StatsDisplay();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             panelParents.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
             // 
             groupBox1.AutoSize = true;
-            groupBox1.Controls.Add(buttonEdit);
             groupBox1.Controls.Add(panel1);
             groupBox1.Controls.Add(tableLayoutPanel1);
+            groupBox1.Controls.Add(labelNotes);
+            groupBox1.Controls.Add(buttonEdit);
+            groupBox1.Controls.Add(LbFather);
+            groupBox1.Controls.Add(LbMotherAndWildInfo);
+            groupBox1.Controls.Add(statsDisplay1);
             groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             groupBox1.Location = new System.Drawing.Point(0, 0);
             groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(227, 468);
+            groupBox1.Size = new System.Drawing.Size(227, 312);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Creature";
-            // 
-            // buttonEdit
-            // 
-            buttonEdit.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            buttonEdit.Image = Properties.Resources.pen;
-            buttonEdit.Location = new System.Drawing.Point(206, 0);
-            buttonEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new System.Drawing.Size(21, 21);
-            buttonEdit.TabIndex = 0;
-            buttonEdit.UseVisualStyleBackColor = true;
-            buttonEdit.Click += buttonEdit_Click;
             // 
             // panel1
             // 
@@ -106,7 +96,7 @@ namespace ARKBreedingStats
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(textBoxOwner);
-            panel1.Location = new System.Drawing.Point(7, 21);
+            panel1.Location = new System.Drawing.Point(4, 15);
             panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new System.Drawing.Size(214, 264);
@@ -282,106 +272,109 @@ namespace ARKBreedingStats
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.Controls.Add(statsDisplay1, 0, 0);
-            tableLayoutPanel1.Controls.Add(panel2, 0, 1);
-            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel1.Location = new System.Drawing.Point(4, 19);
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(regionColorChooser1, 1, 0);
+            tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            tableLayoutPanel1.Location = new System.Drawing.Point(4, 85);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(219, 446);
+            tableLayoutPanel1.Size = new System.Drawing.Size(219, 148);
             tableLayoutPanel1.TabIndex = 30;
-            // 
-            // statsDisplay1
-            // 
-            statsDisplay1.AutoSize = true;
-            statsDisplay1.Dock = System.Windows.Forms.DockStyle.Top;
-            statsDisplay1.Location = new System.Drawing.Point(0, 0);
-            statsDisplay1.Margin = new System.Windows.Forms.Padding(0);
-            statsDisplay1.Name = "statsDisplay1";
-            statsDisplay1.Size = new System.Drawing.Size(219, 21);
-            statsDisplay1.TabIndex = 28;
-            // 
-            // panel2
-            // 
-            panel2.AutoSize = true;
-            panel2.Controls.Add(labelNotes);
-            panel2.Controls.Add(LbFather);
-            panel2.Controls.Add(LbMotherAndWildInfo);
-            panel2.Controls.Add(pictureBox1);
-            panel2.Controls.Add(regionColorChooser1);
-            panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            panel2.Location = new System.Drawing.Point(0, 21);
-            panel2.Margin = new System.Windows.Forms.Padding(0);
-            panel2.Name = "panel2";
-            panel2.Size = new System.Drawing.Size(219, 425);
-            panel2.TabIndex = 29;
-            // 
-            // labelNotes
-            // 
-            labelNotes.Location = new System.Drawing.Point(0, 30);
-            labelNotes.Margin = new System.Windows.Forms.Padding(0);
-            labelNotes.Name = "labelNotes";
-            labelNotes.Size = new System.Drawing.Size(214, 25);
-            labelNotes.TabIndex = 18;
-            labelNotes.Text = "Notes";
-            // 
-            // LbFather
-            // 
-            LbFather.AutoSize = true;
-            LbFather.Location = new System.Drawing.Point(0, 16);
-            LbFather.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            LbFather.Name = "LbFather";
-            LbFather.Size = new System.Drawing.Size(0, 15);
-            LbFather.TabIndex = 29;
-            LbFather.Click += LbFatherClick;
-            // 
-            // LbMotherAndWildInfo
-            // 
-            LbMotherAndWildInfo.Location = new System.Drawing.Point(0, 0);
-            LbMotherAndWildInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            LbMotherAndWildInfo.Name = "LbMotherAndWildInfo";
-            LbMotherAndWildInfo.Size = new System.Drawing.Size(214, 40);
-            LbMotherAndWildInfo.TabIndex = 17;
-            LbMotherAndWildInfo.Click += LbMotherClick;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new System.Drawing.Point(0, 65);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            pictureBox1.Location = new System.Drawing.Point(0, 0);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(149, 148);
+            pictureBox1.Size = new System.Drawing.Size(148, 148);
             pictureBox1.TabIndex = 19;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
             // regionColorChooser1
             // 
-            regionColorChooser1.Location = new System.Drawing.Point(150, 111);
+            regionColorChooser1.Location = new System.Drawing.Point(148, 0);
             regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             regionColorChooser1.Name = "regionColorChooser1";
             regionColorChooser1.Size = new System.Drawing.Size(68, 102);
             regionColorChooser1.TabIndex = 27;
+            // 
+            // labelNotes
+            // 
+            labelNotes.AutoSize = true;
+            labelNotes.Dock = System.Windows.Forms.DockStyle.Top;
+            labelNotes.Location = new System.Drawing.Point(4, 70);
+            labelNotes.Margin = new System.Windows.Forms.Padding(0);
+            labelNotes.Name = "labelNotes";
+            labelNotes.Size = new System.Drawing.Size(38, 15);
+            labelNotes.TabIndex = 18;
+            labelNotes.Text = "Notes";
+            // 
+            // buttonEdit
+            // 
+            buttonEdit.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            buttonEdit.Image = Properties.Resources.pen;
+            buttonEdit.Location = new System.Drawing.Point(206, 0);
+            buttonEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonEdit.Name = "buttonEdit";
+            buttonEdit.Size = new System.Drawing.Size(21, 21);
+            buttonEdit.TabIndex = 0;
+            buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
+            // 
+            // LbFather
+            // 
+            LbFather.AutoSize = true;
+            LbFather.Dock = System.Windows.Forms.DockStyle.Top;
+            LbFather.Location = new System.Drawing.Point(4, 55);
+            LbFather.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbFather.Name = "LbFather";
+            LbFather.Size = new System.Drawing.Size(40, 15);
+            LbFather.TabIndex = 29;
+            LbFather.Text = "Father";
+            LbFather.Click += LbFatherClick;
+            // 
+            // LbMotherAndWildInfo
+            // 
+            LbMotherAndWildInfo.AutoSize = true;
+            LbMotherAndWildInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            LbMotherAndWildInfo.Location = new System.Drawing.Point(4, 40);
+            LbMotherAndWildInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbMotherAndWildInfo.Name = "LbMotherAndWildInfo";
+            LbMotherAndWildInfo.Size = new System.Drawing.Size(46, 15);
+            LbMotherAndWildInfo.TabIndex = 17;
+            LbMotherAndWildInfo.Text = "Mother";
+            LbMotherAndWildInfo.Click += LbMotherClick;
+            // 
+            // statsDisplay1
+            // 
+            statsDisplay1.AutoSize = true;
+            statsDisplay1.Dock = System.Windows.Forms.DockStyle.Top;
+            statsDisplay1.Location = new System.Drawing.Point(4, 19);
+            statsDisplay1.Margin = new System.Windows.Forms.Padding(0);
+            statsDisplay1.Name = "statsDisplay1";
+            statsDisplay1.Size = new System.Drawing.Size(219, 21);
+            statsDisplay1.TabIndex = 28;
             // 
             // CreatureBox
             // 
             Controls.Add(groupBox1);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "CreatureBox";
-            Size = new System.Drawing.Size(227, 468);
+            Size = new System.Drawing.Size(227, 312);
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panelParents.ResumeLayout(false);
             panelParents.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -416,6 +409,5 @@ namespace ARKBreedingStats
         private uiControls.StatsDisplay statsDisplay1;
         private System.Windows.Forms.Label LbFather;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel2;
     }
 }
