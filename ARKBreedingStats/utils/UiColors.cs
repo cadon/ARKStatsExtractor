@@ -21,7 +21,11 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// The active palette. Set once at startup via <see cref="Initialize"/>.
         /// </summary>
-        internal static UiPalette Current { get; private set; } = RegularLight;
+        internal static UiPalette Current
+        {
+            get => field ?? RegularLight;
+            private set;
+        } = RegularLight;
 
         /// <summary>
         /// True when the OS / user theme is dark. Set during <see cref="Initialize"/>.
