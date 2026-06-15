@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace ARKBreedingStats.species
@@ -13,10 +12,12 @@ namespace ARKBreedingStats.species
         public ArkColor[] ColorsList;
         private Dictionary<string, ArkColor> _colorsByName;
         private Dictionary<byte, ArkColor> _colorsById;
+        public int ColorCount;
+
         /// <summary>
         /// Color used if there's no definition for it.
         /// </summary>
-        private static readonly ArkColor UndefinedColor = new ArkColor("undefined", new double[] { 1, 1, 1, 1 }, false) { Id = Ark.UndefinedColorId };
+        private static readonly ArkColor UndefinedColor = new("undefined", [1, 1, 1, 1], false) { Id = Ark.UndefinedColorId };
 
         /// <summary>
         /// Color definitions of the base game.
@@ -141,6 +142,7 @@ namespace ARKBreedingStats.species
             }
 
             ColorsList = _colorsById.Values.OrderBy(c => c.Id).ToArray();
+            ColorCount = ColorsList.Length;
             UndefinedColor.Id = undefinedColorId;
             _equalColorIds = CalculateEqualColorIds(ColorsList);
         }

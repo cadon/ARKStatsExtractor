@@ -500,7 +500,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 240F));
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel1.Size = new System.Drawing.Size(1720, 1174);
             tableLayoutPanel1.TabIndex = 4;
             // 
@@ -598,13 +598,13 @@ namespace ARKBreedingStats.BreedingPlanning
             lbBPBreedingScore.Location = new System.Drawing.Point(391, 179);
             lbBPBreedingScore.Margin = new System.Windows.Forms.Padding(4, 17, 4, 0);
             lbBPBreedingScore.Name = "lbBPBreedingScore";
-            lbBPBreedingScore.Size = new System.Drawing.Size(102, 23);
+            lbBPBreedingScore.Size = new System.Drawing.Size(92, 23);
             lbBPBreedingScore.TabIndex = 4;
             lbBPBreedingScore.Text = "Breeding-Score";
             // 
             // pedigreeCreature2
             // 
-            pedigreeCreature2.Location = new System.Drawing.Point(501, 162);
+            pedigreeCreature2.Location = new System.Drawing.Point(491, 162);
             pedigreeCreature2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 3);
             pedigreeCreature2.Name = "pedigreeCreature2";
             pedigreeCreature2.Size = new System.Drawing.Size(379, 40);
@@ -614,11 +614,11 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             gbBPOffspring.Controls.Add(tableLayoutPanel2);
             gbBPOffspring.Dock = System.Windows.Forms.DockStyle.Fill;
-            gbBPOffspring.Location = new System.Drawing.Point(4, 937);
+            gbBPOffspring.Location = new System.Drawing.Point(4, 933);
             gbBPOffspring.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbBPOffspring.Name = "gbBPOffspring";
             gbBPOffspring.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbBPOffspring.Size = new System.Drawing.Size(1712, 234);
+            gbBPOffspring.Size = new System.Drawing.Size(1712, 238);
             gbBPOffspring.TabIndex = 2;
             gbBPOffspring.TabStop = false;
             gbBPOffspring.Text = "Offspring";
@@ -638,7 +638,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new System.Drawing.Size(1704, 212);
+            tableLayoutPanel2.Size = new System.Drawing.Size(1704, 216);
             tableLayoutPanel2.TabIndex = 9;
             // 
             // tableLayoutPanel4
@@ -656,7 +656,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel4.Size = new System.Drawing.Size(988, 206);
+            tableLayoutPanel4.Size = new System.Drawing.Size(988, 210);
             tableLayoutPanel4.TabIndex = 0;
             // 
             // labelBreedingInfos
@@ -700,7 +700,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // columnHeader4
             // 
             columnHeader4.Text = "Finished at";
-            columnHeader4.Width = 103;
+            columnHeader4.Width = 108;
             // 
             // lbBPBreedingTimes
             // 
@@ -724,7 +724,7 @@ namespace ARKBreedingStats.BreedingPlanning
             flowLayoutPanel2.Location = new System.Drawing.Point(4, 3);
             flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new System.Drawing.Size(411, 206);
+            flowLayoutPanel2.Size = new System.Drawing.Size(411, 210);
             flowLayoutPanel2.TabIndex = 8;
             // 
             // lbBPProbabilityBest
@@ -794,7 +794,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutPanel6.RowCount = 2;
             tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            tableLayoutPanel6.Size = new System.Drawing.Size(302, 206);
+            tableLayoutPanel6.Size = new System.Drawing.Size(302, 210);
             tableLayoutPanel6.TabIndex = 8;
             // 
             // offspringPossibilities1
@@ -822,7 +822,7 @@ namespace ARKBreedingStats.BreedingPlanning
             panelCombinations.Location = new System.Drawing.Point(4, 214);
             panelCombinations.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelCombinations.Name = "panelCombinations";
-            panelCombinations.Size = new System.Drawing.Size(1712, 717);
+            panelCombinations.Size = new System.Drawing.Size(1712, 713);
             panelCombinations.TabIndex = 3;
             // 
             // lbBreedingPlanInfo
@@ -844,7 +844,7 @@ namespace ARKBreedingStats.BreedingPlanning
             flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
             flowLayoutPanelPairs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
-            flowLayoutPanelPairs.Size = new System.Drawing.Size(1712, 717);
+            flowLayoutPanelPairs.Size = new System.Drawing.Size(1712, 713);
             flowLayoutPanelPairs.TabIndex = 1;
             // 
             // BreedingPlan

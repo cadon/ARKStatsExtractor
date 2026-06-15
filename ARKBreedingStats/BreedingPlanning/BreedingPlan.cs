@@ -82,6 +82,7 @@ namespace ARKBreedingStats.BreedingPlanning
         private bool _updateBreedingPlanAllowed;
         public CreatureCollection CreatureCollection;
         private readonly ToolTip _tt = new ToolTip { AutoPopDelay = 10000 };
+        private bool _colorBreeding;
 
         public BreedingPlan()
         {
@@ -384,15 +385,15 @@ namespace ARKBreedingStats.BreedingPlanning
             if (considerChosenCreature)
             {
                 if (_chosenCreature.sex == Sex.Female)
-                    selectedFemales = new[] { _chosenCreature };
+                    selectedFemales = [_chosenCreature];
                 if (_chosenCreature.sex == Sex.Male)
-                    selectedMales = new[] { _chosenCreature };
+                    selectedMales = [_chosenCreature];
             }
 
-            bool creaturesTagFilteredOut = (crCountF != selectedFemales.Length)
-                                              || (crCountM != (selectedMales?.Length ?? 0));
+            var creaturesTagFilteredOut = (crCountF != selectedFemales.Length)
+                                          || (crCountM != (selectedMales?.Length ?? 0));
 
-            bool displayFilterWarning = true;
+            var displayFilterWarning = true;
 
             lbBreedingPlanHeader.Text = _currentSpecies.DescriptiveNameAndMod
                                         + (considerChosenCreature ? " (" + string.Format(Loc.S("onlyPairingsWith"), _chosenCreature.name) + ")" : string.Empty)
@@ -436,11 +437,16 @@ namespace ARKBreedingStats.BreedingPlanning
                 var levelLimitWithOutDomLevels = (CreatureCollection.CurrentCreatureCollection?.maxServerLevel ?? 0) - (CreatureCollection.CurrentCreatureCollection?.maxDomLevel ?? 0);
                 if (levelLimitWithOutDomLevels < 0) levelLimitWithOutDomLevels = 0;
 
-                _breedingPairs = BreedingScore.CalculateBreedingScores(selectedFemales, selectedMales, _currentSpecies,
-                    bestPossLevels, _statWeights, _bestLevelsWild, _breedingMode,
-                    considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
-                    ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
-                    cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.NoGender, CbConsiderMutationLevels.Checked);
+                if (_colorBreeding)
+                    _breedingPairs = BreedingScore.CalculateBreedingScoresColors(females, males, _currentSpecies,
+                        [22, 22, 22, 22, 22, 22], Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray(),
+                        considerChosenCreature);
+                else
+                    _breedingPairs = BreedingScore.CalculateBreedingScores(selectedFemales, selectedMales, _currentSpecies,
+                        bestPossLevels, _statWeights, _bestLevelsWild, _breedingMode,
+                        considerChosenCreature, considerMutationLimit, (int)nudBPMutationLimit.Value,
+                        ref creaturesMutationsFilteredOut, levelLimitWithOutDomLevels, CbDontSuggestOverLimitOffspring.Checked,
+                        cbBPOnlyOneSuggestionForFemales.Checked, _statOddEvens, !cbBPIncludeCooldowneds.Checked && _currentSpecies.NoGender, CbConsiderMutationLevels.Checked);
 
                 DisplayBreedingCombinations();
 
@@ -485,7 +491,10 @@ namespace ARKBreedingStats.BreedingPlanning
                     }
                 }
                 else
+                {
+                    NoPossiblePairingsFound(false, false);
                     DisplayInfoForSetPairing(-1);
+                }
             }
 
             if (_speciesInfoNeedsUpdate)
@@ -558,7 +567,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     }
                     else
                     {
-                        pb = new PictureBox { Size = new Size(87, PedigreeCreation.PedigreeElementHeight), SizeMode = PictureBoxSizeMode.CenterImage };
+                        pb = new PictureBox { Size = new Size(lbBPBreedingScore.Width, PedigreeCreation.PedigreeElementHeight), SizeMode = PictureBoxSizeMode.CenterImage };
                         _pbs.Add(pb);
                         flowLayoutPanelPairs.Controls.Add(pb);
                     }
@@ -586,8 +595,8 @@ namespace ARKBreedingStats.BreedingPlanning
 
                     sb.Clear();
 
-                    Bitmap bm = new Bitmap(pb.Width, 29);
-                    using (Graphics g = Graphics.FromImage(bm))
+                    var bm = new Bitmap(pb.Width, pb.Height);
+                    using (var g = Graphics.FromImage(bm))
                     {
                         g.TextRenderingHint = TextRenderingHint.AntiAlias;
                         brush.Color = UiColors.Current.Mutation;
@@ -602,7 +611,10 @@ namespace ARKBreedingStats.BreedingPlanning
                             sb.AppendLine(_breedingPairs[i].Father + " can produce a mutation.");
                         }
 
-                        var colorPercent = (int)((_breedingPairs[i].BreedingScore.OneNumber + displayScoreOffset) * 12.5);
+                        // for color breeding score 6 is max, for stat breeding mostly 8 is max. Multiply score to get 100% for max.
+                        var colorPercent = _colorBreeding
+                            ? (int)(_breedingPairs[i].BreedingScore.OneNumber * 16.67)
+                            : (int)((_breedingPairs[i].BreedingScore.OneNumber + displayScoreOffset) * 12.5);
                         // outline
                         brush.Color = Utils.GetColorFromPercent(colorPercent, deltaLightnessOutline);
                         g.FillRectangle(brush, 0, 15, 87, 5);
@@ -630,7 +642,7 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             // hide unused controls
-            for (int i = CreatureCollection.maxBreedingSuggestions; 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
+            for (var i = CreatureCollection.maxBreedingSuggestions; 2 * i + 1 < _pcs.Count && i < _pbs.Count; i++)
             {
                 _pcs[2 * i].Hide();
                 _pcs[2 * i + 1].Hide();

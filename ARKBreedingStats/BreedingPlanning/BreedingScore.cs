@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
+using ARKBreedingStats.values;
 using static ARKBreedingStats.uiControls.StatWeighting;
 
 namespace ARKBreedingStats.BreedingPlanning
@@ -15,17 +16,7 @@ namespace ARKBreedingStats.BreedingPlanning
         /// <summary>
         /// Calculates the breeding score of all possible pairs.
         /// </summary>
-        /// <param name="females"></param>
-        /// <param name="males"></param>
-        /// <param name="species"></param>
-        /// <param name="bestPossLevels"></param>
-        /// <param name="statWeights"></param>
         /// <param name="bestLevelsOfSpecies">If the according stat weight is negative, the lowest level is contained.</param>
-        /// <param name="breedingMode"></param>
-        /// <param name="considerChosenCreature"></param>
-        /// <param name="considerMutationLimit"></param>
-        /// <param name="mutationLimit"></param>
-        /// <param name="creaturesMutationsFilteredOut"></param>
         /// <param name="offspringLevelLimit">If &gt; 0, pairs that can result in a creature with a level higher than that, are highlighted. This can be used if there's a level cap.</param>
         /// <param name="downGradeOffspringWithLevelHigherThanLimit">Downgrade score if level is higher than limit.</param>
         /// <param name="onlyBestSuggestionForFemale">Only the pairing with the highest score is kept for each female. Is not used if species has no sex or sex is ignored in breeding planner.</param>
@@ -55,12 +46,14 @@ namespace ARKBreedingStats.BreedingPlanning
 
             var getHigherLowerLevels = considerMutationLevels ? (Func<Creature, Creature, int, (int, int, double)>)GetHigherLowerLevelWithMutationLevels : GetHigherLowerLevel;
 
-            for (int fi = 0; fi < females.Length; fi++)
+            var fi = -1;
+            foreach (var female in females)
             {
-                var female = females[fi];
-                for (int mi = 0; mi < males.Length; mi++)
+                fi++;
+                var mi = -1;
+                foreach (var male in males)
                 {
-                    var male = males[mi];
+                    mi++;
                     // if ignoreSex (useful when using S+ mutator), skip pair if
                     // creatures are the same, or pair has already been added
                     if (ignoreSex)
@@ -216,28 +209,7 @@ namespace ARKBreedingStats.BreedingPlanning
                     if (highestOffspringOverLevelLimit && downGradeOffspringWithLevelHigherThanLimit)
                         t *= 0.01;
 
-                    int mutationPossibleFrom = female.Mutations < Ark.MutationPossibleWithLessThan && male.Mutations < Ark.MutationPossibleWithLessThan ? 2
-                        : female.Mutations < Ark.MutationPossibleWithLessThan || male.Mutations < Ark.MutationPossibleWithLessThan ? 1 : 0;
-
-                    var mutationOffset = female.Traits?.Aggregate(0d, (d, trait) => d + trait.MutationProbability) ?? 0d;
-                    mutationOffset = male.Traits?.Aggregate(mutationOffset, (d, trait) => d + trait.MutationProbability) ?? mutationOffset;
-
-                    double mutationProbability;
-                    if (mutationOffset != 0)
-                    {
-                        mutationProbability = Ark.ProbabilityOfOneMutationWithOffset(mutationPossibleFrom == 2
-                                ? Ark.ProbabilityOfMutation
-                                : mutationPossibleFrom == 1
-                                    ? Ark.ProbabilityOfMutation * Ark.ProbabilityInheritHigherLevel
-                                    : 0,
-                            mutationOffset);
-                    }
-                    else
-                    {
-                        mutationProbability = (mutationPossibleFrom == 2 ? Ark.ProbabilityOfOneMutation :
-                            mutationPossibleFrom == 1 ? Ark.ProbabilityOfOneMutationFromOneParent : 0);
-                    }
-
+                    var mutationProbability = MutationProbability(female, male);
                     breedingPairs.Add(new BreedingPair(female, male,
                         new Score(t * 1.25), mutationProbability, highestOffspringOverLevelLimit));
                 }
@@ -258,6 +230,36 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             return breedingPairs;
+        }
+
+        /// <summary>
+        /// Returns the probability of at least one mutation, depending on the mutation counter and the traits.
+        /// </summary>
+        private static double MutationProbability(Creature parent1, Creature parent2)
+        {
+            var mutationPossibleFrom = parent1.Mutations < Ark.MutationPossibleWithLessThan && parent2.Mutations < Ark.MutationPossibleWithLessThan ? 2
+                : parent1.Mutations < Ark.MutationPossibleWithLessThan || parent2.Mutations < Ark.MutationPossibleWithLessThan ? 1 : 0;
+
+            var mutationOffset = parent1.Traits?.Aggregate(0d, (d, trait) => d + trait.MutationProbability) ?? 0d;
+            mutationOffset = parent2.Traits?.Aggregate(mutationOffset, (d, trait) => d + trait.MutationProbability) ?? mutationOffset;
+
+            double mutationProbability;
+            if (mutationOffset != 0)
+            {
+                mutationProbability = Ark.ProbabilityOfOneMutationWithOffset(mutationPossibleFrom == 2
+                        ? Ark.ProbabilityOfMutation
+                        : mutationPossibleFrom == 1
+                            ? Ark.ProbabilityOfMutation * Ark.ProbabilityInheritHigherLevel
+                            : 0,
+                    mutationOffset);
+            }
+            else
+            {
+                mutationProbability = mutationPossibleFrom == 2 ? Ark.ProbabilityOfOneMutation :
+                    mutationPossibleFrom == 1 ? Ark.ProbabilityOfOneMutationFromOneParent : 0;
+            }
+
+            return mutationProbability;
         }
 
         private static (int higherLevel, int lowerLevel, double probabilityInheritingHigherLevel) GetHigherLowerLevel(Creature parent1, Creature parent2, int statIndex)
@@ -338,6 +340,66 @@ namespace ARKBreedingStats.BreedingPlanning
                     return -1;
                 default: return Math.Max(level1, level2);
             }
+        }
+
+        public static List<BreedingPair> CalculateBreedingScoresColors(Creature[] females, Creature[] males, Species species,
+            byte[] desiredColors, bool[] considerColorRegions, bool considerChosenCreature)
+        {
+            var breedingPairs = new List<BreedingPair>();
+            var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.NoGender;
+            var colorRegions = Enumerable.Range(0, Ark.ColorRegionCount).Select(i => (regionIndex: i, colorId: desiredColors[i]))
+                .Where(i => considerColorRegions[i.regionIndex]).ToArray();
+
+            var colorCount = Values.V.Colors.ColorCount;
+
+            var fi = -1;
+            foreach (var female in females)
+            {
+                fi++;
+                if (female.colors == null) continue;
+                var mi = -1;
+                foreach (var male in males)
+                {
+                    mi++;
+                    if (male.colors == null) continue;
+
+                    // if ignoreSex (useful when using S+ mutator), skip pair if
+                    // creatures are the same, or pair has already been added
+                    if (ignoreSex)
+                    {
+                        if (considerChosenCreature)
+                        {
+                            if (male == female)
+                                continue;
+                        }
+                        else if (fi == mi)
+                            break;
+                    }
+
+                    var mutationProbability = MutationProbability(female, male);
+
+                    // assume probability of 0.5 to get a color from a specific parent.
+                    var score = 0d;
+                    foreach (var cr in colorRegions)
+                    {
+                        var femaleHasColor = female.colors[cr.regionIndex] == cr.colorId;
+                        var maleHasColor = male.colors[cr.regionIndex] == cr.colorId;
+                        if (femaleHasColor && maleHasColor)
+                        {
+                            score += 1 - mutationProbability;
+                            continue;
+                        }
+
+                        if (femaleHasColor || maleHasColor)
+                            score += 0.5 * (1 - mutationProbability) + mutationProbability / colorCount;
+                        else
+                            score += mutationProbability;
+                    }
+                    breedingPairs.Add(new BreedingPair(female, male, new Score(score)));
+                }
+            }
+
+            return breedingPairs;
         }
 
         public enum BreedingMode
