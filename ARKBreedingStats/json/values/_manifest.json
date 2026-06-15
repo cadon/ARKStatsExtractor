@@ -39,7 +39,7 @@
 			}
 		},
 		"1013622-ARKOLOGY_NEWENCOUNTERS.json": {
-			"version": "1775432585.22738307",
+			"version": "1775432585.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1013622",
@@ -99,7 +99,7 @@
 			}
 		},
 		"1065717-PrimalNemesis.json": {
-			"version": "1773830563.22612562",
+			"version": "1780944013.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1065717",
@@ -265,7 +265,7 @@
 			}
 		},
 		"1201667-skyshroud_drakara.json": {
-			"version": "1776128796.22738307",
+			"version": "1779461670.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1201667",
@@ -652,7 +652,7 @@
 			}
 		},
 		"912815-SDinoVariants.json": {
-			"version": "1777928359.23277977",
+			"version": "1779894827.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "912815",
@@ -776,7 +776,7 @@
 			}
 		},
 		"929094-ShadsCritterReworks.json": {
-			"version": "1778360438.23277977",
+			"version": "1780905431.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "929094",
@@ -800,7 +800,7 @@
 			}
 		},
 		"929684-NoUntameables.json": {
-			"version": "1779153000.23277977",
+			"version": "1779580824.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "929684",
@@ -824,7 +824,7 @@
 			}
 		},
 		"932714-PrimalChaos.json": {
-			"version": "1779183592.23277977",
+			"version": "1779792586.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "932714",
@@ -848,7 +848,7 @@
 			}
 		},
 		"935916-Ark-EerieDinos.json": {
-			"version": "1772991806.22738307",
+			"version": "1772991806.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "935916",
@@ -944,7 +944,7 @@
 			}
 		},
 		"952367-ArkDescended.json": {
-			"version": "1773217052.22612562",
+			"version": "1773217052.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "952367",
@@ -1064,7 +1064,7 @@
 			}
 		},
 		"974204-JurassicAwakening.json": {
-			"version": "1769623019.22612562",
+			"version": "1769623019.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "974204",
@@ -1112,7 +1112,7 @@
 			}
 		},
 		"978862-TheSunkenWorldAdditions.json": {
-			"version": "1778158413.23277977",
+			"version": "1781051239.23616360",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "978862",
@@ -1172,7 +1172,7 @@
 			}
 		},
 		"ASA-values.json": {
-			"version": "87.11.4",
+			"version": "88.15.1",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
