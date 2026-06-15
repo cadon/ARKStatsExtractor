@@ -611,7 +611,7 @@ namespace ARKBreedingStats
                 labelTE.BackColor = Color.Transparent;
                 pBondedTamingExtractor.BackColor = Color.Transparent;
                 llOnlineHelpExtractionIssues.Visible = false;
-                labelErrorHelp.Visible = false;
+                TbExtractionFailInfo.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
                 BtCopyIssueDumpToClipboard.Visible = false;
                 ColoredCreatureImageDisplayExtractor.Visible = true;
@@ -676,8 +676,8 @@ namespace ARKBreedingStats
 
             // some species have specific extraction issues, e.g. due to a unique taming method that results in a bred status but with a TE less than 100 %.
             var speciesSpecificExtractionFail = _speciesSpecificExtractionFails?.GetValueOrDefault(speciesSelector1.SelectedSpecies.name);
-            labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.GetHelpTexts(issues, speciesSpecificExtractionFail)}";
-            labelErrorHelp.Visible = true;
+            TbExtractionFailInfo.Text = $"{Loc.S("extractionFailedHeader")}:{Environment.NewLine + Environment.NewLine}{IssueNotes.GetHelpTexts(issues, speciesSpecificExtractionFail)}";
+            TbExtractionFailInfo.Visible = true;
             llOnlineHelpExtractionIssues.Visible = true;
             groupBoxPossibilities.Visible = false;
             groupBoxRadarChartExtractor.Visible = false;

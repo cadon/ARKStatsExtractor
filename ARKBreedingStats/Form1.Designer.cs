@@ -239,11 +239,11 @@ namespace ARKBreedingStats
             lbCurrentStatEx = new System.Windows.Forms.Label();
             btExtractLevels = new System.Windows.Forms.Button();
             cbQuickWildCheck = new System.Windows.Forms.CheckBox();
-            labelErrorHelp = new System.Windows.Forms.Label();
             creatureAnalysis1 = new CreatureAnalysis();
             parentInheritanceExtractor = new ParentInheritance();
             numericUpDownLevel = new Nud();
             creatureInfoInputExtractor = new CreatureInfoInput();
+            TbExtractionFailInfo = new System.Windows.Forms.TextBox();
             tabPageLibrary = new System.Windows.Forms.TabPage();
             tableLayoutPanelLibrary = new System.Windows.Forms.TableLayoutPanel();
             listViewLibrary = new System.Windows.Forms.ListView();
@@ -2054,11 +2054,11 @@ namespace ARKBreedingStats
             tabPageExtractor.Controls.Add(groupBoxDetailsExtractor);
             tabPageExtractor.Controls.Add(groupBoxPossibilities);
             tabPageExtractor.Controls.Add(lbLevel);
-            tabPageExtractor.Controls.Add(labelErrorHelp);
             tabPageExtractor.Controls.Add(creatureAnalysis1);
             tabPageExtractor.Controls.Add(parentInheritanceExtractor);
             tabPageExtractor.Controls.Add(numericUpDownLevel);
             tabPageExtractor.Controls.Add(creatureInfoInputExtractor);
+            tabPageExtractor.Controls.Add(TbExtractionFailInfo);
             tabPageExtractor.Location = new System.Drawing.Point(4, 24);
             tabPageExtractor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageExtractor.Name = "tabPageExtractor";
@@ -2355,16 +2355,6 @@ namespace ARKBreedingStats
             cbQuickWildCheck.UseVisualStyleBackColor = true;
             cbQuickWildCheck.CheckedChanged += checkBoxQuickWildCheck_CheckedChanged;
             // 
-            // labelErrorHelp
-            // 
-            labelErrorHelp.AutoEllipsis = true;
-            labelErrorHelp.Location = new System.Drawing.Point(749, 50);
-            labelErrorHelp.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            labelErrorHelp.Name = "labelErrorHelp";
-            labelErrorHelp.Size = new System.Drawing.Size(279, 657);
-            labelErrorHelp.TabIndex = 40;
-            labelErrorHelp.Text = resources.GetString("labelErrorHelp.Text");
-            // 
             // creatureAnalysis1
             // 
             creatureAnalysis1.Location = new System.Drawing.Point(1054, 202);
@@ -2403,6 +2393,19 @@ namespace ARKBreedingStats
             creatureInfoInputExtractor.TabIndex = 7;
             creatureInfoInputExtractor.Add2LibraryClicked += creatureInfoInputExtractor_Add2Library_Clicked;
             creatureInfoInputExtractor.ParentListRequested += CreatureInfoInput_ParentListRequested;
+            // 
+            // TbExtractionFailInfo
+            // 
+            TbExtractionFailInfo.BackColor = System.Drawing.SystemColors.Control;
+            TbExtractionFailInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            TbExtractionFailInfo.Location = new System.Drawing.Point(749, 50);
+            TbExtractionFailInfo.Multiline = true;
+            TbExtractionFailInfo.Name = "TbExtractionFailInfo";
+            TbExtractionFailInfo.ReadOnly = true;
+            TbExtractionFailInfo.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            TbExtractionFailInfo.Size = new System.Drawing.Size(279, 630);
+            TbExtractionFailInfo.TabIndex = 61;
+            TbExtractionFailInfo.Text = resources.GetString("TbExtractionFailInfo.Text");
             // 
             // tabPageLibrary
             // 
@@ -3098,11 +3101,11 @@ namespace ARKBreedingStats
             tabControlLibFilter.Controls.Add(tabPage3);
             tabControlLibFilter.Controls.Add(tabPageLibRadarChart);
             tabControlLibFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            tabControlLibFilter.Location = new System.Drawing.Point(4, 251);
+            tabControlLibFilter.Location = new System.Drawing.Point(4, 245);
             tabControlLibFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabControlLibFilter.Name = "tabControlLibFilter";
             tabControlLibFilter.SelectedIndex = 0;
-            tabControlLibFilter.Size = new System.Drawing.Size(219, 652);
+            tabControlLibFilter.Size = new System.Drawing.Size(219, 658);
             tabControlLibFilter.TabIndex = 5;
             // 
             // tabPage1
@@ -3112,7 +3115,7 @@ namespace ARKBreedingStats
             tabPage1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage1.Size = new System.Drawing.Size(211, 624);
+            tabPage1.Size = new System.Drawing.Size(211, 630);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Species";
             // 
@@ -3123,7 +3126,7 @@ namespace ARKBreedingStats
             listBoxSpeciesLib.Location = new System.Drawing.Point(4, 3);
             listBoxSpeciesLib.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             listBoxSpeciesLib.Name = "listBoxSpeciesLib";
-            listBoxSpeciesLib.Size = new System.Drawing.Size(203, 618);
+            listBoxSpeciesLib.Size = new System.Drawing.Size(203, 624);
             listBoxSpeciesLib.TabIndex = 0;
             listBoxSpeciesLib.Click += listBoxSpeciesLib_Click;
             listBoxSpeciesLib.SelectedIndexChanged += listBoxSpeciesLib_SelectedIndexChanged;
@@ -3135,7 +3138,7 @@ namespace ARKBreedingStats
             tabPage3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPage3.Size = new System.Drawing.Size(211, 112);
+            tabPage3.Size = new System.Drawing.Size(211, 630);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Stats";
             // 
@@ -3154,7 +3157,7 @@ namespace ARKBreedingStats
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel2.Size = new System.Drawing.Size(203, 106);
+            tableLayoutPanel2.Size = new System.Drawing.Size(203, 624);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // BtRecalculateTopStatsAfterChange
@@ -3197,7 +3200,7 @@ namespace ARKBreedingStats
             tabPageLibRadarChart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageLibRadarChart.Name = "tabPageLibRadarChart";
             tabPageLibRadarChart.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageLibRadarChart.Size = new System.Drawing.Size(211, 112);
+            tabPageLibRadarChart.Size = new System.Drawing.Size(211, 630);
             tabPageLibRadarChart.TabIndex = 4;
             tabPageLibRadarChart.Text = "Chart";
             // 
@@ -3220,7 +3223,7 @@ namespace ARKBreedingStats
             creatureBoxListView.Location = new System.Drawing.Point(5, 3);
             creatureBoxListView.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             creatureBoxListView.Name = "creatureBoxListView";
-            creatureBoxListView.Size = new System.Drawing.Size(217, 242);
+            creatureBoxListView.Size = new System.Drawing.Size(217, 236);
             creatureBoxListView.TabIndex = 0;
             creatureBoxListView.Changed += UpdateDisplayedCreatureValues;
             creatureBoxListView.GiveParents += CreatureBoxListView_FindParents;
@@ -3301,17 +3304,11 @@ namespace ARKBreedingStats
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            libraryInfoControl1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             libraryInfoControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             libraryInfoControl1.Location = new System.Drawing.Point(4, 44);
             libraryInfoControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             libraryInfoControl1.Name = "libraryInfoControl1";
             libraryInfoControl1.RowCount = 2;
-            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             libraryInfoControl1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             libraryInfoControl1.Size = new System.Drawing.Size(2167, 865);
@@ -4270,7 +4267,6 @@ namespace ARKBreedingStats
         private GroupBoxC groupBox2;
         private GroupBoxC gbStatsExtractor;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label labelErrorHelp;
         private System.Windows.Forms.Button btReadValuesFromArk;
         private System.Windows.Forms.ToolStripButton toolStripButtonSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -4541,5 +4537,6 @@ namespace ARKBreedingStats
         private uiControls.ColoredCreatureImageWithPose ColoredCreatureImageDisplayTester;
         private uiControls.ColoredCreatureImageWithPose ColoredCreatureImageDisplayExtractor;
         private System.Windows.Forms.ToolStripMenuItem saveStitchedInfographicsToFileToolStripMenuItem;
+        private System.Windows.Forms.TextBox TbExtractionFailInfo;
     }
 }

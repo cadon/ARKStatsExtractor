@@ -33,7 +33,7 @@ namespace ARKBreedingStats.miscClasses
                     notes.Add($"{issueNumber++}. {GetHelpText((Issue)n)}");
                 n <<= 1;
             }
-            return string.Join("\n\n", notes.ToArray());
+            return string.Join(Environment.NewLine + Environment.NewLine, notes.ToArray());
         }
 
         private static string GetHelpText(Issue issue)
