@@ -675,10 +675,7 @@ namespace ARKBreedingStats
                 issues |= IssueNotes.Issue.ImpossibleTe;
 
             // some species have specific extraction issues, e.g. due to a unique taming method that results in a bred status but with a TE less than 100 %.
-            var speciesName = speciesSelector1.SelectedSpecies.name;
-            string speciesSpecificExtractionFail = null;
-            _speciesSpecificExtractionFails?.TryGetValue(speciesName, out speciesSpecificExtractionFail);
-
+            var speciesSpecificExtractionFail = _speciesSpecificExtractionFails?.GetValueOrDefault(speciesSelector1.SelectedSpecies.name);
             labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.GetHelpTexts(issues, speciesSpecificExtractionFail)}";
             labelErrorHelp.Visible = true;
             llOnlineHelpExtractionIssues.Visible = true;

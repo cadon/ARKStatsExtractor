@@ -1,3 +1,5 @@
 {
-  "Gigantoraptor": "The Gigantoraptor is impossible to extract if they've both been obtained from the taming minigame and been imprinted since. It's too many unknown variables. Importing them before imprinting works, although you might need to force ASB into Tamed mode during import. Alternatively their offspring should import fine."
+  "Gigantoraptor": "The Gigantoraptor is impossible to extract if they've both been obtained from the taming minigame and been imprinted since. It's too many unknown variables. Importing them before imprinting works, although you might need to force ASB into Tamed mode during import. Alternatively their offspring should import fine.",
+  "Malwyn": "A bug in ARK will make the creature level one less than it should be after converted from a Veilwyn. The extraction may work after cryoing the creature and adding 1 to the level in the extractor",
+  "Solwyn": "A bug in ARK will make the creature level one less than it should be after converted from a Veilwyn. The extraction may work after cryoing the creature and adding 1 to the level in the extractor"
 }
