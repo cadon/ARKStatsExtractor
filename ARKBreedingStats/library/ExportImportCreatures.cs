@@ -276,8 +276,8 @@ namespace ARKBreedingStats.library
             error = null;
             try
             {
-                var creatureSerialized = Clipboard.GetData(ClipboardCreatureFormat) as string;
-                if (!string.IsNullOrEmpty(creatureSerialized))
+                if (Clipboard.TryGetData(ClipboardCreatureFormat, out string creatureSerialized)
+                    && !string.IsNullOrEmpty(creatureSerialized))
                     return Newtonsoft.Json.JsonConvert.DeserializeObject<Creature[]>(creatureSerialized);
                 var clipBoardText = Clipboard.GetText();
                 if (string.IsNullOrEmpty(clipBoardText)) return null;
