@@ -200,7 +200,7 @@ namespace ARKBreedingStats.settings
                 { "русский", "ru"},
                 { "Türkçe", "tr"},
                 { "简体中文", "zh"},
-                { "繁體中文", "zh-tw"}
+                { "繁體中文", "zh-TW"}
             };
 
             CbbLanguage.Items.Add(Loc.S("SystemLanguage"));
