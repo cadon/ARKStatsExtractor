@@ -37,7 +37,7 @@ namespace ARKBreedingStats.BreedingPlanning
                 anyOddEven = null;
 
             var customIgnoreTopStatsEvenOdd = new bool[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++)
+            for (var s = 0; s < Stats.StatsCount; s++)
             {
                 customIgnoreTopStatsEvenOdd[s] = anyOddEven != null && statWeights[s] > 0;
             }
@@ -83,15 +83,15 @@ namespace ARKBreedingStats.BreedingPlanning
                     }
 
                     double t = 0;
-                    int offspringPotentialTopStatCount = 0;
+                    var offspringPotentialTopStatCount = 0;
                     double offspringExpectedTopStatCount = 0; // a guaranteed top stat counts 1, otherwise the inheritance probability of the top stat is counted
 
-                    int topStatsMother = 0;
-                    int topStatsFather = 0;
+                    var topStatsMother = 0;
+                    var topStatsFather = 0;
 
-                    int maxPossibleOffspringLevel = 1;
+                    var maxPossibleOffspringLevel = 1;
 
-                    for (int s = 0; s < Stats.StatsCount; s++)
+                    for (var s = 0; s < Stats.StatsCount; s++)
                     {
                         if (s == Stats.Torpidity || !species.UsesStat(s)) continue;
                         bestPossLevels[s] = 0;
@@ -100,7 +100,7 @@ namespace ARKBreedingStats.BreedingPlanning
                         if (lowerLevel < 0) lowerLevel = 0;
                         maxPossibleOffspringLevel += higherLevel;
 
-                        bool ignoreTopStats = false;
+                        var ignoreTopStats = false;
 
                         if (customIgnoreTopStatsEvenOdd[s])
                         {
@@ -117,7 +117,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             }
                         }
 
-                        double weightedExpectedStatLevel = statWeights[s] * (probabilityOfHigherLevel * higherLevel + (1 - probabilityOfHigherLevel) * lowerLevel) / 40;
+                        var weightedExpectedStatLevel = statWeights[s] * (probabilityOfHigherLevel * higherLevel + (1 - probabilityOfHigherLevel) * lowerLevel) / 40;
                         if (weightedExpectedStatLevel != 0)
                         {
                             if (breedingMode == BreedingMode.TopStatsLucky)
@@ -132,7 +132,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             }
                             else if (breedingMode == BreedingMode.TopStatsConservative && (bestLevelsOfSpecies[s] > 0 || statWeights[s] < 0))
                             {
-                                bool higherIsBetter = statWeights[s] >= 0;
+                                var higherIsBetter = statWeights[s] >= 0;
                                 bestPossLevels[s] = (short)(higherIsBetter ? Math.Max(female.levelsWild[s], male.levelsWild[s]) : Math.Min(female.levelsWild[s], male.levelsWild[s]));
                                 weightedExpectedStatLevel *= .01;
                                 if (!ignoreTopStats && (female.levelsWild[s] == bestLevelsOfSpecies[s] || male.levelsWild[s] == bestLevelsOfSpecies[s]))
@@ -156,12 +156,12 @@ namespace ARKBreedingStats.BreedingPlanning
                         else
                             t += .1 * offspringExpectedTopStatCount;
                         // check if the best possible stat outcome regarding topLevels already exists in a male
-                        bool maleExists = false;
+                        var maleExists = false;
 
-                        foreach (Creature cr in males)
+                        foreach (var cr in males)
                         {
                             maleExists = true;
-                            for (int s = 0; s < Stats.StatsCount; s++)
+                            for (var s = 0; s < Stats.StatsCount; s++)
                             {
                                 if (s == Stats.Torpidity
                                     || !cr.Species.UsesStat(s)
@@ -180,11 +180,11 @@ namespace ARKBreedingStats.BreedingPlanning
                         else
                         {
                             // check if the best possible stat outcome already exists in a female
-                            bool femaleExists = false;
-                            foreach (Creature cr in females)
+                            var femaleExists = false;
+                            foreach (var cr in females)
                             {
                                 femaleExists = true;
-                                for (int s = 0; s < Stats.StatsCount; s++)
+                                for (var s = 0; s < Stats.StatsCount; s++)
                                 {
                                     if (s == Stats.Torpidity
                                         || !cr.Species.UsesStat(s)
@@ -285,15 +285,15 @@ namespace ARKBreedingStats.BreedingPlanning
         /// </summary>
         public static void SetBestLevels(IEnumerable<Creature> creatures, int[] bestLevels, int[] bestLevelsMutated, double[] statWeights, StatValueEvenOdd[] anyOddEven = null)
         {
-            for (int s = 0; s < Stats.StatsCount; s++)
+            for (var s = 0; s < Stats.StatsCount; s++)
             {
                 bestLevels[s] = -1;
                 bestLevelsMutated[s] = -1;
             }
 
-            foreach (Creature c in creatures)
+            foreach (var c in creatures)
             {
-                for (int s = 0; s < Stats.StatsCount; s++)
+                for (var s = 0; s < Stats.StatsCount; s++)
                 {
                     if ((s == Stats.Torpidity || statWeights[s] >= 0) && c.levelsWild[s] > bestLevels[s])
                     {
@@ -343,12 +343,13 @@ namespace ARKBreedingStats.BreedingPlanning
         }
 
         public static List<BreedingPair> CalculateBreedingScoresColors(Creature[] females, Creature[] males, Species species,
-            byte[] desiredColors, bool[] considerColorRegions, bool considerChosenCreature)
+            byte[] desiredColors, bool[] considerColorRegions, bool considerInvisibleRegions, bool considerChosenCreature, BreedingMode breedingMode)
         {
             var breedingPairs = new List<BreedingPair>();
             var ignoreSex = Properties.Settings.Default.IgnoreSexInBreedingPlan || species.NoGender;
             var colorRegions = Enumerable.Range(0, Ark.ColorRegionCount).Select(i => (regionIndex: i, colorId: desiredColors[i]))
-                .Where(i => considerColorRegions[i.regionIndex]).ToArray();
+                .Where(i => (considerColorRegions?[i.regionIndex] ?? true) && (considerInvisibleRegions || species.EnabledColorRegions[i.regionIndex]))
+                .ToArray();
 
             var colorCount = Values.V.Colors.ColorCount;
 
@@ -379,25 +380,48 @@ namespace ARKBreedingStats.BreedingPlanning
                     var mutationProbability = MutationProbability(female, male);
 
                     // assume probability of 0.5 to get a color from a specific parent.
-                    var score = 0d;
+                    var expectedDesiredColors = 0d;
+                    var potentialDesiredColors = 0; // ignoring color matches by mutation, considering probability negligible
+                    var femaleDesiredColors = 0;
+                    var maleDesiredColors = 0;
+
                     foreach (var cr in colorRegions)
                     {
                         var femaleHasColor = female.colors[cr.regionIndex] == cr.colorId;
                         var maleHasColor = male.colors[cr.regionIndex] == cr.colorId;
                         if (femaleHasColor && maleHasColor)
                         {
-                            score += 1 - mutationProbability;
+                            expectedDesiredColors += 1 - mutationProbability;
+                            potentialDesiredColors++;
+                            femaleDesiredColors++;
+                            maleDesiredColors++;
                             continue;
                         }
 
                         if (femaleHasColor || maleHasColor)
-                            score += 0.5 * (1 - mutationProbability) + mutationProbability / colorCount;
+                        {
+                            expectedDesiredColors += 0.5 * (1 - mutationProbability) + mutationProbability / colorCount;
+                            potentialDesiredColors++;
+                            if (femaleHasColor) femaleDesiredColors++;
+                            else maleDesiredColors++;
+                        }
                         else
-                            score += mutationProbability;
+                        {
+                            expectedDesiredColors += mutationProbability / colorCount;
+                        }
                     }
+
+                    var score = expectedDesiredColors;
+                    if (breedingMode != BreedingMode.BestNextGen)
+                    {
+                        if (femaleDesiredColors >= potentialDesiredColors || maleDesiredColors >= potentialDesiredColors)
+                            score *= .1;
+                    }
+
                     breedingPairs.Add(new BreedingPair(female, male, new Score(score)));
                 }
             }
+            breedingPairs = breedingPairs.OrderByDescending(p => p.BreedingScore).ToList();
 
             return breedingPairs;
         }

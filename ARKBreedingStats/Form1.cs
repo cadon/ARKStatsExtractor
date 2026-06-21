@@ -2035,7 +2035,7 @@ namespace ARKBreedingStats
         private void PasteCreatureFromClipboard()
         {
             var importedCreatures = ExportImportCreatures.ImportFromClipboard(out var errorText);
-            if (importedCreatures?.Any() != true)
+            if (importedCreatures == null || importedCreatures.Length == 0)
             {
                 if (!string.IsNullOrEmpty(errorText))
                     SetMessageLabelText(errorText, MessageBoxIcon.Error);

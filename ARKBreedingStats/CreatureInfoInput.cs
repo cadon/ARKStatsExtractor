@@ -160,15 +160,15 @@ namespace ARKBreedingStats
         /// <summary>
         /// Updates the displayed colors of the creature.
         /// </summary>
-        public void UpdateRegionColorImage(bool colorsChanged = true)
+        public void UpdateRegionColorImage(bool colorsChanged = true, int regionId = -1)
         {
             if (colorsChanged)
             {
                 ParentInheritance?.UpdateColors(RegionColors);
                 ColorsChanged?.Invoke(this);
             }
-            if (ColoredCreatureDisplay == null) return;
-            ColoredCreatureDisplay.SetCreatureImage(_selectedSpecies, RegionColors, CreatureSex, CreatureCollection.CurrentCreatureCollection?.Game);
+
+            ColoredCreatureDisplay?.SetCreatureImage(_selectedSpecies, RegionColors, CreatureSex, CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
         /// <summary>

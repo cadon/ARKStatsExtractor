@@ -42,7 +42,7 @@
             // 
             // ColorPickerWindow
             // 
-            this.ClientSize = new System.Drawing.Size(467, 414);
+            this.ClientSize = new System.Drawing.Size(471, 414);
             this.Controls.Add(this.ColorPickerControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ColorPickerWindow";

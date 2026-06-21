@@ -48,7 +48,7 @@
             checkBoxOnlyNatural.Location = new System.Drawing.Point(4, 454);
             checkBoxOnlyNatural.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             checkBoxOnlyNatural.Name = "checkBoxOnlyNatural";
-            checkBoxOnlyNatural.Size = new System.Drawing.Size(171, 19);
+            checkBoxOnlyNatural.Size = new System.Drawing.Size(154, 19);
             checkBoxOnlyNatural.TabIndex = 2;
             checkBoxOnlyNatural.Text = "Show only natural occuring";
             checkBoxOnlyNatural.UseVisualStyleBackColor = true;
@@ -62,7 +62,7 @@
             label1.Location = new System.Drawing.Point(4, 0);
             label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(535, 35);
+            label1.Size = new System.Drawing.Size(442, 35);
             label1.TabIndex = 1;
             label1.Text = "title";
             label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -72,7 +72,7 @@
             buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             buttonCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonCancel.Location = new System.Drawing.Point(451, 446);
+            buttonCancel.Location = new System.Drawing.Point(358, 446);
             buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new System.Drawing.Size(88, 27);
@@ -90,7 +90,7 @@
             flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            flowLayoutPanel1.Size = new System.Drawing.Size(543, 391);
+            flowLayoutPanel1.Size = new System.Drawing.Size(450, 376);
             flowLayoutPanel1.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -116,14 +116,14 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(543, 476);
+            tableLayoutPanel1.Size = new System.Drawing.Size(450, 476);
             tableLayoutPanel1.TabIndex = 1;
             // 
             // BtNoColor
             // 
             BtNoColor.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             BtNoColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            BtNoColor.Location = new System.Drawing.Point(355, 446);
+            BtNoColor.Location = new System.Drawing.Point(262, 446);
             BtNoColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtNoColor.Name = "BtNoColor";
             BtNoColor.Size = new System.Drawing.Size(88, 27);
@@ -136,17 +136,17 @@
             // 
             LbAlternativeColor.AutoSize = true;
             tableLayoutPanel1.SetColumnSpan(LbAlternativeColor, 4);
-            LbAlternativeColor.Location = new System.Drawing.Point(4, 426);
+            LbAlternativeColor.Location = new System.Drawing.Point(4, 411);
             LbAlternativeColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             LbAlternativeColor.Name = "LbAlternativeColor";
-            LbAlternativeColor.Size = new System.Drawing.Size(450, 15);
+            LbAlternativeColor.Size = new System.Drawing.Size(440, 30);
             LbAlternativeColor.TabIndex = 5;
             LbAlternativeColor.Text = "Hold Ctrl to select an alternative color id. Hold Ctrl and click on No Color to unset it.";
             // 
             // BtUndefinedColor
             // 
             BtUndefinedColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            BtUndefinedColor.Location = new System.Drawing.Point(259, 444);
+            BtUndefinedColor.Location = new System.Drawing.Point(166, 444);
             BtUndefinedColor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             BtUndefinedColor.Name = "BtUndefinedColor";
             BtUndefinedColor.Size = new System.Drawing.Size(88, 27);
@@ -162,7 +162,7 @@
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "ColorPickerControl";
             Padding = new System.Windows.Forms.Padding(1);
-            Size = new System.Drawing.Size(545, 478);
+            Size = new System.Drawing.Size(452, 478);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);

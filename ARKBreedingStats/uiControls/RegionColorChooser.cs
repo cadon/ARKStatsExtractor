@@ -12,16 +12,15 @@ namespace ARKBreedingStats.uiControls
     public partial class RegionColorChooser : UserControl
     {
         /// <summary>
-        /// Parameter indicates if colors were changed.
+        /// The first parameter indicates if colors were changed, the second the region index (-1 if not applicable).
         /// </summary>
-        public event Action<bool> RegionColorChosen;
+        public event Action<bool, int> RegionColorChosen;
         private readonly NoPaddingButton[] _buttonColors;
         private byte[] _selectedRegionColorIds;
         private byte[] _selectedColorIdsAlternative;
-        public bool[] ColorRegionsUseds;
         private readonly ColorPickerWindow _colorPicker;
         private ColorRegion[] _colorRegions;
-        private readonly ToolTip _tt = new ToolTip();
+        private readonly ToolTip _tt = new();
 
         /// <summary>
         /// If true, the button text will display the region and color id.
@@ -59,33 +58,34 @@ namespace ARKBreedingStats.uiControls
                 flowLayoutPanel1.SetFlowBreak(b, onePerRow);
         }
 
-        public void SetSpecies(Species species, byte[] colorIDs)
+        public void SetSpecies(Species species, byte[] colorIDs = null, bool showAllRegions = false)
         {
-            _selectedRegionColorIds = colorIDs.ToArray();
+            _selectedRegionColorIds = (colorIDs ?? _selectedRegionColorIds ?? Enumerable.Repeat((byte)0, Ark.ColorRegionCount)).ToArray();
             _selectedColorIdsAlternative = null;
+            bool[] colorRegionsUseds;
 
             if (species?.colors != null)
             {
                 _colorRegions = species.colors;
-                ColorRegionsUseds = species.EnabledColorRegions;
+                colorRegionsUseds = showAllRegions ? Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray() : species.EnabledColorRegions;
             }
             else
             {
                 // species-info is not available, show all region-buttons
-                ColorRegionsUseds = new bool[Ark.ColorRegionCount];
+                colorRegionsUseds = new bool[Ark.ColorRegionCount];
                 _colorRegions = new ColorRegion[Ark.ColorRegionCount];
                 for (var i = 0; i < Ark.ColorRegionCount; i++)
                 {
                     _colorRegions[i] = new ColorRegion();
-                    ColorRegionsUseds[i] = true;
+                    colorRegionsUseds[i] = true;
                 }
             }
 
             for (var r = 0; r < Ark.ColorRegionCount; r++)
             {
-                _buttonColors[r].Visible = ColorRegionsUseds[r];
+                _buttonColors[r].Visible = colorRegionsUseds[r];
 
-                if (ColorRegionsUseds[r])
+                if (colorRegionsUseds[r])
                 {
                     _buttonColors[r].AlternativeColorPossible = false;
                     SetColorButton(_buttonColors[r], r);
@@ -93,7 +93,6 @@ namespace ARKBreedingStats.uiControls
             }
         }
 
-        public byte[] ColorIds => _selectedRegionColorIds.ToArray();
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public byte[] ColorIdsAlsoPossible
         {
@@ -116,7 +115,7 @@ namespace ARKBreedingStats.uiControls
         public void Clear()
         {
             _selectedColorIdsAlternative = null;
-            SetColorIds(new byte[Ark.ColorRegionCount]);
+            ColorIds = new byte[Ark.ColorRegionCount];
         }
 
         /// <summary>
@@ -125,7 +124,7 @@ namespace ARKBreedingStats.uiControls
         internal void RandomColors()
         {
             _selectedColorIdsAlternative = null;
-            SetColorIds(values.Values.V.Colors.GetRandomColors());
+            ColorIds = values.Values.V.Colors.GetRandomColors();
         }
 
         /// <summary>
@@ -134,24 +133,29 @@ namespace ARKBreedingStats.uiControls
         internal void RandomNaturalColors(Species species)
         {
             _selectedColorIdsAlternative = null;
-            SetColorIds(species?.RandomSpeciesColors());
+            ColorIds = species?.RandomSpeciesColors();
         }
 
-        private void SetColorIds(byte[] colorIds)
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public byte[] ColorIds
         {
-            if (colorIds == null)
+            get => _selectedRegionColorIds.ToArray();
+            set
             {
-                Clear();
-                return;
-            }
+                if (value == null)
+                {
+                    Clear();
+                    return;
+                }
 
-            for (var r = 0; r < Ark.ColorRegionCount; r++)
-            {
-                _selectedRegionColorIds[r] = colorIds.Length > r ? colorIds[r] : (byte)0;
-                _buttonColors[r].AlternativeColorPossible = false;
-                SetColorButton(_buttonColors[r], r);
+                for (var r = 0; r < Ark.ColorRegionCount; r++)
+                {
+                    _selectedRegionColorIds[r] = value.Length > r ? value[r] : (byte)0;
+                    _buttonColors[r].AlternativeColorPossible = false;
+                    SetColorButton(_buttonColors[r], r);
+                }
+                RegionColorChosen?.Invoke(true, -1);
             }
-            RegionColorChosen?.Invoke(true);
         }
 
         private void ChooseColor(int region, Button sender)
@@ -173,11 +177,10 @@ namespace ARKBreedingStats.uiControls
             else
             {
                 _buttonColors[region].AlternativeColorPossible = false;
-                if (_selectedColorIdsAlternative != null)
-                    _selectedColorIdsAlternative[region] = 0;
+                _selectedColorIdsAlternative?[region] = 0;
             }
             SetColorButton(sender, region);
-            RegionColorChosen?.Invoke(true);
+            RegionColorChosen?.Invoke(true, region);
         }
 
         /// <summary>
@@ -188,7 +191,7 @@ namespace ARKBreedingStats.uiControls
             if (_colorPicker.isShown || _colorRegions == null) return;
             _colorPicker.Cp.PickColor(_selectedRegionColorIds[0], "all regions");
             if (_colorPicker.ShowDialog() != DialogResult.OK) return;
-            SetColorIds(Enumerable.Repeat(_colorPicker.Cp.SelectedColorId, Ark.ColorRegionCount).ToArray());
+            ColorIds = Enumerable.Repeat(_colorPicker.Cp.SelectedColorId, Ark.ColorRegionCount).ToArray();
         }
 
         private void SetColorButton(Button bt, int region)

@@ -106,16 +106,18 @@ namespace ARKBreedingStats.uiControls
             _naturalColorIDs = naturalColors?.Select(ac => ac.Id).ToArray();
             checkBoxOnlyNatural.Visible = _naturalColorIDs != null;
 
-            const int colorButtonHeight = 24;
+            var dpiScaling = DeviceDpi / 96f;
+            var colorButtonWidth = (int)(44 * dpiScaling);
+            var colorButtonHeight = (int)(24 * dpiScaling);
 
-            for (int colorIndex = 1; colorIndex < colors.Length; colorIndex++)
+            for (var colorIndex = 1; colorIndex < colors.Length; colorIndex++)
             {
-                int controlIndex = colorIndex - 1;
+                var controlIndex = colorIndex - 1;
                 if (flowLayoutPanel1.Controls.Count <= controlIndex)
                 {
                     var np = new NoPaddingButton
                     {
-                        Width = 44,
+                        Width = colorButtonWidth,
                         Height = colorButtonHeight,
                         Margin = new Padding(0)
                     };
@@ -162,12 +164,12 @@ namespace ARKBreedingStats.uiControls
                 }
             }
 
-            var controlHeight = (int)Math.Ceiling(colors.Length / 10d) * colorButtonHeight + 99;
+            // 10 color buttons per row
+            var controlHeight = (int)Math.Ceiling(colors.Length / 10d) * colorButtonHeight + (int)(110 * dpiScaling);
             Height = controlHeight;
             HeightChanged?.Invoke(controlHeight);
             flowLayoutPanel1.ResumeDrawingAndLayout();
-            if (Window != null)
-                Window.isShown = true;
+            Window?.isShown = true;
         }
 
         private bool ColorVisible(byte id) => !checkBoxOnlyNatural.Checked || (_naturalColorIDs?.Contains(id) ?? true);
@@ -232,7 +234,7 @@ namespace ARKBreedingStats.uiControls
         private void checkBoxOnlyNatural_CheckedChanged(object sender, EventArgs e)
         {
             flowLayoutPanel1.SuspendDrawingAndLayout();
-            for (int c = 0; c < flowLayoutPanel1.Controls.Count; c++)
+            for (var c = 0; c < flowLayoutPanel1.Controls.Count; c++)
                 flowLayoutPanel1.Controls[c].Visible = ColorVisible((byte)flowLayoutPanel1.Controls[c].Tag);
             flowLayoutPanel1.ResumeDrawingAndLayout();
 
@@ -276,18 +278,16 @@ namespace ARKBreedingStats.uiControls
 
                 void DrawRectangleAroundButton(Color color, Rectangle rect)
                 {
-                    using (var p = new Pen(color, 2))
-                    {
-                        rect.Inflate(-1, -1);
-                        pe.Graphics.DrawRectangle(p, rect);
-                        p.Color = Color.White;
-                        rect.Inflate(-2, -2);
-                        pe.Graphics.DrawRectangle(p, rect);
-                    }
+                    using var p = new Pen(color, 2);
+                    rect.Inflate(-1, -1);
+                    pe.Graphics.DrawRectangle(p, rect);
+                    p.Color = Color.White;
+                    rect.Inflate(-2, -2);
+                    pe.Graphics.DrawRectangle(p, rect);
                 }
 
                 if (string.IsNullOrEmpty(Text)) return;
-                StringFormat stringFormat = new StringFormat();
+                var stringFormat = new StringFormat();
                 stringFormat.Alignment = StringAlignment.Center;
                 stringFormat.LineAlignment = StringAlignment.Center;
                 using (var b = new SolidBrush(ForeColor))

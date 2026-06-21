@@ -7,6 +7,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
 using System.ComponentModel;
+using System.Linq;
 using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats
@@ -50,7 +51,7 @@ namespace ARKBreedingStats
             _creature = creature;
             regionColorChooser1.SetSpecies(creature.Species, creature.colors);
             regionColorChooser1.ColorIdsAlsoPossible = creature.ColorIdsAlsoPossible;
-            _colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
+            _colorRegionUseds = creature.Species?.EnabledColorRegions ?? Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray();
 
             UpdateLabel();
             this.ResumeDrawingAndLayout();
@@ -250,7 +251,7 @@ namespace ARKBreedingStats
                 PopulateParentsList();
         }
 
-        public void UpdateCreatureImage(bool colorsChanged = true)
+        public void UpdateCreatureImage(bool colorsChanged = true, int regionId = -1)
         {
             if (_creature == null) return;
             if (colorsChanged)
