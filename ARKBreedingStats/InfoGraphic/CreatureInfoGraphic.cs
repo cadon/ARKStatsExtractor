@@ -619,7 +619,7 @@ namespace ARKBreedingStats.InfoGraphic
 
         private static Color GetMainColor(Creature c)
         {
-            // get main color
+            if (c?.Species?.colors == null) return Values.V.Colors.ById(0).Color;
             var tintColorRegionId = Array.FindIndex(c.Species.colors,
                 r => r?.name != null && r.name.Contains("main", StringComparison.InvariantCultureIgnoreCase));
             if (tintColorRegionId == -1)
