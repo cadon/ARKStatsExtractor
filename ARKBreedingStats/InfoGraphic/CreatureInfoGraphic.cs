@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.Library;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
@@ -23,45 +23,95 @@ namespace ARKBreedingStats.InfoGraphic
     {
         /// <summary>
         /// Creates an image with infos about the creature, using the user settings.
+        /// Dispatches to the renderer selected in the settings.
         /// </summary>
         /// <param name="cc">CreatureCollection for server settings.</param>
         public static Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc) =>
-            creature.InfoGraphicAsync(cc,
-                new InfoGraphicSettings
-                {
-                    infoGraphicHeight = Properties.Settings.Default.InfoGraphicHeight,
-                    fontName = GetUserFont(),
-                    foreColor = Properties.Settings.Default.InfoGraphicForeColor,
-                    backColor = Properties.Settings.Default.InfoGraphicBackColor,
-                    borderColor = Properties.Settings.Default.InfoGraphicBorderColor,
-                    borderWidth = Properties.Settings.Default.InfoGraphicBorderWidth,
-                    borderRadius = Properties.Settings.Default.InfoGraphicBorderRadius,
-                    Padding = Properties.Settings.Default.InfoGraphicPadding,
-                    colorOutlineText = Properties.Settings.Default.InfoGraphicTextOutlineColor,
-                    widthOutlineText = Properties.Settings.Default.InfoGraphicTextOutlineWidth,
-                    displayCreatureName = Properties.Settings.Default.InfoGraphicDisplayName,
-                    displayWithDomLevels = Properties.Settings.Default.InfoGraphicWithDomLevels,
-                    displaySumWildMutLevels = Properties.Settings.Default.InfoGraphicDisplaySumWildMut,
-                    displayMutations = Properties.Settings.Default.InfoGraphicDisplayMutations,
-                    displayGenerations = Properties.Settings.Default.InfoGraphicDisplayGeneration,
-                    displayStatValues = Properties.Settings.Default.InfoGraphicShowStatValues,
-                    displayMaxWildLevel = Properties.Settings.Default.InfoGraphicShowMaxWildLevel,
-                    displayExtraRegionNames = Properties.Settings.Default.InfoGraphicExtraRegionNames,
-                    displayRegionNamesIfNoImage = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage,
-                    colorOutlineCreature = Properties.Settings.Default.InfoGraphicCreatureOutlineColor,
-                    backgroundImagePath = Properties.Settings.Default.InfoGraphicBackgroundImagePath,
-                    BackgroundImageResizing = Properties.Settings.Default.InfoGraphicBackgroundSizing,
-                    widthOutlineCreature = Properties.Settings.Default.InfoGraphicCreatureOutlineWidth,
-                    creatureOutlineBlurring = Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring,
-                    creatureScaling = Properties.Settings.Default.InfoGraphicCreatureScaling,
-                    ColorBasedOnCreature = Properties.Settings.Default.InfographicColorByCreature,
-                    TintBackgroundImage = Properties.Settings.Default.InfographicTintBackgroundImage
-                });
+            (InfoGraphicStyles)Properties.Settings.Default.InfoGraphicStyle == InfoGraphicStyles.Modern
+                ? Modern.ModernInfoGraphic.RenderAsync(creature, cc, ModernSettingsFromUserSettings())
+                : creature.InfoGraphicAsync(cc, ClassicSettingsFromUserSettings());
+
+        /// <summary>
+        /// Settings of the classic info graphic as set by the user.
+        /// </summary>
+        internal static InfoGraphicSettings ClassicSettingsFromUserSettings() =>
+            new InfoGraphicSettings
+            {
+                infoGraphicHeight = Properties.Settings.Default.InfoGraphicHeight,
+                fontName = GetUserFont(),
+                foreColor = Properties.Settings.Default.InfoGraphicForeColor,
+                backColor = Properties.Settings.Default.InfoGraphicBackColor,
+                borderColor = Properties.Settings.Default.InfoGraphicBorderColor,
+                borderWidth = Properties.Settings.Default.InfoGraphicBorderWidth,
+                borderRadius = Properties.Settings.Default.InfoGraphicBorderRadius,
+                Padding = Properties.Settings.Default.InfoGraphicPadding,
+                colorOutlineText = Properties.Settings.Default.InfoGraphicTextOutlineColor,
+                widthOutlineText = Properties.Settings.Default.InfoGraphicTextOutlineWidth,
+                displayCreatureName = Properties.Settings.Default.InfoGraphicDisplayName,
+                displayWithDomLevels = Properties.Settings.Default.InfoGraphicWithDomLevels,
+                displaySumWildMutLevels = Properties.Settings.Default.InfoGraphicDisplaySumWildMut,
+                displayMutations = Properties.Settings.Default.InfoGraphicDisplayMutations,
+                displayGenerations = Properties.Settings.Default.InfoGraphicDisplayGeneration,
+                displayStatValues = Properties.Settings.Default.InfoGraphicShowStatValues,
+                displayMaxWildLevel = Properties.Settings.Default.InfoGraphicShowMaxWildLevel,
+                displayExtraRegionNames = Properties.Settings.Default.InfoGraphicExtraRegionNames,
+                displayRegionNamesIfNoImage = Properties.Settings.Default.InfoGraphicShowRegionNamesIfNoImage,
+                colorOutlineCreature = Properties.Settings.Default.InfoGraphicCreatureOutlineColor,
+                backgroundImagePath = Properties.Settings.Default.InfoGraphicBackgroundImagePath,
+                BackgroundImageResizing = Properties.Settings.Default.InfoGraphicBackgroundSizing,
+                widthOutlineCreature = Properties.Settings.Default.InfoGraphicCreatureOutlineWidth,
+                creatureOutlineBlurring = Properties.Settings.Default.InfoGraphicCreatureOutlineBlurring,
+                creatureScaling = Properties.Settings.Default.InfoGraphicCreatureScaling,
+                ColorBasedOnCreature = Properties.Settings.Default.InfographicColorByCreature,
+                TintBackgroundImage = Properties.Settings.Default.InfographicTintBackgroundImage
+            };
+
+        /// <summary>
+        /// Settings of the modern info graphic as set by the user.
+        /// </summary>
+        internal static Modern.ModernInfoGraphicSettings ModernSettingsFromUserSettings() =>
+            new Modern.ModernInfoGraphicSettings
+            {
+                Width = Properties.Settings.Default.InfoGraphicModernWidth,
+                Theme = (Modern.ModernInfoGraphicSettings.ModernThemes)Properties.Settings.Default.InfoGraphicModernTheme,
+                FontName = GetModernUserFont(),
+                AccentColor = Properties.Settings.Default.InfoGraphicModernAccentColor,
+                BackgroundColor = Properties.Settings.Default.InfoGraphicModernBackColor,
+                AccentFromCreature = Properties.Settings.Default.InfoGraphicModernAccentFromCreature,
+                BarsByLevelQuality = Properties.Settings.Default.InfoGraphicModernBarsByLevelQuality,
+                ValueDisplay = (Modern.ModernInfoGraphicSettings.StatValueDisplays)Properties.Settings.Default.InfoGraphicModernValueDisplay,
+                RegionNames = (Modern.ModernInfoGraphicSettings.ColorRegionNameDisplays)Properties.Settings.Default.InfoGraphicModernRegionNames,
+                ShowCreatureName = Properties.Settings.Default.InfoGraphicModernShowCreatureName,
+                ShowSpecies = Properties.Settings.Default.InfoGraphicModernShowSpecies,
+                ShowGeneration = Properties.Settings.Default.InfoGraphicModernShowGeneration,
+                ShowMaxWildLevel = Properties.Settings.Default.InfoGraphicModernShowMaxWildLevel,
+                SumWildAndMutatedLevels = Properties.Settings.Default.InfoGraphicModernSumWildMut,
+                ArtworkHalo = Properties.Settings.Default.InfoGraphicModernArtworkHalo,
+                ShowSpeciesSuffixes = Properties.Settings.Default.InfoGraphicModernShowSpeciesSuffixes,
+                ShowStatValues = Properties.Settings.Default.InfoGraphicModernShowStatValues,
+                ShowColors = Properties.Settings.Default.InfoGraphicModernShowColors,
+                ShowMutations = Properties.Settings.Default.InfoGraphicModernShowMutations,
+                TransparentBackground = Properties.Settings.Default.InfoGraphicModernTransparentBackground
+            };
+
+        /// <summary>
+        /// Gets user set font of the modern info graphic. If no font is set, the default is used.
+        /// </summary>
+        private static string GetModernUserFont()
+        {
+            var fontName = Properties.Settings.Default.InfoGraphicModernFontName;
+            if (!string.IsNullOrWhiteSpace(fontName)) return fontName;
+
+            fontName = Modern.ModernInfoGraphicSettings.DefaultFontName;
+            Properties.Settings.Default.InfoGraphicModernFontName = fontName;
+            return fontName;
+        }
 
         /// <summary>
         /// Whether there is enough data to draw a graphic for this creature.
         /// A creature that was never extracted has no wild stat levels, so every stat would be
-        /// drawn as a question mark.
+        /// drawn as a question mark. Both styles use this, so switching the style does not change
+        /// which creatures end up in an export.
         /// </summary>
         internal static bool CanDrawInfoGraphic(Creature creature) =>
             creature?.Species != null && creature.levelsWild != null;
@@ -627,7 +677,10 @@ namespace ARKBreedingStats.InfoGraphic
             return max;
         }
 
-        private static Color GetMainColor(Creature c)
+        /// <summary>
+        /// The color of the creature's main color region, used to derive a creature specific theme.
+        /// </summary>
+        internal static Color GetMainColor(Creature c)
         {
             if (c?.Species?.colors == null) return Values.V.Colors.ById(0).Color;
             var tintColorRegionId = Array.FindIndex(c.Species.colors,
