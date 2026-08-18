@@ -106,9 +106,8 @@ namespace ARKBreedingStats.uiControls
             _naturalColorIDs = naturalColors?.Select(ac => ac.Id).ToArray();
             checkBoxOnlyNatural.Visible = _naturalColorIDs != null;
 
-            var dpiScaling = DeviceDpi / 96f;
-            var colorButtonWidth = (int)(44 * dpiScaling);
-            var colorButtonHeight = (int)(24 * dpiScaling);
+            var colorButtonWidth = UiUtils.UiLengthInt(44);
+            var colorButtonHeight = UiUtils.UiLengthInt(24);
 
             for (var colorIndex = 1; colorIndex < colors.Length; colorIndex++)
             {
@@ -165,7 +164,7 @@ namespace ARKBreedingStats.uiControls
             }
 
             // 10 color buttons per row
-            var controlHeight = (int)Math.Ceiling(colors.Length / 10d) * colorButtonHeight + (int)(110 * dpiScaling);
+            var controlHeight = (int)Math.Ceiling(colors.Length / 10d) * colorButtonHeight + UiUtils.UiLengthInt(110);
             Height = controlHeight;
             HeightChanged?.Invoke(controlHeight);
             flowLayoutPanel1.ResumeDrawingAndLayout();

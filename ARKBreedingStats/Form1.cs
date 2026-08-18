@@ -135,7 +135,8 @@ namespace ARKBreedingStats
             InitLocalization();
             InitializeComponent();
 
-            PedigreeCreation.InitializeScaling(DeviceDpi / 96f);
+            UiUtils.UiScaling = DeviceDpi / 96f;
+            PedigreeCreation.InitializeScaling(UiUtils.UiScaling);
 
             // Create an instance of a ListView column sorter and assign it
             // to the ListView controls

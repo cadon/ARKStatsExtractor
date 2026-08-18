@@ -931,10 +931,10 @@ namespace ARKBreedingStats.BreedingPlanning
             }
 
             int? levelStep = CreatureCollection.getWildLevelStep();
-            Creature crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
-            Creature crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
-            Creature mother = _breedingPairs[comboIndex].Mother;
-            Creature father = _breedingPairs[comboIndex].Father;
+            var crB = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
+            var crW = new Creature(_currentSpecies, string.Empty, levelsWild: new int[Stats.StatsCount], levelsMutated: new int[Stats.StatsCount], isBred: true, levelStep: levelStep);
+            var mother = _breedingPairs[comboIndex].Mother;
+            var father = _breedingPairs[comboIndex].Father;
             crB.Mother = mother;
             crB.Father = father;
             crW.Mother = mother;
@@ -995,6 +995,8 @@ namespace ARKBreedingStats.BreedingPlanning
             int hiliId = comboIndex * 2;
             for (int i = 0; i < _pcs.Count; i++)
                 _pcs[i].Highlight = (i == hiliId || i == hiliId + 1);
+
+            regionColorInfo1.SetPair(_breedingPairs[comboIndex]);
         }
 
         private bool[] EnabledColorRegions
@@ -1071,6 +1073,8 @@ namespace ARKBreedingStats.BreedingPlanning
             _updateBreedingPlanAllowed = false;
             StatWeighting.TrySetPresetBySpecies(species);
             _updateBreedingPlanAllowed = true;
+            if (CbColorBreeding.Checked)
+                regionColorInfo1.SetSpecies(species);
 
             DetermineBestBreeding(setSpecies: species);
 
@@ -1351,12 +1355,16 @@ namespace ARKBreedingStats.BreedingPlanning
         private void CbColorBreeding_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.ColorBreeding = CbColorBreeding.Checked;
+            if (CbColorBreeding.Checked)
+                regionColorInfo1.SetSpecies(_currentSpecies);
             CalculateBreedingScoresAndDisplayPairsDebounced();
         }
 
         private void CbColorBreedingInvisibleRegions_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.ColorBreedingConsiderInvisibleRegions = CbColorBreedingInvisibleRegions.Checked;
+            if (CbColorBreeding.Checked)
+                CalculateBreedingScoresAndDisplayPairsDebounced();
         }
     }
 }

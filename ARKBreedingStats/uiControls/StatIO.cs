@@ -55,7 +55,7 @@ namespace ARKBreedingStats.uiControls
             if (_heightControl == 0)
             {
                 _heightControl = Height;
-                _heightControlCollapsed = 16 * DeviceDpi / 96;
+                _heightControlCollapsed = UiUtils.UiLengthInt(16);
             }
 
             _tt = new ToolTip { InitialDelay = 300 };

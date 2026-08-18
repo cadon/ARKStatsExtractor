@@ -327,7 +327,7 @@ namespace ARKBreedingStats.Pedigree
                 LbCreatureName.Text = _selectedCreature.name;
 
                 if (PbKeyExplanations.Image == null)
-                    DrawKey(PbKeyExplanations, _selectedSpecies, Font, DeviceDpi / 96f);
+                    DrawKey(PbKeyExplanations, _selectedSpecies, Font, UiUtils.UiScaling);
 
                 _pedigreeControls.Add(new PedigreeCreature(_selectedCreature, _enabledColorRegions)
                 {

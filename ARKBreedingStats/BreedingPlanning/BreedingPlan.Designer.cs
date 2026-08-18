@@ -36,22 +36,23 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             gbBPBreedingMode = new GroupBoxC();
-            CbColorBreedingInvisibleRegions = new System.Windows.Forms.CheckBox();
-            CbColorBreeding = new System.Windows.Forms.CheckBox();
-            BtColorPatternsWindow = new System.Windows.Forms.Button();
-            CbOnlySameSpecies = new System.Windows.Forms.CheckBox();
-            CbConsiderMutationLevels = new System.Windows.Forms.CheckBox();
-            CbIgnoreSexInPlanning = new System.Windows.Forms.CheckBox();
-            CbDontSuggestOverLimitOffspring = new System.Windows.Forms.CheckBox();
-            cbBPMutationLimitOnlyOnePartner = new System.Windows.Forms.CheckBox();
-            cbBPOnlyOneSuggestionForFemales = new System.Windows.Forms.CheckBox();
-            cbBPIncludeCryoCreatures = new System.Windows.Forms.CheckBox();
-            nudBPMutationLimit = new Nud();
-            label2 = new System.Windows.Forms.Label();
-            cbBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
+            tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             rbBPTopStatsCn = new System.Windows.Forms.RadioButton();
-            rbBPHighStats = new System.Windows.Forms.RadioButton();
+            BtColorPatternsWindow = new System.Windows.Forms.Button();
+            CbColorBreedingInvisibleRegions = new System.Windows.Forms.CheckBox();
             rbBPTopStats = new System.Windows.Forms.RadioButton();
+            CbColorBreeding = new System.Windows.Forms.CheckBox();
+            rbBPHighStats = new System.Windows.Forms.RadioButton();
+            cbBPIncludeCooldowneds = new System.Windows.Forms.CheckBox();
+            nudBPMutationLimit = new Nud();
+            CbOnlySameSpecies = new System.Windows.Forms.CheckBox();
+            cbBPIncludeCryoCreatures = new System.Windows.Forms.CheckBox();
+            CbDontSuggestOverLimitOffspring = new System.Windows.Forms.CheckBox();
+            CbIgnoreSexInPlanning = new System.Windows.Forms.CheckBox();
+            cbBPOnlyOneSuggestionForFemales = new System.Windows.Forms.CheckBox();
+            CbConsiderMutationLevels = new System.Windows.Forms.CheckBox();
+            label2 = new System.Windows.Forms.Label();
+            cbBPMutationLimitOnlyOnePartner = new System.Windows.Forms.CheckBox();
             tabControl1 = new System.Windows.Forms.TabControl();
             tabPageBreedableSpecies = new System.Windows.Forms.TabPage();
             listViewSpeciesBP = new System.Windows.Forms.ListView();
@@ -98,10 +99,11 @@ namespace ARKBreedingStats.BreedingPlanning
             panelCombinations = new System.Windows.Forms.Panel();
             lbBreedingPlanInfo = new System.Windows.Forms.Label();
             flowLayoutPanelPairs = new System.Windows.Forms.FlowLayoutPanel();
-            tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            regionColorInfo1 = new RegionColorInfo();
             tableLayoutMain.SuspendLayout();
             tableLayoutPanel5.SuspendLayout();
             gbBPBreedingMode.SuspendLayout();
+            tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudBPMutationLimit).BeginInit();
             tabControl1.SuspendLayout();
             tabPageBreedableSpecies.SuspendLayout();
@@ -115,7 +117,6 @@ namespace ARKBreedingStats.BreedingPlanning
             flowLayoutPanel2.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
             panelCombinations.SuspendLayout();
-            tableLayoutPanel7.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutMain
@@ -159,41 +160,75 @@ namespace ARKBreedingStats.BreedingPlanning
             gbBPBreedingMode.AutoSize = true;
             gbBPBreedingMode.Controls.Add(tableLayoutPanel7);
             gbBPBreedingMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            gbBPBreedingMode.Location = new System.Drawing.Point(4, 489);
+            gbBPBreedingMode.Location = new System.Drawing.Point(4, 485);
             gbBPBreedingMode.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             gbBPBreedingMode.Name = "gbBPBreedingMode";
             gbBPBreedingMode.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            gbBPBreedingMode.Size = new System.Drawing.Size(277, 376);
+            gbBPBreedingMode.Size = new System.Drawing.Size(277, 380);
             gbBPBreedingMode.TabIndex = 6;
             gbBPBreedingMode.TabStop = false;
             gbBPBreedingMode.Text = "Breeding-Mode";
             // 
-            // CbColorBreedingInvisibleRegions
+            // tableLayoutPanel7
             // 
-            CbColorBreedingInvisibleRegions.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(CbColorBreedingInvisibleRegions, 2);
-            CbColorBreedingInvisibleRegions.Location = new System.Drawing.Point(3, 332);
-            CbColorBreedingInvisibleRegions.Name = "CbColorBreedingInvisibleRegions";
-            CbColorBreedingInvisibleRegions.Size = new System.Drawing.Size(191, 19);
-            CbColorBreedingInvisibleRegions.TabIndex = 16;
-            CbColorBreedingInvisibleRegions.Text = "Consider invisible color regions";
-            CbColorBreedingInvisibleRegions.UseVisualStyleBackColor = true;
-            CbColorBreedingInvisibleRegions.CheckedChanged += CbColorBreedingInvisibleRegions_CheckedChanged;
+            tableLayoutPanel7.AutoSize = true;
+            tableLayoutPanel7.ColumnCount = 2;
+            tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel7.Controls.Add(rbBPTopStatsCn, 0, 0);
+            tableLayoutPanel7.Controls.Add(BtColorPatternsWindow, 1, 12);
+            tableLayoutPanel7.Controls.Add(CbColorBreedingInvisibleRegions, 0, 13);
+            tableLayoutPanel7.Controls.Add(rbBPTopStats, 0, 1);
+            tableLayoutPanel7.Controls.Add(CbColorBreeding, 0, 12);
+            tableLayoutPanel7.Controls.Add(rbBPHighStats, 0, 2);
+            tableLayoutPanel7.Controls.Add(cbBPIncludeCooldowneds, 0, 3);
+            tableLayoutPanel7.Controls.Add(nudBPMutationLimit, 1, 5);
+            tableLayoutPanel7.Controls.Add(CbOnlySameSpecies, 0, 11);
+            tableLayoutPanel7.Controls.Add(cbBPIncludeCryoCreatures, 0, 4);
+            tableLayoutPanel7.Controls.Add(CbDontSuggestOverLimitOffspring, 0, 10);
+            tableLayoutPanel7.Controls.Add(CbIgnoreSexInPlanning, 0, 8);
+            tableLayoutPanel7.Controls.Add(cbBPOnlyOneSuggestionForFemales, 0, 9);
+            tableLayoutPanel7.Controls.Add(CbConsiderMutationLevels, 0, 7);
+            tableLayoutPanel7.Controls.Add(label2, 0, 5);
+            tableLayoutPanel7.Controls.Add(cbBPMutationLimitOnlyOnePartner, 0, 6);
+            tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            tableLayoutPanel7.Location = new System.Drawing.Point(4, 19);
+            tableLayoutPanel7.Name = "tableLayoutPanel7";
+            tableLayoutPanel7.RowCount = 14;
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel7.Size = new System.Drawing.Size(269, 358);
+            tableLayoutPanel7.TabIndex = 17;
             // 
-            // CbColorBreeding
+            // rbBPTopStatsCn
             // 
-            CbColorBreeding.AutoSize = true;
-            CbColorBreeding.Location = new System.Drawing.Point(3, 303);
-            CbColorBreeding.Name = "CbColorBreeding";
-            CbColorBreeding.Size = new System.Drawing.Size(60, 19);
-            CbColorBreeding.TabIndex = 15;
-            CbColorBreeding.Text = "Colors";
-            CbColorBreeding.UseVisualStyleBackColor = true;
-            CbColorBreeding.CheckedChanged += CbColorBreeding_CheckedChanged;
+            rbBPTopStatsCn.AutoSize = true;
+            rbBPTopStatsCn.Checked = true;
+            tableLayoutPanel7.SetColumnSpan(rbBPTopStatsCn, 2);
+            rbBPTopStatsCn.Location = new System.Drawing.Point(3, 3);
+            rbBPTopStatsCn.Name = "rbBPTopStatsCn";
+            rbBPTopStatsCn.Size = new System.Drawing.Size(170, 19);
+            rbBPTopStatsCn.TabIndex = 2;
+            rbBPTopStatsCn.TabStop = true;
+            rbBPTopStatsCn.Text = "Combine Top Stats / Colors";
+            rbBPTopStatsCn.UseVisualStyleBackColor = true;
+            rbBPTopStatsCn.CheckedChanged += radioButtonBPTopStatsCn_CheckedChanged;
             // 
             // BtColorPatternsWindow
             // 
-            BtColorPatternsWindow.Location = new System.Drawing.Point(180, 303);
+            BtColorPatternsWindow.Location = new System.Drawing.Point(180, 307);
             BtColorPatternsWindow.Name = "BtColorPatternsWindow";
             BtColorPatternsWindow.Size = new System.Drawing.Size(75, 23);
             BtColorPatternsWindow.TabIndex = 14;
@@ -201,12 +236,81 @@ namespace ARKBreedingStats.BreedingPlanning
             BtColorPatternsWindow.UseVisualStyleBackColor = true;
             BtColorPatternsWindow.Click += BtColorPatternsWindow_Click;
             // 
+            // CbColorBreedingInvisibleRegions
+            // 
+            CbColorBreedingInvisibleRegions.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(CbColorBreedingInvisibleRegions, 2);
+            CbColorBreedingInvisibleRegions.Location = new System.Drawing.Point(3, 336);
+            CbColorBreedingInvisibleRegions.Name = "CbColorBreedingInvisibleRegions";
+            CbColorBreedingInvisibleRegions.Size = new System.Drawing.Size(191, 19);
+            CbColorBreedingInvisibleRegions.TabIndex = 16;
+            CbColorBreedingInvisibleRegions.Text = "Consider invisible color regions";
+            CbColorBreedingInvisibleRegions.UseVisualStyleBackColor = true;
+            CbColorBreedingInvisibleRegions.CheckedChanged += CbColorBreedingInvisibleRegions_CheckedChanged;
+            // 
+            // rbBPTopStats
+            // 
+            rbBPTopStats.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(rbBPTopStats, 2);
+            rbBPTopStats.Location = new System.Drawing.Point(3, 28);
+            rbBPTopStats.Name = "rbBPTopStats";
+            rbBPTopStats.Size = new System.Drawing.Size(88, 19);
+            rbBPTopStats.TabIndex = 0;
+            rbBPTopStats.Text = "Top Stats Lc";
+            rbBPTopStats.UseVisualStyleBackColor = true;
+            rbBPTopStats.CheckedChanged += radioButtonBPTopStats_CheckedChanged;
+            // 
+            // CbColorBreeding
+            // 
+            CbColorBreeding.AutoSize = true;
+            CbColorBreeding.Location = new System.Drawing.Point(3, 307);
+            CbColorBreeding.Name = "CbColorBreeding";
+            CbColorBreeding.Size = new System.Drawing.Size(60, 19);
+            CbColorBreeding.TabIndex = 15;
+            CbColorBreeding.Text = "Colors";
+            CbColorBreeding.UseVisualStyleBackColor = true;
+            CbColorBreeding.CheckedChanged += CbColorBreeding_CheckedChanged;
+            // 
+            // rbBPHighStats
+            // 
+            rbBPHighStats.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(rbBPHighStats, 2);
+            rbBPHighStats.Location = new System.Drawing.Point(3, 53);
+            rbBPHighStats.Name = "rbBPHighStats";
+            rbBPHighStats.Size = new System.Drawing.Size(135, 19);
+            rbBPHighStats.TabIndex = 1;
+            rbBPHighStats.Text = "Best Next Generation";
+            rbBPHighStats.UseVisualStyleBackColor = true;
+            rbBPHighStats.CheckedChanged += radioButtonBPHighStats_CheckedChanged;
+            // 
+            // cbBPIncludeCooldowneds
+            // 
+            cbBPIncludeCooldowneds.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(cbBPIncludeCooldowneds, 2);
+            cbBPIncludeCooldowneds.Location = new System.Drawing.Point(3, 78);
+            cbBPIncludeCooldowneds.Name = "cbBPIncludeCooldowneds";
+            cbBPIncludeCooldowneds.Size = new System.Drawing.Size(202, 19);
+            cbBPIncludeCooldowneds.TabIndex = 3;
+            cbBPIncludeCooldowneds.Text = "Include Creatures with Cooldown";
+            cbBPIncludeCooldowneds.UseVisualStyleBackColor = true;
+            cbBPIncludeCooldowneds.CheckedChanged += checkBoxIncludeCooldowneds_CheckedChanged;
+            // 
+            // nudBPMutationLimit
+            // 
+            nudBPMutationLimit.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            nudBPMutationLimit.Location = new System.Drawing.Point(180, 128);
+            nudBPMutationLimit.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            nudBPMutationLimit.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
+            nudBPMutationLimit.Name = "nudBPMutationLimit";
+            nudBPMutationLimit.Size = new System.Drawing.Size(58, 23);
+            nudBPMutationLimit.TabIndex = 4;
+            nudBPMutationLimit.ValueChanged += nudMutationLimit_ValueChanged;
+            // 
             // CbOnlySameSpecies
             // 
             CbOnlySameSpecies.AutoSize = true;
             tableLayoutPanel7.SetColumnSpan(CbOnlySameSpecies, 2);
-            CbOnlySameSpecies.Location = new System.Drawing.Point(2, 279);
-            CbOnlySameSpecies.Margin = new System.Windows.Forms.Padding(2);
+            CbOnlySameSpecies.Location = new System.Drawing.Point(3, 282);
             CbOnlySameSpecies.Name = "CbOnlySameSpecies";
             CbOnlySameSpecies.Size = new System.Drawing.Size(201, 19);
             CbOnlySameSpecies.TabIndex = 13;
@@ -214,78 +318,11 @@ namespace ARKBreedingStats.BreedingPlanning
             CbOnlySameSpecies.UseVisualStyleBackColor = true;
             CbOnlySameSpecies.CheckedChanged += CbOnlySameSpecies_CheckedChanged;
             // 
-            // CbConsiderMutationLevels
-            // 
-            CbConsiderMutationLevels.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(CbConsiderMutationLevels, 2);
-            CbConsiderMutationLevels.Location = new System.Drawing.Point(2, 181);
-            CbConsiderMutationLevels.Margin = new System.Windows.Forms.Padding(2);
-            CbConsiderMutationLevels.Name = "CbConsiderMutationLevels";
-            CbConsiderMutationLevels.Size = new System.Drawing.Size(157, 19);
-            CbConsiderMutationLevels.TabIndex = 12;
-            CbConsiderMutationLevels.Text = "Consider mutation levels";
-            CbConsiderMutationLevels.UseVisualStyleBackColor = true;
-            CbConsiderMutationLevels.CheckedChanged += CbConsiderMutationLevels_CheckedChanged;
-            // 
-            // CbIgnoreSexInPlanning
-            // 
-            CbIgnoreSexInPlanning.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(CbIgnoreSexInPlanning, 2);
-            CbIgnoreSexInPlanning.Location = new System.Drawing.Point(4, 205);
-            CbIgnoreSexInPlanning.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            CbIgnoreSexInPlanning.Name = "CbIgnoreSexInPlanning";
-            CbIgnoreSexInPlanning.Size = new System.Drawing.Size(153, 19);
-            CbIgnoreSexInPlanning.TabIndex = 11;
-            CbIgnoreSexInPlanning.Text = "Ignore sex for all species";
-            CbIgnoreSexInPlanning.UseVisualStyleBackColor = true;
-            CbIgnoreSexInPlanning.CheckedChanged += CbIgnoreSexInPlanning_CheckedChanged;
-            // 
-            // CbDontSuggestOverLimitOffspring
-            // 
-            CbDontSuggestOverLimitOffspring.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(CbDontSuggestOverLimitOffspring, 2);
-            CbDontSuggestOverLimitOffspring.Location = new System.Drawing.Point(4, 255);
-            CbDontSuggestOverLimitOffspring.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            CbDontSuggestOverLimitOffspring.Name = "CbDontSuggestOverLimitOffspring";
-            CbDontSuggestOverLimitOffspring.Size = new System.Drawing.Size(203, 19);
-            CbDontSuggestOverLimitOffspring.TabIndex = 10;
-            CbDontSuggestOverLimitOffspring.Text = "Don't suggest over limit offspring";
-            CbDontSuggestOverLimitOffspring.UseVisualStyleBackColor = true;
-            CbDontSuggestOverLimitOffspring.CheckedChanged += CbDontSuggestOverLimitOffspring_CheckedChanged;
-            // 
-            // cbBPMutationLimitOnlyOnePartner
-            // 
-            cbBPMutationLimitOnlyOnePartner.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            cbBPMutationLimitOnlyOnePartner.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(cbBPMutationLimitOnlyOnePartner, 2);
-            cbBPMutationLimitOnlyOnePartner.Location = new System.Drawing.Point(34, 157);
-            cbBPMutationLimitOnlyOnePartner.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbBPMutationLimitOnlyOnePartner.Name = "cbBPMutationLimitOnlyOnePartner";
-            cbBPMutationLimitOnlyOnePartner.Size = new System.Drawing.Size(231, 19);
-            cbBPMutationLimitOnlyOnePartner.TabIndex = 8;
-            cbBPMutationLimitOnlyOnePartner.Text = "One partner may have more mutations";
-            cbBPMutationLimitOnlyOnePartner.UseVisualStyleBackColor = true;
-            cbBPMutationLimitOnlyOnePartner.CheckedChanged += cbMutationLimitOnlyOnePartner_CheckedChanged;
-            // 
-            // cbBPOnlyOneSuggestionForFemales
-            // 
-            cbBPOnlyOneSuggestionForFemales.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(cbBPOnlyOneSuggestionForFemales, 2);
-            cbBPOnlyOneSuggestionForFemales.Location = new System.Drawing.Point(4, 230);
-            cbBPOnlyOneSuggestionForFemales.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbBPOnlyOneSuggestionForFemales.Name = "cbBPOnlyOneSuggestionForFemales";
-            cbBPOnlyOneSuggestionForFemales.Size = new System.Drawing.Size(199, 19);
-            cbBPOnlyOneSuggestionForFemales.TabIndex = 7;
-            cbBPOnlyOneSuggestionForFemales.Text = "Only best suggestion for females";
-            cbBPOnlyOneSuggestionForFemales.UseVisualStyleBackColor = true;
-            cbBPOnlyOneSuggestionForFemales.CheckedChanged += cbOnlyOneSuggestionForFemales_CheckedChanged;
-            // 
             // cbBPIncludeCryoCreatures
             // 
             cbBPIncludeCryoCreatures.AutoSize = true;
             tableLayoutPanel7.SetColumnSpan(cbBPIncludeCryoCreatures, 2);
-            cbBPIncludeCryoCreatures.Location = new System.Drawing.Point(4, 103);
-            cbBPIncludeCryoCreatures.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            cbBPIncludeCryoCreatures.Location = new System.Drawing.Point(3, 103);
             cbBPIncludeCryoCreatures.Name = "cbBPIncludeCryoCreatures";
             cbBPIncludeCryoCreatures.Size = new System.Drawing.Size(185, 19);
             cbBPIncludeCryoCreatures.TabIndex = 6;
@@ -293,17 +330,53 @@ namespace ARKBreedingStats.BreedingPlanning
             cbBPIncludeCryoCreatures.UseVisualStyleBackColor = true;
             cbBPIncludeCryoCreatures.CheckedChanged += cbBPIncludeCryoCreatures_CheckedChanged;
             // 
-            // nudBPMutationLimit
+            // CbDontSuggestOverLimitOffspring
             // 
-            nudBPMutationLimit.ForeColor = System.Drawing.Color.FromArgb(44, 44, 44);
-            nudBPMutationLimit.Location = new System.Drawing.Point(181, 128);
-            nudBPMutationLimit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            nudBPMutationLimit.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-            nudBPMutationLimit.Minimum = new decimal(new int[] { 1, 0, 0, int.MinValue });
-            nudBPMutationLimit.Name = "nudBPMutationLimit";
-            nudBPMutationLimit.Size = new System.Drawing.Size(58, 23);
-            nudBPMutationLimit.TabIndex = 4;
-            nudBPMutationLimit.ValueChanged += nudMutationLimit_ValueChanged;
+            CbDontSuggestOverLimitOffspring.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(CbDontSuggestOverLimitOffspring, 2);
+            CbDontSuggestOverLimitOffspring.Location = new System.Drawing.Point(3, 257);
+            CbDontSuggestOverLimitOffspring.Name = "CbDontSuggestOverLimitOffspring";
+            CbDontSuggestOverLimitOffspring.Size = new System.Drawing.Size(203, 19);
+            CbDontSuggestOverLimitOffspring.TabIndex = 10;
+            CbDontSuggestOverLimitOffspring.Text = "Don't suggest over limit offspring";
+            CbDontSuggestOverLimitOffspring.UseVisualStyleBackColor = true;
+            CbDontSuggestOverLimitOffspring.CheckedChanged += CbDontSuggestOverLimitOffspring_CheckedChanged;
+            // 
+            // CbIgnoreSexInPlanning
+            // 
+            CbIgnoreSexInPlanning.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(CbIgnoreSexInPlanning, 2);
+            CbIgnoreSexInPlanning.Location = new System.Drawing.Point(3, 207);
+            CbIgnoreSexInPlanning.Name = "CbIgnoreSexInPlanning";
+            CbIgnoreSexInPlanning.Size = new System.Drawing.Size(153, 19);
+            CbIgnoreSexInPlanning.TabIndex = 11;
+            CbIgnoreSexInPlanning.Text = "Ignore sex for all species";
+            CbIgnoreSexInPlanning.UseVisualStyleBackColor = true;
+            CbIgnoreSexInPlanning.CheckedChanged += CbIgnoreSexInPlanning_CheckedChanged;
+            // 
+            // cbBPOnlyOneSuggestionForFemales
+            // 
+            cbBPOnlyOneSuggestionForFemales.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(cbBPOnlyOneSuggestionForFemales, 2);
+            cbBPOnlyOneSuggestionForFemales.Location = new System.Drawing.Point(3, 232);
+            cbBPOnlyOneSuggestionForFemales.Name = "cbBPOnlyOneSuggestionForFemales";
+            cbBPOnlyOneSuggestionForFemales.Size = new System.Drawing.Size(199, 19);
+            cbBPOnlyOneSuggestionForFemales.TabIndex = 7;
+            cbBPOnlyOneSuggestionForFemales.Text = "Only best suggestion for females";
+            cbBPOnlyOneSuggestionForFemales.UseVisualStyleBackColor = true;
+            cbBPOnlyOneSuggestionForFemales.CheckedChanged += cbOnlyOneSuggestionForFemales_CheckedChanged;
+            // 
+            // CbConsiderMutationLevels
+            // 
+            CbConsiderMutationLevels.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(CbConsiderMutationLevels, 2);
+            CbConsiderMutationLevels.Location = new System.Drawing.Point(3, 182);
+            CbConsiderMutationLevels.Name = "CbConsiderMutationLevels";
+            CbConsiderMutationLevels.Size = new System.Drawing.Size(157, 19);
+            CbConsiderMutationLevels.TabIndex = 12;
+            CbConsiderMutationLevels.Text = "Consider mutation levels";
+            CbConsiderMutationLevels.UseVisualStyleBackColor = true;
+            CbConsiderMutationLevels.CheckedChanged += CbConsiderMutationLevels_CheckedChanged;
             // 
             // label2
             // 
@@ -315,59 +388,18 @@ namespace ARKBreedingStats.BreedingPlanning
             label2.TabIndex = 5;
             label2.Text = "Creatures with Mutations up to";
             // 
-            // cbBPIncludeCooldowneds
+            // cbBPMutationLimitOnlyOnePartner
             // 
-            cbBPIncludeCooldowneds.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(cbBPIncludeCooldowneds, 2);
-            cbBPIncludeCooldowneds.Location = new System.Drawing.Point(4, 78);
-            cbBPIncludeCooldowneds.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            cbBPIncludeCooldowneds.Name = "cbBPIncludeCooldowneds";
-            cbBPIncludeCooldowneds.Size = new System.Drawing.Size(202, 19);
-            cbBPIncludeCooldowneds.TabIndex = 3;
-            cbBPIncludeCooldowneds.Text = "Include Creatures with Cooldown";
-            cbBPIncludeCooldowneds.UseVisualStyleBackColor = true;
-            cbBPIncludeCooldowneds.CheckedChanged += checkBoxIncludeCooldowneds_CheckedChanged;
-            // 
-            // rbBPTopStatsCn
-            // 
-            rbBPTopStatsCn.AutoSize = true;
-            rbBPTopStatsCn.Checked = true;
-            tableLayoutPanel7.SetColumnSpan(rbBPTopStatsCn, 2);
-            rbBPTopStatsCn.Location = new System.Drawing.Point(4, 3);
-            rbBPTopStatsCn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rbBPTopStatsCn.Name = "rbBPTopStatsCn";
-            rbBPTopStatsCn.Size = new System.Drawing.Size(170, 19);
-            rbBPTopStatsCn.TabIndex = 2;
-            rbBPTopStatsCn.TabStop = true;
-            rbBPTopStatsCn.Text = "Combine Top Stats / Colors";
-            rbBPTopStatsCn.UseVisualStyleBackColor = true;
-            rbBPTopStatsCn.CheckedChanged += radioButtonBPTopStatsCn_CheckedChanged;
-            // 
-            // rbBPHighStats
-            // 
-            rbBPHighStats.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(rbBPHighStats, 2);
-            rbBPHighStats.Location = new System.Drawing.Point(4, 53);
-            rbBPHighStats.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rbBPHighStats.Name = "rbBPHighStats";
-            rbBPHighStats.Size = new System.Drawing.Size(135, 19);
-            rbBPHighStats.TabIndex = 1;
-            rbBPHighStats.Text = "Best Next Generation";
-            rbBPHighStats.UseVisualStyleBackColor = true;
-            rbBPHighStats.CheckedChanged += radioButtonBPHighStats_CheckedChanged;
-            // 
-            // rbBPTopStats
-            // 
-            rbBPTopStats.AutoSize = true;
-            tableLayoutPanel7.SetColumnSpan(rbBPTopStats, 2);
-            rbBPTopStats.Location = new System.Drawing.Point(4, 28);
-            rbBPTopStats.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            rbBPTopStats.Name = "rbBPTopStats";
-            rbBPTopStats.Size = new System.Drawing.Size(88, 19);
-            rbBPTopStats.TabIndex = 0;
-            rbBPTopStats.Text = "Top Stats Lc";
-            rbBPTopStats.UseVisualStyleBackColor = true;
-            rbBPTopStats.CheckedChanged += radioButtonBPTopStats_CheckedChanged;
+            cbBPMutationLimitOnlyOnePartner.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            cbBPMutationLimitOnlyOnePartner.AutoSize = true;
+            tableLayoutPanel7.SetColumnSpan(cbBPMutationLimitOnlyOnePartner, 2);
+            cbBPMutationLimitOnlyOnePartner.Location = new System.Drawing.Point(35, 157);
+            cbBPMutationLimitOnlyOnePartner.Name = "cbBPMutationLimitOnlyOnePartner";
+            cbBPMutationLimitOnlyOnePartner.Size = new System.Drawing.Size(231, 19);
+            cbBPMutationLimitOnlyOnePartner.TabIndex = 8;
+            cbBPMutationLimitOnlyOnePartner.Text = "One partner may have more mutations";
+            cbBPMutationLimitOnlyOnePartner.UseVisualStyleBackColor = true;
+            cbBPMutationLimitOnlyOnePartner.CheckedChanged += cbMutationLimitOnlyOnePartner_CheckedChanged;
             // 
             // tabControl1
             // 
@@ -379,7 +411,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tabControl1.MinimumSize = new System.Drawing.Size(0, 231);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(277, 480);
+            tabControl1.Size = new System.Drawing.Size(277, 476);
             tabControl1.TabIndex = 8;
             // 
             // tabPageBreedableSpecies
@@ -389,7 +421,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tabPageBreedableSpecies.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageBreedableSpecies.Name = "tabPageBreedableSpecies";
             tabPageBreedableSpecies.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageBreedableSpecies.Size = new System.Drawing.Size(269, 452);
+            tabPageBreedableSpecies.Size = new System.Drawing.Size(269, 448);
             tabPageBreedableSpecies.TabIndex = 0;
             tabPageBreedableSpecies.Text = "Breedable Species";
             // 
@@ -403,7 +435,7 @@ namespace ARKBreedingStats.BreedingPlanning
             listViewSpeciesBP.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             listViewSpeciesBP.MultiSelect = false;
             listViewSpeciesBP.Name = "listViewSpeciesBP";
-            listViewSpeciesBP.Size = new System.Drawing.Size(261, 446);
+            listViewSpeciesBP.Size = new System.Drawing.Size(261, 442);
             listViewSpeciesBP.TabIndex = 3;
             listViewSpeciesBP.UseCompatibleStateImageBehavior = false;
             listViewSpeciesBP.View = System.Windows.Forms.View.Details;
@@ -421,7 +453,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tabPageTags.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabPageTags.Name = "tabPageTags";
             tabPageTags.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            tabPageTags.Size = new System.Drawing.Size(269, 504);
+            tabPageTags.Size = new System.Drawing.Size(269, 448);
             tabPageTags.TabIndex = 1;
             tabPageTags.Text = "Filters / Tags";
             // 
@@ -446,7 +478,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new System.Drawing.Size(261, 498);
+            tableLayoutPanel3.Size = new System.Drawing.Size(261, 442);
             tableLayoutPanel3.TabIndex = 7;
             // 
             // cbTribeFilterLibrary
@@ -480,7 +512,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tagSelectorList1.Location = new System.Drawing.Point(7, 187);
             tagSelectorList1.Margin = new System.Windows.Forms.Padding(7);
             tagSelectorList1.Name = "tagSelectorList1";
-            tagSelectorList1.Size = new System.Drawing.Size(247, 304);
+            tagSelectorList1.Size = new System.Drawing.Size(247, 248);
             tagSelectorList1.TabIndex = 3;
             // 
             // cbBPTagExcludeDefault
@@ -527,11 +559,13 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 0, 0);
             tableLayoutPanel1.Controls.Add(gbBPOffspring, 0, 2);
             tableLayoutPanel1.Controls.Add(panelCombinations, 0, 1);
+            tableLayoutPanel1.Controls.Add(regionColorInfo1, 1, 1);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(297, 3);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -546,6 +580,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.SetColumnSpan(flowLayoutPanel1, 2);
             flowLayoutPanel1.Controls.Add(lbBreedingPlanHeader);
             flowLayoutPanel1.Controls.Add(pedigreeCreatureBestPossibleInSpecies);
             flowLayoutPanel1.Controls.Add(btShowAllCreatures);
@@ -651,6 +686,7 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             // gbBPOffspring
             // 
+            tableLayoutPanel1.SetColumnSpan(gbBPOffspring, 2);
             gbBPOffspring.Controls.Add(tableLayoutPanel2);
             gbBPOffspring.Dock = System.Windows.Forms.DockStyle.Fill;
             gbBPOffspring.Location = new System.Drawing.Point(4, 933);
@@ -855,13 +891,14 @@ namespace ARKBreedingStats.BreedingPlanning
             // 
             // panelCombinations
             // 
+            panelCombinations.AutoSize = true;
             panelCombinations.Controls.Add(lbBreedingPlanInfo);
             panelCombinations.Controls.Add(flowLayoutPanelPairs);
             panelCombinations.Dock = System.Windows.Forms.DockStyle.Fill;
             panelCombinations.Location = new System.Drawing.Point(4, 214);
             panelCombinations.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelCombinations.Name = "panelCombinations";
-            panelCombinations.Size = new System.Drawing.Size(1712, 713);
+            panelCombinations.Size = new System.Drawing.Size(813, 713);
             panelCombinations.TabIndex = 3;
             // 
             // lbBreedingPlanInfo
@@ -879,55 +916,21 @@ namespace ARKBreedingStats.BreedingPlanning
             // flowLayoutPanelPairs
             // 
             flowLayoutPanelPairs.AutoScroll = true;
+            flowLayoutPanelPairs.AutoSize = true;
             flowLayoutPanelPairs.Dock = System.Windows.Forms.DockStyle.Fill;
             flowLayoutPanelPairs.Location = new System.Drawing.Point(0, 0);
             flowLayoutPanelPairs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             flowLayoutPanelPairs.Name = "flowLayoutPanelPairs";
-            flowLayoutPanelPairs.Size = new System.Drawing.Size(1712, 713);
+            flowLayoutPanelPairs.Size = new System.Drawing.Size(813, 713);
             flowLayoutPanelPairs.TabIndex = 1;
             // 
-            // tableLayoutPanel7
+            // regionColorInfo1
             // 
-            tableLayoutPanel7.AutoSize = true;
-            tableLayoutPanel7.ColumnCount = 2;
-            tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanel7.Controls.Add(rbBPTopStatsCn, 0, 0);
-            tableLayoutPanel7.Controls.Add(BtColorPatternsWindow, 1, 12);
-            tableLayoutPanel7.Controls.Add(CbColorBreedingInvisibleRegions, 0, 13);
-            tableLayoutPanel7.Controls.Add(rbBPTopStats, 0, 1);
-            tableLayoutPanel7.Controls.Add(CbColorBreeding, 0, 12);
-            tableLayoutPanel7.Controls.Add(rbBPHighStats, 0, 2);
-            tableLayoutPanel7.Controls.Add(cbBPIncludeCooldowneds, 0, 3);
-            tableLayoutPanel7.Controls.Add(nudBPMutationLimit, 1, 5);
-            tableLayoutPanel7.Controls.Add(CbOnlySameSpecies, 0, 11);
-            tableLayoutPanel7.Controls.Add(cbBPIncludeCryoCreatures, 0, 4);
-            tableLayoutPanel7.Controls.Add(CbDontSuggestOverLimitOffspring, 0, 10);
-            tableLayoutPanel7.Controls.Add(CbIgnoreSexInPlanning, 0, 8);
-            tableLayoutPanel7.Controls.Add(cbBPOnlyOneSuggestionForFemales, 0, 9);
-            tableLayoutPanel7.Controls.Add(CbConsiderMutationLevels, 0, 7);
-            tableLayoutPanel7.Controls.Add(label2, 0, 5);
-            tableLayoutPanel7.Controls.Add(cbBPMutationLimitOnlyOnePartner, 0, 6);
-            tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            tableLayoutPanel7.Location = new System.Drawing.Point(4, 19);
-            tableLayoutPanel7.Name = "tableLayoutPanel7";
-            tableLayoutPanel7.RowCount = 14;
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel7.Size = new System.Drawing.Size(269, 354);
-            tableLayoutPanel7.TabIndex = 17;
+            regionColorInfo1.AutoSize = true;
+            regionColorInfo1.Location = new System.Drawing.Point(824, 214);
+            regionColorInfo1.Name = "regionColorInfo1";
+            regionColorInfo1.Size = new System.Drawing.Size(284, 286);
+            regionColorInfo1.TabIndex = 6;
             // 
             // BreedingPlan
             // 
@@ -941,6 +944,8 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutPanel5.PerformLayout();
             gbBPBreedingMode.ResumeLayout(false);
             gbBPBreedingMode.PerformLayout();
+            tableLayoutPanel7.ResumeLayout(false);
+            tableLayoutPanel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudBPMutationLimit).EndInit();
             tabControl1.ResumeLayout(false);
             tabPageBreedableSpecies.ResumeLayout(false);
@@ -961,8 +966,7 @@ namespace ARKBreedingStats.BreedingPlanning
             tableLayoutPanel6.ResumeLayout(false);
             tableLayoutPanel6.PerformLayout();
             panelCombinations.ResumeLayout(false);
-            tableLayoutPanel7.ResumeLayout(false);
-            tableLayoutPanel7.PerformLayout();
+            panelCombinations.PerformLayout();
             ResumeLayout(false);
 
         }
@@ -1034,5 +1038,6 @@ namespace ARKBreedingStats.BreedingPlanning
         private System.Windows.Forms.CheckBox CbColorBreeding;
         private System.Windows.Forms.CheckBox CbColorBreedingInvisibleRegions;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private RegionColorInfo regionColorInfo1;
     }
 }

@@ -32,12 +32,10 @@ namespace ARKBreedingStats.uiControls
         {
             InitializeComponent();
 
-            var scale = DeviceDpi / 96f;
-
             _buttonColors = new NoPaddingButton[Ark.ColorRegionCount];
             for (var i = 0; i < Ark.ColorRegionCount; i++)
             {
-                var b = new NoPaddingButton { Width = (int)(32 * scale), Height = (int)(27 * scale), Margin = new Padding((int)scale), Text = i.ToString() };
+                var b = new NoPaddingButton { Width = UiUtils.UiLengthInt(32), Height = UiUtils.UiLengthInt(27), Margin = new Padding(UiUtils.UiLengthInt(1)), Text = i.ToString() };
                 var ii = i;
                 b.Click += (s, e) => ChooseColor(ii, b);
                 _buttonColors[i] = b;
