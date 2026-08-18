@@ -59,6 +59,14 @@ namespace ARKBreedingStats.InfoGraphic
                 });
 
         /// <summary>
+        /// Whether there is enough data to draw a graphic for this creature.
+        /// A creature that was never extracted has no wild stat levels, so every stat would be
+        /// drawn as a question mark.
+        /// </summary>
+        internal static bool CanDrawInfoGraphic(Creature creature) =>
+            creature?.Species != null && creature.levelsWild != null;
+
+        /// <summary>
         /// Gets user set font. If not font is set, Arial is set.
         /// </summary>
         /// <returns></returns>
@@ -79,7 +87,9 @@ namespace ARKBreedingStats.InfoGraphic
         /// <param name="cc">CreatureCollection for server settings.</param>
         public static async Task<Bitmap> InfoGraphicAsync(this Creature creature, CreatureCollection cc, InfoGraphicSettings settings)
         {
-            if (creature?.Species == null) return null;
+            // valuesBreeding on top of the shared check, this layout reads it unconditionally
+            if (!CanDrawInfoGraphic(creature) || creature.valuesBreeding == null) return null;
+
             var secondaryCulture = Loc.UseSecondaryCulture;
             var maxGraphLevel = cc?.maxChartLevel ?? 0;
             if (maxGraphLevel < 1) maxGraphLevel = 50;

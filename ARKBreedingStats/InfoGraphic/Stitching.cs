@@ -42,8 +42,12 @@ namespace ARKBreedingStats.InfoGraphic
 
             foreach (var c in creatures)
             {
-                var filePath = Path.GetTempFileName();
                 using var img = await c.InfoGraphicAsync(cc);
+                // no image for creatures the selected style cannot draw, e.g. one that was never
+                // extracted and so has no stat levels. Skip it rather than failing the whole sheet.
+                if (img == null) continue;
+
+                var filePath = Path.GetTempFileName();
                 img.Save(filePath);
 
                 var width = img.Width;
