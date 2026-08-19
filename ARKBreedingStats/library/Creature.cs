@@ -420,7 +420,11 @@ namespace ARKBreedingStats.Library
         /// <summary>
         /// The total current level inclusive domesticate levels.
         /// </summary>
-        public int Level => (levelsWild?[Stats.Torpidity] ?? 0) + 1 + levelsDom.Sum();
+        /// <remarks>
+        /// levelsDom is serialized with DefaultValueHandling.Ignore, so a creature without
+        /// domesticate levels comes back from the library file with a null array.
+        /// </remarks>
+        public int Level => (levelsWild?[Stats.Torpidity] ?? 0) + 1 + (levelsDom?.Sum() ?? 0);
 
         /// <summary>
         /// Max possible level when applying all possible domestic levels according to the server settings (ignoring global server level cap)

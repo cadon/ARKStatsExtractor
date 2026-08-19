@@ -1,4 +1,4 @@
-﻿using ARKBreedingStats.uiControls;
+using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats.settings
 {
@@ -278,6 +278,37 @@ namespace ARKBreedingStats.settings
             CbInfoGraphicGenerations = new System.Windows.Forms.CheckBox();
             CbInfoGraphicDisplayMaxWildLevel = new System.Windows.Forms.CheckBox();
             label50 = new System.Windows.Forms.Label();
+            LbInfoGraphicStyle = new System.Windows.Forms.Label();
+            CbbInfoGraphicStyle = new System.Windows.Forms.ComboBox();
+            GbInfoGraphicModern = new GroupBoxC();
+            LbInfoGraphicModernWidth = new System.Windows.Forms.Label();
+            NudInfoGraphicModernWidth = new ARKBreedingStats.uiControls.Nud();
+            LbInfoGraphicModernTheme = new System.Windows.Forms.Label();
+            CbbInfoGraphicModernTheme = new System.Windows.Forms.ComboBox();
+            LbInfoGraphicModernFont = new System.Windows.Forms.Label();
+            CbbInfoGraphicModernFontName = new System.Windows.Forms.ComboBox();
+            LbInfoGraphicModernAccent = new System.Windows.Forms.Label();
+            BtInfoGraphicModernAccentColor = new System.Windows.Forms.Button();
+            LbInfoGraphicModernValues = new System.Windows.Forms.Label();
+            CbbInfoGraphicModernValueDisplay = new System.Windows.Forms.ComboBox();
+            LbInfoGraphicModernRegionNames = new System.Windows.Forms.Label();
+            CbbInfoGraphicModernRegionNames = new System.Windows.Forms.ComboBox();
+            CbInfoGraphicModernAccentFromCreature = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernBarsByLevelQuality = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowSpecies = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowStatValues = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowColors = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowMutations = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernTransparentBackground = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowCreatureName = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowGeneration = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowMaxWildLevel = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernSumWildMut = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernArtworkHalo = new System.Windows.Forms.CheckBox();
+            CbInfoGraphicModernShowSpeciesSuffixes = new System.Windows.Forms.CheckBox();
+            LbInfoGraphicModernBackColor = new System.Windows.Forms.Label();
+            BtInfoGraphicModernBackColor = new System.Windows.Forms.Button();
+            BtInfoGraphicModernResetColors = new System.Windows.Forms.Button();
             tabPageImportSavegame = new System.Windows.Forms.TabPage();
             label68 = new System.Windows.Forms.Label();
             CbImportUnclaimedBabies = new System.Windows.Forms.CheckBox();
@@ -493,6 +524,8 @@ namespace ARKBreedingStats.settings
             groupBox25.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).BeginInit();
             tabPageInfoGraphic.SuspendLayout();
+            GbInfoGraphicModern.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicModernWidth).BeginInit();
             groupBox34.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchMaxWidth).BeginInit();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchBackgroundOpacity).BeginInit();
@@ -2720,11 +2753,16 @@ namespace ARKBreedingStats.settings
             // 
             // tabPageInfoGraphic
             // 
+            // the modern style renders a portrait card that can be taller than the tab
+            tabPageInfoGraphic.AutoScroll = true;
+            tabPageInfoGraphic.Controls.Add(GbInfoGraphicModern);
             tabPageInfoGraphic.Controls.Add(groupBox34);
             tabPageInfoGraphic.Controls.Add(BtNewRandomInfoGraphicCreature);
             tabPageInfoGraphic.Controls.Add(PbInfoGraphicPreview);
             tabPageInfoGraphic.Controls.Add(groupBox32);
             tabPageInfoGraphic.Controls.Add(groupBox28);
+            tabPageInfoGraphic.Controls.Add(CbbInfoGraphicStyle);
+            tabPageInfoGraphic.Controls.Add(LbInfoGraphicStyle);
             tabPageInfoGraphic.Controls.Add(label50);
             tabPageInfoGraphic.Location = new System.Drawing.Point(4, 24);
             tabPageInfoGraphic.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -3462,9 +3500,359 @@ namespace ARKBreedingStats.settings
             label50.Size = new System.Drawing.Size(340, 15);
             label50.TabIndex = 0;
             label50.Text = "Styling of the infographic that can be exported from the library.";
-            // 
+            //
+            // LbInfoGraphicStyle
+            //
+            LbInfoGraphicStyle.AutoSize = true;
+            LbInfoGraphicStyle.Location = new System.Drawing.Point(400, 21);
+            LbInfoGraphicStyle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            LbInfoGraphicStyle.Name = "LbInfoGraphicStyle";
+            LbInfoGraphicStyle.Size = new System.Drawing.Size(33, 15);
+            LbInfoGraphicStyle.TabIndex = 21;
+            LbInfoGraphicStyle.Text = "Style";
+            //
+            // CbbInfoGraphicStyle
+            //
+            CbbInfoGraphicStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbInfoGraphicStyle.FormattingEnabled = true;
+            CbbInfoGraphicStyle.Location = new System.Drawing.Point(440, 18);
+            CbbInfoGraphicStyle.Name = "CbbInfoGraphicStyle";
+            CbbInfoGraphicStyle.Size = new System.Drawing.Size(140, 23);
+            CbbInfoGraphicStyle.TabIndex = 22;
+            CbbInfoGraphicStyle.SelectedIndexChanged += CbbInfoGraphicStyle_SelectedIndexChanged;
+            //
+            // GbInfoGraphicModern
+            //
+            GbInfoGraphicModern.Controls.Add(LbInfoGraphicModernWidth);
+            GbInfoGraphicModern.Controls.Add(NudInfoGraphicModernWidth);
+            GbInfoGraphicModern.Controls.Add(LbInfoGraphicModernTheme);
+            GbInfoGraphicModern.Controls.Add(CbbInfoGraphicModernTheme);
+            GbInfoGraphicModern.Controls.Add(LbInfoGraphicModernFont);
+            GbInfoGraphicModern.Controls.Add(CbbInfoGraphicModernFontName);
+            GbInfoGraphicModern.Controls.Add(LbInfoGraphicModernAccent);
+            GbInfoGraphicModern.Controls.Add(BtInfoGraphicModernAccentColor);
+            GbInfoGraphicModern.Controls.Add(LbInfoGraphicModernValues);
+            GbInfoGraphicModern.Controls.Add(CbbInfoGraphicModernValueDisplay);
+            GbInfoGraphicModern.Controls.Add(LbInfoGraphicModernRegionNames);
+            GbInfoGraphicModern.Controls.Add(CbbInfoGraphicModernRegionNames);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernAccentFromCreature);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernBarsByLevelQuality);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowSpecies);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowStatValues);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowColors);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowMutations);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernTransparentBackground);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowCreatureName);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowGeneration);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowMaxWildLevel);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernSumWildMut);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernArtworkHalo);
+            GbInfoGraphicModern.Controls.Add(CbInfoGraphicModernShowSpeciesSuffixes);
+            GbInfoGraphicModern.Controls.Add(LbInfoGraphicModernBackColor);
+            GbInfoGraphicModern.Controls.Add(BtInfoGraphicModernBackColor);
+            GbInfoGraphicModern.Controls.Add(BtInfoGraphicModernResetColors);
+            GbInfoGraphicModern.Location = new System.Drawing.Point(9, 54);
+            GbInfoGraphicModern.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GbInfoGraphicModern.Name = "GbInfoGraphicModern";
+            GbInfoGraphicModern.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            GbInfoGraphicModern.Size = new System.Drawing.Size(856, 302);
+            GbInfoGraphicModern.TabIndex = 23;
+            GbInfoGraphicModern.TabStop = false;
+            GbInfoGraphicModern.Text = "Modern style";
+            GbInfoGraphicModern.Visible = false;
+            //
+            // LbInfoGraphicModernWidth
+            //
+            LbInfoGraphicModernWidth.AutoSize = true;
+            LbInfoGraphicModernWidth.Location = new System.Drawing.Point(14, 31);
+            LbInfoGraphicModernWidth.Name = "LbInfoGraphicModernWidth";
+            LbInfoGraphicModernWidth.Size = new System.Drawing.Size(39, 15);
+            LbInfoGraphicModernWidth.TabIndex = 0;
+            LbInfoGraphicModernWidth.Text = "Width";
+            //
+            // NudInfoGraphicModernWidth
+            //
+            NudInfoGraphicModernWidth.ForeColor = System.Drawing.Color.Black;
+            NudInfoGraphicModernWidth.Increment = new decimal(new int[] { 10, 0, 0, 0 });
+            NudInfoGraphicModernWidth.Location = new System.Drawing.Point(120, 28);
+            NudInfoGraphicModernWidth.Maximum = new decimal(new int[] { 2000, 0, 0, 0 });
+            NudInfoGraphicModernWidth.Minimum = new decimal(new int[] { 240, 0, 0, 0 });
+            NudInfoGraphicModernWidth.Name = "NudInfoGraphicModernWidth";
+            NudInfoGraphicModernWidth.Size = new System.Drawing.Size(80, 23);
+            NudInfoGraphicModernWidth.TabIndex = 1;
+            NudInfoGraphicModernWidth.Value = new decimal(new int[] { 360, 0, 0, 0 });
+            NudInfoGraphicModernWidth.ValueChanged += NudInfoGraphicValueChanged;
+            //
+            // LbInfoGraphicModernTheme
+            //
+            LbInfoGraphicModernTheme.AutoSize = true;
+            LbInfoGraphicModernTheme.Location = new System.Drawing.Point(14, 63);
+            LbInfoGraphicModernTheme.Name = "LbInfoGraphicModernTheme";
+            LbInfoGraphicModernTheme.Size = new System.Drawing.Size(44, 15);
+            LbInfoGraphicModernTheme.TabIndex = 2;
+            LbInfoGraphicModernTheme.Text = "Theme";
+            //
+            // CbbInfoGraphicModernTheme
+            //
+            CbbInfoGraphicModernTheme.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbInfoGraphicModernTheme.FormattingEnabled = true;
+            CbbInfoGraphicModernTheme.Location = new System.Drawing.Point(120, 60);
+            CbbInfoGraphicModernTheme.Name = "CbbInfoGraphicModernTheme";
+            CbbInfoGraphicModernTheme.Size = new System.Drawing.Size(140, 23);
+            CbbInfoGraphicModernTheme.TabIndex = 3;
+            CbbInfoGraphicModernTheme.SelectedIndexChanged += CbbInfoGraphicModern_SelectedIndexChanged;
+            //
+            // LbInfoGraphicModernFont
+            //
+            LbInfoGraphicModernFont.AutoSize = true;
+            LbInfoGraphicModernFont.Location = new System.Drawing.Point(14, 95);
+            LbInfoGraphicModernFont.Name = "LbInfoGraphicModernFont";
+            LbInfoGraphicModernFont.Size = new System.Drawing.Size(31, 15);
+            LbInfoGraphicModernFont.TabIndex = 4;
+            LbInfoGraphicModernFont.Text = "Font";
+            //
+            // CbbInfoGraphicModernFontName
+            //
+            CbbInfoGraphicModernFontName.FormattingEnabled = true;
+            CbbInfoGraphicModernFontName.Location = new System.Drawing.Point(120, 92);
+            CbbInfoGraphicModernFontName.Name = "CbbInfoGraphicModernFontName";
+            CbbInfoGraphicModernFontName.Size = new System.Drawing.Size(200, 23);
+            CbbInfoGraphicModernFontName.TabIndex = 5;
+            CbbInfoGraphicModernFontName.SelectedIndexChanged += CbbInfoGraphicModern_SelectedIndexChanged;
+            //
+            // LbInfoGraphicModernAccent
+            //
+            LbInfoGraphicModernAccent.AutoSize = true;
+            LbInfoGraphicModernAccent.Location = new System.Drawing.Point(14, 127);
+            LbInfoGraphicModernAccent.Name = "LbInfoGraphicModernAccent";
+            LbInfoGraphicModernAccent.Size = new System.Drawing.Size(77, 15);
+            LbInfoGraphicModernAccent.TabIndex = 6;
+            LbInfoGraphicModernAccent.Text = "Accent color";
+            //
+            // BtInfoGraphicModernAccentColor
+            //
+            BtInfoGraphicModernAccentColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicModernAccentColor.Location = new System.Drawing.Point(120, 124);
+            BtInfoGraphicModernAccentColor.Name = "BtInfoGraphicModernAccentColor";
+            BtInfoGraphicModernAccentColor.Size = new System.Drawing.Size(108, 23);
+            BtInfoGraphicModernAccentColor.TabIndex = 7;
+            BtInfoGraphicModernAccentColor.Text = "Accent";
+            BtInfoGraphicModernAccentColor.UseVisualStyleBackColor = true;
+            BtInfoGraphicModernAccentColor.Click += ColorButtonClick;
+            //
+            // LbInfoGraphicModernValues
+            //
+            LbInfoGraphicModernValues.AutoSize = true;
+            LbInfoGraphicModernValues.Location = new System.Drawing.Point(14, 159);
+            LbInfoGraphicModernValues.Name = "LbInfoGraphicModernValues";
+            LbInfoGraphicModernValues.Size = new System.Drawing.Size(64, 15);
+            LbInfoGraphicModernValues.TabIndex = 8;
+            LbInfoGraphicModernValues.Text = "Stat values";
+            //
+            // CbbInfoGraphicModernValueDisplay
+            //
+            CbbInfoGraphicModernValueDisplay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbInfoGraphicModernValueDisplay.FormattingEnabled = true;
+            CbbInfoGraphicModernValueDisplay.Location = new System.Drawing.Point(120, 156);
+            CbbInfoGraphicModernValueDisplay.Name = "CbbInfoGraphicModernValueDisplay";
+            CbbInfoGraphicModernValueDisplay.Size = new System.Drawing.Size(200, 23);
+            CbbInfoGraphicModernValueDisplay.TabIndex = 9;
+            CbbInfoGraphicModernValueDisplay.SelectedIndexChanged += CbbInfoGraphicModern_SelectedIndexChanged;
+            //
+            // LbInfoGraphicModernRegionNames
+            //
+            LbInfoGraphicModernRegionNames.AutoSize = true;
+            LbInfoGraphicModernRegionNames.Location = new System.Drawing.Point(14, 191);
+            LbInfoGraphicModernRegionNames.Name = "LbInfoGraphicModernRegionNames";
+            LbInfoGraphicModernRegionNames.Size = new System.Drawing.Size(83, 15);
+            LbInfoGraphicModernRegionNames.TabIndex = 17;
+            LbInfoGraphicModernRegionNames.Text = "Region names";
+            //
+            // CbbInfoGraphicModernRegionNames
+            //
+            CbbInfoGraphicModernRegionNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            CbbInfoGraphicModernRegionNames.FormattingEnabled = true;
+            CbbInfoGraphicModernRegionNames.Location = new System.Drawing.Point(120, 188);
+            CbbInfoGraphicModernRegionNames.Name = "CbbInfoGraphicModernRegionNames";
+            CbbInfoGraphicModernRegionNames.Size = new System.Drawing.Size(200, 23);
+            CbbInfoGraphicModernRegionNames.TabIndex = 18;
+            CbbInfoGraphicModernRegionNames.SelectedIndexChanged += CbbInfoGraphicModern_SelectedIndexChanged;
+            //
+            // CbInfoGraphicModernAccentFromCreature
+            //
+            CbInfoGraphicModernAccentFromCreature.AutoSize = true;
+            CbInfoGraphicModernAccentFromCreature.Location = new System.Drawing.Point(380, 30);
+            CbInfoGraphicModernAccentFromCreature.Name = "CbInfoGraphicModernAccentFromCreature";
+            CbInfoGraphicModernAccentFromCreature.Size = new System.Drawing.Size(200, 19);
+            CbInfoGraphicModernAccentFromCreature.TabIndex = 10;
+            CbInfoGraphicModernAccentFromCreature.Text = "Accent color based on creature";
+            CbInfoGraphicModernAccentFromCreature.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernAccentFromCreature.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernBarsByLevelQuality
+            //
+            CbInfoGraphicModernBarsByLevelQuality.AutoSize = true;
+            CbInfoGraphicModernBarsByLevelQuality.Location = new System.Drawing.Point(380, 56);
+            CbInfoGraphicModernBarsByLevelQuality.Name = "CbInfoGraphicModernBarsByLevelQuality";
+            CbInfoGraphicModernBarsByLevelQuality.Size = new System.Drawing.Size(200, 19);
+            CbInfoGraphicModernBarsByLevelQuality.TabIndex = 11;
+            CbInfoGraphicModernBarsByLevelQuality.Text = "Color stat bars by level quality";
+            CbInfoGraphicModernBarsByLevelQuality.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernBarsByLevelQuality.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowSpecies
+            //
+            CbInfoGraphicModernShowSpecies.AutoSize = true;
+            CbInfoGraphicModernShowSpecies.Location = new System.Drawing.Point(380, 82);
+            CbInfoGraphicModernShowSpecies.Name = "CbInfoGraphicModernShowSpecies";
+            CbInfoGraphicModernShowSpecies.Size = new System.Drawing.Size(200, 19);
+            CbInfoGraphicModernShowSpecies.TabIndex = 12;
+            CbInfoGraphicModernShowSpecies.Text = "Species name";
+            CbInfoGraphicModernShowSpecies.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowSpecies.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowStatValues
+            //
+            CbInfoGraphicModernShowStatValues.AutoSize = true;
+            CbInfoGraphicModernShowStatValues.Location = new System.Drawing.Point(380, 108);
+            CbInfoGraphicModernShowStatValues.Name = "CbInfoGraphicModernShowStatValues";
+            CbInfoGraphicModernShowStatValues.Size = new System.Drawing.Size(200, 19);
+            CbInfoGraphicModernShowStatValues.TabIndex = 13;
+            CbInfoGraphicModernShowStatValues.Text = "Stat values";
+            CbInfoGraphicModernShowStatValues.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowStatValues.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowColors
+            //
+            CbInfoGraphicModernShowColors.AutoSize = true;
+            CbInfoGraphicModernShowColors.Location = new System.Drawing.Point(380, 134);
+            CbInfoGraphicModernShowColors.Name = "CbInfoGraphicModernShowColors";
+            CbInfoGraphicModernShowColors.Size = new System.Drawing.Size(200, 19);
+            CbInfoGraphicModernShowColors.TabIndex = 14;
+            CbInfoGraphicModernShowColors.Text = "Color regions";
+            CbInfoGraphicModernShowColors.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowColors.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowMutations
+            //
+            CbInfoGraphicModernShowMutations.AutoSize = true;
+            CbInfoGraphicModernShowMutations.Location = new System.Drawing.Point(380, 160);
+            CbInfoGraphicModernShowMutations.Name = "CbInfoGraphicModernShowMutations";
+            CbInfoGraphicModernShowMutations.Size = new System.Drawing.Size(200, 19);
+            CbInfoGraphicModernShowMutations.TabIndex = 15;
+            CbInfoGraphicModernShowMutations.Text = "Mutation counters";
+            CbInfoGraphicModernShowMutations.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowMutations.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernTransparentBackground
+            //
+            CbInfoGraphicModernTransparentBackground.AutoSize = true;
+            CbInfoGraphicModernTransparentBackground.Location = new System.Drawing.Point(380, 186);
+            CbInfoGraphicModernTransparentBackground.Name = "CbInfoGraphicModernTransparentBackground";
+            CbInfoGraphicModernTransparentBackground.Size = new System.Drawing.Size(200, 19);
+            CbInfoGraphicModernTransparentBackground.TabIndex = 16;
+            CbInfoGraphicModernTransparentBackground.Text = "Transparent background";
+            CbInfoGraphicModernTransparentBackground.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernTransparentBackground.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowCreatureName
+            //
+            CbInfoGraphicModernShowCreatureName.AutoSize = true;
+            CbInfoGraphicModernShowCreatureName.Location = new System.Drawing.Point(600, 30);
+            CbInfoGraphicModernShowCreatureName.Name = "CbInfoGraphicModernShowCreatureName";
+            CbInfoGraphicModernShowCreatureName.Size = new System.Drawing.Size(220, 19);
+            CbInfoGraphicModernShowCreatureName.TabIndex = 19;
+            CbInfoGraphicModernShowCreatureName.Text = "Creature name as title";
+            CbInfoGraphicModernShowCreatureName.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowCreatureName.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowGeneration
+            //
+            CbInfoGraphicModernShowGeneration.AutoSize = true;
+            CbInfoGraphicModernShowGeneration.Location = new System.Drawing.Point(600, 56);
+            CbInfoGraphicModernShowGeneration.Name = "CbInfoGraphicModernShowGeneration";
+            CbInfoGraphicModernShowGeneration.Size = new System.Drawing.Size(220, 19);
+            CbInfoGraphicModernShowGeneration.TabIndex = 20;
+            CbInfoGraphicModernShowGeneration.Text = "Generation of the creature";
+            CbInfoGraphicModernShowGeneration.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowGeneration.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowMaxWildLevel
+            //
+            CbInfoGraphicModernShowMaxWildLevel.AutoSize = true;
+            CbInfoGraphicModernShowMaxWildLevel.Location = new System.Drawing.Point(600, 82);
+            CbInfoGraphicModernShowMaxWildLevel.Name = "CbInfoGraphicModernShowMaxWildLevel";
+            CbInfoGraphicModernShowMaxWildLevel.Size = new System.Drawing.Size(220, 19);
+            CbInfoGraphicModernShowMaxWildLevel.TabIndex = 21;
+            CbInfoGraphicModernShowMaxWildLevel.Text = "Max wild server level";
+            CbInfoGraphicModernShowMaxWildLevel.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowMaxWildLevel.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernSumWildMut
+            //
+            CbInfoGraphicModernSumWildMut.AutoSize = true;
+            CbInfoGraphicModernSumWildMut.Location = new System.Drawing.Point(600, 108);
+            CbInfoGraphicModernSumWildMut.Name = "CbInfoGraphicModernSumWildMut";
+            CbInfoGraphicModernSumWildMut.Size = new System.Drawing.Size(240, 19);
+            CbInfoGraphicModernSumWildMut.TabIndex = 22;
+            CbInfoGraphicModernSumWildMut.Text = "Sum of wild and mutated levels";
+            CbInfoGraphicModernSumWildMut.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernSumWildMut.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernArtworkHalo
+            //
+            CbInfoGraphicModernArtworkHalo.AutoSize = true;
+            CbInfoGraphicModernArtworkHalo.Location = new System.Drawing.Point(600, 134);
+            CbInfoGraphicModernArtworkHalo.Name = "CbInfoGraphicModernArtworkHalo";
+            CbInfoGraphicModernArtworkHalo.Size = new System.Drawing.Size(220, 19);
+            CbInfoGraphicModernArtworkHalo.TabIndex = 26;
+            CbInfoGraphicModernArtworkHalo.Text = "Outline around the creature";
+            CbInfoGraphicModernArtworkHalo.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernArtworkHalo.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // CbInfoGraphicModernShowSpeciesSuffixes
+            //
+            CbInfoGraphicModernShowSpeciesSuffixes.AutoSize = true;
+            CbInfoGraphicModernShowSpeciesSuffixes.Location = new System.Drawing.Point(600, 160);
+            CbInfoGraphicModernShowSpeciesSuffixes.Name = "CbInfoGraphicModernShowSpeciesSuffixes";
+            CbInfoGraphicModernShowSpeciesSuffixes.Size = new System.Drawing.Size(230, 19);
+            CbInfoGraphicModernShowSpeciesSuffixes.TabIndex = 27;
+            CbInfoGraphicModernShowSpeciesSuffixes.Text = "Variant and mod in species name";
+            CbInfoGraphicModernShowSpeciesSuffixes.UseVisualStyleBackColor = true;
+            CbInfoGraphicModernShowSpeciesSuffixes.CheckedChanged += CbInfoGraphicCheckBoxRadioButtonChanged;
+            //
+            // LbInfoGraphicModernBackColor
+            //
+            LbInfoGraphicModernBackColor.AutoSize = true;
+            LbInfoGraphicModernBackColor.Location = new System.Drawing.Point(14, 223);
+            LbInfoGraphicModernBackColor.Name = "LbInfoGraphicModernBackColor";
+            LbInfoGraphicModernBackColor.Size = new System.Drawing.Size(100, 15);
+            LbInfoGraphicModernBackColor.TabIndex = 23;
+            LbInfoGraphicModernBackColor.Text = "Background color";
+            //
+            // BtInfoGraphicModernBackColor
+            //
+            BtInfoGraphicModernBackColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            BtInfoGraphicModernBackColor.Location = new System.Drawing.Point(120, 220);
+            BtInfoGraphicModernBackColor.Name = "BtInfoGraphicModernBackColor";
+            BtInfoGraphicModernBackColor.Size = new System.Drawing.Size(108, 23);
+            BtInfoGraphicModernBackColor.TabIndex = 24;
+            BtInfoGraphicModernBackColor.Text = "From theme";
+            BtInfoGraphicModernBackColor.UseVisualStyleBackColor = true;
+            BtInfoGraphicModernBackColor.Click += BtInfoGraphicModernBackColor_Click;
+            //
+            // BtInfoGraphicModernResetColors
+            //
+            BtInfoGraphicModernResetColors.Location = new System.Drawing.Point(236, 220);
+            BtInfoGraphicModernResetColors.Name = "BtInfoGraphicModernResetColors";
+            BtInfoGraphicModernResetColors.Size = new System.Drawing.Size(120, 23);
+            BtInfoGraphicModernResetColors.TabIndex = 25;
+            BtInfoGraphicModernResetColors.Text = "Reset to default";
+            BtInfoGraphicModernResetColors.UseVisualStyleBackColor = true;
+            BtInfoGraphicModernResetColors.Click += BtInfoGraphicModernResetColors_Click;
+            //
             // tabPageImportSavegame
-            // 
+            //
             tabPageImportSavegame.AutoScroll = true;
             tabPageImportSavegame.Controls.Add(label68);
             tabPageImportSavegame.Controls.Add(CbImportUnclaimedBabies);
@@ -5241,6 +5629,9 @@ namespace ARKBreedingStats.settings
             ((System.ComponentModel.ISupportInitialize)nudDefaultFontSize).EndInit();
             tabPageInfoGraphic.ResumeLayout(false);
             tabPageInfoGraphic.PerformLayout();
+            GbInfoGraphicModern.ResumeLayout(false);
+            GbInfoGraphicModern.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)NudInfoGraphicModernWidth).EndInit();
             groupBox34.ResumeLayout(false);
             groupBox34.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)NudInfoGraphicStitchMaxWidth).EndInit();
@@ -5597,6 +5988,37 @@ namespace ARKBreedingStats.settings
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.CheckBox CbInfoGraphicDisplayMaxWildLevel;
         private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label LbInfoGraphicStyle;
+        private System.Windows.Forms.ComboBox CbbInfoGraphicStyle;
+        private GroupBoxC GbInfoGraphicModern;
+        private System.Windows.Forms.Label LbInfoGraphicModernWidth;
+        private uiControls.Nud NudInfoGraphicModernWidth;
+        private System.Windows.Forms.Label LbInfoGraphicModernTheme;
+        private System.Windows.Forms.ComboBox CbbInfoGraphicModernTheme;
+        private System.Windows.Forms.Label LbInfoGraphicModernFont;
+        private System.Windows.Forms.ComboBox CbbInfoGraphicModernFontName;
+        private System.Windows.Forms.Label LbInfoGraphicModernAccent;
+        private System.Windows.Forms.Button BtInfoGraphicModernAccentColor;
+        private System.Windows.Forms.Label LbInfoGraphicModernValues;
+        private System.Windows.Forms.ComboBox CbbInfoGraphicModernValueDisplay;
+        private System.Windows.Forms.Label LbInfoGraphicModernRegionNames;
+        private System.Windows.Forms.ComboBox CbbInfoGraphicModernRegionNames;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernAccentFromCreature;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernBarsByLevelQuality;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowSpecies;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowStatValues;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowColors;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowMutations;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernTransparentBackground;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowCreatureName;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowGeneration;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowMaxWildLevel;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernSumWildMut;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernArtworkHalo;
+        private System.Windows.Forms.CheckBox CbInfoGraphicModernShowSpeciesSuffixes;
+        private System.Windows.Forms.Label LbInfoGraphicModernBackColor;
+        private System.Windows.Forms.Button BtInfoGraphicModernBackColor;
+        private System.Windows.Forms.Button BtInfoGraphicModernResetColors;
         private System.Windows.Forms.Label LbInfoGraphicSize;
         private uiControls.Nud nudInfoGraphicHeight;
         private GroupBoxC groupBox32;

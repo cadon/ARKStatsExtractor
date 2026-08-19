@@ -2146,6 +2146,7 @@ namespace ARKBreedingStats
                 }
 
                 var imagesCreated = 0;
+                var skippedWithoutStatData = 0;
                 string firstImageFilePath = null;
 
                 foreach (int i in listViewLibrary.SelectedIndices)
@@ -2166,21 +2167,52 @@ namespace ARKBreedingStats
                             default: return;
                         }
                     }
-                    (await c.InfoGraphicAsync(_creatureCollection)).Save(filePath);
+                    using (var img = await c.InfoGraphicAsync(_creatureCollection))
+                    {
+                        // no image for creatures the selected style cannot draw, e.g. one that was
+                        // never extracted and so has no stat levels
+                        if (img == null)
+                        {
+                            skippedWithoutStatData++;
+                            continue;
+                        }
+                        img.Save(filePath);
+                    }
                     if (firstImageFilePath == null) firstImageFilePath = filePath;
 
                     imagesCreated++;
                 }
 
-                if (imagesCreated == 0) return;
+                if (imagesCreated == 0)
+                {
+                    if (skippedWithoutStatData > 0)
+                        SetMessageLabelText(NoStatDataText(skippedWithoutStatData, true), MessageBoxIcon.Warning);
+                    return;
+                }
 
                 var pluralS = imagesCreated != 1 ? "s" : string.Empty;
-                SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}", MessageBoxIcon.Information, firstImageFilePath);
+                SetMessageLabelText($"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{(imagesCreated == 1 ? firstImageFilePath : folderPath)}{NoStatDataText(skippedWithoutStatData)}", MessageBoxIcon.Information, firstImageFilePath);
             }
             catch (Exception ex)
             {
                 MessageBoxes.ExceptionMessageBox(ex);
             }
+        }
+
+        /// <summary>
+        /// Note appended to an infographic export result. Creatures that were never extracted have
+        /// no stat levels and no infographic is created for them, this says so instead of letting
+        /// them disappear from the export without explanation.
+        /// </summary>
+        /// <param name="onlyMessage">True if this is the whole message, not appended to a result.</param>
+        private static string NoStatDataText(int skippedCount, bool onlyMessage = false)
+        {
+            if (skippedCount < 1) return string.Empty;
+
+            var text = skippedCount == 1
+                ? "1 creature was skipped, it has no stat data."
+                : $"{skippedCount} creatures were skipped, they have no stat data.";
+            return onlyMessage ? text : "\r\n" + text;
         }
 
         private async void saveStitchedInfographicsToFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2221,9 +2253,12 @@ namespace ARKBreedingStats
                 var imagesCreated = await Task.Run(() => InfoGraphic.Stitching.CreateStitchedImages(creatures, _creatureCollection,
                     filePathSaveTo, Properties.Settings.Default.InfoGraphicStitchMaxWidth, Properties.Settings.Default.InfoGraphicStitchBackground, Properties.Settings.Default.InfoGraphicStitchGap));
 
+                // the stitching only leaves out creatures it could get no image for
+                var skippedWithoutStatData = creatures.Length - imagesCreated;
+
                 var pluralS = imagesCreated != 1 ? "s" : string.Empty;
                 SetMessageLabelText(
-                    $"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{filePathSaveTo}",
+                    $"Infographic{pluralS} for {imagesCreated} creature{pluralS} created at\r\n{filePathSaveTo}{NoStatDataText(skippedWithoutStatData)}",
                     MessageBoxIcon.Information, filePathSaveTo);
             }
             catch (Exception ex)
