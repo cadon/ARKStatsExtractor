@@ -1,7 +1,7 @@
 ﻿
 using ARKBreedingStats.uiControls;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.Library
 {
     partial class AddDummyCreaturesSettings
     {

@@ -132,7 +132,7 @@ namespace ARKBreedingStats.Pedigree
 
             var bmp = new Bitmap(Width, Height);
             using (var g = Graphics.FromImage(bmp))
-            using (var font = new Font("Segoe UI", _fontSize))
+            using (var font = new Font(Asb.DefaultFontName, _fontSize))
             using (var pen = new Pen(Color.Black))
             using (var brush = new SolidBrush(Color.Black))
             {

@@ -7,7 +7,7 @@ using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.Library
 {
     /// <summary>
     /// Creates dummy creatures and simulates breeding to populate a library.

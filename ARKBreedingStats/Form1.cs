@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.importExported;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;

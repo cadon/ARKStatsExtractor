@@ -16,7 +16,6 @@ using System.Xml.Serialization;
 using ARKBreedingStats.importExportGun;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.utils;
-using ARKBreedingStats.library;
 
 namespace ARKBreedingStats
 {

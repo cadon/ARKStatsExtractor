@@ -40,22 +40,22 @@ namespace ARKBreedingStats.InfoGraphic.Modern
         /// </summary>
         private static GraphicsPath CreatePath(int statIndex)
         {
-            switch (statIndex)
+            return statIndex switch
             {
-                case Stats.Health: return Health();
-                case Stats.Stamina: return Stamina();
-                case Stats.Torpidity: return Torpidity();
-                case Stats.Oxygen: return Oxygen();
-                case Stats.Food: return Food();
-                case Stats.Water: return Water();
-                case Stats.Temperature: return Temperature();
-                case Stats.Weight: return Weight();
-                case Stats.MeleeDamageMultiplier: return Melee();
-                case Stats.SpeedMultiplier: return Speed();
-                case Stats.TemperatureFortitude: return Fortitude();
-                case Stats.CraftingSpeedMultiplier: return CraftingSpeed();
-                default: return Fallback();
-            }
+                Stats.Health => Health(),
+                Stats.Stamina => Stamina(),
+                Stats.Torpidity => Torpidity(),
+                Stats.Oxygen => Oxygen(),
+                Stats.Food => Food(),
+                Stats.Water => Water(),
+                Stats.Temperature => Temperature(),
+                Stats.Weight => Weight(),
+                Stats.MeleeDamageMultiplier => Melee(),
+                Stats.SpeedMultiplier => Speed(),
+                Stats.TemperatureFortitude => Fortitude(),
+                Stats.CraftingSpeedMultiplier => CraftingSpeed(),
+                _ => Fallback()
+            };
         }
 
         /// <summary>A medical cross.</summary>

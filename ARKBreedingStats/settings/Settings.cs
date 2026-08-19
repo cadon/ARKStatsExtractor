@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using ARKBreedingStats.importExportGun;
-using ARKBreedingStats.library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.SpeciesOptions;
 using ARKBreedingStats.uiControls;
@@ -235,7 +234,7 @@ namespace ARKBreedingStats.settings
             CbbInfoGraphicModernTheme.Items.Add("Light");
             CbbInfoGraphicModernValueDisplay.Items.Add("Current");
             CbbInfoGraphicModernValueDisplay.Items.Add("Breeding");
-            CbbInfoGraphicModernValueDisplay.Items.Add("Breeding / current");
+            CbbInfoGraphicModernValueDisplay.Items.Add("Breeding | current");
             CbbInfoGraphicModernRegionNames.Items.Add("Never");
             CbbInfoGraphicModernRegionNames.Items.Add("Only without creature image");
             CbbInfoGraphicModernRegionNames.Items.Add("Always");

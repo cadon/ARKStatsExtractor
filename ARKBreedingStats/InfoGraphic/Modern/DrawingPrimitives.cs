@@ -98,13 +98,12 @@ namespace ARKBreedingStats.InfoGraphic.Modern
         {
             if (color.A == 0 || fill.Width <= 0 || fill.Height <= 0) return;
 
+            var currentState = g.Save();
             using var path = RoundedRect(clipTo, radius);
-            var previousClip = g.Clip;
             g.SetClip(path, CombineMode.Intersect);
             using (var brush = new SolidBrush(color))
                 g.FillRectangle(brush, fill);
-            g.Clip = previousClip;
-            previousClip.Dispose();
+            g.Restore(currentState);
         }
 
         /// <summary>
@@ -117,8 +116,8 @@ namespace ARKBreedingStats.InfoGraphic.Modern
             fraction = Math.Max(0, Math.Min(1, fraction));
             if (fraction <= 0) return;
 
+            var currentState = g.Save();
             using var path = RoundedRect(track, radius);
-            var previousClip = g.Clip;
             g.SetClip(path, CombineMode.Intersect);
 
             var fillRect = new RectangleF(track.X, track.Y, track.Width * fraction, track.Height);
@@ -128,8 +127,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
                        LinearGradientMode.Vertical))
                 g.FillRectangle(brush, fillRect);
 
-            g.Clip = previousClip;
-            previousClip.Dispose();
+            g.Restore(currentState);
         }
 
         /// <summary>
@@ -204,13 +202,13 @@ namespace ARKBreedingStats.InfoGraphic.Modern
     {
         private readonly FontFamily _family;
         private readonly bool _ownsFamily;
-        private readonly Dictionary<(int, FontStyle), Font> _fonts = new Dictionary<(int, FontStyle), Font>();
+        private readonly Dictionary<(int, FontStyle), Font> _fonts = new();
 
         internal FontCache(string fontName)
         {
             try
             {
-                _family = new FontFamily(string.IsNullOrWhiteSpace(fontName) ? "Segoe UI" : fontName);
+                _family = new FontFamily(string.IsNullOrWhiteSpace(fontName) ? Asb.DefaultFontName : fontName);
                 _ownsFamily = true;
             }
             catch (ArgumentException)

@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARKBreedingStats.InfoGraphic;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.Traits;

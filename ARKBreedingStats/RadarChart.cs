@@ -202,7 +202,7 @@ namespace ARKBreedingStats
             Bitmap bmp = new Bitmap(Width, Height);
             using (Graphics g = Graphics.FromImage(bmp))
             using (Pen penLine = new Pen(Color.FromArgb(128, 255, 255, 255)))
-            using (var font = new Font("Segoe UI", 8f))
+            using (var font = new Font(Asb.DefaultFontName, 8f))
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
 

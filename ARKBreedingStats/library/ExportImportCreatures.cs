@@ -11,7 +11,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.values;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.Library
 {
     /// <summary>
     /// Exports creature infos to the clipboard and imports them.

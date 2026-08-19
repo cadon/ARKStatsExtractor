@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using ARKBreedingStats.InfoGraphic;
 using ARKBreedingStats.InfoGraphic.Modern;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.values;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -198,7 +197,7 @@ namespace ARKBreedingStats.Tests
             using var bmp = ModernInfoGraphic.RenderAsync(_creature, null, new ModernInfoGraphicSettings())
                 .GetAwaiter().GetResult();
 
-            Assert.IsNotNull(bmp, "the graphic must not depend on a creature collection");
+            Assert.IsNotNull(bmp, "the graphic should also be rendered without explicit creature collection (values may be wrong then)");
         }
 
         [TestMethod]
@@ -622,8 +621,7 @@ namespace ARKBreedingStats.Tests
         {
             RequireGameValues();
 
-            // Switching the style must not change which creatures appear in an export. A creature
-            // that was never extracted would be drawn as a full card of question marks.
+            // A creature without wild levels should not create an infographic.
             var notExtracted = NotExtracted();
 
             var classic = notExtracted

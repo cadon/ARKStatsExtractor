@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 
 namespace ARKBreedingStats.uiControls

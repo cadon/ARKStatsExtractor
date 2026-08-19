@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.Library
 {
     public partial class AddDummyCreaturesSettings : Form
     {

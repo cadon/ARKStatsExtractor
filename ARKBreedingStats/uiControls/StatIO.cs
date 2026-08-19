@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
-using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.SpeciesOptions.LevelColorSettings;
 using ARKBreedingStats.utils;
 using Cursors = System.Windows.Forms.Cursors;

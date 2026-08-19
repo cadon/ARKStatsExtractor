@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.InfoGraphic;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.settings;

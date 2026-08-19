@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.Library
 {
     /// <summary>
     /// Top levels per species.

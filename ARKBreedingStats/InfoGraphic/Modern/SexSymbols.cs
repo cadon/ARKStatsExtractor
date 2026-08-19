@@ -54,12 +54,12 @@ namespace ARKBreedingStats.InfoGraphic.Modern
         /// </summary>
         private static List<GraphicsPath> CreateParts(Sex sex)
         {
-            switch (sex)
+            return sex switch
             {
-                case Sex.Female: return Female();
-                case Sex.Male: return Male();
-                default: return Unknown();
-            }
+                Sex.Female => Female(),
+                Sex.Male => Male(),
+                _ => Unknown()
+            };
         }
 
         private static List<GraphicsPath> Female()
@@ -72,7 +72,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
             cross.AddRectangle(new RectangleF(43, 50, 14, 46));
             cross.AddRectangle(new RectangleF(28, 68, 44, 13));
 
-            return new List<GraphicsPath> { ring, cross };
+            return [ring, cross];
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
             var dot = new GraphicsPath();
             dot.AddEllipse(41, 76, 18, 18);
 
-            return new List<GraphicsPath> { hook, dot };
+            return [hook, dot];
         }
 
         private static List<GraphicsPath> Male()
@@ -101,19 +101,17 @@ namespace ARKBreedingStats.InfoGraphic.Modern
             ring.AddEllipse(4, 40, 56, 56);
             ring.AddEllipse(16, 52, 32, 32);
 
-            var arrow = new GraphicsPath { FillMode = FillMode.Winding };
+            var arrow = new GraphicsPath { FillMode = FillMode.Alternate };
             // shaft, from the ring up to the arrow head
             arrow.AddPolygon(new[]
             {
-                new PointF(47.8f, 43.8f), new PointF(56.2f, 52.2f),
-                new PointF(86.2f, 22.2f), new PointF(77.8f, 13.8f)
-            });
-            arrow.AddPolygon(new[]
-            {
-                new PointF(96, 4), new PointF(96, 38), new PointF(62, 4)
+                new PointF(48f, 45f), new PointF(55f, 52f),
+                new PointF(82f, 25f), new PointF(95f, 40f),
+                new PointF(95f, 5f), new PointF(60f, 5f),
+                new PointF(78f, 15f)
             });
 
-            return new List<GraphicsPath> { ring, arrow };
+            return [ring, arrow];
         }
     }
 }

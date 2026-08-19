@@ -17,7 +17,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
 
         public ModernThemes Theme = ModernThemes.Dark;
 
-        public string FontName = DefaultFontName;
+        public string FontName = Asb.DefaultFontName;
 
         /// <summary>
         /// Accent used for the border, the artwork glow and the highlighted numbers.
@@ -104,7 +104,6 @@ namespace ARKBreedingStats.InfoGraphic.Modern
         /// does not help: the client just divides it down further.
         /// </summary>
         public const int DefaultWidth = DesignWidth;
-        public const string DefaultFontName = "Segoe UI";
         public static readonly Color DefaultAccent = Color.FromArgb(0x22, 0xD3, 0xEE);
 
         public enum ModernThemes

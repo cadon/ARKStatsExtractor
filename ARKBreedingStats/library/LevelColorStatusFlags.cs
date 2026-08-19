@@ -6,7 +6,7 @@ using ARKBreedingStats.SpeciesOptions.TopStatsSettings;
 using ARKBreedingStats.uiControls;
 using static ARKBreedingStats.uiControls.StatWeighting;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.Library
 {
     /// <summary>
     /// Level and color status flags of the current extracted or to be added creature.

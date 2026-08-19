@@ -102,7 +102,7 @@ namespace ARKBreedingStats.InfoGraphic
             var fontName = Properties.Settings.Default.InfoGraphicModernFontName;
             if (!string.IsNullOrWhiteSpace(fontName)) return fontName;
 
-            fontName = Modern.ModernInfoGraphicSettings.DefaultFontName;
+            fontName = Asb.DefaultFontName;
             Properties.Settings.Default.InfoGraphicModernFontName = fontName;
             return fontName;
         }
@@ -110,22 +110,20 @@ namespace ARKBreedingStats.InfoGraphic
         /// <summary>
         /// Whether there is enough data to draw a graphic for this creature.
         /// A creature that was never extracted has no wild stat levels, so every stat would be
-        /// drawn as a question mark. Both styles use this, so switching the style does not change
-        /// which creatures end up in an export.
+        /// drawn as a question mark.
         /// </summary>
         internal static bool CanDrawInfoGraphic(Creature creature) =>
             creature?.Species != null && creature.levelsWild != null;
 
         /// <summary>
-        /// Gets user set font. If not font is set, Arial is set.
+        /// Gets user set font. If not font is set, a default is used.
         /// </summary>
-        /// <returns></returns>
         private static string GetUserFont()
         {
             var fontName = Properties.Settings.Default.InfoGraphicFontName;
             if (string.IsNullOrWhiteSpace(fontName))
             {
-                fontName = "Arial";
+                fontName = Asb.DefaultFontName;
                 Properties.Settings.Default.InfoGraphicFontName = fontName;
             }
             return fontName;

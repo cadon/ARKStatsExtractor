@@ -14,13 +14,9 @@ using static ARKBreedingStats.InfoGraphic.Modern.ModernInfoGraphicSettings;
 namespace ARKBreedingStats.InfoGraphic.Modern
 {
     /// <summary>
-    /// Renders a creature as a portrait card styled after the in game creature panel:
-    /// a sex corner badge, the species artwork as a large unframed hero image, icon led stat bars,
+    /// Renders a creature as a portrait card styled inspired by the in game creature panel:
+    /// a sex corner badge, the species artwork as a large unframed image, icon led stat bars,
     /// color region chips and a mutation footer.
-    ///
-    /// A drop in alternative to <see cref="CreatureInfoGraphic"/>: it returns a <see cref="Bitmap"/>
-    /// the caller owns, so clipboard export, folder export, stitching and the settings preview all
-    /// work with it unchanged.
     /// </summary>
     public static class ModernInfoGraphic
     {
@@ -218,7 +214,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
                             theme.TextMuted, StringAlignment.Center, StringAlignment.Center);
                     }
 
-                    DrawHeroArtwork(g, artColumn, artwork, halo, haloPadding);
+                    DrawCreatureImage(g, artColumn, artwork, halo, haloPadding);
                     DrawStatRows(g, fonts, theme, settings, creature, cc, statIndices, statColumn, scale);
 
                     if (showColors)
@@ -266,7 +262,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
                 g.FillPolygon(brush, new[] { new PointF(0, 0), new PointF(leg, 0), new PointF(0, leg) });
 
             // offset from the very corner, otherwise the rounded card corner clips the symbol
-            var symbolBox = new RectangleF(leg * 0.09f, leg * 0.06f, leg * 0.44f, leg * 0.44f);
+            var symbolBox = new RectangleF(leg * 0.1f, leg * 0.12f, leg * 0.44f, leg * 0.44f);
             // drawn where a vector exists, the font glyphs are too thin to read at this size
             if (!SexSymbols.Draw(g, sex, symbolBox, Color.White))
                 DrawingPrimitives.TextFitted(g, Utils.SexSymbol(sex), fonts, FontSizeBadge * scale, FontStyle.Bold,
@@ -303,7 +299,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
         /// Draws the creature unframed and as large as the row allows, behind it the halo that
         /// separates it from the card.
         /// </summary>
-        private static void DrawHeroArtwork(Graphics g, RectangleF row, Bitmap artwork, Bitmap halo, float haloPadding)
+        private static void DrawCreatureImage(Graphics g, RectangleF row, Bitmap artwork, Bitmap halo, float haloPadding)
         {
             if (artwork == null || row.Width <= 0 || row.Height <= 0) return;
 
@@ -729,7 +725,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
             var dom = LevelAt(creature.levelsDom, si);
             var mutated = LevelAt(creature.levelsMutated, si);
 
-            // wild, mutated, domesticated. Same order as in game and as the classic graphic's
+            // wild, mutated, domesticated. Same order as in game and in the classic infographic
             // W | M | D columns.
             var wildText = wild < 0 ? "?" : wild.ToString(CultureInfo.CurrentCulture);
             var levels = showMutatedLevels
@@ -752,17 +748,16 @@ namespace ARKBreedingStats.InfoGraphic.Modern
                 case StatValueDisplays.Breeding:
                     return FormatValue(breeding, si, true);
                 case StatValueDisplays.Both:
-                    // ASB has no damage state, so an identical pair carries no information
-                    if (Math.Abs(breeding - current) < 0.05) return FormatValue(current, si, true);
-                    return $"{FormatValue(breeding, si, false)} / {FormatValue(current, si, true)}";
+                    // if the value is identical only display it once
+                    if (Math.Abs(breeding - current) < 0.0005) return FormatValue(current, si, true);
+                    return $"{FormatValue(breeding, si, false)} | {FormatValue(current, si, true)}";
                 default:
                     return FormatValue(current, si, true);
             }
         }
 
         /// <summary>
-        /// Says which values the stat rows carry. Without it a lone number is ambiguous: the
-        /// breeding value and the current value of an undamaged wild creature look identical.
+        /// String that indicates which stat values are shown, breeding value or current value.
         /// Null when no values are shown and there is nothing to label.
         /// </summary>
         private static string ValuesCaptionText(ModernInfoGraphicSettings settings)
@@ -772,7 +767,7 @@ namespace ARKBreedingStats.InfoGraphic.Modern
             switch (settings.ValueDisplay)
             {
                 case StatValueDisplays.Breeding: return "Breeding values";
-                case StatValueDisplays.Both: return "Breeding / current values";
+                case StatValueDisplays.Both: return "Breeding | current values";
                 default: return "Current values";
             }
         }
