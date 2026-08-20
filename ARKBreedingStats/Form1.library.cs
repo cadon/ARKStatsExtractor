@@ -239,6 +239,7 @@ namespace ARKBreedingStats
             notesControl1.NoteList = _creatureCollection.noteList;
             raisingControl1.CreatureCollection = _creatureCollection;
             statsMultiplierTesting1.CreatureCollection = _creatureCollection;
+            levelSolverControl1.CreatureCollection = _creatureCollection;
 
             var duplicatesWereRemoved = UpdateParents(_creatureCollection.creatures);
             UpdateIncubationParents(_creatureCollection);
@@ -1358,7 +1359,7 @@ namespace ARKBreedingStats
                     break;
                 default:
                     if (_creatureCollection.maxServerLevel > 0
-                            && cr.levelsWild[Stats.Torpidity] + 1 + _creatureCollection.maxDomLevel > _creatureCollection.maxServerLevel + (cr.Species.name.StartsWith("X-") || cr.Species.name.StartsWith("R-") ? 50 : 0))
+                            && cr.levelsWild[Stats.Torpidity] + 1 + _creatureCollection.maxDomLevel > _creatureCollection.maxServerLevel + cr.Species.ServerLevelCapIncrease)
                     {
                         lvi.SubItems[ColumnIndexName].ForeColor = UiColors.Current.OverLevelWarning; // this creature may pass the max server level and could be deleted by the game
                     }

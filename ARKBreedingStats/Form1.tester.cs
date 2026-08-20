@@ -73,6 +73,14 @@ namespace ARKBreedingStats
             tabControlMain.SelectedTab = tabPageStatTesting;
         }
 
+        private void LevelSolverControl1_CopyToTester(species.Species species, int[] wildLevels,
+            int[] mutationLevels, int[] domesticLevels, double imprinting)
+        {
+            var creature = new Creature(species, string.Empty, levelsWild: wildLevels, levelsDom: domesticLevels,
+                levelsMutated: mutationLevels, isBred: true, imprinting: imprinting);
+            EditCreatureInTester(creature, true);
+        }
+
         private void UpdateAllTesterValues()
         {
             _updateTorporInTester = false;

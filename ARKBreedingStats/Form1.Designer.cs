@@ -1,4 +1,5 @@
 ﻿using ARKBreedingStats.BreedingPlanning;
+using ARKBreedingStats.leveling;
 using ARKBreedingStats.multiplierTesting;
 using ARKBreedingStats.Pedigree;
 using ARKBreedingStats.raising;
@@ -382,6 +383,8 @@ namespace ARKBreedingStats
             extractionTestControl1 = new ARKBreedingStats.testCases.ExtractionTestControl();
             tabPageMultiplierTesting = new System.Windows.Forms.TabPage();
             statsMultiplierTesting1 = new StatsMultiplierTesting();
+            tabPageLevelSolver = new System.Windows.Forms.TabPage();
+            levelSolverControl1 = new LevelSolverControl();
             btReadValuesFromArk = new System.Windows.Forms.Button();
             cbEventMultipliers = new System.Windows.Forms.CheckBox();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -489,6 +492,7 @@ namespace ARKBreedingStats
             TabPageOCR.SuspendLayout();
             tabPageExtractionTests.SuspendLayout();
             tabPageMultiplierTesting.SuspendLayout();
+            tabPageLevelSolver.SuspendLayout();
             statusStrip1.SuspendLayout();
             toolStrip2.SuspendLayout();
             panelToolBar.SuspendLayout();
@@ -1717,6 +1721,7 @@ namespace ARKBreedingStats
             tabControlMain.Controls.Add(tabPagePedigree);
             tabControlMain.Controls.Add(tabPageTaming);
             tabControlMain.Controls.Add(tabPageBreedingPlan);
+            tabControlMain.Controls.Add(tabPageLevelSolver);
             tabControlMain.Controls.Add(tabPageCurrentBreeds);
             tabControlMain.Controls.Add(tabPageRaising);
             tabControlMain.Controls.Add(tabPageTimer);
@@ -3548,6 +3553,26 @@ namespace ARKBreedingStats
             statsMultiplierTesting1.Size = new System.Drawing.Size(2175, 912);
             statsMultiplierTesting1.TabIndex = 0;
             // 
+            // tabPageLevelSolver
+            // 
+            tabPageLevelSolver.Controls.Add(levelSolverControl1);
+            tabPageLevelSolver.Location = new System.Drawing.Point(4, 24);
+            tabPageLevelSolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageLevelSolver.Name = "tabPageLevelSolver";
+            tabPageLevelSolver.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tabPageLevelSolver.Size = new System.Drawing.Size(2183, 918);
+            tabPageLevelSolver.TabIndex = 13;
+            tabPageLevelSolver.Text = "Level Solver";
+            // 
+            // levelSolverControl1
+            // 
+            levelSolverControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            levelSolverControl1.Location = new System.Drawing.Point(4, 3);
+            levelSolverControl1.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            levelSolverControl1.Name = "levelSolverControl1";
+            levelSolverControl1.Size = new System.Drawing.Size(2175, 912);
+            levelSolverControl1.TabIndex = 0;
+            // 
             // btReadValuesFromArk
             // 
             btReadValuesFromArk.Location = new System.Drawing.Point(306, 3);
@@ -4127,6 +4152,7 @@ namespace ARKBreedingStats
             TabPageOCR.ResumeLayout(false);
             tabPageExtractionTests.ResumeLayout(false);
             tabPageMultiplierTesting.ResumeLayout(false);
+            tabPageLevelSolver.ResumeLayout(false);
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             toolStrip2.ResumeLayout(false);
@@ -4358,6 +4384,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.PictureBox pbSpecies;
         private System.Windows.Forms.TabPage tabPageExtractionTests;
         private System.Windows.Forms.TabPage tabPageMultiplierTesting;
+        private System.Windows.Forms.TabPage tabPageLevelSolver;
         private testCases.ExtractionTestControl extractionTestControl1;
         private System.Windows.Forms.ToolStripButton tsBtAddAsExtractionTest;
         private System.Windows.Forms.ToolStripMenuItem importExportedCreaturesToolStripMenuItem;
@@ -4368,6 +4395,7 @@ namespace ARKBreedingStats
         private System.Windows.Forms.ToolStripMenuItem extractionIssuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator12;
         private StatsMultiplierTesting statsMultiplierTesting1;
+        private LevelSolverControl levelSolverControl1;
         private System.Windows.Forms.ToolStripButton copyToMultiplierTesterToolStripButton;
         private System.Windows.Forms.Label lbWildLevelTester;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator13;
