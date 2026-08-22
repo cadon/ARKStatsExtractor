@@ -41,6 +41,7 @@ namespace ARKBreedingStats.leveling
 
         private readonly Label _summary;
         private readonly Button _copyToTester;
+        private readonly ToolTip _toolTip = new ToolTip();
         private readonly Nud _levelCap;
         private readonly Nud _domesticCap;
         private readonly Nud _mutationCap;
@@ -96,6 +97,14 @@ namespace ARKBreedingStats.leveling
             _domesticCap = AddNumericSetting(settings, "Domestic levels", 0, 500, 88, 0);
             _mutationCap = AddNumericSetting(settings, "Max mutation / stat", 0, 255, 255, 0);
             _imprint = AddNumericSetting(settings, "Imprint %", 0, 500, 100, 1);
+            _toolTip.SetToolTip(_levelCap,
+                "Maximum total creature level. Uses the server setting and adjusts for species such as X- and R-variants.");
+            _toolTip.SetToolTip(_domesticCap,
+                "Maximum number of domestic levels the solver may distribute across all stats.");
+            _toolTip.SetToolTip(_mutationCap,
+                "Maximum mutation levels allowed in each stat. Suggestions use even levels because mutations add two levels.");
+            _toolTip.SetToolTip(_imprint,
+                "Imprinting bonus used when calculating the resulting stat values.");
             content.Controls.Add(settings);
 
             _statTable = new BufferedTableLayoutPanel
@@ -127,7 +136,46 @@ namespace ARKBreedingStats.leveling
                 AddStatRow(statIndex, rowIndex++);
             UpdateTableDimensions();
             _statTable.ResumeLayout(false);
-            content.Controls.Add(_statTable);
+
+            var tableAndHelp = new FlowLayoutPanel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.LeftToRight,
+                Margin = Padding.Empty,
+                WrapContents = false
+            };
+            tableAndHelp.Controls.Add(_statTable);
+
+            var help = new FlowLayoutPanel
+            {
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                FlowDirection = FlowDirection.TopDown,
+                Margin = new Padding(20, 0, 0, 0),
+                WrapContents = false
+            };
+            help.Controls.Add(new Label
+            {
+                AutoSize = true,
+                Font = new Font(Font, FontStyle.Bold),
+                Margin = Padding.Empty,
+                Text = "How to use the Level Solver"
+            });
+            help.Controls.Add(new Label
+            {
+                AutoSize = true,
+                Margin = new Padding(0, 8, 0, 0),
+                MaximumSize = new Size(320, 0),
+                Text = "Select a species with the global species selector, then enter the best wild levels available in your collection.\n\n"
+                    + "Use At least to set a minimum stat value. Use Maximize to spend remaining levels on a stat; lower priority numbers are considered first. The solver will find the best allocation of mutations and domestic levels to reach the target stat values.\n\n"
+                    + "Wild and mutation levels have the same effect on stat values for all known species, but the value of domestic (assigned) levels varies greatly between stats and species\n\n"
+                    + "For example, if you wanted to breed rexes with at least 50k health and the rest of the levels in melee, you'd set Health to 'At least' 50,000 and set its wild value to the highest level in your library. You'd set Damage to 'Maximize' and set its wild value based on your library, leaving the remaining stats' targets at 0 and their wilds set to the lowest available in your library. The solver should show you how many health and melee mutations you'd need to reach a 450 rex after optimally assigning 88 earned levels.\n\n"
+                    + "Because mutations always add 2 levels to a stat, you may end up with a level 449 rex depending on the wild levels available, because it may be better to assign all 88 levels and end up with a 449 rex than a 450 rex with only 87 levels assigned.\n\n"
+                    + "When you're done, you can copy the levels to Stat Testing with the 'Copy to Stat Testing' button."
+            });
+            tableAndHelp.Controls.Add(help);
+            content.Controls.Add(tableAndHelp);
 
             _summary = new Label
             {
@@ -178,6 +226,7 @@ namespace ARKBreedingStats.leveling
                 _solveCancellation?.Cancel();
                 _solveCancellation?.Dispose();
                 _solveTimer?.Dispose();
+                _toolTip?.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -185,8 +234,14 @@ namespace ARKBreedingStats.leveling
         public void SetSpecies(Species species)
         {
             _species = species;
-            _suspendUpdates = true;
             UpdateLevelCap();
+            RefreshStatRows(true);
+            QueueSolve();
+        }
+
+        private void RefreshStatRows(bool updateNames)
+        {
+            _suspendUpdates = true;
             _statTable.Visible = false;
             _statTable.SuspendLayout();
             try
@@ -195,8 +250,10 @@ namespace ARKBreedingStats.leveling
                 {
                     var row = _rows[statIndex];
                     if (row == null) continue;
-                    row.Name.Text = Utils.StatName(statIndex, false, species?.statNames);
-                    row.Available = species?.UsesStat(statIndex) == true;
+                    if (updateNames)
+                        row.Name.Text = Utils.StatName(statIndex, false, _species?.statNames);
+                    row.Available = _species?.UsesStat(statIndex) == true
+                        && _species.DisplaysStat(statIndex);
                 }
                 RebuildVisibleRows();
                 UpdateTableDimensions();
@@ -207,7 +264,6 @@ namespace ARKBreedingStats.leveling
                 _statTable.Visible = true;
                 _suspendUpdates = false;
             }
-            QueueSolve();
         }
 
         private void UpdateLevelCap()
@@ -225,7 +281,11 @@ namespace ARKBreedingStats.leveling
             UpdateTableDimensions();
         }
 
-        public void Recalculate() => QueueSolve();
+        public void Recalculate()
+        {
+            RefreshStatRows(false);
+            QueueSolve();
+        }
 
         private void AddHeader(string text, int column, ContentAlignment alignment = ContentAlignment.MiddleLeft)
         {
@@ -383,7 +443,17 @@ namespace ARKBreedingStats.leveling
             }
             _latestResult = result;
             _copyToTester.Enabled = true;
-            _summary.Text = $"Total level: {result.TotalLevel:N0}    Domestic levels: {result.TotalDomesticLevels:N0}";
+            var cappedStats = _rows
+                .Where(row => row?.Available == true
+                    && (LevelTargetMode)row.Mode.SelectedIndex == LevelTargetMode.Maximize
+                    && _species.stats[row.StatIndex].ValueCap < double.MaxValue
+                    && Math.Abs(result.Values[row.StatIndex] - _species.stats[row.StatIndex].ValueCap) < 0.0001)
+                .Select(row => row.Name.Text)
+                .ToArray();
+            var capMessage = cappedStats.Length > 0
+                ? $"    Maximum value reached: {string.Join(", ", cappedStats)}"
+                : string.Empty;
+            _summary.Text = $"Total level: {result.TotalLevel:N0}    Domestic levels: {result.TotalDomesticLevels:N0}{capMessage}";
         }
 
         private void ClearResults(string message)

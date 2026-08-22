@@ -18,6 +18,31 @@ namespace ARKBreedingStats.Tests
         }
 
         [TestMethod]
+        public void Solve_MaximizeSpeed_RespectsServerSpeedLevelingSetting()
+        {
+            var disabled = CreateRexRequest(20);
+            disabled.Species.stats[Stats.SpeedMultiplier] = CreateStat(1, 0.01, 0.01, 0.01, 0, 0);
+            disabled.Species.ApplyCanLevelOptions(false, false);
+            disabled.StatTargets[Stats.SpeedMultiplier].Mode = LevelTargetMode.Maximize;
+
+            var disabledResult = LevelAllocationSolver.Solve(disabled);
+
+            Assert.IsTrue(disabledResult.Feasible, disabledResult.Message);
+            Assert.AreEqual(0, disabledResult.MutationLevels[Stats.SpeedMultiplier]);
+            Assert.AreEqual(0, disabledResult.DomesticLevels[Stats.SpeedMultiplier]);
+
+            var enabled = CreateRexRequest(20);
+            enabled.Species.stats[Stats.SpeedMultiplier] = CreateStat(1, 0.01, 0.01, 0.01, 0, 0);
+            enabled.StatTargets[Stats.SpeedMultiplier].Mode = LevelTargetMode.Maximize;
+
+            var enabledResult = LevelAllocationSolver.Solve(enabled);
+
+            Assert.IsTrue(enabledResult.Feasible, enabledResult.Message);
+            Assert.IsTrue(enabledResult.MutationLevels[Stats.SpeedMultiplier] > 0
+                || enabledResult.DomesticLevels[Stats.SpeedMultiplier] > 0);
+        }
+
+        [TestMethod]
         public void Solve_RexHealthTargetAndMaxMelee_UsesOptimalAllocation()
         {
             var request = CreateRexRequest(450);

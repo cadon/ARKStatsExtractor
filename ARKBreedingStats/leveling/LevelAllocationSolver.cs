@@ -66,6 +66,7 @@ namespace ARKBreedingStats.leveling
             var activeStats = Enumerable.Range(0, Stats.StatsCount)
                 .Where(s => s != Stats.Torpidity
                             && request.Species.stats[s] != null
+                            && request.Species.DisplaysStat(s)
                             && (request.StatTargets[s].Mode == LevelTargetMode.Maximize
                                 || request.StatTargets[s].TargetValue > 0))
                 .ToArray();
@@ -217,7 +218,7 @@ namespace ARKBreedingStats.leveling
                 mutationLevels, domesticLevels, true, 1, request.ImprintingBonus, false);
 
         private static int GetMaxMutationLevels(LevelSolverRequest request, int statIndex)
-            => request.Species.CanLevelUpWildOrHaveMutations(statIndex)
+            => request.Species.DisplaysStat(statIndex)
                 ? RoundDownToMutationStep(request.MaxMutationLevelPerStat)
                 : 0;
 
