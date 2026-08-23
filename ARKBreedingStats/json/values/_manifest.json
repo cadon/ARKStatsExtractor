@@ -2,7 +2,7 @@
 	"format": "1.14-flyerspeed",
 	"files": {
 		"1005639-BobsMissions.json": {
-			"version": "1761199753.21533995",
+			"version": "1770439518.24082089",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1005639",
@@ -27,7 +27,7 @@
 			}
 		},
 		"1009172-PrehistoricBeastsPartV.json": {
-			"version": "1775175924.22738307",
+			"version": "1782090476.23810135",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1009172",
@@ -39,7 +39,7 @@
 			}
 		},
 		"1013622-ARKOLOGY_NEWENCOUNTERS.json": {
-			"version": "1775432585.23616360",
+			"version": "1781501357.23810135",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1013622",
@@ -87,7 +87,7 @@
 			}
 		},
 		"1063373-DragonKingdom.json": {
-			"version": "1778779891.23277977",
+			"version": "1782923892.24082089",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1063373",
@@ -99,7 +99,7 @@
 			}
 		},
 		"1065717-PrimalNemesis.json": {
-			"version": "1780944013.23616360",
+			"version": "1782488060.24082089",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1065717",
@@ -111,7 +111,7 @@
 			}
 		},
 		"1066017-Twees-Teraxititan-.json": {
-			"version": "1772227719.22140012",
+			"version": "1784998314.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1066017",
@@ -138,7 +138,7 @@
 		"1090809604-Pyria.json": { "version": "358.17.1703902790", "mod": { "id": "1090809604", "tag": "Pyria", "title": "Pyria: Mythos Evolved" } },
 		"1092784125-Gryphons.json": { "version": "340.3.1623157051", "mod": { "id": "1092784125", "tag": "Gryphons", "title": "Gryphons" } },
 		"1105106-PA_EVO_Pack_02.json": {
-			"version": "1776563854.23277977",
+			"version": "1784518665.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1105106",
@@ -315,7 +315,7 @@
 			"mod": { "id": "1270181453", "tag": "AdditionalAberrantDinos", "title": "Additional Aberrant Dinos" }
 		},
 		"1288255-TAC-DETV-Dzungariotherium.json": {
-			"version": "1775940916.22738307",
+			"version": "1785442319.24440006",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1288255",
@@ -340,7 +340,7 @@
 			}
 		},
 		"1330186-TAC_FireAndIce.json": {
-			"version": "1772227478.22140012",
+			"version": "1785007238.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1330186",
@@ -652,7 +652,7 @@
 			}
 		},
 		"912815-SDinoVariants.json": {
-			"version": "1779894827.23616360",
+			"version": "1785003724.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "912815",
@@ -661,6 +661,18 @@
 				"title": "S-Dino Variants",
 				"author": "Nekatus_Modding",
 				"cfPage": "s-dino-variants"
+			}
+		},
+		"912902-AADeinosuchus.json": {
+			"version": "1748256948.23810135",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "912902",
+				"ASA": true,
+				"tag": "AADeinosuchus",
+				"title": "Additions Ascended: Deinosuchus",
+				"author": "Garuga123",
+				"cfPage": "additions-ascended-deinosuchus"
 			}
 		},
 		"914844-AADeinotherium.json": {
@@ -776,7 +788,7 @@
 			}
 		},
 		"929094-ShadsCritterReworks.json": {
-			"version": "1780905431.23616360",
+			"version": "1785884900.24440006",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "929094",
@@ -788,7 +800,7 @@
 			}
 		},
 		"929489-DraconicChronicles.json": {
-			"version": "1778601196.23277977",
+			"version": "1783587769.24137622",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "929489",
@@ -800,7 +812,7 @@
 			}
 		},
 		"929684-NoUntameables.json": {
-			"version": "1779580824.23616360",
+			"version": "1785028181.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "929684",
@@ -824,7 +836,7 @@
 			}
 		},
 		"932714-PrimalChaos.json": {
-			"version": "1779792586.23616360",
+			"version": "1785846582.24440006",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "932714",
@@ -860,7 +872,7 @@
 			}
 		},
 		"935946-Beasts.json": {
-			"version": "1776636228.23277977",
+			"version": "1784479692.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "935946",
@@ -872,7 +884,7 @@
 			}
 		},
 		"938805-DinosaurDiscovery.json": {
-			"version": "1766343942.21533995",
+			"version": "1766343942.24082089",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "938805",
@@ -884,7 +896,7 @@
 			}
 		},
 		"943455-Zytharian_Critters_Tek_Collection.json": {
-			"version": "1768618463.22007223",
+			"version": "1781487434.23810135",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "943455",
@@ -893,6 +905,18 @@
 				"title": "Zytharian Critters - Additional Tek Dinos Collection",
 				"author": "Zythara_",
 				"cfPage": "zytharian-critters-tek-collection"
+			}
+		},
+		"944345-RR_Mod_OtodontidaeSharks.json": {
+			"version": "1763233685.23810135",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "944345",
+				"ASA": true,
+				"tag": "RR_Mod_OtodontidaeSharks",
+				"title": "RR-Otodontidae Sharks",
+				"author": "Naneya",
+				"cfPage": "rr-otodontidae-sharks"
 			}
 		},
 		"945275-PortsOfAtlas.json": {
@@ -944,7 +968,7 @@
 			}
 		},
 		"952367-ArkDescended.json": {
-			"version": "1773217052.23616360",
+			"version": "1784090694.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "952367",
@@ -1016,7 +1040,7 @@
 			}
 		},
 		"966352-PrehistoricBeasts2.json": {
-			"version": "1772402097.22504778",
+			"version": "1784508500.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "966352",
@@ -1028,7 +1052,7 @@
 			}
 		},
 		"970540-PA_EVO_Pack_01.json": {
-			"version": "1778106136.23277977",
+			"version": "1784960659.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "970540",
@@ -1040,7 +1064,7 @@
 			}
 		},
 		"971318-Z-DinoVariants.json": {
-			"version": "1763874823.22612562",
+			"version": "1785684284.24440006",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "971318",
@@ -1064,7 +1088,7 @@
 			}
 		},
 		"974204-JurassicAwakening.json": {
-			"version": "1769623019.23616360",
+			"version": "1785646695.24440006",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "974204",
@@ -1076,7 +1100,7 @@
 			}
 		},
 		"974472-PrehistoricBeasts3.json": {
-			"version": "1772402338.22504778",
+			"version": "1784418421.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "974472",
@@ -1088,7 +1112,7 @@
 			}
 		},
 		"974884-RunicWyverns.json": {
-			"version": "1770234528.22140012",
+			"version": "1782958519.24082089",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "974884",
@@ -1112,7 +1136,7 @@
 			}
 		},
 		"978862-TheSunkenWorldAdditions.json": {
-			"version": "1781051239.23616360",
+			"version": "1783191663.24082089",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "978862",
@@ -1136,7 +1160,7 @@
 			}
 		},
 		"981989-PrehistoricBeasts4.json": {
-			"version": "1776637977.23277977",
+			"version": "1784418723.24388897",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "981989",
@@ -1145,6 +1169,18 @@
 				"title": "Prehistoric Beasts Part IV",
 				"author": "Queen_Crysta",
 				"cfPage": "prehistoric-beasts-part-iv"
+			}
+		},
+		"982161-KalugasAppalachianDenizens.json": {
+			"version": "1779613527.24082089",
+			"format": "1.16-mod-remap",
+			"mod": {
+				"id": "982161",
+				"ASA": true,
+				"tag": "KalugasAppalachianDenizens",
+				"title": "Kaluga's Appalachian Denizens",
+				"author": "KalugaStudios",
+				"cfPage": "kalugas-appalachian-denizens"
 			}
 		},
 		"983064-Atlas_BigCats.json": {
@@ -1172,7 +1208,7 @@
 			}
 		},
 		"ASA-values.json": {
-			"version": "88.15.1",
+			"version": "92.43.1",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
