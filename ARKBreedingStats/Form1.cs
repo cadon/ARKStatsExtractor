@@ -366,6 +366,7 @@ namespace ARKBreedingStats
             //// initialize controls
             extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
             extractionTestControl1.CopyToTester += ExtractionTestControl1_CopyToTester;
+            levelSolverControl1.CopyToTester += LevelSolverControl1_CopyToTester;
 
             // dev tabs
             if (!Properties.Settings.Default.DevTools)
@@ -848,6 +849,10 @@ namespace ARKBreedingStats
             {
                 statsMultiplierTesting1.SetSpecies(species);
             }
+            else if (tabControlMain.SelectedTab == tabPageLevelSolver)
+            {
+                levelSolverControl1.SetSpecies(species);
+            }
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
                 if (breedingPlan1.CurrentSpecies == species)
@@ -899,6 +904,7 @@ namespace ARKBreedingStats
             // apply multipliers
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked);
             tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
+            levelSolverControl1.Recalculate();
 
             RecalculateAllCreaturesValues();
 
@@ -1848,6 +1854,10 @@ namespace ARKBreedingStats
             else if (tabControlMain.SelectedTab == tabPageMultiplierTesting)
             {
                 statsMultiplierTesting1.SetSpecies(speciesSelector1.SelectedSpecies);
+            }
+            else if (tabControlMain.SelectedTab == tabPageLevelSolver)
+            {
+                levelSolverControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
         }
 
@@ -3189,6 +3199,7 @@ namespace ARKBreedingStats
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked, false);
 
             tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
+            levelSolverControl1.Recalculate();
             breedingPlan1.UpdateBreedingData();
             raisingControl1.UpdateRaisingData();
         }
@@ -3535,6 +3546,7 @@ namespace ARKBreedingStats
                     false, false, out _);
 
             Values.V.ApplyMultipliers(_creatureCollection);
+            levelSolverControl1.Recalculate();
         }
 
         private void tsBtAddAsExtractionTest_Click(object sender, EventArgs e)
@@ -3604,6 +3616,7 @@ namespace ARKBreedingStats
         private void StatsMultiplierTesting1_OnApplyMultipliers()
         {
             Values.V.ApplyMultipliers(_creatureCollection);
+            levelSolverControl1.Recalculate();
             SetCollectionChanged(true);
         }
 
@@ -3622,6 +3635,7 @@ namespace ARKBreedingStats
                 {
                     Values.V.ApplyMultipliers(_creatureCollection, eventMultipliers: cbEventMultipliers.Checked,
                         applyStatMultipliers: true);
+                    levelSolverControl1.Recalculate();
                     SetCollectionChanged(true);
                     if (tabControlMain.SelectedTab == tabPageStatTesting)
                     {

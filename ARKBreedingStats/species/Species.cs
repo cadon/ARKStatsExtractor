@@ -43,6 +43,13 @@ namespace ARKBreedingStats.species
         /// </summary>
         public string VariantSuffix { get; private set; }
 
+        [JsonIgnore]
+        public int ServerLevelCapIncrease
+            => name?.StartsWith("X-", StringComparison.Ordinal) == true
+                || name?.StartsWith("R-", StringComparison.Ordinal) == true
+                ? 50
+                : 0;
+
         /// <summary>
         /// Info about the species mod, or null.
         /// </summary>
