@@ -312,7 +312,7 @@ namespace ARKBreedingStats.mods
 
             LvAvailableModFiles.EndUpdate();
 
-            TbModFilter.BackColor = filter == null ? SystemColors.Window : Color.LightYellow;
+            TbModFilter.BackColor = filter == null ? SystemColors.Window : UiColors.Current.FilterActive;
         }
 
         private void RbGameCheckedChanged(object sender, EventArgs e) => FilterModsDebounced();
