@@ -22,7 +22,7 @@ namespace ARKBreedingStats.settings
 {
     public partial class Settings : Form
     {
-        private MultiplierSetting[] _multSetter;
+        private StatMultipliers[] _multSetter;
         private readonly CreatureCollection _cc;
         private ToolTip _tt;
         private Dictionary<string, string> _languages;
@@ -99,14 +99,32 @@ namespace ARKBreedingStats.settings
         {
             InitializeComponent();
             DisplayServerMultiplierPresets();
-            _multSetter = new MultiplierSetting[Stats.StatsCount];
-            for (int s = 0; s < Stats.StatsCount; s++)
+            _tt = new ToolTip();
+
+            var multiplierNames = new[]{("WildLevel", "PerLevelStatsMultiplier_DinoWild"),
+                ("TameLevel", "PerLevelStatsMultiplier_DinoTamed"),
+                ("TameAdd", "PerLevelStatsMultiplier_DinoTamed_Add"),
+                ("TameAff", "PerLevelStatsMultiplier_DinoTamed_Affinity")};
+            tlpStatMultipliers.ColumnCount = 5;
+            tlpStatMultipliers.RowCount = Stats.StatsCount + 1;
+            var colWidth = (int)(70 * UiUtils.UiScaling);
+            for (var i = 0; i < 4; i++)
             {
-                _multSetter[s] = new MultiplierSetting
-                {
-                    StatName = $"[{s}] {Utils.StatName(s)}"
-                };
-                flowLayoutPanelStatMultipliers.Controls.Add(_multSetter[s]);
+                tlpStatMultipliers.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, colWidth));
+                var lb = new Label { Text = multiplierNames[i].Item1, Anchor = AnchorStyles.Right };
+                _tt.SetToolTip(lb, multiplierNames[i].Item2);
+                tlpStatMultipliers.Controls.Add(lb, i + 1, 0);
+            }
+            _multSetter = new StatMultipliers[Stats.StatsCount];
+            for (var s = 0; s < Stats.StatsCount; s++)
+            {
+                var lb = new Label { Text = $"[{s}] {Utils.StatName(s)}" };
+                var inputControls = Enumerable.Range(0, 4).Select(i => new Nud { DecimalPlaces = 4, Increment = 0.1M, Maximum = 2_000_000_000, Width = colWidth }).ToArray();
+                _multSetter[s] = new StatMultipliers(inputControls);
+                tlpStatMultipliers.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                tlpStatMultipliers.Controls.Add(lb, 0, s + 1);
+                for (var i = 0; i < 4; i++)
+                    tlpStatMultipliers.Controls.Add(inputControls[i], i + 1, s + 1);
             }
 
             CbHideInvisibleColorRegions.Visible = Values.V.InvisibleColorRegionsExist;
@@ -154,15 +172,10 @@ namespace ARKBreedingStats.settings
             LanguageChanged = false;
 
             // Tooltips
-            _tt = new ToolTip();
             _tt.SetToolTip(NudBackupEveryMinutes, "If the value is 0 then every time something is changed a backup file is created.\nThis can create very similar backup files and potential data losses could be overwritten fast.\nA value of 5 is recommended.");
             _tt.SetToolTip(chkCollectionSync, "If checked, the tool automatically reloads the library if it was changed. Use this if multiple persons edit the file, e.g. via a shared folder.\nIt's recommended to check this along with \"Auto save\"");
             _tt.SetToolTip(checkBoxAutoSave, "If checked, the library is saved after each change automatically.\nIt's recommended to check this along with \"Auto load collection file\"");
             _tt.SetToolTip(nudMaxGraphLevel, "This number defines the level that is shown as maximum in the charts.\nUsually it's good to set this value to one third of the max wild level.");
-            _tt.SetToolTip(labelTameAdd, "PerLevelStatsMultiplier_DinoTamed_Add");
-            _tt.SetToolTip(labelTameAff, "PerLevelStatsMultiplier_DinoTamed_Affinity");
-            _tt.SetToolTip(labelWildLevel, "PerLevelStatsMultiplier_DinoWild");
-            _tt.SetToolTip(labelTameLevel, "PerLevelStatsMultiplier_DinoTamed");
             _tt.SetToolTip(chkbSpeechRecognition, "If the overlay is enabled, you can ask via the microphone for taming-infos,\ne.g.\"Argentavis level 30\" to display basic taming-infos in the overlay");
             _tt.SetToolTip(labelBabyFoodConsumptionSpeed, "BabyFoodConsumptionSpeedMultiplier");
             _tt.SetToolTip(checkBoxDisplayHiddenStats, "Enable if you have the oxygen-values of all creatures, e.g. by using a mod.");
