@@ -2,3 +2,7 @@
 	path = ArkSavegameToolkit
 	url = https://github.com/cadon/ArkSavegameToolkit.git
 	branch = master
+[submodule "AsaSavegameToolkit"]
+	path = AsaSavegameToolkit
+	url = git@github.com:Olfi01/AsaSavegameToolkit.git
+	branch = asb
