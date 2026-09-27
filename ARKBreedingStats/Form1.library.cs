@@ -2229,11 +2229,11 @@ namespace ARKBreedingStats
                 if (string.IsNullOrEmpty(initialFolder) || !Directory.Exists(initialFolder))
                     initialFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-                string filePathSaveTo = null;
+                string filePathSaveTo;
                 using (var fs = new SaveFileDialog
                 {
                     InitialDirectory = initialFolder,
-                    FileName = string.IsNullOrEmpty(lastFilePath) ? string.Empty : Path.GetFileName(lastFilePath),
+                    FileName = string.IsNullOrEmpty(lastFilePath) ? "infographics.jpg" : Path.GetFileName(lastFilePath),
                     Filter = "Image Files|*.jpg;*.jpeg;*.png|All Files|*.*"
                 })
                 {
