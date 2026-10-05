@@ -844,6 +844,12 @@ namespace ARKBreedingStats.values
                 ? blueprintPath.Substring(0, blueprintPath.Length - 2)
                 : blueprintPath);
 
+        public bool TryGetSpeciesByBlueprint(string blueprintPath, out Species species, bool removeTrailingC = true)
+        {
+            species = SpeciesByBlueprint(blueprintPath, removeTrailingC);
+            return species != null;
+        }
+
         /// <summary>
         /// Sets the ModsManifest. If the value is null, a new default object will be created.
         /// </summary>
