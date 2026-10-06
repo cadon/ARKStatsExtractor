@@ -182,8 +182,9 @@ namespace ARKBreedingStats.NamePatterns
                         Text = p.Key,
                         Dock = DockStyle.Left
                     };
-                    var substringUntil = p.Value.LastIndexOf("\n");
-                    btn.Tag = useExampleAsInput ? p.Value.Substring(substringUntil + 1) : $"{{{p.Key}}}";
+                    var text = p.Value ?? string.Empty;
+                    var substringUntil = text.LastIndexOf("\n");
+                    btn.Tag = useExampleAsInput ? text[(substringUntil + 1)..] : $"{{{p.Key}}}";
 
                     if (!columns)
                         btn.Dock = DockStyle.Top;
@@ -195,12 +196,12 @@ namespace ARKBreedingStats.NamePatterns
                         //Anchor = AnchorStyles.Top | AnchorStyles.Bottom,
                         //MinimumSize = new Size(50, 40),
                         AutoSize = true,
-                        Text = useExampleAsInput ? p.Value.Substring(0, substringUntil) : p.Value + (tokenDictionary.TryGetValue(p.Key, out var tokenValue) ? ". E.g. \"" + tokenValue + "\"" : ""),
+                        Text = useExampleAsInput && substringUntil >= 0 ? text[..substringUntil] : text + (tokenDictionary.TryGetValue(p.Key, out var tokenValue) ? ". E.g. \"" + tokenValue + "\"" : string.Empty),
                         Padding = new Padding(3, 3, 3, 5)
                     };
                     entry.Controls.Add(lbl);
 
-                    if (!columns && p.Value.Contains("#customreplace"))
+                    if (!columns && text.Contains("#customreplace"))
                     {
                         // button to open custom replacings file
                         var panel = new Panel { Dock = DockStyle.Bottom, AutoSize = true, MinimumSize = new Size(0, 27) };
