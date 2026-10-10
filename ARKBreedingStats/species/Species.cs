@@ -15,7 +15,7 @@ namespace ARKBreedingStats.species
     public class Species
     {
         /// <summary>
-        /// The name as it is displayed for the user in most controls.
+        /// The name as it is displayed for the user in most controls. Without variant names (see DescriptiveName for that).
         /// </summary>
         [JsonProperty]
         public string name;
