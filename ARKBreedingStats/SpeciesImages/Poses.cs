@@ -17,6 +17,11 @@ namespace ARKBreedingStats.SpeciesImages
 
         private const string Filename = "selectedPoses.json";
 
+        /// <summary>
+        /// Contains species where the pose just changed and images to be updated.
+        /// </summary>
+        public static readonly HashSet<Species> SpeciesChangedPoses = [];
+
         internal static void LoadPoses()
         {
             if (FileService.LoadJsonFileIfAvailable(FileService.GetJsonPath(Filename),

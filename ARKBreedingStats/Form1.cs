@@ -4199,36 +4199,34 @@ namespace ARKBreedingStats
 
         private void speciesImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var w = new ImagePackSelection())
-            {
-                if (w.ShowDialog() != DialogResult.OK) return;
-                ImageCollections.LoadImagePackManifests();
-                CreatureImageFile.CleanupCache(true);
-                speciesSelector1.InitializeSpeciesImages();
-                pbSpecies.Image = speciesSelector1.SpeciesImage();
-                creatureInfoInputExtractor.UpdateRegionColorImage();
-                creatureInfoInputTester.UpdateRegionColorImage();
-            }
+            using var w = new ImagePackSelection();
+            if (w.ShowDialog() != DialogResult.OK) return;
+            ImageCollections.LoadImagePackManifests();
+            CreatureImageFile.CleanupCache(true);
+            speciesSelector1.InitializeSpeciesImages();
+            pbSpecies.Image = speciesSelector1.SpeciesImage();
+            creatureInfoInputExtractor.UpdateRegionColorImage();
+            creatureInfoInputTester.UpdateRegionColorImage();
         }
 
         private void UpdateDisplayedPosesIfNeeded()
         {
-            if (!ColoredCreatureImageWithPose.SpeciesChangedPoses.Any()) return;
+            if (Poses.SpeciesChangedPoses.Count == 0) return;
 
             if (creatureBoxListView.CurrentSpecies != null &&
-                ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
+                Poses.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
             {
                 creatureBoxListView.UpdateCreatureImage(false);
             }
 
-            if (ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
+            if (Poses.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
             {
                 creatureInfoInputExtractor.UpdateRegionColorImage(false);
                 creatureInfoInputTester.UpdateRegionColorImage(false);
                 libraryInfoControl1.UpdateCreatureImage();
             }
 
-            ColoredCreatureImageWithPose.SpeciesChangedPoses.Clear();
+            Poses.SpeciesChangedPoses.Clear();
         }
 
         private void copyConsoleColorToolStripMenuItem_Click(object sender, EventArgs e)

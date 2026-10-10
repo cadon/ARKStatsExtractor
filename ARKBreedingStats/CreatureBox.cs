@@ -29,6 +29,7 @@ namespace ARKBreedingStats
         private CreatureCollection _cc;
         private readonly ToolTip _tt;
         public Species CurrentSpecies => _creature?.Species;
+        private readonly CreatureImageDisplayWithPose _creatureImageDisplay;
 
         public CreatureBox()
         {
@@ -40,6 +41,9 @@ namespace ARKBreedingStats
             };
             Disposed += (s, e) => _tt.RemoveAllAndDispose();
 
+            _creatureImageDisplay = new CreatureImageDisplayWithPose(BtChangeCreatureImagePose, 128, _tt);
+            tableLayoutPanel1.Controls.Add(_creatureImageDisplay);
+            _creatureImageDisplay.CopyInfoGraphicToClipboard += () => _creature?.ExportInfoGraphicToClipboard(_cc);
             _creature = null;
             regionColorChooser1.RegionColorChosen += UpdateCreatureImage;
         }
@@ -153,16 +157,15 @@ namespace ARKBreedingStats
             statsDisplay1.SetCreatureValues(_creature);
             labelNotes.Text = _creature.note;
             _tt.SetToolTip(labelNotes, _creature.note);
-            pictureBox1.SetImageAndDisposeOld(null);
-            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
-                _colorRegionUseds, pictureBox1.Width, creatureSex: _creature.sex, game: _cc.Game);
+
+            _creatureImageDisplay.SetCreatureImage(_creature.Species, _creature.colors, _creature.sex, _cc.Game);
         }
 
         private void UpdateCreatureImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist _)
         {
-            pictureBox1.SetImageAndDisposeOld(bmp);
-            _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
-                                        + "\n\nClick to copy creature infos as image to the clipboard");
+            _creatureImageDisplay.SetImageAndDisposeOld(bmp);
+            _tt.SetToolTip(_creatureImageDisplay, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
+                                                  + "\n\nClick to copy creature infos as image to the clipboard");
         }
 
         private void CloseSettings(bool save)
@@ -261,13 +264,7 @@ namespace ARKBreedingStats
                 Changed?.Invoke(_creature, false, false);
             }
 
-            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
-                _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            _creature?.ExportInfoGraphicToClipboard(_cc);
+            _creatureImageDisplay.SetCreatureImage(_creature.Species, _creature.colors, _creature.sex, _cc.Game);
         }
 
         public void SetLocalizations()

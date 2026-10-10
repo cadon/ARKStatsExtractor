@@ -49,8 +49,8 @@ namespace ARKBreedingStats
             label1 = new System.Windows.Forms.Label();
             textBoxOwner = new System.Windows.Forms.TextBox();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            pictureBox1 = new System.Windows.Forms.PictureBox();
             regionColorChooser1 = new RegionColorChooser();
+            BtChangeCreatureImagePose = new System.Windows.Forms.Button();
             labelNotes = new System.Windows.Forms.Label();
             buttonEdit = new System.Windows.Forms.Button();
             LbFather = new System.Windows.Forms.Label();
@@ -60,7 +60,6 @@ namespace ARKBreedingStats
             panel1.SuspendLayout();
             panelParents.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -276,34 +275,35 @@ namespace ARKBreedingStats
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(regionColorChooser1, 1, 0);
+            tableLayoutPanel1.Controls.Add(BtChangeCreatureImagePose, 1, 1);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             tableLayoutPanel1.Location = new System.Drawing.Point(4, 85);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            tableLayoutPanel1.Size = new System.Drawing.Size(219, 148);
+            tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            tableLayoutPanel1.Size = new System.Drawing.Size(219, 131);
             tableLayoutPanel1.TabIndex = 30;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new System.Drawing.Point(0, 0);
-            pictureBox1.Margin = new System.Windows.Forms.Padding(0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(148, 148);
-            pictureBox1.TabIndex = 19;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // regionColorChooser1
             // 
-            regionColorChooser1.Location = new System.Drawing.Point(148, 0);
+            regionColorChooser1.Location = new System.Drawing.Point(0, 0);
             regionColorChooser1.Margin = new System.Windows.Forms.Padding(0);
             regionColorChooser1.Name = "regionColorChooser1";
             regionColorChooser1.Size = new System.Drawing.Size(68, 102);
             regionColorChooser1.TabIndex = 27;
+            // 
+            // BtChangeCreatureImagePose
+            // 
+            BtChangeCreatureImagePose.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            BtChangeCreatureImagePose.Location = new System.Drawing.Point(3, 105);
+            BtChangeCreatureImagePose.Name = "BtChangeCreatureImagePose";
+            BtChangeCreatureImagePose.Size = new System.Drawing.Size(23, 23);
+            BtChangeCreatureImagePose.TabIndex = 28;
+            BtChangeCreatureImagePose.Text = "↻";
+            BtChangeCreatureImagePose.UseVisualStyleBackColor = true;
             // 
             // labelNotes
             // 
@@ -375,7 +375,6 @@ namespace ARKBreedingStats
             panelParents.ResumeLayout(false);
             panelParents.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -402,12 +401,12 @@ namespace ARKBreedingStats
         private System.Windows.Forms.CheckBox checkBoxIsBred;
         private System.Windows.Forms.Label labelNotes;
         private System.Windows.Forms.Button buttonStatus;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private ParentComboBox parentComboBoxFather;
         private ParentComboBox parentComboBoxMother;
         private uiControls.RegionColorChooser regionColorChooser1;
         private uiControls.StatsDisplay statsDisplay1;
         private System.Windows.Forms.Label LbFather;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button BtChangeCreatureImagePose;
     }
 }
