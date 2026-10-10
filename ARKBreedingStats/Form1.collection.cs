@@ -412,86 +412,19 @@ namespace ARKBreedingStats
                 {
                     if (Path.GetExtension(filePath).ToLower() == ".xml")
                     {
-                        // old format for backwards compatibility
-                        using (fileStream = File.OpenRead(filePath))
-                        {
-                            // use xml-serializer for old library-format
-                            XmlSerializer reader = new XmlSerializer(typeof(oldLibraryFormat.CreatureCollectionOld));
-                            var creatureCollectionOld =
-                                (oldLibraryFormat.CreatureCollectionOld)reader.Deserialize(fileStream);
-
-                            List<Mod> mods = null;
-                            // first check if additional values are used, and if the according values-file is already available.
-                            // if not, abort conversion and first make sure the file is available, e.g. downloaded
-                            if (!string.IsNullOrEmpty(creatureCollectionOld.additionalValues))
-                            {
-                                // usually the old filename is equal to the mod-tag
-                                bool modFound = false;
-                                string modTag = Ark.Ase + Path.GetFileNameWithoutExtension(creatureCollectionOld.additionalValues)
-                                    .Replace(" ", "").ToLower().Replace("gaiamod", "gaia");
-                                foreach (KeyValuePair<string, ModInfo> tmi in Values.V.modsManifest.ModsByTag)
-                                {
-                                    if (tmi.Key.ToLower() == modTag)
-                                    {
-                                        modFound = true;
-
-                                        MessageBox.Show(
-                                            "The library contains creatures of modded species. For a correct file-conversion the correct mod-values file is needed.\n\n"
-                                            + "If the mod-value file is not loaded, the conversion may assign wrong species to your creatures.\n"
-                                            + "If the mod-value file is not available locally, it will be tried to download it.",
-                                            $"Mod values needed - {Utils.ApplicationNameVersion}", MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information);
-
-                                        if (Values.V.loadedModsHash != Values.NoModsHash)
-                                            LoadStatAndKibbleValues(false); // reset values to default
-                                        LoadModValueFiles(new List<string> { tmi.Value.Mod.FileName }, true, true,
-                                            out mods);
-                                        break;
-                                    }
-                                }
-
-                                if (!modFound
-                                    && MessageBox.Show(
-                                        "The additional-values file in the library you're loading is unknown. You should first get a values-file in the new format for that mod.\n"
-                                        + "If you're loading the library the conversion of some modded species to the new format may fail and the according creatures have to be imported again later.\n\n"
-                                        + $"File:\n{filePath}\n"
-                                        + $"unknown mod-file: {modTag}\n\n"
-                                        + "Do you want to load the library and risk losing creatures?",
-                                        $"Unknown mod-file - {Utils.ApplicationNameVersion}",
-                                        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
-                                    return false;
-                            }
-
-                            _creatureCollection =
-                                oldLibraryFormat.FormatConverter.ConvertXml2Asb(creatureCollectionOld, filePath);
-                            _creatureCollection.ModList = mods ?? new List<Mod>(0);
-
-                            if (_creatureCollection == null) throw new Exception("Conversion failed");
-
-                            string fileNameWoExt = Path.Combine(Path.GetDirectoryName(filePath),
-                                Path.GetFileNameWithoutExtension(filePath));
-                            // check if new fileName is not yet existing
-                            filePath = fileNameWoExt + CollectionFileExtension;
-                            if (File.Exists(filePath))
-                            {
-                                int fi = 2;
-                                while (File.Exists(fileNameWoExt + "_" + fi + CollectionFileExtension)) fi++;
-                                filePath = fileNameWoExt + "_" + fi + CollectionFileExtension;
-                            }
-
-                            // save converted library
-                            SaveCollectionToFileName(filePath);
-                        }
+                        MessageBoxes.ShowMessageBox("The old .xml save file format is no longer supported. An old version of ARK Smart Breeding with a version in the range 0.33 to 0.73.1.1 can be used to convert the file into the .asb format. After that it can be probably opened with the current version.",
+                            "Unsupported save file format");
+                        return false;
                     }
                     else
                     {
-                        // new json-format
+                        // json-format
                         if (FileService.LoadJsonFile(filePath, out CreatureCollection readCollection,
-                                out string errorMessage))
+                                out var errorMessage))
                         {
-                            if (!Version.TryParse(readCollection.FormatVersion, out Version ccVersion)
+                            if (!Version.TryParse(readCollection.FormatVersion, out var ccVersion)
                                 || !Version.TryParse(CreatureCollection.CurrentLibraryFormatVersion,
-                                    out Version currentVersion)
+                                    out var currentVersion)
                                 || ccVersion > currentVersion)
                             {
                                 throw new FormatException(
