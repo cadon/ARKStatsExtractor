@@ -10,5 +10,10 @@
             User,
             FileWatcher
         }
+
+        /// <summary>
+        /// Default font name in the UI.
+        /// </summary>
+        public const string DefaultFontName = "Segoe UI";
     }
 }

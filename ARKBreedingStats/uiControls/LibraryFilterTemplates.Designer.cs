@@ -124,8 +124,6 @@ namespace ARKBreedingStats.uiControls
             // 
             // LibraryFilterTemplates
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(295, 373);
             Controls.Add(LbStrings);
             Controls.Add(panel1);

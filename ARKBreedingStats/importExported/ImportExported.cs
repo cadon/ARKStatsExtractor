@@ -22,30 +22,15 @@ namespace ARKBreedingStats.importExported
                 tamingEffMax = 1,
                 tamingEffMin = Properties.Settings.Default.ImportLowerBoundTE
             };
-            string[] iniLines = File.ReadAllLines(filePath);
+            var iniLines = File.ReadAllLines(filePath);
             string id = null;
-            int statIndex = -1;
-            // this is the order how the stats appear in the ini-file; field names in the file are localized and cannot be used directly
-            string[] statParameterNames =
-            {
-                "Health",
-                "Stamina",
-                "Torpidity",
-                "Oxygen",
-                "Food",
-                "Water",
-                "Temperature",
-                "Weight",
-                "Melee Damage",
-                "Movement Speed",
-                "Fortitude",
-                "Crafting Skill"
-            };
+            var statIndex = -1;
 
             const NumberStyles numberStyle = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign | NumberStyles.AllowExponent;
             var dotSeparatorCulture = CultureInfo.GetCultureInfo("en-US");
 
-            bool inStatSection = false;
+            var inStatSection = false;
+            const string statSectionLabel = "StatSection";
             foreach (string line in iniLines)
             {
                 if (line.TrimStart().StartsWith(";")) continue; // comment
@@ -55,20 +40,21 @@ namespace ARKBreedingStats.importExported
                     continue;
                 }
 
-                int i = line.IndexOf("=", StringComparison.Ordinal);
+                var i = line.IndexOf("=", StringComparison.Ordinal);
                 if (i == -1) continue;
 
                 string parameterName;
-                string text = line.Substring(i + 1);
-                double.TryParse(text, numberStyle, dotSeparatorCulture, out double value);
+                var text = line[(i + 1)..];
+                double.TryParse(text, numberStyle, dotSeparatorCulture, out var value);
                 if (inStatSection)
                 {
                     statIndex++;
-                    if (statIndex > 11)
+                    if (statIndex >= Stats.StatsCount)
                         inStatSection = false;
                 }
+
                 if (inStatSection)
-                    parameterName = statParameterNames[statIndex];
+                    parameterName = statSectionLabel;
                 else
                 {
                     parameterName = line.Substring(0, i);
@@ -179,41 +165,8 @@ namespace ARKBreedingStats.importExported
                     case "ColorSet[5]":
                         cv.colorIDs[5] = ParseColorId(text);
                         break;
-                    case "Health":
-                        cv.statValues[Stats.Health] = value;
-                        break;
-                    case "Stamina":
-                        cv.statValues[Stats.Stamina] = value;
-                        break;
-                    case "Torpidity":
-                        cv.statValues[Stats.Torpidity] = value;
-                        break;
-                    case "Oxygen":
-                        cv.statValues[Stats.Oxygen] = value;
-                        break;
-                    case "Food":
-                        cv.statValues[Stats.Food] = value;
-                        break;
-                    case "Water":
-                        cv.statValues[Stats.Water] = value;
-                        break;
-                    case "Temperature":
-                        cv.statValues[Stats.Temperature] = value;
-                        break;
-                    case "Weight":
-                        cv.statValues[Stats.Weight] = value;
-                        break;
-                    case "Melee Damage":
-                        cv.statValues[Stats.MeleeDamageMultiplier] = 1 + value;
-                        break;
-                    case "Movement Speed":
-                        cv.statValues[Stats.SpeedMultiplier] = 1 + value;
-                        break;
-                    case "Fortitude":
-                        cv.statValues[Stats.TemperatureFortitude] = 1 + value;
-                        break;
-                    case "Crafting Skill":
-                        cv.statValues[Stats.CraftingSpeedMultiplier] = 1 + value;
+                    case statSectionLabel:
+                        cv.statValues[statIndex] = value + (Stats.IsPercentage(statIndex) ? 1 : 0);
                         break;
                     case "DinoAncestorsMale":
                         Regex r = new Regex(@"MaleName=([^;]+) - Lvl \d+;MaleDinoID1=([^;]+);MaleDinoID2=([^;]+);FemaleName=([^;]+) - Lvl \d+;FemaleDinoID1=([^;]+);FemaleDinoID2=([^;]+)");
@@ -247,12 +200,12 @@ namespace ARKBreedingStats.importExported
         {
             if (text.Length < 33) return 0;
 
-            var numberStyle = System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign;
-            var dotSeparatorCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
-            if (double.TryParse(text.Substring(3, 8), numberStyle, dotSeparatorCulture, out double r)
-                && double.TryParse(text.Substring(14, 8), numberStyle, dotSeparatorCulture, out double g)
-                && double.TryParse(text.Substring(25, 8), numberStyle, dotSeparatorCulture, out double b)
-                && double.TryParse(text.Substring(36, 8), numberStyle, dotSeparatorCulture, out double a)
+            const NumberStyles numberStyle = NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign;
+            var dotSeparatorCulture = CultureInfo.GetCultureInfo("en-US");
+            if (double.TryParse(text.AsSpan(3, 8), numberStyle, dotSeparatorCulture, out var r)
+                && double.TryParse(text.AsSpan(14, 8), numberStyle, dotSeparatorCulture, out var g)
+                && double.TryParse(text.AsSpan(25, 8), numberStyle, dotSeparatorCulture, out var b)
+                && double.TryParse(text.AsSpan(36, 8), numberStyle, dotSeparatorCulture, out var a)
                )
             {
                 if (r == 0 && g == 0 && b == 0 && a == 1) // no color
@@ -275,12 +228,12 @@ namespace ARKBreedingStats.importExported
 
         /// <summary>
         /// Returns the true ARK-Id from two strings in a long.
-        /// ARK just concatenates the strings ingame, resulting in non unique displayed IDs.
+        /// ARK just concatenates the strings in game, resulting in non-unique displayed IDs.
         /// </summary>
         private static long BuildArkId(string id1, string id2)
         {
-            if (int.TryParse(id1, out int id1Int)
-                && int.TryParse(id2, out int id2Int))
+            if (int.TryParse(id1, out var id1Int)
+                && int.TryParse(id2, out var id2Int))
                 return Utils.ConvertArkIdsToLongArkId(id1Int, id2Int);
             return 0;
         }

@@ -36,10 +36,7 @@ namespace ARKBreedingStats
                 }
             }
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            Application.SetDefaultFont(new Font(new FontFamily("Segoe UI"), 9f));
+            ApplicationConfiguration.Initialize();
             Application.Run(new Form1
             {
                 Font = new Font(Properties.Settings.Default.DefaultFontName, Properties.Settings.Default.DefaultFontSize)

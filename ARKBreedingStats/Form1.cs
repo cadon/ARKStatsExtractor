@@ -1,5 +1,4 @@
 ﻿using ARKBreedingStats.importExported;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.NamePatterns;
@@ -134,6 +133,9 @@ namespace ARKBreedingStats
             _tt = new ToolTip();
             InitLocalization();
             InitializeComponent();
+
+            UiUtils.UiScaling = DeviceDpi / 96f;
+            PedigreeCreation.InitializeScaling(UiUtils.UiScaling);
 
             // Create an instance of a ListView column sorter and assign it
             // to the ListView controls
@@ -364,6 +366,7 @@ namespace ARKBreedingStats
             //// initialize controls
             extractionTestControl1.CopyToExtractor += ExtractionTestControl1_CopyToExtractor;
             extractionTestControl1.CopyToTester += ExtractionTestControl1_CopyToTester;
+            levelSolverControl1.CopyToTester += LevelSolverControl1_CopyToTester;
 
             // dev tabs
             if (!Properties.Settings.Default.DevTools)
@@ -570,21 +573,7 @@ namespace ARKBreedingStats
 
             timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
 
-            switch (Properties.Settings.Default.BondedTamingRank)
-            {
-                case 3:
-                    RbBondedTaming3.Checked = true;
-                    break;
-                case 2:
-                    RbBondedTaming2.Checked = true;
-                    break;
-                case 1:
-                    RbBondedTaming1.Checked = true;
-                    break;
-                default:
-                    RbBondedTaming0.Checked = true;
-                    break;
-            }
+            BondedTamingRankExtractor = Properties.Settings.Default.BondedTamingRank;
 
             Poses.LoadPoses();
             SetupAutoLoadFileWatcher();
@@ -846,6 +835,10 @@ namespace ARKBreedingStats
             {
                 statsMultiplierTesting1.SetSpecies(species);
             }
+            else if (tabControlMain.SelectedTab == tabPageLevelSolver)
+            {
+                levelSolverControl1.SetSpecies(species);
+            }
             else if (tabControlMain.SelectedTab == tabPageBreedingPlan)
             {
                 if (breedingPlan1.CurrentSpecies == species)
@@ -897,6 +890,7 @@ namespace ARKBreedingStats
             // apply multipliers
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked);
             tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
+            levelSolverControl1.Recalculate();
 
             RecalculateAllCreaturesValues();
 
@@ -1847,6 +1841,10 @@ namespace ARKBreedingStats
             {
                 statsMultiplierTesting1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
+            else if (tabControlMain.SelectedTab == tabPageLevelSolver)
+            {
+                levelSolverControl1.SetSpecies(speciesSelector1.SelectedSpecies);
+            }
         }
 
         private void DisplayCreatureInPedigree(Creature creature)
@@ -2033,7 +2031,7 @@ namespace ARKBreedingStats
         private void PasteCreatureFromClipboard()
         {
             var importedCreatures = ExportImportCreatures.ImportFromClipboard(out var errorText);
-            if (importedCreatures?.Any() != true)
+            if (importedCreatures == null || importedCreatures.Length == 0)
             {
                 if (!string.IsNullOrEmpty(errorText))
                     SetMessageLabelText(errorText, MessageBoxIcon.Error);
@@ -2237,12 +2235,12 @@ namespace ARKBreedingStats
             if (page == SettingsTabPages.Unknown)
                 page = _settingsLastTabPage;
 
-            bool libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
-            bool considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
+            var libraryTopCreatureColorHighlight = Properties.Settings.Default.LibraryHighlightTopCreatures;
+            var considerWastedStatsForTopCreatures = Properties.Settings.Default.ConsiderWastedStatsForTopCreatures;
             var gameSettingBefore = _creatureCollection.Game;
             var displayLibraryCreatureIndexBefore = Properties.Settings.Default.DisplayLibraryCreatureIndex;
 
-            using (Settings settingsForm = new Settings(_creatureCollection, page))
+            using (var settingsForm = new Settings(_creatureCollection, page))
             {
                 var settingsSaved = settingsForm.ShowDialog() == DialogResult.OK;
                 _settingsLastTabPage = settingsForm.LastTabPageIndex;
@@ -3187,6 +3185,7 @@ namespace ARKBreedingStats
             Values.V.ApplyMultipliers(_creatureCollection, cbEventMultipliers.Checked, false);
 
             tamingControl1.SetServerMultipliers(Values.V.currentServerMultipliers);
+            levelSolverControl1.Recalculate();
             breedingPlan1.UpdateBreedingData();
             raisingControl1.UpdateRaisingData();
         }
@@ -3289,8 +3288,8 @@ namespace ARKBreedingStats
         /// </summary>
         private CreatureValues GetCreatureValuesFromExtractor()
         {
-            CreatureValues cv = new CreatureValues();
-            for (int s = 0; s < Stats.StatsCount; s++)
+            var cv = new CreatureValues();
+            for (var s = 0; s < Stats.StatsCount; s++)
                 cv.statValues[s] = _statIOs[s].Input;
             cv.speciesBlueprint = speciesSelector1.SelectedSpecies.blueprintPath;
             cv.name = creatureInfoInputExtractor.CreatureName;
@@ -3317,6 +3316,7 @@ namespace ARKBreedingStats
                 cv.isTamed = true;
             cv.imprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value * 0.01;
             cv.Traits = creatureInfoInputExtractor.Traits?.ToList();
+            cv.BondedTamingRank = (byte)BondedTamingRankExtractor;
 
             return cv;
         }
@@ -3533,6 +3533,7 @@ namespace ARKBreedingStats
                     false, false, out _);
 
             Values.V.ApplyMultipliers(_creatureCollection);
+            levelSolverControl1.Recalculate();
         }
 
         private void tsBtAddAsExtractionTest_Click(object sender, EventArgs e)
@@ -3602,6 +3603,7 @@ namespace ARKBreedingStats
         private void StatsMultiplierTesting1_OnApplyMultipliers()
         {
             Values.V.ApplyMultipliers(_creatureCollection);
+            levelSolverControl1.Recalculate();
             SetCollectionChanged(true);
         }
 
@@ -3620,6 +3622,7 @@ namespace ARKBreedingStats
                 {
                     Values.V.ApplyMultipliers(_creatureCollection, eventMultipliers: cbEventMultipliers.Checked,
                         applyStatMultipliers: true);
+                    levelSolverControl1.Recalculate();
                     SetCollectionChanged(true);
                     if (tabControlMain.SelectedTab == tabPageStatTesting)
                     {
@@ -4016,7 +4019,7 @@ namespace ARKBreedingStats
 
         private void editSortingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Values.V.OpenSpeciesNameSortingFile();
+            Values.OpenSpeciesNameSortingFile();
         }
 
         private void helpAboutSpeciesSortingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4196,36 +4199,34 @@ namespace ARKBreedingStats
 
         private void speciesImagesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var w = new ImagePackSelection())
-            {
-                if (w.ShowDialog() != DialogResult.OK) return;
-                ImageCollections.LoadImagePackManifests();
-                CreatureImageFile.CleanupCache(true);
-                speciesSelector1.InitializeSpeciesImages();
-                pbSpecies.Image = speciesSelector1.SpeciesImage();
-                creatureInfoInputExtractor.UpdateRegionColorImage();
-                creatureInfoInputTester.UpdateRegionColorImage();
-            }
+            using var w = new ImagePackSelection();
+            if (w.ShowDialog() != DialogResult.OK) return;
+            ImageCollections.LoadImagePackManifests();
+            CreatureImageFile.CleanupCache(true);
+            speciesSelector1.InitializeSpeciesImages();
+            pbSpecies.Image = speciesSelector1.SpeciesImage();
+            creatureInfoInputExtractor.UpdateRegionColorImage();
+            creatureInfoInputTester.UpdateRegionColorImage();
         }
 
         private void UpdateDisplayedPosesIfNeeded()
         {
-            if (!ColoredCreatureImageWithPose.SpeciesChangedPoses.Any()) return;
+            if (Poses.SpeciesChangedPoses.Count == 0) return;
 
             if (creatureBoxListView.CurrentSpecies != null &&
-                ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
+                Poses.SpeciesChangedPoses.Contains(creatureBoxListView.CurrentSpecies))
             {
                 creatureBoxListView.UpdateCreatureImage(false);
             }
 
-            if (ColoredCreatureImageWithPose.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
+            if (Poses.SpeciesChangedPoses.Contains(speciesSelector1.SelectedSpecies))
             {
                 creatureInfoInputExtractor.UpdateRegionColorImage(false);
                 creatureInfoInputTester.UpdateRegionColorImage(false);
                 libraryInfoControl1.UpdateCreatureImage();
             }
 
-            ColoredCreatureImageWithPose.SpeciesChangedPoses.Clear();
+            Poses.SpeciesChangedPoses.Clear();
         }
 
         private void copyConsoleColorToolStripMenuItem_Click(object sender, EventArgs e)

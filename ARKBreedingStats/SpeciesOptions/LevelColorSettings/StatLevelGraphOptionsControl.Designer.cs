@@ -116,8 +116,6 @@
             // 
             // StatLevelGraphOptionsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.HueControlMutations);
             this.Controls.Add(this.CbUseDifferentColorsForMutationLevels);
             this.Controls.Add(this.CbOverrideGraphSettings);

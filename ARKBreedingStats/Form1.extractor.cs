@@ -9,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using ARKBreedingStats.library;
 using ARKBreedingStats.utils;
 using ARKBreedingStats.ocr;
 using ARKBreedingStats.uiControls;
@@ -611,7 +610,7 @@ namespace ARKBreedingStats
                 labelTE.BackColor = Color.Transparent;
                 pBondedTamingExtractor.BackColor = Color.Transparent;
                 llOnlineHelpExtractionIssues.Visible = false;
-                labelErrorHelp.Visible = false;
+                TbExtractionFailInfo.Visible = false;
                 lbImprintingFailInfo.Visible = false; // TODO move imprinting-fail to upper note-info
                 BtCopyIssueDumpToClipboard.Visible = false;
                 ColoredCreatureImageDisplayExtractor.Visible = true;
@@ -675,12 +674,9 @@ namespace ARKBreedingStats
                 issues |= IssueNotes.Issue.ImpossibleTe;
 
             // some species have specific extraction issues, e.g. due to a unique taming method that results in a bred status but with a TE less than 100 %.
-            var speciesName = speciesSelector1.SelectedSpecies.name;
-            string speciesSpecificExtractionFail = null;
-            _speciesSpecificExtractionFails?.TryGetValue(speciesName, out speciesSpecificExtractionFail);
-
-            labelErrorHelp.Text = $"{Loc.S("extractionFailedHeader")}:\n\n{IssueNotes.GetHelpTexts(issues, speciesSpecificExtractionFail)}";
-            labelErrorHelp.Visible = true;
+            var speciesSpecificExtractionFail = _speciesSpecificExtractionFails?.GetValueOrDefault(speciesSelector1.SelectedSpecies.name);
+            TbExtractionFailInfo.Text = $"{Loc.S("extractionFailedHeader")}:{Environment.NewLine + Environment.NewLine}{IssueNotes.GetHelpTexts(issues, speciesSpecificExtractionFail)}";
+            TbExtractionFailInfo.Visible = true;
             llOnlineHelpExtractionIssues.Visible = true;
             groupBoxPossibilities.Visible = false;
             groupBoxRadarChartExtractor.Visible = false;
@@ -1448,6 +1444,9 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
                 _statIOs[s].Input = cv.statValues[s];
 
+            if (cv.BondedTamingRank < 4)
+                BondedTamingRankExtractor = cv.BondedTamingRank;
+
             if (setInfoInput)
                 SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
 
@@ -1782,6 +1781,24 @@ namespace ARKBreedingStats
                 if (RbBondedTaming2.Checked) return 2;
                 if (RbBondedTaming1.Checked) return 1;
                 return 0;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case 3:
+                        RbBondedTaming3.Checked = true;
+                        break;
+                    case 2:
+                        RbBondedTaming2.Checked = true;
+                        break;
+                    case 1:
+                        RbBondedTaming1.Checked = true;
+                        break;
+                    default:
+                        RbBondedTaming0.Checked = true;
+                        break;
+                }
             }
         }
     }

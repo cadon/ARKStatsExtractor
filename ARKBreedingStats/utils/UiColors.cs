@@ -21,7 +21,11 @@ namespace ARKBreedingStats.utils
         /// <summary>
         /// The active palette. Set once at startup via <see cref="Initialize"/>.
         /// </summary>
-        internal static UiPalette Current { get; private set; } = RegularLight;
+        internal static UiPalette Current
+        {
+            get => field ?? RegularLight;
+            private set;
+        } = RegularLight;
 
         /// <summary>
         /// True when the OS / user theme is dark. Set during <see cref="Initialize"/>.
@@ -51,7 +55,8 @@ namespace ARKBreedingStats.utils
                      || (appTheme == 0 && SystemColors.Window.R * .3f + SystemColors.Window.G * .59f +
                          SystemColors.Window.B * .11f < 110);
 
-            Current = LoadUserPalette(colorMode, IsDark) ?? GetDefaultPalette(colorMode, IsDark);
+            var paletteFallback = GetDefaultPalette(colorMode, IsDark);
+            Current = LoadUserPalette(colorMode, IsDark, paletteFallback) ?? paletteFallback;
 
             DeltaLightnessTopStat = IsDark ? -0.4f : 0.2f;
             DeltaLightnessConsideredStat = IsDark ? -0.75f : 0.75f;
@@ -123,7 +128,8 @@ namespace ARKBreedingStats.utils
         /// </summary>
         internal static UiPalette LoadSavedOrDefault(ColorMode colorMode, bool isDark)
         {
-            return LoadUserPalette(colorMode, isDark) ?? GetDefaultPalette(colorMode, isDark);
+            var paletteFallback = GetDefaultPalette(colorMode, isDark);
+            return LoadUserPalette(colorMode, isDark, paletteFallback) ?? paletteFallback;
         }
 
         /// <summary>
@@ -199,12 +205,12 @@ namespace ARKBreedingStats.utils
             }
         }
 
-        private static UiPalette LoadUserPalette(ColorMode colorMode, bool isDark)
+        private static UiPalette LoadUserPalette(ColorMode colorMode, bool isDark, UiPalette fallback)
         {
             var all = LoadAllPalettes();
             var key = PaletteKey(colorMode, isDark);
             return all.TryGetValue(key, out var dict) && dict.Count > 0
-                ? DictToPalette(dict)
+                ? DictToPalette(dict, fallback)
                 : null;
         }
 
@@ -221,13 +227,19 @@ namespace ARKBreedingStats.utils
             return dict;
         }
 
-        private static UiPalette DictToPalette(Dictionary<string, string> dict)
+        private static UiPalette DictToPalette(Dictionary<string, string> dict, UiPalette fallback)
         {
             var palette = new UiPalette();
             foreach (var prop in typeof(UiPalette).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
                 if (prop.PropertyType != typeof(Color)) continue;
-                if (!dict.TryGetValue(prop.Name, out var rgb)) continue;
+                if (!dict.TryGetValue(prop.Name, out var rgb))
+                {
+                    if (fallback.GetType().GetProperty(prop.Name)?.GetValue(fallback) is Color fallbackColor)
+                        prop.SetValue(palette, fallbackColor);
+
+                    continue;
+                }
 
                 var parts = rgb.Split(',');
                 if (parts.Length == 3
@@ -362,7 +374,8 @@ namespace ARKBreedingStats.utils
             NewColorInRegion = Color.DarkGreen,
             NewColorInSpecies = Color.Gold,
 
-            // Divider
+            // Controls
+            ControlBorder = Color.FromArgb(220, 220, 220),
             DividerLine = Color.FromArgb(80, 120, 200),
 
             // Pedigree
@@ -439,7 +452,8 @@ namespace ARKBreedingStats.utils
             NewColorInRegion = Color.FromArgb(0, 140, 0),
             NewColorInSpecies = Color.FromArgb(180, 150, 0),
 
-            // Divider
+            // Controls
+            ControlBorder = Color.FromArgb(65, 65, 65),
             DividerLine = Color.FromArgb(80, 120, 200),
 
             // Pedigree

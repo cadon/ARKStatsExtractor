@@ -80,6 +80,7 @@ Source: "{#ReleaseDir}\pt-BR\*"; DestDir: "{app}\pt-BR\"; Excludes: "*.pdb,*.xml
 Source: "{#ReleaseDir}\ru\*"; DestDir: "{app}\ru\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#ReleaseDir}\tr\*"; DestDir: "{app}\tr\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#ReleaseDir}\zh\*"; DestDir: "{app}\zh\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
+Source: "{#ReleaseDir}\zh-TW\*"; DestDir: "{app}\zh-TW\"; Excludes: "*.pdb,*.xml"; Flags: ignoreversion skipifsourcedoesntexist
 Source: "{#ReleaseDir}\_manifest.json"; DestDir: "{localappdata}\{#AppName}\"; Flags: ignoreversion
 Source: "{#ReleaseDir}\json\*.json"; DestDir: "{localappdata}\{#AppName}\json\"; Flags: ignoreversion
 Source: "{#ReleaseDir}\json\*.txt"; DestDir: "{localappdata}\{#AppName}\json\"; Flags: ignoreversion

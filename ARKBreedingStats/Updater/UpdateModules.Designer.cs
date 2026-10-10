@@ -98,8 +98,6 @@ namespace ARKBreedingStats.Updater
             // UpdateModules
             // 
             this.AcceptButton = this.BtOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.BtCancel;
             this.ClientSize = new System.Drawing.Size(716, 648);
             this.Controls.Add(this.tableLayoutPanel1);

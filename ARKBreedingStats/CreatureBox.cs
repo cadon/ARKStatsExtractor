@@ -7,6 +7,7 @@ using ARKBreedingStats.species;
 using ARKBreedingStats.SpeciesImages;
 using ARKBreedingStats.utils;
 using System.ComponentModel;
+using System.Linq;
 using ARKBreedingStats.InfoGraphic;
 
 namespace ARKBreedingStats
@@ -28,6 +29,7 @@ namespace ARKBreedingStats
         private CreatureCollection _cc;
         private readonly ToolTip _tt;
         public Species CurrentSpecies => _creature?.Species;
+        private readonly CreatureImageDisplayWithPose _creatureImageDisplay;
 
         public CreatureBox()
         {
@@ -39,6 +41,9 @@ namespace ARKBreedingStats
             };
             Disposed += (s, e) => _tt.RemoveAllAndDispose();
 
+            _creatureImageDisplay = new CreatureImageDisplayWithPose(BtChangeCreatureImagePose, 128, _tt);
+            tableLayoutPanel1.Controls.Add(_creatureImageDisplay);
+            _creatureImageDisplay.CopyInfoGraphicToClipboard += () => _creature?.ExportInfoGraphicToClipboard(_cc);
             _creature = null;
             regionColorChooser1.RegionColorChosen += UpdateCreatureImage;
         }
@@ -50,7 +55,7 @@ namespace ARKBreedingStats
             _creature = creature;
             regionColorChooser1.SetSpecies(creature.Species, creature.colors);
             regionColorChooser1.ColorIdsAlsoPossible = creature.ColorIdsAlsoPossible;
-            _colorRegionUseds = regionColorChooser1.ColorRegionsUseds;
+            _colorRegionUseds = creature.Species?.EnabledColorRegions ?? Enumerable.Repeat(true, Ark.ColorRegionCount).ToArray();
 
             UpdateLabel();
             this.ResumeDrawingAndLayout();
@@ -123,8 +128,8 @@ namespace ARKBreedingStats
 
             void SetParentLabel(Label l, string lbText = null, bool clickable = false)
             {
-                l.Text = lbText;
-                l.Cursor = clickable ? Cursors.Hand : null;
+                l.Text = lbText ?? string.Empty;
+                l.Cursor = clickable ? Cursors.Hand : Cursors.Default;
                 _tt.SetToolTip(l, clickable ? lbText : null);
             }
 
@@ -141,7 +146,9 @@ namespace ARKBreedingStats
             }
             else if (_creature.isDomesticated)
             {
-                SetParentLabel(LbMotherAndWildInfo, _creature.tamingEff >= 0 ? "was level " + _creature.levelFound + " when wild, tamed with TE: " + (_creature.tamingEff * 100).ToString("N1") + "%" : "wild level and TE unknown.");
+                SetParentLabel(LbMotherAndWildInfo, _creature.tamingEff >= 0 ? $"was level {_creature.levelFound} when wild"
+                    : "wild level and TE unknown.");
+                SetParentLabel(LbFather, _creature.tamingEff >= 0 ? $"tamed with TE: {_creature.tamingEff * 100:N1}%" : string.Empty);
             }
             else
             {
@@ -150,17 +157,15 @@ namespace ARKBreedingStats
             statsDisplay1.SetCreatureValues(_creature);
             labelNotes.Text = _creature.note;
             _tt.SetToolTip(labelNotes, _creature.note);
-            pictureBox1.Visible = false;
-            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
-                _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
+
+            _creatureImageDisplay.SetCreatureImage(_creature.Species, _creature.colors, _creature.sex, _cc.Game);
         }
 
         private void UpdateCreatureImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist _)
         {
-            pictureBox1.SetImageAndDisposeOld(bmp);
-            _tt.SetToolTip(pictureBox1, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
-                                        + "\n\nClick to copy creature infos as image to the clipboard");
-            pictureBox1.Visible = true;
+            _creatureImageDisplay.SetImageAndDisposeOld(bmp);
+            _tt.SetToolTip(_creatureImageDisplay, CreatureColored.RegionColorInfo(_creature.Species, _creature.colors)
+                                                  + "\n\nClick to copy creature infos as image to the clipboard");
         }
 
         private void CloseSettings(bool save)
@@ -216,7 +221,6 @@ namespace ARKBreedingStats
             LbMotherAndWildInfo.Text = string.Empty;
             LbFather.Text = string.Empty;
             statsDisplay1.Clear();
-            pictureBox1.Visible = false;
             labelNotes.Text = string.Empty;
             regionColorChooser1.Clear();
         }
@@ -250,7 +254,7 @@ namespace ARKBreedingStats
                 PopulateParentsList();
         }
 
-        public void UpdateCreatureImage(bool colorsChanged = true)
+        public void UpdateCreatureImage(bool colorsChanged = true, int regionId = -1)
         {
             if (_creature == null) return;
             if (colorsChanged)
@@ -260,13 +264,7 @@ namespace ARKBreedingStats
                 Changed?.Invoke(_creature, false, false);
             }
 
-            CreatureColored.GetColoredCreatureWithCallback(UpdateCreatureImage, this, _creature.colors, _creature.Species,
-                _colorRegionUseds, 128, creatureSex: _creature.sex, game: _cc.Game);
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            _creature?.ExportInfoGraphicToClipboard(_cc);
+            _creatureImageDisplay.SetCreatureImage(_creature.Species, _creature.colors, _creature.sex, _cc.Game);
         }
 
         public void SetLocalizations()

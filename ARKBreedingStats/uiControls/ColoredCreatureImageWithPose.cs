@@ -29,11 +29,6 @@ namespace ARKBreedingStats.uiControls
         /// </summary>
         public event Action CopyInfoGraphicToClipboard;
 
-        /// <summary>
-        /// Contains species where the pose just changed and images to be updated.
-        /// </summary>
-        public static readonly HashSet<Species> SpeciesChangedPoses = new HashSet<Species>();
-
         public ColoredCreatureImageWithPose() : this(256) { }
 
         public ColoredCreatureImageWithPose(int imageWidth, ToolTip tt = null)
@@ -55,7 +50,7 @@ namespace ARKBreedingStats.uiControls
             _tt.SetToolTip(_lbPose, "Some species may have more than one pose, this can be set here.");
         }
 
-        public void SetImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist neighbourPoseExist)
+        private void SetImage(Bitmap bmp, CreatureImageFile.NeighbourPoseExist neighbourPoseExist)
         {
             _pb.SetImageAndDisposeOld(bmp);
             var poseId = Poses.GetPose(_species);
@@ -109,7 +104,7 @@ With hold Ctrl key and right click: image with color info");
             if (setPoseTo == previouslySelectedPose) return;
             Poses.SetPose(_species, setPoseTo);
             SetCreatureImage();
-            SpeciesChangedPoses.Add(_species);
+            Poses.SpeciesChangedPoses.Add(_species);
         }
     }
 }

@@ -78,8 +78,6 @@
             // 
             // ParentStatValues
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lbBest);
             this.Controls.Add(this.lbBestLevel);
             this.Controls.Add(this.labelF);

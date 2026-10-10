@@ -30,7 +30,7 @@
         {
             LbTraitsAvailable = new System.Windows.Forms.ListBox();
             LbTraitsAssigned = new System.Windows.Forms.ListBox();
-            GbTiers = new System.Windows.Forms.GroupBox();
+            GbTiers = new GroupBoxC();
             RbTier3 = new System.Windows.Forms.RadioButton();
             RbTier2 = new System.Windows.Forms.RadioButton();
             RbTier1 = new System.Windows.Forms.RadioButton();
@@ -338,8 +338,6 @@
             // 
             // TraitSelection
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(804, 618);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);
@@ -366,7 +364,7 @@
 
         private System.Windows.Forms.ListBox LbTraitsAvailable;
         private System.Windows.Forms.ListBox LbTraitsAssigned;
-        private System.Windows.Forms.GroupBox GbTiers;
+        private GroupBoxC GbTiers;
         private System.Windows.Forms.RadioButton RbTier3;
         private System.Windows.Forms.RadioButton RbTier2;
         private System.Windows.Forms.RadioButton RbTier1;

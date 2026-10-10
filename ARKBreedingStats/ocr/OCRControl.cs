@@ -35,6 +35,7 @@ namespace ARKBreedingStats.ocr
             ocrLetterEditTemplate.drawingEnabled = true;
             ocrLetterEditTemplate.PatternChanged += OcrLetterEditTemplate_PatternChanged;
             LlOcrManual.LinkColor = UiColors.LinkLabelText();
+            OCRDebugLayoutPanel.BackColor = UiColors.IsDark ? Color.FromArgb(32, 44, 59) : Color.LightSteelBlue;
         }
 
         public void Initialize()

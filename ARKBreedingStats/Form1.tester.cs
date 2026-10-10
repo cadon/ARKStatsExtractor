@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using ARKBreedingStats.library;
 using ARKBreedingStats.uiControls;
 using ARKBreedingStats.InfoGraphic;
 
@@ -72,6 +71,14 @@ namespace ARKBreedingStats
             }
             SetInfoInputCreature(c, virtualCreature);
             tabControlMain.SelectedTab = tabPageStatTesting;
+        }
+
+        private void LevelSolverControl1_CopyToTester(species.Species species, int[] wildLevels,
+            int[] mutationLevels, int[] domesticLevels, double imprinting)
+        {
+            var creature = new Creature(species, string.Empty, levelsWild: wildLevels, levelsDom: domesticLevels,
+                levelsMutated: mutationLevels, isBred: true, imprinting: imprinting);
+            EditCreatureInTester(creature, true);
         }
 
         private void UpdateAllTesterValues()

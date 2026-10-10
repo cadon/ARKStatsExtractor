@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Threading;
-using ARKBreedingStats.library;
 using ARKBreedingStats.Library;
 using ARKBreedingStats.NamePatterns;
 using ARKBreedingStats.Properties;
@@ -160,15 +159,15 @@ namespace ARKBreedingStats
         /// <summary>
         /// Updates the displayed colors of the creature.
         /// </summary>
-        public void UpdateRegionColorImage(bool colorsChanged = true)
+        public void UpdateRegionColorImage(bool colorsChanged = true, int regionId = -1)
         {
             if (colorsChanged)
             {
                 ParentInheritance?.UpdateColors(RegionColors);
                 ColorsChanged?.Invoke(this);
             }
-            if (ColoredCreatureDisplay == null) return;
-            ColoredCreatureDisplay.SetCreatureImage(_selectedSpecies, RegionColors, CreatureSex, CreatureCollection.CurrentCreatureCollection?.Game);
+
+            ColoredCreatureDisplay?.SetCreatureImage(_selectedSpecies, RegionColors, CreatureSex, CreatureCollection.CurrentCreatureCollection?.Game);
         }
 
         /// <summary>
@@ -353,8 +352,7 @@ namespace ARKBreedingStats
             set
             {
                 btSaveChanges.Visible = value;
-                btAdd2Library.Size = new Size((value ? Width / 2 : Width) - 10, btAdd2Library.Size.Height);
-                btAdd2Library.Location = new Point(value ? Width / 2 + 6 : 6, btAdd2Library.Location.Y);
+                btAdd2Library.Size = btAdd2Library.Size with { Width = (value ? Width / 2 : Width) - 2 * btAdd2Library.Margin.Left };
                 btAdd2Library.Update();
             }
         }

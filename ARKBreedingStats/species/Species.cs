@@ -15,7 +15,7 @@ namespace ARKBreedingStats.species
     public class Species
     {
         /// <summary>
-        /// The name as it is displayed for the user in most controls.
+        /// The name as it is displayed for the user in most controls. Without variant names (see DescriptiveName for that).
         /// </summary>
         [JsonProperty]
         public string name;
@@ -42,6 +42,13 @@ namespace ARKBreedingStats.species
         /// Info about the species variant, or null.
         /// </summary>
         public string VariantSuffix { get; private set; }
+
+        [JsonIgnore]
+        public int ServerLevelCapIncrease
+            => name?.StartsWith("X-", StringComparison.Ordinal) == true
+                || name?.StartsWith("R-", StringComparison.Ordinal) == true
+                ? 50
+                : 0;
 
         /// <summary>
         /// Info about the species mod, or null.

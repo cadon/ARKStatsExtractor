@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.raising
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.raising
 {
     partial class RaisingControl
     {
@@ -69,7 +71,7 @@
             this.btAdjustAllTimers = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.dhmsInputOffsetAllTimers = new ARKBreedingStats.uiControls.dhmsInput();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new GroupBoxC();
             this.LbFoodInfoGeneral = new System.Windows.Forms.Label();
             this.CbGrowingFood = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -590,8 +592,6 @@
             // 
             // RaisingControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "RaisingControl";
@@ -630,7 +630,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripBabyList;
         private System.Windows.Forms.ToolStripMenuItem extractValuesOfHatchedbornBabyToolStripMenuItem;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private GroupBoxC groupBox2;
         private System.Windows.Forms.Label labelAmountFoodAdult;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

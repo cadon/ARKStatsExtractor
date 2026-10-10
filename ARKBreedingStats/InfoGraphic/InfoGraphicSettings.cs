@@ -2,6 +2,22 @@
 
 namespace ARKBreedingStats.InfoGraphic
 {
+    /// <summary>
+    /// Available info graphic renderers. The value is stored in the user settings, so the numbers
+    /// must not change.
+    /// </summary>
+    public enum InfoGraphicStyles
+    {
+        /// <summary>
+        /// The landscape box drawn by <see cref="CreatureInfoGraphic"/>.
+        /// </summary>
+        Classic = 0,
+        /// <summary>
+        /// The portrait card drawn by <see cref="Modern.ModernInfoGraphic"/>.
+        /// </summary>
+        Modern = 1
+    }
+
     public class InfoGraphicSettings
     {
         /// <summary>

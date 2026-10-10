@@ -32,7 +32,7 @@ namespace ARKBreedingStats.uiControls
         {
             components = new System.ComponentModel.Container();
             ControlMother = new PedigreeCreature();
-            GbParents = new System.Windows.Forms.GroupBox();
+            GbParents = new GroupBoxC();
             pedigreeCreatureHeaders = new PedigreeCreature();
             ControlFather = new PedigreeCreature();
             ControlOffspring = new PedigreeCreature();
@@ -90,8 +90,6 @@ namespace ARKBreedingStats.uiControls
             // 
             // ParentInheritance
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             Controls.Add(GbParents);
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "ParentInheritance";
@@ -104,7 +102,7 @@ namespace ARKBreedingStats.uiControls
         #endregion
 
         private PedigreeCreature ControlMother;
-        private System.Windows.Forms.GroupBox GbParents;
+        private GroupBoxC GbParents;
         private PedigreeCreature ControlFather;
         private PedigreeCreature ControlOffspring;
         private PedigreeCreature pedigreeCreatureHeaders;

@@ -6,7 +6,7 @@ using ARKBreedingStats.Library;
 using ARKBreedingStats.species;
 using ARKBreedingStats.utils;
 
-namespace ARKBreedingStats.library
+namespace ARKBreedingStats.Library
 {
     /// <summary>
     /// Creates console commands to spawn creatures.

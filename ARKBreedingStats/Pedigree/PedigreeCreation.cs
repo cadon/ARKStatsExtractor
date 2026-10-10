@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ARKBreedingStats.Library;
-using ARKBreedingStats.uiControls;
 
 namespace ARKBreedingStats.Pedigree
 {
@@ -15,14 +14,27 @@ namespace ARKBreedingStats.Pedigree
         /// <summary>
         /// Margin between pedigree elements.
         /// </summary>
-        internal const int Margin = 10;
-        private const int MinXPosCreature = 440;
-        internal const int PedigreeElementWidth = 379;
-        internal const int LeftMargin = 40;
-        internal const int TopMargin = 20;
-        internal const int ControlDistance = 10;
+        internal static int Margin;
+        private static int MinXPosCreature;
+        internal static int PedigreeElementWidth;
+        internal static int LeftMargin;
+        internal static int TopMargin;
+        internal static int ControlDistance;
         internal static int PedigreeElementHeight;
         private static int _yCenterOfCreatureParent;
+
+        /// <param name="scale">Should be DeviceDpi/96f</param>
+        public static void InitializeScaling(float scale)
+        {
+            Margin = (int)(10 * scale);
+            MinXPosCreature = (int)(440 * scale);
+            PedigreeElementWidth = (int)(379 * scale);
+            LeftMargin = (int)(40 * scale);
+            TopMargin = (int)(20 * scale);
+            ControlDistance = (int)(10 * scale);
+            PedigreeCreature.InitializeScaling(scale);
+            PedigreeCreatureCompact.InitializeScaling(scale);
+        }
 
         public static void DisplayMutationLevels(bool displayMutationLevels)
         {

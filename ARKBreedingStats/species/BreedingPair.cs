@@ -17,7 +17,7 @@ namespace ARKBreedingStats.species
         /// </summary>
         public bool HighestOffspringOverLevelLimit;
 
-        public BreedingPair(Creature mother, Creature father, Score breedingScore, double mutationProbability, bool highestOffspringOverLevelLimit)
+        public BreedingPair(Creature mother, Creature father, Score breedingScore, double mutationProbability = 0, bool highestOffspringOverLevelLimit = false)
         {
             Mother = mother;
             Father = father;

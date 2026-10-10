@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats
 {
     partial class BreedingInfo
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.buttonHatching = new System.Windows.Forms.Button();
             this.labelBreedingInfos = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -66,8 +68,6 @@
             // 
             // BreedingInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "BreedingInfo";
             this.Size = new System.Drawing.Size(444, 435);
@@ -79,7 +79,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Button buttonHatching;
         private System.Windows.Forms.Label labelBreedingInfos;
     }

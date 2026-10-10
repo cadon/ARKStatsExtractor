@@ -1,4 +1,6 @@
-﻿namespace ARKBreedingStats.testCases
+﻿using ARKBreedingStats.uiControls;
+
+namespace ARKBreedingStats.testCases
 {
     partial class TestCaseControl
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new GroupBoxC();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lbTestResult = new System.Windows.Forms.Label();
             this.lbTime = new System.Windows.Forms.Label();
@@ -150,8 +152,6 @@
             // 
             // TestCaseControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "TestCaseControl";
             this.Size = new System.Drawing.Size(564, 53);
@@ -164,7 +164,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private GroupBoxC groupBox1;
         private System.Windows.Forms.Label lbTestResult;
         private System.Windows.Forms.Button btRunTest;
         private System.Windows.Forms.Button bt2Te;

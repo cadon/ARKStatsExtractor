@@ -32,8 +32,6 @@
             // 
             // TagSelectorList
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.Name = "TagSelectorList";
             this.Size = new System.Drawing.Size(261, 382);

@@ -76,8 +76,6 @@
             // 
             // ArkGameDialog
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(396, 142);
             Controls.Add(CbRememberSelection);
             Controls.Add(BtAse);

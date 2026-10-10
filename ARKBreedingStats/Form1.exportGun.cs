@@ -1,6 +1,5 @@
 ﻿using ARKBreedingStats.AsbServer;
 using ARKBreedingStats.importExportGun;
-using ARKBreedingStats.library;
 using System;
 using System.IO;
 using System.Linq;
@@ -178,6 +177,9 @@ namespace ARKBreedingStats
                 DetermineLevelStatusAndSoundFeedback(creature, Properties.Settings.Default.PlaySoundOnAutoImport, Properties.Settings.Default.PlayColorSoundOnAutoImport);
 
                 var alreadyExistingCreature = _creatureCollection.creatures.FirstOrDefault(c => c.guid == creature.guid);
+                if (alreadyExistingCreature != null &&
+                        Properties.Settings.Default.IgnoreIngameNameIfAlreadyImported)
+                    creature.name = alreadyExistingCreature.name;
 
                 if (addCreature)
                 {
@@ -196,7 +198,6 @@ namespace ARKBreedingStats
                 }
                 else
                 {
-                    SetNameOfImportedCreature(creature, null, out _, alreadyExistingCreature);
                     SetCreatureValuesLevelsAndInfoToExtractor(creature);
                 }
 

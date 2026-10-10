@@ -13,8 +13,8 @@ namespace ARKBreedingStats.utils
         public static string WithInner(Exception ex) =>
             ex.Message
             + "\n\n" + ex.GetType() + " in " + ex.Source
-            + "\n\nMethod throwing the error: " + ex.TargetSite.DeclaringType?.FullName + "." +
-            ex.TargetSite.Name
+            + "\n\nMethod throwing the error: " + (ex.TargetSite?.DeclaringType?.FullName ?? "[null]") + "." +
+                (ex.TargetSite?.Name ?? "[null]")
             + "\n\nStackTrace:\n" + ex.StackTrace
             + (ex.InnerException != null
                 ? "\n\nInner Exception:\n" + WithInner(ex.InnerException)

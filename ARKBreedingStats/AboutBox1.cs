@@ -119,7 +119,7 @@ namespace ARKBreedingStats
 * Myrmecoleon: extra species color region images
 * Lunat1q: improved OCR
 * ThatGamerBlue: species dividers in virtual listView
-* Jaymei: ATLAS species data
+* Jaymei: ATLAS species data and modern infographic
 * Shen: many ASA color region images
 * emma: fixes, hotkey addition
 

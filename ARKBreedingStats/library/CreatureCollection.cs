@@ -1,5 +1,5 @@
 ﻿using ARKBreedingStats.BreedingPlanning;
-using ARKBreedingStats.library;
+using ARKBreedingStats.Library;
 using ARKBreedingStats.mods;
 using ARKBreedingStats.species;
 using ARKBreedingStats.values;
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using static ARKBreedingStats.library.LevelColorStatusFlags;
+using static ARKBreedingStats.Library.LevelColorStatusFlags;
 
 namespace ARKBreedingStats.Library
 {
