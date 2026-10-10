@@ -53,6 +53,8 @@ namespace ARKBreedingStats.Library
         [JsonProperty]
         public bool isTamed, isBred;
         [JsonProperty]
+        public byte BondedTamingRank = 255;
+        [JsonProperty]
         public string owner;
         [JsonProperty]
         public string imprinterName;

@@ -1444,6 +1444,9 @@ namespace ARKBreedingStats
             for (int s = 0; s < Stats.StatsCount; s++)
                 _statIOs[s].Input = cv.statValues[s];
 
+            if (cv.BondedTamingRank < 4)
+                BondedTamingRankExtractor = cv.BondedTamingRank;
+
             if (setInfoInput)
                 SetCreatureValuesToInfoInput(cv, creatureInfoInputExtractor);
 
@@ -1778,6 +1781,24 @@ namespace ARKBreedingStats
                 if (RbBondedTaming2.Checked) return 2;
                 if (RbBondedTaming1.Checked) return 1;
                 return 0;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case 3:
+                        RbBondedTaming3.Checked = true;
+                        break;
+                    case 2:
+                        RbBondedTaming2.Checked = true;
+                        break;
+                    case 1:
+                        RbBondedTaming1.Checked = true;
+                        break;
+                    default:
+                        RbBondedTaming0.Checked = true;
+                        break;
+                }
             }
         }
     }

@@ -691,15 +691,11 @@ To determine all species values, the files with the following creature combinati
                 errorOccured ? MessageBoxIcon.Error : MessageBoxIcon.Information, lastFilePath);
         }
 
-        private void SetCreatureValueValues(CreatureValues cv)
-        {
+        private void SetCreatureValueValues(CreatureValues cv) =>
             SetCreatureValues(cv.statValues, null, null, null, cv.level, (cv.tamingEffMax - cv.tamingEffMin) / 2, cv.imprintingBonus, cv.isTamed || cv.isBred, cv.Species);
-        }
 
-        private void SetCreatureValuesAndLevels(Creature cr, double[] statValues = null)
-        {
+        private void SetCreatureValuesAndLevels(Creature cr, double[] statValues = null) =>
             SetCreatureValues(statValues ?? cr.valuesCurrent, cr.levelsWild, cr.levelsMutated, cr.levelsDom, cr.Level, cr.tamingEff, cr.imprintingBonus, cr.isDomesticated, cr.Species);
-        }
 
         private void SetServerMultipliers(ExportGunServerFile esm)
         {

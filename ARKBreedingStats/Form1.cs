@@ -573,21 +573,7 @@ namespace ARKBreedingStats
 
             timerList1.SetTimerPresets(Properties.Settings.Default.TimerPresets);
 
-            switch (Properties.Settings.Default.BondedTamingRank)
-            {
-                case 3:
-                    RbBondedTaming3.Checked = true;
-                    break;
-                case 2:
-                    RbBondedTaming2.Checked = true;
-                    break;
-                case 1:
-                    RbBondedTaming1.Checked = true;
-                    break;
-                default:
-                    RbBondedTaming0.Checked = true;
-                    break;
-            }
+            BondedTamingRankExtractor = Properties.Settings.Default.BondedTamingRank;
 
             Poses.LoadPoses();
             SetupAutoLoadFileWatcher();
@@ -3302,8 +3288,8 @@ namespace ARKBreedingStats
         /// </summary>
         private CreatureValues GetCreatureValuesFromExtractor()
         {
-            CreatureValues cv = new CreatureValues();
-            for (int s = 0; s < Stats.StatsCount; s++)
+            var cv = new CreatureValues();
+            for (var s = 0; s < Stats.StatsCount; s++)
                 cv.statValues[s] = _statIOs[s].Input;
             cv.speciesBlueprint = speciesSelector1.SelectedSpecies.blueprintPath;
             cv.name = creatureInfoInputExtractor.CreatureName;
@@ -3330,6 +3316,7 @@ namespace ARKBreedingStats
                 cv.isTamed = true;
             cv.imprintingBonus = (double)numericUpDownImprintingBonusExtractor.Value * 0.01;
             cv.Traits = creatureInfoInputExtractor.Traits?.ToList();
+            cv.BondedTamingRank = (byte)BondedTamingRankExtractor;
 
             return cv;
         }
