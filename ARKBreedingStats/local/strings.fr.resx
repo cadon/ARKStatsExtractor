@@ -1343,4 +1343,7 @@ to display all creatures that have the property Tribe 1, or Tribe 2, … Tribe 9
   <data name="timerStarvingOf" xml:space="preserve">
     <value>Affamement de</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>Enregistrer et quitter</value>
+  </data>
 </root>

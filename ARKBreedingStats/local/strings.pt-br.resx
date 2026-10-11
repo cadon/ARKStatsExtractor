@@ -1325,4 +1325,7 @@ to display all creatures that have the property Tribe 1, or Tribe 2, … Tribe 9
   <data name="Collection changed discard and load?" xml:space="preserve">
     <value>Sua coleção de criaturas foi modificada desde que foi salva pela última vez, tem certeza que deseja descartar as alterações e carregar o arquivo sem salvar primeiro?</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>Salvar e sair</value>
+  </data>
 </root>

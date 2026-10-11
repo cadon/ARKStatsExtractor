@@ -1416,4 +1416,7 @@ to display all creatures that have the property Tribe 1, or Tribe 2, … Tribe 9
     <value>When looking for parent stats, allow this creature to match by name.
 This allows you to have a single library creature represent many in-game creatures, as long as they're named the same.</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>Save and quit</value>
+  </data>
 </root>

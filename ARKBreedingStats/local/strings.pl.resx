@@ -1151,4 +1151,7 @@ Jeśli wyświetlona jest liczba z plusem, suma jest za wysoka i musisz wybrać i
   <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
     <value>Ta nazwa już istnieje w bibliotece</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>zapisz i wyjdź</value>
+  </data>
 </root>

@@ -1352,4 +1352,7 @@ alle Kreaturen, die eine der folgenden Eigenschaften haben: Stamm 1, Stamm 2, â€
   <data name="paste" xml:space="preserve">
     <value>EinfÃ¼gen</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>Speichern und beenden</value>
+  </data>
 </root>
