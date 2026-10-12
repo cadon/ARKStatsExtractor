@@ -34,8 +34,8 @@ namespace ARKBreedingStats
         public const string CacheFolderName = "cache";
         public const string OcrFolderName = "ocr";
 
-        public static readonly string ExeFilePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath;
-        private static readonly string ExeLocation = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().CodeBase).LocalPath);
+        public static readonly string ExeFilePath = Assembly.GetExecutingAssembly().Location;
+        private static readonly string ExeLocation = Path.GetDirectoryName(ExeFilePath);
 
         /// <summary>
         /// Returns a <see cref="StreamReader"/> of a file located in the json data folder
