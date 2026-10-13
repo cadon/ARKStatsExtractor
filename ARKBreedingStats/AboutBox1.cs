@@ -41,7 +41,7 @@ namespace ARKBreedingStats
                         return titleAttribute.Title;
                     }
                 }
-                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
             }
         }
 
@@ -98,42 +98,44 @@ namespace ARKBreedingStats
             Utils.OpenUri(RepositoryInfo.RepositoryUrl);
         }
 
-        private const string Contributors = @"Thanks for contributions, help and support to
+        private const string Contributors = """
+                                            Thanks for contributions, help and support to
 
-* NakramR: coding, library, OCR, overlay
-* Flachdachs: save file extractor, installer-version, style
-* coldino: ARK-data, support
-* VolatilesPulse: ARK-data, support
-* qowyn: original save file extractor, ARK-data
-* alex4401: save file extractor format updates
-* Miragedmuk: save file extractor format updates
-* aaron-williamson: file-syncing for cloud-services
-* DelilahEve: auto updater
-* DodoCooker: performance for large libraries
-* Warstone: Kibble recipes
-* tsebring: naming-generator
-* maxime-paquatte: custom timer sounds
-* hallipr: FTP save file import, Javascript name pattern support, upgrade of framework, dark-mode
-* EmkioA: Cryopod import, listView tweaks
-* dunger: fixes
-* Myrmecoleon: extra species color region images
-* Lunat1q: improved OCR
-* ThatGamerBlue: species dividers in virtual listView
-* Jaymei: ATLAS species data and modern infographic
-* Shen: many ASA color region images
-* emma: fixes, hotkey addition
+                                            * NakramR: coding, library, OCR, overlay
+                                            * Flachdachs: save file extractor, installer-version, style
+                                            * coldino: ARK-data, support
+                                            * VolatilesPulse: ARK-data, support
+                                            * qowyn: original save file extractor, ARK-data
+                                            * alex4401: save file extractor format updates
+                                            * Miragedmuk: save file extractor format updates
+                                            * aaron-williamson: file-syncing for cloud-services
+                                            * DelilahEve: auto updater
+                                            * DodoCooker: performance for large libraries
+                                            * Warstone: Kibble recipes
+                                            * tsebring: naming-generator
+                                            * maxime-paquatte: custom timer sounds
+                                            * hallipr: FTP save file import, Javascript name pattern support, upgrade of framework, dark-mode
+                                            * EmkioA: Cryopod import, listView tweaks
+                                            * dunger: fixes
+                                            * Myrmecoleon: extra species color region images
+                                            * Lunat1q: improved OCR
+                                            * ThatGamerBlue: species dividers in virtual listView
+                                            * Jaymei: ATLAS species data and modern infographic
+                                            * Shen: many ASA color region images
+                                            * emma: fixes, hotkey addition
 
-Translations:
-* French by Vykan and Yanuut
-* Italian by Zaffira and Spit-Biago
-* German by cadon
-* Spanish by KRIPT4
-* Chinese (simplified) by MicheaBoab
-* Russian by SoulSuspect
-* Polish by alex4401
-* Japanese by maririyuzu
-* Portuguese Brazilian by llbranco
-* Chinese (traditional) by abs6808
-* Turkish by Tnc";
+                                            Translations:
+                                            * French by Vykan and Yanuut
+                                            * Italian by Zaffira and Spit-Biago
+                                            * German by cadon
+                                            * Spanish by KRIPT4
+                                            * Chinese (simplified) by MicheaBoab
+                                            * Russian by SoulSuspect
+                                            * Polish by alex4401
+                                            * Japanese by maririyuzu
+                                            * Portuguese Brazilian by llbranco
+                                            * Chinese (traditional) by abs6808
+                                            * Turkish by Tnc
+                                            """;
     }
 }

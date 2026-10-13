@@ -33,33 +33,28 @@ namespace ARKBreedingStats.Updater
         {
             get
             {
-                if (_isProgramInstalled == null)
-                {
-                    _isProgramInstalled = IsInstalled();
-                }
+                _isProgramInstalled ??= IsInstalled();
                 return _isProgramInstalled.Value;
             }
         }
 
         private static bool IsInstalled()
         {
-            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            var assemblyLocation = Assembly.GetExecutingAssembly().Location;
 
             // try to get registry key for installation
-            string keyName = (Environment.Is64BitOperatingSystem ?
+            var keyName = (Environment.Is64BitOperatingSystem ?
                     @"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" :
                     @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\") + "{8DDA440C-714D-4BE6-AD7B-F549ABB1BB02}_is1";
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName))
+            using (var key = Registry.LocalMachine.OpenSubKey(keyName))
             {
                 if (key != null)
                 {
-                    string installLocation = (string)key.GetValue("InstallLocation");
-                    if (!string.IsNullOrEmpty(installLocation))
+                    var installLocation = (string)key.GetValue("InstallLocation");
+                    if (!string.IsNullOrEmpty(installLocation)
+                        && assemblyLocation.Replace('/', '\\').StartsWith(installLocation.Replace('/', '\\')))
                     {
-                        if (assemblyLocation.Replace('/', '\\').StartsWith(installLocation.Replace('/', '\\')))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
@@ -73,7 +68,7 @@ namespace ARKBreedingStats.Updater
         {
             try
             {
-                bool? wantsProgramUpdate = await CheckAndAskForUpdate(collectionDirty);
+                var wantsProgramUpdate = await CheckAndAskForUpdate(collectionDirty);
                 if (wantsProgramUpdate == null) return null;
                 if (!wantsProgramUpdate.Value) return false;
 
@@ -117,6 +112,7 @@ namespace ARKBreedingStats.Updater
             // check if the application folder is protected, then ask for admin permissions for the updater.
             if (FileService.TestIfFolderIsProtected(AppDomain.CurrentDomain.BaseDirectory))
             {
+                startInfo.UseShellExecute = true;
                 startInfo.Verb = "runas";
             }
 

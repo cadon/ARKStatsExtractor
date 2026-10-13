@@ -1312,4 +1312,7 @@ to display all creatures that have the property Tribe 1, or Tribe 2, … Tribe 9
   <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
     <value>この名前はすでにライブラリに存在します</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>保存して終了</value>
+  </data>
 </root>

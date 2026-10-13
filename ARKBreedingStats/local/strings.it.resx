@@ -975,4 +975,7 @@ Controlla i migliori risultati a lungo termine e se ti senti fortunato. Può ess
   <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
     <value>Questo nome esiste già nella libreria</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>salva ed esci</value>
+  </data>
 </root>

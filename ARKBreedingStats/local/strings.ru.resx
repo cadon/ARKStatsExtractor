@@ -1206,4 +1206,7 @@ to display all creatures that have the property Tribe 1, or Tribe 2, … Tribe 9
   <data name="nameAlreadyExistsInLibrary" xml:space="preserve">
     <value>Это имя уже существует в библиотеке</value>
   </data>
+  <data name="Save and quit" xml:space="preserve">
+    <value>сохранить и выйти</value>
+  </data>
 </root>
