@@ -113,6 +113,7 @@ namespace ARKBreedingStats.importExportGun
             }
             catch (Exception ex)
             {
+                resultText = $"Error when importing file {filePath}:{Environment.NewLine}{ex.Message}";
                 return null;
             }
 
