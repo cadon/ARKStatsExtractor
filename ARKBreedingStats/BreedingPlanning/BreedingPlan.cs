@@ -534,7 +534,9 @@ namespace ARKBreedingStats.BreedingPlanning
 
             _breedingPairs = _breedingPairs.Take(CreatureCollection.maxBreedingSuggestions).ToList();
 
-            var displaySpeciesOnCreatureControls = _currentSpecies.matesWith?.Any() == true && !Properties.Settings.Default.BreedingPlanOnlySameSpecies;
+            var displaySpeciesOnCreatureControls = _currentSpecies.matesWith != null
+                                                   && _currentSpecies.matesWith.Length != 0
+                                                   && !Properties.Settings.Default.BreedingPlanOnlySameSpecies;
 
             var deltaLightnessOutline = UiColors.IsDark ? -0.4 : -0.2;
             var deltaLightnessFill = UiColors.IsDark ? -0.7 : 0.5;
@@ -603,9 +605,10 @@ namespace ARKBreedingStats.BreedingPlanning
 
                     sb.Clear();
 
-                    var bm = new Bitmap(pb.Width, pb.Height);
-                    using (var g = Graphics.FromImage(bm))
+                    try
                     {
+                        var bm = new Bitmap(pb.Width, pb.Height);
+                        using var g = Graphics.FromImage(bm);
                         g.TextRenderingHint = TextRenderingHint.AntiAlias;
                         brush.Color = UiColors.Current.Mutation;
                         if (_breedingPairs[i].Mother.Mutations < Ark.MutationPossibleWithLessThan)
@@ -613,6 +616,7 @@ namespace ARKBreedingStats.BreedingPlanning
                             g.FillRectangle(brush, 0, 5, 10, 10);
                             sb.AppendLine(_breedingPairs[i].Mother + " can produce a mutation.");
                         }
+
                         if (_breedingPairs[i].Father.Mutations < Ark.MutationPossibleWithLessThan)
                         {
                             g.FillRectangle(brush, 77, 5, 10, 10);
@@ -636,13 +640,19 @@ namespace ARKBreedingStats.BreedingPlanning
                         {
                             brush.Color = UiColors.Current.OverLevelWarning;
                             g.FillRectangle(brush, 15, 26, 55, 3);
-                            sb.AppendLine("The highest possible and fully leveled offspring is over the level limit!");
+                            sb.AppendLine(
+                                "The highest possible and fully leveled offspring is over the level limit!");
                         }
+
                         // breeding score text
                         brush.Color = Utils.ForeColor(colorBackground);
                         g.DrawString((_breedingPairs[i].BreedingScore.Primary + displayScoreOffset).ToString("N4"),
                             new Font(Properties.Settings.Default.DefaultFontName, 9f), brush, 24, 9);
                         pb.SetImageAndDisposeOld(bm);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore exception and omit drawing score, rarely the Bitmap constructor throws "Parameter is not valid"
                     }
 
                     _tt.SetToolTip(pb, sb.Length > 0 ? sb.ToString() : null);
