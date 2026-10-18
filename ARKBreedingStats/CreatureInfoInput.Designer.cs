@@ -672,7 +672,7 @@ namespace ARKBreedingStats
             // 
             btSaveChanges.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
             btSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            btSaveChanges.Location = new System.Drawing.Point(8, 596);
+            btSaveChanges.Location = new System.Drawing.Point(155, 596);
             btSaveChanges.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btSaveChanges.Name = "btSaveChanges";
             btSaveChanges.Size = new System.Drawing.Size(145, 43);

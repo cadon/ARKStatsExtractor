@@ -182,7 +182,7 @@ namespace ARKBreedingStats.Pedigree
                         var pieRadius = (int)(radiusInnerCircle + (centerCoord - radiusInnerCircle - borderWidthForLayout) * statSize);
                         var leftTop = centerCoord - pieRadius + widthPieStroke;
                         var angle = AngleOffset + anglePerStat * i++;
-                        brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.IsTopStat(si) ? 0 : UiColors.DeltaLightnessConsideredStat);
+                        brush.Color = Utils.GetColorFromPercent((int)(100 * statSize), creature.IsTopStat(si) ? 0 : UiColors.Current.DeltaLightnessConsideredStat);
                         g.FillPie(brush, leftTop, leftTop, 2 * pieRadius, 2 * pieRadius, angle, anglePerStat);
 
                         pen.Width = highlightStatIndex == si ? widthPieHighlightedStroke : widthPieStroke;
@@ -204,7 +204,7 @@ namespace ARKBreedingStats.Pedigree
 
                 // draw sex in the center
                 g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                brush.Color = Utils.AdjustColorLight(Utils.SexColor(creature.sex), UiColors.DeltaLightnessTopStat);
+                brush.Color = Utils.AdjustColorLight(Utils.SexColor(creature.sex), UiColors.Current.DeltaLightnessTopStat);
                 g.FillEllipse(brush, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);
                 pen.Width = 1;
                 g.DrawEllipse(pen, centerCoord - radiusInnerCircle, centerCoord - radiusInnerCircle, 2 * radiusInnerCircle, 2 * radiusInnerCircle);

@@ -5,7 +5,7 @@ using System.Drawing;
 namespace ARKBreedingStats.utils
 {
     /// <summary>How a palette color is applied in the UI.</summary>
-    internal enum ColorRole { Background, Foreground, Border, Line }
+    internal enum ColorRole { Background, Foreground, Border, Line, ColorAdjusting }
 
     /// <summary>Which UI area uses this color.</summary>
     internal enum ColorContext
@@ -187,6 +187,21 @@ namespace ARKBreedingStats.utils
         [Description("Level 255 — highest that can be saved.")]
         [PreviewHint(ColorRole.Background, ColorContext.StatIO)]
         public Color Level255 { get; set; }
+
+        [Category("Special Levels"), DisplayName("Delta lightness top stat")]
+        [Description("Lightness adjustment for the backcolor of controls that display a top stat level (-1 to 1).")]
+        [PreviewHint(ColorRole.ColorAdjusting, ColorContext.LibraryGrid)]
+        public float DeltaLightnessTopStat { get; set; }
+
+        [Category("Special Levels"), DisplayName("Delta lightness considered stat")]
+        [Description("Lightness adjustment for the backcolor of controls that display a non-top stat level of a considered stat (-1 to 1).")]
+        [PreviewHint(ColorRole.ColorAdjusting, ColorContext.LibraryGrid)]
+        public float DeltaLightnessConsideredStat { get; set; }
+
+        [Category("Special Levels"), DisplayName("Delta lightness unconsidered stat")]
+        [Description("Lightness adjustment for the backcolor of controls that display a stat level of a stat that is not considered (-1 to 1).")]
+        [PreviewHint(ColorRole.ColorAdjusting, ColorContext.LibraryGrid)]
+        public float DeltaLightnessUnconsideredStat { get; set; }
 
         // --- Countdown Timers ---
 

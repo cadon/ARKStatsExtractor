@@ -325,10 +325,10 @@ namespace ARKBreedingStats.Pedigree
                     {
                         _labelsStats[s].Text = _creature.levelsWild[si].ToString();
                         if (Properties.Settings.Default.Highlight255Level && _creature.levelsWild[si] > 253) // 255 is max, 254 is the highest that allows dom leveling
-                            _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? UiColors.Current.Level254 : UiColors.Current.Level255, _creature.IsTopStat(si) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat));
+                            _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(_creature.levelsWild[si] == 254 ? UiColors.Current.Level254 : UiColors.Current.Level255, _creature.IsTopStat(si) ? UiColors.Current.DeltaLightnessTopStat : UiColors.Current.DeltaLightnessConsideredStat));
                         else
                             _labelsStats[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsWild[si]),
-                                _creature.IsTopStat(si) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat));
+                                _creature.IsTopStat(si) ? UiColors.Current.DeltaLightnessTopStat : UiColors.Current.DeltaLightnessConsideredStat));
 
                         //if (Parent?.ForeColor != null)
                         //    _labelsStats[s].ForeColor = Parent.ForeColor; // needed so text is not transparent on overlay
@@ -347,7 +347,7 @@ namespace ARKBreedingStats.Pedigree
                     {
                         _labelsStatsMut[s].Text = _creature.levelsMutated[si].ToString();
                         _labelsStatsMut[s].SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(levelColorOptions.Options[si].GetLevelColor(_creature.levelsMutated[si], mutationLevel: true),
-                            _creature.IsTopMutationStat(si) ? UiColors.DeltaLightnessTopStat : UiColors.DeltaLightnessConsideredStat));
+                            _creature.IsTopMutationStat(si) ? UiColors.Current.DeltaLightnessTopStat : UiColors.Current.DeltaLightnessConsideredStat));
                         _labelsStatsMut[s].Visible = true;
                     }
 

@@ -197,13 +197,21 @@ namespace ARKBreedingStats.SpeciesOptions.LevelColorSettings
 
         public bool Equals(LevelGraphRepresentation other)
         {
-            if (ReferenceEquals(other, null)) return false;
+            if (other == null) return false;
             if (ReferenceEquals(this, other)) return true;
             return other.LowerBound == LowerBound
                    && other.UpperBound == UpperBound
                    && other.ColorGradientReversed == ColorGradientReversed
                    && Utils.ColorsEqual(other.LowerColor, LowerColor)
                    && Utils.ColorsEqual(other.UpperColor, UpperColor);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((LevelGraphRepresentation)obj);
         }
 
         public override int GetHashCode() => $"{LowerBound}-{UpperBound}_{LowerColor}-{UpperColor}_{ColorGradientReversed}".GetHashCode();

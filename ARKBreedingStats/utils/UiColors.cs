@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Reflection;
 using Newtonsoft.Json;
 
@@ -33,19 +34,6 @@ namespace ARKBreedingStats.utils
         internal static bool IsDark { get; private set; }
 
         /// <summary>
-        /// Light adjustment for the backcolor of controls that display a top stat level.
-        /// </summary>
-        internal static float DeltaLightnessTopStat { get; private set; }
-        /// <summary>
-        /// Light adjustment for the backcolor of controls that display a non top stat level of a considered stat.
-        /// </summary>
-        internal static float DeltaLightnessConsideredStat { get; private set; }
-        /// <summary>
-        /// Light adjustment for the backcolor of controls that display a stat level of a stat that is not considered.
-        /// </summary>
-        internal static float DeltaLightnessUnconsideredStat { get; private set; }
-
-        /// <summary>
         /// Initializes the palette for the given color mode and theme.
         /// Loads the user's saved palette from settings if one exists, otherwise uses the built-in default.
         /// </summary>
@@ -57,10 +45,28 @@ namespace ARKBreedingStats.utils
 
             var paletteFallback = GetDefaultPalette(colorMode, IsDark);
             Current = LoadUserPalette(colorMode, IsDark, paletteFallback) ?? paletteFallback;
+        }
 
-            DeltaLightnessTopStat = IsDark ? -0.4f : 0.2f;
-            DeltaLightnessConsideredStat = IsDark ? -0.75f : 0.75f;
-            DeltaLightnessUnconsideredStat = IsDark ? -0.88f : 0.93f;
+        /// <summary>
+        /// Lightness adjustment was added as new property, defaults to 0, set correct defaults for same user experience.
+        /// </summary>
+        internal static void SetLightnessAdjustmentDefaults()
+        {
+            var allPalettes = LoadAllPalettes();
+            foreach (var keyPal in allPalettes)
+            {
+                var isLight = keyPal.Key == "Regular_Light";
+                var isDark = keyPal.Key == "Regular_Dark";
+                if (!isLight && !isDark) continue;
+
+                var pal = keyPal.Value;
+                pal["DeltaLightnessTopStat"] = isLight ? "0.2" : "-0.4";
+                pal["DeltaLightnessConsideredStat"] = isLight ? "0.75" : "-0.75";
+                pal["DeltaLightnessUnconsideredStat"] = isLight ? "0.93" : "-0.88";
+            }
+
+            Properties.Settings.Default.CustomPalettes = JsonConvert.SerializeObject(allPalettes, JsonSettings);
+            Properties.Settings.Default.DeltaLightnessSetToDefault = true;
         }
 
         /// <summary>
@@ -219,9 +225,16 @@ namespace ARKBreedingStats.utils
             var dict = new Dictionary<string, string>();
             foreach (var prop in typeof(UiPalette).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (prop.PropertyType != typeof(Color)) continue;
-                var c = (Color)prop.GetValue(palette);
-                dict[prop.Name] = $"{c.R},{c.G},{c.B}";
+                if (prop.PropertyType == typeof(float))
+                {
+                    dict[prop.Name] = Convert.ToString(prop.GetValue(palette), CultureInfo.InvariantCulture);
+                    continue;
+                }
+                if (prop.PropertyType == typeof(Color))
+                {
+                    var c = (Color)prop.GetValue(palette);
+                    dict[prop.Name] = $"{c.R},{c.G},{c.B}";
+                }
             }
 
             return dict;
@@ -232,6 +245,16 @@ namespace ARKBreedingStats.utils
             var palette = new UiPalette();
             foreach (var prop in typeof(UiPalette).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
+                if (prop.PropertyType == typeof(float))
+                {
+                    if (dict.TryGetValue(prop.Name, out var floatString) &&
+                        float.TryParse(floatString, out var floatValue))
+                    {
+                        prop.SetValue(palette, floatValue);
+                    }
+                    continue;
+                }
+
                 if (prop.PropertyType != typeof(Color)) continue;
                 if (!dict.TryGetValue(prop.Name, out var rgb))
                 {
@@ -344,6 +367,9 @@ namespace ARKBreedingStats.utils
             // Special Levels
             Level254 = Color.FromArgb(0, 196, 255),
             Level255 = Color.FromArgb(255, 0, 159),
+            DeltaLightnessTopStat = 0.2f,
+            DeltaLightnessConsideredStat = 0.75f,
+            DeltaLightnessUnconsideredStat = 0.93f,
 
             // Countdown: Growing
             GrowingImminent = Color.FromArgb(168, 187, 255),
@@ -422,6 +448,9 @@ namespace ARKBreedingStats.utils
             // Special Levels
             Level254 = Color.FromArgb(0, 120, 170),
             Level255 = Color.FromArgb(170, 0, 100),
+            DeltaLightnessTopStat = -0.4f,
+            DeltaLightnessConsideredStat = -0.75f,
+            DeltaLightnessUnconsideredStat = -0.88f,
 
             // Countdown: Growing
             GrowingImminent = Color.FromArgb(50, 60, 120),

@@ -43,6 +43,7 @@ namespace ARKBreedingStats
 
             _creatureImageDisplay = new CreatureImageDisplayWithPose(BtChangeCreatureImagePose, 128, _tt);
             tableLayoutPanel1.Controls.Add(_creatureImageDisplay);
+            tableLayoutPanel1.SetRowSpan(_creatureImageDisplay, 2);
             _creatureImageDisplay.CopyInfoGraphicToClipboard += () => _creature?.ExportInfoGraphicToClipboard(_cc);
             _creature = null;
             regionColorChooser1.RegionColorChosen += UpdateCreatureImage;

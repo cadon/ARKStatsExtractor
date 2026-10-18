@@ -2295,11 +2295,24 @@ namespace ARKBreedingStats.settings
             bool editingDark = CbbPaletteKey.SelectedItem is string pk && pk.EndsWith("_Dark", StringComparison.Ordinal);
             var themeBg = editingDark ? Color.FromArgb(30, 30, 30) : Color.FromArgb(240, 240, 240);
             var themeFg = editingDark ? Color.White : Color.Black;
+            LblPreviewName.ForeColor = themeFg;
+
+            if (item?.Value is float lightnessDelta && item.PropertyDescriptor?.Name.Contains("DeltaLightness") == true)
+            {
+                var defaultLevelColors = Form1.StatsOptionsLevelColors.GetDefaultOption();
+
+                LblPreviewName.Text = item.Label;
+                LblPreviewAsBackground.SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(defaultLevelColors.GetLevelColor(0), lightnessDelta));
+                LblPreviewAsBackground.Text = "0";
+                LblPreviewAsForeground.SetBackColorAndAccordingForeColor(Utils.AdjustColorLight(defaultLevelColors.GetLevelColor(255), lightnessDelta));
+                LblPreviewAsForeground.Text = "255";
+                LblPreviewRgb.Text = string.Empty;
+                return;
+            }
 
             if (item?.Value is not Color color)
             {
                 LblPreviewName.Text = "(select a color)";
-                LblPreviewName.ForeColor = themeFg;
                 LblPreviewAsBackground.BackColor = themeBg;
                 LblPreviewAsBackground.ForeColor = themeFg;
                 LblPreviewAsForeground.BackColor = themeBg;
@@ -2309,7 +2322,6 @@ namespace ARKBreedingStats.settings
             }
 
             LblPreviewName.Text = item.Label;
-            LblPreviewName.ForeColor = themeFg;
             LblPreviewRgb.Text = $"R: {color.R}  G: {color.G}  B: {color.B}  (#{color.R:X2}{color.G:X2}{color.B:X2})";
             LblPreviewRgb.ForeColor = themeFg;
 
