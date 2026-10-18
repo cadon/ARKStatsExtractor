@@ -58,7 +58,7 @@ namespace ARKBreedingStats.SpeciesOptions
             f.Controls.Add(tabs);
             tabs.SelectedIndex = selectTabPageIndex;
             _displayedForm = f;
-            f.Closed += F_Closed;
+            f.FormClosed += F_Closed;
             f.Show(parent);
         }
 
