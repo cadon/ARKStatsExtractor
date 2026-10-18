@@ -2990,6 +2990,7 @@ namespace ARKBreedingStats.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Transparent")]
         public global::System.Drawing.Color InfoGraphicModernBackColor {
             get {
                 return ((global::System.Drawing.Color)(this["InfoGraphicModernBackColor"]));

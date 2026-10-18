@@ -754,7 +754,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="InfoGraphicModernBackColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">Transparent</Value>
     </Setting>
     <Setting Name="InfoGraphicModernArtworkHalo" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
