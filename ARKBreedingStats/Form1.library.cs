@@ -1337,13 +1337,13 @@ namespace ARKBreedingStats
                     lvi.SubItems[ColumnIndexFirstStat + Stats.StatsCount + s].SetBackColorAndAccordingForeColor(backColor);
                 }
             }
-            lvi.SubItems[ColumnIndexSex].BackColor = cr.flags.HasFlag(CreatureFlags.Neutered)
+            lvi.SubItems[ColumnIndexSex].SetBackColorAndAccordingForeColor(cr.flags.HasFlag(CreatureFlags.Neutered)
                     ? UiColors.Current.SexNeutered
                     : cr.sex == Sex.Female
                     ? UiColors.Current.SexFemale
                     : cr.sex == Sex.Male
                     ? UiColors.Current.SexMale
-                    : SystemColors.Window;
+                    : SystemColors.Window);
 
             switch (cr.Status)
             {
