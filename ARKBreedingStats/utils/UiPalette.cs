@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace ARKBreedingStats.utils
 {
@@ -44,6 +45,7 @@ namespace ARKBreedingStats.utils
     /// has its own palette instance with hand-picked colors.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
+    [JsonObject]
     internal record UiPalette
     {
         // --- UI Semantic Status ---

@@ -3027,12 +3027,12 @@ namespace ARKBreedingStats.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DeltaLightnessSetToDefault {
+        public bool DeltaLightnessSetToDefault2 {
             get {
-                return ((bool)(this["DeltaLightnessSetToDefault"]));
+                return ((bool)(this["DeltaLightnessSetToDefault2"]));
             }
             set {
-                this["DeltaLightnessSetToDefault"] = value;
+                this["DeltaLightnessSetToDefault2"] = value;
             }
         }
     }

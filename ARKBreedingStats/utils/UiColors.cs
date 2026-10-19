@@ -53,20 +53,19 @@ namespace ARKBreedingStats.utils
         internal static void SetLightnessAdjustmentDefaults()
         {
             var allPalettes = LoadAllPalettes();
-            foreach (var keyPal in allPalettes)
+            foreach (var (key, palette) in allPalettes)
             {
-                var isLight = keyPal.Key == "Regular_Light";
-                var isDark = keyPal.Key == "Regular_Dark";
+                var isLight = key.Contains("Light");
+                var isDark = key.Contains("Dark");
                 if (!isLight && !isDark) continue;
 
-                var pal = keyPal.Value;
-                pal["DeltaLightnessTopStat"] = isLight ? "0.2" : "-0.4";
-                pal["DeltaLightnessConsideredStat"] = isLight ? "0.75" : "-0.75";
-                pal["DeltaLightnessUnconsideredStat"] = isLight ? "0.93" : "-0.88";
+                palette.DeltaLightnessTopStat = isLight ? 0.2f : -0.4f;
+                palette.DeltaLightnessConsideredStat = isLight ? 0.75f : -0.75f;
+                palette.DeltaLightnessUnconsideredStat = isLight ? 0.93f : -0.88f;
             }
 
-            Properties.Settings.Default.CustomPalettes = JsonConvert.SerializeObject(allPalettes, JsonSettings);
-            Properties.Settings.Default.DeltaLightnessSetToDefault = true;
+            SaveAllPalettes(allPalettes);
+            Properties.Settings.Default.DeltaLightnessSetToDefault2 = true;
         }
 
         /// <summary>
@@ -99,9 +98,8 @@ namespace ARKBreedingStats.utils
         {
             var key = PaletteKey(colorMode, isDark);
             var allPalettes = LoadAllPalettes();
-            allPalettes[key] = PaletteToDict(palette);
-
-            Properties.Settings.Default.CustomPalettes = JsonConvert.SerializeObject(allPalettes, JsonSettings);
+            allPalettes[key] = palette;
+            SaveAllPalettes(allPalettes);
         }
 
         /// <summary>
@@ -112,10 +110,7 @@ namespace ARKBreedingStats.utils
             var key = PaletteKey(colorMode, isDark);
             var allPalettes = LoadAllPalettes();
             allPalettes.Remove(key);
-
-            Properties.Settings.Default.CustomPalettes = allPalettes.Count == 0
-                ? string.Empty
-                : JsonConvert.SerializeObject(allPalettes, JsonSettings);
+            SaveAllPalettes(allPalettes);
 
             Current = GetDefaultPalette(colorMode, isDark);
         }
@@ -194,20 +189,27 @@ namespace ARKBreedingStats.utils
             return true;
         }
 
-        private static Dictionary<string, Dictionary<string, string>> LoadAllPalettes()
+        private static void SaveAllPalettes(Dictionary<string, UiPalette> allPalettes)
+        {
+            Properties.Settings.Default.CustomPalettes = allPalettes == null || allPalettes.Count == 0
+                ? string.Empty
+                : JsonConvert.SerializeObject(allPalettes, JsonSettings);
+        }
+
+        private static Dictionary<string, UiPalette> LoadAllPalettes()
         {
             var json = Properties.Settings.Default.CustomPalettes;
             if (string.IsNullOrEmpty(json))
-                return new Dictionary<string, Dictionary<string, string>>();
+                return new Dictionary<string, UiPalette>();
 
             try
             {
-                return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json)
-                       ?? new Dictionary<string, Dictionary<string, string>>();
+                return JsonConvert.DeserializeObject<Dictionary<string, UiPalette>>(json)
+                       ?? new Dictionary<string, UiPalette>();
             }
             catch
             {
-                return new Dictionary<string, Dictionary<string, string>>();
+                return new Dictionary<string, UiPalette>();
             }
         }
 
@@ -215,68 +217,25 @@ namespace ARKBreedingStats.utils
         {
             var all = LoadAllPalettes();
             var key = PaletteKey(colorMode, isDark);
-            return all.TryGetValue(key, out var dict) && dict.Count > 0
-                ? DictToPalette(dict, fallback)
+            return all.TryGetValue(key, out var palette)
+                ? GetPaletteWithFallback(palette, fallback)
                 : null;
         }
 
-        private static Dictionary<string, string> PaletteToDict(UiPalette palette)
+        /// <summary>
+        /// Returns the palette where empty colors are replaced with the colors of the fallback.
+        /// </summary>
+        private static UiPalette GetPaletteWithFallback(UiPalette palette, UiPalette fallback)
         {
-            var dict = new Dictionary<string, string>();
             foreach (var prop in typeof(UiPalette).GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (prop.PropertyType == typeof(float))
+                if (palette.GetType().GetProperty(prop.Name)?.GetValue(palette) is Color { IsEmpty: true }
+                    && fallback.GetType().GetProperty(prop.Name)?.GetValue(fallback) is Color { IsEmpty: false } colorFallback
+                    )
                 {
-                    dict[prop.Name] = Convert.ToString(prop.GetValue(palette), CultureInfo.InvariantCulture);
-                    continue;
-                }
-                if (prop.PropertyType == typeof(Color))
-                {
-                    var c = (Color)prop.GetValue(palette);
-                    dict[prop.Name] = $"{c.R},{c.G},{c.B}";
+                    prop.SetValue(palette, colorFallback);
                 }
             }
-
-            return dict;
-        }
-
-        private static UiPalette DictToPalette(Dictionary<string, string> dict, UiPalette fallback)
-        {
-            var palette = new UiPalette();
-            foreach (var prop in typeof(UiPalette).GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                if (prop.PropertyType == typeof(float))
-                {
-                    if (dict.TryGetValue(prop.Name, out var floatString) &&
-                        float.TryParse(floatString, out var floatValue))
-                    {
-                        prop.SetValue(palette, floatValue);
-                    }
-                    continue;
-                }
-
-                if (prop.PropertyType != typeof(Color)) continue;
-                if (!dict.TryGetValue(prop.Name, out var rgb))
-                {
-                    if (fallback.GetType().GetProperty(prop.Name)?.GetValue(fallback) is Color fallbackColor)
-                        prop.SetValue(palette, fallbackColor);
-
-                    continue;
-                }
-
-                var parts = rgb.Split(',');
-                if (parts.Length == 3
-                    && int.TryParse(parts[0].Trim(), out int r)
-                    && int.TryParse(parts[1].Trim(), out int g)
-                    && int.TryParse(parts[2].Trim(), out int b))
-                {
-                    prop.SetValue(palette, Color.FromArgb(
-                        Math.Clamp(r, 0, 255),
-                        Math.Clamp(g, 0, 255),
-                        Math.Clamp(b, 0, 255)));
-                }
-            }
-
             return palette;
         }
 
