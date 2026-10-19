@@ -117,7 +117,7 @@ namespace ARKBreedingStats
             //#endif
 
             // setting default for the first time
-            if (!Properties.Settings.Default.DeltaLightnessSetToDefault)
+            if (!Properties.Settings.Default.DeltaLightnessSetToDefault2)
                 UiColors.SetLightnessAdjustmentDefaults();
 
             // Apply theme setting: 0 = System, 1 = Light, 2 = Dark
