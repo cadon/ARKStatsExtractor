@@ -37,6 +37,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="pythonnet" Version="3.0.5" />
     <PackageReference Include="System.Windows.Forms.DataVisualization" Version="1.0.0-prerelease.20110.1" />
     <PackageReference Include="System.Speech" Version="10.0.3" />
     <PackageReference Include="FluentFTP" Version="51.0.0" />
