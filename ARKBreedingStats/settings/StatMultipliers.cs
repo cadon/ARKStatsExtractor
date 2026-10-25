@@ -13,7 +13,7 @@ namespace ARKBreedingStats.settings
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="inputControls">Input controls for the stat multipliers in the order: tameAdd, tameMult, domLevel, wildLevel</param>
+        /// <param name="inputControls">Input controls for the stat multipliers in the order: add, aff, dom, wild.</param>
         public StatMultipliers(Nud[] inputControls)
         {
             if (inputControls?.Length != 4)
@@ -28,7 +28,7 @@ namespace ARKBreedingStats.settings
         /// </summary>
         public double[] Multipliers
         {
-            get => new[] { (double)_inputControls[0].Value, (double)_inputControls[1].Value, (double)_inputControls[2].Value, (double)_inputControls[3].Value };
+            get => [(double)_inputControls[0].Value, (double)_inputControls[1].Value, (double)_inputControls[2].Value, (double)_inputControls[3].Value];
             set
             {
                 if (value?.Length == 4)
@@ -85,6 +85,5 @@ namespace ARKBreedingStats.settings
             foreach (var c in _inputControls)
                 c.SetExtraHighlightNonDefault(highlighted);
         }
-
     }
 }

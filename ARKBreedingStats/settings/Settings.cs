@@ -123,8 +123,11 @@ namespace ARKBreedingStats.settings
                 _multSetter[s] = new StatMultipliers(inputControls);
                 tlpStatMultipliers.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 tlpStatMultipliers.Controls.Add(lb, 0, s + 1);
+                // due to historical reasons the internally used indices are in the order add, aff, dom, wild
+                // but it should be displayed in the order wild, dom, add, aff
+                var displayOrder = new[] { 2, 3, 1, 0 };
                 for (var i = 0; i < 4; i++)
-                    tlpStatMultipliers.Controls.Add(inputControls[i], i + 1, s + 1);
+                    tlpStatMultipliers.Controls.Add(inputControls[i], displayOrder[i] + 1, s + 1);
             }
 
             CbHideInvisibleColorRegions.Visible = Values.V.InvisibleColorRegionsExist;
