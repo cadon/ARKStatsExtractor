@@ -173,6 +173,9 @@ namespace ARKBreedingStats
             raisingControl1.timerControl = timerList1;
             raisingControl1.TimerAddedRemoved += EnableGlobalTimerIfNeeded;
             notesControl1.changed += SetCollectionChanged;
+            libraryInfoControl1.CopyColorInfoTextToClipboard += CopyLibraryColorInfoToClipboard;
+            libraryInfoControl1.ConsiderLibraryFilterChanged += LibraryInfoUseFilter;
+            libraryInfoControl1.SetMessageLabel += SetMessageLabelText;
             creatureInfoInputExtractor.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputTester.CreatureDataRequested += CreatureInfoInput_CreatureDataRequested;
             creatureInfoInputExtractor.ColorsChanged += CreatureInfoInputColorsChanged;
@@ -498,7 +501,6 @@ namespace ARKBreedingStats
             _creatureListSorter.UseNaturalSort = Properties.Settings.Default.UseNaturalSort;
             _creatureListSorter.IgnoreSpacesBetweenWords = Properties.Settings.Default.NaturalSortIgnoreSpaces;
 
-            CbLibraryInfoUseFilter.Checked = Properties.Settings.Default.LibraryColorInfoUseFilter;
             showTokenPopupOnListeningToolStripMenuItem.Checked = Properties.Settings.Default.DisplayPopupForServerToken;
             beginListeningToExportGunOnLaunchToolStripMenuItem.Checked = Properties.Settings.Default.BeginServerListeningOnLaunch;
 
@@ -819,8 +821,9 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
             {
-                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
-                    CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, libraryInfoControl1.ConsiderLibraryFilter
+                    ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
+                    libraryInfoControl1.ConsiderLibraryFilter, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
                 libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
@@ -1528,7 +1531,7 @@ namespace ARKBreedingStats
             Properties.Settings.Default.DisabledVariants = speciesSelector1.VariantSelector?.DisabledVariants?.ToArray();
 
             Properties.Settings.Default.RaisingFoodLastSelected = raisingControl1.LastSelectedFood;
-            Properties.Settings.Default.LibraryColorInfoUseFilter = CbLibraryInfoUseFilter.Checked;
+            Properties.Settings.Default.LibraryColorInfoUseFilter = libraryInfoControl1.ConsiderLibraryFilter;
 
             Properties.Settings.Default.BondedTamingRank = BondedTamingRankExtractor;
 
@@ -1810,8 +1813,8 @@ namespace ARKBreedingStats
             }
             else if (tabControlMain.SelectedTab == tabPageLibraryInfo)
             {
-                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
-                    CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, libraryInfoControl1.ConsiderLibraryFilter ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
+                    libraryInfoControl1.ConsiderLibraryFilter, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
                 libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             }
             else if (tabControlMain.SelectedTab == tabPagePedigree)
@@ -4038,9 +4041,11 @@ namespace ARKBreedingStats
                 SetMessageLabelText($"Error while trying to copy color definitions to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
-        private void BtCopyLibraryColorToClipboard_Click(object sender, EventArgs e)
+        private void CopyLibraryColorInfoToClipboard()
         {
-            LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures, CbLibraryInfoUseFilter.Checked);
+            LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, libraryInfoControl1.ConsiderLibraryFilter
+                ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray()
+                : _creatureCollection.creatures, libraryInfoControl1.ConsiderLibraryFilter);
             libraryInfoControl1.SetSpecies(speciesSelector1.SelectedSpecies);
             var colorInfo = LibraryInfo.GetSpeciesInfo();
             if (utils.ClipboardHandler.SetText(string.IsNullOrEmpty(colorInfo) ? $"no color info available for species {speciesSelector1.SelectedSpecies}" : colorInfo, out var error))
@@ -4049,11 +4054,11 @@ namespace ARKBreedingStats
             else SetMessageLabelText($"Error while trying to copy color information to clipboard. You can try again. Error: {error}", MessageBoxIcon.Error);
         }
 
-        private void CbLibraryInfoUseFilter_CheckedChanged(object sender, EventArgs e)
+        private void LibraryInfoUseFilter(bool useFilter)
         {
             if (_creatureCollection != null)
-                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, CbLibraryInfoUseFilter.Checked ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
-                    CbLibraryInfoUseFilter.Checked, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
+                LibraryInfo.SetColorInfo(speciesSelector1.SelectedSpecies, useFilter ? (IList<Creature>)ApplyLibraryFilterSettings(_creatureCollection.creatures).ToArray() : _creatureCollection.creatures,
+                    useFilter, libraryInfoControl1.TlpColorInfoText, libraryInfoControl1.LvColors);
         }
 
         private void discordServerToolStripMenuItem_Click(object sender, EventArgs e)

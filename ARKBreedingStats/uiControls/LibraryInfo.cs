@@ -20,8 +20,12 @@ namespace ARKBreedingStats.uiControls
         /// All color ids existing for this species per region.
         /// </summary>
         public static readonly HashSet<byte>[] ColorsExistPerRegion = new HashSet<byte>[Ark.ColorRegionCount];
-        public static readonly HashSet<byte> ColorsExistInAllRegions = new HashSet<byte>();
-        public static readonly HashSet<byte> ColorsExistInAllUsedRegions = new HashSet<byte>();
+        public static readonly HashSet<byte> ColorsExistInAllRegions = [];
+        public static readonly HashSet<byte> ColorsExistInAllUsedRegions = [];
+        /// <summary>
+        /// String that contains the existing colors of the current species formatted as table.
+        /// </summary>
+        public static string ColorTableString;
 
         /// <summary>
         /// Clear the cached information.
@@ -296,12 +300,14 @@ namespace ARKBreedingStats.uiControls
         {
             if (lvColorTable == null) return;
 
+            var sb = new StringBuilder(6000);
+            sb.AppendLine($"color id\tcolor name\t{string.Join("\t", Enumerable.Range(0, Ark.ColorRegionCount))}");
             lvColorTable.BeginUpdate();
             lvColorTable.Items.Clear();
 
             var colors = values.Values.V.Colors.ColorsList.ToDictionary(c => c.Id);
             var rows = new List<ListViewItem>();
-            if (ColorsExistPerRegion.Any(r => r.Any()))
+            if (ColorsExistPerRegion.Any(r => r.Count != 0))
             {
                 for (var ci = 0; ci <= byte.MaxValue; ci++)
                 {
@@ -315,13 +321,16 @@ namespace ARKBreedingStats.uiControls
                     {
                         subitem.SetBackColorAndAccordingForeColor(color.Color);
                         row.ToolTipText = $"{color.Id}: {color.Name}";
+                        sb.Append($"{color.Id}\t{color.Name}\t");
                     }
                     else
                     {
                         subitem.ForeColor = Color.LightSlateGray;
                         row.ToolTipText = "undefined color id";
+                        sb.Append($"{ci}\tundefined\t");
                     }
 
+                    var existingColors = new string[Ark.ColorRegionCount];
                     for (var i = 0; i < Ark.ColorRegionCount; i++)
                     {
                         var subItem = row.SubItems[i + 1];
@@ -329,17 +338,21 @@ namespace ARKBreedingStats.uiControls
                         {
                             subItem.Text = "✓";
                             subItem.SetBackColorAndAccordingForeColor(UiColors.Current.Success);
+                            existingColors[i] = "1";
                         }
                         else
                         {
                             subItem.SetBackColorAndAccordingForeColor(UiColors.Current.Error);
+                            existingColors[i] = string.Empty;
                         }
                     }
                     rows.Add(row);
+                    sb.AppendLine(string.Join("\t", existingColors));
                 }
             }
             lvColorTable.Items.AddRange(rows.ToArray());
             lvColorTable.EndUpdate();
+            ColorTableString = sb.ToString();
         }
     }
 }
