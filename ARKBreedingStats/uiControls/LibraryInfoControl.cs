@@ -13,6 +13,12 @@ namespace ARKBreedingStats.uiControls
 {
     internal class LibraryInfoControl : TableLayoutPanel
     {
+        public Action CopyColorInfoTextToClipboard;
+        public Action<bool> ConsiderLibraryFilterChanged;
+        public bool ConsiderLibraryFilter => CbConsiderLibraryFilter?.Checked == true;
+        private CheckBox CbConsiderLibraryFilter;
+        public Form1.SetMessageLabelTextEventHandler SetMessageLabel;
+
         public readonly TableLayoutPanel TlpColorInfoText = new() { Dock = DockStyle.Fill, AutoScroll = true, MinimumSize = new Size(450, 300) };
         public readonly ListView LvColors = new();
         private Button[] _colorRegionButtons;
@@ -36,7 +42,8 @@ namespace ARKBreedingStats.uiControls
         private void InitializeControls()
         {
             this.AutoScroll = true;
-            this.RowCount = 2;
+            this.RowCount = 3;
+            this.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             this.RowStyles.Add(new RowStyle(SizeType.AutoSize));
             this.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
             this.ColumnCount = 4;
@@ -45,13 +52,50 @@ namespace ARKBreedingStats.uiControls
             this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             this.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
 
-            this.Controls.Add(TlpColorInfoText, 0, 0);
+            var panelTop = new Panel
+            {
+                Dock = DockStyle.Fill,
+                Height = UiUtils.UiLengthInt(23 + 5)
+            };
+            this.Controls.Add(panelTop);
+            this.SetColumnSpan(panelTop, 4);
+            this.Controls.Add(TlpColorInfoText, 0, 1);
             this.SetRowSpan(TlpColorInfoText, 2);
+
+            // top panel
+            CbConsiderLibraryFilter = new CheckBox
+            {
+                Text = "Use library filter",
+                AutoSize = true,
+                Dock = DockStyle.Left,
+                Checked = Properties.Settings.Default.LibraryColorInfoUseFilter
+            };
+            panelTop.Controls.Add(CbConsiderLibraryFilter);
+            CbConsiderLibraryFilter.CheckedChanged += (s, _) => ConsiderLibraryFilterChanged?.Invoke(ConsiderLibraryFilter);
+
+            var btCopyTextToClipboard = new Button
+            {
+                Text = "Copy text to clipboard",
+                AutoSize = true,
+                Dock = DockStyle.Left
+            };
+            panelTop.Controls.Add(btCopyTextToClipboard);
+            btCopyTextToClipboard.Click += (_, _) => CopyColorInfoTextToClipboard?.Invoke();
+
+            var btCopyTableToClipboard = new Button
+            {
+                Text = "Copy color table to clipboard",
+                AutoSize = true,
+                Dock = DockStyle.Right
+            };
+            panelTop.Controls.Add(btCopyTableToClipboard);
+            btCopyTableToClipboard.Click += BtCopyTableToClipboardClick;
+            btCopyTableToClipboard.AutoSize = true;
 
             const int buttonsTotalWidth = 850;
             const int buttonMargins = 6;
             // color region buttons
-            var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true};
+            var flpButtons = new FlowLayoutPanel { Dock = DockStyle.Fill, AutoSize = true };
             _colorRegionButtons = new Button[Ark.ColorRegionCount];
             for (var i = 0; i < Ark.ColorRegionCount; i++)
             {
@@ -115,11 +159,11 @@ namespace ARKBreedingStats.uiControls
             colorsButton.Click += (s, e) => ParseClipboardColors();
             flpButtons.Controls.Add(colorsButton);
 
-            this.Controls.Add(flpButtons, 1, 0);
-            this.SetColumnSpan(flpButtons, 2);
+            Controls.Add(flpButtons, 1, 1);
+            SetColumnSpan(flpButtons, 2);
             _colorPicker = new ColorPickerControl(false);
             _colorPicker.DisableAlternativeColor();
-            this.Controls.Add(_colorPicker, 1, 1);
+            Controls.Add(_colorPicker, 1, 2);
             _colorPicker.UserMadeSelection += ColorPickerColorChosen;
 
             AddPictureBox();
@@ -127,17 +171,23 @@ namespace ARKBreedingStats.uiControls
             LvColors.View = View.Details;
             LvColors.FullRowSelect = true;
             LvColors.ShowItemToolTips = true;
-            LvColors.Columns.Add("Id", 28);
+            LvColors.Columns.Add("Id", UiUtils.UiLengthInt(28));
             // right align in first column only possible with custom drawing
             LvColors.OwnerDraw = true;
             LvColors.DrawSubItem += LvColors_DrawSubItem;
             LvColors.DrawColumnHeader += LvColors_DrawColumnHeader;
             for (var ci = 0; ci < Ark.ColorRegionCount; ci++)
-                LvColors.Columns.Add($"{ci}", 20);
-            Controls.Add(LvColors, 3, 0);
+                LvColors.Columns.Add($"{ci}", UiUtils.UiLengthInt(20));
+            Controls.Add(LvColors, 3, 1);
             SetRowSpan(LvColors, 2);
-            LvColors.MinimumSize = new Size(152 + SystemInformation.VerticalScrollBarWidth, 0);
+            LvColors.MinimumSize = new Size(UiUtils.UiLengthInt(152) + SystemInformation.VerticalScrollBarWidth, 0);
             LvColors.Dock = DockStyle.Right;
+        }
+
+        private void BtCopyTableToClipboardClick(object sender, EventArgs e)
+        {
+            utils.ClipboardHandler.SetText(LibraryInfo.ColorTableString);
+            SetMessageLabel?.Invoke($"Table of existing colors of {_species} copied to clipboard, it can be pasted in a spreadsheet application. Cells containing a 1 indicate a color that exists at least once in the library.", MessageBoxIcon.Information);
         }
 
         private static readonly Regex reConsoleColorCommand = new(@"setTargetDinoColor (\d+) (\d+)");
@@ -197,7 +247,7 @@ namespace ARKBreedingStats.uiControls
             tlp.Controls.Add(bt, 0, 1);
             bt.Click += ChangeSex;
 
-            this.Controls.Add(tlp, 2, 1);
+            this.Controls.Add(tlp, 2, 2);
         }
 
         private void ChangeSex(object sender, EventArgs e)

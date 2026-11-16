@@ -547,6 +547,7 @@ namespace ARKBreedingStats.values
             var serverMultipliersNonBreedingTaming = cc.serverMultipliers ?? V.serverMultipliersPresets.GetPreset(ServerMultipliersPresets.Official);
             var allowSpeedLeveling = serverMultipliersNonBreedingTaming.AllowSpeedLeveling || cc.Game != Ark.Asa;
             var allowFlyerSpeedLeveling = serverMultipliersNonBreedingTaming.AllowFlyerSpeedLeveling;
+            var switchFootTaTm = Properties.Settings.Default.SwitchFoodTaTm;
 
             foreach (var sp in Species)
             {
@@ -567,12 +568,15 @@ namespace ARKBreedingStats.values
 
                         sp.stats[s].BaseValue = GetRawStatValue(s, species.Species.StatsRawIndexBase, customOverrideForThisStatExists);
 
-                        // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         var addWhenTamed = GetRawStatValue(s, species.Species.StatsRawIndexAdditiveBonus, customOverrideForThisStatExists);
+                        var multAffinity = GetRawStatValue(s, species.Species.StatsRawIndexMultiplicativeBonus, customOverrideForThisStatExists);
+                        if (switchFootTaTm && s == Stats.Food && addWhenTamed == 0 && multAffinity > 0)
+                            (addWhenTamed, multAffinity) = (multAffinity, addWhenTamed);
+
+                        // don't apply the multiplier if AddWhenTamed is negative (e.g. Giganotosaurus, Griffin)
                         sp.stats[s].AddWhenTamed = addWhenTamed * (addWhenTamed > 0 ? statMultipliers[0] : 1);
 
                         // don't apply the multiplier if MultAffinity is negative (e.g. Aberration variants)
-                        var multAffinity = GetRawStatValue(s, species.Species.StatsRawIndexMultiplicativeBonus, customOverrideForThisStatExists);
                         sp.stats[s].MultAffinity = multAffinity * (multAffinity > 0 ? statMultipliers[1] : 1);
 
                         if (useSpeedLevelup || s != Stats.SpeedMultiplier)

@@ -225,7 +225,7 @@ namespace ARKBreedingStats
                         increasePerMutLevel > 0 && increasePerMutLevel != increasePerWildLevel;
 
                     var additiveTameBonus = PostTamed ? stats[s].AddWhenTamed : 0;
-                    var multAffinityFactor = new MinMaxDouble(1);
+                    var multAffinityFactor = new MinMaxDouble(1); // represents the factor (1 + TE * TmM * Tm)
 
                     if (species.CanLevelUpWildOrHaveMutations(s))
                     {
@@ -248,9 +248,9 @@ namespace ARKBreedingStats
 
                             if (customMutationLevelIncrease)
                                 maxLm = (int)Math.Round(
-                                    ((statValue.Max / multAffinityFactor.Min - additiveTameBonus) /
-                                     imprintingMultiplierRanges[s].Min
-                                     - statBaseValue) / increasePerMutLevel);
+                                        ((statValue.Max / multAffinityFactor.Min - additiveTameBonus) /
+                                         imprintingMultiplierRanges[s].Min
+                                         - statBaseValue) / increasePerMutLevel);
                         }
                         else
                         {
@@ -320,21 +320,24 @@ namespace ARKBreedingStats
                                 ((statValue.Max / multAffinityFactor.Min - additiveTameBonus) /
                                     imprintingMultiplierRanges[s].Min - statBaseValue) / increasePerWildLevel);
 
-                            if (customMutationLevelIncrease)
+                            if (customMutationLevelIncrease && s != Stats.Torpidity)
                             {
-                                var lmRange = new MinMaxInt(
-                                    ((statValue.Min / multAffinityFactor.Max - additiveTameBonus) /
-                                        imprintingMultiplierRanges[s].Max - statBaseValue) / increasePerMutLevel,
-                                    ((statValue.Max / multAffinityFactor.Min - additiveTameBonus) /
-                                        imprintingMultiplierRanges[s].Min - statBaseValue) / increasePerMutLevel);
-
-                                if (!lmRange.ValidRange) continue;
+                                lwRange.Min = 0;
 
                                 var tmNotZero = stats[s].MultAffinity != 0;
 
-                                for (var lw = lwRange.Min; lw < lwRange.Max; lw++)
+                                for (var lw = lwRange.Min; lw <= lwRange.Max; lw++)
                                 {
-                                    for (var lm = lmRange.Min; lw < lmRange.Max; lw++)
+                                    // calculate possible lm range with the given lw
+                                    var lmRange = new MinMaxInt(
+                                               ((statValue.Min / multAffinityFactor.Max - additiveTameBonus) /
+                                                   imprintingMultiplierRanges[s].Max - statBaseValue - lw * increasePerWildLevel) / increasePerMutLevel,
+                                               ((statValue.Max / multAffinityFactor.Min - additiveTameBonus) /
+                                                   imprintingMultiplierRanges[s].Min - statBaseValue - lw * increasePerWildLevel) / increasePerMutLevel,
+                                               Ark.LevelsAddedPerMutation
+                                           );
+
+                                    for (var lm = lmRange.Min; lm <= lmRange.Max; lm += Ark.LevelsAddedPerMutation)
                                     {
                                         var valueBeforeTe = new MinMaxDouble(
                                             (statBaseValue + increasePerWildLevel * lw + increasePerMutLevel * lm) *
@@ -369,15 +372,15 @@ namespace ARKBreedingStats
                             }
                         }
 
-                        // even if no result was found, there is no other valid
+                        // even if no result was found, there is no other valid. Continue with next stat.
                         continue;
                     }
 
-                    bool resultWasSortedOutBecauseOfImpossibleTe = false;
+                    var resultWasSortedOutBecauseOfImpossibleTe = false;
                     var multBonusWoTe = PostTamed ? 1 + stats[s].MultAffinity : 1;
                     for (var lw = minLw; lw <= maxLw; lw++)
                     {
-                        for (var lm = minLm; lm <= maxLm; lm++)
+                        for (var lm = minLm; lm <= maxLm; lm += Ark.LevelsAddedPerMutation)
                         {
                             // imprinting bonus is applied to all stats except stamina (s==1) and oxygen (s==2) and speed (s==6)
                             var valueWoTeWoDomRange = new MinMaxDouble((statBaseValue + increasePerWildLevel * lw + increasePerMutLevel * lm) * imprintingMultiplierRanges[s].Min + additiveTameBonus,

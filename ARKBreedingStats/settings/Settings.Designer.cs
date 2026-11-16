@@ -456,6 +456,7 @@ namespace ARKBreedingStats.settings
             panel1 = new System.Windows.Forms.Panel();
             colorDialog1 = new System.Windows.Forms.ColorDialog();
             toolTip1 = new System.Windows.Forms.ToolTip(components);
+            CbSwitchFoodBonus = new System.Windows.Forms.CheckBox();
             BtOpenLevelColorOptions = new System.Windows.Forms.Button();
             groupBoxMultiplier.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -1578,6 +1579,7 @@ namespace ARKBreedingStats.settings
             // 
             tabPageMultipliers.AllowDrop = true;
             tabPageMultipliers.AutoScroll = true;
+            tabPageMultipliers.Controls.Add(CbSwitchFoodBonus);
             tabPageMultipliers.Controls.Add(groupBox12);
             tabPageMultipliers.Controls.Add(GbNewLibraryGame);
             tabPageMultipliers.Controls.Add(TbRemoteServerSettingsUri);
@@ -1791,7 +1793,7 @@ namespace ARKBreedingStats.settings
             // 
             panel3.Controls.Add(RbGameAsa);
             panel3.Controls.Add(RbGameAse);
-            panel3.Location = new System.Drawing.Point(180, 22);
+            panel3.Location = new System.Drawing.Point(173, 6);
             panel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new System.Drawing.Size(136, 30);
@@ -1837,7 +1839,7 @@ namespace ARKBreedingStats.settings
             // CbAtlasSettings
             // 
             CbAtlasSettings.AutoSize = true;
-            CbAtlasSettings.Location = new System.Drawing.Point(337, 27);
+            CbAtlasSettings.Location = new System.Drawing.Point(317, 6);
             CbAtlasSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             CbAtlasSettings.Name = "CbAtlasSettings";
             CbAtlasSettings.Size = new System.Drawing.Size(104, 19);
@@ -1928,7 +1930,7 @@ namespace ARKBreedingStats.settings
             // cbSingleplayerSettings
             // 
             cbSingleplayerSettings.AutoSize = true;
-            cbSingleplayerSettings.Location = new System.Drawing.Point(18, 27);
+            cbSingleplayerSettings.Location = new System.Drawing.Point(9, 6);
             cbSingleplayerSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cbSingleplayerSettings.Name = "cbSingleplayerSettings";
             cbSingleplayerSettings.Size = new System.Drawing.Size(134, 19);
@@ -5482,6 +5484,16 @@ namespace ARKBreedingStats.settings
             panel1.Size = new System.Drawing.Size(884, 35);
             panel1.TabIndex = 12;
             // 
+            // CbSwitchFoodBonus
+            // 
+            CbSwitchFoodBonus.AutoSize = true;
+            CbSwitchFoodBonus.Location = new System.Drawing.Point(317, 31);
+            CbSwitchFoodBonus.Name = "CbSwitchFoodBonus";
+            CbSwitchFoodBonus.Size = new System.Drawing.Size(112, 19);
+            CbSwitchFoodBonus.TabIndex = 23;
+            CbSwitchFoodBonus.Text = "Possible food fix";
+            CbSwitchFoodBonus.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             AcceptButton = buttonOK;
@@ -6101,5 +6113,6 @@ namespace ARKBreedingStats.settings
         private System.Windows.Forms.CheckBox CbInfoGraphicColorsByCreature;
         private System.Windows.Forms.CheckBox CbIgnoreIngameNameIfAlreadyImported;
         private System.Windows.Forms.TableLayoutPanel tlpStatMultipliers;
+        private System.Windows.Forms.CheckBox CbSwitchFoodBonus;
     }
 }

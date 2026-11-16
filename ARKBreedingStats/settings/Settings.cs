@@ -123,8 +123,11 @@ namespace ARKBreedingStats.settings
                 _multSetter[s] = new StatMultipliers(inputControls);
                 tlpStatMultipliers.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 tlpStatMultipliers.Controls.Add(lb, 0, s + 1);
+                // due to historical reasons the internally used indices are in the order add, aff, dom, wild
+                // but it should be displayed in the order wild, dom, add, aff
+                var displayOrder = new[] { 2, 3, 1, 0 };
                 for (var i = 0; i < 4; i++)
-                    tlpStatMultipliers.Controls.Add(inputControls[i], i + 1, s + 1);
+                    tlpStatMultipliers.Controls.Add(inputControls[i], displayOrder[i] + 1, s + 1);
             }
 
             CbHideInvisibleColorRegions.Visible = Values.V.InvisibleColorRegionsExist;
@@ -193,6 +196,7 @@ namespace ARKBreedingStats.settings
             _tt.SetToolTip(BtInfoGraphicColorTextOutlineAuto, "Set outline color automatically based on the text color");
             _tt.SetToolTip(CbInfoGraphicColorsByCreature, "Sets the colors of text, background and border based on the main color of the creature while using the lightness of the set colors");
             _tt.SetToolTip(CbInfoGraphicTintBackgroundByCreature, "Tints the background image based on the main color of the creature while using the lightness of the background color");
+            _tt.SetToolTip(CbSwitchFoodBonus, "The food stat values are used differently by ARK since a patch in November 2026. This option tries to compensate that to allow extractions.");
 
             // localizations / translations
             // for a new translation
@@ -268,6 +272,7 @@ namespace ARKBreedingStats.settings
             }
             cbSingleplayerSettings.Checked = cc.serverMultipliers?.SinglePlayerSettings == true;
             CbAtlasSettings.Checked = _cc.serverMultipliers?.AtlasSettings == true;
+            CbSwitchFoodBonus.Checked = Properties.Settings.Default.SwitchFoodTaTm;
             if (_cc.Game == Ark.Asa)
             {
                 RbGameAsa.Checked = true;
@@ -632,6 +637,7 @@ namespace ARKBreedingStats.settings
 
             _cc.serverMultipliers.SinglePlayerSettings = cbSingleplayerSettings.Checked;
             _cc.serverMultipliers.AtlasSettings = CbAtlasSettings.Checked;
+            Properties.Settings.Default.SwitchFoodTaTm = CbSwitchFoodBonus.Checked;
             _cc.Game = RbGameAsa.Checked ? Ark.Asa : Ark.Ase;
             Properties.Settings.Default.NewLibraryGame = RbNewLibraryGameAse.Checked ? Ark.Game.Ase
                 : RbNewLibraryGameAsa.Checked ? Ark.Game.Asa

@@ -142,6 +142,8 @@ namespace ARKBreedingStats.BreedingPlanning
             nudBPMutationLimit.NeutralNumber = -1;
             _updateBreedingPlanAllowed = true;
             _tt.SetToolTip(lbBPProbabilityBest, "Probability to get the desired top stats, ignoring the probability to get other non-top stats");
+            tableLayoutPanel5.AutoScrollMinSize = new Size(0,
+                tabControl1.GetTotalHeight() + gbBPBreedingMode.GetTotalHeight() + statWeighting1.GetTotalHeight() + tableLayoutPanel5.Padding.Vertical);
         }
 
         private void StatWeighting_WeightingsChanged()
