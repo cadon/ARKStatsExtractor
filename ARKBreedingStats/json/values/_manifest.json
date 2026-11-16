@@ -39,7 +39,7 @@
 			}
 		},
 		"1013622-ARKOLOGY_NEWENCOUNTERS.json": {
-			"version": "1781501357.25636863",
+			"version": "1793699274.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1013622",
@@ -99,7 +99,7 @@
 			}
 		},
 		"1065717-PrimalNemesis.json": {
-			"version": "1788195810.25636863",
+			"version": "1793519158.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1065717",
@@ -265,7 +265,7 @@
 			}
 		},
 		"1201667-skyshroud_drakara.json": {
-			"version": "1779461670.23616360",
+			"version": "1794012948.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "1201667",
@@ -592,7 +592,7 @@
 		"814833973-Wyvern_Mating.json": { "version": "340.3.1482240799", "mod": { "id": "814833973", "tag": "Wyvern_Mating", "title": "Wyvern Mating" } },
 		"839162288-Primal_Fear.json": { "version": "358.24.1749157362", "mod": { "id": "839162288", "tag": "Primal_Fear", "title": "Primal Fear" } },
 		"877752-FearEvolved.json": {
-			"version": "1762413408.25636863",
+			"version": "1793656918.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "877752",
@@ -788,7 +788,7 @@
 			}
 		},
 		"929094-ShadsCritterReworks.json": {
-			"version": "1790436673.25636863",
+			"version": "1793921914.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "929094",
@@ -836,7 +836,7 @@
 			}
 		},
 		"932714-PrimalChaos.json": {
-			"version": "1785846582.25636863",
+			"version": "1793697314.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "932714",
@@ -848,7 +848,7 @@
 			}
 		},
 		"933588-TekCreatures.json": {
-			"version": "1753028265.22140012",
+			"version": "1793700992.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "933588",
@@ -860,7 +860,7 @@
 			}
 		},
 		"935916-Ark-EerieDinos.json": {
-			"version": "1772991806.25636863",
+			"version": "1793701163.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "935916",
@@ -884,19 +884,19 @@
 			}
 		},
 		"938805-DinosaurDiscovery.json": {
-			"version": "1766343942.25636863",
+			"version": "1793698444.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "938805",
 				"ASA": true,
 				"tag": "DinosaurDiscovery",
 				"title": "(No Longer Updated) Discovery World",
-				"author": "TheRealHypernatrema",
+				"author": "SYNTAXUNKN0WN",
 				"cfPage": "discovery-world"
 			}
 		},
 		"943455-Zytharian_Critters_Tek_Collection.json": {
-			"version": "1781487434.25636863",
+			"version": "1793698249.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "943455",
@@ -968,7 +968,7 @@
 			}
 		},
 		"952367-ArkDescended.json": {
-			"version": "1790327826.25636863",
+			"version": "1793698018.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "952367",
@@ -1076,7 +1076,7 @@
 			}
 		},
 		"971318-Z-DinoVariants.json": {
-			"version": "1785684284.25636863",
+			"version": "1793699549.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "971318",
@@ -1100,7 +1100,7 @@
 			}
 		},
 		"974204-JurassicAwakening.json": {
-			"version": "1790224084.25636863",
+			"version": "1793703726.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "974204",
@@ -1184,7 +1184,7 @@
 			}
 		},
 		"982161-KalugasAppalachianDenizens.json": {
-			"version": "1779613527.24082089",
+			"version": "1793828720.26477280",
 			"format": "1.16-mod-remap",
 			"mod": {
 				"id": "982161",
@@ -1220,7 +1220,7 @@
 			}
 		},
 		"ASA-values.json": {
-			"version": "94.7.2",
+			"version": "97.0.1",
 			"format": "1.16-mod-remap",
 			"mod": { "id": "ASA", "tag": "", "title": "Ark: Survival Ascended", "shortTitle": "ASA", "official": true }
 		},
