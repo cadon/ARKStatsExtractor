@@ -3035,5 +3035,17 @@ namespace ARKBreedingStats.Properties {
                 this["DeltaLightnessSetToDefault2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SwitchFoodTaTm {
+            get {
+                return ((bool)(this["SwitchFoodTaTm"]));
+            }
+            set {
+                this["SwitchFoodTaTm"] = value;
+            }
+        }
     }
 }
