@@ -87,10 +87,14 @@ namespace ARKBreedingStats.miscClasses
         /// <summary>
         /// Sets Min to Ceil(min) and Max to floor(max)
         /// </summary>
-        public MinMaxInt(double min, double max)
+        /// <param name="modulo">If &gt;1 the range is adjusted to fulfill the condition.</param>
+        public MinMaxInt(double min, double max, int modulo = 1)
         {
             Min = (int)Math.Ceiling(min);
             Max = (int)Math.Floor(max);
+            if (modulo < 2) return;
+            Min += (modulo - Min % modulo) % modulo;
+            Max -= (Max % modulo + modulo) % modulo;
         }
 
         public int MinMax
