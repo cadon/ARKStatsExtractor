@@ -77,5 +77,11 @@ namespace ARKBreedingStats.utils
         /// </summary>
         public static RectangleF GetBounds(this Bitmap bmp)
             => bmp == null ? RectangleF.Empty : new RectangleF(0, 0, bmp.Width, bmp.Height);
+
+        /// <summary>
+        /// Returns height plus margins. If min size is set that is used instead of height.
+        /// </summary>
+        public static int GetTotalHeight(this Control c) =>
+            (c.MinimumSize.Height > 0 ? c.MinimumSize.Height : c.Height) + c.Margin.Vertical;
     }
 }
