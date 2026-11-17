@@ -326,11 +326,11 @@ namespace ARKBreedingStats
 
                                 var tmNotZero = stats[s].MultAffinity != 0;
 
-                                for (var lw = lwRange.Min; lw <= lwRange.Max; lw++)
+                                for (var lw = lwRange.Max; lw >= lwRange.Min; lw++)
                                 {
                                     // calculate possible lm range with the given lw
                                     var lmRange = new MinMaxInt(
-                                               ((statValue.Min / multAffinityFactor.Max - additiveTameBonus) /
+                                               ((statValue.Min / multAffinityFactor.Max - additiveTameBonus)   /
                                                    imprintingMultiplierRanges[s].Max - statBaseValue - lw * increasePerWildLevel) / increasePerMutLevel,
                                                ((statValue.Max / multAffinityFactor.Min - additiveTameBonus) /
                                                    imprintingMultiplierRanges[s].Min - statBaseValue - lw * increasePerWildLevel) / increasePerMutLevel,
